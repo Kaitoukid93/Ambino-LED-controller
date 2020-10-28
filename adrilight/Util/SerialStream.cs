@@ -48,7 +48,7 @@ namespace adrilight
         }
 
         public bool IsValid() => SerialPort.GetPortNames().Contains(UserSettings.ComPort) || UserSettings.ComPort == "Không có";
-        int r;
+       
         private void RefreshTransferState()
         {
             if (UserSettings.TransferActive && !IsRunning)
@@ -85,8 +85,8 @@ namespace adrilight
 
         private int frameCounter;
         private int blackFrameCounter;
-        float q;
-        byte[] inputStream = null;
+        
+        
 
         public void Start()
         {
@@ -346,7 +346,7 @@ namespace adrilight
                             allBlack = false;
                             var n = UserSettings.zoecounter;
                             var m = UserSettings.brightnesscounter;
-                            q = ((float)(UserSettings.musiccounter)/100)*1f;
+                           
                             if (UserSettings.fixedcolor)
                             {
                                 if (n == 255)
@@ -512,7 +512,7 @@ namespace adrilight
                             allBlack = false;
                             var n = UserSettings.zoecounter;
                             var m = UserSettings.brightnesscounter;
-                            q = ((float)(UserSettings.musiccounter) / 100) * 1f;
+                           
                             if (UserSettings.fixedcolor)
                             {
                                 if (n == 255)
@@ -570,7 +570,7 @@ namespace adrilight
                                 allBlack = false;
                                 var n = UserSettings.zoecounter;
                                 var m = UserSettings.brightnesscounter;
-                                q = ((float)(UserSettings.musiccounter) / 100) * 1f;
+                               
                                 if (UserSettings.fixedcolor)
                                 {
                                     if (n == 255)
@@ -804,7 +804,7 @@ namespace adrilight
                             allBlack = false;
                             var n = UserSettings.zoecounter;
                             var m = UserSettings.brightnesscounter;
-                            q = ((float)(UserSettings.musiccounter) / 100) * 1f;
+                           
                             if (UserSettings.fixedcolor)
                             {
                                 if (n == 255)
@@ -862,7 +862,7 @@ namespace adrilight
                                 allBlack = false;
                                 var n = UserSettings.zoecounter;
                                 var m = UserSettings.brightnesscounter;
-                                q = ((float)(UserSettings.musiccounter) / 100) * 1f;
+                               
                                 if (UserSettings.fixedcolor)
                                 {
                                     if (n == 255)
@@ -1271,7 +1271,7 @@ namespace adrilight
                             allBlack = false;
                             var n = UserSettings.zoecounter;
                             var m = UserSettings.brightnesscounter;
-                            q = ((float)(UserSettings.musiccounter) / 100) * 1f;
+                          
                             if (UserSettings.fixedcolor)
                             {
                                 if (n == 255)
