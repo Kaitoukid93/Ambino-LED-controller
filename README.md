@@ -11,16 +11,16 @@ Ambino take it one more step further adding lots of new function
 -independently controll led zones ( screen LED, Desk LED, Case LED) with single hardware (Ambino AIO HUB and Ambino HUB V2)
 -Create your own color and music reaction style (unlimited possibility)
 
-##Things to do
+## Things to do
 -Bring new matrix LED control to the application, now you can controll n Fans or n LED strips (each has 16 individual LED) as 16xn matrix
 -Separately add new devices and control interface for each device according to the device name
 -Convert all Effects to matrix UI and send RGB data (3 bytes for each LEDs), then All devices no longer need to decode the serial data on it's own
 Please look at the schematic below
 
-|                |  (Ri,Gi,Bi)  [Leds[i]= Light(R,G,B)]
-|   Adrilight    | ===========> [ Ambino Device       ] ======> LED Strip   
-|                |                 
-|_ _ _ _ _ _ _ _ |
+  
+|  "Adrilight" (Ri,Gi,Bi)     | ===========> ( "Ambino Device"  [Leds[i]= Light(R,G,B)]) ======> LED Strip   
+                
+
 
 
 ## Thanks
