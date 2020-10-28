@@ -1,0 +1,190 @@
+﻿<UserControl x:Class="adrilight.View.SettingsWindowComponents.SpotSetup"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+            xmlns:converter="clr-namespace:adrilight.Converter"
+             mc:Ignorable="d"  
+             
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="White"
+        FontFamily="{StaticResource MaterialDesignFont}" Width="1200.8" Height="1075.2">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converter:Inverseboolvisibility x:Key="Inverse"/>
+    </UserControl.Resources>
+
+
+
+
+    <StackPanel Margin="0,0,-8,0">
+        <WrapPanel Margin="0 0 8 8">
+
+            <materialDesign:Card Margin="4 4 4 4" Width="291" Height="363" Visibility="{Binding Settings.Advancesettings, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" MinHeight="140" />
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="1" Margin="8 24 8 8" >
+                        <TextBlock FontWeight="Bold" Margin="0,0,177,0">Chiều dài</TextBlock>
+                        <DockPanel>
+                            <TextBox DockPanel.Dock="Right"
+                                MinWidth="50"
+                                Margin="8 0 0 8"
+                                VerticalAlignment="Bottom" 
+                                Text="{Binding Settings.SpotWidth, UpdateSourceTrigger=PropertyChanged}" />
+                            <Slider Minimum="10" 
+                                Maximum="400" 
+                                Style="{StaticResource MaterialDesignDiscreteSlider}" 
+                                Value="{Binding Settings.SpotWidth}" />
+                        </DockPanel>
+                        <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="0 8 0 0" TextAlignment="Justify">
+                        Khuyến cáo các bạn để giá trị 150 đối với màn Full HD và 200 đối với màn 2K
+                        </TextBlock>
+                    </StackPanel>
+                    <Image RenderOptions.BitmapScalingMode="HighQuality" Source="/adrilight;component/View/Images/purple theme/width_1@2x.png" Margin="44,0,44,10" Width="195"/>
+                </Grid>
+            </materialDesign:Card>
+
+            <materialDesign:Card Margin="4 4 4 4" Width="291" Height="363" Visibility="{Binding Settings.Advancesettings, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid Height="352">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" MinHeight="140" />
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="1" Margin="8 24 8 8" >
+                        <TextBlock FontWeight="Bold" Margin="6,0,189,0">Chiều rộng</TextBlock>
+                        <DockPanel>
+                            <TextBox DockPanel.Dock="Right"
+                                MinWidth="50"
+                                Margin="8 0 0 8"
+                                VerticalAlignment="Bottom" 
+                                Text="{Binding Settings.SpotHeight, UpdateSourceTrigger=PropertyChanged}" />
+                            <Slider Minimum="10" 
+                                Maximum="400" 
+                                Style="{StaticResource MaterialDesignDiscreteSlider}" 
+                                Value="{Binding Settings.SpotHeight}" />
+                        </DockPanel>
+                        <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="0 8 0 0" TextAlignment="Justify">
+                        Khuyến cáo để giá trị 150 với màn Full HD và 200 với màn 2K
+                        </TextBlock>
+                    </StackPanel>
+                    <Image RenderOptions.BitmapScalingMode="HighQuality" Source="/adrilight;component/View/Images/purple theme/height_1@2x.png" Margin="45,-66,44,170" Grid.RowSpan="2"/>
+                </Grid>
+            </materialDesign:Card>
+
+            <materialDesign:Card Margin="4 4 4 4" Width="291" Height="363"  Visibility="{Binding Settings.Advancesettings, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" MinHeight="139" />
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="1" Margin="8 24 8 8" >
+                        <TextBlock FontWeight="Bold"><Run Text="Khoảng cách đến cạnh trái-phải"/></TextBlock>
+                        <DockPanel>
+                            <TextBox DockPanel.Dock="Right"
+                                MinWidth="50"
+                                Margin="8 0 0 8"
+                                VerticalAlignment="Bottom" 
+                                Text="{Binding Settings.BorderDistanceX, UpdateSourceTrigger=PropertyChanged}" />
+                            <Slider Minimum="0" 
+                                Maximum="400" 
+                                Style="{StaticResource MaterialDesignDiscreteSlider}" 
+                                Value="{Binding Settings.BorderDistanceX}" />
+                        </DockPanel>
+                        <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="0 8 0 0" TextAlignment="Justify"><Run Text="Khoảng cách này sẽ là 200-250 đối với các màn hình 29-34 inch có tỉ lệ 21:9 khi các bạn xem nội dung có tỉ lệ 16:9"/></TextBlock>
+                    </StackPanel>
+                    <Image RenderOptions.BitmapScalingMode="HighQuality" Source="/adrilight;component/View/Images/purple theme/lefrightdistance@2x.png" Margin="44,-53,44,175" Grid.RowSpan="2"/>
+                </Grid>
+            </materialDesign:Card>
+
+            <materialDesign:Card Margin="4 4 4 4" Width="291" Visibility="{Binding Settings.Advancesettings, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid Height="354">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" MinHeight="150" />
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="1" Margin="8 24 8 8" >
+                        <DockPanel>
+                            <TextBox DockPanel.Dock="Right"
+                                MinWidth="50"
+                                Margin="8 0 0 8"
+                                VerticalAlignment="Bottom" 
+                                Text="{Binding Settings.BorderDistanceY, UpdateSourceTrigger=PropertyChanged}" />
+                            <Slider Minimum="0" 
+                                Maximum="400" 
+                                Style="{StaticResource MaterialDesignDiscreteSlider}" 
+                                Value="{Binding Settings.BorderDistanceY}" ValueChanged="Slider_ValueChanged" />
+                        </DockPanel>
+                        <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="0 8 0 0" TextAlignment="Justify"><Run Text="khoảng cách này sẽ là 100-150 đối với các màn hình có tỉ lệ 16:9 nhưng xem video ở tỉ lệ 21:9"/></TextBlock>
+                    </StackPanel>
+                    <Image RenderOptions.BitmapScalingMode="HighQuality" Source="/adrilight;component/View/Images/purple theme/updowndistance@2x.png" Margin="44,-75,44,169" Grid.RowSpan="2"/>
+                    <TextBlock FontWeight="Bold" Margin="13,0,4,188" Grid.Row="1"><Run Text="Khoảng cách đến cạnh trên-dưới"/></TextBlock>
+                </Grid>
+            </materialDesign:Card>
+
+
+
+        </WrapPanel>
+        <materialDesign:Card Margin="4,4,0,0" HorizontalAlignment="Left" Width="1183" Height="252" Visibility="{Binding Settings.Advancesettings, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel Margin="8 8 8 8">
+                <Grid Height="199" Margin="-5,0,8,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="11*"/>
+                        <ColumnDefinition Width="1178*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image RenderOptions.BitmapScalingMode="HighQuality" Source="/adrilight;component/View/Images/purple theme/bigsmall@2x.png" Margin="3,36,886,-15" Grid.Column="1"/>
+                    <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="372,42,-3,-9" TextAlignment="Justify" HorizontalAlignment="Left" Width="780" Height="166" Grid.Column="1"><Run Text="Một điểm ảnh trong thuật ngữ của Ambilight là một vùng trên màn hình tương ứng, vùng này sẽ quy định màu của LED nằm sau màn hình ở cùng vị trí đó. Do vậy việc cài đặt các điểm ảnh này cũng rất quan trọng đến hiệu quả mang lại của Ambilight"/><LineBreak/><LineBreak/><Run Text="Điểm ảnh càng lớn thì càng phủ kín diện tích màn hình nhưng ngược lại nếu có 2 màu cùng xuất hiện bên trong điểm ảnh đó, màu của LED tương ứng sẽ là màu trung bình"/><LineBreak/><LineBreak/><Run Text="Điểm ảnh càng nhỏ thì càng dễ bỏ sót các nội dung trong màn hình nhưng ngược lại sẽ phân biệt màu sắc rõ ràng hơn, các cảnh chuyển động chân thực hơn"/></TextBlock>
+                    <TextBlock Margin="648,9,335,164" Grid.Column="1" FontSize="18" RenderTransformOrigin="0.42,0.5"><Run Text="Kích thước điểm ảnh"/></TextBlock>
+                    <TextBlock TextWrapping="Wrap" VerticalAlignment="Bottom" TextAlignment="Justify" Foreground="#FF7E3CBD" Height="34" Grid.Column="1" Margin="372,0,509,-17"><Run Text="Phần này nên để giá trị mặc định để tránh gây ra các lỗi không mong muốn!"/></TextBlock>
+                    <materialDesign:PackIcon Kind="CommentAlert" Width="28" Height="29" Foreground="#FF7E3CBD" RenderTransformOrigin="0.5,0.5" Grid.Column="1" Margin="616,7,0,0" >
+                        <materialDesign:PackIcon.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-3.376"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </materialDesign:PackIcon.RenderTransform>
+                    </materialDesign:PackIcon>
+                </Grid>
+            </StackPanel>
+        </materialDesign:Card>
+        <materialDesign:Card Margin="160,4,0,0" HorizontalAlignment="Left" Width="872" Height="78"  Visibility="{Binding Settings.Advancesettings, Converter={StaticResource Inverse}}">
+
+            <StackPanel Margin="8 8 8 8">
+                <Grid Height="199" Margin="-5,0,8,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="11*"/>
+                        <ColumnDefinition Width="1178*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Margin="130,9,-5,146" Grid.Column="1" FontSize="36" RenderTransformOrigin="0.42,0.5"><Run Text="Bật Cài đặt nâng cao để hiển thị cửa sổ này"/></TextBlock>
+                    <materialDesign:PackIcon Kind="CommentAlert" Width="62" Height="48" Foreground="#FF7E3CBD" RenderTransformOrigin="0.5,0.5" Grid.Column="1" Margin="49,11,0,0" >
+                        <materialDesign:PackIcon.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-3.376"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </materialDesign:PackIcon.RenderTransform>
+                    </materialDesign:PackIcon>
+                </Grid>
+            </StackPanel>
+        </materialDesign:Card>
+    </StackPanel>
+</UserControl>

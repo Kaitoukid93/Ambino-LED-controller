@@ -1,0 +1,101 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:Converter="clr-namespace:adrilight.Converter" x:Class="adrilight.View.SettingsWindowComponents.Whitebalance"
+              xmlns:converter="clr-namespace:adrilight.Converter"
+             mc:Ignorable="d" 
+             
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="White"
+        d:DesignWidth="900" Height="934">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converter:Inverseboolvisibility x:Key="Inverse"/>
+    </UserControl.Resources>
+    <UserControl.FontFamily>
+        <StaticResource ResourceKey="MaterialDesignFont"/>
+    </UserControl.FontFamily>
+    <Grid Width="900">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <materialDesign:Card Margin="4 4 2 4" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch" Visibility="{Binding Settings.Advancesettings, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel Margin="4,4,8,8">
+                <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" Height="207" VerticalAlignment="Top" Width="219" Source="/adrilight;component/View/Images/purple theme/white balance@2x.png" Margin="-6,0,0,0"/>
+            </StackPanel>
+        </materialDesign:Card>
+
+        <materialDesign:Card Margin="4 4 2 4" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch" Visibility="{Binding Settings.Advancesettings, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid Margin="38 8 8 38">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" VerticalAlignment="Bottom"><Run Text="Red"/></TextBlock>
+                <TextBlock Grid.Row="1" VerticalAlignment="Bottom"><Run Text="Green"/></TextBlock>
+                <TextBlock Grid.Row="2" VerticalAlignment="Bottom"><Run Text="Blue"/></TextBlock>
+
+                <Slider Grid.Row="0" Grid.Column="1" Width="200"
+                    Minimum="1" Maximum="100" Value="{Binding Settings.WhitebalanceRed}" 
+                    Style="{StaticResource MaterialDesignDiscreteSlider}" 
+                                 />
+                <Slider Grid.Row="1" Grid.Column="1" Width="200"
+                    Minimum="1" Maximum="100" Value="{Binding Settings.WhitebalanceGreen}" 
+                    Style="{StaticResource MaterialDesignDiscreteSlider}" 
+                                 />
+                <Slider Grid.Row="2" Grid.Column="1" Width="200"
+                    Minimum="1" Maximum="100" Value="{Binding Settings.WhitebalanceBlue}" 
+                    Style="{StaticResource MaterialDesignDiscreteSlider}" 
+                                 />
+
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Settings.WhitebalanceRed}" VerticalAlignment="Bottom" />
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Settings.WhitebalanceGreen}" VerticalAlignment="Bottom" />
+                <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Settings.WhitebalanceBlue}" VerticalAlignment="Bottom" />
+            </Grid>
+        </materialDesign:Card>
+        <TextBlock Margin="12,37,9,49" TextWrapping="Wrap"  TextAlignment="Justify" Grid.Column="1" Visibility="{Binding Settings.Advancesettings, Converter={StaticResource BooleanToVisibilityConverter}}"><Run Text="Cân bằng trắng là một tính năng giúp cho các bạn chuẩn hóa màu trắng theo mắt nhìn và môi trường"/><LineBreak/><Run Text="Để có thể chỉnh cân bằng trắng, các bạn hãy thực hiện các bước sau"/><LineBreak/><Run FontWeight="Bold"/><LineBreak/><Run Text="1. Tắt hết đèn trong phòng, làm cho phòng của bạn càng tối càng tốt"/><LineBreak/><Run/><LineBreak/><Run Text="2. Chọn một hình nền màu trắng hoặc xám"/><LineBreak/><Run/><LineBreak/><Run Text="3. Điều chỉnh các giá trị R,G,B bên dưới đến khi bạn thấy ánh sáng hắt lên tường có màu giống với màn hình nhất"/><LineBreak/><LineBreak/><Run Text="Đây là một tính năng thêm vào và tất nhiên không thể chuẩn xác 100% màu của màn hình do mọi thứ chỉ là tương đối"/></TextBlock>
+        <TextBlock Margin="257,14,258,207" TextWrapping="Wrap"  TextAlignment="Justify" Grid.Column="1" Text="Tùy chỉnh Cân bằng trắng" FontWeight="Bold" FontSize="13" Visibility="{Binding Settings.Advancesettings, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <materialDesign:Card Margin="14,12,0,0" HorizontalAlignment="Left" Width="872" Height="78"  Visibility="{Binding Settings.Advancesettings, Converter={StaticResource Inverse}}" Grid.ColumnSpan="2">
+
+            <StackPanel Margin="8 8 8 8">
+                <Grid Height="199" Margin="-5,0,8,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="11*"/>
+                        <ColumnDefinition Width="1178*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Margin="116,9,33,146" Grid.Column="1" FontSize="36" RenderTransformOrigin="0.42,0.5"><Run Text="Bật Cài đặt nâng cao để hiển thị cửa sổ này"/></TextBlock>
+                    <materialDesign:PackIcon Kind="CommentAlert" Width="62" Height="48" Foreground="#FF7E3CBD" RenderTransformOrigin="0.5,0.5" Grid.Column="1" Margin="35,11,0,0" >
+                        <materialDesign:PackIcon.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-3.376"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </materialDesign:PackIcon.RenderTransform>
+                    </materialDesign:PackIcon>
+                </Grid>
+            </StackPanel>
+        </materialDesign:Card>
+    </Grid>
+</UserControl>
