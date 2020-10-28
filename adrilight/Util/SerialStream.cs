@@ -965,12 +965,7 @@ namespace adrilight
                 outputStreambut[counter++] = UserSettings.holdeffectcounter;
 
 
-                outputStreambut[counter++] = UserSettings.fanbrightnesscounter;
-
-                outputStreambut[counter++] = UserSettings.buttoneffectcounter;
-
-
-                outputStreambut[counter++] = UserSettings.holdtimecounter;
+                
 
 
 
