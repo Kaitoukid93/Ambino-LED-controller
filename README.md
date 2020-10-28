@@ -17,8 +17,8 @@ Ambino take it one more step further adding lots of new function
 -Convert all Effects to matrix UI and send RGB data (3 bytes for each LEDs), then All devices no longer need to decode the serial data on it's own
 Please look at the schematic below
 
-|                |    (Ri,Gi,Bi)                        Leds[i]= Light(R,G,B)
-|   Adrilight    | ================> | Ambino Device | ======================> LED Strip   
+|                |  (Ri,Gi,Bi)  [Leds[i]= Light(R,G,B)]
+|   Adrilight    | ===========> [ Ambino Device       ] ======> LED Strip   
 |                |                 
 |_ _ _ _ _ _ _ _ |
 
