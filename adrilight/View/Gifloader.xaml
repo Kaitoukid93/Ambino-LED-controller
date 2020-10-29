@@ -1,12 +1,52 @@
-﻿<Window x:Class="adrilight.View.Gifloader"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:adrilight.View"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="adrilight.View.Gifloader"
         mc:Ignorable="d"
         Title="Gifloader" Height="450" Width="800">
     <Grid>
-        
+        <StackPanel HorizontalAlignment="Left" Height="420" VerticalAlignment="Top" Width="788" Margin="0,0,0,-1"/>
+        <TabControl HorizontalAlignment="Left" Height="380" VerticalAlignment="Top" Width="794" Margin="0,0,-2,0">
+            <TabItem Header="Cấu hình">
+                <Grid Background="#FFE5E5E5" Height="360" VerticalAlignment="Top">
+                    <materialDesign:Card  HorizontalAlignment="Left" Width="272" RenderTransformOrigin="0.5,0.5" Margin="0,0,0,9">
+                        <materialDesign:Card.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform AngleY="0.314"/>
+                                <RotateTransform/>
+                                <TranslateTransform Y="0.745"/>
+                            </TransformGroup>
+                        </materialDesign:Card.RenderTransform>
+                        <StackPanel HorizontalAlignment="Left" Height="351" VerticalAlignment="Top" Width="272">
+                            <Grid Height="352">
+                                <TextBox TextWrapping="Wrap" Text="TextBox" Margin="174,10,11,319"/>
+                                <TextBox TextWrapping="Wrap" Text="TextBox" Margin="175,44,10,285"/>
+                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="LED X (số LED 1 FAN)" VerticalAlignment="Top" Margin="15,18,0,0"/>
+                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="LED Y (Tổng số FAN)" VerticalAlignment="Top" Margin="17,53,0,0"/>
+                                <Button Content="Áp dụng" Margin="36,90,34,230"/>
+                                <Button Content="Tạo mới" Margin="35,170,35,150"/>
+                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Thứ tự LED" VerticalAlignment="Top" Margin="19,138,0,0"/>
+                                <Button Content="Nạp từ file " Margin="35,212,35,108"/>
+                                <Button Content="Lưu thứ tự" Margin="35,254,35,66"/>
+                                <Button Content="Đặt lại" Margin="35,294,35,26"/>
+                            </Grid>
+                        </StackPanel>
+                    </materialDesign:Card>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Màu sắc">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="JPG/GIF">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+        <Button Content="Lưu" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Margin="584,384,0,0"/>
+        <Button Content="Hủy" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="690,383,0,0"/>
+
     </Grid>
 </Window>
