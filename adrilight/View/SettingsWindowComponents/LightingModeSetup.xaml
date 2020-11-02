@@ -1,0 +1,108 @@
+﻿<UserControl x:Class="adrilight.View.SettingsWindowComponents.LightingModeSetup"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:adrilight.View.SettingsWindowComponents"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:converter="clr-namespace:adrilight.Converter"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="White"
+        FontFamily="{StaticResource MaterialDesignFont}"
+             mc:Ignorable="d" 
+             d:DesignHeight="900" d:DesignWidth="900">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converter:Inverseboolvisibility x:Key="Inverse"/>
+    </UserControl.Resources>
+    <!--<Grid Width="900">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <materialDesign:Card Margin="4 4 4 0" Grid.ColumnSpan="2">
+            <StackPanel Margin="8 8 8 8">
+                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="0 0 0 0" TextAlignment="Justify" FontWeight="Bold">
+                    Kiểu Ambilight
+                </TextBlock>
+                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="0 8 0 0" TextAlignment="Justify">
+                    Đây là một tính năng chuyên sâu, để giải thích một cách đơn giản thì
+                    <LineBreak />
+                    <LineBreak />
+                    <Bold>Linear Lighting</Bold> Sẽ không chú trọng đến sự tương phản giữa các màu sắc mà sẽ chú trọng đến độ sáng toàn khung, điều này làm cho đèn sáng hơn nhưng sự phân biệt giữa các màu không rõ ràng
+                    <LineBreak />
+                    <LineBreak />
+                    <Bold>Non-linear Fading</Bold> sẽ xử lý tín hiệu thu được, tăng độ tương phản, tăng độ sâu màu đen, đồng nghĩa với việc độ sáng sẽ giảm nhưng màu sắc và chuyển động sẽ thật hơn đối với mắt người sử dụng
+                    <LineBreak />
+                    <LineBreak />
+                    Các bạn nên thử cả hai chế độ để chọn ra cho mình chế độ phù hợp nhất.
+                </TextBlock>
+            </StackPanel>
+        </materialDesign:Card>
+
+        <materialDesign:Card Margin="4 4 2 4" Grid.Row="1" Grid.Column="0">
+            <StackPanel Margin="8 8 8 8">
+                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="0 0 0 0" TextAlignment="Center" FontWeight="Bold">
+                    Linear Lighting
+                </TextBlock>
+                <ToggleButton Margin="8" 
+                              IsChecked="{Binding Settings.UseLinearLighting}"
+	                          VerticalAlignment="Center"
+	                          Style="{StaticResource MaterialDesignSwitchToggleButton}"
+	                          ToolTip="Linear Lighting" Foreground="#FF707070" Background="#FF7E3CBD" />
+            </StackPanel>
+        </materialDesign:Card>
+
+        <materialDesign:Card Margin="2 4 4 4" Grid.Row="1" Grid.Column="1">
+            <Grid>
+                <StackPanel Margin="8 8 8 8">
+                    <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="0 0 0 0" TextAlignment="Center" FontWeight="Bold">
+                        Non-Linear Fading
+                    </TextBlock>
+                    <ToggleButton Margin="8" 
+                                  IsChecked="{Binding UseNonLinearLighting}"
+	                              VerticalAlignment="Center"
+	                              Style="{StaticResource MaterialDesignSwitchToggleButton}"
+	                              ToolTip="Non-Linear Fading" Foreground="#FF707070" Background="#FF7E3CBD" />
+                </StackPanel>
+            </Grid>
+        </materialDesign:Card>
+
+
+        <materialDesign:Card Margin="6,230,2,-179" Grid.ColumnSpan="2" Grid.Row="2" Visibility="{Binding Path=Settings.Advancesettings, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel Margin="8 8 8 8">
+                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="0 0 0 0" TextAlignment="Justify" FontWeight="Bold">
+                    Ngưỡng màu đen
+                </TextBlock>
+                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="0 8 0 0" TextAlignment="Justify">
+                    Khi chọn ngưỡng này, mọi màu sắc có giá trị dưới ngưỡng sẽ được quy về một màu đen
+                    <LineBreak />
+                    <LineBreak />
+                   Khuyến khích chọn giá trị 10.
+                </TextBlock>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 0 0 24">
+                    <TextBlock TextWrapping="Wrap" VerticalAlignment="Bottom" Margin="0 0 0 0" TextAlignment="Justify" FontWeight="Bold">
+                        Ngưỡng màu đen:
+                    </TextBlock>
+                    <Slider Minimum="0" Width="150" VerticalAlignment="Bottom"
+                                Maximum="100" 
+                                Style="{StaticResource MaterialDesignDiscreteSlider}" 
+                                Value="{Binding Settings.SaturationTreshold}" />
+                </StackPanel>
+            </StackPanel>
+        </materialDesign:Card>
+        <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" Height="208" Margin="80,9,0,0" Grid.Row="2" VerticalAlignment="Top" Width="285" Source="/adrilight;component/View/Images/purple theme/linear fix@2x.png"/>
+        <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" Height="208" Margin="90,13,0,-12" Grid.Row="2" VerticalAlignment="Top" Width="285" Source="/adrilight;component/View/Images/purple theme/non linear big@2x.png" Grid.Column="1"/>
+
+    </Grid>-->
+</UserControl>
