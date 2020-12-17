@@ -152,11 +152,13 @@ namespace adrilight.DesktopDuplication
             using (var tempTexture = desktopResource.QueryInterface<Texture2D>())
             {
                 if (_device == null) throw new Exception("_device is null");
-                if (_device.ImmediateContext == null) throw new Exception("_device.ImmediateContext is null");
+                //if (_device.ImmediateContext == null) throw new Exception("_device.ImmediateContext is null");                
 
                 _device.ImmediateContext.CopySubresourceRegion(tempTexture, 0, null, _smallerTexture, 0);
             }
-            _outputDuplication.ReleaseFrame();
+            //_outputDuplication.ReleaseFrame();
+            if (_outputDuplication != null)
+                _outputDuplication.ReleaseFrame();
 
             // Generates the mipmap of the screen
             _device.ImmediateContext.GenerateMips(_smallerTextureView);

@@ -288,6 +288,7 @@ namespace adrilight.ViewModel
 
                 //IsPreviewTabOpen = _selectedViewPart is View.SettingsWindowComponents.Preview.PreviewSelectableViewPart;
                 IsPreviewTabOpen = _selectedViewPart is View.SettingsWindowComponents.LedOutsideCase.LedOutsideCaseSelectableViewPart;
+                IsPreviewTabOpenSecond = _selectedViewPart is View.SettingsWindowComponents.LedTable.LedTableSelectableViewPart;
             }
         }
 
@@ -300,6 +301,18 @@ namespace adrilight.ViewModel
                 _log.Info($"IsPreviewTabOpen is now {_isPreviewTabOpen}");
             }
         }
+
+
+        private bool _isPreviewTabOpenSecond;
+        public bool IsPreviewTabOpenSecond {
+            get => _isPreviewTabOpenSecond;
+            private set
+            {
+                Set(ref _isPreviewTabOpenSecond, value);
+                _log.Info($"IsPreviewTabOpenSecond is now {_isPreviewTabOpenSecond}");
+            }
+        }
+
 
         private bool _isSettingsWindowOpen;
         public bool IsSettingsWindowOpen {

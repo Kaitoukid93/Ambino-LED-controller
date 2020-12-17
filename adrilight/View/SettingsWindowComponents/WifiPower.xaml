@@ -388,7 +388,7 @@
 							   Visibility="Visible">
 					<Run Text="Màu tĩnh"/></TextBlock>
 					<xctk:ColorCanvas SelectedColor="{Binding Settings.color10}"
-									  />
+									 Width="500" Height="500" />
 				</Grid>
 			</materialDesign:Card>
 
@@ -1150,6 +1150,7 @@
 
 				</Grid>
 			</materialDesign:Card>
+
 
 		</WrapPanel>
 

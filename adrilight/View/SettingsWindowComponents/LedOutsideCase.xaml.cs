@@ -48,6 +48,8 @@ namespace adrilight.View.SettingsWindowComponents
         public static int[] order_data = new int[16];
         private float[] _fft;
         public bool isEffect { get; set; }
+       
+
 
         public LedOutsideCase()
         {
@@ -99,25 +101,25 @@ namespace adrilight.View.SettingsWindowComponents
             dispatcherTimer2.Start();
             _process = new WASAPIPROC(Process);
             _fft = new float[1024];
-            if (Music_box_1.SelectedIndex >= 0)
-            {
-                order_data[0] = Music_box_1.SelectedIndex;
-                order_data[1] = Music_box_2.SelectedIndex;
-                order_data[2] = Music_box_3.SelectedIndex;
-                order_data[3] = Music_box_4.SelectedIndex;
-                order_data[4] = Music_box_5.SelectedIndex;
-                order_data[5] = Music_box_6.SelectedIndex;
-                order_data[6] = Music_box_7.SelectedIndex;
-                order_data[7] = Music_box_8.SelectedIndex;
-                order_data[8] = Music_box_9.SelectedIndex;
-                order_data[9] = Music_box_10.SelectedIndex;
-                order_data[10] = Music_box_11.SelectedIndex;
-                order_data[11] = Music_box_12.SelectedIndex;
-                order_data[12] = Music_box_13.SelectedIndex;
-                order_data[13] = Music_box_14.SelectedIndex;
-                order_data[14] = Music_box_15.SelectedIndex;
-                order_data[15] = Music_box_16.SelectedIndex;
-            }
+            //if (Music_box_1.SelectedIndex >= 0)
+            //{
+            order_data[0] = 0;
+            order_data[1] = 1;
+            order_data[2] = 2;
+            order_data[3] = 3;
+            order_data[4] = 4;
+            order_data[5] = 5;
+            order_data[6] = 6;
+            order_data[7] = 7;
+            order_data[8] = 8;
+            order_data[9] = 9;
+            order_data[10] = 10;
+            order_data[11] = 11;
+            order_data[12] = 12;
+            order_data[13] = 13;
+            order_data[14] = 14;
+            order_data[15] = 15;
+            //}
             Init();
             //  var array = (Bassbox.Items[Bassbox.SelectedIndex] as string).Split(' ');
             //  devindex = Convert.ToInt32(array[0]);
@@ -394,17 +396,17 @@ namespace adrilight.View.SettingsWindowComponents
         private void ChangeRunningMode(object sender, SelectionChangedEventArgs e)
         {
             var i = (Label)(sender as ComboBox).SelectedItem;
-            var item = (IEffect)effectbox_Copy2.SelectedItem;
+            var item = (Label)effectbox_Copy2.SelectedItem;
 
             if (i != null && item != null)
             {
                 if (i.Content.ToString() == "Rainbow Custom Zone")
                 {
-                    if (item.Name == "Sáng theo hiệu ứng")
+                    if (item.Content.ToString() == "Sáng theo hiệu ứng")
                     {
                         isEffect = false;
-                        txtTitle.Visibility = Visibility.Visible;
-                        cuszoneIcon.Visibility = Visibility.Visible;
+                        //txtTitle.Visibility = Visibility.Visible;
+                        //cuszoneIcon.Visibility = Visibility.Visible;
                         Bassbox.Visibility = Visibility.Collapsed;
                         filemaubox.Visibility = Visibility.Visible;
                         ClrPcker_Background_1.Visibility = Visibility.Visible;
@@ -419,7 +421,7 @@ namespace adrilight.View.SettingsWindowComponents
                         bt5.Visibility = Visibility.Visible;
 
 
-                        btPlay.Visibility = Visibility.Collapsed;
+                        //btPlay.Visibility = Visibility.Collapsed;
                         zoebar1.Visibility = Visibility.Collapsed;
                         zoebar2.Visibility = Visibility.Collapsed;
                         zoebar3.Visibility = Visibility.Collapsed;
@@ -437,50 +439,50 @@ namespace adrilight.View.SettingsWindowComponents
                         zoebar15.Visibility = Visibility.Collapsed;
                         zoebar16.Visibility = Visibility.Collapsed;
 
-                        txtLed.Visibility = Visibility.Collapsed;
-                        btColor1.Visibility = Visibility.Collapsed;
-                        btColor2.Visibility = Visibility.Collapsed;
-                        btColor3.Visibility = Visibility.Collapsed;
-                        btColor4.Visibility = Visibility.Collapsed;
-                        btColor5.Visibility = Visibility.Collapsed;
-                        btColor6.Visibility = Visibility.Collapsed;
-                        btColor7.Visibility = Visibility.Collapsed;
-                        btColor8.Visibility = Visibility.Collapsed;
-                        btColor9.Visibility = Visibility.Collapsed;
-                        btColor10.Visibility = Visibility.Collapsed;
-                        btColor11.Visibility = Visibility.Collapsed;
-                        btColor12.Visibility = Visibility.Collapsed;
-                        btColor13.Visibility = Visibility.Collapsed;
-                        btColor14.Visibility = Visibility.Collapsed;
-                        btColor15.Visibility = Visibility.Collapsed;
-                        btColor16.Visibility = Visibility.Collapsed;
+                        //txtLed.Visibility = Visibility.Collapsed;
+                        //btColor1.Visibility = Visibility.Collapsed;
+                        //btColor2.Visibility = Visibility.Collapsed;
+                        //btColor3.Visibility = Visibility.Collapsed;
+                        //btColor4.Visibility = Visibility.Collapsed;
+                        //btColor5.Visibility = Visibility.Collapsed;
+                        //btColor6.Visibility = Visibility.Collapsed;
+                        //btColor7.Visibility = Visibility.Collapsed;
+                        //btColor8.Visibility = Visibility.Collapsed;
+                        //btColor9.Visibility = Visibility.Collapsed;
+                        //btColor10.Visibility = Visibility.Collapsed;
+                        //btColor11.Visibility = Visibility.Collapsed;
+                        //btColor12.Visibility = Visibility.Collapsed;
+                        //btColor13.Visibility = Visibility.Collapsed;
+                        //btColor14.Visibility = Visibility.Collapsed;
+                        //btColor15.Visibility = Visibility.Collapsed;
+                        //btColor16.Visibility = Visibility.Collapsed;
 
-                        txtFreq.Visibility = Visibility.Collapsed;
-                        Music_box_1.Visibility = Visibility.Collapsed;
-                        Music_box_2.Visibility = Visibility.Collapsed;
-                        Music_box_3.Visibility = Visibility.Collapsed;
-                        Music_box_4.Visibility = Visibility.Collapsed;
-                        Music_box_5.Visibility = Visibility.Collapsed;
-                        Music_box_6.Visibility = Visibility.Collapsed;
-                        Music_box_7.Visibility = Visibility.Collapsed;
-                        Music_box_8.Visibility = Visibility.Collapsed;
-                        Music_box_9.Visibility = Visibility.Collapsed;
-                        Music_box_10.Visibility = Visibility.Collapsed;
-                        Music_box_11.Visibility = Visibility.Collapsed;
-                        Music_box_12.Visibility = Visibility.Collapsed;
-                        Music_box_13.Visibility = Visibility.Collapsed;
-                        Music_box_14.Visibility = Visibility.Collapsed;
-                        Music_box_15.Visibility = Visibility.Collapsed;
-                        Music_box_16.Visibility = Visibility.Collapsed;
+                        //txtFreq.Visibility = Visibility.Collapsed;
+                        //Music_box_1.Visibility = Visibility.Collapsed;
+                        //Music_box_2.Visibility = Visibility.Collapsed;
+                        //Music_box_3.Visibility = Visibility.Collapsed;
+                        //Music_box_4.Visibility = Visibility.Collapsed;
+                        //Music_box_5.Visibility = Visibility.Collapsed;
+                        //Music_box_6.Visibility = Visibility.Collapsed;
+                        //Music_box_7.Visibility = Visibility.Collapsed;
+                        //Music_box_8.Visibility = Visibility.Collapsed;
+                        //Music_box_9.Visibility = Visibility.Collapsed;
+                        //Music_box_10.Visibility = Visibility.Collapsed;
+                        //Music_box_11.Visibility = Visibility.Collapsed;
+                        //Music_box_12.Visibility = Visibility.Collapsed;
+                        //Music_box_13.Visibility = Visibility.Collapsed;
+                        //Music_box_14.Visibility = Visibility.Collapsed;
+                        //Music_box_15.Visibility = Visibility.Collapsed;
+                        //Music_box_16.Visibility = Visibility.Collapsed;
 
                         this.customZone.Visibility = Visibility.Visible;
                         this.customZone.Height = 150;
                     }
-                    else if (item.Name == "Sáng theo nhạc")
+                    else if (item.Content.ToString() == "Sáng theo nhạc")
                     {
                         isEffect = true;
-                        txtTitle.Visibility = Visibility.Visible;
-                        cuszoneIcon.Visibility = Visibility.Visible;
+                        //txtTitle.Visibility = Visibility.Visible;
+                        //cuszoneIcon.Visibility = Visibility.Visible;
                         Bassbox.Visibility = Visibility.Visible;
                         filemaubox.Visibility = Visibility.Visible;
                         ClrPcker_Background_1.Visibility = Visibility.Visible;
@@ -495,7 +497,7 @@ namespace adrilight.View.SettingsWindowComponents
                         bt5.Visibility = Visibility.Visible;
 
 
-                        btPlay.Visibility = Visibility.Visible;
+                        //btPlay.Visibility = Visibility.Visible;
                         zoebar1.Visibility = Visibility.Visible;
                         zoebar2.Visibility = Visibility.Visible;
                         zoebar3.Visibility = Visibility.Visible;
@@ -513,41 +515,41 @@ namespace adrilight.View.SettingsWindowComponents
                         zoebar15.Visibility = Visibility.Visible;
                         zoebar16.Visibility = Visibility.Visible;
 
-                        txtLed.Visibility = Visibility.Visible;
-                        btColor1.Visibility = Visibility.Visible;
-                        btColor2.Visibility = Visibility.Visible;
-                        btColor3.Visibility = Visibility.Visible;
-                        btColor4.Visibility = Visibility.Visible;
-                        btColor5.Visibility = Visibility.Visible;
-                        btColor6.Visibility = Visibility.Visible;
-                        btColor7.Visibility = Visibility.Visible;
-                        btColor8.Visibility = Visibility.Visible;
-                        btColor9.Visibility = Visibility.Visible;
-                        btColor10.Visibility = Visibility.Visible;
-                        btColor11.Visibility = Visibility.Visible;
-                        btColor12.Visibility = Visibility.Visible;
-                        btColor13.Visibility = Visibility.Visible;
-                        btColor14.Visibility = Visibility.Visible;
-                        btColor15.Visibility = Visibility.Visible;
-                        btColor16.Visibility = Visibility.Visible;
+                        //txtLed.Visibility = Visibility.Visible;
+                        //btColor1.Visibility = Visibility.Visible;
+                        //btColor2.Visibility = Visibility.Visible;
+                        //btColor3.Visibility = Visibility.Visible;
+                        //btColor4.Visibility = Visibility.Visible;
+                        //btColor5.Visibility = Visibility.Visible;
+                        //btColor6.Visibility = Visibility.Visible;
+                        //btColor7.Visibility = Visibility.Visible;
+                        //btColor8.Visibility = Visibility.Visible;
+                        //btColor9.Visibility = Visibility.Visible;
+                        //btColor10.Visibility = Visibility.Visible;
+                        //btColor11.Visibility = Visibility.Visible;
+                        //btColor12.Visibility = Visibility.Visible;
+                        //btColor13.Visibility = Visibility.Visible;
+                        //btColor14.Visibility = Visibility.Visible;
+                        //btColor15.Visibility = Visibility.Visible;
+                        //btColor16.Visibility = Visibility.Visible;
 
-                        txtFreq.Visibility = Visibility.Visible;
-                        Music_box_1.Visibility = Visibility.Visible;
-                        Music_box_2.Visibility = Visibility.Visible;
-                        Music_box_3.Visibility = Visibility.Visible;
-                        Music_box_4.Visibility = Visibility.Visible;
-                        Music_box_5.Visibility = Visibility.Visible;
-                        Music_box_6.Visibility = Visibility.Visible;
-                        Music_box_7.Visibility = Visibility.Visible;
-                        Music_box_8.Visibility = Visibility.Visible;
-                        Music_box_9.Visibility = Visibility.Visible;
-                        Music_box_10.Visibility = Visibility.Visible;
-                        Music_box_11.Visibility = Visibility.Visible;
-                        Music_box_12.Visibility = Visibility.Visible;
-                        Music_box_13.Visibility = Visibility.Visible;
-                        Music_box_14.Visibility = Visibility.Visible;
-                        Music_box_15.Visibility = Visibility.Visible;
-                        Music_box_16.Visibility = Visibility.Visible;
+                        //txtFreq.Visibility = Visibility.Visible;
+                        //Music_box_1.Visibility = Visibility.Visible;
+                        //Music_box_2.Visibility = Visibility.Visible;
+                        //Music_box_3.Visibility = Visibility.Visible;
+                        //Music_box_4.Visibility = Visibility.Visible;
+                        //Music_box_5.Visibility = Visibility.Visible;
+                        //Music_box_6.Visibility = Visibility.Visible;
+                        //Music_box_7.Visibility = Visibility.Visible;
+                        //Music_box_8.Visibility = Visibility.Visible;
+                        //Music_box_9.Visibility = Visibility.Visible;
+                        //Music_box_10.Visibility = Visibility.Visible;
+                        //Music_box_11.Visibility = Visibility.Visible;
+                        //Music_box_12.Visibility = Visibility.Visible;
+                        //Music_box_13.Visibility = Visibility.Visible;
+                        //Music_box_14.Visibility = Visibility.Visible;
+                        //Music_box_15.Visibility = Visibility.Visible;
+                        //Music_box_16.Visibility = Visibility.Visible;
 
 
                         //zoebar1.Height = 40;
@@ -569,19 +571,19 @@ namespace adrilight.View.SettingsWindowComponents
 
 
                         this.customZone.Visibility = Visibility.Visible;
-                        this.customZone.Height = 262;
+                        this.customZone.Height = 349;
                     }
                 }
                 else
                 {
-                    if (item.Name == "Sáng theo hiệu ứng")
+                    if (item.Content.ToString() == "Sáng theo hiệu ứng")
                     {
                         this.customZone.Visibility = Visibility.Collapsed;
                     }
-                    else if (item.Name == "Sáng theo nhạc")
+                    else if (item.Content.ToString() == "Sáng theo nhạc")
                     {
-                        txtTitle.Visibility = Visibility.Visible;
-                        cuszoneIcon.Visibility = Visibility.Visible;
+                        //txtTitle.Visibility = Visibility.Visible;
+                        //cuszoneIcon.Visibility = Visibility.Visible;
                         Bassbox.Visibility = Visibility.Visible;
                         filemaubox.Visibility = Visibility.Visible;
                         ClrPcker_Background_1.Visibility = Visibility.Collapsed;
@@ -596,7 +598,7 @@ namespace adrilight.View.SettingsWindowComponents
                         bt5.Visibility = Visibility.Visible;
 
 
-                        btPlay.Visibility = Visibility.Visible;
+                        //btPlay.Visibility = Visibility.Visible;
                         zoebar1.Visibility = Visibility.Visible;
                         zoebar2.Visibility = Visibility.Visible;
                         zoebar3.Visibility = Visibility.Visible;
@@ -614,44 +616,44 @@ namespace adrilight.View.SettingsWindowComponents
                         zoebar15.Visibility = Visibility.Visible;
                         zoebar16.Visibility = Visibility.Visible;
 
-                        txtLed.Visibility = Visibility.Visible;
-                        btColor1.Visibility = Visibility.Visible;
-                        btColor2.Visibility = Visibility.Visible;
-                        btColor3.Visibility = Visibility.Visible;
-                        btColor4.Visibility = Visibility.Visible;
-                        btColor5.Visibility = Visibility.Visible;
-                        btColor6.Visibility = Visibility.Visible;
-                        btColor7.Visibility = Visibility.Visible;
-                        btColor8.Visibility = Visibility.Visible;
-                        btColor9.Visibility = Visibility.Visible;
-                        btColor10.Visibility = Visibility.Visible;
-                        btColor11.Visibility = Visibility.Visible;
-                        btColor12.Visibility = Visibility.Visible;
-                        btColor13.Visibility = Visibility.Visible;
-                        btColor14.Visibility = Visibility.Visible;
-                        btColor15.Visibility = Visibility.Visible;
-                        btColor16.Visibility = Visibility.Visible;
+                        //txtLed.Visibility = Visibility.Visible;
+                        //btColor1.Visibility = Visibility.Visible;
+                        //btColor2.Visibility = Visibility.Visible;
+                        //btColor3.Visibility = Visibility.Visible;
+                        //btColor4.Visibility = Visibility.Visible;
+                        //btColor5.Visibility = Visibility.Visible;
+                        //btColor6.Visibility = Visibility.Visible;
+                        //btColor7.Visibility = Visibility.Visible;
+                        //btColor8.Visibility = Visibility.Visible;
+                        //btColor9.Visibility = Visibility.Visible;
+                        //btColor10.Visibility = Visibility.Visible;
+                        //btColor11.Visibility = Visibility.Visible;
+                        //btColor12.Visibility = Visibility.Visible;
+                        //btColor13.Visibility = Visibility.Visible;
+                        //btColor14.Visibility = Visibility.Visible;
+                        //btColor15.Visibility = Visibility.Visible;
+                        //btColor16.Visibility = Visibility.Visible;
 
-                        txtFreq.Visibility = Visibility.Visible;
-                        Music_box_1.Visibility = Visibility.Visible;
-                        Music_box_2.Visibility = Visibility.Visible;
-                        Music_box_3.Visibility = Visibility.Visible;
-                        Music_box_4.Visibility = Visibility.Visible;
-                        Music_box_5.Visibility = Visibility.Visible;
-                        Music_box_6.Visibility = Visibility.Visible;
-                        Music_box_7.Visibility = Visibility.Visible;
-                        Music_box_8.Visibility = Visibility.Visible;
-                        Music_box_9.Visibility = Visibility.Visible;
-                        Music_box_10.Visibility = Visibility.Visible;
-                        Music_box_11.Visibility = Visibility.Visible;
-                        Music_box_12.Visibility = Visibility.Visible;
-                        Music_box_13.Visibility = Visibility.Visible;
-                        Music_box_14.Visibility = Visibility.Visible;
-                        Music_box_15.Visibility = Visibility.Visible;
-                        Music_box_16.Visibility = Visibility.Visible;
+                        //txtFreq.Visibility = Visibility.Visible;
+                        //Music_box_1.Visibility = Visibility.Visible;
+                        //Music_box_2.Visibility = Visibility.Visible;
+                        //Music_box_3.Visibility = Visibility.Visible;
+                        //Music_box_4.Visibility = Visibility.Visible;
+                        //Music_box_5.Visibility = Visibility.Visible;
+                        //Music_box_6.Visibility = Visibility.Visible;
+                        //Music_box_7.Visibility = Visibility.Visible;
+                        //Music_box_8.Visibility = Visibility.Visible;
+                        //Music_box_9.Visibility = Visibility.Visible;
+                        //Music_box_10.Visibility = Visibility.Visible;
+                        //Music_box_11.Visibility = Visibility.Visible;
+                        //Music_box_12.Visibility = Visibility.Visible;
+                        //Music_box_13.Visibility = Visibility.Visible;
+                        //Music_box_14.Visibility = Visibility.Visible;
+                        //Music_box_15.Visibility = Visibility.Visible;
+                        //Music_box_16.Visibility = Visibility.Visible;
 
                         this.customZone.Visibility = Visibility.Visible;
-                        this.customZone.Height = 262;
+                        this.customZone.Height = 349;
                     }
                 }
             }
@@ -659,7 +661,7 @@ namespace adrilight.View.SettingsWindowComponents
 
         private void ChangeEffect(object sender, SelectionChangedEventArgs e)
         {
-            var item = (IEffect)(sender as ComboBox).SelectedItem;
+            var item = (Label)(sender as ComboBox).SelectedItem;
             var i = (Label)effectbox.SelectedItem;
             if (numberScreen.SelectedItem == null)
                 numberScreen.SelectedItem = "Linear Lighting";
@@ -674,7 +676,7 @@ namespace adrilight.View.SettingsWindowComponents
                 sizescreenCard.Visibility = Visibility.Collapsed;
                 btnReset.Visibility = Visibility.Collapsed;
 
-                switch (item.Name)
+                switch (item.Content.ToString())
                 {
                     case "Sáng theo hiệu ứng":
                         this.effectCard.Visibility = Visibility.Visible;
@@ -684,8 +686,8 @@ namespace adrilight.View.SettingsWindowComponents
                             if (i.Content.ToString() == "Rainbow Custom Zone")
                             {
                                 isEffect = false;
-                                txtTitle.Visibility = Visibility.Visible;
-                                cuszoneIcon.Visibility = Visibility.Visible;
+                                //txtTitle.Visibility = Visibility.Visible;
+                                //cuszoneIcon.Visibility = Visibility.Visible;
                                 Bassbox.Visibility = Visibility.Collapsed;
                                 filemaubox.Visibility = Visibility.Visible;
                                 ClrPcker_Background_1.Visibility = Visibility.Visible;
@@ -700,7 +702,7 @@ namespace adrilight.View.SettingsWindowComponents
                                 bt5.Visibility = Visibility.Visible;
 
 
-                                btPlay.Visibility = Visibility.Collapsed;
+                                //btPlay.Visibility = Visibility.Collapsed;
                                 zoebar1.Visibility = Visibility.Collapsed;
                                 zoebar2.Visibility = Visibility.Collapsed;
                                 zoebar3.Visibility = Visibility.Collapsed;
@@ -718,41 +720,41 @@ namespace adrilight.View.SettingsWindowComponents
                                 zoebar15.Visibility = Visibility.Collapsed;
                                 zoebar16.Visibility = Visibility.Collapsed;
 
-                                txtLed.Visibility = Visibility.Collapsed;
-                                btColor1.Visibility = Visibility.Collapsed;
-                                btColor2.Visibility = Visibility.Collapsed;
-                                btColor3.Visibility = Visibility.Collapsed;
-                                btColor4.Visibility = Visibility.Collapsed;
-                                btColor5.Visibility = Visibility.Collapsed;
-                                btColor6.Visibility = Visibility.Collapsed;
-                                btColor7.Visibility = Visibility.Collapsed;
-                                btColor8.Visibility = Visibility.Collapsed;
-                                btColor9.Visibility = Visibility.Collapsed;
-                                btColor10.Visibility = Visibility.Collapsed;
-                                btColor11.Visibility = Visibility.Collapsed;
-                                btColor12.Visibility = Visibility.Collapsed;
-                                btColor13.Visibility = Visibility.Collapsed;
-                                btColor14.Visibility = Visibility.Collapsed;
-                                btColor15.Visibility = Visibility.Collapsed;
-                                btColor16.Visibility = Visibility.Collapsed;
+                                //txtLed.Visibility = Visibility.Collapsed;
+                                //btColor1.Visibility = Visibility.Collapsed;
+                                //btColor2.Visibility = Visibility.Collapsed;
+                                //btColor3.Visibility = Visibility.Collapsed;
+                                //btColor4.Visibility = Visibility.Collapsed;
+                                //btColor5.Visibility = Visibility.Collapsed;
+                                //btColor6.Visibility = Visibility.Collapsed;
+                                //btColor7.Visibility = Visibility.Collapsed;
+                                //btColor8.Visibility = Visibility.Collapsed;
+                                //btColor9.Visibility = Visibility.Collapsed;
+                                //btColor10.Visibility = Visibility.Collapsed;
+                                //btColor11.Visibility = Visibility.Collapsed;
+                                //btColor12.Visibility = Visibility.Collapsed;
+                                //btColor13.Visibility = Visibility.Collapsed;
+                                //btColor14.Visibility = Visibility.Collapsed;
+                                //btColor15.Visibility = Visibility.Collapsed;
+                                //btColor16.Visibility = Visibility.Collapsed;
 
-                                txtFreq.Visibility = Visibility.Collapsed;
-                                Music_box_1.Visibility = Visibility.Collapsed;
-                                Music_box_2.Visibility = Visibility.Collapsed;
-                                Music_box_3.Visibility = Visibility.Collapsed;
-                                Music_box_4.Visibility = Visibility.Collapsed;
-                                Music_box_5.Visibility = Visibility.Collapsed;
-                                Music_box_6.Visibility = Visibility.Collapsed;
-                                Music_box_7.Visibility = Visibility.Collapsed;
-                                Music_box_8.Visibility = Visibility.Collapsed;
-                                Music_box_9.Visibility = Visibility.Collapsed;
-                                Music_box_10.Visibility = Visibility.Collapsed;
-                                Music_box_11.Visibility = Visibility.Collapsed;
-                                Music_box_12.Visibility = Visibility.Collapsed;
-                                Music_box_13.Visibility = Visibility.Collapsed;
-                                Music_box_14.Visibility = Visibility.Collapsed;
-                                Music_box_15.Visibility = Visibility.Collapsed;
-                                Music_box_16.Visibility = Visibility.Collapsed;
+                                //txtFreq.Visibility = Visibility.Collapsed;
+                                //Music_box_1.Visibility = Visibility.Collapsed;
+                                //Music_box_2.Visibility = Visibility.Collapsed;
+                                //Music_box_3.Visibility = Visibility.Collapsed;
+                                //Music_box_4.Visibility = Visibility.Collapsed;
+                                //Music_box_5.Visibility = Visibility.Collapsed;
+                                //Music_box_6.Visibility = Visibility.Collapsed;
+                                //Music_box_7.Visibility = Visibility.Collapsed;
+                                //Music_box_8.Visibility = Visibility.Collapsed;
+                                //Music_box_9.Visibility = Visibility.Collapsed;
+                                //Music_box_10.Visibility = Visibility.Collapsed;
+                                //Music_box_11.Visibility = Visibility.Collapsed;
+                                //Music_box_12.Visibility = Visibility.Collapsed;
+                                //Music_box_13.Visibility = Visibility.Collapsed;
+                                //Music_box_14.Visibility = Visibility.Collapsed;
+                                //Music_box_15.Visibility = Visibility.Collapsed;
+                                //Music_box_16.Visibility = Visibility.Collapsed;
 
                                 this.customZone.Visibility = Visibility.Visible;
                                 this.customZone.Height = 150;
@@ -789,8 +791,8 @@ namespace adrilight.View.SettingsWindowComponents
                             if (i.Content.ToString() == "Rainbow Custom Zone")
                             {
                                 isEffect = true;
-                                txtTitle.Visibility = Visibility.Visible;
-                                cuszoneIcon.Visibility = Visibility.Visible;
+                                //txtTitle.Visibility = Visibility.Visible;
+                                //cuszoneIcon.Visibility = Visibility.Visible;
                                 Bassbox.Visibility = Visibility.Visible;
                                 filemaubox.Visibility = Visibility.Visible;
                                 ClrPcker_Background_1.Visibility = Visibility.Visible;
@@ -805,7 +807,7 @@ namespace adrilight.View.SettingsWindowComponents
                                 bt5.Visibility = Visibility.Visible;
 
 
-                                btPlay.Visibility = Visibility.Visible;
+                                //btPlay.Visibility = Visibility.Visible;
                                 zoebar1.Visibility = Visibility.Visible;
                                 zoebar2.Visibility = Visibility.Visible;
                                 zoebar3.Visibility = Visibility.Visible;
@@ -823,53 +825,53 @@ namespace adrilight.View.SettingsWindowComponents
                                 zoebar15.Visibility = Visibility.Visible;
                                 zoebar16.Visibility = Visibility.Visible;
 
-                                txtLed.Visibility = Visibility.Visible;
-                                btColor1.Visibility = Visibility.Visible;
-                                btColor2.Visibility = Visibility.Visible;
-                                btColor3.Visibility = Visibility.Visible;
-                                btColor4.Visibility = Visibility.Visible;
-                                btColor5.Visibility = Visibility.Visible;
-                                btColor6.Visibility = Visibility.Visible;
-                                btColor7.Visibility = Visibility.Visible;
-                                btColor8.Visibility = Visibility.Visible;
-                                btColor9.Visibility = Visibility.Visible;
-                                btColor10.Visibility = Visibility.Visible;
-                                btColor11.Visibility = Visibility.Visible;
-                                btColor12.Visibility = Visibility.Visible;
-                                btColor13.Visibility = Visibility.Visible;
-                                btColor14.Visibility = Visibility.Visible;
-                                btColor15.Visibility = Visibility.Visible;
-                                btColor16.Visibility = Visibility.Visible;
+                                //txtLed.Visibility = Visibility.Visible;
+                                //btColor1.Visibility = Visibility.Visible;
+                                //btColor2.Visibility = Visibility.Visible;
+                                //btColor3.Visibility = Visibility.Visible;
+                                //btColor4.Visibility = Visibility.Visible;
+                                //btColor5.Visibility = Visibility.Visible;
+                                //btColor6.Visibility = Visibility.Visible;
+                                //btColor7.Visibility = Visibility.Visible;
+                                //btColor8.Visibility = Visibility.Visible;
+                                //btColor9.Visibility = Visibility.Visible;
+                                //btColor10.Visibility = Visibility.Visible;
+                                //btColor11.Visibility = Visibility.Visible;
+                                //btColor12.Visibility = Visibility.Visible;
+                                //btColor13.Visibility = Visibility.Visible;
+                                //btColor14.Visibility = Visibility.Visible;
+                                //btColor15.Visibility = Visibility.Visible;
+                                //btColor16.Visibility = Visibility.Visible;
 
-                                txtFreq.Visibility = Visibility.Visible;
-                                Music_box_1.Visibility = Visibility.Visible;
-                                Music_box_2.Visibility = Visibility.Visible;
-                                Music_box_3.Visibility = Visibility.Visible;
-                                Music_box_4.Visibility = Visibility.Visible;
-                                Music_box_5.Visibility = Visibility.Visible;
-                                Music_box_6.Visibility = Visibility.Visible;
-                                Music_box_7.Visibility = Visibility.Visible;
-                                Music_box_8.Visibility = Visibility.Visible;
-                                Music_box_9.Visibility = Visibility.Visible;
-                                Music_box_10.Visibility = Visibility.Visible;
-                                Music_box_11.Visibility = Visibility.Visible;
-                                Music_box_12.Visibility = Visibility.Visible;
-                                Music_box_13.Visibility = Visibility.Visible;
-                                Music_box_14.Visibility = Visibility.Visible;
-                                Music_box_15.Visibility = Visibility.Visible;
-                                Music_box_16.Visibility = Visibility.Visible;
+                                //txtFreq.Visibility = Visibility.Visible;
+                                //Music_box_1.Visibility = Visibility.Visible;
+                                //Music_box_2.Visibility = Visibility.Visible;
+                                //Music_box_3.Visibility = Visibility.Visible;
+                                //Music_box_4.Visibility = Visibility.Visible;
+                                //Music_box_5.Visibility = Visibility.Visible;
+                                //Music_box_6.Visibility = Visibility.Visible;
+                                //Music_box_7.Visibility = Visibility.Visible;
+                                //Music_box_8.Visibility = Visibility.Visible;
+                                //Music_box_9.Visibility = Visibility.Visible;
+                                //Music_box_10.Visibility = Visibility.Visible;
+                                //Music_box_11.Visibility = Visibility.Visible;
+                                //Music_box_12.Visibility = Visibility.Visible;
+                                //Music_box_13.Visibility = Visibility.Visible;
+                                //Music_box_14.Visibility = Visibility.Visible;
+                                //Music_box_15.Visibility = Visibility.Visible;
+                                //Music_box_16.Visibility = Visibility.Visible;
 
 
 
 
 
                                 this.customZone.Visibility = Visibility.Visible;
-                                this.customZone.Height = 262;
+                                this.customZone.Height = 349;
                             }
                             else
                             {
-                                txtTitle.Visibility = Visibility.Visible;
-                                cuszoneIcon.Visibility = Visibility.Visible;
+                                //txtTitle.Visibility = Visibility.Visible;
+                                //cuszoneIcon.Visibility = Visibility.Visible;
                                 Bassbox.Visibility = Visibility.Visible;
                                 filemaubox.Visibility = Visibility.Visible;
                                 ClrPcker_Background_1.Visibility = Visibility.Collapsed;
@@ -884,7 +886,7 @@ namespace adrilight.View.SettingsWindowComponents
                                 bt5.Visibility = Visibility.Visible;
 
 
-                                btPlay.Visibility = Visibility.Visible;
+                                //btPlay.Visibility = Visibility.Visible;
                                 zoebar1.Visibility = Visibility.Visible;
                                 zoebar2.Visibility = Visibility.Visible;
                                 zoebar3.Visibility = Visibility.Visible;
@@ -902,41 +904,41 @@ namespace adrilight.View.SettingsWindowComponents
                                 zoebar15.Visibility = Visibility.Visible;
                                 zoebar16.Visibility = Visibility.Visible;
 
-                                txtLed.Visibility = Visibility.Visible;
-                                btColor1.Visibility = Visibility.Visible;
-                                btColor2.Visibility = Visibility.Visible;
-                                btColor3.Visibility = Visibility.Visible;
-                                btColor4.Visibility = Visibility.Visible;
-                                btColor5.Visibility = Visibility.Visible;
-                                btColor6.Visibility = Visibility.Visible;
-                                btColor7.Visibility = Visibility.Visible;
-                                btColor8.Visibility = Visibility.Visible;
-                                btColor9.Visibility = Visibility.Visible;
-                                btColor10.Visibility = Visibility.Visible;
-                                btColor11.Visibility = Visibility.Visible;
-                                btColor12.Visibility = Visibility.Visible;
-                                btColor13.Visibility = Visibility.Visible;
-                                btColor14.Visibility = Visibility.Visible;
-                                btColor15.Visibility = Visibility.Visible;
-                                btColor16.Visibility = Visibility.Visible;
+                                //txtLed.Visibility = Visibility.Visible;
+                                //btColor1.Visibility = Visibility.Visible;
+                                //btColor2.Visibility = Visibility.Visible;
+                                //btColor3.Visibility = Visibility.Visible;
+                                //btColor4.Visibility = Visibility.Visible;
+                                //btColor5.Visibility = Visibility.Visible;
+                                //btColor6.Visibility = Visibility.Visible;
+                                //btColor7.Visibility = Visibility.Visible;
+                                //btColor8.Visibility = Visibility.Visible;
+                                //btColor9.Visibility = Visibility.Visible;
+                                //btColor10.Visibility = Visibility.Visible;
+                                //btColor11.Visibility = Visibility.Visible;
+                                //btColor12.Visibility = Visibility.Visible;
+                                //btColor13.Visibility = Visibility.Visible;
+                                //btColor14.Visibility = Visibility.Visible;
+                                //btColor15.Visibility = Visibility.Visible;
+                                //btColor16.Visibility = Visibility.Visible;
 
-                                txtFreq.Visibility = Visibility.Visible;
-                                Music_box_1.Visibility = Visibility.Visible;
-                                Music_box_2.Visibility = Visibility.Visible;
-                                Music_box_3.Visibility = Visibility.Visible;
-                                Music_box_4.Visibility = Visibility.Visible;
-                                Music_box_5.Visibility = Visibility.Visible;
-                                Music_box_6.Visibility = Visibility.Visible;
-                                Music_box_7.Visibility = Visibility.Visible;
-                                Music_box_8.Visibility = Visibility.Visible;
-                                Music_box_9.Visibility = Visibility.Visible;
-                                Music_box_10.Visibility = Visibility.Visible;
-                                Music_box_11.Visibility = Visibility.Visible;
-                                Music_box_12.Visibility = Visibility.Visible;
-                                Music_box_13.Visibility = Visibility.Visible;
-                                Music_box_14.Visibility = Visibility.Visible;
-                                Music_box_15.Visibility = Visibility.Visible;
-                                Music_box_16.Visibility = Visibility.Visible;
+                                //txtFreq.Visibility = Visibility.Visible;
+                                //Music_box_1.Visibility = Visibility.Visible;
+                                //Music_box_2.Visibility = Visibility.Visible;
+                                //Music_box_3.Visibility = Visibility.Visible;
+                                //Music_box_4.Visibility = Visibility.Visible;
+                                //Music_box_5.Visibility = Visibility.Visible;
+                                //Music_box_6.Visibility = Visibility.Visible;
+                                //Music_box_7.Visibility = Visibility.Visible;
+                                //Music_box_8.Visibility = Visibility.Visible;
+                                //Music_box_9.Visibility = Visibility.Visible;
+                                //Music_box_10.Visibility = Visibility.Visible;
+                                //Music_box_11.Visibility = Visibility.Visible;
+                                //Music_box_12.Visibility = Visibility.Visible;
+                                //Music_box_13.Visibility = Visibility.Visible;
+                                //Music_box_14.Visibility = Visibility.Visible;
+                                //Music_box_15.Visibility = Visibility.Visible;
+                                //Music_box_16.Visibility = Visibility.Visible;
 
                                 this.customZone.Visibility = Visibility.Visible;
                                 this.customZone.Height = 262;
@@ -961,8 +963,9 @@ namespace adrilight.View.SettingsWindowComponents
         private void ChangeLighting(object sender, SelectionChangedEventArgs e)
         {
             var settingsViewModel = DataContext as SettingsViewModel;
+            var item = (Label) numberScreen.SelectedItem;
             if (settingsViewModel != null)
-                if (numberScreen.SelectedIndex == 1)
+                if (item.Content.ToString() == "Non Lighting")
                     settingsViewModel.Settings.UseLinearLighting = false;
                 else
                     settingsViewModel.Settings.UseLinearLighting = true;
@@ -1051,8 +1054,8 @@ namespace adrilight.View.SettingsWindowComponents
             FileMau.RestoreDirectory = true;
             if (FileMau.ShowDialog() == true)
             {
-                var item = (IEffect)effectbox_Copy2.SelectedItem;
-                if (item.Name == "Sáng theo hiệu ứng")
+                var item = (Label)effectbox_Copy2.SelectedItem;
+                if (item.Content.ToString() == "Sáng theo hiệu ứng")
                 {
                     for (int i = 0; i < 16; i++)
                     {
@@ -1108,22 +1111,22 @@ namespace adrilight.View.SettingsWindowComponents
                     {
                         if (!string.IsNullOrEmpty(lines[j]))
                         {
-                            Music_box_1.SelectedIndex = Convert.ToInt16(lines[8]);
-                            Music_box_2.SelectedIndex = Convert.ToInt16(lines[9]);
-                            Music_box_3.SelectedIndex = Convert.ToInt16(lines[10]);
-                            Music_box_4.SelectedIndex = Convert.ToInt16(lines[11]);
-                            Music_box_5.SelectedIndex = Convert.ToInt16(lines[12]);
-                            Music_box_6.SelectedIndex = Convert.ToInt16(lines[13]);
-                            Music_box_7.SelectedIndex = Convert.ToInt16(lines[14]);
-                            Music_box_8.SelectedIndex = Convert.ToInt16(lines[15]);
-                            Music_box_9.SelectedIndex = Convert.ToInt16(lines[16]);
-                            Music_box_10.SelectedIndex = Convert.ToInt16(lines[17]);
-                            Music_box_11.SelectedIndex = Convert.ToInt16(lines[18]);
-                            Music_box_12.SelectedIndex = Convert.ToInt16(lines[19]);
-                            Music_box_13.SelectedIndex = Convert.ToInt16(lines[20]);
-                            Music_box_14.SelectedIndex = Convert.ToInt16(lines[21]);
-                            Music_box_15.SelectedIndex = Convert.ToInt16(lines[22]);
-                            Music_box_16.SelectedIndex = Convert.ToInt16(lines[23]);
+                            //Music_box_1.SelectedIndex = Convert.ToInt16(lines[8]);
+                            //Music_box_2.SelectedIndex = Convert.ToInt16(lines[9]);
+                            //Music_box_3.SelectedIndex = Convert.ToInt16(lines[10]);
+                            //Music_box_4.SelectedIndex = Convert.ToInt16(lines[11]);
+                            //Music_box_5.SelectedIndex = Convert.ToInt16(lines[12]);
+                            //Music_box_6.SelectedIndex = Convert.ToInt16(lines[13]);
+                            //Music_box_7.SelectedIndex = Convert.ToInt16(lines[14]);
+                            //Music_box_8.SelectedIndex = Convert.ToInt16(lines[15]);
+                            //Music_box_9.SelectedIndex = Convert.ToInt16(lines[16]);
+                            //Music_box_10.SelectedIndex = Convert.ToInt16(lines[17]);
+                            //Music_box_11.SelectedIndex = Convert.ToInt16(lines[18]);
+                            //Music_box_12.SelectedIndex = Convert.ToInt16(lines[19]);
+                            //Music_box_13.SelectedIndex = Convert.ToInt16(lines[20]);
+                            //Music_box_14.SelectedIndex = Convert.ToInt16(lines[21]);
+                            //Music_box_15.SelectedIndex = Convert.ToInt16(lines[22]);
+                            //Music_box_16.SelectedIndex = Convert.ToInt16(lines[23]);
                         }
                     }
                     if (z == 28)
@@ -1154,25 +1157,25 @@ namespace adrilight.View.SettingsWindowComponents
 
         private void Music_box_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Music_box_1.SelectedIndex >= 0)
-            {
-                order_data[0] = Music_box_1.SelectedIndex;
-                order_data[1] = Music_box_2.SelectedIndex;
-                order_data[2] = Music_box_3.SelectedIndex;
-                order_data[3] = Music_box_4.SelectedIndex;
-                order_data[4] = Music_box_5.SelectedIndex;
-                order_data[5] = Music_box_6.SelectedIndex;
-                order_data[6] = Music_box_7.SelectedIndex;
-                order_data[7] = Music_box_8.SelectedIndex;
-                order_data[8] = Music_box_9.SelectedIndex;
-                order_data[9] = Music_box_10.SelectedIndex;
-                order_data[10] = Music_box_11.SelectedIndex;
-                order_data[11] = Music_box_12.SelectedIndex;
-                order_data[12] = Music_box_13.SelectedIndex;
-                order_data[13] = Music_box_14.SelectedIndex;
-                order_data[14] = Music_box_15.SelectedIndex;
-                order_data[15] = Music_box_16.SelectedIndex;
-            }
+            //if (Music_box_1.SelectedIndex >= 0)
+            //{
+            //    order_data[0] = Music_box_1.SelectedIndex;
+            //    order_data[1] = Music_box_2.SelectedIndex;
+            //    order_data[2] = Music_box_3.SelectedIndex;
+            //    order_data[3] = Music_box_4.SelectedIndex;
+            //    order_data[4] = Music_box_5.SelectedIndex;
+            //    order_data[5] = Music_box_6.SelectedIndex;
+            //    order_data[6] = Music_box_7.SelectedIndex;
+            //    order_data[7] = Music_box_8.SelectedIndex;
+            //    order_data[8] = Music_box_9.SelectedIndex;
+            //    order_data[9] = Music_box_10.SelectedIndex;
+            //    order_data[10] = Music_box_11.SelectedIndex;
+            //    order_data[11] = Music_box_12.SelectedIndex;
+            //    order_data[12] = Music_box_13.SelectedIndex;
+            //    order_data[13] = Music_box_14.SelectedIndex;
+            //    order_data[14] = Music_box_15.SelectedIndex;
+            //    order_data[15] = Music_box_16.SelectedIndex;
+            //}
 
             for (int i = 8; i <= 23; i++)
             {
@@ -1216,22 +1219,22 @@ namespace adrilight.View.SettingsWindowComponents
 
         private void Reset_Button_Click(object sender, RoutedEventArgs e)
         {
-            Music_box_1.SelectedIndex = 0;
-            Music_box_2.SelectedIndex = 1;
-            Music_box_3.SelectedIndex = 2;
-            Music_box_4.SelectedIndex = 3;
-            Music_box_5.SelectedIndex = 4;
-            Music_box_6.SelectedIndex = 5;
-            Music_box_7.SelectedIndex = 6;
-            Music_box_8.SelectedIndex = 7;
-            Music_box_9.SelectedIndex = 8;
-            Music_box_10.SelectedIndex = 9;
-            Music_box_11.SelectedIndex = 10;
-            Music_box_12.SelectedIndex = 11;
-            Music_box_13.SelectedIndex = 12;
-            Music_box_14.SelectedIndex = 13;
-            Music_box_15.SelectedIndex = 14;
-            Music_box_16.SelectedIndex = 15;
+            //Music_box_1.SelectedIndex = 0;
+            //Music_box_2.SelectedIndex = 1;
+            //Music_box_3.SelectedIndex = 2;
+            //Music_box_4.SelectedIndex = 3;
+            //Music_box_5.SelectedIndex = 4;
+            //Music_box_6.SelectedIndex = 5;
+            //Music_box_7.SelectedIndex = 6;
+            //Music_box_8.SelectedIndex = 7;
+            //Music_box_9.SelectedIndex = 8;
+            //Music_box_10.SelectedIndex = 9;
+            //Music_box_11.SelectedIndex = 10;
+            //Music_box_12.SelectedIndex = 11;
+            //Music_box_13.SelectedIndex = 12;
+            //Music_box_14.SelectedIndex = 13;
+            //Music_box_15.SelectedIndex = 14;
+            //Music_box_16.SelectedIndex = 15;
         }
 
         private void ClrPcker_Background_1_Copy2_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
@@ -1484,11 +1487,11 @@ namespace adrilight.View.SettingsWindowComponents
                     btnReset.IsEnabled = false;
 
 
-                    var item = (IEffect)effectbox_Copy2.SelectedItem;
+                    var item = (Label)effectbox_Copy2.SelectedItem;
                     var i = (Label)effectbox.SelectedItem;
                     if (item != null)
                     {
-                        switch (item.Name)
+                        switch (item.Content.ToString())
                         {
                             case "Sáng theo hiệu ứng":
                                 this.effectCard.Visibility = Visibility.Visible;
@@ -1498,8 +1501,8 @@ namespace adrilight.View.SettingsWindowComponents
                                     if (i.Content.ToString() == "Rainbow Custom Zone")
                                     {
                                         isEffect = false;
-                                        txtTitle.Visibility = Visibility.Visible;
-                                        cuszoneIcon.Visibility = Visibility.Visible;
+                                        //txtTitle.Visibility = Visibility.Visible;
+                                        //cuszoneIcon.Visibility = Visibility.Visible;
                                         Bassbox.Visibility = Visibility.Collapsed;
                                         filemaubox.Visibility = Visibility.Visible;
                                         ClrPcker_Background_1.Visibility = Visibility.Visible;
@@ -1514,7 +1517,7 @@ namespace adrilight.View.SettingsWindowComponents
                                         bt5.Visibility = Visibility.Visible;
 
 
-                                        btPlay.Visibility = Visibility.Collapsed;
+                                        //btPlay.Visibility = Visibility.Collapsed;
                                         zoebar1.Visibility = Visibility.Collapsed;
                                         zoebar2.Visibility = Visibility.Collapsed;
                                         zoebar3.Visibility = Visibility.Collapsed;
@@ -1532,41 +1535,41 @@ namespace adrilight.View.SettingsWindowComponents
                                         zoebar15.Visibility = Visibility.Collapsed;
                                         zoebar16.Visibility = Visibility.Collapsed;
 
-                                        txtLed.Visibility = Visibility.Collapsed;
-                                        btColor1.Visibility = Visibility.Collapsed;
-                                        btColor2.Visibility = Visibility.Collapsed;
-                                        btColor3.Visibility = Visibility.Collapsed;
-                                        btColor4.Visibility = Visibility.Collapsed;
-                                        btColor5.Visibility = Visibility.Collapsed;
-                                        btColor6.Visibility = Visibility.Collapsed;
-                                        btColor7.Visibility = Visibility.Collapsed;
-                                        btColor8.Visibility = Visibility.Collapsed;
-                                        btColor9.Visibility = Visibility.Collapsed;
-                                        btColor10.Visibility = Visibility.Collapsed;
-                                        btColor11.Visibility = Visibility.Collapsed;
-                                        btColor12.Visibility = Visibility.Collapsed;
-                                        btColor13.Visibility = Visibility.Collapsed;
-                                        btColor14.Visibility = Visibility.Collapsed;
-                                        btColor15.Visibility = Visibility.Collapsed;
-                                        btColor16.Visibility = Visibility.Collapsed;
+                                        //txtLed.Visibility = Visibility.Collapsed;
+                                        //btColor1.Visibility = Visibility.Collapsed;
+                                        //btColor2.Visibility = Visibility.Collapsed;
+                                        //btColor3.Visibility = Visibility.Collapsed;
+                                        //btColor4.Visibility = Visibility.Collapsed;
+                                        //btColor5.Visibility = Visibility.Collapsed;
+                                        //btColor6.Visibility = Visibility.Collapsed;
+                                        //btColor7.Visibility = Visibility.Collapsed;
+                                        //btColor8.Visibility = Visibility.Collapsed;
+                                        //btColor9.Visibility = Visibility.Collapsed;
+                                        //btColor10.Visibility = Visibility.Collapsed;
+                                        //btColor11.Visibility = Visibility.Collapsed;
+                                        //btColor12.Visibility = Visibility.Collapsed;
+                                        //btColor13.Visibility = Visibility.Collapsed;
+                                        //btColor14.Visibility = Visibility.Collapsed;
+                                        //btColor15.Visibility = Visibility.Collapsed;
+                                        //btColor16.Visibility = Visibility.Collapsed;
 
-                                        txtFreq.Visibility = Visibility.Collapsed;
-                                        Music_box_1.Visibility = Visibility.Collapsed;
-                                        Music_box_2.Visibility = Visibility.Collapsed;
-                                        Music_box_3.Visibility = Visibility.Collapsed;
-                                        Music_box_4.Visibility = Visibility.Collapsed;
-                                        Music_box_5.Visibility = Visibility.Collapsed;
-                                        Music_box_6.Visibility = Visibility.Collapsed;
-                                        Music_box_7.Visibility = Visibility.Collapsed;
-                                        Music_box_8.Visibility = Visibility.Collapsed;
-                                        Music_box_9.Visibility = Visibility.Collapsed;
-                                        Music_box_10.Visibility = Visibility.Collapsed;
-                                        Music_box_11.Visibility = Visibility.Collapsed;
-                                        Music_box_12.Visibility = Visibility.Collapsed;
-                                        Music_box_13.Visibility = Visibility.Collapsed;
-                                        Music_box_14.Visibility = Visibility.Collapsed;
-                                        Music_box_15.Visibility = Visibility.Collapsed;
-                                        Music_box_16.Visibility = Visibility.Collapsed;
+                                        //txtFreq.Visibility = Visibility.Collapsed;
+                                        //Music_box_1.Visibility = Visibility.Collapsed;
+                                        //Music_box_2.Visibility = Visibility.Collapsed;
+                                        //Music_box_3.Visibility = Visibility.Collapsed;
+                                        //Music_box_4.Visibility = Visibility.Collapsed;
+                                        //Music_box_5.Visibility = Visibility.Collapsed;
+                                        //Music_box_6.Visibility = Visibility.Collapsed;
+                                        //Music_box_7.Visibility = Visibility.Collapsed;
+                                        //Music_box_8.Visibility = Visibility.Collapsed;
+                                        //Music_box_9.Visibility = Visibility.Collapsed;
+                                        //Music_box_10.Visibility = Visibility.Collapsed;
+                                        //Music_box_11.Visibility = Visibility.Collapsed;
+                                        //Music_box_12.Visibility = Visibility.Collapsed;
+                                        //Music_box_13.Visibility = Visibility.Collapsed;
+                                        //Music_box_14.Visibility = Visibility.Collapsed;
+                                        //Music_box_15.Visibility = Visibility.Collapsed;
+                                        //Music_box_16.Visibility = Visibility.Collapsed;
 
                                         this.customZone.Visibility = Visibility.Visible;
                                         this.customZone.Height = 150;
@@ -1595,8 +1598,8 @@ namespace adrilight.View.SettingsWindowComponents
                                     if (i.Content.ToString() == "Rainbow Custom Zone")
                                     {
                                         isEffect = true;
-                                        txtTitle.Visibility = Visibility.Visible;
-                                        cuszoneIcon.Visibility = Visibility.Visible;
+                                        //txtTitle.Visibility = Visibility.Visible;
+                                        //cuszoneIcon.Visibility = Visibility.Visible;
                                         Bassbox.Visibility = Visibility.Visible;
                                         filemaubox.Visibility = Visibility.Visible;
                                         ClrPcker_Background_1.Visibility = Visibility.Visible;
@@ -1609,9 +1612,12 @@ namespace adrilight.View.SettingsWindowComponents
                                         ClrPcker_Background_8.Visibility = Visibility.Visible;
                                         bt4.Visibility = Visibility.Visible;
                                         bt5.Visibility = Visibility.Visible;
+                                        //equalizer.Visibility = Visibility.Visible;
+                                        //presetcombobox.Visibility = Visibility.Visible;
+                                        //presettext.Visibility = Visibility.Visible;
 
 
-                                        btPlay.Visibility = Visibility.Visible;
+                                        //btPlay.Visibility = Visibility.Visible;
                                         zoebar1.Visibility = Visibility.Visible;
                                         zoebar2.Visibility = Visibility.Visible;
                                         zoebar3.Visibility = Visibility.Visible;
@@ -1629,53 +1635,53 @@ namespace adrilight.View.SettingsWindowComponents
                                         zoebar15.Visibility = Visibility.Visible;
                                         zoebar16.Visibility = Visibility.Visible;
 
-                                        txtLed.Visibility = Visibility.Visible;
-                                        btColor1.Visibility = Visibility.Visible;
-                                        btColor2.Visibility = Visibility.Visible;
-                                        btColor3.Visibility = Visibility.Visible;
-                                        btColor4.Visibility = Visibility.Visible;
-                                        btColor5.Visibility = Visibility.Visible;
-                                        btColor6.Visibility = Visibility.Visible;
-                                        btColor7.Visibility = Visibility.Visible;
-                                        btColor8.Visibility = Visibility.Visible;
-                                        btColor9.Visibility = Visibility.Visible;
-                                        btColor10.Visibility = Visibility.Visible;
-                                        btColor11.Visibility = Visibility.Visible;
-                                        btColor12.Visibility = Visibility.Visible;
-                                        btColor13.Visibility = Visibility.Visible;
-                                        btColor14.Visibility = Visibility.Visible;
-                                        btColor15.Visibility = Visibility.Visible;
-                                        btColor16.Visibility = Visibility.Visible;
+                                        //txtLed.Visibility = Visibility.Visible;
+                                        //btColor1.Visibility = Visibility.Visible;
+                                        //btColor2.Visibility = Visibility.Visible;
+                                        //btColor3.Visibility = Visibility.Visible;
+                                        //btColor4.Visibility = Visibility.Visible;
+                                        //btColor5.Visibility = Visibility.Visible;
+                                        //btColor6.Visibility = Visibility.Visible;
+                                        //btColor7.Visibility = Visibility.Visible;
+                                        //btColor8.Visibility = Visibility.Visible;
+                                        //btColor9.Visibility = Visibility.Visible;
+                                        //btColor10.Visibility = Visibility.Visible;
+                                        //btColor11.Visibility = Visibility.Visible;
+                                        //btColor12.Visibility = Visibility.Visible;
+                                        //btColor13.Visibility = Visibility.Visible;
+                                        //btColor14.Visibility = Visibility.Visible;
+                                        //btColor15.Visibility = Visibility.Visible;
+                                        //btColor16.Visibility = Visibility.Visible;
 
-                                        txtFreq.Visibility = Visibility.Visible;
-                                        Music_box_1.Visibility = Visibility.Visible;
-                                        Music_box_2.Visibility = Visibility.Visible;
-                                        Music_box_3.Visibility = Visibility.Visible;
-                                        Music_box_4.Visibility = Visibility.Visible;
-                                        Music_box_5.Visibility = Visibility.Visible;
-                                        Music_box_6.Visibility = Visibility.Visible;
-                                        Music_box_7.Visibility = Visibility.Visible;
-                                        Music_box_8.Visibility = Visibility.Visible;
-                                        Music_box_9.Visibility = Visibility.Visible;
-                                        Music_box_10.Visibility = Visibility.Visible;
-                                        Music_box_11.Visibility = Visibility.Visible;
-                                        Music_box_12.Visibility = Visibility.Visible;
-                                        Music_box_13.Visibility = Visibility.Visible;
-                                        Music_box_14.Visibility = Visibility.Visible;
-                                        Music_box_15.Visibility = Visibility.Visible;
-                                        Music_box_16.Visibility = Visibility.Visible;
+                                        //txtFreq.Visibility = Visibility.Visible;
+                                        //Music_box_1.Visibility = Visibility.Visible;
+                                        //Music_box_2.Visibility = Visibility.Visible;
+                                        //Music_box_3.Visibility = Visibility.Visible;
+                                        //Music_box_4.Visibility = Visibility.Visible;
+                                        //Music_box_5.Visibility = Visibility.Visible;
+                                        //Music_box_6.Visibility = Visibility.Visible;
+                                        //Music_box_7.Visibility = Visibility.Visible;
+                                        //Music_box_8.Visibility = Visibility.Visible;
+                                        //Music_box_9.Visibility = Visibility.Visible;
+                                        //Music_box_10.Visibility = Visibility.Visible;
+                                        //Music_box_11.Visibility = Visibility.Visible;
+                                        //Music_box_12.Visibility = Visibility.Visible;
+                                        //Music_box_13.Visibility = Visibility.Visible;
+                                        //Music_box_14.Visibility = Visibility.Visible;
+                                        //Music_box_15.Visibility = Visibility.Visible;
+                                        //Music_box_16.Visibility = Visibility.Visible;
 
 
 
 
 
                                         this.customZone.Visibility = Visibility.Visible;
-                                        this.customZone.Height = 262;
+                                        this.customZone.Height = 349;
                                     }
                                     else
                                     {
-                                        txtTitle.Visibility = Visibility.Visible;
-                                        cuszoneIcon.Visibility = Visibility.Visible;
+                                        //txtTitle.Visibility = Visibility.Visible;
+                                        //cuszoneIcon.Visibility = Visibility.Visible;
                                         Bassbox.Visibility = Visibility.Visible;
                                         filemaubox.Visibility = Visibility.Visible;
                                         ClrPcker_Background_1.Visibility = Visibility.Collapsed;
@@ -1690,7 +1696,7 @@ namespace adrilight.View.SettingsWindowComponents
                                         bt5.Visibility = Visibility.Visible;
 
 
-                                        btPlay.Visibility = Visibility.Visible;
+                                        //btPlay.Visibility = Visibility.Visible;
                                         zoebar1.Visibility = Visibility.Visible;
                                         zoebar2.Visibility = Visibility.Visible;
                                         zoebar3.Visibility = Visibility.Visible;
@@ -1708,44 +1714,44 @@ namespace adrilight.View.SettingsWindowComponents
                                         zoebar15.Visibility = Visibility.Visible;
                                         zoebar16.Visibility = Visibility.Visible;
 
-                                        txtLed.Visibility = Visibility.Visible;
-                                        btColor1.Visibility = Visibility.Visible;
-                                        btColor2.Visibility = Visibility.Visible;
-                                        btColor3.Visibility = Visibility.Visible;
-                                        btColor4.Visibility = Visibility.Visible;
-                                        btColor5.Visibility = Visibility.Visible;
-                                        btColor6.Visibility = Visibility.Visible;
-                                        btColor7.Visibility = Visibility.Visible;
-                                        btColor8.Visibility = Visibility.Visible;
-                                        btColor9.Visibility = Visibility.Visible;
-                                        btColor10.Visibility = Visibility.Visible;
-                                        btColor11.Visibility = Visibility.Visible;
-                                        btColor12.Visibility = Visibility.Visible;
-                                        btColor13.Visibility = Visibility.Visible;
-                                        btColor14.Visibility = Visibility.Visible;
-                                        btColor15.Visibility = Visibility.Visible;
-                                        btColor16.Visibility = Visibility.Visible;
+                                        //txtLed.Visibility = Visibility.Visible;
+                                        //btColor1.Visibility = Visibility.Visible;
+                                        //btColor2.Visibility = Visibility.Visible;
+                                        //btColor3.Visibility = Visibility.Visible;
+                                        //btColor4.Visibility = Visibility.Visible;
+                                        //btColor5.Visibility = Visibility.Visible;
+                                        //btColor6.Visibility = Visibility.Visible;
+                                        //btColor7.Visibility = Visibility.Visible;
+                                        //btColor8.Visibility = Visibility.Visible;
+                                        //btColor9.Visibility = Visibility.Visible;
+                                        //btColor10.Visibility = Visibility.Visible;
+                                        //btColor11.Visibility = Visibility.Visible;
+                                        //btColor12.Visibility = Visibility.Visible;
+                                        //btColor13.Visibility = Visibility.Visible;
+                                        //btColor14.Visibility = Visibility.Visible;
+                                        //btColor15.Visibility = Visibility.Visible;
+                                        //btColor16.Visibility = Visibility.Visible;
 
-                                        txtFreq.Visibility = Visibility.Visible;
-                                        Music_box_1.Visibility = Visibility.Visible;
-                                        Music_box_2.Visibility = Visibility.Visible;
-                                        Music_box_3.Visibility = Visibility.Visible;
-                                        Music_box_4.Visibility = Visibility.Visible;
-                                        Music_box_5.Visibility = Visibility.Visible;
-                                        Music_box_6.Visibility = Visibility.Visible;
-                                        Music_box_7.Visibility = Visibility.Visible;
-                                        Music_box_8.Visibility = Visibility.Visible;
-                                        Music_box_9.Visibility = Visibility.Visible;
-                                        Music_box_10.Visibility = Visibility.Visible;
-                                        Music_box_11.Visibility = Visibility.Visible;
-                                        Music_box_12.Visibility = Visibility.Visible;
-                                        Music_box_13.Visibility = Visibility.Visible;
-                                        Music_box_14.Visibility = Visibility.Visible;
-                                        Music_box_15.Visibility = Visibility.Visible;
-                                        Music_box_16.Visibility = Visibility.Visible;
+                                        //txtFreq.Visibility = Visibility.Visible;
+                                        //Music_box_1.Visibility = Visibility.Visible;
+                                        //Music_box_2.Visibility = Visibility.Visible;
+                                        //Music_box_3.Visibility = Visibility.Visible;
+                                        //Music_box_4.Visibility = Visibility.Visible;
+                                        //Music_box_5.Visibility = Visibility.Visible;
+                                        //Music_box_6.Visibility = Visibility.Visible;
+                                        //Music_box_7.Visibility = Visibility.Visible;
+                                        //Music_box_8.Visibility = Visibility.Visible;
+                                        //Music_box_9.Visibility = Visibility.Visible;
+                                        //Music_box_10.Visibility = Visibility.Visible;
+                                        //Music_box_11.Visibility = Visibility.Visible;
+                                        //Music_box_12.Visibility = Visibility.Visible;
+                                        //Music_box_13.Visibility = Visibility.Visible;
+                                        //Music_box_14.Visibility = Visibility.Visible;
+                                        //Music_box_15.Visibility = Visibility.Visible;
+                                        //Music_box_16.Visibility = Visibility.Visible;
 
                                         this.customZone.Visibility = Visibility.Visible;
-                                        this.customZone.Height = 262;
+                                        this.customZone.Height = 349;
                                     }
                                 }
                                 break;
@@ -1842,5 +1848,54 @@ namespace adrilight.View.SettingsWindowComponents
             }
         }
 
+        private void ColorPicker_ColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        {
+            
+        }
+
+        private void ColorZone_MouseEnter(object sender, MouseEventArgs e)
+        {
+            
+
+
+        }
+
+        private void orange_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            picker.Color = ((SolidColorBrush)orange.Background).Color;
+        }
+
+        private void colortext_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+            //picker.Color = (Color)ColorConverter.ConvertFromString(colortext.Text);
+        }
+
+        private void green_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            picker.Color = ((SolidColorBrush)green.Background).Color;
+        }
+
+        private void aura_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            picker.Color = ((SolidColorBrush)aura.Background).Color;
+        }
+
+        private void cyan_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            picker.Color = ((SolidColorBrush)cyan.Background).Color;
+        }
+
+        private void blue_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            picker.Color = ((SolidColorBrush)blue.Background).Color;
+        }
+
+        private void pink_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            picker.Color = ((SolidColorBrush)pink.Background).Color;
+        }
+
+        
     }
 }

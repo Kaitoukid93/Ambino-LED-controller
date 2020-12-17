@@ -392,13 +392,13 @@ namespace adrilight.View.SettingsWindowComponents
         private void ChangeRunningMode(object sender, SelectionChangedEventArgs e)
         {
             var i = (Label)(sender as ComboBox).SelectedItem;
-            var item = (IEffect)effectbox_Copy2.SelectedItem;
+            var item = (Label)effectbox_Copy2.SelectedItem;
 
             if (i != null && item != null)
             {
                 if (i.Content.ToString() == "Rainbow Custom Zone")
                 {
-                    if (item.Name == "Sáng theo hiệu ứng")
+                    if (item.Content.ToString() == "Sáng theo hiệu ứng")
                     {
                         isEffect = false;
                         txtTitle.Visibility = Visibility.Visible;
@@ -474,7 +474,7 @@ namespace adrilight.View.SettingsWindowComponents
                         this.customZone.Visibility = Visibility.Visible;
                         this.customZone.Height = 150;
                     }
-                    else if (item.Name == "Sáng theo nhạc")
+                    else if (item.Content.ToString() == "Sáng theo nhạc")
                     {
                         isEffect = true;
                         txtTitle.Visibility = Visibility.Visible;
@@ -572,11 +572,11 @@ namespace adrilight.View.SettingsWindowComponents
                 }
                 else
                 {
-                    if (item.Name == "Sáng theo hiệu ứng")
+                    if (item.Content.ToString() == "Sáng theo hiệu ứng")
                     {
                         this.customZone.Visibility = Visibility.Collapsed;
                     }
-                    else if (item.Name == "Sáng theo nhạc")
+                    else if (item.Content.ToString() == "Sáng theo nhạc")
                     {
                         txtTitle.Visibility = Visibility.Visible;
                         cuszoneIcon.Visibility = Visibility.Visible;
@@ -657,7 +657,7 @@ namespace adrilight.View.SettingsWindowComponents
 
         private void ChangeEffect(object sender, SelectionChangedEventArgs e)
         {
-            var item = (IEffect)(sender as ComboBox).SelectedItem;
+            var item = (Label)(sender as ComboBox).SelectedItem;
             var i = (Label)effectbox.SelectedItem;
             if (numberScreen.SelectedItem == null)
                 numberScreen.SelectedItem = "Linear Lighting";
@@ -672,7 +672,7 @@ namespace adrilight.View.SettingsWindowComponents
                 sizescreenCard.Visibility = Visibility.Collapsed;
                 btnReset.Visibility = Visibility.Collapsed;
 
-                switch (item.Name)
+                switch (item.Content.ToString())
                 {
                     case "Sáng theo hiệu ứng":
                         this.effectCard.Visibility = Visibility.Visible;
@@ -1049,8 +1049,8 @@ namespace adrilight.View.SettingsWindowComponents
             FileMau.RestoreDirectory = true;
             if (FileMau.ShowDialog() == true)
             {
-                var item = (IEffect)effectbox_Copy2.SelectedItem;
-                if (item.Name == "Sáng theo hiệu ứng")
+                var item = (Label)effectbox_Copy2.SelectedItem;
+                if (item.Content.ToString() == "Sáng theo hiệu ứng")
                 {
                     for (int i = 0; i < 16; i++)
                     {
@@ -1482,11 +1482,11 @@ namespace adrilight.View.SettingsWindowComponents
                     btnReset.IsEnabled = false;
 
 
-                    var item = (IEffect)effectbox_Copy2.SelectedItem;
+                    var item = (Label)effectbox_Copy2.SelectedItem;
                     var i = (Label)effectbox.SelectedItem;
                     if (item != null)
                     {
-                        switch (item.Name)
+                        switch (item.Content.ToString())
                         {
                             case "Sáng theo hiệu ứng":
                                 this.effectCard.Visibility = Visibility.Visible;

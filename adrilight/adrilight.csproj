@@ -323,6 +323,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converter\BrushToHexConverter.cs" />
+    <Compile Include="Converter\ColorToBrushConverter.cs" />
     <Compile Include="Converter\Inverseboolvisibility.cs" />
     <Compile Include="DesktopDuplication\DesktopDuplicationException.cs" />
     <Compile Include="DesktopDuplication\DesktopDuplicator.cs" />
@@ -358,6 +360,16 @@
     <Compile Include="View\SettingsWindowComponents\WifiPower.xaml.cs">
       <DependentUpon>WifiPower.xaml</DependentUpon>
     </Compile>
+    <Resource Include="View\SettingsWindowComponents\chameleon%402x.png" />
+    <Resource Include="View\SettingsWindowComponents\speaker settings%402x.png" />
+    <Resource Include="View\SettingsWindowComponents\advance%402x.png" />
+    <Resource Include="View\Images\new theme\Asset 4%402x.png" />
+    <Resource Include="View\Images\new theme\General setup%402x.png" />
+    <Resource Include="View\Images\new theme\lighting setup%402x.png" />
+    <Resource Include="View\Images\new theme\usb%402x.png" />
+    <Resource Include="View\Images\purple theme\outofcase.png" />
+    <Resource Include="View\Images\purple theme\source%402x.png" />
+    <Resource Include="View\Images\purple theme\led%402x.png" />
     <Resource Include="View\Images\imgplus.jpg" />
     <Resource Include="View\Images\speedzonefinal%402x.png" />
     <Resource Include="View\Images\speedzonegrey%402x.png" />

@@ -183,16 +183,21 @@
 						FontSize="15" FontWeight="Bold"><Run Text="Bảng điều chỉnh hiệu ứng"/></TextBlock>
 
 					<ComboBox 
-                    x:Name="effectbox_Copy2" ToolTip="Các chế độ cài sẵn do Ambino thiết kế"
-                    SelectedIndex="{Binding Settings.lightstatus}"
-                    materialDesign:HintAssist.Hint=""
-                    IsEditable="False" Grid.Row="1" Margin="100,0,0,-20"
-                    materialDesign:HintAssist.HintOpacity=".26" Height="28" Width="180"
-					ItemsSource="{Binding Path=_tableEffects}"    
-					SelectedItem="{Binding Path=AEffect}"  
-					DisplayMemberPath="Name"
-					SelectionChanged="ChangeEffect">
+						x:Name="effectbox_Copy2" ToolTip="Các chế độ cài sẵn do Ambino thiết kế"
+						SelectedIndex="{Binding Settings.lightstatus}"
+						materialDesign:HintAssist.Hint=""
+						IsEditable="False" Grid.Row="1" Margin="100,0,0,-20"
+						materialDesign:HintAssist.HintOpacity=".26" Height="28" Width="180"
+					
+						SelectionChanged="ChangeEffect">
 
+						<Label Content="Sáng theo hiệu ứng" />
+						<Label Content="Sáng theo màn hình"/>
+						<Label Content="Sáng màu tĩnh"/>
+						<Label Content="Sáng theo nhạc"/>
+						<Label Content="Đồng bộ Mainboard"/>
+						<Label Content="Tắt"/>
+						
 					</ComboBox>
 					<TextBlock HorizontalAlignment="Right" Width="48"  
 							   Grid.Row="1" Margin="0,10,236,-20"
@@ -270,25 +275,24 @@
 			</materialDesign:Card>
 
 		</WrapPanel>
+        <WrapPanel Margin="30,0,0,0" Width="800" Orientation="Vertical">
 
-		<WrapPanel Margin="30,0,0,0" Width="800" Orientation="Vertical">
-
-			<!--done-->
-			<materialDesign:Card x:Name="effectCard" Visibility="Collapsed"
+            <!--done-->
+            <materialDesign:Card x:Name="effectCard" Visibility="Collapsed"
 				Margin="4 4 4 4" Width="740" Height="363" RenderTransformOrigin="0.465,0.105">
 
-				<Grid VerticalAlignment="Top">
+                <Grid VerticalAlignment="Top">
 
 
-					<Grid.RowDefinitions>
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*"/>
-						<RowDefinition Height="*"/>
-						<RowDefinition Height="*"/>
-					</Grid.RowDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
 
-					<ComboBox 
+                    <ComboBox 
 						x:Name="effectbox" ToolTip="Các chế độ cài sẵn do Ambino thiết kế"
 						SelectedIndex="{Binding Settings.effectcounter}"
 						materialDesign:HintAssist.Hint=""
@@ -296,43 +300,42 @@
 						SelectionChanged="ChangeRunningMode"
 						materialDesign:HintAssist.HintOpacity=".26" 
 						Margin="180,20,62,20" Height="40" Width="400" Grid.Row="0">
-						<Label Content="Rainbow" />
-						<Label Content="Party"/>
-						<Label Content="Cloud"/>
-						<Label Content="Rainbow Stripe"/>
-						<Label Content="The Flash"/>
-						<Label Content="Ocean"/>
-						<Label Content="Forest"/>
-						<Label Content="Debug"/>
-						<Label Content="Ice Blue" />
-						<Label Content="Retro"/>
-						<Label Content="debug2"/>
-						<Label Content="debug3" />
-						<Label Content="Aurora"/>
-						<Label Content="Halloween"/>
-						<Label Content="Summer"/>
-						<Label Content="Wicked Qeen"/>
-						<Label Content="Tron"/>
-						<Label Content="Killgrave"/>
-						<Label Content="Lime"/>
-						<Label Content="RED"/>
-						<Label Content="Christmas" />
-						<Label Content="Mutant"/>
-						<Label Content="Flame"/>
-						<Label Content="France"/>
-						<Label Content="Neo-noir"/>
-						<Label Content="Aura"/>
-						<Label Content="Temperature"/>
-						<Label Content="Cosmic"/>
-						<Label Content="Garden"/>
-						<Label Content="Neon Midnight" />
-						<Label Content="Rainbow Custom Zone" Background="#FF512DA8" Foreground="White"/>
-					</ComboBox>
-					<TextBlock x:Name="txtHieuUng" FontSize="30" Height="50"
+                        <Label Content="Rainbow" />
+                        <Label Content="Party"/>
+                        <Label Content="Cloud"/>
+                        <Label Content="Rainbow Stripe"/>
+                        <Label Content="The Flash"/>
+                        <Label Content="Ocean"/>
+                        <Label Content="Forest"/>
+                        <Label Content="Debug"/>
+                        <Label Content="Ice Blue" />
+                        <Label Content="Retro"/>
+                        <Label Content="debug2"/>
+                        <Label Content="debug3" />
+                        <Label Content="Aurora"/>
+                        <Label Content="Halloween"/>
+                        <Label Content="Summer"/>
+                        <Label Content="Wicked Qeen"/>
+                        <Label Content="Tron"/>
+                        <Label Content="Killgrave"/>
+                        <Label Content="Lime"/>
+                        <Label Content="RED"/>
+                        <Label Content="Christmas" />
+                        <Label Content="Mutant"/>
+                        <Label Content="Flame"/>
+                        <Label Content="France"/>
+                        <Label Content="Neo-noir"/>
+                        <Label Content="Aura"/>
+                        <Label Content="Temperature"/>
+                        <Label Content="Cosmic"/>
+                        <Label Content="Garden"/>
+                        <Label Content="Neon Midnight" />
+                        <Label Content="Rainbow Custom Zone" Background="#FF512DA8" Foreground="White"/>
+                    </ComboBox>
+                    <TextBlock x:Name="txtHieuUng" FontSize="30" Height="50"
 							   HorizontalAlignment="Right" Width="160" Margin="0,30,555,20"
-							   RenderTransformOrigin="0.479,0.15" Grid.Row="0">
-						<Run Text=" Hiệu ứng"/></TextBlock>
-					<ToggleButton
+							   RenderTransformOrigin="0.479,0.15" Grid.Row="0"><Run Text=" Hiệu ứng"/></TextBlock>
+                    <ToggleButton
 						x:Name="Shuffle"
 						Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
 						ToolTip="Shuffle"
@@ -340,34 +343,33 @@
 						Margin="0,0,35,20" Height="50" Width="50" 
 						HorizontalAlignment="Right" VerticalAlignment="Bottom" 
 						Grid.Row="0">
-						<materialDesign:PackIcon
+                        <materialDesign:PackIcon
 							Kind="Shuffle"
 							Margin="0,0,0,0"
 							Height="41"
 							Width="41" RenderTransformOrigin="0.5,0.5" >
-							<materialDesign:PackIcon.RenderTransform>
-								<TransformGroup>
-									<ScaleTransform/>
-									<SkewTransform AngleY="0.83"/>
-									<RotateTransform/>
-									<TranslateTransform Y="-0.152"/>
-								</TransformGroup>
-							</materialDesign:PackIcon.RenderTransform>
-						</materialDesign:PackIcon>
-					</ToggleButton>
+                            <materialDesign:PackIcon.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform AngleY="0.83"/>
+                                    <RotateTransform/>
+                                    <TranslateTransform Y="-0.152"/>
+                                </TransformGroup>
+                            </materialDesign:PackIcon.RenderTransform>
+                        </materialDesign:PackIcon>
+                    </ToggleButton>
 
 
 
 
 
 
-					<TextBlock x:Name="txtChay" 
+                    <TextBlock x:Name="txtChay" 
 						   FontWeight="Normal" HorizontalAlignment="Right"
 						   RenderTransformOrigin="0.468,0.181"
 						   FontSize="30" Height="50"
-						   Width="160" Margin="0,30,547,20" Grid.Row="1" Visibility="Visible">
-						<Run Text="Kiểu chạy"/></TextBlock>
-					<ComboBox 
+						   Width="160" Margin="0,30,547,20" Grid.Row="1" Visibility="Visible"><Run Text="Kiểu chạy"/></TextBlock>
+                    <ComboBox 
 						x:Name="method" ToolTip="Các kiểu phối hợp từ các màu hoặc chế độ đã chọn"
 						SelectedIndex="{Binding Settings.methodcounter}"
 						materialDesign:HintAssist.Hint=""
@@ -376,29 +378,28 @@
 						Grid.Row="1" Margin="180,20,62,20" Height="40" Width="400" 
 						RenderTransformOrigin="0.67,0.518" FontSize="25">
 
-						<Label Content="Chasing" />
-						<Label Content="Sinwave"/>
-						<Label Content="Matrix"/>
-						<Label Content="Snake"/>
-						<Label Content="Twinkles"/>
-						<Label Content="Heartbeat"/>
-						<Label Content="Juggle"/>
-						<Label Content="Sinelon"/>
+                        <Label Content="Chasing" />
+                        <Label Content="Sinwave"/>
+                        <Label Content="Matrix"/>
+                        <Label Content="Snake"/>
+                        <Label Content="Twinkles"/>
+                        <Label Content="Heartbeat"/>
+                        <Label Content="Juggle"/>
+                        <Label Content="Sinelon"/>
 
 
-					</ComboBox>
-
-
-
+                    </ComboBox>
 
 
 
 
-					<TextBlock FontWeight="Normal" HorizontalAlignment="Right" 
+
+
+
+                    <TextBlock FontWeight="Normal" HorizontalAlignment="Right" 
 						FontSize="30" Height="50"
-						Width="160" Margin="0,30,548,20" Grid.Row="2" >
-						<Run Text="Tốc độ LED"/></TextBlock>
-					<Slider
+						Width="160" Margin="0,30,548,20" Grid.Row="2" ><Run Text="Tốc độ LED"/></TextBlock>
+                    <Slider
 						  x:Name="speed" ToolTip="Tốc độ nhanh chậm của LED (càng nhanh nhìn càng mượt)"
 						  TickFrequency="1"
 						  Orientation="Horizontal"
@@ -408,13 +409,12 @@
 						  Margin="180,10,62,0" Height="30" Width="400" Grid.Row="2" />
 
 
-					<TextBlock x:Name="txtDoChia"
+                    <TextBlock x:Name="txtDoChia"
 							   FontWeight="Normal" HorizontalAlignment="Right"
 						       RenderTransformOrigin="0.337,1.821"
 							   FontSize="30" Height="50"
-							   Width="160" Margin="0,30,547,20" Grid.Row="3">
-					<Run Text="Độ chia"/></TextBlock>
-					<Slider x:Name="sin" 
+							   Width="160" Margin="0,30,547,20" Grid.Row="3"><Run Text="Độ chia"/></TextBlock>
+                    <Slider x:Name="sin" 
 							ToolTip="Độ dày mỏng của các mảng màu kế tiếp nhau (càng cao màu càng đậm)"
                     TickFrequency="16"
                     TickPlacement="BottomRight"
@@ -425,27 +425,26 @@
 					Margin="180,10,62,0" Height="30" Width="400" Grid.Row="3" />
 
 
-				</Grid>
-			</materialDesign:Card>
+                </Grid>
+            </materialDesign:Card>
 
-			<!--done-->
-			<materialDesign:Card x:Name="staticCard" Visibility="Collapsed"
+            <!--done-->
+            <materialDesign:Card x:Name="staticCard" Visibility="Collapsed"
 				Margin="4 4 4 4" Width="740" Height="520" RenderTransformOrigin="0.465,0.105">
-				<Grid VerticalAlignment="Top">
+                <Grid VerticalAlignment="Top">
 
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto" MinHeight="159" />
-					</Grid.RowDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" MinHeight="159" />
+                    </Grid.RowDefinitions>
 
-					<TextBlock FontWeight="Normal" HorizontalAlignment="Right"
+                    <TextBlock FontWeight="Normal" HorizontalAlignment="Right"
 							   RenderTransformOrigin="0.596,0.275" 
 							   FontSize="30" Height="50"
 							   Width="160" Margin="0,30,547,20"
-							   Visibility="Visible">
-					<Run Text="Màu tĩnh"/></TextBlock>
-					<xctk:ColorCanvas SelectedColor="{Binding Settings.DeskStatic}"
+							   Visibility="Visible"><Run Text="Màu tĩnh"/></TextBlock>
+                    <xctk:ColorCanvas SelectedColor="{Binding Settings.DeskStatic}"
 									  />
-					<xctk:ColorPicker x:Name="ClrPcker_Background_1_Copy1"  RenderTransformOrigin="0.5,0.5" 
+                    <xctk:ColorPicker x:Name="ClrPcker_Background_1_Copy1"  RenderTransformOrigin="0.5,0.5" 
 								AvailableColorsSortingMode="HueSaturationBrightness" 
 								ShowDropDownButton="True" ShowStandardColors="False" 
 								SelectedColor="{Binding Settings.ScreenStatic}" 
@@ -454,248 +453,248 @@
 								  AvailableColorsHeader="Các màu cơ bản"
 								  Margin="222,65,70,70" IsOpen="True" FontSize="20" 
 								  SelectedColorChanged="ClrPcker_Background_1_Copy1_SelectedColorChanged"/>
-				</Grid>
-			</materialDesign:Card>
+                </Grid>
+            </materialDesign:Card>
 
-			<!--done-->
-			<materialDesign:Card x:Name="customZone" Visibility="Collapsed"
+            <!--done-->
+            <materialDesign:Card x:Name="customZone" Visibility="Collapsed"
 				Margin="4 4 4 4" Width="740" Height="262" VerticalAlignment="Top">
-				<Grid>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="244" />
-						<RowDefinition Height="0"/>
-						<RowDefinition Height="0"/>
-						<RowDefinition Height="0*" />
-					</Grid.RowDefinitions>
-					<ToggleButton
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="244" />
+                        <RowDefinition Height="0"/>
+                        <RowDefinition Height="0"/>
+                        <RowDefinition Height="0*" />
+                    </Grid.RowDefinitions>
+                    <ToggleButton
                     x:Name="staticbutton3"
                     
                     Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" VerticalAlignment="Center"
                     ToolTip="Chọn màu tĩnh cho led màn hình"  Visibility="Hidden" IsChecked="{Binding Settings.fixedcolor}" Checked="ToggleButton_Checked" Margin="232,208,22,12" Height="24" />
-					<ToggleButton
+                    <ToggleButton
                     x:Name="rainbowbutton3"
                     Visibility="Hidden"
                     Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
                     ToolTip="Đồng bộ LED màn hình với LED FAN, bao gồm nháy theo nhạc màu tĩnh và rainbow"
                     IsChecked="{Binding Settings.effect}" Margin="122,305,122,-305" Height="Auto" Width="Auto" Grid.Row="3" Checked="ToggleButton_Checked_2" Padding="10">
-						<materialDesign:PackIcon
+                        <materialDesign:PackIcon
                         Kind="Sync"
                         Height="28"
                         Width="28" />
-					</ToggleButton>
-					<ToggleButton
+                    </ToggleButton>
+                    <ToggleButton
                     x:Name="screenbutton3"
                     Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" VerticalAlignment="Center" Margin="238,136,16,82" Visibility="Hidden"
                     ToolTip="Cho phép điều chỉnh LED màn hình thay vì dùng Ambilight" IsChecked="{Binding Settings.SendRandomColors}" Checked="ToggleButton_Checked" Height="26" />
-					<Image x:Name="cuszoneIcon"
+                    <Image x:Name="cuszoneIcon"
 						   RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" Height="137" 
 						   Margin="-20,-23,0,0" VerticalAlignment="Top" Width="149" 
 						   Source="/adrilight;component/View/Images/purple theme/chameleon@2x.png" 
 						   RenderTransformOrigin="-0.186,0.516"/>
-					<xctk:ColorPicker x:Name="ClrPcker_Background_1" SelectedColorChanged="ClrPcker_Background_1_SelectedColorChanged" Margin="81,81,431,141" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color1}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản"/>
-					<xctk:ColorPicker x:Name="ClrPcker_Background_2" SelectedColorChanged="ClrPcker_Background_2_SelectedColorChanged" Margin="153,81,499,141" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color2}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản"/>
-					<xctk:ColorPicker x:Name="ClrPcker_Background_3" SelectedColorChanged="ClrPcker_Background_3_SelectedColorChanged" Margin="230,81,327,141" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color3}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản"/>
-					<xctk:ColorPicker x:Name="ClrPcker_Background_4" SelectedColorChanged="ClrPcker_Background_4_SelectedColorChanged" Margin="310,81,276,141" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color4}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản"/>
-					<xctk:ColorPicker x:Name="ClrPcker_Background_5" SelectedColorChanged="ClrPcker_Background_5_SelectedColorChanged" Margin="385,81,225,141" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color5}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản"/>
-					<xctk:ColorPicker x:Name="ClrPcker_Background_6" SelectedColorChanged="ClrPcker_Background_6_SelectedColorChanged" Margin="461,81,171,141" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color6}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản"/>
-					<xctk:ColorPicker x:Name="ClrPcker_Background_7" SelectedColorChanged="ClrPcker_Background_7_SelectedColorChanged" Margin="534,81,119,141" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color7}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản"/>
-					<xctk:ColorPicker x:Name="ClrPcker_Background_8" SelectedColorChanged="ClrPcker_Background_8_SelectedColorChanged" Margin="605,81,67,141" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color8}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản"/>
-					<Button x:Name="bt5"
+                    <xctk:ColorPicker x:Name="ClrPcker_Background_1" SelectedColorChanged="ClrPcker_Background_1_SelectedColorChanged" Margin="81,81,431,141" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color1}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản"/>
+                    <xctk:ColorPicker x:Name="ClrPcker_Background_2" SelectedColorChanged="ClrPcker_Background_2_SelectedColorChanged" Margin="153,81,499,141" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color2}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản"/>
+                    <xctk:ColorPicker x:Name="ClrPcker_Background_3" SelectedColorChanged="ClrPcker_Background_3_SelectedColorChanged" Margin="230,81,327,141" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color3}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản"/>
+                    <xctk:ColorPicker x:Name="ClrPcker_Background_4" SelectedColorChanged="ClrPcker_Background_4_SelectedColorChanged" Margin="310,81,276,141" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color4}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản"/>
+                    <xctk:ColorPicker x:Name="ClrPcker_Background_5" SelectedColorChanged="ClrPcker_Background_5_SelectedColorChanged" Margin="385,81,225,141" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color5}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản"/>
+                    <xctk:ColorPicker x:Name="ClrPcker_Background_6" SelectedColorChanged="ClrPcker_Background_6_SelectedColorChanged" Margin="461,81,171,141" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color6}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản"/>
+                    <xctk:ColorPicker x:Name="ClrPcker_Background_7" SelectedColorChanged="ClrPcker_Background_7_SelectedColorChanged" Margin="534,81,119,141" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color7}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản"/>
+                    <xctk:ColorPicker x:Name="ClrPcker_Background_8" SelectedColorChanged="ClrPcker_Background_8_SelectedColorChanged" Margin="605,81,67,141" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color8}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản"/>
+                    <Button x:Name="bt5"
                         Style="{StaticResource MaterialDesignFloatingActionButton}" 
 						materialDesign:ButtonProgressAssist.IsIndicatorVisible="False" 
 						Margin="703,80,11,139" Background="#FF616161" Click="Button_Click_5" 
 						Height="Auto" Width="Auto" RenderTransformOrigin="-1.456,-0.132">
-						<materialDesign:PackIcon
+                        <materialDesign:PackIcon
                             Kind="ContentSaveAll" Foreground="White"
                             Height="15"
                             Width="15" />
-					</Button>
-					<Button x:Name="bt4"
+                    </Button>
+                    <Button x:Name="bt4"
                         Style="{StaticResource MaterialDesignFloatingActionButton}" Margin="703,37,10,182" Background="#FF616161" 
 						Click="Button_Click_4" Height="Auto" Width="Auto">
-						<materialDesign:PackIcon
+                        <materialDesign:PackIcon
                             Kind="DotsHorizontal" Foreground="White"
                             Height="15"
                             Width="15" RenderTransformOrigin="-1.486,0.944" />
-					</Button>
-					<TextBox
+                    </Button>
+                    <TextBox
                         x:Name="filemaubox"
                         Text="{Binding Settings.filemau}"
                         materialDesign:HintAssist.Hint="File màu/Freq Band"  Margin="440,36,69,183" />
-					<TextBlock x:Name="txtTitle"
+                    <TextBlock x:Name="txtTitle"
                             Margin="0,9,10,218" HorizontalAlignment="Right" Padding="0" Width="210" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"><Run Text="Rainbow-Music Custom Zone"/></TextBlock>
-					<ProgressBar x:Name="zoebar1" Height="26" Margin="64,0,626,85" 
+                    <ProgressBar x:Name="zoebar1" Height="26" Margin="64,0,626,85" 
 								 Foreground="#FF7E3CBD" VerticalAlignment="Bottom" 
 								 Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" 
 								 RenderTransformOrigin="0.5,0.5">
-						<ProgressBar.RenderTransform>
-							<TransformGroup>
-								<ScaleTransform/>
-								<SkewTransform/>
-								<RotateTransform Angle="-90"/>
-								<TranslateTransform/>
-							</TransformGroup>
-						</ProgressBar.RenderTransform>
-					</ProgressBar>
-					<ProgressBar x:Name="zoebar2" Height="25" Margin="104,0,586,85" 
+                        <ProgressBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ProgressBar.RenderTransform>
+                    </ProgressBar>
+                    <ProgressBar x:Name="zoebar2" Height="25" Margin="104,0,586,85" 
 								 Foreground="#FF7E3CBD" VerticalAlignment="Bottom" 
 								 Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" 
 								 RenderTransformOrigin="0.51,-0.18">
-						<ProgressBar.RenderTransform>
-							<TransformGroup>
-								<ScaleTransform/>
-								<SkewTransform/>
-								<RotateTransform Angle="-90"/>
-								<TranslateTransform X="-17.5" Y="16.5"/>
-							</TransformGroup>
-						</ProgressBar.RenderTransform>
-					</ProgressBar>
-					<ProgressBar x:Name="zoebar3" Height="26" Margin="145,0,545,85" 
+                        <ProgressBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="-17.5" Y="16.5"/>
+                            </TransformGroup>
+                        </ProgressBar.RenderTransform>
+                    </ProgressBar>
+                    <ProgressBar x:Name="zoebar3" Height="26" Margin="145,0,545,85" 
 								 Foreground="#FF7E3CBD" VerticalAlignment="Bottom" 
 								 Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" 
 								 RenderTransformOrigin="-1.26,0.15">
-						<ProgressBar.RenderTransform>
-							<TransformGroup>
-								<ScaleTransform/>
-								<SkewTransform/>
-								<RotateTransform Angle="-90"/>
-								<TranslateTransform X="77.5" Y="98.5"/>
-							</TransformGroup>
-						</ProgressBar.RenderTransform>
-					</ProgressBar>
-					<ProgressBar x:Name="zoebar4" Height="25" Margin="186,0,504,85" Foreground="#FF7E3CBD" 
+                        <ProgressBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="77.5" Y="98.5"/>
+                            </TransformGroup>
+                        </ProgressBar.RenderTransform>
+                    </ProgressBar>
+                    <ProgressBar x:Name="zoebar4" Height="25" Margin="186,0,504,85" Foreground="#FF7E3CBD" 
 								 VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" 
 								 BorderBrush="{x:Null}" RenderTransformOrigin="0.54,-0.82">
-						<ProgressBar.RenderTransform>
-							<TransformGroup>
-								<ScaleTransform/>
-								<SkewTransform/>
-								<RotateTransform Angle="-90"/>
-								<TranslateTransform X="-35" Y="31"/>
-							</TransformGroup>
-						</ProgressBar.RenderTransform>
-					</ProgressBar>
-					<ProgressBar x:Name="zoebar5" Height="24" Margin="228,0,462,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.48,-0.64">
-						<ProgressBar.RenderTransform>
-							<TransformGroup>
-								<ScaleTransform/>
-								<SkewTransform/>
-								<RotateTransform Angle="-90"/>
-								<TranslateTransform X="-27.5" Y="29.5"/>
-							</TransformGroup>
-						</ProgressBar.RenderTransform>
-					</ProgressBar>
-					<ProgressBar x:Name="zoebar6" Height="25" Margin="268,0,422,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.48,-0.46">
-						<ProgressBar.RenderTransform>
-							<TransformGroup>
-								<ScaleTransform/>
-								<SkewTransform/>
-								<RotateTransform Angle="-90"/>
-								<TranslateTransform X="-23" Y="25"/>
-							</TransformGroup>
-						</ProgressBar.RenderTransform>
-					</ProgressBar>
-					<ProgressBar x:Name="zoebar7" Height="24" Margin="309,0,381,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.48,-0.02">
-						<ProgressBar.RenderTransform>
-							<TransformGroup>
-								<ScaleTransform/>
-								<SkewTransform/>
-								<RotateTransform Angle="-90"/>
-								<TranslateTransform X="-12" Y="14"/>
-							</TransformGroup>
-						</ProgressBar.RenderTransform>
-					</ProgressBar>
-					<ProgressBar x:Name="zoebar8" Height="26" Margin="348,0,342,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,0.5">
-						<ProgressBar.RenderTransform>
-							<TransformGroup>
-								<ScaleTransform/>
-								<SkewTransform/>
-								<RotateTransform Angle="-90"/>
-								<TranslateTransform/>
-							</TransformGroup>
-						</ProgressBar.RenderTransform>
-					</ProgressBar>
-					<ProgressBar x:Name="zoebar9" Height="26" Margin="386,0,304,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,0.5">
-						<ProgressBar.RenderTransform>
-							<TransformGroup>
-								<ScaleTransform/>
-								<SkewTransform/>
-								<RotateTransform Angle="-90"/>
-								<TranslateTransform/>
-							</TransformGroup>
-						</ProgressBar.RenderTransform>
-					</ProgressBar>
-					<ProgressBar x:Name="zoebar10" Height="26" Margin="428,0,262,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,0.5">
-						<ProgressBar.RenderTransform>
-							<TransformGroup>
-								<ScaleTransform/>
-								<SkewTransform/>
-								<RotateTransform Angle="-90"/>
-								<TranslateTransform/>
-							</TransformGroup>
-						</ProgressBar.RenderTransform>
-					</ProgressBar>
-					<ProgressBar x:Name="zoebar11" Height="24" Margin="472,0,218,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.51,0.86">
-						<ProgressBar.RenderTransform>
-							<TransformGroup>
-								<ScaleTransform/>
-								<SkewTransform/>
-								<RotateTransform Angle="-90"/>
-								<TranslateTransform X="8.5" Y="-9.5"/>
-							</TransformGroup>
-						</ProgressBar.RenderTransform>
-					</ProgressBar>
-					<ProgressBar x:Name="zoebar12" Height="26" Margin="514,0,176,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,0.788">
-						<ProgressBar.RenderTransform>
-							<TransformGroup>
-								<ScaleTransform/>
-								<SkewTransform/>
-								<RotateTransform Angle="-90"/>
-								<TranslateTransform X="7.488" Y="-7.488"/>
-							</TransformGroup>
-						</ProgressBar.RenderTransform>
-					</ProgressBar>
-					<ProgressBar x:Name="zoebar13" Height="25" Margin="558,0,132,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.51,2.42">
-						<ProgressBar.RenderTransform>
-							<TransformGroup>
-								<ScaleTransform/>
-								<SkewTransform/>
-								<RotateTransform Angle="-90"/>
-								<TranslateTransform X="47.5" Y="-48.5"/>
-							</TransformGroup>
-						</ProgressBar.RenderTransform>
-					</ProgressBar>
-					<ProgressBar x:Name="zoebar14" Height="26" Margin="604,0,86,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.57,2.5">
-						<ProgressBar.RenderTransform>
-							<TransformGroup>
-								<ScaleTransform/>
-								<SkewTransform/>
-								<RotateTransform Angle="-90"/>
-								<TranslateTransform X="46.5" Y="-53.5"/>
-							</TransformGroup>
-						</ProgressBar.RenderTransform>
-					</ProgressBar>
-					<ProgressBar x:Name="zoebar15" Height="25" Margin="646,0,44,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,0.5">
-						<ProgressBar.RenderTransform>
-							<TransformGroup>
-								<ScaleTransform/>
-								<SkewTransform/>
-								<RotateTransform Angle="-90"/>
-								<TranslateTransform/>
-							</TransformGroup>
-						</ProgressBar.RenderTransform>
-					</ProgressBar>
-					<ProgressBar x:Name="zoebar16" Height="26" Margin="690,0,0,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,0.5">
-						<ProgressBar.RenderTransform>
-							<TransformGroup>
-								<ScaleTransform/>
-								<SkewTransform/>
-								<RotateTransform Angle="-90"/>
-								<TranslateTransform/>
-							</TransformGroup>
-						</ProgressBar.RenderTransform>
-					</ProgressBar>
-					<ComboBox 
+                        <ProgressBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="-35" Y="31"/>
+                            </TransformGroup>
+                        </ProgressBar.RenderTransform>
+                    </ProgressBar>
+                    <ProgressBar x:Name="zoebar5" Height="24" Margin="228,0,462,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.48,-0.64">
+                        <ProgressBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="-27.5" Y="29.5"/>
+                            </TransformGroup>
+                        </ProgressBar.RenderTransform>
+                    </ProgressBar>
+                    <ProgressBar x:Name="zoebar6" Height="25" Margin="268,0,422,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.48,-0.46">
+                        <ProgressBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="-23" Y="25"/>
+                            </TransformGroup>
+                        </ProgressBar.RenderTransform>
+                    </ProgressBar>
+                    <ProgressBar x:Name="zoebar7" Height="24" Margin="309,0,381,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.48,-0.02">
+                        <ProgressBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="-12" Y="14"/>
+                            </TransformGroup>
+                        </ProgressBar.RenderTransform>
+                    </ProgressBar>
+                    <ProgressBar x:Name="zoebar8" Height="26" Margin="348,0,342,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,0.5">
+                        <ProgressBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ProgressBar.RenderTransform>
+                    </ProgressBar>
+                    <ProgressBar x:Name="zoebar9" Height="26" Margin="386,0,304,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,0.5">
+                        <ProgressBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ProgressBar.RenderTransform>
+                    </ProgressBar>
+                    <ProgressBar x:Name="zoebar10" Height="26" Margin="428,0,262,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,0.5">
+                        <ProgressBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ProgressBar.RenderTransform>
+                    </ProgressBar>
+                    <ProgressBar x:Name="zoebar11" Height="24" Margin="472,0,218,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.51,0.86">
+                        <ProgressBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="8.5" Y="-9.5"/>
+                            </TransformGroup>
+                        </ProgressBar.RenderTransform>
+                    </ProgressBar>
+                    <ProgressBar x:Name="zoebar12" Height="26" Margin="514,0,176,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,0.788">
+                        <ProgressBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="7.488" Y="-7.488"/>
+                            </TransformGroup>
+                        </ProgressBar.RenderTransform>
+                    </ProgressBar>
+                    <ProgressBar x:Name="zoebar13" Height="25" Margin="558,0,132,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.51,2.42">
+                        <ProgressBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="47.5" Y="-48.5"/>
+                            </TransformGroup>
+                        </ProgressBar.RenderTransform>
+                    </ProgressBar>
+                    <ProgressBar x:Name="zoebar14" Height="26" Margin="604,0,86,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.57,2.5">
+                        <ProgressBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="46.5" Y="-53.5"/>
+                            </TransformGroup>
+                        </ProgressBar.RenderTransform>
+                    </ProgressBar>
+                    <ProgressBar x:Name="zoebar15" Height="25" Margin="646,0,44,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,0.5">
+                        <ProgressBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ProgressBar.RenderTransform>
+                    </ProgressBar>
+                    <ProgressBar x:Name="zoebar16" Height="26" Margin="690,0,0,85" Foreground="#FF7E3CBD" VerticalAlignment="Bottom" Maximum="255" Background="#FFE0E0E0" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,0.5">
+                        <ProgressBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ProgressBar.RenderTransform>
+                    </ProgressBar>
+                    <ComboBox 
                     x:Name="Music_box_1" 
                     
                     SelectedIndex="{Binding Settings.order_data0}"
@@ -703,498 +702,496 @@
                     IsEditable="False"
                     materialDesign:HintAssist.HintOpacity=".26" Margin="72,216,628,5" 
 						Height="24" SelectionChanged="Music_box_SelectionChanged" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0">
-						<Label Content="1" />
-						<Label Content="2"/>
-						<Label Content="3"/>
-						<Label Content="4"/>
-						<Label Content="5"/>
-						<Label Content="6" />
-						<Label Content="7"/>
-						<Label Content="8"/>
-						<Label Content="9"/>
-						<Label Content="10"/>
-						<Label Content="11"/>
-						<Label Content="12"/>
-						<Label Content="13"/>
-						<Label Content="14"/>
-						<Label Content="15"/>
-						<Label Content="16"/>
+                        <Label Content="1" />
+                        <Label Content="2"/>
+                        <Label Content="3"/>
+                        <Label Content="4"/>
+                        <Label Content="5"/>
+                        <Label Content="6" />
+                        <Label Content="7"/>
+                        <Label Content="8"/>
+                        <Label Content="9"/>
+                        <Label Content="10"/>
+                        <Label Content="11"/>
+                        <Label Content="12"/>
+                        <Label Content="13"/>
+                        <Label Content="14"/>
+                        <Label Content="15"/>
+                        <Label Content="16"/>
 
 
 
-					</ComboBox>
-					<ComboBox 
+                    </ComboBox>
+                    <ComboBox 
                     x:Name="Music_box_2" 
                     SelectedIndex="{Binding Settings.order_data1}"
                     materialDesign:HintAssist.Hint=""
                     IsEditable="False"
                     materialDesign:HintAssist.HintOpacity=".26" Margin="110,216,594,5" Height="24" SelectionChanged="Music_box_SelectionChanged" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
-						<Label Content="1" />
-						<Label Content="2"/>
-						<Label Content="3"/>
-						<Label Content="4"/>
-						<Label Content="5"/>
-						<Label Content="6" />
-						<Label Content="7"/>
-						<Label Content="8"/>
-						<Label Content="9"/>
-						<Label Content="10"/>
-						<Label Content="11"/>
-						<Label Content="12"/>
-						<Label Content="13"/>
-						<Label Content="14"/>
-						<Label Content="15"/>
-						<Label Content="16"/>
+                        <Label Content="1" />
+                        <Label Content="2"/>
+                        <Label Content="3"/>
+                        <Label Content="4"/>
+                        <Label Content="5"/>
+                        <Label Content="6" />
+                        <Label Content="7"/>
+                        <Label Content="8"/>
+                        <Label Content="9"/>
+                        <Label Content="10"/>
+                        <Label Content="11"/>
+                        <Label Content="12"/>
+                        <Label Content="13"/>
+                        <Label Content="14"/>
+                        <Label Content="15"/>
+                        <Label Content="16"/>
 
 
 
-					</ComboBox>
-					<ComboBox 
+                    </ComboBox>
+                    <ComboBox 
                     x:Name="Music_box_3" 
                     SelectedIndex="{Binding Settings.order_data2}"
                     materialDesign:HintAssist.Hint=""
                     IsEditable="False"
                     materialDesign:HintAssist.HintOpacity=".26" Margin="148,216,551,5" Height="24" SelectionChanged="Music_box_SelectionChanged" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
-						<Label Content="1" />
-						<Label Content="2"/>
-						<Label Content="3"/>
-						<Label Content="4"/>
-						<Label Content="5"/>
-						<Label Content="6" />
-						<Label Content="7"/>
-						<Label Content="8"/>
-						<Label Content="9"/>
-						<Label Content="10"/>
-						<Label Content="11"/>
-						<Label Content="12"/>
-						<Label Content="13"/>
-						<Label Content="14"/>
-						<Label Content="15"/>
-						<Label Content="16"/>
+                        <Label Content="1" />
+                        <Label Content="2"/>
+                        <Label Content="3"/>
+                        <Label Content="4"/>
+                        <Label Content="5"/>
+                        <Label Content="6" />
+                        <Label Content="7"/>
+                        <Label Content="8"/>
+                        <Label Content="9"/>
+                        <Label Content="10"/>
+                        <Label Content="11"/>
+                        <Label Content="12"/>
+                        <Label Content="13"/>
+                        <Label Content="14"/>
+                        <Label Content="15"/>
+                        <Label Content="16"/>
 
 
 
-					</ComboBox>
-					<ComboBox 
+                    </ComboBox>
+                    <ComboBox 
                     x:Name="Music_box_4" 
                     SelectedIndex="{Binding Settings.order_data3}"
                     materialDesign:HintAssist.Hint=""
                     IsEditable="False"
                     materialDesign:HintAssist.HintOpacity=".26" Margin="185,216,510,5" Height="24" SelectionChanged="Music_box_SelectionChanged" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
-						<Label Content="1" />
-						<Label Content="2"/>
-						<Label Content="3"/>
-						<Label Content="4"/>
-						<Label Content="5"/>
-						<Label Content="6" />
-						<Label Content="7"/>
-						<Label Content="8"/>
-						<Label Content="9"/>
-						<Label Content="10"/>
-						<Label Content="11"/>
-						<Label Content="12"/>
-						<Label Content="13"/>
-						<Label Content="14"/>
-						<Label Content="15"/>
-						<Label Content="16"/>
+                        <Label Content="1" />
+                        <Label Content="2"/>
+                        <Label Content="3"/>
+                        <Label Content="4"/>
+                        <Label Content="5"/>
+                        <Label Content="6" />
+                        <Label Content="7"/>
+                        <Label Content="8"/>
+                        <Label Content="9"/>
+                        <Label Content="10"/>
+                        <Label Content="11"/>
+                        <Label Content="12"/>
+                        <Label Content="13"/>
+                        <Label Content="14"/>
+                        <Label Content="15"/>
+                        <Label Content="16"/>
 
 
 
-					</ComboBox>
-					<ComboBox 
+                    </ComboBox>
+                    <ComboBox 
                     x:Name="Music_box_5" 
                     SelectedIndex="{Binding Settings.order_data4}"
                     materialDesign:HintAssist.Hint=""
                     IsEditable="False"
                     materialDesign:HintAssist.HintOpacity=".26" Margin="230,216,468,5" Height="24" SelectionChanged="Music_box_SelectionChanged" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
-						<Label Content="1" />
-						<Label Content="2"/>
-						<Label Content="3"/>
-						<Label Content="4"/>
-						<Label Content="5"/>
-						<Label Content="6" />
-						<Label Content="7"/>
-						<Label Content="8"/>
-						<Label Content="9"/>
-						<Label Content="10"/>
-						<Label Content="11"/>
-						<Label Content="12"/>
-						<Label Content="13"/>
-						<Label Content="14"/>
-						<Label Content="15"/>
-						<Label Content="16"/>
+                        <Label Content="1" />
+                        <Label Content="2"/>
+                        <Label Content="3"/>
+                        <Label Content="4"/>
+                        <Label Content="5"/>
+                        <Label Content="6" />
+                        <Label Content="7"/>
+                        <Label Content="8"/>
+                        <Label Content="9"/>
+                        <Label Content="10"/>
+                        <Label Content="11"/>
+                        <Label Content="12"/>
+                        <Label Content="13"/>
+                        <Label Content="14"/>
+                        <Label Content="15"/>
+                        <Label Content="16"/>
 
 
 
-					</ComboBox>
-					<ComboBox 
+                    </ComboBox>
+                    <ComboBox 
                     x:Name="Music_box_6" 
                     SelectedIndex="{Binding Settings.order_data5}"
                     materialDesign:HintAssist.Hint=""
                     IsEditable="False"
                     materialDesign:HintAssist.HintOpacity=".26" Margin="275,218,421,3" Height="24" SelectionChanged="Music_box_SelectionChanged" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
-						<Label Content="1" />
-						<Label Content="2"/>
-						<Label Content="3"/>
-						<Label Content="4"/>
-						<Label Content="5"/>
-						<Label Content="6" />
-						<Label Content="7"/>
-						<Label Content="8"/>
-						<Label Content="9"/>
-						<Label Content="10"/>
-						<Label Content="11"/>
-						<Label Content="12"/>
-						<Label Content="13"/>
-						<Label Content="14"/>
-						<Label Content="15"/>
-						<Label Content="16"/>
+                        <Label Content="1" />
+                        <Label Content="2"/>
+                        <Label Content="3"/>
+                        <Label Content="4"/>
+                        <Label Content="5"/>
+                        <Label Content="6" />
+                        <Label Content="7"/>
+                        <Label Content="8"/>
+                        <Label Content="9"/>
+                        <Label Content="10"/>
+                        <Label Content="11"/>
+                        <Label Content="12"/>
+                        <Label Content="13"/>
+                        <Label Content="14"/>
+                        <Label Content="15"/>
+                        <Label Content="16"/>
 
 
 
-					</ComboBox>
-					<ComboBox 
+                    </ComboBox>
+                    <ComboBox 
                     x:Name="Music_box_7" 
                     SelectedIndex="{Binding Settings.order_data6}"
                     materialDesign:HintAssist.Hint=""
                     IsEditable="False"
                     materialDesign:HintAssist.HintOpacity=".26" Margin="315,216,385,5" Height="24" SelectionChanged="Music_box_SelectionChanged" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
-						<Label Content="1" />
-						<Label Content="2"/>
-						<Label Content="3"/>
-						<Label Content="4"/>
-						<Label Content="5"/>
-						<Label Content="6" />
-						<Label Content="7"/>
-						<Label Content="8"/>
-						<Label Content="9"/>
-						<Label Content="10"/>
-						<Label Content="11"/>
-						<Label Content="12"/>
-						<Label Content="13"/>
-						<Label Content="14"/>
-						<Label Content="15"/>
-						<Label Content="16"/>
+                        <Label Content="1" />
+                        <Label Content="2"/>
+                        <Label Content="3"/>
+                        <Label Content="4"/>
+                        <Label Content="5"/>
+                        <Label Content="6" />
+                        <Label Content="7"/>
+                        <Label Content="8"/>
+                        <Label Content="9"/>
+                        <Label Content="10"/>
+                        <Label Content="11"/>
+                        <Label Content="12"/>
+                        <Label Content="13"/>
+                        <Label Content="14"/>
+                        <Label Content="15"/>
+                        <Label Content="16"/>
 
 
 
-					</ComboBox>
-					<ComboBox 
+                    </ComboBox>
+                    <ComboBox 
                     x:Name="Music_box_8" 
                     SelectedIndex="{Binding Settings.order_data7}"
                     materialDesign:HintAssist.Hint=""
                     IsEditable="False"
                     materialDesign:HintAssist.HintOpacity=".26" Margin="355,216,345,5" Height="24" SelectionChanged="Music_box_SelectionChanged" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" RenderTransformOrigin="0.5,0.5">
-						<ComboBox.RenderTransform>
-							<TransformGroup>
-								<ScaleTransform/>
-								<SkewTransform/>
-								<RotateTransform Angle="-0.331"/>
-								<TranslateTransform/>
-							</TransformGroup>
-						</ComboBox.RenderTransform>
-						<Label Content="1" />
-						<Label Content="2"/>
-						<Label Content="3"/>
-						<Label Content="4"/>
-						<Label Content="5"/>
-						<Label Content="6" />
-						<Label Content="7"/>
-						<Label Content="8"/>
-						<Label Content="9"/>
-						<Label Content="10"/>
-						<Label Content="11"/>
-						<Label Content="12"/>
-						<Label Content="13"/>
-						<Label Content="14"/>
-						<Label Content="15"/>
-						<Label Content="16"/>
+                        <ComboBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-0.331"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ComboBox.RenderTransform>
+                        <Label Content="1" />
+                        <Label Content="2"/>
+                        <Label Content="3"/>
+                        <Label Content="4"/>
+                        <Label Content="5"/>
+                        <Label Content="6" />
+                        <Label Content="7"/>
+                        <Label Content="8"/>
+                        <Label Content="9"/>
+                        <Label Content="10"/>
+                        <Label Content="11"/>
+                        <Label Content="12"/>
+                        <Label Content="13"/>
+                        <Label Content="14"/>
+                        <Label Content="15"/>
+                        <Label Content="16"/>
 
 
 
-					</ComboBox>
-					<ComboBox 
+                    </ComboBox>
+                    <ComboBox 
                     x:Name="Music_box_9" 
                     SelectedIndex="{Binding Settings.order_data8}"
                     materialDesign:HintAssist.Hint=""
                     IsEditable="False"
                     materialDesign:HintAssist.HintOpacity=".26" Margin="395,216,305,5" Height="24" SelectionChanged="Music_box_SelectionChanged" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
-						<Label Content="1" />
-						<Label Content="2"/>
-						<Label Content="3"/>
-						<Label Content="4"/>
-						<Label Content="5"/>
-						<Label Content="6" />
-						<Label Content="7"/>
-						<Label Content="8"/>
-						<Label Content="9"/>
-						<Label Content="10"/>
-						<Label Content="11"/>
-						<Label Content="12"/>
-						<Label Content="13"/>
-						<Label Content="14"/>
-						<Label Content="15"/>
-						<Label Content="16"/>
+                        <Label Content="1" />
+                        <Label Content="2"/>
+                        <Label Content="3"/>
+                        <Label Content="4"/>
+                        <Label Content="5"/>
+                        <Label Content="6" />
+                        <Label Content="7"/>
+                        <Label Content="8"/>
+                        <Label Content="9"/>
+                        <Label Content="10"/>
+                        <Label Content="11"/>
+                        <Label Content="12"/>
+                        <Label Content="13"/>
+                        <Label Content="14"/>
+                        <Label Content="15"/>
+                        <Label Content="16"/>
 
 
 
-					</ComboBox>
-					<ComboBox 
+                    </ComboBox>
+                    <ComboBox 
                     x:Name="Music_box_10" 
                     SelectedIndex="{Binding Settings.order_data9}"
                     materialDesign:HintAssist.Hint=""
                     IsEditable="False"
                     materialDesign:HintAssist.HintOpacity=".26" Margin="431,216,265,5" Height="24" SelectionChanged="Music_box_SelectionChanged" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
-						<Label Content="1" />
-						<Label Content="2"/>
-						<Label Content="3"/>
-						<Label Content="4"/>
-						<Label Content="5"/>
-						<Label Content="6" />
-						<Label Content="7"/>
-						<Label Content="8"/>
-						<Label Content="9"/>
-						<Label Content="10"/>
-						<Label Content="11"/>
-						<Label Content="12"/>
-						<Label Content="13"/>
-						<Label Content="14"/>
-						<Label Content="15"/>
-						<Label Content="16"/>
+                        <Label Content="1" />
+                        <Label Content="2"/>
+                        <Label Content="3"/>
+                        <Label Content="4"/>
+                        <Label Content="5"/>
+                        <Label Content="6" />
+                        <Label Content="7"/>
+                        <Label Content="8"/>
+                        <Label Content="9"/>
+                        <Label Content="10"/>
+                        <Label Content="11"/>
+                        <Label Content="12"/>
+                        <Label Content="13"/>
+                        <Label Content="14"/>
+                        <Label Content="15"/>
+                        <Label Content="16"/>
 
 
 
-					</ComboBox>
-					<ComboBox 
+                    </ComboBox>
+                    <ComboBox 
                     x:Name="Music_box_11" 
                     SelectedIndex="{Binding Settings.order_data10}"
                     materialDesign:HintAssist.Hint=""
                     IsEditable="False"
                     materialDesign:HintAssist.HintOpacity=".26" Margin="474,216,226,5" Height="24" SelectionChanged="Music_box_SelectionChanged" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
-						<Label Content="1" />
-						<Label Content="2"/>
-						<Label Content="3"/>
-						<Label Content="4"/>
-						<Label Content="5"/>
-						<Label Content="6" />
-						<Label Content="7"/>
-						<Label Content="8"/>
-						<Label Content="9"/>
-						<Label Content="10"/>
-						<Label Content="11"/>
-						<Label Content="12"/>
-						<Label Content="13"/>
-						<Label Content="14"/>
-						<Label Content="15"/>
-						<Label Content="16"/>
+                        <Label Content="1" />
+                        <Label Content="2"/>
+                        <Label Content="3"/>
+                        <Label Content="4"/>
+                        <Label Content="5"/>
+                        <Label Content="6" />
+                        <Label Content="7"/>
+                        <Label Content="8"/>
+                        <Label Content="9"/>
+                        <Label Content="10"/>
+                        <Label Content="11"/>
+                        <Label Content="12"/>
+                        <Label Content="13"/>
+                        <Label Content="14"/>
+                        <Label Content="15"/>
+                        <Label Content="16"/>
 
 
 
-					</ComboBox>
-					<ComboBox 
+                    </ComboBox>
+                    <ComboBox 
                     x:Name="Music_box_12" 
                     SelectedIndex="{Binding Settings.order_data11}"
                     materialDesign:HintAssist.Hint=""
                     IsEditable="False"
                     materialDesign:HintAssist.HintOpacity=".26" Margin="517,216,183,5" Height="24" SelectionChanged="Music_box_SelectionChanged" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
-						<Label Content="1" />
-						<Label Content="2"/>
-						<Label Content="3"/>
-						<Label Content="4"/>
-						<Label Content="5"/>
-						<Label Content="6" />
-						<Label Content="7"/>
-						<Label Content="8"/>
-						<Label Content="9"/>
-						<Label Content="10"/>
-						<Label Content="11"/>
-						<Label Content="12"/>
-						<Label Content="13"/>
-						<Label Content="14"/>
-						<Label Content="15"/>
-						<Label Content="16"/>
+                        <Label Content="1" />
+                        <Label Content="2"/>
+                        <Label Content="3"/>
+                        <Label Content="4"/>
+                        <Label Content="5"/>
+                        <Label Content="6" />
+                        <Label Content="7"/>
+                        <Label Content="8"/>
+                        <Label Content="9"/>
+                        <Label Content="10"/>
+                        <Label Content="11"/>
+                        <Label Content="12"/>
+                        <Label Content="13"/>
+                        <Label Content="14"/>
+                        <Label Content="15"/>
+                        <Label Content="16"/>
 
 
 
-					</ComboBox>
-					<ComboBox 
+                    </ComboBox>
+                    <ComboBox 
                     x:Name="Music_box_13" 
                     SelectedIndex="{Binding Settings.order_data12}"
                     materialDesign:HintAssist.Hint=""
                     IsEditable="False"
                     materialDesign:HintAssist.HintOpacity=".26" Margin="560,216,140,5" Height="24" SelectionChanged="Music_box_SelectionChanged" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
-						<Label Content="1" />
-						<Label Content="2"/>
-						<Label Content="3"/>
-						<Label Content="4"/>
-						<Label Content="5"/>
-						<Label Content="6" />
-						<Label Content="7"/>
-						<Label Content="8"/>
-						<Label Content="9"/>
-						<Label Content="10"/>
-						<Label Content="11"/>
-						<Label Content="12"/>
-						<Label Content="13"/>
-						<Label Content="14"/>
-						<Label Content="15"/>
-						<Label Content="16"/>
+                        <Label Content="1" />
+                        <Label Content="2"/>
+                        <Label Content="3"/>
+                        <Label Content="4"/>
+                        <Label Content="5"/>
+                        <Label Content="6" />
+                        <Label Content="7"/>
+                        <Label Content="8"/>
+                        <Label Content="9"/>
+                        <Label Content="10"/>
+                        <Label Content="11"/>
+                        <Label Content="12"/>
+                        <Label Content="13"/>
+                        <Label Content="14"/>
+                        <Label Content="15"/>
+                        <Label Content="16"/>
 
 
 
-					</ComboBox>
-					<ComboBox 
+                    </ComboBox>
+                    <ComboBox 
                     x:Name="Music_box_14" 
                     SelectedIndex="{Binding Settings.order_data13}"
                     materialDesign:HintAssist.Hint=""
                     IsEditable="False"
                     materialDesign:HintAssist.HintOpacity=".26" Margin="605,216,90,5" Height="24" SelectionChanged="Music_box_SelectionChanged" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
-						<Label Content="1" />
-						<Label Content="2"/>
-						<Label Content="3"/>
-						<Label Content="4"/>
-						<Label Content="5"/>
-						<Label Content="6" />
-						<Label Content="7"/>
-						<Label Content="8"/>
-						<Label Content="9"/>
-						<Label Content="10"/>
-						<Label Content="11"/>
-						<Label Content="12"/>
-						<Label Content="13"/>
-						<Label Content="14"/>
-						<Label Content="15"/>
-						<Label Content="16"/>
+                        <Label Content="1" />
+                        <Label Content="2"/>
+                        <Label Content="3"/>
+                        <Label Content="4"/>
+                        <Label Content="5"/>
+                        <Label Content="6" />
+                        <Label Content="7"/>
+                        <Label Content="8"/>
+                        <Label Content="9"/>
+                        <Label Content="10"/>
+                        <Label Content="11"/>
+                        <Label Content="12"/>
+                        <Label Content="13"/>
+                        <Label Content="14"/>
+                        <Label Content="15"/>
+                        <Label Content="16"/>
 
 
 
-					</ComboBox>
-					<ComboBox 
+                    </ComboBox>
+                    <ComboBox 
                     x:Name="Music_box_15" 
                     SelectedIndex="{Binding Settings.order_data14}"
                     materialDesign:HintAssist.Hint=""
                     IsEditable="False"
                     materialDesign:HintAssist.HintOpacity=".26" Margin="650,216,44,5" Height="24" SelectionChanged="Music_box_SelectionChanged" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
-						<Label Content="1" />
-						<Label Content="2"/>
-						<Label Content="3"/>
-						<Label Content="4"/>
-						<Label Content="5"/>
-						<Label Content="6" />
-						<Label Content="7"/>
-						<Label Content="8"/>
-						<Label Content="9"/>
-						<Label Content="10"/>
-						<Label Content="11"/>
-						<Label Content="12"/>
-						<Label Content="13"/>
-						<Label Content="14"/>
-						<Label Content="15"/>
-						<Label Content="16"/>
+                        <Label Content="1" />
+                        <Label Content="2"/>
+                        <Label Content="3"/>
+                        <Label Content="4"/>
+                        <Label Content="5"/>
+                        <Label Content="6" />
+                        <Label Content="7"/>
+                        <Label Content="8"/>
+                        <Label Content="9"/>
+                        <Label Content="10"/>
+                        <Label Content="11"/>
+                        <Label Content="12"/>
+                        <Label Content="13"/>
+                        <Label Content="14"/>
+                        <Label Content="15"/>
+                        <Label Content="16"/>
 
 
 
-					</ComboBox>
-					<ComboBox 
+                    </ComboBox>
+                    <ComboBox 
                     x:Name="Music_box_16" 
                     SelectedIndex="{Binding Settings.order_data15}"
                     materialDesign:HintAssist.Hint=""
                     IsEditable="False"
                     materialDesign:HintAssist.HintOpacity=".26" Margin="689,216,11,5" Height="24" SelectionChanged="Music_box_SelectionChanged" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
-						<Label Content="1" />
-						<Label Content="2"/>
-						<Label Content="3"/>
-						<Label Content="4"/>
-						<Label Content="5"/>
-						<Label Content="6" />
-						<Label Content="7"/>
-						<Label Content="8"/>
-						<Label Content="9"/>
-						<Label Content="10"/>
-						<Label Content="11"/>
-						<Label Content="12"/>
-						<Label Content="13"/>
-						<Label Content="14"/>
-						<Label Content="15"/>
-						<Label Content="16"/>
+                        <Label Content="1" />
+                        <Label Content="2"/>
+                        <Label Content="3"/>
+                        <Label Content="4"/>
+                        <Label Content="5"/>
+                        <Label Content="6" />
+                        <Label Content="7"/>
+                        <Label Content="8"/>
+                        <Label Content="9"/>
+                        <Label Content="10"/>
+                        <Label Content="11"/>
+                        <Label Content="12"/>
+                        <Label Content="13"/>
+                        <Label Content="14"/>
+                        <Label Content="15"/>
+                        <Label Content="16"/>
 
 
 
-					</ComboBox>
-					<TextBlock x:Name="txtLed"
+                    </ComboBox>
+                    <TextBlock x:Name="txtLed"
 							   FontWeight="Normal" HorizontalAlignment="Right" Width="56"
 							   RenderTransformOrigin="0.468,0.181" Margin="0,191,678,0"
 							   Height="20" VerticalAlignment="Top"><Run Text="LED Zone"/></TextBlock>
-					<Button x:Name="btColor1"
+                    <Button x:Name="btColor1"
     Style="{StaticResource MaterialDesignFlatLightBgButton}"
-    ToolTip="LED zone 1" Margin="72,189,0,37" Height="Auto" HorizontalAlignment="Left" Padding="0" Width="30" FontSize="11">
-						1
-					</Button>
-					<TextBlock  x:Name="txtFreq"
+    ToolTip="LED zone 1" Margin="72,189,0,37" Height="Auto" HorizontalAlignment="Left" Padding="0" Width="30" FontSize="11" Content="1"/>
+                    <TextBlock  x:Name="txtFreq"
 							   FontWeight="Normal" HorizontalAlignment="Right" Width="60" 
 							   RenderTransformOrigin="0.468,0.181" Margin="0,222,675,0" 
 							   Height="20" VerticalAlignment="Top"><Run Text="Freq Band"/></TextBlock>
-					<Button x:Name="btColor2"
+                    <Button x:Name="btColor2"
                     Style="{StaticResource MaterialDesignFlatLightBgButton}"
                     ToolTip="LED zone 2" Margin="110,189,0,37" Height="Auto"
 						HorizontalAlignment="Left" Padding="0" Width="35" FontSize="11" Content="2"/>
-					<Button x:Name="btColor3"
+                    <Button x:Name="btColor3"
                     Style="{StaticResource MaterialDesignFlatLightBgButton}"
                     ToolTip="LED zone 3" Margin="150,189,0,37" Height="Auto" 
 						HorizontalAlignment="Left" Padding="0" Width="35" FontSize="11" Content="3"/>
-					<Button x:Name="btColor4"
+                    <Button x:Name="btColor4"
                     Style="{StaticResource MaterialDesignFlatLightBgButton}"
                     ToolTip="LED zone 4" Margin="191,189,0,37" Height="Auto"
 						HorizontalAlignment="Left" Padding="0" Width="35" FontSize="11" Content="4"/>
-					<Button x:Name="btColor5"
+                    <Button x:Name="btColor5"
                     Style="{StaticResource MaterialDesignFlatLightBgButton}"
                     ToolTip="LED zone 5" Margin="235,189,0,37" Height="Auto"
 						HorizontalAlignment="Left" Padding="0" Width="35" FontSize="11" Content="5"/>
-					<Button x:Name="btColor6"
+                    <Button x:Name="btColor6"
                     Style="{StaticResource MaterialDesignFlatLightBgButton}"
                     ToolTip="LED zone 6" Margin="275,189,0,37" Height="Auto"
 						HorizontalAlignment="Left" Padding="0" Width="35" FontSize="11" Content="6"/>
-					<Button x:Name="btColor7"
+                    <Button x:Name="btColor7"
                     Style="{StaticResource MaterialDesignFlatLightBgButton}"
                     ToolTip="LED zone 7" Margin="315,189,0,37" Height="Auto" 
 						HorizontalAlignment="Left" Padding="0" Width="35" FontSize="11" Content="7"/>
-					<Button x:Name="btColor8"
+                    <Button x:Name="btColor8"
                     Style="{StaticResource MaterialDesignFlatLightBgButton}"
                     ToolTip="LED zone 8" Margin="355,189,0,37" Height="Auto"
 						HorizontalAlignment="Left" Padding="0" Width="35" FontSize="11" Content="8"/>
-					<Button x:Name="btColor9"
+                    <Button x:Name="btColor9"
                     Style="{StaticResource MaterialDesignFlatLightBgButton}"
                     ToolTip="LED zone 9" Margin="395,189,0,37" Height="Auto" 
 						HorizontalAlignment="Left" Padding="0" Width="35" FontSize="11" Content="9"/>
-					<Button x:Name="btColor10"
+                    <Button x:Name="btColor10"
                     Style="{StaticResource MaterialDesignFlatLightBgButton}"
                     ToolTip="LED zone 10" Margin="435,189,0,37" Height="Auto" 
 						HorizontalAlignment="Left" Padding="0" Width="35" FontSize="11" Content="10"/>
-					<Button x:Name="btColor11"
+                    <Button x:Name="btColor11"
                     Style="{StaticResource MaterialDesignFlatLightBgButton}"
                     ToolTip="LED zone 11" Margin="480,189,0,37" Height="Auto"
 						HorizontalAlignment="Left" Padding="0" Width="35" FontSize="11" Content="11"/>
-					<Button x:Name="btColor12"
+                    <Button x:Name="btColor12"
                     Style="{StaticResource MaterialDesignFlatLightBgButton}"
                     ToolTip="LED zone 12" Margin="523,189,0,37" Height="Auto" 
 						HorizontalAlignment="Left" Padding="0" Width="35" FontSize="11" Content="12"/>
-					<Button x:Name="btColor13"
+                    <Button x:Name="btColor13"
                     Style="{StaticResource MaterialDesignFlatLightBgButton}"
                     ToolTip="LED zone 13" Margin="568,189,0,37" Height="Auto" 
 						HorizontalAlignment="Left" Padding="0" Width="35" FontSize="11" Content="13"/>
-					<Button x:Name="btColor14"
+                    <Button x:Name="btColor14"
                     Style="{StaticResource MaterialDesignFlatLightBgButton}"
                     ToolTip="LED zone 14" Margin="610,189,0,37" Height="Auto" 
 						HorizontalAlignment="Left" Padding="0" Width="35" FontSize="11" Content="14"/>
-					<Button x:Name="btColor15"
+                    <Button x:Name="btColor15"
                     Style="{StaticResource MaterialDesignFlatLightBgButton}"
                     ToolTip="LED zone 15" Margin="656,189,0,37" Height="Auto" 
 						HorizontalAlignment="Left" Padding="0" Width="35" FontSize="11" Content="15"/>
-					<Button x:Name="btColor16"
+                    <Button x:Name="btColor16"
                     Style="{StaticResource MaterialDesignFlatLightBgButton}"
                     ToolTip="LED zone 16" Margin="697,189,0,37" Height="Auto" 
 						HorizontalAlignment="Left" Padding="0" Width="35" FontSize="11" Content="16"/>
-					<ComboBox 
+                    <ComboBox 
                     x:Name="Bassbox"
                     SelectedIndex="{Binding Settings.devindex}"
                     materialDesign:HintAssist.Hint="Audio device"
@@ -1202,174 +1199,168 @@
                    
                     materialDesign:HintAssist.HintOpacity=".26" Margin="130,34,335,183" Height="28" 
 						SelectionChanged="Devicebox_SelectionChanged"/>
-					<Button x:Name="btPlay"
+                    <Button x:Name="btPlay"
                     ToolTip="Reset vị trí"
                     Style="{StaticResource MaterialDesignFloatingActionButton}" 
 						Margin="24,144,690,75" Background="#FF616161" 
 						Click="Reset_Button_Click" Height="Auto" Width="Auto">
-						<materialDesign:PackIcon
+                        <materialDesign:PackIcon
                         Kind="Equalizer" Foreground="White"
                         Height="15"
                         Width="15" RenderTransformOrigin="-1.486,0.944" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-					</Button>
+                    </Button>
 
-				</Grid>
-			</materialDesign:Card>
+                </Grid>
+            </materialDesign:Card>
 
-			<!--done-->
-			<materialDesign:Card x:Name="previewCard" Margin="-220 4 4 0" Width="500" Height="340" Visibility="Collapsed" >
-				<Viewbox Margin="8 8 8 8" Width="480" Height="300" VerticalAlignment="Top" HorizontalAlignment="Center">
-					<Canvas Width="{Binding CanvasWidth}" Height="{Binding CanvasHeight}">
-						<Canvas.Background>
-							<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-								<GradientStop Color="#FF686868"/>
-								<GradientStop Color="#FFC2C2C2" Offset="1"/>
-							</LinearGradientBrush>
-						</Canvas.Background>
+            <!--done-->
+            <materialDesign:Card x:Name="previewCard" Margin="-220 4 4 0" Width="500" Height="340" Visibility="Collapsed" >
+                <Viewbox Margin="8 8 8 8" Width="480" Height="300" VerticalAlignment="Top" HorizontalAlignment="Center">
+                    <Canvas Width="{Binding CanvasWidth}" Height="{Binding CanvasHeight}">
+                        <Canvas.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF686868"/>
+                                <GradientStop Color="#FFC2C2C2" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Canvas.Background>
 
-						<Image Source="{Binding PreviewImageSource}" 
+                        <Image Source="{Binding PreviewImageSource}" 
                            Width="{Binding ScreenWidth}" Height="{Binding ScreenHeight}"
                            
                            Canvas.Left="{Binding CanvasPadding}" Canvas.Top="{Binding CanvasPadding}" Opacity="0.7" />
 
-						<ItemsControl ItemsSource="{Binding PreviewSpots}"
+                        <ItemsControl ItemsSource="{Binding PreviewSpots}"
                             Canvas.Left="{Binding CanvasPadding}" Canvas.Top="{Binding CanvasPadding}" >
-							<ItemsControl.ItemsPanel>
-								<ItemsPanelTemplate>
-									<Canvas Width="{Binding CanvasWidth}" Height="{Binding CanvasHeight}" />
-								</ItemsPanelTemplate>
-							</ItemsControl.ItemsPanel>
-							<ItemsControl.ItemContainerStyle>
-								<Style TargetType="ContentPresenter">
-									<Setter Property="Canvas.Left" Value="{Binding Rectangle.X}"/>
-									<Setter Property="Canvas.Top" Value="{Binding Rectangle.Y}"/>
-								</Style>
-							</ItemsControl.ItemContainerStyle>
-							<ItemsControl.ItemTemplate>
-								<DataTemplate>
-									<Grid>
-										<Rectangle Width="{Binding Rectangle.Width}" Height="{Binding Rectangle.Height}">
-											<Rectangle.Fill>
-												<RadialGradientBrush>
-													<GradientStop Color="{Binding OnDemandColor}"  Offset="0"/>
-													<GradientStop Color="{Binding OnDemandColorTransparent}" Offset="1"/>
-												</RadialGradientBrush>
-											</Rectangle.Fill>
-										</Rectangle>
-										<Rectangle Visibility="{Binding IsFirst, Converter={StaticResource BooleanToVisibilityConverter}}" Fill="Red"
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas Width="{Binding CanvasWidth}" Height="{Binding CanvasHeight}" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="{x:Type ContentPresenter}">
+                                    <Setter Property="Canvas.Left" Value="{Binding Rectangle.X}"/>
+                                    <Setter Property="Canvas.Top" Value="{Binding Rectangle.Y}"/>
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Rectangle Width="{Binding Rectangle.Width}" Height="{Binding Rectangle.Height}">
+                                            <Rectangle.Fill>
+                                                <RadialGradientBrush>
+                                                    <GradientStop Color="{Binding OnDemandColor}"  Offset="0"/>
+                                                    <GradientStop Color="{Binding OnDemandColorTransparent}" Offset="1"/>
+                                                </RadialGradientBrush>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                        <Rectangle Visibility="{Binding IsFirst, Converter={StaticResource BooleanToVisibilityConverter}}" Fill="Red"
                                                Width="{Binding Rectangle.Width}" 
                                                Height="{Binding Rectangle.Height}" />
 
-									</Grid>
-								</DataTemplate>
-							</ItemsControl.ItemTemplate>
-						</ItemsControl>
-					</Canvas>
-				</Viewbox>
-			</materialDesign:Card>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Canvas>
+                </Viewbox>
+            </materialDesign:Card>
 
-			<!--done-->
-			<materialDesign:Card x:Name="balanceCard" Visibility="Collapsed" Margin="530 -493 4 0" Width="200" 
+            <!--done-->
+            <materialDesign:Card x:Name="balanceCard" Visibility="Collapsed" Margin="530 -493 4 0" Width="200" 
 								 Height="180" >
-				<Grid Margin="0 0 0 0">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*" />
-						<ColumnDefinition Width="2*" />
-						<ColumnDefinition Width="*" />
-					</Grid.ColumnDefinitions>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-					</Grid.RowDefinitions>
+                <Grid Margin="0 0 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
-					<TextBlock Margin="15 2 -140 -15" Grid.Row="0" VerticalAlignment="Bottom" FontSize="25"> 
-						<Run Text="Cân bằng trắng"/></TextBlock>
+                    <TextBlock Margin="15 2 -140 -15" Grid.Row="0" VerticalAlignment="Bottom" FontSize="25"><Run Text="Cân bằng trắng"/></TextBlock>
 
-					<TextBlock Margin="10 0 0 -30" Grid.Row="1" VerticalAlignment="Bottom"><Run Text="Red"/></TextBlock>
-					<TextBlock Margin="10 0 0 -30" Grid.Row="2" VerticalAlignment="Bottom"><Run Text="Green"/></TextBlock>
-					<TextBlock Margin="10 0 0 -30" Grid.Row="3" VerticalAlignment="Bottom"><Run Text="Blue"/></TextBlock>
+                    <TextBlock Margin="10 0 0 -30" Grid.Row="1" VerticalAlignment="Bottom"><Run Text="Red"/></TextBlock>
+                    <TextBlock Margin="10 0 0 -30" Grid.Row="2" VerticalAlignment="Bottom"><Run Text="Green"/></TextBlock>
+                    <TextBlock Margin="10 0 0 -30" Grid.Row="3" VerticalAlignment="Bottom"><Run Text="Blue"/></TextBlock>
 
-					<Slider x:Name="sliRed" Grid.Row="2" Grid.Column="1" Width="100" Margin="0 -20 0 0"
+                    <Slider x:Name="sliRed" Grid.Row="2" Grid.Column="1" Width="100" Margin="0 -20 0 0"
 						Minimum="1" Maximum="100" Value="{Binding Settings.WhitebalanceRed, Mode=TwoWay}" 
 						Style="{StaticResource MaterialDesignDiscreteSlider}" />
-					<Slider x:Name="sliGreen" Grid.Row="3" Grid.Column="1" Width="100" Margin="0 -20 0 0"
+                    <Slider x:Name="sliGreen" Grid.Row="3" Grid.Column="1" Width="100" Margin="0 -20 0 0"
 						Minimum="1" Maximum="100" Value="{Binding Settings.WhitebalanceGreen, Mode=TwoWay}" 
 						Style="{StaticResource MaterialDesignDiscreteSlider}" />
-					<Slider x:Name="sliBlue" Grid.Row="4" Grid.Column="1" Width="100" Margin="0 -20 0 0"
+                    <Slider x:Name="sliBlue" Grid.Row="4" Grid.Column="1" Width="100" Margin="0 -20 0 0"
 						Minimum="1" Maximum="100" Value="{Binding Settings.WhitebalanceBlue, Mode=TwoWay}" 
 						Style="{StaticResource MaterialDesignDiscreteSlider}" />
 
-					<TextBlock Grid.Row="1" Grid.Column="2" Margin="10,50,0,-50" Text="{Binding Settings.WhitebalanceRed, Mode=TwoWay}" />
-					<TextBlock Grid.Row="2" Grid.Column="2" Margin="10,50,0,-50" Text="{Binding Settings.WhitebalanceGreen, Mode=TwoWay}" />
-					<TextBlock Grid.Row="3" Grid.Column="2" Margin="10,50,0,-50" Text="{Binding Settings.WhitebalanceBlue, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="1" Grid.Column="2" Margin="10,50,0,-50" Text="{Binding Settings.WhitebalanceRed, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="2" Grid.Column="2" Margin="10,50,0,-50" Text="{Binding Settings.WhitebalanceGreen, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="3" Grid.Column="2" Margin="10,50,0,-50" Text="{Binding Settings.WhitebalanceBlue, Mode=TwoWay}" />
 
-				</Grid>
-			</materialDesign:Card>
+                </Grid>
+            </materialDesign:Card>
 
-			<!--done-->
-			<materialDesign:Card x:Name="ledCard" Visibility="Collapsed" Margin="530 -148 4 0" Width="200" Height="280" >
-				<Grid Margin="0 0 0 0">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="3*" />
-						<ColumnDefinition Width="*" />
-					</Grid.ColumnDefinitions>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-					</Grid.RowDefinitions>
+            <!--done-->
+            <materialDesign:Card x:Name="ledCard" Visibility="Collapsed" Margin="530 -148 4 0" Width="200" Height="280" >
+                <Grid Margin="0 0 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
-					<TextBlock Margin="3 0 -45 -10" Grid.Row="0" VerticalAlignment="Bottom" FontSize="22"> 
-						<Run Text="Cài đặt hiển thị LED"/></TextBlock>
+                    <TextBlock Margin="3 0 -45 -10" Grid.Row="0" VerticalAlignment="Bottom" FontSize="22"><Run Text="Cài đặt hiển thị LED"/></TextBlock>
 
-					<TextBlock Margin="5 0 -45 10" Grid.Row="2" VerticalAlignment="Bottom">
-						<Run Text="Chiều dài"/></TextBlock>
-					<TextBox x:Name="txtHeight"
+                    <TextBlock Margin="5 0 -45 10" Grid.Row="2" VerticalAlignment="Bottom"><Run Text="Chiều dài"/></TextBlock>
+                    <TextBox x:Name="txtHeight"
 							 DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
                              MinWidth="50" Grid.Column="1" Grid.Row="2"
                              Margin="0 -5 0 8"
                              VerticalAlignment="Bottom" 
-                             Text="{Binding Settings.SpotWidth, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                             Text="{Binding Settings.SpotWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-					<TextBlock Margin="5 0 -45 10" Grid.Row="4" VerticalAlignment="Bottom">
-						<Run Text="Chiều rộng"/></TextBlock>
-					<TextBox x:Name="txtWidth"
+                    <TextBlock Margin="5 0 -45 10" Grid.Row="4" VerticalAlignment="Bottom"><Run Text="Chiều rộng"/></TextBlock>
+                    <TextBox x:Name="txtWidth"
 								DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
                                 MinWidth="50" Grid.Column="1" Grid.Row="4"
                                 Margin="0 -5 0 8"
                                 VerticalAlignment="Bottom" 
                                 Text="{Binding Settings.SpotHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-					<TextBlock Grid.Row="6" VerticalAlignment="Bottom" Margin="5 0 -45 10">
-						<Run Text="Khoảng cách đến cạnh trái-phải"/></TextBlock>
-					<TextBox x:Name="txtLeftRight"
+                    <TextBlock Grid.Row="6" VerticalAlignment="Bottom" Margin="5 0 -45 10"><Run Text="Khoảng cách đến cạnh trái-phải"/></TextBlock>
+                    <TextBox x:Name="txtLeftRight"
 								DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
                                 MinWidth="50" Grid.Column="1" Grid.Row="7"
                                 Margin="0 -5 0 8"
                                 VerticalAlignment="Bottom" 
                                 Text="{Binding Settings.BorderDistanceX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-					<TextBlock Grid.Row="8" VerticalAlignment="Bottom" Margin="5 0 -45 10">
-						<Run Text="Khoảng cách đến cạnh trên-dưới"/></TextBlock>
-					<TextBox x:Name="txtTopBottom"
+                    <TextBlock Grid.Row="8" VerticalAlignment="Bottom" Margin="5 0 -45 10"><Run Text="Khoảng cách đến cạnh trên-dưới"/></TextBlock>
+                    <TextBox x:Name="txtTopBottom"
 								DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
                                 MinWidth="50" Grid.Column="1" Grid.Row="9"
                                 Margin="0 -5 0 8"
                                 VerticalAlignment="Bottom" 
                                 Text="{Binding Settings.BorderDistanceY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-					<!--<Slider Grid.Row="3" Grid.Column="0" Minimum="10" 
+                    <!--<Slider Grid.Row="3" Grid.Column="0" Minimum="10" 
                                 Maximum="400" Margin="0 -25 0 0" Width="150"
                                 Style="{StaticResource MaterialDesignDiscreteSlider}" 
                                 Value="{Binding Settings.SpotWidth}" />
@@ -1386,119 +1377,111 @@
                                 Style="{StaticResource MaterialDesignDiscreteSlider}" 
                                 Value="{Binding Settings.BorderDistanceY}" ValueChanged="Slider_ValueChanged" />-->
 
-					<!--<TextBlock Grid.Row="3" Grid.Column="2" Margin="10,5,0,-5" Text="{Binding Settings.SpotWidth}" />
+                    <!--<TextBlock Grid.Row="3" Grid.Column="2" Margin="10,5,0,-5" Text="{Binding Settings.SpotWidth}" />
 					<TextBlock Grid.Row="5" Grid.Column="2" Margin="10,5,0,-5" Text="{Binding Settings.SpotHeight}" />
 					<TextBlock Grid.Row="7" Grid.Column="2" Margin="10,5,0,-5" Text="{Binding Settings.BorderDistanceX}" />
 					<TextBlock Grid.Row="9" Grid.Column="2" Margin="10,5,0,-5" Text="{Binding Settings.BorderDistanceY}" />-->
 
 
-				</Grid>
-			</materialDesign:Card>
+                </Grid>
+            </materialDesign:Card>
 
-			<!--done-->
-			<materialDesign:Card x:Name="ambilightCard" Margin="530 6 4 0" Width="200" Height="150"  Visibility="Collapsed"
+            <!--done-->
+            <materialDesign:Card x:Name="ambilightCard" Margin="530 6 4 0" Width="200" Height="150"  Visibility="Collapsed"
 								 RenderTransformOrigin="1.305,0.353" >
-				<Grid Margin="0 0 0 0">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="2*" />
-						<ColumnDefinition Width="*" />
-					</Grid.ColumnDefinitions>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-					</Grid.RowDefinitions>
+                <Grid Margin="0 0 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
-					<TextBlock Margin="10 0 -65 5" Grid.Row="0" VerticalAlignment="Bottom" FontSize="20"> 
-						<Run Text="Chọn kiểu Ambilight"/></TextBlock>
+                    <TextBlock Margin="10 0 -65 5" Grid.Row="0" VerticalAlignment="Bottom" FontSize="20"><Run Text="Chọn kiểu Ambilight"/></TextBlock>
 
-					<TextBlock Margin="20 0 0 10" Grid.Row="1" Grid.Column="0" VerticalAlignment="Bottom">
-						<Run Text="Chế độ"/></TextBlock>
-					<ComboBox x:Name="numberScreen" Grid.Row="1" Grid.Column="1" Width="115"  
-								  Margin="-50 0 0 0" ItemsSource="{Binding Path=lsMode}" 
-								  SelectedItem="{Binding Path=aMode}" SelectionChanged="ChangeLighting" >
-					</ComboBox>
-					<!--<ToggleButton Margin="0 0 15 -5" Grid.Row="1" Grid.Column="1"
+                    <TextBlock Margin="20 0 0 10" Grid.Row="1" Grid.Column="0" VerticalAlignment="Bottom"><Run Text="Chế độ"/></TextBlock>
+                    <ComboBox x:Name="numberScreen" Grid.Row="1" Grid.Column="1" Width="115"  
+								  Margin="-50 0 0 0" ItemsSource="{Binding lsMode}" 
+								  SelectedItem="{Binding aMode}" SelectionChanged="ChangeLighting" />
+                    <!--<ToggleButton Margin="0 0 15 -5" Grid.Row="1" Grid.Column="1"
                               IsChecked="{Binding Settings.UseLinearLighting}"
 	                          VerticalAlignment="Center"
 	                          Style="{StaticResource MaterialDesignSwitchToggleButton}"
 	                          ToolTip="Linear Lighting" Foreground="#FF707070" Background="#FF7E3CBD" />-->
 
 
-					<TextBlock Margin="20 0 -30 10" Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom" 
-							   TextAlignment="Justify" FontWeight="Bold">
-                        Ngưỡng màu đen:
-					</TextBlock>
-					<Slider x:Name="sliBlack"
+                    <TextBlock Margin="20 0 -30 10" Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom" 
+							   TextAlignment="Justify" FontWeight="Bold"><Run Text="Ngưỡng màu đen:"/></TextBlock>
+                    <Slider x:Name="sliBlack"
 								Minimum="0" Width="120" VerticalAlignment="Bottom"
                                 Maximum="100" Grid.Row="2" Grid.Column="0" Margin="10 0 0 -28"
                                 Style="{StaticResource MaterialDesignDiscreteSlider}" 
                                 Value="{Binding Settings.SaturationTreshold, Mode=TwoWay}" 
 								RenderTransformOrigin="0.873,0.25" />
-					<TextBlock Grid.Row="3" Grid.Column="1" Margin="18 10 0 0" 
+                    <TextBlock Grid.Row="3" Grid.Column="1" Margin="18 10 0 0" 
 							   Text="{Binding Settings.SaturationTreshold, Mode=TwoWay}" />
 
-				</Grid>
-			</materialDesign:Card>
+                </Grid>
+            </materialDesign:Card>
 
-			<!--done-->
-			<materialDesign:Card x:Name="sizescreenCard" Margin="-220 -275 4 0" Width="500" Height="275" 
+            <!--done-->
+            <materialDesign:Card x:Name="sizescreenCard" Margin="-220 -275 4 0" Width="500" Height="275" 
 								 RenderTransformOrigin="1.305,0.353" Visibility="Collapsed">
 
-				<Grid Margin="0 0 0 0">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*" />
-						<ColumnDefinition Width="*" />
-						<ColumnDefinition Width="*" />
-						<ColumnDefinition Width="*" />
-						<ColumnDefinition Width="*" />
-						<ColumnDefinition Width="*" />
-					</Grid.ColumnDefinitions>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-						<RowDefinition Height="*" />
-					</Grid.RowDefinitions>
+                <Grid Margin="0 0 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
 
-					<TextBlock Margin="40 0 -230 0" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" 
-							   FontSize="25"> 
-						<Run Text="Cài đặt kích cỡ màn hình"/></TextBlock>
+                    <TextBlock Margin="40 0 -230 0" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" 
+							   FontSize="25"><Run Text="Cài đặt kích cỡ màn hình"/></TextBlock>
 
 
-					<TextBox x:Name="width"
+                    <TextBox x:Name="width"
                                 MinWidth="50" Margin="0"
                                 DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
                                 VerticalAlignment="Bottom" Grid.Column="3"
                                 Text="{Binding Settings.SpotsX, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" />
-					<TextBlock FontWeight="Bold" Grid.Column="0" Margin="5 15 -120 -10"
+                    <TextBlock FontWeight="Bold" Grid.Column="0" Margin="5 15 -120 -10"
 							   Grid.Row="1"><Run Text="Số LED chiều ngang màn hình 1"/></TextBlock>
-					<!--<Slider x:Name="widthslide" Minimum="1" Grid.Column="3" Grid.Row="2"
+                    <!--<Slider x:Name="widthslide" Minimum="1" Grid.Column="3" Grid.Row="2"
                                 Maximum="{Binding SpotsXMaximum}" Width="160"
                                 Style="{StaticResource MaterialDesignDiscreteSlider}" 
                                 Value="{Binding Settings.SpotsX}" Margin="-30 -50 -150 30" />
 					<TextBlock Text="{Binding Settings.SpotsX}" Margin="50 -50 0 0"
 							   VerticalAlignment="Center" Grid.Column="5" Grid.Row="2"/>-->
 
-					<TextBox x:Name="width2"
-							 Visibility="{Binding Settings.hasScreenTwo, 
-							 Converter={StaticResource BooleanToVisibilityConverter}}"
+                    <TextBox x:Name="width2"
+							 Visibility="{Binding Settings.hasScreenTwo, Converter={StaticResource BooleanToVisibilityConverter}}"
                              MinWidth="50" Margin="0"
                              DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
                              VerticalAlignment="Bottom" Grid.Column="3"
                              Text="{Binding Settings.SpotsX2, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" />
-					<TextBlock FontWeight="Bold" Grid.Column="0" Margin="5 20 -120 -10"
-							   Visibility="{Binding Settings.hasScreenTwo, 
-							   Converter={StaticResource BooleanToVisibilityConverter}}"
+                    <TextBlock FontWeight="Bold" Grid.Column="0" Margin="5 20 -120 -10"
+							   Visibility="{Binding Settings.hasScreenTwo, Converter={StaticResource BooleanToVisibilityConverter}}"
 							   Grid.Row="2"><Run Text="Số LED chiều ngang màn hình 2"/></TextBlock>
-					<!--<Slider x:Name="widthslide2" Minimum="1" 
+                    <!--<Slider x:Name="widthslide2" Minimum="1" 
 						Maximum="{Binding SpotsXMaximum}" 
 						Style="{StaticResource MaterialDesignDiscreteSlider}" Width="160"
 						Value="{Binding Settings.SpotsX2}" Margin="-30 -48 -150 28" Grid.Row="3" Grid.Column="3"/>
@@ -1506,15 +1489,14 @@
 							   VerticalAlignment="Center" Grid.Column="5" Grid.Row="3" />-->
 
 
-					<TextBox x:Name="height" MinWidth="50"
+                    <TextBox x:Name="height" MinWidth="50"
                                 DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
                                 Margin="0 0 0 -5"
                                 VerticalAlignment="Bottom" Grid.Column="3"
                                 Text="{Binding Settings.SpotsY, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" 
 						        RenderTransformOrigin="-0.027,1.271" />
-					<TextBlock Grid.Row="3" Grid.Column="0" FontWeight="Bold" Margin="5 23 -110 -10">
-						<Run Text="Số LED chiều dọc màn hình 1"/></TextBlock>
-					<!--<Slider x:Name="heightslide" Minimum="1" 
+                    <TextBlock Grid.Row="3" Grid.Column="0" FontWeight="Bold" Margin="5 23 -110 -10"><Run Text="Số LED chiều dọc màn hình 1"/></TextBlock>
+                    <!--<Slider x:Name="heightslide" Minimum="1" 
                                 Maximum="{Binding SpotsYMaximum}" Width="160"
                                 Style="{StaticResource MaterialDesignDiscreteSlider}" Grid.Column="3"
                                 Value="{Binding Settings.SpotsY}" Margin="-30 -43 -150 23" Grid.Row="4"/>
@@ -1522,19 +1504,16 @@
 							   VerticalAlignment="Center" Grid.Column="5" Grid.Row="4"/>-->
 
 
-					<TextBox x:Name="height2" MinWidth="50"
-							 Visibility="{Binding Settings.hasScreenTwo, 
-							Converter={StaticResource BooleanToVisibilityConverter}}"
+                    <TextBox x:Name="height2" MinWidth="50"
+							 Visibility="{Binding Settings.hasScreenTwo, Converter={StaticResource BooleanToVisibilityConverter}}"
                             DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
                             Margin="0 0 0 -5"
                             VerticalAlignment="Bottom" Grid.Column="3"
                             Text="{Binding Settings.SpotsY2, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" 
 						    RenderTransformOrigin="-0.027,1.271" />
-					<TextBlock Visibility="{Binding Settings.hasScreenTwo, 
-							   Converter={StaticResource BooleanToVisibilityConverter}}"						
-								Grid.Row="4" Grid.Column="0" FontWeight="Bold" Margin="5 27 -110 -20">
-								<Run Text="Số LED chiều dọc màn hình 2"/></TextBlock>
-					<!--<Slider x:Name="heightslide2" Minimum="1" 
+                    <TextBlock Visibility="{Binding Settings.hasScreenTwo, Converter={StaticResource BooleanToVisibilityConverter}}"						
+								Grid.Row="4" Grid.Column="0" FontWeight="Bold" Margin="5 27 -110 -20"><Run Text="Số LED chiều dọc màn hình 2"/></TextBlock>
+                    <!--<Slider x:Name="heightslide2" Minimum="1" 
 						Maximum="{Binding SpotsYMaximum}"  Margin="-90 -40 -44 20" Grid.Row="5"
 						Style="{StaticResource MaterialDesignDiscreteSlider}" Grid.Column="4" Width="160"
 						Value="{Binding Settings.SpotsY2}" />
@@ -1542,26 +1521,23 @@
 							   VerticalAlignment="Center" Grid.Column="5" Grid.Row="5"/>-->
 
 
-					<ToggleButton Grid.Column="1" Grid.Row="6" Visibility="Collapsed"
+                    <ToggleButton Grid.Column="1" Grid.Row="6" Visibility="Collapsed"
                         Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" VerticalAlignment="Center" 
 						Margin="0 -10 10 5" ToolTip="Mirror X" IsChecked="{Binding Settings.MirrorX}" Background="#FF7E3CBD" />
-					<TextBlock FontWeight="Bold" Grid.Column="0" Grid.Row="6" Margin="5 0 0 0" Visibility="Collapsed">
-						<Run Text="Lật trái-phải"/></TextBlock>
-					<ToggleButton DockPanel.Dock="Right" Grid.Column="5" Grid.Row="6" Visibility="Collapsed"
+                    <TextBlock FontWeight="Bold" Grid.Column="0" Grid.Row="6" Margin="5 0 0 0" Visibility="Collapsed"><Run Text="Lật trái-phải"/></TextBlock>
+                    <ToggleButton DockPanel.Dock="Right" Grid.Column="5" Grid.Row="6" Visibility="Collapsed"
                         Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" VerticalAlignment="Center" 
 						Margin="-48 -10 85 5" ToolTip="Mirror Y" IsChecked="{Binding Settings.MirrorY}" Background="#FF7E3CBD" />
-					<TextBlock FontWeight="Bold" Grid.Column="4" Grid.Row="6" Margin="-58 0 45 0" Visibility="Collapsed">
-						<Run Text="Lật trên-dưới"/></TextBlock>
+                    <TextBlock FontWeight="Bold" Grid.Column="4" Grid.Row="6" Margin="-58 0 45 0" Visibility="Collapsed"><Run Text="Lật trên-dưới"/></TextBlock>
 
 
-					<TextBox x:Name="offset" MinWidth="50"
+                    <TextBox x:Name="offset" MinWidth="50"
                                 DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
                                 Margin="0 0 0 8" Visibility="Collapsed"
                                 VerticalAlignment="Bottom" Grid.Column="3" Grid.Row="7" 
                                 Text="{Binding Settings.OffsetLed, UpdateSourceTrigger=PropertyChanged}" />
-					<TextBlock FontWeight="Bold" Grid.Column="0" Grid.Row="7" Margin="5 5 -150 0" Visibility="Collapsed">
-						<Run Text="Vị trí LED số 1 (dán từ phải qua trái)"/></TextBlock>
-					<!--<TextBlock Text="{Binding Settings.OffsetLed}" Margin="50,5,0,0"
+                    <TextBlock FontWeight="Bold" Grid.Column="0" Grid.Row="7" Margin="5 5 -150 0" Visibility="Collapsed"><Run Text="Vị trí LED số 1 (dán từ phải qua trái)"/></TextBlock>
+                    <!--<TextBlock Text="{Binding Settings.OffsetLed}" Margin="50,5,0,0"
 							   VerticalAlignment="Top" Grid.Column="5" Grid.Row="7"/>
 					<Slider x:Name="offsetslide" Minimum="0" Grid.Column="3" Grid.Row="8"
                                 Maximum="{Binding OffsetLedMaximum}" Margin="-30 -60 -150 35" Width="160"
@@ -1569,58 +1545,56 @@
                                 Value="{Binding Settings.OffsetLed}" ValueChanged="Slider_ValueChanged" />-->
 
 
-					<ComboBox Grid.Column="1" Grid.Row="8"
+                    <ComboBox Grid.Column="1" Grid.Row="8"
 						x:Name="screenbox"
 						SelectedIndex="{Binding Settings.screensizecounter}"
 						materialDesign:HintAssist.Hint="Chọn cỡ màn hình"
 						IsEditable="False"
 						materialDesign:HintAssist.HintOpacity=".26" Height="25" Margin="20 0 -50 5" 
 						SelectionChanged="Screenbox_SelectionChanged" >
-						<Label Content="19-22 inch"/>
-						<Label Content="23-27 inch"/>
-						<Label Content="29 inch"/>
-						<Label Content="32 inch"/>
-						<Label Content="34 inch"/>
-						<Label Content="Kích thước khác"/>
-					</ComboBox>
-					<TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="5 0 -20 0" Grid.Column="0" 
+                        <Label Content="19-22 inch"/>
+                        <Label Content="23-27 inch"/>
+                        <Label Content="29 inch"/>
+                        <Label Content="32 inch"/>
+                        <Label Content="34 inch"/>
+                        <Label Content="Kích thước khác"/>
+                    </ComboBox>
+                    <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="5 0 -20 0" Grid.Column="0" 
 							   Grid.Row="8" FontWeight="Bold"
 							   TextAlignment="Justify" Height="16" Text="Kích cỡ màn 1"/>
-					<TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="25 0 -30 0" Grid.Column="3" 
-							   Grid.Row="8" FontWeight="Bold" Visibility="{Binding Settings.hasScreenTwo, 
-							   Converter={StaticResource BooleanToVisibilityConverter}}"
+                    <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="25 0 -30 0" Grid.Column="3" 
+							   Grid.Row="8" FontWeight="Bold" Visibility="{Binding Settings.hasScreenTwo, Converter={StaticResource BooleanToVisibilityConverter}}"
 							   TextAlignment="Justify" Height="14" Text="Kích cỡ màn 2" />
-					<ComboBox 
-						x:Name="screenbox2" Visibility="{Binding Settings.hasScreenTwo, 
-						Converter={StaticResource BooleanToVisibilityConverter}}"
+                    <ComboBox 
+						x:Name="screenbox2" Visibility="{Binding Settings.hasScreenTwo, Converter={StaticResource BooleanToVisibilityConverter}}"
 						SelectedIndex="{Binding Settings.screen2sizecounter}"
 						materialDesign:HintAssist.Hint="Chọn cỡ màn hình"
 						IsEditable="False"
 						materialDesign:HintAssist.HintOpacity=".26" Height="25" Margin="-40 0 10 5"
 						SelectionChanged="Screenbox2_SelectionChanged" Grid.Row="8" Grid.Column="5">
-						<Label Content="19-22 inch"/>
-						<Label Content="23-27 inch"/>
-						<Label Content="29 inch"/>
-						<Label Content="32 inch"/>
-						<Label Content="34 inch"/>
-						<Label Content="Kích thước khác"/>
-					</ComboBox>
+                        <Label Content="19-22 inch"/>
+                        <Label Content="23-27 inch"/>
+                        <Label Content="29 inch"/>
+                        <Label Content="32 inch"/>
+                        <Label Content="34 inch"/>
+                        <Label Content="Kích thước khác"/>
+                    </ComboBox>
 
 
-				</Grid>
+                </Grid>
 
-			</materialDesign:Card>
+            </materialDesign:Card>
 
 
-			<Button x:Name="btnReset" Visibility="Collapsed"
+            <Button x:Name="btnReset" Visibility="Collapsed"
 							Content="Reset" HorizontalAlignment="Right" Margin="0,30,60,-30" 
 							VerticalAlignment="Center" Width="75" RenderTransformOrigin="1.5,1.746"
 							Grid.Row="3" Click="resetButton_Click" />
 
 
-		</WrapPanel>
+        </WrapPanel>
 
-	</WrapPanel>
+    </WrapPanel>
 
 
 </UserControl>
