@@ -114,7 +114,8 @@
     <Optimize>true</Optimize>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>8.0</LangVersion>
+    <nullable>enable</nullable>
     <ErrorReport>none</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -163,11 +164,11 @@
     <Reference Include="ManagedBass, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ManagedBass.3.0.0\lib\net45\ManagedBass.dll</HintPath>
     </Reference>
-    <Reference Include="MaterialDesignColors, Version=1.2.6.1513, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialDesignColors.1.2.6\lib\net45\MaterialDesignColors.dll</HintPath>
+    <Reference Include="MaterialDesignColors, Version=1.2.7.1979, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.2.7\lib\net45\MaterialDesignColors.dll</HintPath>
     </Reference>
-    <Reference Include="MaterialDesignThemes.Wpf, Version=3.1.3.1513, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialDesignThemes.3.1.3\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=3.2.0.1979, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.3.2.0\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
@@ -357,9 +358,20 @@
     <Compile Include="ViewModel\Product.xaml.cs">
       <DependentUpon>Product.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\SettingsWindowComponents\WifiPower.xaml.cs">
-      <DependentUpon>WifiPower.xaml</DependentUpon>
-    </Compile>
+    <Resource Include="View\SettingsWindowComponents\usb%402x.png" />
+    <Resource Include="View\SettingsWindowComponents\no device%404x.png" />
+    <Resource Include="View\SettingsWindowComponents\node%402x.png" />
+    <Resource Include="View\SettingsWindowComponents\pci%402x.png" />
+    <Resource Include="View\SettingsWindowComponents\rainpow%402x.png" />
+    <Resource Include="View\SettingsWindowComponents\equalizer%402x.png" />
+    <Resource Include="View\SettingsWindowComponents\picker%402x.png" />
+    <Resource Include="View\SettingsWindowComponents\new usb%402x.png" />
+    <Resource Include="View\add device%402x.png" />
+    <Resource Include="View\SettingsWindowComponents\off grayscale%402x.png" />
+    <Resource Include="View\SettingsWindowComponents\aura%402x.png" />
+    <Resource Include="View\SettingsWindowComponents\off%402x.png" />
+    <Resource Include="View\SettingsWindowComponents\warning%402x.png" />
+    <Resource Include="View\SettingsWindowComponents\Asset 1%402x.png" />
     <Resource Include="View\SettingsWindowComponents\chameleon%402x.png" />
     <Resource Include="View\SettingsWindowComponents\speaker settings%402x.png" />
     <Resource Include="View\SettingsWindowComponents\advance%402x.png" />
@@ -503,36 +515,9 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\ValidationRules\NotEmptyValidationRule.cs" />
-    <Compile Include="View\SettingsWindowComponents\ComPortSetup.xaml.cs">
-      <DependentUpon>ComPortSetup.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\ISelectableViewPart.cs" />
-    <Compile Include="View\SettingsWindowComponents\InsideCase.xaml.cs">
-      <DependentUpon>InsideCase.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\SettingsWindowComponents\LedOutsideCase.xaml.cs">
       <DependentUpon>LedOutsideCase.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\SettingsWindowComponents\LedSetup.xaml.cs">
-      <DependentUpon>LedSetup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\SettingsWindowComponents\GeneralSetup.xaml.cs">
-      <DependentUpon>GeneralSetup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\SettingsWindowComponents\LedTable.xaml.cs">
-      <DependentUpon>LedTable.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\SettingsWindowComponents\Whitebalance.xaml.cs">
-      <DependentUpon>Whitebalance.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\SettingsWindowComponents\Preview.xaml.cs">
-      <DependentUpon>Preview.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\SettingsWindowComponents\SpotSetup.xaml.cs">
-      <DependentUpon>SpotSetup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\SettingsWindowComponents\LightingModeSetup.xaml.cs">
-      <DependentUpon>LightingModeSetup.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
@@ -584,51 +569,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\SettingsWindowComponents\ComPortSetup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\SettingsWindowComponents\InsideCase.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\SettingsWindowComponents\LedOutsideCase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\SettingsWindowComponents\LedSetup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\SettingsWindowComponents\GeneralSetup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\SettingsWindowComponents\LedTable.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\SettingsWindowComponents\Whitebalance.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\SettingsWindowComponents\Preview.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\SettingsWindowComponents\SpotSetup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\SettingsWindowComponents\LightingModeSetup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\SettingsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\SettingsWindowComponents\WifiPower.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -657,9 +602,9 @@
     <Error Condition="!Exists('..\packages\boost_regex-vc141.1.69.0.0\build\boost_regex-vc141.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost_regex-vc141.1.69.0.0\build\boost_regex-vc141.targets'))" />
     <Error Condition="!Exists('..\packages\squirrel.windows.1.9.1\build\squirrel.windows.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\squirrel.windows.1.9.1\build\squirrel.windows.props'))" />
     <Error Condition="!Exists('..\packages\squirrel.windows.1.9.1\build\squirrel.windows.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\squirrel.windows.1.9.1\build\squirrel.windows.targets'))" />
-    <Error Condition="!Exists('..\packages\MaterialDesignThemes.3.1.3\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MaterialDesignThemes.3.1.3\build\MaterialDesignThemes.targets'))" />
+    <Error Condition="!Exists('..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets'))" />
   </Target>
   <Import Project="..\packages\boost_regex-vc141.1.69.0.0\build\boost_regex-vc141.targets" Condition="Exists('..\packages\boost_regex-vc141.1.69.0.0\build\boost_regex-vc141.targets')" />
   <Import Project="..\packages\squirrel.windows.1.9.1\build\squirrel.windows.targets" Condition="Exists('..\packages\squirrel.windows.1.9.1\build\squirrel.windows.targets')" />
-  <Import Project="..\packages\MaterialDesignThemes.3.1.3\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.1.3\build\MaterialDesignThemes.targets')" />
+  <Import Project="..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets')" />
 </Project>

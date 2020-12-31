@@ -98,6 +98,15 @@ namespace adrilight
                     };
                     thread2.Start();
                 }
+                if(Screen.AllScreens.Length==3)
+                {
+                    var thread3 = new Thread(() => Run3(_cancellationTokenSource.Token)) {
+                        IsBackground = true,
+                        Priority = ThreadPriority.BelowNormal,
+                        Name = "DesktopDuplicatorReader3"
+                    };
+                    thread3.Start();
+                }
                     
                 
             }
@@ -149,6 +158,7 @@ namespace adrilight
         private IUserSettings UserSettings { get; }
         private ISpotSet SpotSet { get; }
         private ISpotSet SpotSet2 { get; }
+        private ISpotSet SpotSet3 { get; }
         private SettingsViewModel SettingsViewModel { get; }
 
         private readonly Policy _retryPolicy;
@@ -172,6 +182,7 @@ namespace adrilight
 
         private DesktopDuplicator _desktopDuplicator;
         private DesktopDuplicator _desktopDuplicator2;
+        private DesktopDuplicator _desktopDuplicator3;
 
 
         public void Run(CancellationToken token)
@@ -418,217 +429,72 @@ namespace adrilight
             }
         }
 
-
-        public void RunSecond(CancellationToken token)
-        {
-            if (IsRunningSecond) throw new Exception(nameof(DesktopDuplicatorReader) + " is already running!");
-
-            IsRunningSecond = true;
-            _log.Debug("Started Desktop Duplication Reader.");
-            Bitmap image = null;
-            // Bitmap image2 = null;
-            try
-            {
-                BitmapData bitmapData = new BitmapData();
-                BitmapData bitmapData2 = new BitmapData();
-
-                while (!token.IsCancellationRequested)
-                {
-                    var frameTime = Stopwatch.StartNew();
-                    var newImage = _retryPolicy.Execute(() => GetNextFrame(image));
-                    TraceFrameDetails(newImage);
-                    // var newImage2 = _retryPolicy.Execute(() => GetNextFrame2(image2));
-                    // TraceFrameDetails(newImage2);
-
-                    if (newImage == null)
-                    {
-                        //there was a timeout before there was the next frame, simply retry!
-                        continue;
-                    }
-                    image = newImage;
-                    //  image2 = newImage2;
-                    bool isPreviewRunningSecond = (SettingsViewModel.IsSettingsWindowOpen && SettingsViewModel.IsPreviewTabOpenSecond);
-                    if (isPreviewRunningSecond)
-                    {
-                        SettingsViewModel.SetPreviewImage(image);
-                    }
-
-
-                    image.LockBits(new Rectangle(0, 0, image.Width, image.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppRgb, bitmapData);
-                    //  image2.LockBits(new Rectangle(0, 0, image2.Width, image2.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppRgb, bitmapData2);
-                    lock (SpotSet.Lock)
-                    {
-                        var useLinearLighting = UserSettings.UseLinearLighting;
-
-                        var imageRectangle = new Rectangle(0, 0, image.Width, image.Height);
-
-                        if (imageRectangle.Width != SpotSet.ExpectedScreenWidth || imageRectangle.Height != SpotSet.ExpectedScreenHeight)
-                        {
-                            //the screen was resized or this is some kind of powersaving state
-                            SpotSet.IndicateMissingValues();
-                            return;
-                        }
-                        else
-                        {
-                            Parallel.ForEach(SpotSet.Spots
-                                , spot =>
-                                {
-                                    const int numberOfSteps = 15;
-                                    int stepx = Math.Max(1, spot.Rectangle.Width / numberOfSteps);
-                                    int stepy = Math.Max(1, spot.Rectangle.Height / numberOfSteps);
-
-                                    GetAverageColorOfRectangularRegion(spot.Rectangle, stepy, stepx, bitmapData,
-                                        out int sumR, out int sumG, out int sumB, out int count);
-
-                                    var countInverse = 1f / count;
-
-                                    ApplyColorCorrections(sumR * countInverse, sumG * countInverse, sumB * countInverse
-                                        , out byte finalR, out byte finalG, out byte finalB, useLinearLighting
-                                        , UserSettings.SaturationTreshold, spot.Red, spot.Green, spot.Blue);
-
-                                    spot.SetColor(finalR, finalG, finalB, isPreviewRunningSecond);
-
-                                });
-                        }
-
-                        if (isPreviewRunningSecond)
-                        {
-                            //copy all color data to the preview
-                            var needsNewArray = SettingsViewModel.PreviewSpots?.Length != SpotSet.Spots.Length;
-
-                            SettingsViewModel.PreviewSpots = SpotSet.Spots;
-                        }
-                    }
-                    /*  lock (SpotSet2.Lock)
-                      {
-                          var useLinearLighting = UserSettings.UseLinearLighting;
-
-                          var imageRectangle2 = new Rectangle(0, 0, image2.Width, image2.Height);
-
-                          if (imageRectangle2.Width != SpotSet2.ExpectedScreenWidth || imageRectangle2.Height != SpotSet2.ExpectedScreenHeight)
-                          {
-                              //the screen was resized or this is some kind of powersaving state
-                              SpotSet2.IndicateMissingValues();
-                              return;
-                          }
-                          else
-                          {
-                              Parallel.ForEach(SpotSet2.Spots
-                                  , spot2 =>
-                                  {
-                                      const int numberOfSteps = 15;
-                                      int stepx = Math.Max(1, spot2.Rectangle.Width / numberOfSteps);
-                                      int stepy = Math.Max(1, spot2.Rectangle.Height / numberOfSteps);
-
-                                      GetAverageColorOfRectangularRegion(spot2.Rectangle, stepy, stepx, bitmapData2,
-                                          out int sumR2, out int sumG2, out int sumB2, out int count2);
-
-                                      var countInverse = 1f / count2;
-
-                                      ApplyColorCorrections(sumR2 * countInverse, sumG2 * countInverse, sumB2 * countInverse
-                                          , out byte finalR2, out byte finalG2, out byte finalB2, useLinearLighting
-                                          , UserSettings.SaturationTreshold, spot2.Red, spot2.Green, spot2.Blue);
-
-                                      spot2.SetColor(finalR2, finalG2, finalB2, isPreviewRunning);
-
-                                  });
-                          }
-
-
-                      }*/
-
-
-                    image.UnlockBits(bitmapData);
-                    // image2.UnlockBits(bitmapData2);
-
-                    int minFrameTimeInMs = 1000 / UserSettings.LimitFps;
-                    var elapsedMs = (int)frameTime.ElapsedMilliseconds;
-                    if (elapsedMs < minFrameTimeInMs)
-                    {
-                        Thread.Sleep(minFrameTimeInMs - elapsedMs);
-                    }
-                }
-            }
-            finally
-            {
-                image?.Dispose();
-                //image2?.Dispose();
-
-                _desktopDuplicator?.Dispose();
-                // _desktopDuplicator2?.Dispose();
-                _desktopDuplicator = null;
-                //  _desktopDuplicator2 = null;
-
-                _log.Debug("Stopped Desktop Duplication Reader.");
-                IsRunningSecond = false;
-            }
-        }
-        public void Run2Second(CancellationToken token)
+        public void Run3(CancellationToken token)
         {
             //  if (IsRunning) throw new Exception(nameof(DesktopDuplicatorReader) + " is already running!");
 
             // IsRunning = true;
             _log.Debug("Started Desktop Duplication Reader.");
             // Bitmap image = null;
-            Bitmap image2 = null;
+            Bitmap image3= null;
             try
             {
                 // BitmapData bitmapData = new BitmapData();
-                BitmapData bitmapData2 = new BitmapData();
+                BitmapData bitmapData3 = new BitmapData();
 
                 while (!token.IsCancellationRequested)
                 {
                     var frameTime = Stopwatch.StartNew();
                     // var newImage = _retryPolicy.Execute(() => GetNextFrame(image));
                     //  TraceFrameDetails(newImage);
-                    var newImage2 = _retryPolicy.Execute(() => GetNextFrame2(image2));
-                    TraceFrameDetails(newImage2);
+                    var newImage3 = _retryPolicy.Execute(() => GetNextFrame3(image3));
+                    TraceFrameDetails(newImage3);
 
-                    if (newImage2 == null)
+                    if (newImage3== null)
                     {
                         //there was a timeout before there was the next frame, simply retry!
                         continue;
                     }
                     //  image = newImage;
-                    image2 = newImage2;
+                    image3 = newImage3;
 
 
 
 
                     //  image.LockBits(new Rectangle(0, 0, image.Width, image.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppRgb, bitmapData);
-                    image2.LockBits(new Rectangle(0, 0, image2.Width, image2.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppRgb, bitmapData2);
-                    bool isPreviewRunningSecond = (SettingsViewModel.IsSettingsWindowOpen && SettingsViewModel.IsPreviewTabOpenSecond);
-                    lock (SpotSet2.Lock2)
+                    image3.LockBits(new Rectangle(0, 0, image3.Width, image3.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppRgb, bitmapData3);
+                    bool isPreviewRunning = (SettingsViewModel.IsSettingsWindowOpen && SettingsViewModel.IsPreviewTabOpen);
+                    lock (SpotSet3.Lock)
                     {
                         var useLinearLighting = UserSettings.UseLinearLighting;
 
-                        var imageRectangle2 = new Rectangle(0, 0, image2.Width, image2.Height);
+                        var imageRectangle3 = new Rectangle(0, 0, image3.Width, image3.Height);
 
-                        if (imageRectangle2.Width != SpotSet2.ExpectedScreenWidth2 || imageRectangle2.Height != SpotSet2.ExpectedScreenHeight2)
+                        if (imageRectangle3.Width != SpotSet3.ExpectedScreenWidth3 || imageRectangle3.Height != SpotSet2.ExpectedScreenHeight3)
                         {
                             //the screen was resized or this is some kind of powersaving state
-                            SpotSet2.IndicateMissingValues();
+                            SpotSet3.IndicateMissingValues();
                             return;
                         }
                         else
                         {
-                            Parallel.ForEach(SpotSet2.Spots2
-                                , spot2 =>
+                            Parallel.ForEach(SpotSet3.Spots3
+                                , spot3 =>
                                 {
                                     const int numberOfSteps = 15;
-                                    int stepx = Math.Max(1, spot2.Rectangle.Width / numberOfSteps);
-                                    int stepy = Math.Max(1, spot2.Rectangle.Height / numberOfSteps);
+                                    int stepx = Math.Max(1, spot3.Rectangle.Width / numberOfSteps);
+                                    int stepy = Math.Max(1, spot3.Rectangle.Height / numberOfSteps);
 
-                                    GetAverageColorOfRectangularRegion(spot2.Rectangle, stepy, stepx, bitmapData2,
-                                           out int sumR2, out int sumG2, out int sumB2, out int count2);
+                                    GetAverageColorOfRectangularRegion(spot3.Rectangle, stepy, stepx, bitmapData3,
+                                           out int sumR3, out int sumG3, out int sumB3, out int count3);
 
-                                    var countInverse = 1f / count2;
+                                    var countInverse = 1f / count3;
 
-                                    ApplyColorCorrections(sumR2 * countInverse, sumG2 * countInverse, sumB2 * countInverse
-                                        , out byte finalR2, out byte finalG2, out byte finalB2, useLinearLighting
-                                        , UserSettings.SaturationTreshold, spot2.Red, spot2.Green, spot2.Blue);
+                                    ApplyColorCorrections(sumR3 * countInverse, sumG3 * countInverse, sumB3 * countInverse
+                                        , out byte finalR3, out byte finalG3, out byte finalB3, useLinearLighting
+                                        , UserSettings.SaturationTreshold, spot3.Red, spot3.Green, spot3.Blue);
 
-                                    spot2.SetColor(finalR2, finalG2, finalB2, isPreviewRunningSecond);
+                                    spot3.SetColor(finalR3, finalG3, finalB3, isPreviewRunning);
 
                                 });
                         }
@@ -638,7 +504,7 @@ namespace adrilight
 
 
                     //  image.UnlockBits(bitmapData);
-                    image2.UnlockBits(bitmapData2);
+                    image3.UnlockBits(bitmapData3);
 
                     int minFrameTimeInMs = 1000 / UserSettings.LimitFps;
                     var elapsedMs = (int)frameTime.ElapsedMilliseconds;
@@ -651,17 +517,262 @@ namespace adrilight
             finally
             {
                 // image?.Dispose();
-                image2?.Dispose();
+                image3.Dispose();
 
                 // _desktopDuplicator?.Dispose();
-                _desktopDuplicator2?.Dispose();
+                _desktopDuplicator3?.Dispose();
                 // _desktopDuplicator = null;
-                _desktopDuplicator2 = null;
+                _desktopDuplicator3 = null;
 
                 _log.Debug("Stopped Desktop Duplication Reader.");
-                IsRunningSecond = false;
+                IsRunning = false;
             }
         }
+
+
+        //public void RunSecond(CancellationToken token)
+        //{
+        //    if (IsRunningSecond) throw new Exception(nameof(DesktopDuplicatorReader) + " is already running!");
+
+        //    IsRunningSecond = true;
+        //    _log.Debug("Started Desktop Duplication Reader.");
+        //    Bitmap image = null;
+        //    // Bitmap image2 = null;
+        //    try
+        //    {
+        //        BitmapData bitmapData = new BitmapData();
+        //        BitmapData bitmapData2 = new BitmapData();
+
+        //        while (!token.IsCancellationRequested)
+        //        {
+        //            var frameTime = Stopwatch.StartNew();
+        //            var newImage = _retryPolicy.Execute(() => GetNextFrame(image));
+        //            TraceFrameDetails(newImage);
+        //            // var newImage2 = _retryPolicy.Execute(() => GetNextFrame2(image2));
+        //            // TraceFrameDetails(newImage2);
+
+        //            if (newImage == null)
+        //            {
+        //                //there was a timeout before there was the next frame, simply retry!
+        //                continue;
+        //            }
+        //            image = newImage;
+        //            //  image2 = newImage2;
+        //            bool isPreviewRunningSecond = (SettingsViewModel.IsSettingsWindowOpen && SettingsViewModel.IsPreviewTabOpenSecond);
+        //            if (isPreviewRunningSecond)
+        //            {
+        //                SettingsViewModel.SetPreviewImage(image);
+        //            }
+
+
+        //            image.LockBits(new Rectangle(0, 0, image.Width, image.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppRgb, bitmapData);
+        //            //  image2.LockBits(new Rectangle(0, 0, image2.Width, image2.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppRgb, bitmapData2);
+        //            lock (SpotSet.Lock)
+        //            {
+        //                var useLinearLighting = UserSettings.UseLinearLighting;
+
+        //                var imageRectangle = new Rectangle(0, 0, image.Width, image.Height);
+
+        //                if (imageRectangle.Width != SpotSet.ExpectedScreenWidth || imageRectangle.Height != SpotSet.ExpectedScreenHeight)
+        //                {
+        //                    //the screen was resized or this is some kind of powersaving state
+        //                    SpotSet.IndicateMissingValues();
+        //                    return;
+        //                }
+        //                else
+        //                {
+        //                    Parallel.ForEach(SpotSet.Spots
+        //                        , spot =>
+        //                        {
+        //                            const int numberOfSteps = 15;
+        //                            int stepx = Math.Max(1, spot.Rectangle.Width / numberOfSteps);
+        //                            int stepy = Math.Max(1, spot.Rectangle.Height / numberOfSteps);
+
+        //                            GetAverageColorOfRectangularRegion(spot.Rectangle, stepy, stepx, bitmapData,
+        //                                out int sumR, out int sumG, out int sumB, out int count);
+
+        //                            var countInverse = 1f / count;
+
+        //                            ApplyColorCorrections(sumR * countInverse, sumG * countInverse, sumB * countInverse
+        //                                , out byte finalR, out byte finalG, out byte finalB, useLinearLighting
+        //                                , UserSettings.SaturationTreshold, spot.Red, spot.Green, spot.Blue);
+
+        //                            spot.SetColor(finalR, finalG, finalB, isPreviewRunningSecond);
+
+        //                        });
+        //                }
+
+        //                if (isPreviewRunningSecond)
+        //                {
+        //                    //copy all color data to the preview
+        //                    var needsNewArray = SettingsViewModel.PreviewSpots?.Length != SpotSet.Spots.Length;
+
+        //                    SettingsViewModel.PreviewSpots = SpotSet.Spots;
+        //                }
+        //            }
+        //            /*  lock (SpotSet2.Lock)
+        //              {
+        //                  var useLinearLighting = UserSettings.UseLinearLighting;
+
+        //                  var imageRectangle2 = new Rectangle(0, 0, image2.Width, image2.Height);
+
+        //                  if (imageRectangle2.Width != SpotSet2.ExpectedScreenWidth || imageRectangle2.Height != SpotSet2.ExpectedScreenHeight)
+        //                  {
+        //                      //the screen was resized or this is some kind of powersaving state
+        //                      SpotSet2.IndicateMissingValues();
+        //                      return;
+        //                  }
+        //                  else
+        //                  {
+        //                      Parallel.ForEach(SpotSet2.Spots
+        //                          , spot2 =>
+        //                          {
+        //                              const int numberOfSteps = 15;
+        //                              int stepx = Math.Max(1, spot2.Rectangle.Width / numberOfSteps);
+        //                              int stepy = Math.Max(1, spot2.Rectangle.Height / numberOfSteps);
+
+        //                              GetAverageColorOfRectangularRegion(spot2.Rectangle, stepy, stepx, bitmapData2,
+        //                                  out int sumR2, out int sumG2, out int sumB2, out int count2);
+
+        //                              var countInverse = 1f / count2;
+
+        //                              ApplyColorCorrections(sumR2 * countInverse, sumG2 * countInverse, sumB2 * countInverse
+        //                                  , out byte finalR2, out byte finalG2, out byte finalB2, useLinearLighting
+        //                                  , UserSettings.SaturationTreshold, spot2.Red, spot2.Green, spot2.Blue);
+
+        //                              spot2.SetColor(finalR2, finalG2, finalB2, isPreviewRunning);
+
+        //                          });
+        //                  }
+
+
+        //              }*/
+
+
+        //            image.UnlockBits(bitmapData);
+        //            // image2.UnlockBits(bitmapData2);
+
+        //            int minFrameTimeInMs = 1000 / UserSettings.LimitFps;
+        //            var elapsedMs = (int)frameTime.ElapsedMilliseconds;
+        //            if (elapsedMs < minFrameTimeInMs)
+        //            {
+        //                Thread.Sleep(minFrameTimeInMs - elapsedMs);
+        //            }
+        //        }
+        //    }
+        //    finally
+        //    {
+        //        image?.Dispose();
+        //        //image2?.Dispose();
+
+        //        _desktopDuplicator?.Dispose();
+        //        // _desktopDuplicator2?.Dispose();
+        //        _desktopDuplicator = null;
+        //        //  _desktopDuplicator2 = null;
+
+        //        _log.Debug("Stopped Desktop Duplication Reader.");
+        //        IsRunningSecond = false;
+        //    }
+        //}
+        //public void Run2Second(CancellationToken token)
+        //{
+        //    //  if (IsRunning) throw new Exception(nameof(DesktopDuplicatorReader) + " is already running!");
+
+        //    // IsRunning = true;
+        //    _log.Debug("Started Desktop Duplication Reader.");
+        //    // Bitmap image = null;
+        //    Bitmap image2 = null;
+        //    try
+        //    {
+        //        // BitmapData bitmapData = new BitmapData();
+        //        BitmapData bitmapData2 = new BitmapData();
+
+        //        while (!token.IsCancellationRequested)
+        //        {
+        //            var frameTime = Stopwatch.StartNew();
+        //            // var newImage = _retryPolicy.Execute(() => GetNextFrame(image));
+        //            //  TraceFrameDetails(newImage);
+        //            var newImage2 = _retryPolicy.Execute(() => GetNextFrame2(image2));
+        //            TraceFrameDetails(newImage2);
+
+        //            if (newImage2 == null)
+        //            {
+        //                //there was a timeout before there was the next frame, simply retry!
+        //                continue;
+        //            }
+        //            //  image = newImage;
+        //            image2 = newImage2;
+
+
+
+
+        //            //  image.LockBits(new Rectangle(0, 0, image.Width, image.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppRgb, bitmapData);
+        //            image2.LockBits(new Rectangle(0, 0, image2.Width, image2.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppRgb, bitmapData2);
+        //            bool isPreviewRunningSecond = (SettingsViewModel.IsSettingsWindowOpen && SettingsViewModel.IsPreviewTabOpenSecond);
+        //            lock (SpotSet2.Lock2)
+        //            {
+        //                var useLinearLighting = UserSettings.UseLinearLighting;
+
+        //                var imageRectangle2 = new Rectangle(0, 0, image2.Width, image2.Height);
+
+        //                if (imageRectangle2.Width != SpotSet2.ExpectedScreenWidth2 || imageRectangle2.Height != SpotSet2.ExpectedScreenHeight2)
+        //                {
+        //                    //the screen was resized or this is some kind of powersaving state
+        //                    SpotSet2.IndicateMissingValues();
+        //                    return;
+        //                }
+        //                else
+        //                {
+        //                    Parallel.ForEach(SpotSet2.Spots2
+        //                        , spot2 =>
+        //                        {
+        //                            const int numberOfSteps = 15;
+        //                            int stepx = Math.Max(1, spot2.Rectangle.Width / numberOfSteps);
+        //                            int stepy = Math.Max(1, spot2.Rectangle.Height / numberOfSteps);
+
+        //                            GetAverageColorOfRectangularRegion(spot2.Rectangle, stepy, stepx, bitmapData2,
+        //                                   out int sumR2, out int sumG2, out int sumB2, out int count2);
+
+        //                            var countInverse = 1f / count2;
+
+        //                            ApplyColorCorrections(sumR2 * countInverse, sumG2 * countInverse, sumB2 * countInverse
+        //                                , out byte finalR2, out byte finalG2, out byte finalB2, useLinearLighting
+        //                                , UserSettings.SaturationTreshold, spot2.Red, spot2.Green, spot2.Blue);
+
+        //                            spot2.SetColor(finalR2, finalG2, finalB2, isPreviewRunningSecond);
+
+        //                        });
+        //                }
+
+
+        //            }
+
+
+        //            //  image.UnlockBits(bitmapData);
+        //            image2.UnlockBits(bitmapData2);
+
+        //            int minFrameTimeInMs = 1000 / UserSettings.LimitFps;
+        //            var elapsedMs = (int)frameTime.ElapsedMilliseconds;
+        //            if (elapsedMs < minFrameTimeInMs)
+        //            {
+        //                Thread.Sleep(minFrameTimeInMs - elapsedMs);
+        //            }
+        //        }
+        //    }
+        //    finally
+        //    {
+        //        // image?.Dispose();
+        //        image2?.Dispose();
+
+        //        // _desktopDuplicator?.Dispose();
+        //        _desktopDuplicator2?.Dispose();
+        //        // _desktopDuplicator = null;
+        //        _desktopDuplicator2 = null;
+
+        //        _log.Debug("Stopped Desktop Duplication Reader.");
+        //        IsRunningSecond = false;
+        //    }
+        //}
 
 
 
@@ -785,13 +896,36 @@ namespace adrilight
             }
             catch (Exception ex)
             {
-                if (ex.Message != "_outputDuplication is null")
+                if (ex.Message != "_outputDuplication2 is null")
                 {
-                    _log.Error(ex, "GetNextFrame() failed.");
+                    _log.Error(ex, "GetNextFrame2() failed.");
                 }
 
                 _desktopDuplicator2?.Dispose();
                 _desktopDuplicator2 = null;
+                throw;
+            }
+        }
+        private Bitmap GetNextFrame3(Bitmap reusableBitmap3)
+        {
+            if (_desktopDuplicator3 == null)
+            {
+                _desktopDuplicator3 = new DesktopDuplicator(0, 2);
+            }
+
+            try
+            {
+                return _desktopDuplicator3.GetLatestFrame(reusableBitmap3);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message != "_outputDuplication3 is null")
+                {
+                    _log.Error(ex, "GetNextFrame3() failed.");
+                }
+
+                _desktopDuplicator3?.Dispose();
+                _desktopDuplicator3 = null;
                 throw;
             }
         }

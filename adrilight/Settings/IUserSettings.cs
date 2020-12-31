@@ -15,7 +15,7 @@ namespace adrilight
         string ComPort { get; set; }
         string ComPort2 { get; set; }
         string ComPort3 { get; set; }
-        string ComPort4 { get; set; }
+        //string ComPort4 { get; set; }
         string ComPort5 { get; set; }
 
         DateTime? LastUpdateCheck { get; set; }
@@ -24,6 +24,8 @@ namespace adrilight
         bool MirrorX { get; set; }
         bool MirrorY { get; set; }
         int OffsetLed { get; set; }
+        int OffsetLed3 { get; set; }
+        int OffsetLed2 { get; set; }
         [Obsolete]
         int OffsetX { get; set; }
         [Obsolete]
@@ -35,15 +37,18 @@ namespace adrilight
         int SpotsY { get; set; }
         int SpotsX2 { get; set; }
         int SpotsY2 { get; set; }
+        int SpotsX3 { get; set; }
+        int SpotsY3 { get; set; }
         int SpotWidth { get; set; }
         bool StartMinimized { get; set; }
         bool TransferActive { get; set; }
         bool CaptureActive { get; set; }
         bool Shuffle { get; set; }
+        bool shuffle { get; set; }
         bool ComportOpen { get; set; }
         bool Comport2Open { get; set; }
         bool Comport3Open { get; set; }
-        bool Comport4Open { get; set; }
+        //bool Comport4Open { get; set; }
         bool Comport5Open { get; set; }
         bool Advancesettings { get; set; }
         bool UseLinearLighting { get; set; }
@@ -56,6 +61,8 @@ namespace adrilight
         bool hasUSBTwo { get; set; }
         bool hasScreenTwo { get; set; }
         bool hasPCI { get; set; }
+        bool hasRainpow { get; set; }
+        bool hasNode { get; set; }
         bool hasPCISecond { get; set; }
         bool Pro11 { get; set; }
         bool Pro12 { get; set; }
@@ -79,6 +86,7 @@ namespace adrilight
         byte sincounter { get; set; }
         byte speedcounter { get; set; }
         string filemau { get; set; }
+        string filemauchip { get; set; }
         byte methodcounter { get; set; }
         int musiccounter { get; set; }
         byte zoecounter { get; set; }
@@ -94,6 +102,16 @@ namespace adrilight
         byte buteffectcounter { get; set; }
         byte visualcounter { get; set; }
         byte screeneffectcounter { get; set; }
+        byte screencounter{ get; set; }
+        bool nodevice { get; set; }
+        byte Port4Config { get; set; }
+        byte Port3Config { get; set; }
+        byte Port2Config { get; set; }
+        byte Port1Config { get; set; }
+        byte genre { get; set; }
+        byte tabindex { get; set; }
+        bool caseenable { get; set; }
+        byte deskdirrection { get; set; }
         byte holdtimecounter { get; set; }
         byte buttoneffectcounter { get; set; }
 
@@ -117,6 +135,7 @@ namespace adrilight
         byte holdeffectcounter { get; set; }
         byte screensizecounter { get; set; }
         byte screen2sizecounter { get; set; }
+        byte screen3sizecounter { get; set; }
         byte audiodevice { get; set; }
         byte devicecounter { get; set; }
         byte WhitebalanceGreen { get; set; }

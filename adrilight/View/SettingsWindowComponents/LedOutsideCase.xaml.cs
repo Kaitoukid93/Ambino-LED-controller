@@ -46,15 +46,16 @@ namespace adrilight.View.SettingsWindowComponents
         public static int[] spectrumdata = new int[16];
         public static byte[] output_spectrumdata = new byte[16];
         public static int[] order_data = new int[16];
+        public static int[] custom_order_data = new int[16];
         private float[] _fft;
         public bool isEffect { get; set; }
-       
+
 
 
         public LedOutsideCase()
         {
             InitializeComponent();
-
+           
             List<string> names = ComPortNames("1A86", "7523");
             if (names.Count > 0)
             {
@@ -72,6 +73,9 @@ namespace adrilight.View.SettingsWindowComponents
             }
 
 
+            
+
+
             if (comportbox3.SelectedItem == null)
             {
                 comportbox3.SelectedItem = "Không có";
@@ -86,7 +90,9 @@ namespace adrilight.View.SettingsWindowComponents
             {
                 comportbox4.SelectedItem = "Không có";
             }
-
+           
+            
+            
             BassNet.Registration("saorihara93@gmail.com", "2X2831021152222");
 
 
@@ -103,22 +109,8 @@ namespace adrilight.View.SettingsWindowComponents
             _fft = new float[1024];
             //if (Music_box_1.SelectedIndex >= 0)
             //{
-            order_data[0] = 0;
-            order_data[1] = 1;
-            order_data[2] = 2;
-            order_data[3] = 3;
-            order_data[4] = 4;
-            order_data[5] = 5;
-            order_data[6] = 6;
-            order_data[7] = 7;
-            order_data[8] = 8;
-            order_data[9] = 9;
-            order_data[10] = 10;
-            order_data[11] = 11;
-            order_data[12] = 12;
-            order_data[13] = 13;
-            order_data[14] = 14;
-            order_data[15] = 15;
+            
+
             //}
             Init();
             //  var array = (Bassbox.Items[Bassbox.SelectedIndex] as string).Split(' ');
@@ -350,6 +342,12 @@ namespace adrilight.View.SettingsWindowComponents
                 int index = rnd.Next(0, 30);
                 effectbox.SelectedIndex = index;
             }
+            if(shuffle.IsChecked==true)
+            {
+                Random rnd2 = new Random();
+                int index = rnd2.Next(0, 7);
+                method.SelectedIndex = index;
+            }
 
 
         }
@@ -384,7 +382,7 @@ namespace adrilight.View.SettingsWindowComponents
 
         private void Comportbox5_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
+
         }
 
         private void effectbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -396,19 +394,19 @@ namespace adrilight.View.SettingsWindowComponents
         private void ChangeRunningMode(object sender, SelectionChangedEventArgs e)
         {
             var i = (Label)(sender as ComboBox).SelectedItem;
-            var item = (Label)effectbox_Copy2.SelectedItem;
+            var item = (String)screenefectbox.SelectedItem;
 
             if (i != null && item != null)
             {
                 if (i.Content.ToString() == "Rainbow Custom Zone")
                 {
-                    if (item.Content.ToString() == "Sáng theo hiệu ứng")
+                    if (item == "Sáng theo hiệu ứng")
                     {
                         isEffect = false;
                         //txtTitle.Visibility = Visibility.Visible;
                         //cuszoneIcon.Visibility = Visibility.Visible;
                         Bassbox.Visibility = Visibility.Collapsed;
-                        filemaubox.Visibility = Visibility.Visible;
+                        filemaubox.Visibility = Visibility.Collapsed;
                         ClrPcker_Background_1.Visibility = Visibility.Visible;
                         ClrPcker_Background_2.Visibility = Visibility.Visible;
                         ClrPcker_Background_3.Visibility = Visibility.Visible;
@@ -477,14 +475,15 @@ namespace adrilight.View.SettingsWindowComponents
 
                         this.customZone.Visibility = Visibility.Visible;
                         this.customZone.Height = 150;
+                        filemauchip.Content = filemaubox.Text;
                     }
-                    else if (item.Content.ToString() == "Sáng theo nhạc")
+                    else if (item == "Sáng theo nhạc")
                     {
                         isEffect = true;
                         //txtTitle.Visibility = Visibility.Visible;
                         //cuszoneIcon.Visibility = Visibility.Visible;
                         Bassbox.Visibility = Visibility.Visible;
-                        filemaubox.Visibility = Visibility.Visible;
+                        filemaubox.Visibility = Visibility.Collapsed;
                         ClrPcker_Background_1.Visibility = Visibility.Visible;
                         ClrPcker_Background_2.Visibility = Visibility.Visible;
                         ClrPcker_Background_3.Visibility = Visibility.Visible;
@@ -572,20 +571,22 @@ namespace adrilight.View.SettingsWindowComponents
 
                         this.customZone.Visibility = Visibility.Visible;
                         this.customZone.Height = 349;
+                        filemauchip.Content = filemaubox.Text;
+
                     }
                 }
                 else
                 {
-                    if (item.Content.ToString() == "Sáng theo hiệu ứng")
+                    if (item == "Sáng theo hiệu ứng")
                     {
                         this.customZone.Visibility = Visibility.Collapsed;
                     }
-                    else if (item.Content.ToString() == "Sáng theo nhạc")
+                    else if (item== "Sáng theo nhạc")
                     {
                         //txtTitle.Visibility = Visibility.Visible;
                         //cuszoneIcon.Visibility = Visibility.Visible;
                         Bassbox.Visibility = Visibility.Visible;
-                        filemaubox.Visibility = Visibility.Visible;
+                        filemaubox.Visibility = Visibility.Collapsed;
                         ClrPcker_Background_1.Visibility = Visibility.Collapsed;
                         ClrPcker_Background_2.Visibility = Visibility.Collapsed;
                         ClrPcker_Background_3.Visibility = Visibility.Collapsed;
@@ -654,6 +655,7 @@ namespace adrilight.View.SettingsWindowComponents
 
                         this.customZone.Visibility = Visibility.Visible;
                         this.customZone.Height = 349;
+                        filemauchip.Content = i.Content.ToString();
                     }
                 }
             }
@@ -661,26 +663,33 @@ namespace adrilight.View.SettingsWindowComponents
 
         private void ChangeEffect(object sender, SelectionChangedEventArgs e)
         {
-            var item = (Label)(sender as ComboBox).SelectedItem;
+            var item = (String)(sender as ComboBox).SelectedItem;
             var i = (Label)effectbox.SelectedItem;
-            if (numberScreen.SelectedItem == null)
-                numberScreen.SelectedItem = "Linear Lighting";
+            
+           
+            //if (numberScreen.SelectedItem == null)
+            //    numberScreen.SelectedItem = "Linear Lighting";
 
             if (item != null)
             {
 
                 previewCard.Visibility = Visibility.Collapsed;
-                balanceCard.Visibility = Visibility.Collapsed;
-                ledCard.Visibility = Visibility.Collapsed;
+                //balanceCard.Visibility = Visibility.Collapsed;
+                //ledCard.Visibility = Visibility.Collapsed;
                 ambilightCard.Visibility = Visibility.Collapsed;
-                sizescreenCard.Visibility = Visibility.Collapsed;
+                //sizescreenCard.Visibility = Visibility.Collapsed;
                 btnReset.Visibility = Visibility.Collapsed;
 
-                switch (item.Content.ToString())
+                switch (item)
                 {
                     case "Sáng theo hiệu ứng":
                         this.effectCard.Visibility = Visibility.Visible;
                         this.staticCard.Visibility = Visibility.Collapsed;
+                       
+                        
+                      
+                        this.offcard.Visibility = Visibility.Collapsed;
+                        this.Auracard.Visibility = Visibility.Collapsed;
                         if (i != null)
                         {
                             if (i.Content.ToString() == "Rainbow Custom Zone")
@@ -689,7 +698,7 @@ namespace adrilight.View.SettingsWindowComponents
                                 //txtTitle.Visibility = Visibility.Visible;
                                 //cuszoneIcon.Visibility = Visibility.Visible;
                                 Bassbox.Visibility = Visibility.Collapsed;
-                                filemaubox.Visibility = Visibility.Visible;
+                                filemaubox.Visibility = Visibility.Collapsed;
                                 ClrPcker_Background_1.Visibility = Visibility.Visible;
                                 ClrPcker_Background_2.Visibility = Visibility.Visible;
                                 ClrPcker_Background_3.Visibility = Visibility.Visible;
@@ -758,10 +767,12 @@ namespace adrilight.View.SettingsWindowComponents
 
                                 this.customZone.Visibility = Visibility.Visible;
                                 this.customZone.Height = 150;
+                                filemauchip.Content = filemaubox.Text;
                             }
                             else
                             {
                                 this.customZone.Visibility = Visibility.Collapsed;
+                                filemauchip.Content = i.Content.ToString();
                             }
                         }
                         break;
@@ -769,23 +780,48 @@ namespace adrilight.View.SettingsWindowComponents
                         this.effectCard.Visibility = Visibility.Collapsed;
                         this.staticCard.Visibility = Visibility.Collapsed;
                         this.customZone.Visibility = Visibility.Collapsed;
+                        this.offcard.Visibility = Visibility.Collapsed;
+                        this.Auracard.Visibility = Visibility.Collapsed;
 
 
                         previewCard.Visibility = Visibility.Visible;
-                        balanceCard.Visibility = Visibility.Visible;
-                        ledCard.Visibility = Visibility.Visible;
-                        ambilightCard.Visibility = Visibility.Visible;
-                        sizescreenCard.Visibility = Visibility.Visible;
+                        if(NavigationChip.SelectedIndex==0)//screen tab selected
+                        {
+                            ambilightCard.Visibility = Visibility.Visible;
+                            Ambilightdesk_card.Visibility = Visibility.Collapsed;
+                            Ambilightcase.Visibility = Visibility.Collapsed;
+                        }
+                        else if(NavigationChip.SelectedIndex==1)// case tab selected
+                        {
+                            ambilightCard.Visibility = Visibility.Collapsed;
+                            Ambilightdesk_card.Visibility = Visibility.Collapsed;
+                            Ambilightcase.Visibility = Visibility.Visible;
+
+                        }
+                        else if (NavigationChip.SelectedIndex==2)//desk tab selected
+                        {
+                            ambilightCard.Visibility = Visibility.Collapsed;
+                            Ambilightdesk_card.Visibility = Visibility.Visible;
+                            Ambilightcase.Visibility = Visibility.Collapsed;
+                        }
+                        //balanceCard.Visibility = Visibility.Visible;
+                        //ledCard.Visibility = Visibility.Visible;
+                        
+                        //sizescreenCard.Visibility = Visibility.Visible;
                         btnReset.Visibility = Visibility.Visible;
                         break;
                     case "Sáng màu tĩnh":
                         this.effectCard.Visibility = Visibility.Collapsed;
                         this.staticCard.Visibility = Visibility.Visible;
                         this.customZone.Visibility = Visibility.Collapsed;
+                        this.offcard.Visibility = Visibility.Collapsed;
+                        this.Auracard.Visibility = Visibility.Collapsed;
                         break;
                     case "Sáng theo nhạc":
                         this.effectCard.Visibility = Visibility.Visible;
                         this.staticCard.Visibility = Visibility.Collapsed;
+                        this.offcard.Visibility = Visibility.Collapsed;
+                        this.Auracard.Visibility = Visibility.Collapsed;
                         if (i != null)
                         {
                             if (i.Content.ToString() == "Rainbow Custom Zone")
@@ -794,7 +830,7 @@ namespace adrilight.View.SettingsWindowComponents
                                 //txtTitle.Visibility = Visibility.Visible;
                                 //cuszoneIcon.Visibility = Visibility.Visible;
                                 Bassbox.Visibility = Visibility.Visible;
-                                filemaubox.Visibility = Visibility.Visible;
+                                filemaubox.Visibility = Visibility.Collapsed;
                                 ClrPcker_Background_1.Visibility = Visibility.Visible;
                                 ClrPcker_Background_2.Visibility = Visibility.Visible;
                                 ClrPcker_Background_3.Visibility = Visibility.Visible;
@@ -867,13 +903,14 @@ namespace adrilight.View.SettingsWindowComponents
 
                                 this.customZone.Visibility = Visibility.Visible;
                                 this.customZone.Height = 349;
+                                filemauchip.Content = filemaubox.Text;
                             }
                             else
                             {
                                 //txtTitle.Visibility = Visibility.Visible;
                                 //cuszoneIcon.Visibility = Visibility.Visible;
                                 Bassbox.Visibility = Visibility.Visible;
-                                filemaubox.Visibility = Visibility.Visible;
+                                filemaubox.Visibility = Visibility.Collapsed;
                                 ClrPcker_Background_1.Visibility = Visibility.Collapsed;
                                 ClrPcker_Background_2.Visibility = Visibility.Collapsed;
                                 ClrPcker_Background_3.Visibility = Visibility.Collapsed;
@@ -941,7 +978,8 @@ namespace adrilight.View.SettingsWindowComponents
                                 //Music_box_16.Visibility = Visibility.Visible;
 
                                 this.customZone.Visibility = Visibility.Visible;
-                                this.customZone.Height = 262;
+                                this.customZone.Height = 349;
+                                filemauchip.Content = i.Content.ToString();
                             }
                         }
                         break;
@@ -949,27 +987,34 @@ namespace adrilight.View.SettingsWindowComponents
                         this.effectCard.Visibility = Visibility.Collapsed;
                         this.staticCard.Visibility = Visibility.Collapsed;
                         this.customZone.Visibility = Visibility.Collapsed;
+                        this.offcard.Visibility = Visibility.Collapsed;
+                        this.Auracard.Visibility = Visibility.Visible;
+                        
                         break;
                     case "Tắt":
                         this.effectCard.Visibility = Visibility.Collapsed;
                         this.staticCard.Visibility = Visibility.Collapsed;
                         this.customZone.Visibility = Visibility.Collapsed;
+                        this.offcard.Visibility = Visibility.Visible;
+                        this.Auracard.Visibility = Visibility.Collapsed;
                         break;
                 }
             }
 
         }
 
-        private void ChangeLighting(object sender, SelectionChangedEventArgs e)
-        {
-            var settingsViewModel = DataContext as SettingsViewModel;
-            var item = (Label) numberScreen.SelectedItem;
-            if (settingsViewModel != null)
-                if (item.Content.ToString() == "Non Lighting")
-                    settingsViewModel.Settings.UseLinearLighting = false;
-                else
-                    settingsViewModel.Settings.UseLinearLighting = true;
-        }
+       
+
+        //private void ChangeLighting(object sender, SelectionChangedEventArgs e)
+        //{
+        //    var settingsViewModel = DataContext as SettingsViewModel;
+        //    var item = (Label)numberScreen.SelectedItem;
+        //    if (settingsViewModel != null)
+        //        if (item.Content.ToString() == "Non Lighting")
+        //            settingsViewModel.Settings.UseLinearLighting = false;
+        //        else
+        //            settingsViewModel.Settings.UseLinearLighting = true;
+        //}
 
         private void ClrPcker_Background_1_SelectedColorChanged(object sender, RoutedEventArgs e)
         {
@@ -1054,8 +1099,9 @@ namespace adrilight.View.SettingsWindowComponents
             FileMau.RestoreDirectory = true;
             if (FileMau.ShowDialog() == true)
             {
-                var item = (Label)effectbox_Copy2.SelectedItem;
-                if (item.Content.ToString() == "Sáng theo hiệu ứng")
+                var item = screenefectbox.SelectedItem;
+           
+                if (item.ToString() == "Sáng theo hiệu ứng")
                 {
                     for (int i = 0; i < 16; i++)
                     {
@@ -1072,6 +1118,11 @@ namespace adrilight.View.SettingsWindowComponents
                 deviceInfo[2] = speed.Value.ToString();
                 deviceInfo[3] = sin.Value.ToString();
                 System.IO.File.AppendAllLines(FileMau.FileName, deviceInfo);
+            
+                filemaubox.Text = FileMau.SafeFileName;
+                filemauchip.Content = FileMau.SafeFileName;
+                //  UserSettings.filemau = filemaubox.Text;
+
             }
         }
 
@@ -1105,28 +1156,55 @@ namespace adrilight.View.SettingsWindowComponents
                             ClrPcker_Background_7.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[6]);
                             ClrPcker_Background_8.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[7]);
                             filemaubox.Text = filemau.SafeFileName;
+                            filemauchip.Content = filemau.SafeFileName;
+                            //  UserSettings.filemau = filemaubox.Text;
+
                         }
                     }
                     for (int j = 8; j < 24; j++)
                     {
                         if (!string.IsNullOrEmpty(lines[j]))
                         {
-                            //Music_box_1.SelectedIndex = Convert.ToInt16(lines[8]);
-                            //Music_box_2.SelectedIndex = Convert.ToInt16(lines[9]);
-                            //Music_box_3.SelectedIndex = Convert.ToInt16(lines[10]);
-                            //Music_box_4.SelectedIndex = Convert.ToInt16(lines[11]);
-                            //Music_box_5.SelectedIndex = Convert.ToInt16(lines[12]);
-                            //Music_box_6.SelectedIndex = Convert.ToInt16(lines[13]);
-                            //Music_box_7.SelectedIndex = Convert.ToInt16(lines[14]);
-                            //Music_box_8.SelectedIndex = Convert.ToInt16(lines[15]);
-                            //Music_box_9.SelectedIndex = Convert.ToInt16(lines[16]);
-                            //Music_box_10.SelectedIndex = Convert.ToInt16(lines[17]);
-                            //Music_box_11.SelectedIndex = Convert.ToInt16(lines[18]);
-                            //Music_box_12.SelectedIndex = Convert.ToInt16(lines[19]);
-                            //Music_box_13.SelectedIndex = Convert.ToInt16(lines[20]);
-                            //Music_box_14.SelectedIndex = Convert.ToInt16(lines[21]);
-                            //Music_box_15.SelectedIndex = Convert.ToInt16(lines[22]);
-                            //Music_box_16.SelectedIndex = Convert.ToInt16(lines[23]);
+                            if(musicchip.SelectedItem==Custom)
+                            {
+                           
+                            
+                                custom_order_data[0]= Convert.ToInt16(lines[8]);
+                                custom_order_data[1] = Convert.ToInt16(lines[9]);
+                                custom_order_data[2] = Convert.ToInt16(lines[10]);
+                                custom_order_data[3] = Convert.ToInt16(lines[11]);
+                                custom_order_data[4] = Convert.ToInt16(lines[12]);
+                                custom_order_data[5] = Convert.ToInt16(lines[13]);
+                                custom_order_data[6] = Convert.ToInt16(lines[14]);
+                                custom_order_data[7] = Convert.ToInt16(lines[15]);
+                                custom_order_data[8] = Convert.ToInt16(lines[16]);
+                                custom_order_data[9] = Convert.ToInt16(lines[17]);
+                                custom_order_data[10] = Convert.ToInt16(lines[18]);
+                                custom_order_data[11] = Convert.ToInt16(lines[19]);
+                                custom_order_data[12] = Convert.ToInt16(lines[20]);
+                                custom_order_data[13] = Convert.ToInt16(lines[21]);
+                                custom_order_data[14] = Convert.ToInt16(lines[22]);
+                                custom_order_data[15] = Convert.ToInt16(lines[23]);
+
+                                Music_box_1.SelectedIndex = custom_order_data[0];
+                                Music_box_2.SelectedIndex = custom_order_data[1];
+                                Music_box_3.SelectedIndex = custom_order_data[2];
+                                Music_box_4.SelectedIndex = custom_order_data[3];
+                                Music_box_5.SelectedIndex = custom_order_data[4];
+                                Music_box_6.SelectedIndex = custom_order_data[5];
+                                Music_box_7.SelectedIndex = custom_order_data[6];
+                                Music_box_8.SelectedIndex = custom_order_data[7];
+                                Music_box_9.SelectedIndex = custom_order_data[8];
+                                Music_box_10.SelectedIndex = custom_order_data[9];
+                                Music_box_11.SelectedIndex = custom_order_data[10];
+                                Music_box_12.SelectedIndex = custom_order_data[11];
+                                Music_box_13.SelectedIndex = custom_order_data[13];
+                                Music_box_15.SelectedIndex = custom_order_data[14];
+                                Music_box_16.SelectedIndex = custom_order_data[15];
+
+
+
+                            }
                         }
                     }
                     if (z == 28)
@@ -1177,10 +1255,7 @@ namespace adrilight.View.SettingsWindowComponents
             //    order_data[15] = Music_box_16.SelectedIndex;
             //}
 
-            for (int i = 8; i <= 23; i++)
-            {
-                lines2[i] = Convert.ToString(order_data[i - 8]);
-            }
+            
         }
 
         private void Devicebox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1466,10 +1541,10 @@ namespace adrilight.View.SettingsWindowComponents
 
 
                     previewCard.Visibility = Visibility.Visible;
-                    balanceCard.Visibility = Visibility.Visible;
-                    ledCard.Visibility = Visibility.Visible;
+                    //balanceCard.Visibility = Visibility.Visible;
+                    //ledCard.Visibility = Visibility.Visible;
                     ambilightCard.Visibility = Visibility.Visible;
-                    sizescreenCard.Visibility = Visibility.Visible;
+                    //sizescreenCard.Visibility = Visibility.Visible;
 
 
                     btnReset.IsEnabled = true;
@@ -1478,16 +1553,16 @@ namespace adrilight.View.SettingsWindowComponents
                 {
                     // Code for Un-Checked state
                     previewCard.Visibility = Visibility.Collapsed;
-                    balanceCard.Visibility = Visibility.Collapsed;
-                    ledCard.Visibility = Visibility.Collapsed;
+                    //balanceCard.Visibility = Visibility.Collapsed;
+                    //ledCard.Visibility = Visibility.Collapsed;
                     ambilightCard.Visibility = Visibility.Collapsed;
-                    sizescreenCard.Visibility = Visibility.Collapsed;
+                    //sizescreenCard.Visibility = Visibility.Collapsed;
 
 
                     btnReset.IsEnabled = false;
 
 
-                    var item = (Label)effectbox_Copy2.SelectedItem;
+                    var item = (Label)screenefectbox.SelectedItem;
                     var i = (Label)effectbox.SelectedItem;
                     if (item != null)
                     {
@@ -1504,7 +1579,7 @@ namespace adrilight.View.SettingsWindowComponents
                                         //txtTitle.Visibility = Visibility.Visible;
                                         //cuszoneIcon.Visibility = Visibility.Visible;
                                         Bassbox.Visibility = Visibility.Collapsed;
-                                        filemaubox.Visibility = Visibility.Visible;
+                                        filemaubox.Visibility = Visibility.Collapsed;
                                         ClrPcker_Background_1.Visibility = Visibility.Visible;
                                         ClrPcker_Background_2.Visibility = Visibility.Visible;
                                         ClrPcker_Background_3.Visibility = Visibility.Visible;
@@ -1601,7 +1676,7 @@ namespace adrilight.View.SettingsWindowComponents
                                         //txtTitle.Visibility = Visibility.Visible;
                                         //cuszoneIcon.Visibility = Visibility.Visible;
                                         Bassbox.Visibility = Visibility.Visible;
-                                        filemaubox.Visibility = Visibility.Visible;
+                                        filemaubox.Visibility = Visibility.Collapsed;
                                         ClrPcker_Background_1.Visibility = Visibility.Visible;
                                         ClrPcker_Background_2.Visibility = Visibility.Visible;
                                         ClrPcker_Background_3.Visibility = Visibility.Visible;
@@ -1683,7 +1758,7 @@ namespace adrilight.View.SettingsWindowComponents
                                         //txtTitle.Visibility = Visibility.Visible;
                                         //cuszoneIcon.Visibility = Visibility.Visible;
                                         Bassbox.Visibility = Visibility.Visible;
-                                        filemaubox.Visibility = Visibility.Visible;
+                                        filemaubox.Visibility = Visibility.Collapsed;
                                         ClrPcker_Background_1.Visibility = Visibility.Collapsed;
                                         ClrPcker_Background_2.Visibility = Visibility.Collapsed;
                                         ClrPcker_Background_3.Visibility = Visibility.Collapsed;
@@ -1776,7 +1851,7 @@ namespace adrilight.View.SettingsWindowComponents
             sliBlue.Value = 100;
             sliGreen.Value = 100;
             sliRed.Value = 100;
-            numberScreen.SelectedIndex = 0;
+            //numberScreen.SelectedIndex = 0;
             sliBlack.Value = 10;
             txtHeight.Text = "150";
             txtWidth.Text = "150";
@@ -1850,12 +1925,12 @@ namespace adrilight.View.SettingsWindowComponents
 
         private void ColorPicker_ColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
-            
+
         }
 
         private void ColorZone_MouseEnter(object sender, MouseEventArgs e)
         {
-            
+
 
 
         }
@@ -1896,6 +1971,810 @@ namespace adrilight.View.SettingsWindowComponents
             picker.Color = ((SolidColorBrush)pink.Background).Color;
         }
 
+        private void screenSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (screenSelect.SelectedIndex == 0)
+            {
+                this.screen1setup.Visibility = Visibility.Visible;
+                this.screen2setup.Visibility = Visibility.Collapsed;
+                this.screen3setup.Visibility = Visibility.Collapsed;
+
+            }
+            else if (screenSelect.SelectedIndex == 1)
+            {
+                this.screen1setup.Visibility = Visibility.Collapsed;
+                this.screen2setup.Visibility = Visibility.Visible;
+                this.screen3setup.Visibility = Visibility.Collapsed;
+
+            }
+            else if(screenSelect.SelectedIndex==2)
+            {
+                this.screen1setup.Visibility = Visibility.Collapsed;
+                this.screen2setup.Visibility = Visibility.Collapsed;
+                this.screen3setup.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void txtWidth_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //var width = 150;
+            //if (String.IsNullOrEmpty(txtWidth.Text))
+            //{
+            //    width = Convert.ToByte(txtWidth.Text);
+            //}
+            //if (width >= 20)
+            //{
+            //    previewRec.Width = width / 5;
+            //}
+            //else
+            //{
+            //    width = 150;
+
+            //    previewRec.Width = width / 5;
+
+            ////}
+            //if (UserSettings.SpotWidth >= 50)
+            //    previewRec.Width = UserSettings.SpotWidth/5;
+        }
+
+        private void txtHeight_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //var height = 150;
+            //if (String.IsNullOrEmpty(txtHeight.Text))
+            //{
+            //    height = Convert.ToByte(txtHeight.Text);
+            //}
+            //if (height >= 20)
+            //{
+            //    previewRec.Height = height / 5;
+            //}
+            //else
+            //{
+            //    height = 150;
+
+            //    previewRec.Height = height / 5;
+
+            ////}
+            //if( UserSettings.SpotHeight>=50)
+            //previewRec.Width = UserSettings.SpotHeight/5;
+        }
+
+        private void filemauchip_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog filemau = new OpenFileDialog();
+            filemau.Title = "Chọn file màu";
+            filemau.CheckFileExists = true;
+            filemau.CheckPathExists = true;
+            filemau.DefaultExt = "txt";
+            filemau.Filter = "Text files (*.txt)|*.txt";
+            filemau.FilterIndex = 2;
+            filemau.ShowDialog();
+
+            if (!string.IsNullOrEmpty(filemau.FileName) && File.Exists(filemau.FileName))
+            {
+                lines = System.IO.File.ReadAllLines(filemau.FileName);
+                int z = System.IO.File.ReadAllLines(filemau.FileName).Count();
+                if (z >= 24)
+                {
+                    for (int i = 0; i <= 7; i++)
+                    {
+                        if (!string.IsNullOrEmpty(lines[i]))
+                        {
+                            ClrPcker_Background_1.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[0]);
+                            ClrPcker_Background_2.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[1]);
+                            ClrPcker_Background_3.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[2]);
+                            ClrPcker_Background_4.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[3]);
+                            ClrPcker_Background_5.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[4]);
+                            ClrPcker_Background_6.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[5]);
+                            ClrPcker_Background_7.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[6]);
+                            ClrPcker_Background_8.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[7]);
+                            filemaubox.Text = filemau.SafeFileName;
+                            filemauchip.Content = filemau.SafeFileName;
+                            //  UserSettings.filemau = filemaubox.Text;
+
+                        }
+                    }
+                    for (int j = 8; j < 24; j++)
+                    {
+                        if (!string.IsNullOrEmpty(lines[j]))
+                        {
+                            //if (musicchip.SelectedItem == Custom)
+                            //{
+                            //    Music_box_1.SelectedIndex = Convert.ToInt16(lines[8]);
+                            //    Music_box_2.SelectedIndex = Convert.ToInt16(lines[9]);
+                            //    Music_box_3.SelectedIndex = Convert.ToInt16(lines[10]);
+                            //    Music_box_4.SelectedIndex = Convert.ToInt16(lines[11]);
+                            //    Music_box_5.SelectedIndex = Convert.ToInt16(lines[12]);
+                            //    Music_box_6.SelectedIndex = Convert.ToInt16(lines[13]);
+                            //    Music_box_7.SelectedIndex = Convert.ToInt16(lines[14]);
+                            //    Music_box_8.SelectedIndex = Convert.ToInt16(lines[15]);
+                            //    Music_box_9.SelectedIndex = Convert.ToInt16(lines[16]);
+                            //    Music_box_10.SelectedIndex = Convert.ToInt16(lines[17]);
+                            //    Music_box_11.SelectedIndex = Convert.ToInt16(lines[18]);
+                            //    Music_box_12.SelectedIndex = Convert.ToInt16(lines[19]);
+                            //    Music_box_13.SelectedIndex = Convert.ToInt16(lines[20]);
+                            //    Music_box_14.SelectedIndex = Convert.ToInt16(lines[21]);
+                            //    Music_box_15.SelectedIndex = Convert.ToInt16(lines[22]);
+                            //    Music_box_16.SelectedIndex = Convert.ToInt16(lines[23]);
+                            //}
+                        }
+                    }
+                    if (z == 28)
+                    {
+                        effectbox.SelectedIndex = Convert.ToInt16(lines[24]);
+                        method.SelectedIndex = Convert.ToInt16(lines[25]);
+                        speed.Value = Convert.ToInt16(lines[26]);
+                        sin.Value = Convert.ToInt16(lines[27]);
+                    }
+                }
+            } 
+        }
+
+        private void navigachip_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           
+            
+        }
+
+        private void navichip_SelectionChanged(object sender, MouseButtonEventArgs e)
+        {
+            //int index = screenefectbox.SelectedIndex;
+            //int index2 = faneffectbox.SelectedIndex;
+            //screenefectbox.SelectedIndex = 0;
+            //faneffectbox.SelectedIndex = 0;
+            //screenefectbox.SelectedIndex = index;
+            //faneffectbox.SelectedIndex = index2;
+
+
+        }
+        string screenNo;
+
+        private void AddProduct(object sender, RoutedEventArgs e)
+        {
+            Product pro = new Product();
+            var settingsViewModel = DataContext as SettingsViewModel;
+            bool[] lsBefore = new bool[12];
+            lsBefore[0] = settingsViewModel.Settings.Pro11;
+            lsBefore[1] = settingsViewModel.Settings.Pro12;
+            lsBefore[2] = settingsViewModel.Settings.Pro13;
+            lsBefore[3] = settingsViewModel.Settings.Pro14;
+            lsBefore[4] = settingsViewModel.Settings.Pro21;
+
+
+            lsBefore[5] = settingsViewModel.Settings.hasPCI;
+            lsBefore[6] = settingsViewModel.Settings.hasUSB;
+
+            pro.SUSB.IsChecked = lsBefore[6];
+            pro.SPCI.IsChecked = lsBefore[5];
+
+
+            if (settingsViewModel.Settings.hasUSBTwo)
+            {
+                pro.numberScreen.SelectedItem = "2";
+                screenNo = "2";
+            }
+            else
+            {
+                if (pro.numberScreen.SelectedItem != null)
+                    screenNo = pro.numberScreen.SelectedItem.ToString();
+                else
+                {
+                    pro.numberScreen.SelectedItem = "1";
+                    screenNo = "1";
+                }
+            }
+            lsBefore[7] = settingsViewModel.Settings.hasUSBTwo;
+            lsBefore[8] = settingsViewModel.Settings.hasScreenTwo;
+
+            lsBefore[9] = settingsViewModel.Settings.hasPCISecond;
+            lsBefore[10] = settingsViewModel.Settings.hasUSBSecond;
+
+            lsBefore[11] = settingsViewModel.Settings.Pro31;
+            pro.DUSB.IsChecked = lsBefore[10];
+            pro.DPCI.IsChecked = lsBefore[9];
+
+            pro.ShowDialog();
+            if (pro.pressSave)
+            {
+                IList<ISelectableViewPart> ls = settingsViewModel.BackUpView
+                                            .OrderBy(p => p.Order).ToList();
+                if (!settingsViewModel.Settings.Pro11 && !settingsViewModel.Settings.Pro12
+                    && !settingsViewModel.Settings.Pro13)
+                {
+                    settingsViewModel.Settings.caseenable = false;
+                    for (int j = 0; j < ls.Count; j++)
+                    {
+                        if (ls[j].Order == 24)
+                            ls.RemoveAt(j);
+                    }
+                }
+                else
+                {
+                    settingsViewModel.Settings.caseenable = true;
+                }
+                if (!settingsViewModel.Settings.Pro21)
+                {
+                    for (int j = 0; j < ls.Count; j++)
+                    {
+                        if (ls[j].Order == 26)
+                            ls.RemoveAt(j);
+                    }
+
+                }
+                if (!settingsViewModel.Settings.Pro22)
+                {
+                    for (int j = 0; j < ls.Count; j++)
+                    {
+                        if (ls[j].Order == 27)
+                            ls.RemoveAt(j);
+                    }
+
+                }
+                if (!settingsViewModel.Settings.Pro31)
+                {
+                    for (int j = 0; j < ls.Count; j++)
+                    {
+                        if (ls[j].Order == 28)
+                            ls.RemoveAt(j);
+                    }
+                }
+
+                //DemoItemsListBox.ItemsSource = ls.OrderBy(p => p.Order).ToList();
+                settingsViewModel.SelectedViewPart = settingsViewModel.SelectableViewParts.First();
+
+                //if (settingsViewModel.Settings.hasUSB && pro.numberScreen.SelectedItem != null
+                //    && pro.numberScreen.SelectedItem != "1")
+                //    settingsViewModel.Settings.hasUSBTwo = true;
+                //else
+                //    settingsViewModel.Settings.hasUSBTwo = false;
+                if (pro.SUSB.IsChecked == true)
+                {
+                    //pro.SPCI.IsChecked = false;
+                    settingsViewModel.Settings.hasUSB = true;
+                    settingsViewModel.Settings.hasPCI = false;
+
+                }
+                else if (pro.SUSB.IsChecked == false)
+                {
+                    //pro.SPCI.IsChecked = true;
+                    settingsViewModel.Settings.hasUSB = false;
+                    settingsViewModel.Settings.hasPCI = true;
+                }
+
+                if (pro.DUSB.IsChecked == true)
+                {
+                    //pro.SPCI.IsChecked = false;
+                    settingsViewModel.Settings.hasUSBSecond = true;
+                    settingsViewModel.Settings.hasPCISecond = false;
+
+                }
+                else if (pro.DUSB.IsChecked == false)
+                {
+                    //pro.SPCI.IsChecked = true;
+                    settingsViewModel.Settings.hasUSBSecond = false;
+                    settingsViewModel.Settings.hasPCISecond = true;
+                }
+
+
+
+
+                if (settingsViewModel.Settings.hasUSB == true)
+                {
+                    settingsViewModel.Settings.hasPCI = false;
+                    if (settingsViewModel.Settings.screencounter == 0)
+                    {
+                        settingsViewModel.Settings.hasUSB = true;
+                        settingsViewModel.Settings.hasUSBTwo = false;
+
+                    }
+                    else if (settingsViewModel.Settings.screencounter == 1)
+                    {
+                        settingsViewModel.Settings.hasUSB = true;
+                        settingsViewModel.Settings.hasUSBTwo = true;
+                    }
+                    else if (settingsViewModel.Settings.screencounter == 2)
+                    {
+                        settingsViewModel.Settings.hasUSB = true;
+                        settingsViewModel.Settings.hasUSBTwo = true;
+                    }
+                }
+                else
+                {
+                    settingsViewModel.Settings.hasPCI = true;
+                    if (settingsViewModel.Settings.screencounter == 0)
+                    {
+                        settingsViewModel.Settings.hasUSB = false;
+                        settingsViewModel.Settings.hasUSBTwo = false;
+                    }
+                    else if (settingsViewModel.Settings.screencounter == 1)
+                    {
+                        settingsViewModel.Settings.hasUSB = false;
+                        settingsViewModel.Settings.hasUSBTwo = false;
+                    }
+                    else if (settingsViewModel.Settings.screencounter == 2)
+                    {
+                        settingsViewModel.Settings.hasUSB = false;
+                        settingsViewModel.Settings.hasUSBTwo = false;
+                    }
+                }
+                if (settingsViewModel.Settings.hasUSBSecond == true)
+                {
+                    settingsViewModel.Settings.hasPCISecond = false;
+
+                }
+                else
+                {
+                    settingsViewModel.Settings.hasPCISecond = true;
+
+                }
+
+
+
+
+                //if (pro.numberScreen.SelectedItem != null && pro.numberScreen.SelectedItem != "1")
+                //    settingsViewModel.Settings.hasScreenTwo = true;
+                //else
+                //    settingsViewModel.Settings.hasScreenTwo = false;
+            }
+            else
+            {
+                settingsViewModel.Settings.Pro11 = lsBefore[0];
+                settingsViewModel.Settings.Pro12 = lsBefore[1];
+                settingsViewModel.Settings.Pro13 = lsBefore[2];
+                settingsViewModel.Settings.Pro14 = lsBefore[3];
+                settingsViewModel.Settings.Pro21 = lsBefore[4];
+
+                settingsViewModel.Settings.hasPCI = lsBefore[5];
+                settingsViewModel.Settings.hasUSB = lsBefore[6];
+                settingsViewModel.Settings.hasUSBTwo = lsBefore[7];
+                settingsViewModel.Settings.hasScreenTwo = lsBefore[8];
+                settingsViewModel.Settings.hasPCISecond = lsBefore[9];
+                settingsViewModel.Settings.hasUSBSecond = lsBefore[10];
+                pro.numberScreen.SelectedItem = screenNo;
+                settingsViewModel.Settings.Pro31 = lsBefore[11];
+            }
+
+        }
+
         
+
+        private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+           
+        }
+
+        private void minimize_click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void musicchip_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (musicchip.SelectedIndex == 0)
+            {
+                order_data[0] = 2;
+                order_data[1] = 2;
+                order_data[2] = 4;
+                order_data[3] = 4;
+                order_data[4] = 6;
+                order_data[5] = 6;
+                order_data[6] = 8;
+                order_data[7] = 8;
+                order_data[8] = 8;
+                order_data[9] = 8;
+                order_data[10] = 6;
+                order_data[11] = 6;
+                order_data[12] = 4;
+                order_data[13] = 4;
+                order_data[14] = 2;
+                order_data[15] = 2;
+
+
+                Music_box_1.SelectedIndex = order_data[0]-1;
+                Music_box_2.SelectedIndex = order_data[1]-1 ;
+                Music_box_3.SelectedIndex = order_data[2]-1 ;
+                Music_box_4.SelectedIndex = order_data[3]-1 ;
+                Music_box_5.SelectedIndex = order_data[4]-1 ;
+                Music_box_6.SelectedIndex = order_data[5]-1 ;
+                Music_box_7.SelectedIndex = order_data[6]-1 ;
+                Music_box_8.SelectedIndex = order_data[7]-1 ;
+                Music_box_9.SelectedIndex = order_data[8]-1 ;
+                Music_box_10.SelectedIndex = order_data[9]-1 ;
+                Music_box_11.SelectedIndex = order_data[10]-1 ;
+                Music_box_12.SelectedIndex = order_data[11]-1 ;
+                Music_box_13.SelectedIndex = order_data[12]-1 ;
+                Music_box_14.SelectedIndex = order_data[13]-1 ;
+                Music_box_15.SelectedIndex = order_data[14]-1 ;
+                Music_box_16.SelectedIndex = order_data[15]-1 ;
+            }
+            else if (musicchip.SelectedIndex == 1)
+            {
+                order_data[0] = 2;
+                order_data[1] = 2;
+                order_data[2] = 8;
+                order_data[3] = 8;
+                order_data[4] = 14;
+                order_data[5] = 14;
+                order_data[6] = 15;
+                order_data[7] = 15;
+                order_data[8] = 14;
+                order_data[9] = 14;
+                order_data[10] = 8;
+                order_data[11] = 8;
+                order_data[12] = 2;
+                order_data[13] = 2;
+                order_data[14] = 2;
+                order_data[15] = 2;
+
+                Music_box_1.SelectedIndex = order_data[0] - 1;
+                Music_box_2.SelectedIndex = order_data[1] - 1;
+                Music_box_3.SelectedIndex = order_data[2] - 1;
+                Music_box_4.SelectedIndex = order_data[3] - 1;
+                Music_box_5.SelectedIndex = order_data[4] - 1;
+                Music_box_6.SelectedIndex = order_data[5] - 1;
+                Music_box_7.SelectedIndex = order_data[6] - 1;
+                Music_box_8.SelectedIndex = order_data[7] - 1;
+                Music_box_9.SelectedIndex = order_data[8] - 1;
+                Music_box_10.SelectedIndex = order_data[9] - 1;
+                Music_box_11.SelectedIndex = order_data[10] - 1;
+                Music_box_12.SelectedIndex = order_data[11] - 1;
+                Music_box_13.SelectedIndex = order_data[12] - 1;
+                Music_box_14.SelectedIndex = order_data[13] - 1;
+                Music_box_15.SelectedIndex = order_data[14] - 1;
+                Music_box_16.SelectedIndex = order_data[15] - 1;
+            }
+            else if (musicchip.SelectedIndex == 2)
+            {
+                order_data[0] = 2;
+                order_data[1] = 2;
+                order_data[2] = 2;
+                order_data[3] = 2;
+                order_data[4] = 2;
+                order_data[5] = 2;
+                order_data[6] = 9;
+                order_data[7] = 9;
+                order_data[8] = 9;
+                order_data[9] = 9;
+                order_data[10] = 2;
+                order_data[11] = 2;
+                order_data[12] = 2;
+                order_data[13] = 2;
+                order_data[14] = 2;
+                order_data[15] = 2;
+
+                Music_box_1.SelectedIndex = order_data[0] - 1;
+                Music_box_2.SelectedIndex = order_data[1] - 1;
+                Music_box_3.SelectedIndex = order_data[2] - 1;
+                Music_box_4.SelectedIndex = order_data[3] - 1;
+                Music_box_5.SelectedIndex = order_data[4] - 1;
+                Music_box_6.SelectedIndex = order_data[5] - 1;
+                Music_box_7.SelectedIndex = order_data[6] - 1;
+                Music_box_8.SelectedIndex = order_data[7] - 1;
+                Music_box_9.SelectedIndex = order_data[8] - 1;
+                Music_box_10.SelectedIndex = order_data[9] - 1;
+                Music_box_11.SelectedIndex = order_data[10] - 1;
+                Music_box_12.SelectedIndex = order_data[11] - 1;
+                Music_box_13.SelectedIndex = order_data[12] - 1;
+                Music_box_14.SelectedIndex = order_data[13] - 1;
+                Music_box_15.SelectedIndex = order_data[14] - 1;
+                Music_box_16.SelectedIndex = order_data[15] - 1;
+            }
+            else if (musicchip.SelectedIndex == 3)
+            {
+                order_data[0] = 8;
+                order_data[1] = 8;
+                order_data[2] = 8;
+                order_data[3] = 8;
+                order_data[4] = 11;
+                order_data[5] = 11;
+                order_data[6] = 11;
+                order_data[7] = 11;
+                order_data[8] = 13;
+                order_data[9] = 13;
+                order_data[10] = 13;
+                order_data[11] = 13;
+                order_data[12] = 2;
+                order_data[13] = 2;
+                order_data[14] = 2;
+                order_data[15] = 2;
+
+                Music_box_1.SelectedIndex = order_data[0] - 1;
+                Music_box_2.SelectedIndex = order_data[1] - 1;
+                Music_box_3.SelectedIndex = order_data[2] - 1;
+                Music_box_4.SelectedIndex = order_data[3] - 1;
+                Music_box_5.SelectedIndex = order_data[4] - 1;
+                Music_box_6.SelectedIndex = order_data[5] - 1;
+                Music_box_7.SelectedIndex = order_data[6] - 1;
+                Music_box_8.SelectedIndex = order_data[7] - 1;
+                Music_box_9.SelectedIndex = order_data[8] - 1;
+                Music_box_10.SelectedIndex = order_data[9] - 1;
+                Music_box_11.SelectedIndex = order_data[10] - 1;
+                Music_box_12.SelectedIndex = order_data[11] - 1;
+                Music_box_13.SelectedIndex = order_data[12] - 1;
+                Music_box_14.SelectedIndex = order_data[13] - 1;
+                Music_box_15.SelectedIndex = order_data[14] - 1;
+                Music_box_16.SelectedIndex = order_data[15] - 1;
+            }
+            if (musicchip.SelectedIndex == 4)
+            {
+                order_data[0] = 1;
+                order_data[1] = 3;
+                order_data[2] = 5;
+                order_data[3] = 7;
+                order_data[4] = 9;
+                order_data[5] = 11;
+                order_data[6] = 13;
+                order_data[7] = 15;
+                order_data[8] = 15;
+                order_data[9] = 13;
+                order_data[10] = 11;
+                order_data[11] = 9;
+                order_data[12] = 7;
+                order_data[13] = 5;
+                order_data[14] = 3;
+                order_data[15] = 3;
+
+                Music_box_1.SelectedIndex = order_data[0] - 1;
+                Music_box_2.SelectedIndex = order_data[1] - 1;
+                Music_box_3.SelectedIndex = order_data[2] - 1;
+                Music_box_4.SelectedIndex = order_data[3] - 1;
+                Music_box_5.SelectedIndex = order_data[4] - 1;
+                Music_box_6.SelectedIndex = order_data[5] - 1;
+                Music_box_7.SelectedIndex = order_data[6] - 1;
+                Music_box_8.SelectedIndex = order_data[7] - 1;
+                Music_box_9.SelectedIndex = order_data[8] - 1;
+                Music_box_10.SelectedIndex = order_data[9] - 1;
+                Music_box_11.SelectedIndex = order_data[10] - 1;
+                Music_box_12.SelectedIndex = order_data[11] - 1;
+                Music_box_13.SelectedIndex = order_data[12] - 1;
+                Music_box_14.SelectedIndex = order_data[13] - 1;
+                Music_box_15.SelectedIndex = order_data[14] - 1;
+                Music_box_16.SelectedIndex = order_data[15] - 1;
+            }
+
+            else if(musicchip.SelectedIndex == 5)
+                {
+
+                Music_box_1.SelectedIndex = custom_order_data[0];
+                Music_box_2.SelectedIndex = custom_order_data[1];
+                Music_box_3.SelectedIndex = custom_order_data[2];
+                Music_box_4.SelectedIndex = custom_order_data[3];
+                Music_box_5.SelectedIndex = custom_order_data[4];
+                Music_box_6.SelectedIndex = custom_order_data[5];
+                Music_box_7.SelectedIndex = custom_order_data[6];
+                Music_box_8.SelectedIndex = custom_order_data[7];
+                Music_box_9.SelectedIndex = custom_order_data[8];
+                Music_box_10.SelectedIndex = custom_order_data[9];
+                Music_box_11.SelectedIndex = custom_order_data[10];
+                Music_box_12.SelectedIndex = custom_order_data[11];
+                Music_box_13.SelectedIndex = custom_order_data[13];
+                Music_box_15.SelectedIndex = custom_order_data[14];
+                Music_box_16.SelectedIndex = custom_order_data[15];
+            }
+
+            for (int i = 8; i <= 23; i++)
+            {
+                lines2[i] = Convert.ToString(order_data[i - 8]);
+            }
+        }
+
+        private void Screen_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            //if(Screen.Visibility==Visibility.Collapsed)
+            //{
+            //    Screen.IsSelected = false;
+            //}
+        }
+
+        private void Case_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            //if(Case.Visibility==Visibility.Collapsed)
+            //{
+            //    Case.IsSelected = false;
+            //}
+        }
+
+        private void Desk_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            //if(Desk.Visibility==Visibility.Collapsed)
+            //{
+            //    Desk.IsSelected = false;
+            //}
+        }
+
+        private void Sample1_DialogHost_OnDialogClosing(object sender, DialogClosingEventArgs eventArgs)
+        {
+
+        }
+
+        private void OK1_Click(object sender, RoutedEventArgs e)
+        {
+            order_data[0] = Music_box_1.SelectedIndex;   
+        }
+
+        private void screenbox3_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (screenbox3.SelectedIndex == 0)
+            {
+
+                width3.IsEnabled = false;
+                height3.IsEnabled = false;
+                offset.IsEnabled = false;
+                //    widthslide2.IsEnabled = false;
+                //    heightslide2.IsEnabled = false;
+
+
+
+                width3.Text = "10";
+                height3.Text = "6";
+                //offset.Text = "9";
+
+
+
+
+
+            }
+            else if (screenbox3.SelectedIndex == 1)
+            {
+
+                width3.IsEnabled = false;
+                height3.IsEnabled = false;
+                offset.IsEnabled = false;
+                //    widthslide2.IsEnabled = false;
+                //    heightslide2.IsEnabled = false;
+
+
+
+                width3.Text = "11";
+                height3.Text = "6";
+                offset.Text = "9";
+
+
+
+
+
+            }
+            else if (screenbox3.SelectedIndex == 2)
+            {
+                width3.IsEnabled = false;
+                height3.IsEnabled = false;
+                offset.IsEnabled = false;
+                //    widthslide2.IsEnabled = false;
+                //    heightslide2.IsEnabled = false;
+                //    offsetslide.IsEnabled = false;
+                width3.Text = "14";
+                height3.Text = "6";
+                //offset.Text = "13";
+
+
+            }
+            else if (screenbox3.SelectedIndex == 3)
+            {
+                width3.IsEnabled = false;
+                height3.IsEnabled = false;
+                offset.IsEnabled = false;
+                //    widthslide2.IsEnabled = false;
+                //    heightslide2.IsEnabled = false;
+                //    offsetslide.IsEnabled = false;
+
+                width3.Text = "14";
+                height3.Text = "7";
+                //offset.Text = "13";
+
+            }
+            else if (screenbox3.SelectedIndex == 4)
+            {
+                width3.IsEnabled = false;
+                height3.IsEnabled = false;
+                offset.IsEnabled = false;
+                //    widthslide2.IsEnabled = false;
+                //    heightslide2.IsEnabled = false;
+                //    offsetslide.IsEnabled = false;
+                width3.Text = "15";
+                height3.Text = "7";
+
+
+            }
+            else if (screenbox3.SelectedIndex == 5)
+            {
+                width3.IsEnabled = true;
+                height3.IsEnabled = true;
+                offset.IsEnabled = true;
+                //    widthslide.IsEnabled = true;
+                //    heightslide.IsEnabled = true;
+                //    offsetslide.IsEnabled = true;
+            }
+        }
+
+        private void OK2_Click(object sender, RoutedEventArgs e)
+        {
+            order_data[1] = Music_box_2.SelectedIndex;
+        }
+
+        private void OK3_Click(object sender, RoutedEventArgs e)
+        {
+            order_data[2] = Music_box_3.SelectedIndex;
+        }
+
+        private void OK4_Click(object sender, RoutedEventArgs e)
+        {
+            order_data[3] = Music_box_4.SelectedIndex;
+        }
+
+        private void OK5_Click(object sender, RoutedEventArgs e)
+        {
+            order_data[4] = Music_box_5.SelectedIndex;
+        }
+
+        private void OK6_Click(object sender, RoutedEventArgs e)
+        {
+            order_data[5] = Music_box_6.SelectedIndex;
+        }
+
+        private void OK7_Click(object sender, RoutedEventArgs e)
+        {
+            order_data[6] = Music_box_7.SelectedIndex;
+        }
+
+        private void OK8_Click(object sender, RoutedEventArgs e)
+        {
+            order_data[7] = Music_box_8.SelectedIndex;
+        }
+
+        private void OK9_Click(object sender, RoutedEventArgs e)
+        {
+            order_data[8] = Music_box_9.SelectedIndex;
+        }
+
+        private void OK10_Click(object sender, RoutedEventArgs e)
+        {
+            order_data[9] = Music_box_10.SelectedIndex;
+        }
+
+        private void OK11_Click(object sender, RoutedEventArgs e)
+        {
+            order_data[10] = Music_box_11.SelectedIndex;
+        }
+
+        private void OK12_Click(object sender, RoutedEventArgs e)
+        {
+            order_data[11] = Music_box_12.SelectedIndex;
+        }
+
+        private void OK13_Click(object sender, RoutedEventArgs e)
+        {
+            order_data[12] = Music_box_13.SelectedIndex;
+        }
+
+        private void OK14_Click(object sender, RoutedEventArgs e)
+        {
+            order_data[13] = Music_box_14.SelectedIndex;
+        }
+
+        private void OK15_Click(object sender, RoutedEventArgs e)
+        {
+            order_data[14] = Music_box_15.SelectedIndex;
+        }
+
+        private void OK16_Click(object sender, RoutedEventArgs e)
+        {
+            order_data[15] = Music_box_16.SelectedIndex;
+        }
+
+       
+
+
+
+
+
+
+
+
+        //private void Slider_ValueChanged_1(object sender, RoutedPropertyChangedEventArgs<double> e)
+        //{
+        //    var value = Convert.ToByte(Bluance.Value);
+        //    Brush Balance = new SolidColorBrush(Color.FromRgb(255, 255, value));
+        //    previewRec.Fill = Balance;
+        //}
     }
 }

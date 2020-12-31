@@ -46,19 +46,7 @@
 						   Margin="-17,-30,179,113" VerticalAlignment="Bottom" 
 						   Source="/adrilight;component/View/Images/purple theme/usbicon@2x.png" 
 						   RenderTransformOrigin="-0.186,0.516" Height="151" Width="110" />
-					<Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Right" 
-						   Margin="0,0,127,75" VerticalAlignment="Bottom" 
-						   Source="/adrilight;component/View/Images/purple theme/led@2x.png" 
-						   RenderTransformOrigin="-0.186,0.516" Height="81" Width="48" />
-					<Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Right" 
-						   Margin="0,0,212,73" VerticalAlignment="Bottom" 
-						   Source="/adrilight;component/View/Images/purple theme/source@2x.png" 
-						   RenderTransformOrigin="-0.186,0.516" Height="81" Width="48" />
-					<Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Right" 
-						   Margin="0,0,34,76" VerticalAlignment="Bottom" 
-						   Source="/adrilight;component/View/Images/purple theme/outofcase.png" 
-						   RenderTransformOrigin="-0.186,0.516" Height="81" Width="48" />
-					<TextBlock
+                    <TextBlock
 							Margin="0,18,54,198" HorizontalAlignment="Right" Padding="0" Width="134" 
 							VerticalAlignment="Center" FontSize="15" FontWeight="Bold">
 							<Run Text="Kết nối với thiết bị"/></TextBlock>
@@ -141,12 +129,7 @@
 								<TranslateTransform/>
 							</TransformGroup>
 						</TextBlock.RenderTransform><Run Text="Độ sáng"/></TextBlock>
-
-					<Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
-						   Height="121" VerticalAlignment="Top" Width="128" Grid.Row="0"
-						   Margin="-14,-15,0,0"
-					   Source="/adrilight;component/View/Images/purple theme/caseicon@2x.png"/>
-					<TextBlock ToolTip="Mục này chỉnh mọi thứ liên quan đến LED của Fan, tất cả các &#10;tùy chỉnh sẽ được áp dụng ngay lập tức, Tùy chọn Ambilight, &#10;Music mode hay Sync main đều có trong mục Hiệu ứng"
+                    <TextBlock ToolTip="Mục này chỉnh mọi thứ liên quan đến LED của Fan, tất cả các &#10;tùy chỉnh sẽ được áp dụng ngay lập tức, Tùy chọn Ambilight, &#10;Music mode hay Sync main đều có trong mục Hiệu ứng"
 						HorizontalAlignment="Right" Padding="0" Width="182" VerticalAlignment="Center" 
 						Grid.Row="0" Margin="0,24,5,65"
 						FontSize="15" FontWeight="Bold" Height="20"><Run Text="Bảng điều chỉnh hiệu ứng"/></TextBlock>

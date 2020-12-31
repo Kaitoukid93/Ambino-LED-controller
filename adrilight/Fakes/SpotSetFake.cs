@@ -20,9 +20,11 @@ namespace adrilight.Fakes
 
         public ISpot[] Spots { get; set; }
         public ISpot[] Spots2 { get; set; }
+        public ISpot[] Spots3 { get; set; }
 
         public object Lock { get; } = new object();
         public object Lock2 { get; } = new object();
+        public object Lock3 { get; } = new object();
 
         public int ExpectedScreenWidth => 1920;
 
@@ -31,6 +33,10 @@ namespace adrilight.Fakes
         public int ExpectedScreenWidth2 => 1920;
 
         public int ExpectedScreenHeight2 => 1080;
+
+        public int ExpectedScreenWidth3 => 1920;
+
+        public int ExpectedScreenHeight3 => 1080;
 
         public int CountLeds(int spotsX, int spotsY)
         {

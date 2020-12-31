@@ -69,6 +69,9 @@ namespace adrilight.ui
             lsBefore[5] = settingsViewModel.Settings.hasPCI;
             lsBefore[6] = settingsViewModel.Settings.hasUSB;
 
+            pro.SUSB.IsChecked = lsBefore[6];
+            pro.SPCI.IsChecked = lsBefore[5];
+            
 
             if (settingsViewModel.Settings.hasUSBTwo)
             {
@@ -92,6 +95,8 @@ namespace adrilight.ui
             lsBefore[10] = settingsViewModel.Settings.hasUSBSecond;
 
             lsBefore[11] = settingsViewModel.Settings.Pro31;
+            pro.DUSB.IsChecked = lsBefore[10];
+            pro.DPCI.IsChecked = lsBefore[9];
 
             pro.ShowDialog();
             if (pro.pressSave)
@@ -101,11 +106,16 @@ namespace adrilight.ui
                 if (!settingsViewModel.Settings.Pro11 && !settingsViewModel.Settings.Pro12 
                     && !settingsViewModel.Settings.Pro13)
                 {
+                    settingsViewModel.Settings.caseenable = false;
                     for (int j = 0; j < ls.Count; j++)
                     {
                         if (ls[j].Order == 24)
                             ls.RemoveAt(j);
                     }
+                }
+                else
+                {
+                    settingsViewModel.Settings.caseenable = true;
                 }
                 if (!settingsViewModel.Settings.Pro21)
                 {
@@ -133,20 +143,103 @@ namespace adrilight.ui
                             ls.RemoveAt(j);
                     }
                 }
-
-                DemoItemsListBox.ItemsSource = ls.OrderBy(p => p.Order).ToList();
+                settingsViewModel.Settings.tabindex = 0;
+                //DemoItemsListBox.ItemsSource = ls.OrderBy(p => p.Order).ToList();
                 settingsViewModel.SelectedViewPart = settingsViewModel.SelectableViewParts.First();
 
-                if (settingsViewModel.Settings.hasUSB && pro.numberScreen.SelectedItem != null
-                    && pro.numberScreen.SelectedItem != "1")
-                    settingsViewModel.Settings.hasUSBTwo = true;
-                else
-                    settingsViewModel.Settings.hasUSBTwo = false;
+                //if (settingsViewModel.Settings.hasUSB && pro.numberScreen.SelectedItem != null
+                //    && pro.numberScreen.SelectedItem != "1")
+                //    settingsViewModel.Settings.hasUSBTwo = true;
+                //else
+                //    settingsViewModel.Settings.hasUSBTwo = false;
+                if (pro.SUSB.IsChecked == true)
+                {
+                    //pro.SPCI.IsChecked = false;
+                    settingsViewModel.Settings.hasUSB = true;
+                    settingsViewModel.Settings.hasPCI = false;
 
-                if (pro.numberScreen.SelectedItem != null && pro.numberScreen.SelectedItem != "1")
-                    settingsViewModel.Settings.hasScreenTwo = true;
+                }
+                else if (pro.SUSB.IsChecked == false)
+                {
+                    //pro.SPCI.IsChecked = true;
+                    settingsViewModel.Settings.hasUSB = false;
+                    settingsViewModel.Settings.hasPCI = true;
+                }
+
+                if (pro.DUSB.IsChecked == true)
+                {
+                    //pro.SPCI.IsChecked = false;
+                    settingsViewModel.Settings.hasUSBSecond = true;
+                    settingsViewModel.Settings.hasPCISecond = false;
+
+                }
+                else if (pro.DUSB.IsChecked == false)
+                {
+                    //pro.SPCI.IsChecked = true;
+                    settingsViewModel.Settings.hasUSBSecond = false;
+                    settingsViewModel.Settings.hasPCISecond = true;
+                }
+
+
+
+
+                if (settingsViewModel.Settings.hasUSB==true)
+                {
+                    settingsViewModel.Settings.hasPCI = false;
+                    if (settingsViewModel.Settings.screencounter==0)
+                {
+                    settingsViewModel.Settings.hasUSB = true;
+                    settingsViewModel.Settings.hasUSBTwo = false;
+                        
+                }
+                else if (settingsViewModel.Settings.screencounter==1)
+                {
+                    settingsViewModel.Settings.hasUSB = true;
+                    settingsViewModel.Settings.hasUSBTwo = true;
+                }
+                else if(settingsViewModel.Settings.screencounter==2)
+                {
+                    settingsViewModel.Settings.hasUSB = true;
+                    settingsViewModel.Settings.hasUSBTwo = true;
+                }
+                }
                 else
-                    settingsViewModel.Settings.hasScreenTwo = false;
+                {
+                    settingsViewModel.Settings.hasPCI = true;
+                    if (settingsViewModel.Settings.screencounter == 0)
+                    {
+                        settingsViewModel.Settings.hasUSB = false;
+                        settingsViewModel.Settings.hasUSBTwo = false;
+                    }
+                    else if (settingsViewModel.Settings.screencounter == 1)
+                    {
+                        settingsViewModel.Settings.hasUSB =false;
+                        settingsViewModel.Settings.hasUSBTwo = false;
+                    }
+                    else if (settingsViewModel.Settings.screencounter == 2)
+                    {
+                        settingsViewModel.Settings.hasUSB = false;
+                        settingsViewModel.Settings.hasUSBTwo = false;
+                    }
+                }
+                if (settingsViewModel.Settings.hasUSBSecond == true)
+                {
+                    settingsViewModel.Settings.hasPCISecond = false;
+                    
+                }
+                else
+                {
+                    settingsViewModel.Settings.hasPCISecond = true;
+                  
+                }
+
+
+
+
+                //if (pro.numberScreen.SelectedItem != null && pro.numberScreen.SelectedItem != "1")
+                //    settingsViewModel.Settings.hasScreenTwo = true;
+                //else
+                //    settingsViewModel.Settings.hasScreenTwo = false;
             }
             else
             {
@@ -167,5 +260,22 @@ namespace adrilight.ui
             }
 
         }
+
+        private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
+
+        private void exit_click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown(0);
+        }
+
+        private void minimize_click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.Close();
+        }
+
     }
 }

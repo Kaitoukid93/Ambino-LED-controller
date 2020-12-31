@@ -20,31 +20,36 @@ namespace adrilight.Fakes
         public string ComPort { get; set; } = "Không có";
         public string ComPort2 { get; set; } = "Không có";
         public string ComPort3 { get; set; } = "Không có";
-        public string ComPort4 { get; set; } = "Không có";
+        //public string ComPort4 { get; set; } = "Không có";
         public string ComPort5 { get; set; } = "Không có";
         public DateTime? LastUpdateCheck { get; set; } = DateTime.Now;
         public int LedsPerSpot { get; set; } = 1;
         public bool MirrorX { get; set; } = true;
         public bool MirrorY { get; set; } = false;
-        public int OffsetLed { get; set; } = 22;
+        public int OffsetLed { get; set; } = 10;
+        public int OffsetLed2 { get; set; } = 10;
+        public int OffsetLed3 { get; set; } = 10;
         public int OffsetX { get; set; } = 0;
         public int OffsetY { get; set; } = 0;
         public bool IsPreviewEnabled { get; set; } = false;
         public byte SaturationTreshold { get; set; } = 4;
-        public int SpotsX { get; set; } = 6;
+        public int SpotsX { get; set; } = 11;
         public int SpotsY { get; set; } = 6;
-        public int SpotsX2 { get; set; } = 6;
+        public int SpotsX2 { get; set; } = 11;
         public int SpotsY2 { get; set; } = 6;
+        public int SpotsX3 { get; set; } = 11;
+        public int SpotsY3 { get; set; } = 6;
         public int SpotHeight { get; set; } = 40;
         public int SpotWidth { get; set; } = 40;
         public bool StartMinimized { get; set; } = true;
         public bool TransferActive { get; set; } = true;
         public bool CaptureActive { get; set; } = true;
         public bool Shuffle { get; set; } = false;
+        public bool shuffle { get; set; } = false;
         public bool ComportOpen { get; set; } = true;
         public bool Comport2Open { get; set; } = true;
         public bool Comport3Open { get; set; } = true;
-        public bool Comport4Open { get; set; } = true;
+        //public bool Comport4Open { get; set; } = true;
         public bool Comport5Open { get; set; } = true;
         public bool Advancesettings { get; set; } = false;
         public bool UseLinearLighting { get; set; } = true;
@@ -53,6 +58,8 @@ namespace adrilight.Fakes
         // Add new
         public bool screenOne { get; set; } = false;
         public bool hasPCI { get; set; } = false;
+        public bool hasRainpow { get; set; } = false;
+        public bool hasNode{ get; set; } = false;
         public bool hasUSB { get; set; } = false;
         public bool hasPCISecond { get; set; } = false;
         public bool hasUSBSecond { get; set; } = false;
@@ -77,9 +84,22 @@ namespace adrilight.Fakes
         public byte resetcounter { get; set; } = 1;
         public byte screensizecounter { get; set; } = 2;
         public byte screen2sizecounter { get; set; } = 2;
+        public byte screen3sizecounter { get; set; } = 2;
         public byte audiodevice { get; set; } = 0;
         public byte devicecounter { get; set; } = 0;
         public byte screeneffectcounter { get; set; } = 0;
+        public byte screencounter { get; set; } = 0;
+        public bool nodevice { get; set; } = false;
+        public byte Port4Config { get; set; } = 0;
+        public byte Port3Config { get; set; } = 0;
+        public byte Port2Config { get; set; } = 0;
+        public byte Port1Config { get; set; } = 0;
+        public byte genre { get; set; } = 0;
+        public bool caseenable { get; set; } = false;
+        public byte tabindex { get; set; } = 0;
+        
+
+        public byte deskdirrection { get; set; } = 0;
         public byte holdtimecounter { get; set; } = 0;
         public byte buttoneffectcounter { get; set; } = 0;
 
@@ -118,7 +138,8 @@ namespace adrilight.Fakes
         public byte fanspeedcounter { get; set; } = 200;
         public byte sincounter { get; set; } = 47;
         public byte speedcounter { get; set; } = 1;
-        public string filemau { get; set; } = null;
+        public string filemau { get; set; } = "Blackout.txt";
+        public string filemauchip { get; set; } = "Blackout.txt";
         public byte methodcounter { get; set; } = 0;
         public int musiccounter { get; set; } = 0;
         public byte color1R { get; set; } = 255;
@@ -136,6 +157,7 @@ namespace adrilight.Fakes
         public Color CaseStatic { get; set; } = AliceBlue;
         public Color ScreenStatic { get; set; } = AliceBlue;
         public Color DeskStatic { get; set; } = AliceBlue;
+        
 
         public byte color2R { get; set; } = 255;
         public byte color2G { get; set; } = 0;

@@ -49,19 +49,19 @@ namespace adrilight
 
         private void SaveCommandHandler(object sender, ExecutedRoutedEventArgs e)
         {
-            if ((bool)CheckBox21.IsChecked && !(bool)CheckBox200.IsChecked && !(bool)CheckBox201.IsChecked)
-            {
-                MessageBox.Show("Vui lòng chọn loại kết nối PCI hoặc USB!");
-            }
-            else if ((bool)CheckBox22.IsChecked && !(bool)CheckBox210.IsChecked && !(bool)CheckBox211.IsChecked)
-            {
-                MessageBox.Show("Vui lòng chọn loại kết nối PCI hoặc USB!");
-            }
-            else
-            {
+            //if ((bool)CheckBox21.IsChecked && !(bool)CheckBox200.IsChecked && !(bool)CheckBox201.IsChecked)
+            //{
+            //    MessageBox.Show("Vui lòng chọn loại kết nối PCI hoặc USB!");
+            //}
+            //else if ((bool)CheckBox22.IsChecked && !(bool)CheckBox210.IsChecked && !(bool)CheckBox211.IsChecked)
+            //{
+            //    MessageBox.Show("Vui lòng chọn loại kết nối PCI hoặc USB!");
+            //}
+            //else
+            //{
                 pressSave = true;
                 this.Close();
-            }
+            //}
 
         }
 
@@ -77,5 +77,23 @@ namespace adrilight
                 EnableMenuItem(hMenu, SC_CLOSE, MF_BYCOMMAND | MF_GRAYED);
             }
         }
+
+        private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
+
+        //private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    Rainpow.IsChecked = true;
+        //    Node.IsChecked = true;
+        //    screenchip.IsChecked = true;
+        //    deskchip.IsChecked = true;
+        //    DPCI.IsChecked = true;
+        //    DUSB.IsChecked = false;
+        //    SPCI.IsChecked = true;
+        //    SUSB.IsChecked = false;
+        //}
     }
 }

@@ -32,6 +32,10 @@ namespace adrilight.ViewModel
     class SettingsViewModel : ViewModelBase
     {
         private static ILogger _log = LogManager.GetCurrentClassLogger();
+        public ObservableCollection<string> CaseEffects { get; private set; }
+        public ObservableCollection<string> ScreenEffects { get; private set; }
+        public ObservableCollection<string> DeskEffects { get; private set; }
+        public ObservableCollection<string> Freq { get; private set; }
 
         private const string ProjectPage = "http://ambino.net";
         private const string IssuesPage = "https://www.messenger.com/t/109869992932970";
@@ -57,64 +61,113 @@ namespace adrilight.ViewModel
             this.serialStream = serialStream ?? throw new ArgumentNullException(nameof(serialStream));
             SelectableViewParts = selectableViewParts.OrderBy(p => p.Order).ToList();
             BackUpView = selectableViewParts.OrderBy(p => p.Order).ToList();
-            for (int i = 0; i < 6; i++)
-            {
-                SelectableViewParts.RemoveAt(SelectableViewParts.Count - 1);
-                BackUpView.RemoveAt(BackUpView.Count - 1);
-            }
+            //for (int i = 0; i < 6; i++)
+            //{
+            //    SelectableViewParts.RemoveAt(SelectableViewParts.Count - 1);
+            //    BackUpView.RemoveAt(BackUpView.Count - 1);
+            //}
 
-            if (!Settings.Pro11 && !Settings.Pro12
-                    && !Settings.Pro13)
-            {
-                for (int j = 0; j < SelectableViewParts.Count; j++)
-                {
-                    if (SelectableViewParts[j].Order == 24)
-                    {
-                        SelectableViewParts.RemoveAt(j);
-                    }
-                }
-            }
-            if (!Settings.Pro21)
-            {
-                for (int j = 0; j < SelectableViewParts.Count; j++)
-                {
-                    if (SelectableViewParts[j].Order == 26)
-                    {
-                        SelectableViewParts.RemoveAt(j);
-                    }
-                }
+            //if (!Settings.Pro11 && !Settings.Pro12
+            //        && !Settings.Pro13)
+            //{
+            //    for (int j = 0; j < SelectableViewParts.Count; j++)
+            //    {
+            //        if (SelectableViewParts[j].Order == 24)
+            //        {
+            //            SelectableViewParts.RemoveAt(j);
+            //        }
+            //    }
+            //}
+            //if (!Settings.Pro21)
+            //{
+            //    for (int j = 0; j < SelectableViewParts.Count; j++)
+            //    {
+            //        if (SelectableViewParts[j].Order == 26)
+            //        {
+            //            SelectableViewParts.RemoveAt(j);
+            //        }
+            //    }
 
-            }
-            if (!Settings.Pro22)
-            {
-                for (int j = 0; j < SelectableViewParts.Count; j++)
-                {
-                    if (SelectableViewParts[j].Order == 27)
-                    {
-                        SelectableViewParts.RemoveAt(j);
-                    }
-                }
+            //}
+            //if (!Settings.Pro22)
+            //{
+            //    for (int j = 0; j < SelectableViewParts.Count; j++)
+            //    {
+            //        if (SelectableViewParts[j].Order == 27)
+            //        {
+            //            SelectableViewParts.RemoveAt(j);
+            //        }
+            //    }
 
-            }
-            if (!Settings.Pro31)
-            {
-                for (int j = 0; j < SelectableViewParts.Count; j++)
-                {
-                    if (SelectableViewParts[j].Order == 28)
-                    {
-                        SelectableViewParts.RemoveAt(j);
-                    }
-                }
-            }
+            //}
+            //if (!Settings.Pro31)
+            //{
+            //    for (int j = 0; j < SelectableViewParts.Count; j++)
+            //    {
+            //        if (SelectableViewParts[j].Order == 28)
+            //        {
+            //            SelectableViewParts.RemoveAt(j);
+            //        }
+            //    }
+            //}
 
-            lsScreen = new ObservableCollection<string>();
-            lsScreen.Add("1");
-            lsScreen.Add("2");
-            lsScreen.Add("3");
+            CaseEffects = new ObservableCollection<string>
+       {
+           "Sáng theo hiệu ứng",
+           "Sáng theo màn hình",
+           "Sáng màu tĩnh",
+           "Sáng theo nhạc",
+           "Đồng bộ Mainboard",
+           "Tắt"
+        };
+            ScreenEffects = new ObservableCollection<string>
+         {
+           "Sáng theo màn hình",
+           "Sáng theo hiệu ứng",
+           "Sáng màu tĩnh",
+           "Sáng theo nhạc",
+           "Đồng bộ Mainboard",
+           "Tắt"
+        };
+            DeskEffects = new ObservableCollection<string>
+  { 
+            "Sáng theo hiệu ứng",
+           "Sáng theo màn hình",
+           "Sáng màu tĩnh",
+           "Sáng theo nhạc",
+           "Đồng bộ Mainboard",
+           "Tắt"
+        };
+            Freq = new ObservableCollection<string>
+{
+            "1",
+           "2",
+           "3",
+           "4",
+           "5",
+           "6",
+            "7",
+           "8",
+           "9",
+           "10",
+           "11",
+           "12",
+            "13",
+           "14",
+           "15",
+           "16",
+          
+        };
 
-            lsMode = new ObservableCollection<string>();
-            lsMode.Add("Linear");
-            lsMode.Add("Non Linear");
+
+            //lsScreen = new ObservableCollection<string>();
+            //lsScreen.Add("1");
+            //lsScreen.Add("2");
+            //lsScreen.Add("3");
+
+            //lsMode = new ObservableCollection<string>();
+            //lsMode.Add("Linear");
+            //lsMode.Add("Non Linear");
 
 
             //string readText = "";
@@ -147,7 +200,14 @@ namespace adrilight.ViewModel
                 }
             };
 
-            Settings.PropertyChanged += (s, e) =>
+
+
+
+
+            
+
+           
+                Settings.PropertyChanged += (s, e) =>
             {
                 switch (e.PropertyName)
                 {
@@ -156,7 +216,23 @@ namespace adrilight.ViewModel
                         RaisePropertyChanged(() => SpotsXMaximum);
                         RaisePropertyChanged(() => LedCount);
                         RaisePropertyChanged(() => OffsetLedMaximum);
+                        RaisePropertyChanged(() => Settings.OffsetLed);
                         break;
+                    case nameof(Settings.SpotsX2):
+                        Settings.OffsetLed2 = Settings.SpotsX2 - 1;
+                        RaisePropertyChanged(() => SpotsXMaximum);
+                        RaisePropertyChanged(() => LedCount);
+                        RaisePropertyChanged(() => OffsetLedMaximum);
+                        RaisePropertyChanged(() => Settings.OffsetLed2);
+                        break;
+                    case nameof(Settings.SpotsX3):
+                        Settings.OffsetLed3 = Settings.SpotsX3 - 1;
+                        RaisePropertyChanged(() => SpotsXMaximum);
+                        RaisePropertyChanged(() => LedCount);
+                        RaisePropertyChanged(() => OffsetLedMaximum);
+                        RaisePropertyChanged(() => Settings.OffsetLed3);
+                        break;
+
 
                     case nameof(Settings.SpotsY):
                         RaisePropertyChanged(() => SpotsYMaximum);
@@ -173,6 +249,9 @@ namespace adrilight.ViewModel
                         RaisePropertyChanged(() => UseNonLinearLighting);
                         break;
 
+                    case nameof(Settings.nodevice):
+                        RaisePropertyChanged(() => Yesdevice);
+                        break;
                     case nameof(Settings.OffsetLed):
                         RaisePropertyChanged(() => OffsetLedMaximum);
                         break;
@@ -192,39 +271,87 @@ namespace adrilight.ViewModel
                         RaisePropertyChanged(() => TransferCanBeStarted);
                         RaisePropertyChanged(() => TransferCanNotBeStarted);
                         break;
+
+                    //case nameof(Settings.tabindex):
+                       
+                    //    RaisePropertyChanged(() => Settings.Faneffectcounter);
+                    //    RaisePropertyChanged(() => Settings.effectcounter);
+                    //    RaisePropertyChanged(() => Settings.screeneffectcounter);
+
+                    //    break;
+                    case nameof(Settings.Pro21):
+                        if(Settings.Pro21==false&&Settings.caseenable==false&&Settings.Pro22==false)
+                        {
+                            Settings.nodevice = false;
+                            RaisePropertyChanged(() => Settings.nodevice);
+                        }
+                        else
+                        {
+                            Settings.nodevice = true;
+                        }
+                        break;
+
+                    case nameof(Settings.caseenable):
+                        if (Settings.Pro21 == false && Settings.caseenable == false && Settings.Pro22 == false)
+                        {
+                            Settings.nodevice = false;
+                            RaisePropertyChanged(() => Settings.nodevice);
+                        }
+                        else
+                        {
+                            Settings.nodevice = true;
+                        }
+                        break;
+
+                    case nameof(Settings.Pro22):
+                        if (Settings.Pro21 == false && Settings.caseenable == false && Settings.Pro22 == false)
+                        {
+                            Settings.nodevice = false;
+                            RaisePropertyChanged(() => Settings.nodevice);
+                        }
+                        else
+                        {
+                            Settings.nodevice = true;
+                        }
+                        break;
+
+
                 }
             };
 
+            
+       
 
-            _insideEffects = new ObservableCollection<IEffect>()
-           {
-              new IEffect(){ Id=1, Name="Sáng theo hiệu ứng"}
-                    ,new IEffect(){Id=2, Name="Sáng theo màn hình"}
-                    ,new IEffect(){Id=3, Name="Sáng màu tĩnh"}
-                    ,new IEffect(){Id=4, Name="Sáng theo nhạc"}
-                    ,new IEffect(){Id=5, Name="Đồng bộ Mainboard"}
-                    ,new IEffect(){Id=6, Name="Tắt"}
-            };
 
-            _outsideEffects = new ObservableCollection<IEffect>()
-          {
-              new IEffect(){ Id=1, Name="Sáng theo hiệu ứng"}
-                    ,new IEffect(){Id=2, Name="Sáng theo màn hình"}
-                    ,new IEffect(){Id=3, Name="Sáng màu tĩnh"}
-                    ,new IEffect(){Id=4, Name="Sáng theo nhạc"}
-                    ,new IEffect(){Id=5, Name="Đồng bộ Mainboard"}
-                    ,new IEffect(){Id=6, Name="Tắt"}
-            };
+    ////InsideEffects
+    ////   {
+    ////      new IEffect(){ Id=1, Name="Sáng theo hiệu ứng"}
+    ////            ,new IEffect(){Id=2, Name="Sáng theo màn hình"}
+    ////            ,new IEffect(){Id=3, Name="Sáng màu tĩnh"}
+    ////            ,new IEffect(){Id=4, Name="Sáng theo nhạc"}
+    ////            ,new IEffect(){Id=5, Name="Đồng bộ Mainboard"}
+    ////            ,new IEffect(){Id=6, Name="Tắt"}
+    ////    };
 
-            _tableEffects = new ObservableCollection<IEffect>()
-          {
-              new IEffect(){ Id=1, Name="Sáng theo hiệu ứng"}
-                    ,new IEffect(){Id=2, Name="Sáng theo màn hình"}
-                    ,new IEffect(){Id=3, Name="Sáng màu tĩnh"}
-                    ,new IEffect(){Id=4, Name="Sáng theo nhạc"}
-                    ,new IEffect(){Id=5, Name="Đồng bộ Mainboard"}
-                    ,new IEffect(){Id=6, Name="Tắt"}
-            };
+    //outsideEffects = new ObservableCollection<IEffect>()
+    //      {
+    //          new IEffect(){ Id=1, Name="Sáng theo hiệu ứng"}
+    //                ,new IEffect(){Id=2, Name="Sáng theo màn hình"}
+    //                ,new IEffect(){Id=3, Name="Sáng màu tĩnh"}
+    //                ,new IEffect(){Id=4, Name="Sáng theo nhạc"}
+    //                ,new IEffect(){Id=5, Name="Đồng bộ Mainboard"}
+    //                ,new IEffect(){Id=6, Name="Tắt"}
+    //        };
+
+    //        tableEffects = new ObservableCollection<IEffect>()
+    //      {
+    //          new IEffect(){ Id=1, Name="Sáng theo hiệu ứng"}
+    //                ,new IEffect(){Id=2, Name="Sáng theo màn hình"}
+    //                ,new IEffect(){Id=3, Name="Sáng màu tĩnh"}
+    //                ,new IEffect(){Id=4, Name="Sáng theo nhạc"}
+    //                ,new IEffect(){Id=5, Name="Đồng bộ Mainboard"}
+    //                ,new IEffect(){Id=6, Name="Tắt"}
+    //        };
 
 
         }
@@ -244,14 +371,41 @@ namespace adrilight.ViewModel
 
         }
 
+        public bool Yesdevice {
+            get => !Settings.nodevice;
+            set => Settings.nodevice = !value;
+
+        }
+
+
+
         public IUserSettings Settings { get; }
         public IContext Context { get; }
+        
         public IList<String> _AvailableComPorts;
         public IList<String> AvailableComPorts {
             get
             {
+
+                
                 _AvailableComPorts = SerialPort.GetPortNames().Concat(new[] { "Không có" }).ToList();
-                _AvailableComPorts.Remove("COM1");
+                //foreach (string item in SerialPort.GetPortNames())
+                //{
+                //    SerialPort serialPort = new SerialPort();
+                //    serialPort.PortName = item;
+                    
+                //    try
+                //    {
+                //        serialPort.Open();
+                //    }
+                //    catch (UnauthorizedAccessException)
+                //    {
+                //        _AvailableComPorts.Remove(item);
+                //    }
+                    
+                //}
+                    _AvailableComPorts.Remove("COM1");
+
                 return _AvailableComPorts;
             }
         }
@@ -267,9 +421,9 @@ namespace adrilight.ViewModel
         public List<string> lsDevice = new List<string>();
 
 
-        public ObservableCollection<IEffect> _insideEffects { get; }
-        public ObservableCollection<IEffect> _outsideEffects { get; }
-        public ObservableCollection<IEffect> _tableEffects { get; }
+       
+        public System.Windows.Controls.Label OutsideEffects { get; }
+        public System.Windows.Controls.Label TableEffects { get; }
 
         public IList<ISelectableViewPart> BackUpView { get; }
 
@@ -288,7 +442,7 @@ namespace adrilight.ViewModel
 
                 //IsPreviewTabOpen = _selectedViewPart is View.SettingsWindowComponents.Preview.PreviewSelectableViewPart;
                 IsPreviewTabOpen = _selectedViewPart is View.SettingsWindowComponents.LedOutsideCase.LedOutsideCaseSelectableViewPart;
-                IsPreviewTabOpenSecond = _selectedViewPart is View.SettingsWindowComponents.LedTable.LedTableSelectableViewPart;
+               // IsPreviewTabOpenSecond = _selectedViewPart is View.SettingsWindowComponents.LedTable.LedTableSelectableViewPart;
             }
         }
 
@@ -301,6 +455,8 @@ namespace adrilight.ViewModel
                 _log.Info($"IsPreviewTabOpen is now {_isPreviewTabOpen}");
             }
         }
+
+        
 
 
         private bool _isPreviewTabOpenSecond;
@@ -389,6 +545,9 @@ namespace adrilight.ViewModel
                 return _spotsXMaximum = Math.Max(Settings.SpotsX, _spotsXMaximum);
             }
         }
+
+      
+
 
         private int _spotsYMaximum = 300;
         private readonly ISpotSet spotSet;
@@ -535,12 +694,12 @@ namespace adrilight.ViewModel
         //    }
         //}
 
-        public ObservableCollection<string> lsScreen { get; private set; }
+        //public ObservableCollection<string> lsScreen { get; private set; }
 
-        public ObservableCollection<string> lsMode { get; private set; }
+        ////public ObservableCollection<string> lsMode { get; private set; }
 
-        public string aScreen { get; set; }
-        public string aMode { get; set; }
+        //public string aScreen { get; set; }
+        //public string aMode { get; set; }
 
         //private ObservableCollection<IEffect> _effects;
 

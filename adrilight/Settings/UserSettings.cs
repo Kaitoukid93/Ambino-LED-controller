@@ -22,31 +22,36 @@ namespace adrilight
         private string _comPort = "Không có";
         private string _comPort2 = "Không có";
         private string _comPort3 = "Không có";
-        private string _comPort4 = "Không có";
+        //private string _comPort4 = "Không có";
         private string _comPort5 = "Không có";
         private DateTime? _lastUpdateCheck=DateTime.UtcNow;
         private int _ledsPerSpot = 1;
         private bool _mirrorX = true;
         private bool _mirrorY = false;
-        private int _offsetLed = 11;
+        private int _offsetLed = 10;
+        private int _offsetLed2 = 10;
+        private int _offsetLed3 = 10;
         private int _offsetX = 0;
         private int _offsetY = 0;
         private bool _isPreviewEnabled = false;
         private byte _saturationTreshold = 10;
         private int _spotHeight = 150;
-        private int _spotsX = 6;
+        private int _spotsX = 11;
         private int _spotsY = 6;
-        private int _spotsX2 = 6;
+        private int _spotsX2 = 11;
         private int _spotsY2 = 6;
+        private int _spotsX3 = 11;
+        private int _spotsY3 = 6;
         private int _spotWidth = 150;
         private bool _startMinimized = false;
         private bool _transferActive = true;
         private bool _CaptureActive = true;
         private bool _Shuffle = false;
+        private bool _shuffle = false;
         private bool _ComportOpen = true;
         private bool _Comport2Open = true;
         private bool _Comport3Open = true;
-        private bool _Comport4Open = true;
+        //private bool _Comport4Open = true;
         private bool _Comport5Open = true;
         private bool _Advancesettings = false;
         private bool _useLinearLighting = true;
@@ -109,10 +114,22 @@ namespace adrilight
 
 
         private byte _speedcounter = 5;
-        private string _filemau = null;
+        private string _filemau = "Blackout.txt";
+        private string _filemauchip = "Blackout.txt";
         private byte _methodcounter = 0;
         private int _musiccounter = 0;
         private byte _screeneffectcounter = 0;
+        private byte _screencounter = 0;
+        private bool _nodevice = false;
+        private byte _Port4Config = 0;
+        private byte _Port3Config = 0;
+        private byte _Port2Config = 0;
+        private byte _Port1Config = 0;
+
+        private byte _genre = 0;
+        private byte _tabindex = 0;
+        private bool _caseenable = false;
+        private byte _deskdirrection = 0;
         private byte _holdtimecounter = 0;
         private byte _buttoneffectcounter = 0;
         private int _order_data0 = 0;
@@ -142,6 +159,7 @@ namespace adrilight
         private byte _visualcounter = 1;
         private byte _screensizecounter = 2;
         private byte _screen2sizecounter = 2;
+        private byte _screen3sizecounter = 2;
         private byte _audiodevice = 1;
         private byte _devicecounter = 0;
 
@@ -174,6 +192,8 @@ namespace adrilight
         // Add new
         private bool _screenOne = false;
         private bool _hasPCI = false;
+        private bool _hasRainpow = false;
+        private bool _hasNode = false;
         private bool _hasUSB = false;
         private bool _hasPCISecond = false;
         private bool _hasUSBSecond = false;
@@ -204,7 +224,7 @@ namespace adrilight
         public string ComPort { get => _comPort; set { Set(() => ComPort, ref _comPort, value); } }
         public string ComPort2 { get => _comPort2; set { Set(() => ComPort2, ref _comPort2, value); } }
         public string ComPort3 { get => _comPort3; set { Set(() => ComPort3, ref _comPort3, value); } }
-        public string ComPort4 { get => _comPort4; set { Set(() => ComPort4, ref _comPort4, value); } }
+        //public string ComPort4 { get => _comPort4; set { Set(() => ComPort4, ref _comPort4, value); } }
         public string ComPort5 { get => _comPort5; set { Set(() => ComPort5, ref _comPort5, value); } }
         public DateTime? LastUpdateCheck { get => _lastUpdateCheck; set { Set(() => LastUpdateCheck, ref _lastUpdateCheck, value); } }
 
@@ -213,6 +233,8 @@ namespace adrilight
         public bool MirrorX { get => _mirrorX; set { Set(() => MirrorX, ref _mirrorX, value); } }
         public bool MirrorY { get => _mirrorY; set { Set(() => MirrorY, ref _mirrorY, value); } }
         public int OffsetLed { get => _offsetLed; set { Set(() => OffsetLed, ref _offsetLed, value); } }
+        public int OffsetLed2 { get => _offsetLed2; set { Set(() => OffsetLed2, ref _offsetLed2, value); } }
+        public int OffsetLed3 { get => _offsetLed3; set { Set(() => OffsetLed3, ref _offsetLed3, value); } }
         [Obsolete]
         public int OffsetX { get => _offsetX; set { Set(() => OffsetX, ref _offsetX, value); } }
         [Obsolete]
@@ -227,15 +249,18 @@ namespace adrilight
         public int SpotsY { get => _spotsY; set { Set(() => SpotsY, ref _spotsY, value); } }
         public int SpotsX2 { get => _spotsX2; set { Set(() => SpotsX2, ref _spotsX2, value); } }
         public int SpotsY2 { get => _spotsY2; set { Set(() => SpotsY2, ref _spotsY2, value); } }
+        public int SpotsX3 { get => _spotsX3; set { Set(() => SpotsX3, ref _spotsX3, value); } }
+        public int SpotsY3 { get => _spotsY3; set { Set(() => SpotsY3, ref _spotsY3, value); } }
         public int SpotWidth { get => _spotWidth; set { Set(() => SpotWidth, ref _spotWidth, value); } }
         public bool StartMinimized { get => _startMinimized; set { Set(() => StartMinimized, ref _startMinimized, value); } }
         public bool TransferActive { get => _transferActive; set { Set(() => TransferActive, ref _transferActive, value); } }
         public bool Shuffle { get => _Shuffle; set { Set(() => Shuffle, ref _Shuffle, value); } }
+        public bool shuffle { get => _shuffle; set { Set(() => shuffle, ref _shuffle, value); } }
         public bool CaptureActive { get => _CaptureActive; set { Set(() => CaptureActive, ref _CaptureActive, value); } }
         public bool ComportOpen { get => _ComportOpen; set { Set(() => ComportOpen, ref _ComportOpen, value); } }
         public bool Comport2Open { get => _Comport2Open; set { Set(() => Comport2Open, ref _Comport2Open, value); } }
         public bool Comport3Open { get => _Comport3Open; set { Set(() => Comport3Open, ref _Comport3Open, value); } }
-        public bool Comport4Open { get => _Comport4Open; set { Set(() => Comport4Open, ref _Comport4Open, value); } }
+        //public bool Comport4Open { get => _Comport4Open; set { Set(() => Comport4Open, ref _Comport4Open, value); } }
         public bool Comport5Open { get => _Comport5Open; set { Set(() => Comport5Open, ref _Comport5Open, value); } }
         public bool Advancesettings { get => _Advancesettings; set { Set(() => Advancesettings, ref _Advancesettings, value); } }
 
@@ -249,6 +274,12 @@ namespace adrilight
         public byte zoecounter { get => _zoecounter; set { Set(() => zoecounter, ref _zoecounter, value); } }
         public byte resetcounter { get => _resetcounter; set { Set(() => resetcounter, ref _resetcounter, value); } }
         public byte screeneffectcounter { get => _screeneffectcounter; set { Set(() => screeneffectcounter, ref _screeneffectcounter, value); } }
+        public byte deskdirrection { get => _deskdirrection; set { Set(() =>deskdirrection, ref _deskdirrection, value); } }
+        public byte tabindex { get => _tabindex; set { Set(() => tabindex, ref _tabindex, value); } }
+        public byte genre { get => _genre; set { Set(() => genre, ref _genre, value); } }
+        public bool caseenable{ get => _caseenable; set { Set(() => caseenable, ref _caseenable, value); } }
+        public bool nodevice { get => _nodevice; set { Set(() => nodevice, ref _nodevice, value); } }
+        public byte screencounter { get => _screencounter; set { Set(() => screencounter, ref _screencounter, value); } }
         public byte holdtimecounter { get => _holdtimecounter; set { Set(() => holdtimecounter, ref _holdtimecounter, value); } }
         public byte holdeffectcounter { get => _holdeffectcounter; set { Set(() => holdeffectcounter, ref _holdeffectcounter, value); } }
         public byte Faneffectcounter { get => _Faneffectcounter; set { Set(() => Faneffectcounter, ref _Faneffectcounter, value); } }
@@ -273,6 +304,7 @@ namespace adrilight
         public byte audiodevice { get => _audiodevice; set { Set(() => audiodevice, ref _audiodevice, value); } }
         public byte screensizecounter { get => _screensizecounter; set { Set(() => screensizecounter, ref _screensizecounter, value); } }
         public byte screen2sizecounter { get => _screen2sizecounter; set { Set(() => screen2sizecounter, ref _screen2sizecounter, value); } }
+        public byte screen3sizecounter { get => _screen3sizecounter; set { Set(() => screen3sizecounter, ref _screen3sizecounter, value); } }
         public byte devicecounter { get => _devicecounter; set { Set(() => devicecounter, ref _devicecounter, value); } }
         public byte visualcounter { get => _visualcounter; set { Set(() => visualcounter, ref _visualcounter, value); } }
         public byte effectcounter { get => _effectcounter; set { Set(() => effectcounter, ref _effectcounter, value); } }
@@ -284,6 +316,7 @@ namespace adrilight
         public byte buteffectcounter { get => _buteffectcounter; set { Set(() => buteffectcounter, ref _buteffectcounter, value); } }
         public byte speedcounter { get => _speedcounter; set { Set(() => speedcounter, ref _speedcounter, value); } }
         public string filemau { get => _filemau; set { Set(() => filemau, ref _filemau, value); } }
+        public string filemauchip { get => _filemauchip; set { Set(() => filemauchip, ref _filemauchip, value); } }
         public byte methodcounter { get => _methodcounter; set { Set(() => methodcounter, ref _methodcounter, value); } }
         public byte color1R { get => _color1R; set { Set(() => color1R, ref _color1R, value); } }
         public byte color1G { get => _color1G; set { Set(() => color1G, ref _color1G, value); } }
@@ -331,6 +364,11 @@ namespace adrilight
         public byte sincounter { get => _sincounter; set { Set(() => sincounter, ref _sincounter, value); } }
         
         public byte brightnesscounter { get => _brightnesscounter; set { Set(() => brightnesscounter, ref _brightnesscounter, value); } }
+        public byte Port4Config { get => _Port4Config; set { Set(() => Port4Config, ref _Port4Config, value); } }
+        public byte Port3Config { get => _Port3Config; set { Set(() => Port3Config, ref _Port3Config, value); } }
+        public byte Port2Config { get => _Port2Config; set { Set(() => Port2Config, ref _Port2Config, value); } }
+        public byte Port1Config { get => _Port1Config; set { Set(() => Port1Config, ref _Port1Config, value); } }
+
         public byte edgebrightnesscounter { get => _edgebrightnesscounter; set { Set(() => edgebrightnesscounter, ref _edgebrightnesscounter, value); } }
         public byte fanspeedcounter { get => _fanspeedcounter; set { Set(() => fanspeedcounter, ref _fanspeedcounter, value); } }
         public byte huecounter { get => _huecounter; set { Set(() => huecounter, ref _huecounter, value); } }
@@ -363,6 +401,8 @@ namespace adrilight
         // Add new
         public bool screenOne { get => _screenOne; set { Set(() => screenOne, ref _screenOne, value); } }
         public bool hasPCI { get => _hasPCI; set { Set(() => hasPCI, ref _hasPCI, value); } }
+        public bool hasRainpow { get => _hasRainpow; set { Set(() => hasRainpow, ref _hasRainpow, value); } }
+        public bool hasNode { get => _hasNode; set { Set(() => hasNode, ref _hasNode, value); } }
         public bool hasUSB { get => _hasUSB; set { Set(() => hasUSB, ref _hasUSB, value); } }
         public bool hasPCISecond { get => _hasPCISecond; set { Set(() => hasPCISecond, ref _hasPCISecond, value); } }
         public bool hasUSBSecond { get => _hasUSBSecond; set { Set(() => hasUSBSecond, ref _hasUSBSecond, value); } }

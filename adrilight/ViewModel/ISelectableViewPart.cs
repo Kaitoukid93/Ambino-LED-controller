@@ -12,4 +12,8 @@ namespace adrilight.ViewModel
         string ViewPartName { get; }
         object Content { get; }
     }
+    interface ISelectaleLightzone
+    {
+        string LightzoneName { get; }
+    }
 }

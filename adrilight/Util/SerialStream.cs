@@ -226,7 +226,7 @@ namespace adrilight
                 }
 
                 outputStream[counter++] = UserSettings.LEDfanmodecounter;
-                outputStream[counter++] = UserSettings.zoecounter;
+                outputStream[counter++] = UserSettings.Port3Config;
 
                 outputStream[counter++] = UserSettings.brightnesscounter;
                 outputStream[counter++] = UserSettings.methodcounter;
@@ -238,8 +238,8 @@ namespace adrilight
 
 
                 outputStream[counter++] = UserSettings.fanbrightnesscounter;
-                outputStream[counter++] = Convert.ToByte(LedOutsideCase.volume);
-                outputStream[counter++] = UserSettings.huecounter;
+                outputStream[counter++] = UserSettings.Port1Config;
+                outputStream[counter++] = UserSettings.Port2Config;
 
                 outputStream[counter++] = UserSettings.color1.R;
                 outputStream[counter++] = UserSettings.color1.G;
@@ -278,7 +278,7 @@ namespace adrilight
 
 
                 outputStream[counter++] = Convert.ToByte((UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2);
-                outputStream[counter++] = Convert.ToByte(UserSettings.music);
+                outputStream[counter++] = UserSettings.Port4Config;
                 outputStream[counter++] = UserSettings.visualcounter;
 
                 outputStream[counter++] = Convert.ToByte((UserSettings.SpotsX2 - 1) * 2 + (UserSettings.SpotsY2 - 1) * 2);
@@ -671,7 +671,7 @@ namespace adrilight
                 outputStreamHUBV2[counter++] = UserSettings.zone1speedcounter;
                 outputStreamHUBV2[counter++] = UserSettings.zone2speedcounter;
                 outputStreamHUBV2[counter++] = UserSettings.zone3speedcounter;
-                if (InsideCase.DFU == 1)
+                if (LedOutsideCase.DFU == 1)
                 {
                     outputStreamHUBV2[counter++] = 99;
                 }
@@ -693,7 +693,7 @@ namespace adrilight
 
 
                 outputStreamHUBV2[counter++] = UserSettings.fanbrightnesscounter;
-                outputStreamHUBV2[counter++] = Convert.ToByte(InsideCase.volume);
+                outputStreamHUBV2[counter++] = Convert.ToByte(LedOutsideCase.volume);
                 outputStreamHUBV2[counter++] = UserSettings.huecounter;
 
                 outputStreamHUBV2[counter++] = UserSettings.color1.R;
@@ -740,29 +740,29 @@ namespace adrilight
                 outputStreamHUBV2[counter++] = UserSettings.edgebrightnesscounter;
                 outputStreamHUBV2[counter++] = UserSettings.edgehuecounter;
 
-                outputStreamHUBV2[counter++] = InsideCase.output_spectrumdata[0];
-                outputStreamHUBV2[counter++] = InsideCase.output_spectrumdata[1];
-                outputStreamHUBV2[counter++] = InsideCase.output_spectrumdata[2];
+                outputStreamHUBV2[counter++] = LedOutsideCase.output_spectrumdata[0];
+                outputStreamHUBV2[counter++] = LedOutsideCase.output_spectrumdata[1];
+                outputStreamHUBV2[counter++] = LedOutsideCase.output_spectrumdata[2];
 
-                outputStreamHUBV2[counter++] = InsideCase.output_spectrumdata[3];
-                outputStreamHUBV2[counter++] = InsideCase.output_spectrumdata[4];
-                outputStreamHUBV2[counter++] = InsideCase.output_spectrumdata[5];
+                outputStreamHUBV2[counter++] = LedOutsideCase.output_spectrumdata[3];
+                outputStreamHUBV2[counter++] = LedOutsideCase.output_spectrumdata[4];
+                outputStreamHUBV2[counter++] = LedOutsideCase.output_spectrumdata[5];
 
-                outputStreamHUBV2[counter++] = InsideCase.output_spectrumdata[6];
-                outputStreamHUBV2[counter++] = InsideCase.output_spectrumdata[7];
-                outputStreamHUBV2[counter++] = InsideCase.output_spectrumdata[8];
+                outputStreamHUBV2[counter++] = LedOutsideCase.output_spectrumdata[6];
+                outputStreamHUBV2[counter++] = LedOutsideCase.output_spectrumdata[7];
+                outputStreamHUBV2[counter++] = LedOutsideCase.output_spectrumdata[8];
 
-                outputStreamHUBV2[counter++] = InsideCase.output_spectrumdata[9];
-                outputStreamHUBV2[counter++] = InsideCase.output_spectrumdata[10];
-                outputStreamHUBV2[counter++] = InsideCase.output_spectrumdata[11];
+                outputStreamHUBV2[counter++] = LedOutsideCase.output_spectrumdata[9];
+                outputStreamHUBV2[counter++] = LedOutsideCase.output_spectrumdata[10];
+                outputStreamHUBV2[counter++] = LedOutsideCase.output_spectrumdata[11];
 
-                outputStreamHUBV2[counter++] = InsideCase.output_spectrumdata[12];
-                outputStreamHUBV2[counter++] = InsideCase.output_spectrumdata[13];
-                outputStreamHUBV2[counter++] = InsideCase.output_spectrumdata[14];
+                outputStreamHUBV2[counter++] = LedOutsideCase.output_spectrumdata[12];
+                outputStreamHUBV2[counter++] = LedOutsideCase.output_spectrumdata[13];
+                outputStreamHUBV2[counter++] = LedOutsideCase.output_spectrumdata[14];
 
-                outputStreamHUBV2[counter++] = InsideCase.output_spectrumdata[15];
-                outputStreamHUBV2[counter++] = InsideCase.output_spectrumdata[15];
-                outputStreamHUBV2[counter++] = InsideCase.output_spectrumdata[15];
+                outputStreamHUBV2[counter++] = LedOutsideCase.output_spectrumdata[15];
+                outputStreamHUBV2[counter++] = LedOutsideCase.output_spectrumdata[15];
+                outputStreamHUBV2[counter++] = LedOutsideCase.output_spectrumdata[15];
 
 
                 outputStreamHUBV2[counter++] = UserSettings.screeneffectcounter;
@@ -1357,7 +1357,7 @@ namespace adrilight
                     while (!cancellationToken.IsCancellationRequested)
                     {
                         //open or change the serial port
-                        if (openedComPort != UserSettings.ComPort || openedComPort2 != UserSettings.ComPort2 || openedComPort3 != UserSettings.ComPort3 || openedComPort4 != UserSettings.ComPort4 || openedComPort5 != UserSettings.ComPort5)
+                        if (openedComPort != UserSettings.ComPort || openedComPort2 != UserSettings.ComPort2 || openedComPort3 != UserSettings.ComPort3 || openedComPort5 != UserSettings.ComPort5)
                         {
                             serialPort?.Close();
                             serialPort = UserSettings.ComPort != "Không có" ? (ISerialPortWrapper)new WrappedSerialPort(new SerialPort(UserSettings.ComPort, baudRate)) : new FakeSerialPort();
@@ -1381,14 +1381,14 @@ namespace adrilight
                                 serialPort3.Open();
                                 openedComPort3 = UserSettings.ComPort3;
                             }
-                            if (openedComPort4 != UserSettings.ComPort4)
-                            {
+                            //if (openedComPort4 != UserSettings.ComPort4)
+                            //{
 
-                                serialPort4?.Close();
-                                serialPort4 = UserSettings.ComPort4 != "Không có" ? (ISerialPortWrapper)new WrappedSerialPort(new SerialPort(UserSettings.ComPort4, baudRate)) : new FakeSerialPort();
-                                serialPort4.Open();
-                                openedComPort4 = UserSettings.ComPort4;
-                            }
+                            //    serialPort4?.Close();
+                            //    serialPort4 = UserSettings.ComPort4 != "Không có" ? (ISerialPortWrapper)new WrappedSerialPort(new SerialPort(UserSettings.ComPort4, baudRate)) : new FakeSerialPort();
+                            //    serialPort4.Open();
+                            //    openedComPort4 = UserSettings.ComPort4;
+                            //}
                             if (openedComPort5 != UserSettings.ComPort5)
                             {
 
@@ -1426,13 +1426,25 @@ namespace adrilight
                             }
 
                         }
+                        else
+                        {
+                            serialPort.Close();
+                        }
                         if (UserSettings.Comport2Open && Screen.AllScreens.Length == 2)
                         {
                             serialPort2.Write(secondoutputstream, 0, secondbufferLength);
                         }
+                        else
+                        {
+                            serialPort2.Close();
+                        }
                         if (UserSettings.Comport3Open)
                         {
                             serialPort3.Write(outputBuffer, 0, streamLength);
+                        }
+                        else
+                        {
+                            serialPort3.Close();
                         }
                         // if (UserSettings.Comport4Open)
                         // {
@@ -1446,6 +1458,10 @@ namespace adrilight
                             //  if (Screen.AllScreens.Length == 2)
                             serialPort5.Write(HUBV2outputstream, 0, HUBV2bufferLength);
                             // else serialPort4.Write(outputBuffer, 0, streamLength);
+                        }
+                        else
+                        {
+                            serialPort5.Close();
                         }
 
                         if (++frameCounter == 1024 && blackFrameCounter > 1000)

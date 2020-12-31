@@ -1387,7 +1387,7 @@
             </materialDesign:Card>
 
             <!--done-->
-            <materialDesign:Card x:Name="ambilightCard" Margin="530 6 4 0" Width="200" Height="150"  Visibility="Collapsed"
+            <materialDesign:Card x:Name="ambilightCard" Margin="530 6 4 0" Width="200" Height="150"  Visibility="Visible"
 								 RenderTransformOrigin="1.305,0.353" >
                 <Grid Margin="0 0 0 0">
                     <Grid.ColumnDefinitions>
