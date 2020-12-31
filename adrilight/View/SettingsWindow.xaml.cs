@@ -205,7 +205,7 @@ namespace adrilight.ui
                 }
                 else
                 {
-                    settingsViewModel.Settings.hasPCI = true;
+                    settingsViewModel.Settings.hasUSB = true;
                     if (settingsViewModel.Settings.screencounter == 0)
                     {
                         settingsViewModel.Settings.hasUSB = false;
