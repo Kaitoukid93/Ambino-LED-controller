@@ -365,7 +365,7 @@ namespace adrilight.View.SettingsWindowComponents
 
             public int Order => 26;
 
-            public string ViewPartName => "LED màn hình";
+            public string ViewPartName => "LED màn hìn";
 
             public object Content { get => lazyContent.Value; }
         }
