@@ -22,6 +22,7 @@ namespace adrilight
         private string _comPort = "Không có";
         private string _comPort2 = "Không có";
         private string _comPort3 = "Không có";
+        private string _comPort6 = "Không có";
         //private string _comPort4 = "Không có";
         private string _comPort5 = "Không có";
         private DateTime? _lastUpdateCheck=DateTime.UtcNow;
@@ -37,6 +38,7 @@ namespace adrilight
         private byte _saturationTreshold = 10;
         private int _spotHeight = 150;
         private int _spotsX = 11;
+        private int _spotsDesk = 11;
         private int _spotsY = 6;
         private int _spotsX2 = 11;
         private int _spotsY2 = 6;
@@ -53,6 +55,7 @@ namespace adrilight
         private bool _Comport3Open = true;
         //private bool _Comport4Open = true;
         private bool _Comport5Open = true;
+        private bool _Comport6Open = true;
         private bool _Advancesettings = false;
         private bool _useLinearLighting = true;
         private byte _whitebalanceRed = 100;
@@ -130,6 +133,7 @@ namespace adrilight
         private byte _tabindex = 0;
         private bool _caseenable = false;
         private byte _deskdirrection = 0;
+        private byte _desksize = 0;
         private byte _holdtimecounter = 0;
         private byte _buttoneffectcounter = 0;
         private int _order_data0 = 0;
@@ -226,6 +230,7 @@ namespace adrilight
         public string ComPort3 { get => _comPort3; set { Set(() => ComPort3, ref _comPort3, value); } }
         //public string ComPort4 { get => _comPort4; set { Set(() => ComPort4, ref _comPort4, value); } }
         public string ComPort5 { get => _comPort5; set { Set(() => ComPort5, ref _comPort5, value); } }
+        public string ComPort6 { get => _comPort6; set { Set(() => ComPort6, ref _comPort6, value); } }
         public DateTime? LastUpdateCheck { get => _lastUpdateCheck; set { Set(() => LastUpdateCheck, ref _lastUpdateCheck, value); } }
 
         [Obsolete]
@@ -246,6 +251,7 @@ namespace adrilight
         public byte SaturationTreshold { get => _saturationTreshold; set { Set(() => SaturationTreshold, ref _saturationTreshold, value); } }
         public int SpotHeight { get => _spotHeight; set { Set(() => SpotHeight, ref _spotHeight, value); } }
         public int SpotsX { get => _spotsX; set { Set(() => SpotsX, ref _spotsX, value); } }
+        public int SpotsDesk { get => _spotsDesk; set { Set(() => SpotsDesk, ref _spotsDesk, value); } }
         public int SpotsY { get => _spotsY; set { Set(() => SpotsY, ref _spotsY, value); } }
         public int SpotsX2 { get => _spotsX2; set { Set(() => SpotsX2, ref _spotsX2, value); } }
         public int SpotsY2 { get => _spotsY2; set { Set(() => SpotsY2, ref _spotsY2, value); } }
@@ -262,6 +268,7 @@ namespace adrilight
         public bool Comport3Open { get => _Comport3Open; set { Set(() => Comport3Open, ref _Comport3Open, value); } }
         //public bool Comport4Open { get => _Comport4Open; set { Set(() => Comport4Open, ref _Comport4Open, value); } }
         public bool Comport5Open { get => _Comport5Open; set { Set(() => Comport5Open, ref _Comport5Open, value); } }
+        public bool Comport6Open { get => _Comport6Open; set { Set(() => Comport6Open, ref _Comport6Open, value); } }
         public bool Advancesettings { get => _Advancesettings; set { Set(() => Advancesettings, ref _Advancesettings, value); } }
 
 
@@ -275,6 +282,7 @@ namespace adrilight
         public byte resetcounter { get => _resetcounter; set { Set(() => resetcounter, ref _resetcounter, value); } }
         public byte screeneffectcounter { get => _screeneffectcounter; set { Set(() => screeneffectcounter, ref _screeneffectcounter, value); } }
         public byte deskdirrection { get => _deskdirrection; set { Set(() =>deskdirrection, ref _deskdirrection, value); } }
+        public byte desksize { get => _desksize; set { Set(() => desksize, ref _desksize, value); } }
         public byte tabindex { get => _tabindex; set { Set(() => tabindex, ref _tabindex, value); } }
         public byte genre { get => _genre; set { Set(() => genre, ref _genre, value); } }
         public bool caseenable{ get => _caseenable; set { Set(() => caseenable, ref _caseenable, value); } }

@@ -22,6 +22,7 @@ namespace adrilight.Fakes
         public string ComPort3 { get; set; } = "Không có";
         //public string ComPort4 { get; set; } = "Không có";
         public string ComPort5 { get; set; } = "Không có";
+        public string ComPort6 { get; set; } = "Không có"; //For Fxxx Sake!!!!!!!!!!!! I hate this
         public DateTime? LastUpdateCheck { get; set; } = DateTime.Now;
         public int LedsPerSpot { get; set; } = 1;
         public bool MirrorX { get; set; } = true;
@@ -34,6 +35,7 @@ namespace adrilight.Fakes
         public bool IsPreviewEnabled { get; set; } = false;
         public byte SaturationTreshold { get; set; } = 4;
         public int SpotsX { get; set; } = 11;
+        public int SpotsDesk { get; set; } = 12;
         public int SpotsY { get; set; } = 6;
         public int SpotsX2 { get; set; } = 11;
         public int SpotsY2 { get; set; } = 6;
@@ -51,6 +53,7 @@ namespace adrilight.Fakes
         public bool Comport3Open { get; set; } = true;
         //public bool Comport4Open { get; set; } = true;
         public bool Comport5Open { get; set; } = true;
+        public bool Comport6Open { get; set; } = true;
         public bool Advancesettings { get; set; } = false;
         public bool UseLinearLighting { get; set; } = true;
 
@@ -100,6 +103,7 @@ namespace adrilight.Fakes
         
 
         public byte deskdirrection { get; set; } = 0;
+        public byte desksize { get; set; } = 0;
         public byte holdtimecounter { get; set; } = 0;
         public byte buttoneffectcounter { get; set; } = 0;
 

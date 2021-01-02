@@ -25,6 +25,7 @@ using System.Management;
 using System.IO;
 using System.Collections.ObjectModel;
 using adrilight.Settings;
+using System.Windows.Forms;
 
 namespace adrilight.ViewModel
 {
@@ -36,6 +37,7 @@ namespace adrilight.ViewModel
         public ObservableCollection<string> ScreenEffects { get; private set; }
         public ObservableCollection<string> DeskEffects { get; private set; }
         public ObservableCollection<string> Freq { get; private set; }
+        public ObservableCollection<string> ScreenNumber { get; private set; }
 
         private const string ProjectPage = "http://ambino.net";
         private const string IssuesPage = "https://www.messenger.com/t/109869992932970";
@@ -140,48 +142,84 @@ namespace adrilight.ViewModel
         };
             Freq = new ObservableCollection<string>
 {
-            "1",
+           "0",
+           "1",
            "2",
            "3",
            "4",
            "5",
            "6",
-            "7",
+           "7",
            "8",
            "9",
            "10",
            "11",
            "12",
-            "13",
+           "13",
            "14",
            "15",
-           "16",
           
         };
 
+       if (Screen.AllScreens.Length == 3)
+            { 
+            ScreenNumber = new ObservableCollection<string>
+       {
+           
+                "1",
+                "2",
+                "3",
+            
+        };
+            }
 
-            //lsScreen = new ObservableCollection<string>();
-            //lsScreen.Add("1");
-            //lsScreen.Add("2");
-            //lsScreen.Add("3");
+       else if (Screen.AllScreens.Length==2)
+            {
+                ScreenNumber = new ObservableCollection<string>
+{
 
-            //lsMode = new ObservableCollection<string>();
-            //lsMode.Add("Linear");
-            //lsMode.Add("Non Linear");
+                "1",
+                "2",
+                
+
+        };
+            }
+            else if (Screen.AllScreens.Length == 1)
+            {
+                ScreenNumber = new ObservableCollection<string>
+         {
+
+                "1",
+                
 
 
-            //string readText = "";
-            //using (StreamReader readtext = new StreamReader("product.ls"))
-            //{
-            //    readText = readtext.ReadToEnd();
-            //}
-            //string[] delim = { Environment.NewLine, "\n" };
-            //string pro = readText.Split(delim, StringSplitOptions.None)[1];
-            //string[] val = pro.Split(',');
+        };
+            }
+
+
+
+                //lsScreen = new ObservableCollection<string>();
+                //lsScreen.Add("1");
+                //lsScreen.Add("2");
+                //lsScreen.Add("3");
+
+                //lsMode = new ObservableCollection<string>();
+                //lsMode.Add("Linear");
+                //lsMode.Add("Non Linear");
+
+
+                //string readText = "";
+                //using (StreamReader readtext = new StreamReader("product.ls"))
+                //{
+                //    readText = readtext.ReadToEnd();
+                //}
+                //string[] delim = { Environment.NewLine, "\n" };
+                //string pro = readText.Split(delim, StringSplitOptions.None)[1];
+                //string[] val = pro.Split(',');
 
 
 #if DEBUG
-            SelectedViewPart = SelectableViewParts.First();
+                SelectedViewPart = SelectableViewParts.First();
 #else
             SelectedViewPart = SelectableViewParts.First();
 #endif
@@ -244,6 +282,21 @@ namespace adrilight.ViewModel
                         RaisePropertyChanged(() => LedCount);
                         RaisePropertyChanged(() => OffsetLedMaximum);
                         break;
+
+                    case nameof(Settings.desksize):
+                        if(Settings.desksize==0)
+                        {
+                            Settings.SpotsDesk = 12;
+                        }
+                        else if(Settings.desksize==1)
+                        {
+                            Settings.SpotsDesk = 20;
+                        }
+                       
+                        RaisePropertyChanged(() => DeskOtherSize);
+                        
+                        break;
+
 
                     case nameof(Settings.UseLinearLighting):
                         RaisePropertyChanged(() => UseNonLinearLighting);
@@ -376,6 +429,14 @@ namespace adrilight.ViewModel
             set => Settings.nodevice = !value;
 
         }
+        public bool MoreThan2Screen => Screen.AllScreens.Length > 2;
+        public bool DeskOtherSize 
+            {
+            get => Settings.desksize == 2;
+            
+        }
+            
+           
 
 
 

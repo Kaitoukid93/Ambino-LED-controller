@@ -144,13 +144,11 @@
                                     <ColumnDefinition Width="166*"/>
                                     <ColumnDefinition Width="67*"/>
                                 </Grid.ColumnDefinitions>
-                                <ComboBox x:Name="numberScreen"  Visibility="{Binding Settings.Pro21, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                <ComboBox ItemsSource="{Binding ScreenNumber}" x:Name="numberScreen"  
                                     Margin="16,0,0,0"  
-                                    SelectedIndex="{Binding Settings.screencounter}" VerticalAlignment="Top" Grid.Column="1">
+                                    SelectedIndex="{Binding Settings.screencounter}" Visibility="{Binding MoreThan2Screen,Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Top" Grid.Column="1">
 
-                                    <ComboBoxItem Content="1"/>
-                                    <ComboBoxItem Content="2"/>
-                                    <ComboBoxItem Content="3"/>
+                                   
 
 
                                 </ComboBox>

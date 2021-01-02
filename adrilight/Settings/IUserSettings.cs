@@ -17,6 +17,7 @@ namespace adrilight
         string ComPort3 { get; set; }
         //string ComPort4 { get; set; }
         string ComPort5 { get; set; }
+        string ComPort6 { get; set; }
 
         DateTime? LastUpdateCheck { get; set; }
         [Obsolete]
@@ -34,6 +35,7 @@ namespace adrilight
         byte SaturationTreshold { get; set; }
         int SpotHeight { get; set; }
         int SpotsX { get; set; }
+        int SpotsDesk { get; set; }
         int SpotsY { get; set; }
         int SpotsX2 { get; set; }
         int SpotsY2 { get; set; }
@@ -50,6 +52,7 @@ namespace adrilight
         bool Comport3Open { get; set; }
         //bool Comport4Open { get; set; }
         bool Comport5Open { get; set; }
+        bool Comport6Open { get; set; }
         bool Advancesettings { get; set; }
         bool UseLinearLighting { get; set; }
 
@@ -112,6 +115,7 @@ namespace adrilight
         byte tabindex { get; set; }
         bool caseenable { get; set; }
         byte deskdirrection { get; set; }
+        byte desksize { get; set; }
         byte holdtimecounter { get; set; }
         byte buttoneffectcounter { get; set; }
 

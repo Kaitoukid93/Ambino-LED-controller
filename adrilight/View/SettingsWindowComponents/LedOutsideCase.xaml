@@ -82,7 +82,7 @@
         </WrapPanel>
         <!--navigation chip-->
 
-        <WrapPanel Visibility="{Binding Path=Yesdevice, Converter= {StaticResource boolToVisibilityConvert}}" Width="788" Height="790">
+        <WrapPanel Visibility="{Binding Yesdevice,Converter={StaticResource boolToVisibilityConvert}}" Width="788" Height="790">
             <Grid Height="788">
                 <Image  RenderOptions.BitmapScalingMode="HighQuality" Source="no device@4x.png" Margin="96,134,96,272" />
                 <Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="265" Margin="257,168,0,0" Height="255" Background="{x:Null}" BorderBrush="{x:Null}" Click="AddProduct"/>
@@ -99,7 +99,7 @@
                 <materialDesign:Card Visibility="{Binding ElementName=Screen, Path=IsSelected, Converter={StaticResource boolToVisibilityConvert}}"  Margin="10 4 4 4" Width="300" Height="168" Padding="8" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0" materialDesign:ShadowAssist.Darken="False" Background="#FFFCFCFC">
 
 
-                    <Grid Margin="15,15,15,15">
+                    <Grid Margin="15,15,15,15" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30*"/>
                             <RowDefinition Height="45*"/>
@@ -112,6 +112,85 @@
                             <ColumnDefinition Width="*" />
 
                         </Grid.ColumnDefinitions>
+
+                        <materialDesign:DialogHost  Grid.Column="0"
+  DialogClosing="Sample1_DialogHost_OnDialogClosing"
+  DialogTheme="Inherit"
+  HorizontalAlignment="Left"
+  VerticalAlignment="Top" Height="175" Margin="-23,-22,-15.5,-7.445" Grid.ColumnSpan="3" Width="309" Grid.RowSpan="3">
+                            <materialDesign:DialogHost.DialogContent>
+
+                                <StackPanel Margin="16">
+
+                                    <TextBlock>
+                                        Màn 3
+                                    </TextBlock>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <ComboBox Margin="15,0,25,0" Grid.Column="0" ItemsSource="{Binding AvailableComPorts}" >
+                                            <ComboBox.SelectedValue>
+                                                <Binding Path="Settings.ComPort6" UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </ComboBox.SelectedValue>
+                                        </ComboBox>
+                                        <CheckBox Margin="0,0,15,0" Grid.Column="1"
+    Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
+    IsChecked="{Binding Settings.Comport6Open}">
+                                            Kết nối
+                                        </CheckBox>
+                                    </Grid>
+
+                                    <StackPanel
+        Orientation="Horizontal"
+        HorizontalAlignment="Right">
+                                        <Button x:Name="OKPort" 
+          Style="{StaticResource MaterialDesignFlatButton}"
+          IsDefault="True"
+          Margin="0 8 8 0"
+          Command="materialDesign:DialogHost.CloseDialogCommand" Click="OKPort_Click" >
+                                            <Button.CommandParameter>
+                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                                    True
+                                                </system:Boolean>
+                                            </Button.CommandParameter>
+                                            OK
+                                        </Button>
+                                        <Button
+          Style="{StaticResource MaterialDesignFlatButton}"
+          IsCancel="True"
+          Margin="0 8 8 0"
+          Command="materialDesign:DialogHost.CloseDialogCommand">
+                                            <Button.CommandParameter>
+                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                                    False
+                                                </system:Boolean>
+                                            </Button.CommandParameter>
+                                            Hủy
+                                        </Button>
+                                    </StackPanel>
+
+                                </StackPanel>
+
+
+                            </materialDesign:DialogHost.DialogContent>
+                            <Grid Margin="101,142,101,0">
+
+
+
+                                <Button Visibility="{Binding MoreThan2Screen,Converter={StaticResource boolToVisibilityConvert}}" Padding="0"  Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" ToolTip="Xem thêm" Height="Auto" Background="{x:Null}" BorderBrush="{x:Null}" Margin="4,9,0,-9">
+                                    <materialDesign:PackIcon Kind="DotsHorizontal" Foreground="#FF6C6C6C" Height="25" Width="28">
+
+                                    </materialDesign:PackIcon>
+                                </Button>
+                            </Grid>
+
+                        </materialDesign:DialogHost>
                         <TextBlock 
 							Margin="0,0,106,10" HorizontalAlignment="Right" Padding="0" Width="85" 
 							VerticalAlignment="Center" FontSize="15" Grid.ColumnSpan="2" FontWeight="Bold" Height="20"><Run Text="Kết nối USB"/></TextBlock>
@@ -143,18 +222,19 @@
 						HorizontalAlignment="Right" Width="73" Margin="-1,15,119,14" 
 							   RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="1" Grid.ColumnSpan="2"><Run Text="PCI V2"/></TextBlock>
                         <TextBlock Visibility="{Binding Settings.hasUSB, Converter={StaticResource BooleanToVisibilityConverter}}"
-						HorizontalAlignment="Right" Width="73" Margin="-1,15,119,14" 
-							   RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="1" Grid.ColumnSpan="2"><Run Text=" Màn 1"/></TextBlock>
+						HorizontalAlignment="Right" Width="40" Margin="0,15.445,20,13.555" 
+							   RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="1" Grid.ColumnSpan="1"><Run Text=" Màn 1"/></TextBlock>
 
                         <TextBlock Visibility="{Binding Settings.hasUSBTwo, Converter={StaticResource BooleanToVisibilityConverter}}"
-						HorizontalAlignment="Right" Width="36" Margin="0,14,26,14" 
+						HorizontalAlignment="Right" Width="36" Margin="0,14.445,21,13.555" 
 							   RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="2"><Run Text="Màn 2"/></TextBlock>
 
                         <ComboBox
 						x:Name="comportbox3"
 						materialDesign:HintAssist.Hint="No device" 
-						ItemsSource="{Binding AvailableComPorts}" Margin="11,8,0,7" Height="30" 
-						HorizontalAlignment="Left" Width="74" SelectionChanged="Comportbox3_SelectionChanged" Grid.Row="1" Grid.Column="1" Visibility="{Binding Settings.hasUSB, Converter={StaticResource BooleanToVisibilityConverter}}" >
+						ItemsSource="{Binding AvailableComPorts}" Margin="11,9,0,7" Height="30" 
+						HorizontalAlignment="Left" Width="74" SelectionChanged="Comportbox3_SelectionChanged" Grid.Row="1" Grid.Column="1" Visibility="{Binding Settings.hasUSB
+                            , Converter={StaticResource BooleanToVisibilityConverter}}" >
                             <ComboBox.SelectedValue>
                                 <Binding Path="Settings.ComPort3" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
@@ -748,6 +828,16 @@
 							   FontSize="30" Height="50"
 							   Width="160" Margin="0,30,547,20"
 							   Visibility="Visible"><Run Text="Màu tĩnh"/></TextBlock>
+
+
+                        <TextBox 
+                                Text="{Binding Color, ElementName=picker, UpdateSourceTrigger=PropertyChanged}"
+                                Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                                materialDesign:HintAssist.Hint="Mã hex"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                                DockPanel.Dock="Top"
+                                Margin="275,23,26,302" Foreground="Gray"/>
                         <materialDesign:ColorPicker  x:Name="picker"   materialDesign:ColorChanged="ColorPicker_ColorChanged" HorizontalAlignment="Left" Height="202" Margin="27,68,0,0" VerticalAlignment="Top" Width="351">
                             <materialDesign:ColorPicker.Style>
                                 <Style TargetType="materialDesign:ColorPicker">
@@ -853,7 +943,7 @@
                 </materialDesign:Card>
 
                 <!--done-->
-                <materialDesign:Card Visibility="Visible" x:Name="ambilightCard" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                <materialDesign:Card Visibility="Collapsed" x:Name="ambilightCard" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
 				Margin="0 4 0 0" Width="404" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
                     <Grid Visibility="Visible" VerticalAlignment="Top" Height="349" Margin="0,0,0,-5">
 
@@ -1069,17 +1159,11 @@
                                 <Label Content="Từ phải sang trái"/>
 
                             </ComboBox>
-                            <ComboBox
-                                
-                                SelectedIndex="1"
-                                materialDesign:HintAssist.Hint="Chọn cỡ màn hình"
-                                IsEditable="False"
-                                materialDesign:HintAssist.HintOpacity=".26" Height="27" Margin="0,37,0,87" 
-                                SelectionChanged="Screenbox_SelectionChanged" RenderTransformOrigin="0.478,0.792" >
-                                <Label Content="30"/>
-                                <Label Content="60"/>
+                            <TextBox IsEnabled="{Binding DeskOtherSize}"
+  materialDesign:HintAssist.Hint="Số LED" Text="{Binding Settings.SpotsDesk,UpdateSourceTrigger=PropertyChanged}"
+  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+  VerticalAlignment="Center" Margin="0,19,0,88" />
 
-                            </ComboBox>
                             <ComboBox
                                
                                 SelectedIndex="1"
@@ -1116,15 +1200,15 @@
 
                             <TextBlock Foreground="#FF6C6C6C" Margin="5,34,37,0" Grid.Row="3"><Run Text="Vùng capture"/></TextBlock>
 
-                            <TextBlock Foreground="#FF6C6C6C" Margin="4,25,75,9" Grid.Row="2"><Run Text="Mật độ LED"/></TextBlock>
+                            <TextBlock Foreground="#FF6C6C6C" Margin="4,25,75,9" Grid.Row="2"><Run Text="Số lượng LED"/></TextBlock>
 
                             <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,15,76,19" Foreground="#FF6C6C6C"
                                 Height="18" Text="Chiều dán" Grid.Row="1"/>
                             <ComboBox
                             
                                 x:Name="screenSelect1"
-                                SelectedIndex="0"
-                                materialDesign:HintAssist.Hint="Chọn màn hình"
+                                SelectedIndex="{Binding Settings.desksize}"
+                                materialDesign:HintAssist.Hint="Chiều dài"
                                 IsEditable="False"
                                 materialDesign:HintAssist.HintOpacity=".26" Height="26" Margin="201,1,-45,26" 
                                 SelectionChanged="screenSelect_SelectionChanged" RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="2" BorderBrush="#89000000" >
@@ -1214,7 +1298,7 @@
 
 
             </WrapPanel>
-            <materialDesign:Card Visibility="Collapsed"
+            <materialDesign:Card Visibility="Visible"
                              x:Name="customZone" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
             Margin="25 10 0 0" Width="735" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
 
@@ -1232,7 +1316,7 @@
                         <RowDefinition Height="15*"/>
                         <RowDefinition Height="85*"/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="2" Margin="24,63,32,0" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                    <Grid Grid.Row="2" Margin="24,63,22,0" Grid.ColumnSpan="2" Grid.RowSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
@@ -1252,15 +1336,15 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="{Binding Settings.order_data0}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="1" Text="{Binding Settings.order_data1}" Margin="16,0,10,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="2" Text="{Binding Settings.order_data2}" Margin="17,0,9,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="3" Text="{Binding Settings.order_data3}" Margin="16,0,10,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="4" Text="{Binding Settings.order_data4}" Margin="17,0,9,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="5" Text="{Binding Settings.order_data5}" Margin="16,0,10,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="6" Text="{Binding Settings.order_data6}" Margin="17,0,9,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="7" Text="{Binding Settings.order_data7}" Margin="15,0,11,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="8" Text="{Binding Settings.order_data8}" Margin="18,0,8,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="9" Text="{Binding Settings.order_data9}" Margin="17,0,9,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Settings.order_data1}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="2" Text="{Binding Settings.order_data2}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="3" Text="{Binding Settings.order_data3}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="4" Text="{Binding Settings.order_data4}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="5" Text="{Binding Settings.order_data5}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="6" Text="{Binding Settings.order_data6}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="7" Text="{Binding Settings.order_data7}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="8" Text="{Binding Settings.order_data8}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="9" Text="{Binding Settings.order_data9}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
                         <TextBlock Grid.Column="10" Text="{Binding Settings.order_data10}" Margin="20,0,6,0" Foreground="#FF6C6C6C"/>
                         <TextBlock Grid.Column="11" Text="{Binding Settings.order_data11}" Margin="20,0,6,0" Foreground="#FF6C6C6C"/>
                         <TextBlock Grid.Column="12" Text="{Binding Settings.order_data12}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
@@ -1333,7 +1417,7 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_1" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data0}">
+                                    <ComboBox x:Name="Music_box_1" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data0}">
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1388,7 +1472,7 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_2" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data1}">
+                                    <ComboBox x:Name="Music_box_2" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data1}">
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1445,7 +1529,7 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_3" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data2}">
+                                    <ComboBox x:Name="Music_box_3" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data2}">
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1502,7 +1586,7 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_4" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data3}">
+                                    <ComboBox x:Name="Music_box_4" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data3}">
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1560,7 +1644,7 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_5" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data4}">
+                                    <ComboBox x:Name="Music_box_5" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data4}">
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1618,7 +1702,7 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_6" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data5}">
+                                    <ComboBox x:Name="Music_box_6" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data5}">
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1676,7 +1760,7 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_7" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data6}">
+                                    <ComboBox x:Name="Music_box_7" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data6}">
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1733,7 +1817,7 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_8" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data7}">
+                                    <ComboBox x:Name="Music_box_8" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data7}">
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1790,7 +1874,7 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_9" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data8}">
+                                    <ComboBox x:Name="Music_box_9" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data8}">
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1847,7 +1931,7 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_10" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data9}">
+                                    <ComboBox x:Name="Music_box_10" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data9}">
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1905,7 +1989,7 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_11" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data10}">
+                                    <ComboBox x:Name="Music_box_11" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data10}">
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1962,7 +2046,7 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_12" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data11}">
+                                    <ComboBox x:Name="Music_box_12" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data11}">
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -2020,7 +2104,7 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_13" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data12}">
+                                    <ComboBox x:Name="Music_box_13" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data12}">
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -2078,7 +2162,7 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_14" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data13}">
+                                    <ComboBox x:Name="Music_box_14" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data13}">
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -2135,7 +2219,7 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_15" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data14}">
+                                    <ComboBox x:Name="Music_box_15" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data14}">
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -2193,7 +2277,7 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_16" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data15}">
+                                    <ComboBox x:Name="Music_box_16" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data15}">
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -2431,7 +2515,7 @@
 
                 </Grid>
             </materialDesign:Card>
-            <materialDesign:Card Visibility="Visible" x:Name="previewCard" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+            <materialDesign:Card Visibility="Collapsed" x:Name="previewCard" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
             Margin="25 10 0 0" Width="735" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
 
                 <Grid VerticalAlignment="Top" Height="349" Margin="0,0,0,-5">

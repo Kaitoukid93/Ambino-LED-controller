@@ -90,9 +90,13 @@ namespace adrilight.View.SettingsWindowComponents
             {
                 comportbox4.SelectedItem = "Không có";
             }
-           
-            
-            
+            if (comportbox6.SelectedItem == null)
+            {
+                comportbox6.SelectedItem = "Không có";
+            }
+
+
+
             BassNet.Registration("saorihara93@gmail.com", "2X2831021152222");
 
 
@@ -1099,15 +1103,14 @@ namespace adrilight.View.SettingsWindowComponents
             FileMau.RestoreDirectory = true;
             if (FileMau.ShowDialog() == true)
             {
-                var item = screenefectbox.SelectedItem;
+                
            
-                if (item.ToString() == "Sáng theo hiệu ứng")
-                {
+                
                     for (int i = 0; i < 16; i++)
                     {
-                        lines2[i + 8] = Convert.ToString(i);
+                        lines2[i + 8] = Convert.ToString(custom_order_data[i]);
                     }
-                }
+                
 
 
                 System.IO.File.WriteAllLines(FileMau.FileName, lines2);
@@ -1237,25 +1240,25 @@ namespace adrilight.View.SettingsWindowComponents
         {
             //if (Music_box_1.SelectedIndex >= 0)
             //{
-            //    order_data[0] = Music_box_1.SelectedIndex;
-            //    order_data[1] = Music_box_2.SelectedIndex;
-            //    order_data[2] = Music_box_3.SelectedIndex;
-            //    order_data[3] = Music_box_4.SelectedIndex;
-            //    order_data[4] = Music_box_5.SelectedIndex;
-            //    order_data[5] = Music_box_6.SelectedIndex;
-            //    order_data[6] = Music_box_7.SelectedIndex;
-            //    order_data[7] = Music_box_8.SelectedIndex;
-            //    order_data[8] = Music_box_9.SelectedIndex;
-            //    order_data[9] = Music_box_10.SelectedIndex;
-            //    order_data[10] = Music_box_11.SelectedIndex;
-            //    order_data[11] = Music_box_12.SelectedIndex;
-            //    order_data[12] = Music_box_13.SelectedIndex;
-            //    order_data[13] = Music_box_14.SelectedIndex;
-            //    order_data[14] = Music_box_15.SelectedIndex;
-            //    order_data[15] = Music_box_16.SelectedIndex;
+            //    custom_order_data[0] = Music_box_1.SelectedIndex;
+            //    custom_order_data[1] = Music_box_2.SelectedIndex;
+            //    custom_order_data[2] = Music_box_3.SelectedIndex;
+            //    custom_order_data[3] = Music_box_4.SelectedIndex;
+            //    custom_order_data[4] = Music_box_5.SelectedIndex;
+            //    custom_order_data[5] = Music_box_6.SelectedIndex;
+            //    custom_order_data[6] = Music_box_7.SelectedIndex;
+            //    custom_order_data[7] = Music_box_8.SelectedIndex;
+            //    custom_order_data[8] = Music_box_9.SelectedIndex;
+            //    custom_order_data[9] = Music_box_10.SelectedIndex;
+            //    custom_order_data[10] = Music_box_11.SelectedIndex;
+            //    custom_order_data[11] = Music_box_12.SelectedIndex;
+            //    custom_order_data[12] = Music_box_13.SelectedIndex;
+            //    custom_order_data[13] = Music_box_14.SelectedIndex;
+            //    custom_order_data[14] = Music_box_15.SelectedIndex;
+            //    custom_order_data[15] = Music_box_16.SelectedIndex;
             //}
 
-            
+
         }
 
         private void Devicebox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -2761,7 +2764,12 @@ namespace adrilight.View.SettingsWindowComponents
             order_data[15] = Music_box_16.SelectedIndex;
         }
 
-       
+        private void OKPort_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
 
 
 
