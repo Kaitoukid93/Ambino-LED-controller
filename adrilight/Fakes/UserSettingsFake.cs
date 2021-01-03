@@ -23,6 +23,7 @@ namespace adrilight.Fakes
         //public string ComPort4 { get; set; } = "Không có";
         public string ComPort5 { get; set; } = "Không có";
         public string ComPort6 { get; set; } = "Không có"; //For Fxxx Sake!!!!!!!!!!!! I hate this
+        public string ComPort7 { get; set; } = "Không có"; //For Fxxx Sake!!!!!!!!!!!! I hate this
         public DateTime? LastUpdateCheck { get; set; } = DateTime.Now;
         public int LedsPerSpot { get; set; } = 1;
         public bool MirrorX { get; set; } = true;
@@ -53,6 +54,7 @@ namespace adrilight.Fakes
         public bool Comport3Open { get; set; } = true;
         //public bool Comport4Open { get; set; } = true;
         public bool Comport5Open { get; set; } = true;
+        public bool Comport7Open { get; set; } = true;
         public bool Comport6Open { get; set; } = true;
         public bool Advancesettings { get; set; } = false;
         public bool UseLinearLighting { get; set; } = true;
@@ -63,17 +65,17 @@ namespace adrilight.Fakes
         public bool hasPCI { get; set; } = false;
         public bool hasRainpow { get; set; } = false;
         public bool hasNode{ get; set; } = false;
-        public bool hasUSB { get; set; } = false;
+        public bool hasUSB { get; set; } = true;
         public bool hasPCISecond { get; set; } = false;
-        public bool hasUSBSecond { get; set; } = false;
+        public bool hasUSBSecond { get; set; } = true;
         public bool hasUSBTwo { get; set; } = false;
         public bool hasScreenTwo { get; set; } = false;
-        public bool Pro11 { get; set; } = false;
-        public bool Pro12 { get; set; } = false;
+        public bool Pro11 { get; set; } = true;
+        public bool Pro12 { get; set; } = true;
         public bool Pro13 { get; set; } = false;
-        public bool Pro14 { get; set; } = false;
-        public bool Pro21 { get; set; } = false;
-        public bool Pro22 { get; set; } = false;
+        public bool Pro14 { get; set; } = true;
+        public bool Pro21 { get; set; } = true;
+        public bool Pro22 { get; set; } = true;
         public bool Pro31 { get; set; } = false;
 
 
@@ -123,6 +125,24 @@ namespace adrilight.Fakes
         public int order_data13 { get; set; } = 13;
         public int order_data14 { get; set; } = 14;
         public int order_data15 { get; set; } = 15;
+
+        public int custom_order_data0 { get; set; } = 0;
+        public int custom_order_data1 { get; set; } = 1;
+        public int custom_order_data2 { get; set; } = 2;
+        public int custom_order_data3 { get; set; } = 3;
+        public int custom_order_data4 { get; set; } = 4;
+        public int custom_order_data5 { get; set; } = 5;
+        public int custom_order_data6 { get; set; } = 6;
+        public int custom_order_data7 { get; set; } = 7;
+        public int custom_order_data8 { get; set; } = 8;
+        public int custom_order_data9 { get; set; } = 9;
+        public int custom_order_data10 { get; set; } = 10;
+        public int custom_order_data11 { get; set; } = 11;
+        public int custom_order_data12 { get; set; } = 12;
+        public int custom_order_data13 { get; set; } = 13;
+        public int custom_order_data14 { get; set; } = 14;
+        public int custom_order_data15 { get; set; } = 15;
+
 
         public byte holdeffectcounter { get; set; } = 0;
         public byte effectcounter { get; set; } = 0;

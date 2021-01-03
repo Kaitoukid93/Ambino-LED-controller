@@ -309,6 +309,12 @@ namespace adrilight.ViewModel
                         RaisePropertyChanged(() => OffsetLedMaximum);
                         break;
 
+                    case nameof(Settings.genre):
+                        RaisePropertyChanged(() =>IsCustomFreq);
+                        RaisePropertyChanged(() => IsNotCustomFreq);
+
+                        break;
+
                     case nameof(Settings.Autostart):
                         if (Settings.Autostart)
                         {
@@ -427,6 +433,17 @@ namespace adrilight.ViewModel
         public bool Yesdevice {
             get => !Settings.nodevice;
             set => Settings.nodevice = !value;
+
+        }
+
+        public bool IsCustomFreq {
+            get => Settings.genre == 5;
+            
+
+        }
+        public bool IsNotCustomFreq {
+            get => Settings.genre !=5;
+
 
         }
         public bool MoreThan2Screen => Screen.AllScreens.Length > 2;

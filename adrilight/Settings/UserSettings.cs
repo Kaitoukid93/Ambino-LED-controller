@@ -25,6 +25,7 @@ namespace adrilight
         private string _comPort6 = "Không có";
         //private string _comPort4 = "Không có";
         private string _comPort5 = "Không có";
+        private string _comPort7 = "Không có";
         private DateTime? _lastUpdateCheck=DateTime.UtcNow;
         private int _ledsPerSpot = 1;
         private bool _mirrorX = true;
@@ -56,6 +57,7 @@ namespace adrilight
         //private bool _Comport4Open = true;
         private bool _Comport5Open = true;
         private bool _Comport6Open = true;
+        private bool _Comport7Open = true;
         private bool _Advancesettings = false;
         private bool _useLinearLighting = true;
         private byte _whitebalanceRed = 100;
@@ -152,6 +154,24 @@ namespace adrilight
         private int _order_data13 =13;
         private int _order_data14 = 14;
         private int _order_data15 = 15;
+
+        private int _custom_order_data0 = 0;
+        private int _custom_order_data1 = 1;
+        private int _custom_order_data2 = 2;
+        private int _custom_order_data3 = 3;
+        private int _custom_order_data4 = 4;
+        private int _custom_order_data5 = 5;
+        private int _custom_order_data6 = 6;
+        private int _custom_order_data7 = 7;
+        private int _custom_order_data8 = 8;
+        private int _custom_order_data9 = 9;
+        private int _custom_order_data10 = 10;
+        private int _custom_order_data11 = 11;
+        private int _custom_order_data12 = 12;
+        private int _custom_order_data13 = 13;
+        private int _custom_order_data14 = 14;
+        private int _custom_order_data15 = 15;
+
         private byte _holdeffectcounter = 0;
         private byte _effectcounter = 0;
         private byte _fanmodecounter = 0;
@@ -198,19 +218,19 @@ namespace adrilight
         private bool _hasPCI = false;
         private bool _hasRainpow = false;
         private bool _hasNode = false;
-        private bool _hasUSB = false;
+        private bool _hasUSB = true;
         private bool _hasPCISecond = false;
-        private bool _hasUSBSecond = false;
+        private bool _hasUSBSecond = true;
         private bool _hasUSBTwo = false;
         private bool _hasScreenTwo = false;
 
 
-        private bool _Pro11 = false;
-        private bool _Pro12 = false;
+        private bool _Pro11 = true;
+        private bool _Pro12 = true;
         private bool _Pro13 = false;
-        private bool _Pro14 = false;
-        private bool _Pro21 = false;
-        private bool _Pro22 = false;
+        private bool _Pro14 = true;
+        private bool _Pro21 = true;
+        private bool _Pro22 = true;
         private bool _Pro31 = false;
 
         public bool Pro11 { get => _Pro11; set { Set(() => Pro11, ref _Pro11, value); } }
@@ -231,6 +251,7 @@ namespace adrilight
         //public string ComPort4 { get => _comPort4; set { Set(() => ComPort4, ref _comPort4, value); } }
         public string ComPort5 { get => _comPort5; set { Set(() => ComPort5, ref _comPort5, value); } }
         public string ComPort6 { get => _comPort6; set { Set(() => ComPort6, ref _comPort6, value); } }
+        public string ComPort7 { get => _comPort7; set { Set(() => ComPort7, ref _comPort7, value); } }
         public DateTime? LastUpdateCheck { get => _lastUpdateCheck; set { Set(() => LastUpdateCheck, ref _lastUpdateCheck, value); } }
 
         [Obsolete]
@@ -269,6 +290,7 @@ namespace adrilight
         //public bool Comport4Open { get => _Comport4Open; set { Set(() => Comport4Open, ref _Comport4Open, value); } }
         public bool Comport5Open { get => _Comport5Open; set { Set(() => Comport5Open, ref _Comport5Open, value); } }
         public bool Comport6Open { get => _Comport6Open; set { Set(() => Comport6Open, ref _Comport6Open, value); } }
+        public bool Comport7Open { get => _Comport7Open; set { Set(() => Comport7Open, ref _Comport7Open, value); } }
         public bool Advancesettings { get => _Advancesettings; set { Set(() => Advancesettings, ref _Advancesettings, value); } }
 
 
@@ -292,6 +314,9 @@ namespace adrilight
         public byte holdeffectcounter { get => _holdeffectcounter; set { Set(() => holdeffectcounter, ref _holdeffectcounter, value); } }
         public byte Faneffectcounter { get => _Faneffectcounter; set { Set(() => Faneffectcounter, ref _Faneffectcounter, value); } }
         public int devindex { get => _devindex; set { Set(() => devindex, ref _devindex, value); } }
+
+
+
         public int order_data0 { get => _order_data0; set { Set(() => order_data0, ref _order_data0, value); } }
         public int order_data1 { get => _order_data1; set { Set(() => order_data1, ref _order_data1, value); } }
         public int order_data2 { get => _order_data2; set { Set(() => order_data2, ref _order_data2, value); } }
@@ -308,6 +333,26 @@ namespace adrilight
         public int order_data13 { get => _order_data13; set { Set(() => order_data13, ref _order_data13, value); } }
         public int order_data14 { get => _order_data14; set { Set(() => order_data14, ref _order_data14, value); } }
         public int order_data15 { get => _order_data15; set { Set(() => order_data15, ref _order_data15, value); } }
+
+        public int custom_order_data0 { get => _custom_order_data0; set { Set(() => custom_order_data0, ref _custom_order_data0, value); } }
+        public int custom_order_data1 { get => _custom_order_data1; set { Set(() => custom_order_data1, ref _custom_order_data1, value); } }
+        public int custom_order_data2 { get => _custom_order_data2; set { Set(() => custom_order_data2, ref _custom_order_data2, value); } }
+        public int custom_order_data3 { get => _custom_order_data3; set { Set(() => custom_order_data3, ref _custom_order_data3, value); } }
+        public int custom_order_data4 { get => _custom_order_data4; set { Set(() => custom_order_data4, ref _custom_order_data4, value); } }
+        public int custom_order_data5 { get => _custom_order_data5; set { Set(() => custom_order_data5, ref _custom_order_data5, value); } }
+        public int custom_order_data6 { get => _custom_order_data6; set { Set(() => custom_order_data6, ref _custom_order_data6, value); } }
+        public int custom_order_data7 { get => _custom_order_data7; set { Set(() => custom_order_data7, ref _custom_order_data7, value); } }
+        public int custom_order_data8 { get => _custom_order_data8; set { Set(() => custom_order_data8, ref _custom_order_data8, value); } }
+        public int custom_order_data9 { get => _custom_order_data9; set { Set(() => custom_order_data9, ref _custom_order_data9, value); } }
+        public int custom_order_data10 { get => _custom_order_data10; set { Set(() => custom_order_data10, ref _custom_order_data10, value); } }
+        public int custom_order_data11 { get => _custom_order_data11; set { Set(() => custom_order_data11, ref _custom_order_data11, value); } }
+        public int custom_order_data12 { get => _custom_order_data12; set { Set(() => custom_order_data12, ref _custom_order_data12, value); } }
+        public int custom_order_data13 { get => _custom_order_data13; set { Set(() => custom_order_data13, ref _custom_order_data13, value); } }
+        public int custom_order_data14 { get => _custom_order_data14; set { Set(() => custom_order_data14, ref _custom_order_data14, value); } }
+        public int custom_order_data15 { get => _custom_order_data15; set { Set(() => custom_order_data15, ref _custom_order_data15, value); } }
+
+
+
         public byte buttoneffectcounter { get => _buttoneffectcounter; set { Set(() => buttoneffectcounter, ref _buttoneffectcounter, value); } }
         public byte audiodevice { get => _audiodevice; set { Set(() => audiodevice, ref _audiodevice, value); } }
         public byte screensizecounter { get => _screensizecounter; set { Set(() => screensizecounter, ref _screensizecounter, value); } }

@@ -58,14 +58,14 @@
   Style="{StaticResource MaterialDesignChoiceChipPrimaryListBox}"
   x:Name="NavigationChip" Margin="24,0,0,0"  >
 
-                        <ListBoxItem x:Name="Screen"  Visibility="{Binding Settings.Pro21, Converter={StaticResource BooleanToVisibilityConverter}}" Content="LED màn hình" IsVisibleChanged="Screen_IsVisibleChanged" />
-                        <ListBoxItem x:Name="Case" Visibility="{Binding Settings.caseenable, Converter={StaticResource BooleanToVisibilityConverter}}"
-    IsSelected="False" Content="LED trong case" IsVisibleChanged="Case_IsVisibleChanged"/>
-                        <ListBoxItem x:Name="Desk" Visibility="{Binding Settings.Pro22, Converter={StaticResource BooleanToVisibilityConverter}}" Content="LED cạnh bàn" IsVisibleChanged="Desk_IsVisibleChanged"/>
+                        <ListBoxItem x:Name="Screen"   Content="LED màn hình" IsVisibleChanged="Screen_IsVisibleChanged" />
+                        <ListBoxItem x:Name="Case" 
+    IsSelected="False" Content="LED Trần" IsVisibleChanged="Case_IsVisibleChanged"/>
+                        <ListBoxItem x:Name="Desk"  Content="LED tường" IsVisibleChanged="Desk_IsVisibleChanged"/>
                         <ListBoxItem
     IsEnabled="False" Width="56" Content="..."/>
                     </ListBox>
-                    <Button x:Name="addbutton" Click="AddProduct" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                    <Button Visibility="Collapsed" x:Name="addbutton" Click="AddProduct" materialDesign:ShadowAssist.ShadowDepth="Depth0"
                         Style="{StaticResource MaterialDesignRaisedLightButton}"
                         Height="Auto" Padding="0"
                             
@@ -82,15 +82,15 @@
         </WrapPanel>
         <!--navigation chip-->
 
-        <WrapPanel Visibility="{Binding Yesdevice,Converter={StaticResource boolToVisibilityConvert}}" Width="788" Height="790">
+        <!--<WrapPanel Visibility="Collapsed" Width="788" Height="790">
             <Grid Height="788">
                 <Image  RenderOptions.BitmapScalingMode="HighQuality" Source="no device@4x.png" Margin="96,134,96,272" />
                 <Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="265" Margin="257,168,0,0" Height="255" Background="{x:Null}" BorderBrush="{x:Null}" Click="AddProduct"/>
             </Grid>
 
 
-        </WrapPanel>
-        <WrapPanel x:Name="Mainwindow" Visibility="{Binding Settings.nodevice,Converter={StaticResource boolToVisibilityConvert}}" Margin="0,15,2,1" Orientation="Horizontal" Height="777">
+        </WrapPanel>-->
+        <WrapPanel x:Name="Mainwindow"  Margin="0,15,2,1" Orientation="Horizontal" Height="777">
 
 
 
@@ -218,12 +218,12 @@
                                 </Binding>
                             </ComboBox.SelectedValue>
                         </ComboBox>
-                        <TextBlock Visibility="{Binding Settings.hasPCI, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        <!--<TextBlock Visibility="{Binding Settings.hasPCI, Converter={StaticResource BooleanToVisibilityConverter}}"
 						HorizontalAlignment="Right" Width="73" Margin="-1,15,119,14" 
-							   RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="1" Grid.ColumnSpan="2"><Run Text="PCI V2"/></TextBlock>
-                        <TextBlock Visibility="{Binding Settings.hasUSB, Converter={StaticResource BooleanToVisibilityConverter}}"
+							   RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="1" Grid.ColumnSpan="2"><Run Text="PCI V2"/></TextBlock>-->
+                        <!--<TextBlock Visibility="{Binding Settings.hasUSB, Converter={StaticResource BooleanToVisibilityConverter}}"
 						HorizontalAlignment="Right" Width="40" Margin="0,15.445,20,13.555" 
-							   RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="1" Grid.ColumnSpan="1"><Run Text=" Màn 1"/></TextBlock>
+							   RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="1" Grid.ColumnSpan="1"><Run Text=" Màn 1"/></TextBlock>-->
 
                         <TextBlock Visibility="{Binding Settings.hasUSBTwo, Converter={StaticResource BooleanToVisibilityConverter}}"
 						HorizontalAlignment="Right" Width="36" Margin="0,14.445,21,13.555" 
@@ -323,16 +323,16 @@
                                 </Binding>
                             </ComboBox.SelectedValue>
                         </ComboBox>
-                        <TextBlock Visibility="{Binding Settings.hasPCISecond, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        <!--<TextBlock Visibility="{Binding Settings.hasPCISecond, Converter={StaticResource BooleanToVisibilityConverter}}"
                             HorizontalAlignment="Right" Width="73" Margin="-1,15,119,14" 
-                            RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="1" Grid.ColumnSpan="2"><Run Text="PCI V2"/></TextBlock>
-                        <TextBlock Visibility="{Binding Settings.hasUSBSecond, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="1" Grid.ColumnSpan="2"><Run Text="PCI V2"/></TextBlock>-->
+                        <!--<TextBlock Visibility="{Binding Settings.hasUSBSecond, Converter={StaticResource BooleanToVisibilityConverter}}"
                             HorizontalAlignment="Right" Width="73" Margin="-1,15,119,14" 
-                            RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="1" Grid.ColumnSpan="2"><Run Text="Cạnh bàn 1"/></TextBlock>
+                            RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="1" Grid.ColumnSpan="2"><Run Text="Cạnh bàn 1"/></TextBlock>-->
 
-                        <TextBlock Visibility="{Binding Settings.hasUSBTwo, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        <!--<TextBlock Visibility="{Binding Settings.hasUSBTwo, Converter={StaticResource BooleanToVisibilityConverter}}"
                             HorizontalAlignment="Right" Width="65" Margin="0,14,124,14" 
-                            RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="2" Grid.ColumnSpan="2"><Run Text="Cạnh bàn 2"/></TextBlock>
+                            RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="2" Grid.ColumnSpan="2"><Run Text="Cạnh bàn 2"/></TextBlock>-->
                         <Image Visibility="{Binding Settings.hasPCISecond,Converter={StaticResource boolToVisibilityConvert}}" Margin="29,5,0,0" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
                                 Height="22" VerticalAlignment="Top" Width="33"
                                 Source="pci@2x.png" Grid.Row="0" Grid.Column="2"/>
@@ -343,9 +343,9 @@
                             x:Name="comportbox6"
                             materialDesign:HintAssist.Hint="No device" 
                             ItemsSource="{Binding AvailableComPorts}" Margin="11,8,0,7" Height="30" 
-                            HorizontalAlignment="Left" Width="74" SelectionChanged="Comportbox3_SelectionChanged" Grid.Row="1" Grid.Column="1" Visibility="{Binding Settings.hasUSB, Converter={StaticResource BooleanToVisibilityConverter}}" >
+                            HorizontalAlignment="Left" Width="74" SelectionChanged="comportbox6_SelectionChanged" Grid.Row="1" Grid.Column="1" Visibility="{Binding Settings.hasUSB, Converter={StaticResource BooleanToVisibilityConverter}}" >
                             <ComboBox.SelectedValue>
-                                <Binding Path="Settings.ComPort3" UpdateSourceTrigger="PropertyChanged">
+                                <Binding Path="Settings.ComPort7" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
                                         <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
                                     </Binding.ValidationRules>
@@ -355,7 +355,7 @@
 
                         <CheckBox x:Name="tg1" Visibility="{Binding Settings.hasUSB, Converter={StaticResource BooleanToVisibilityConverter}}"
                             Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
-                            IsChecked="{Binding Settings.Comport3Open}" Grid.Column="1" Margin="116,7,0,6" Grid.Row="1" Grid.ColumnSpan="2" Width="74" Content="Kết nối"/>
+                            IsChecked="{Binding Settings.Comport7Open}" Grid.Column="1" Margin="116,7,0,6" Grid.Row="1" Grid.ColumnSpan="2" Width="74" Content="Kết nối"/>
 
 
                         <ComboBox
@@ -432,9 +432,9 @@
                                 </Binding>
                             </ComboBox.SelectedValue>
                         </ComboBox>
-                        <TextBlock
+                        <!--<TextBlock
                             HorizontalAlignment="Right" Width="73" Margin="-1,15,119,14" 
-                            RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="1" Grid.ColumnSpan="2"><Run Text="HUB V2"/></TextBlock>
+                            RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="1" Grid.ColumnSpan="2"><Run Text="HUB V2"/></TextBlock>-->
                         <!--<TextBlock Visibility="{Binding Settings.hasUSB, Converter={StaticResource BooleanToVisibilityConverter}}"
                             HorizontalAlignment="Right" Width="73" Margin="-1,15,119,14" 
                             RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="1" Grid.ColumnSpan="2"><Run Text=" Màn 1"/></TextBlock>-->
@@ -495,15 +495,15 @@
                             </Image.RenderTransform>
                         </Image>
                         <StackPanel Orientation="Horizontal" Margin="1,19,6,-5" Grid.Row="2" Grid.ColumnSpan="3">
-                            <Image Visibility="{Binding Settings.Pro11,Converter={StaticResource boolToVisibilityConvert}}" Margin="0,4,20,0" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
+                            <!--<Image Visibility="{Binding Settings.Pro11,Converter={StaticResource boolToVisibilityConvert}}" Margin="0,4,20,0" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
                             Height="18" VerticalAlignment="Top" Width="28"
-                            Source="rainpow@2x.png"/>
-                            <Image Visibility="{Binding Settings.hasPCI,Converter={StaticResource boolToVisibilityConvert}}" Margin="0,4,20,0" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
+                            Source="rainpow@2x.png"/>-->
+                            <!--<Image Visibility="{Binding Settings.hasPCI,Converter={StaticResource boolToVisibilityConvert}}" Margin="0,4,20,0" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
                                 Height="22" VerticalAlignment="Top" Width="33"
                                 Source="pci@2x.png"/>
                             <Image Visibility="{Binding Settings.Pro12,Converter={StaticResource boolToVisibilityConvert}}" Margin="0,3,20,-2" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
                                 Height="30" VerticalAlignment="Top" Width="46"
-                                Source="node@2x.png"/>
+                                Source="node@2x.png"/>-->
                         </StackPanel>
 
 
@@ -569,11 +569,11 @@
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding ElementName=Case,Path=IsSelected}" Value="True">
                                             <Setter Property="SelectedIndex" Value="{Binding Settings.Faneffectcounter}"/>
-                                            <Setter Property="ItemsSource" Value="{Binding Path=CaseEffects}"/>
+                                            <Setter Property="ItemsSource" Value="{Binding Path=ScreenEffects}"/>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding ElementName=Desk,Path=IsSelected}" Value="True">
                                             <Setter Property="SelectedIndex" Value="{Binding Settings.lightstatus}"/>
-                                            <Setter Property="ItemsSource" Value="{Binding Path=DeskEffects}"/>
+                                            <Setter Property="ItemsSource" Value="{Binding Path=ScreenEffects}"/>
                                         </DataTrigger>
 
                                     </Style.Triggers>
@@ -1148,7 +1148,7 @@
                         </Grid.RowDefinitions>
 
                         <Grid x:Name="screen1setup1" Margin="231,92,67,49" Grid.Row="1" Grid.RowSpan="3">
-                            <ComboBox
+                            <ComboBox IsEnabled="False"
                                 
                                 SelectedIndex="1"
                                 materialDesign:HintAssist.Hint="Chọn cỡ màn hình"
@@ -1164,7 +1164,7 @@
   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
   VerticalAlignment="Center" Margin="0,19,0,88" />
 
-                            <ComboBox
+                            <ComboBox IsEnabled="False"
                                
                                 SelectedIndex="1"
                                 materialDesign:HintAssist.Hint="Chọn cỡ màn hình"
@@ -1183,8 +1183,8 @@
                             Margin="18,14,0,0"
                             Source="advance@2x.png" Visibility="Hidden"/>
                         <TextBlock
-                            Margin="0,23,245,14" HorizontalAlignment="Right" Padding="0" Width="128" 
-                            VerticalAlignment="Center" FontSize="15" FontWeight="Bold"><Run Text="Cài đặt cạnh bàn"/></TextBlock>
+                            Margin="0,23,179,14" HorizontalAlignment="Right" Padding="0" Width="200" 
+                            VerticalAlignment="Center" FontSize="15" FontWeight="Bold"><Run Text="Cài đặt LED dán tường"/></TextBlock>
                         <Grid Margin="31,6,111,77" Grid.Row="1" Grid.RowSpan="3" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="4*"/>
@@ -1204,7 +1204,7 @@
 
                             <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,15,76,19" Foreground="#FF6C6C6C"
                                 Height="18" Text="Chiều dán" Grid.Row="1"/>
-                            <ComboBox
+                            <ComboBox IsEnabled="False"
                             
                                 x:Name="screenSelect1"
                                 SelectedIndex="{Binding Settings.desksize}"
@@ -1251,8 +1251,8 @@
                             Margin="18,14,0,0"
                             Source="advance@2x.png" Visibility="Hidden"/>
                         <TextBlock
-                            Margin="0,23,245,14" HorizontalAlignment="Right" Padding="0" Width="128" 
-                            VerticalAlignment="Center" FontSize="15" FontWeight="Bold"><Run Text="Cài đặt case"/></TextBlock>
+                            Margin="0,23,243,14" HorizontalAlignment="Right" Padding="0" Width="134" 
+                            VerticalAlignment="Center" FontSize="15" FontWeight="Bold"><Run Text="Vi trí và kích thước"/></TextBlock>
                         <Grid Margin="31,6,111,77" Grid.Row="1" Grid.RowSpan="3" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="4*"/>
@@ -1279,14 +1279,14 @@
 
                             </ComboBox>
                             <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,8,76,27" Foreground="#FF6C6C6C"
-                                Height="18" Text="Vị trí case"/>
+                                Height="18" Text="Vị trí dán"/>
 
                         </Grid>
                         <TextBlock x:Name="txtDoChia_Copy3"
                             FontWeight="Medium" HorizontalAlignment="Right"
                             RenderTransformOrigin="0.337,1.821"
                             FontSize="10"
-                            Width="220" Margin="0,63,110,41" Foreground="#FFF9BE7B" Grid.Row="1"><Run Text="Vị trí case tính theo hướng nhìn từ người ngồi "/><LineBreak/><Run Text=""/></TextBlock>
+                            Width="220" Margin="0,63,110,41" Foreground="#FFF9BE7B" Grid.Row="1"><Run Text="Vị trí dán tính theo hướng nhìn từ người ngồi "/><LineBreak/><Run Text=""/></TextBlock>
                         <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
                             Height="32" VerticalAlignment="Top" Width="31"
                             Margin="31,56,0,0"
@@ -1335,22 +1335,22 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{Binding Settings.order_data0}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="1" Text="{Binding Settings.order_data1}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="2" Text="{Binding Settings.order_data2}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="3" Text="{Binding Settings.order_data3}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="4" Text="{Binding Settings.order_data4}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="5" Text="{Binding Settings.order_data5}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="6" Text="{Binding Settings.order_data6}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="7" Text="{Binding Settings.order_data7}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="8" Text="{Binding Settings.order_data8}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="9" Text="{Binding Settings.order_data9}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="10" Text="{Binding Settings.order_data10}" Margin="20,0,6,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="11" Text="{Binding Settings.order_data11}" Margin="20,0,6,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="12" Text="{Binding Settings.order_data12}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="13" Text="{Binding Settings.order_data13}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="14" Text="{Binding Settings.order_data14}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="15" Text="{Binding Settings.order_data15}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="0" Text="{Binding ElementName=Music_box_1,Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="1" Text="{Binding ElementName=Music_box_2,Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="2" Text="{Binding ElementName=Music_box_3,Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="3" Text="{Binding ElementName=Music_box_4,Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="4" Text="{Binding ElementName=Music_box_5,Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="5" Text="{Binding ElementName=Music_box_6,Path=SelectedIndex}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="6" Text="{Binding ElementName=Music_box_7,Path=SelectedIndex}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="7" Text="{Binding ElementName=Music_box_8,Path=SelectedIndex}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="8" Text="{Binding ElementName=Music_box_9,Path=SelectedIndex}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="9" Text="{Binding ElementName=Music_box_10,Path=SelectedIndex}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="10" Text="{Binding ElementName=Music_box_11,Path=SelectedIndex}" Margin="20,0,6,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="11" Text="{Binding ElementName=Music_box_12,Path=SelectedIndex}" Margin="20,0,6,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="12" Text="{Binding ElementName=Music_box_13,Path=SelectedIndex}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="13" Text="{Binding ElementName=Music_box_14,Path=SelectedIndex}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="14" Text="{Binding ElementName=Music_box_15,Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="15" Text="{Binding ElementName=Music_box_16,Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
                     </Grid>
                     <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
                     Height="56" VerticalAlignment="Top" Width="55" Grid.Row="0"
@@ -1418,6 +1418,8 @@
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
                                     <ComboBox x:Name="Music_box_1" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data0}">
+
+
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1472,7 +1474,8 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_2" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data1}">
+                                    <ComboBox x:Name="Music_box_2" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data1}" >
+
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1529,7 +1532,8 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_3" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data2}">
+                                    <ComboBox x:Name="Music_box_3" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data2}" >
+
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1586,7 +1590,8 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_4" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data3}">
+                                    <ComboBox x:Name="Music_box_4" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}"  SelectedIndex="{Binding Settings.order_data3}">
+
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1644,7 +1649,8 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_5" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data4}">
+                                    <ComboBox x:Name="Music_box_5" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data4}" >
+
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1702,7 +1708,8 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_6" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data5}">
+                                    <ComboBox x:Name="Music_box_6" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data5}" >
+
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1761,6 +1768,7 @@
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
                                     <ComboBox x:Name="Music_box_7" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data6}">
+
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1817,7 +1825,8 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_8" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data7}">
+                                    <ComboBox x:Name="Music_box_8" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data7}" >
+
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1874,7 +1883,8 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_9" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data8}">
+                                    <ComboBox x:Name="Music_box_9" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data8}" >
+
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1931,7 +1941,8 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_10" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data9}">
+                                    <ComboBox x:Name="Music_box_10" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data9}" >
+
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1989,7 +2000,8 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_11" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data10}">
+                                    <ComboBox x:Name="Music_box_11" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data10}" >
+
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -2046,7 +2058,8 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_12" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data11}">
+                                    <ComboBox x:Name="Music_box_12" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data11}" >
+
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -2105,6 +2118,7 @@
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
                                     <ComboBox x:Name="Music_box_13" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data12}">
+
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -2219,7 +2233,24 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_15" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data14}">
+                                    <ComboBox x:Name="Music_box_15" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data14}" >
+                                        <ComboBox.Style>
+                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCustomFreq }" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data14}"/>
+
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsNotCustomFreq }" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data14}"/>
+
+                                                    </DataTrigger>
+
+
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.Style>
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -2277,7 +2308,24 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_16" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data15}">
+                                    <ComboBox x:Name="Music_box_16" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data15}" >
+                                        <ComboBox.Style>
+                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCustomFreq }" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data15}"/>
+
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsNotCustomFreq }" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data15}"/>
+
+                                                    </DataTrigger>
+
+
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.Style>
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"

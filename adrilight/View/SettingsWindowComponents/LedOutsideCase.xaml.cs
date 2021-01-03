@@ -260,10 +260,23 @@ namespace adrilight.View.SettingsWindowComponents
 
                 //  Console.Write("{0, 3} ", y);
 
-
-
-
             }
+            order_data[0] = Music_box_1.SelectedIndex;
+            order_data[1] = Music_box_2.SelectedIndex;
+            order_data[2] = Music_box_3.SelectedIndex;
+            order_data[3] = Music_box_4.SelectedIndex;
+            order_data[4] = Music_box_5.SelectedIndex;
+            order_data[5] = Music_box_6.SelectedIndex;
+            order_data[6] = Music_box_7.SelectedIndex;
+            order_data[7] = Music_box_8.SelectedIndex;
+            order_data[8] = Music_box_9.SelectedIndex;
+            order_data[9] = Music_box_10.SelectedIndex;
+            order_data[10] = Music_box_11.SelectedIndex;
+            order_data[11] = Music_box_12.SelectedIndex;
+            order_data[12] = Music_box_13.SelectedIndex;
+            order_data[13] = Music_box_14.SelectedIndex;
+            order_data[14] = Music_box_15.SelectedIndex;
+            order_data[15] = Music_box_16.SelectedIndex;
             int i;
             //output_spectrumdata = spectrumdata;
             for (i = 0; i < 16; i++)
@@ -1108,7 +1121,7 @@ namespace adrilight.View.SettingsWindowComponents
                 
                     for (int i = 0; i < 16; i++)
                     {
-                        lines2[i + 8] = Convert.ToString(custom_order_data[i]);
+                        lines2[i + 8] = Convert.ToString(order_data[i]);
                     }
                 
 
@@ -1170,40 +1183,41 @@ namespace adrilight.View.SettingsWindowComponents
                         {
                             if(musicchip.SelectedItem==Custom)
                             {
-                           
-                            
-                                custom_order_data[0]= Convert.ToInt16(lines[8]);
-                                custom_order_data[1] = Convert.ToInt16(lines[9]);
-                                custom_order_data[2] = Convert.ToInt16(lines[10]);
-                                custom_order_data[3] = Convert.ToInt16(lines[11]);
-                                custom_order_data[4] = Convert.ToInt16(lines[12]);
-                                custom_order_data[5] = Convert.ToInt16(lines[13]);
-                                custom_order_data[6] = Convert.ToInt16(lines[14]);
-                                custom_order_data[7] = Convert.ToInt16(lines[15]);
-                                custom_order_data[8] = Convert.ToInt16(lines[16]);
-                                custom_order_data[9] = Convert.ToInt16(lines[17]);
-                                custom_order_data[10] = Convert.ToInt16(lines[18]);
-                                custom_order_data[11] = Convert.ToInt16(lines[19]);
-                                custom_order_data[12] = Convert.ToInt16(lines[20]);
-                                custom_order_data[13] = Convert.ToInt16(lines[21]);
-                                custom_order_data[14] = Convert.ToInt16(lines[22]);
-                                custom_order_data[15] = Convert.ToInt16(lines[23]);
 
-                                Music_box_1.SelectedIndex = custom_order_data[0];
-                                Music_box_2.SelectedIndex = custom_order_data[1];
-                                Music_box_3.SelectedIndex = custom_order_data[2];
-                                Music_box_4.SelectedIndex = custom_order_data[3];
-                                Music_box_5.SelectedIndex = custom_order_data[4];
-                                Music_box_6.SelectedIndex = custom_order_data[5];
-                                Music_box_7.SelectedIndex = custom_order_data[6];
-                                Music_box_8.SelectedIndex = custom_order_data[7];
-                                Music_box_9.SelectedIndex = custom_order_data[8];
-                                Music_box_10.SelectedIndex = custom_order_data[9];
-                                Music_box_11.SelectedIndex = custom_order_data[10];
-                                Music_box_12.SelectedIndex = custom_order_data[11];
-                                Music_box_13.SelectedIndex = custom_order_data[13];
-                                Music_box_15.SelectedIndex = custom_order_data[14];
-                                Music_box_16.SelectedIndex = custom_order_data[15];
+
+                                //custom_order_data[0] = Convert.ToInt16(lines[8]);
+                                //custom_order_data[1] = Convert.ToInt16(lines[9]);
+                                //custom_order_data[2] = Convert.ToInt16(lines[10]);
+                                //custom_order_data[3] = Convert.ToInt16(lines[11]);
+                                //custom_order_data[4] = Convert.ToInt16(lines[12]);
+                                //custom_order_data[5] = Convert.ToInt16(lines[13]);
+                                //custom_order_data[6] = Convert.ToInt16(lines[14]);
+                                //custom_order_data[7] = Convert.ToInt16(lines[15]);
+                                //custom_order_data[8] = Convert.ToInt16(lines[16]);
+                                //custom_order_data[9] = Convert.ToInt16(lines[17]);
+                                //custom_order_data[10] = Convert.ToInt16(lines[18]);
+                                //custom_order_data[11] = Convert.ToInt16(lines[19]);
+                                //custom_order_data[12] = Convert.ToInt16(lines[20]);
+                                //custom_order_data[13] = Convert.ToInt16(lines[21]);
+                                //custom_order_data[14] = Convert.ToInt16(lines[22]);
+                                //custom_order_data[15] = Convert.ToInt16(lines[23]);
+
+                                Music_box_1.SelectedIndex = Convert.ToInt16(lines[8]);
+                                Music_box_2.SelectedIndex = Convert.ToInt16(lines[9]);
+                                Music_box_3.SelectedIndex = Convert.ToInt16(lines[10]);
+                                Music_box_4.SelectedIndex = Convert.ToInt16(lines[11]);
+                                Music_box_5.SelectedIndex = Convert.ToInt16(lines[12]);
+                                Music_box_6.SelectedIndex = Convert.ToInt16(lines[13]);
+                                Music_box_7.SelectedIndex = Convert.ToInt16(lines[14]);
+                                Music_box_8.SelectedIndex = Convert.ToInt16(lines[15]);
+                                Music_box_9.SelectedIndex = Convert.ToInt16(lines[16]);
+                                Music_box_10.SelectedIndex = Convert.ToInt16(lines[17]);
+                                Music_box_11.SelectedIndex = Convert.ToInt16(lines[18]);
+                                Music_box_12.SelectedIndex = Convert.ToInt16(lines[19]);
+                                Music_box_13.SelectedIndex = Convert.ToInt16(lines[20]);
+                                Music_box_14.SelectedIndex = Convert.ToInt16(lines[21]);
+                                Music_box_15.SelectedIndex = Convert.ToInt16(lines[22]);
+                                Music_box_16.SelectedIndex = Convert.ToInt16(lines[23]);
 
 
 
@@ -1238,6 +1252,7 @@ namespace adrilight.View.SettingsWindowComponents
 
         private void Music_box_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
             //if (Music_box_1.SelectedIndex >= 0)
             //{
             //    custom_order_data[0] = Music_box_1.SelectedIndex;
@@ -2355,205 +2370,206 @@ namespace adrilight.View.SettingsWindowComponents
         {
             if (musicchip.SelectedIndex == 0)
             {
-                order_data[0] = 2;
-                order_data[1] = 2;
-                order_data[2] = 4;
-                order_data[3] = 4;
-                order_data[4] = 6;
-                order_data[5] = 6;
-                order_data[6] = 8;
-                order_data[7] = 8;
-                order_data[8] = 8;
-                order_data[9] = 8;
-                order_data[10] = 6;
-                order_data[11] = 6;
-                order_data[12] = 4;
-                order_data[13] = 4;
-                order_data[14] = 2;
-                order_data[15] = 2;
+                //order_data[0] = 2;
+                //order_data[1] = 2;
+                //order_data[2] = 4;
+                //order_data[3] = 4;
+                //order_data[4] = 6;
+                //order_data[5] = 6;
+                //order_data[6] = 8;
+                //order_data[7] = 8;
+                //order_data[8] = 8;
+                //order_data[9] = 8;
+                //order_data[10] = 6;
+                //order_data[11] = 6;
+                //order_data[12] = 4;
+                //order_data[13] = 4;
+                //order_data[14] = 2;
+                //order_data[15] = 2;
 
 
-                Music_box_1.SelectedIndex = order_data[0]-1;
-                Music_box_2.SelectedIndex = order_data[1]-1 ;
-                Music_box_3.SelectedIndex = order_data[2]-1 ;
-                Music_box_4.SelectedIndex = order_data[3]-1 ;
-                Music_box_5.SelectedIndex = order_data[4]-1 ;
-                Music_box_6.SelectedIndex = order_data[5]-1 ;
-                Music_box_7.SelectedIndex = order_data[6]-1 ;
-                Music_box_8.SelectedIndex = order_data[7]-1 ;
-                Music_box_9.SelectedIndex = order_data[8]-1 ;
-                Music_box_10.SelectedIndex = order_data[9]-1 ;
-                Music_box_11.SelectedIndex = order_data[10]-1 ;
-                Music_box_12.SelectedIndex = order_data[11]-1 ;
-                Music_box_13.SelectedIndex = order_data[12]-1 ;
-                Music_box_14.SelectedIndex = order_data[13]-1 ;
-                Music_box_15.SelectedIndex = order_data[14]-1 ;
-                Music_box_16.SelectedIndex = order_data[15]-1 ;
+                Music_box_1.SelectedIndex =  2;
+                Music_box_2.SelectedIndex =  2;
+                Music_box_3.SelectedIndex =  4;
+                Music_box_4.SelectedIndex =  4;
+                Music_box_5.SelectedIndex =  6;
+                Music_box_6.SelectedIndex =  6;
+                Music_box_7.SelectedIndex =  8;
+                Music_box_8.SelectedIndex =  8;
+                Music_box_9.SelectedIndex =  8;
+                Music_box_10.SelectedIndex = 8;
+                Music_box_11.SelectedIndex = 6;
+                Music_box_12.SelectedIndex = 6;
+                Music_box_13.SelectedIndex = 4;
+                Music_box_14.SelectedIndex = 4;
+                Music_box_15.SelectedIndex = 2;
+                Music_box_16.SelectedIndex = 2;
             }
             else if (musicchip.SelectedIndex == 1)
             {
-                order_data[0] = 2;
-                order_data[1] = 2;
-                order_data[2] = 8;
-                order_data[3] = 8;
-                order_data[4] = 14;
-                order_data[5] = 14;
-                order_data[6] = 15;
-                order_data[7] = 15;
-                order_data[8] = 14;
-                order_data[9] = 14;
-                order_data[10] = 8;
-                order_data[11] = 8;
-                order_data[12] = 2;
-                order_data[13] = 2;
-                order_data[14] = 2;
-                order_data[15] = 2;
+                //order_data[0] = 2;
+                //order_data[1] = 2;
+                //order_data[2] = 8;
+                //order_data[3] = 8;
+                //order_data[4] = 14;
+                //order_data[5] = 14;
+                //order_data[6] = 15;
+                //order_data[7] = 15;
+                //order_data[8] = 14;
+                //order_data[9] = 14;
+                //order_data[10] = 8;
+                //order_data[11] = 8;
+                //order_data[12] = 2;
+                //order_data[13] = 2;
+                //order_data[14] = 2;
+                //order_data[15] = 2;
 
-                Music_box_1.SelectedIndex = order_data[0] - 1;
-                Music_box_2.SelectedIndex = order_data[1] - 1;
-                Music_box_3.SelectedIndex = order_data[2] - 1;
-                Music_box_4.SelectedIndex = order_data[3] - 1;
-                Music_box_5.SelectedIndex = order_data[4] - 1;
-                Music_box_6.SelectedIndex = order_data[5] - 1;
-                Music_box_7.SelectedIndex = order_data[6] - 1;
-                Music_box_8.SelectedIndex = order_data[7] - 1;
-                Music_box_9.SelectedIndex = order_data[8] - 1;
-                Music_box_10.SelectedIndex = order_data[9] - 1;
-                Music_box_11.SelectedIndex = order_data[10] - 1;
-                Music_box_12.SelectedIndex = order_data[11] - 1;
-                Music_box_13.SelectedIndex = order_data[12] - 1;
-                Music_box_14.SelectedIndex = order_data[13] - 1;
-                Music_box_15.SelectedIndex = order_data[14] - 1;
-                Music_box_16.SelectedIndex = order_data[15] - 1;
+                Music_box_1.SelectedIndex = 2;
+                Music_box_2.SelectedIndex = 2;
+                Music_box_3.SelectedIndex = 8;
+                Music_box_4.SelectedIndex = 8;
+                Music_box_5.SelectedIndex = 14;
+                Music_box_6.SelectedIndex = 14;
+                Music_box_7.SelectedIndex = 15;
+                Music_box_8.SelectedIndex = 15;
+                Music_box_9.SelectedIndex = 14;
+                Music_box_10.SelectedIndex = 14;
+                Music_box_11.SelectedIndex = 8;
+                Music_box_12.SelectedIndex = 8;
+                Music_box_13.SelectedIndex = 2;
+                Music_box_14.SelectedIndex = 2;
+                Music_box_15.SelectedIndex = 2;
+                Music_box_16.SelectedIndex = 2;
             }
             else if (musicchip.SelectedIndex == 2)
             {
-                order_data[0] = 2;
-                order_data[1] = 2;
-                order_data[2] = 2;
-                order_data[3] = 2;
-                order_data[4] = 2;
-                order_data[5] = 2;
-                order_data[6] = 9;
-                order_data[7] = 9;
-                order_data[8] = 9;
-                order_data[9] = 9;
-                order_data[10] = 2;
-                order_data[11] = 2;
-                order_data[12] = 2;
-                order_data[13] = 2;
-                order_data[14] = 2;
-                order_data[15] = 2;
+                //order_data[0] = 2;
+                //order_data[1] = 2;
+                //order_data[2] = 2;
+                //order_data[3] = 2;
+                //order_data[4] = 2;
+                //order_data[5] = 2;
+                //order_data[6] = 9;
+                //order_data[7] = 9;
+                //order_data[8] = 9;
+                //order_data[9] = 9;
+                //order_data[10] = 2;
+                //order_data[11] = 2;
+                //order_data[12] = 2;
+                //order_data[13] = 2;
+                //order_data[14] = 2;
+                //order_data[15] = 2;
 
-                Music_box_1.SelectedIndex = order_data[0] - 1;
-                Music_box_2.SelectedIndex = order_data[1] - 1;
-                Music_box_3.SelectedIndex = order_data[2] - 1;
-                Music_box_4.SelectedIndex = order_data[3] - 1;
-                Music_box_5.SelectedIndex = order_data[4] - 1;
-                Music_box_6.SelectedIndex = order_data[5] - 1;
-                Music_box_7.SelectedIndex = order_data[6] - 1;
-                Music_box_8.SelectedIndex = order_data[7] - 1;
-                Music_box_9.SelectedIndex = order_data[8] - 1;
-                Music_box_10.SelectedIndex = order_data[9] - 1;
-                Music_box_11.SelectedIndex = order_data[10] - 1;
-                Music_box_12.SelectedIndex = order_data[11] - 1;
-                Music_box_13.SelectedIndex = order_data[12] - 1;
-                Music_box_14.SelectedIndex = order_data[13] - 1;
-                Music_box_15.SelectedIndex = order_data[14] - 1;
-                Music_box_16.SelectedIndex = order_data[15] - 1;
+                Music_box_1.SelectedIndex = 2;
+                Music_box_2.SelectedIndex = 2;
+                Music_box_3.SelectedIndex = 2;
+                Music_box_4.SelectedIndex = 2;
+                Music_box_5.SelectedIndex = 2;
+                Music_box_6.SelectedIndex = 2;
+                Music_box_7.SelectedIndex = 9;
+                Music_box_8.SelectedIndex = 9;
+                Music_box_9.SelectedIndex = 9;
+                Music_box_10.SelectedIndex = 9;
+                Music_box_11.SelectedIndex = 2;
+                Music_box_12.SelectedIndex = 2;
+                Music_box_13.SelectedIndex = 2;
+                Music_box_14.SelectedIndex = 2;
+                Music_box_15.SelectedIndex = 2;
+                Music_box_16.SelectedIndex = 2;
             }
             else if (musicchip.SelectedIndex == 3)
             {
-                order_data[0] = 8;
-                order_data[1] = 8;
-                order_data[2] = 8;
-                order_data[3] = 8;
-                order_data[4] = 11;
-                order_data[5] = 11;
-                order_data[6] = 11;
-                order_data[7] = 11;
-                order_data[8] = 13;
-                order_data[9] = 13;
-                order_data[10] = 13;
-                order_data[11] = 13;
-                order_data[12] = 2;
-                order_data[13] = 2;
-                order_data[14] = 2;
-                order_data[15] = 2;
+                //order_data[0] = 8;
+                //order_data[1] = 8;
+                //order_data[2] = 8;
+                //order_data[3] = 8;
+                //order_data[4] = 11;
+                //order_data[5] = 11;
+                //order_data[6] = 11;
+                //order_data[7] = 11;
+                //order_data[8] = 13;
+                //order_data[9] = 13;
+                //order_data[10] = 13;
+                //order_data[11] = 13;
+                //order_data[12] = 2;
+                //order_data[13] = 2;
+                //order_data[14] = 2;
+                //order_data[15] = 2;
 
-                Music_box_1.SelectedIndex = order_data[0] - 1;
-                Music_box_2.SelectedIndex = order_data[1] - 1;
-                Music_box_3.SelectedIndex = order_data[2] - 1;
-                Music_box_4.SelectedIndex = order_data[3] - 1;
-                Music_box_5.SelectedIndex = order_data[4] - 1;
-                Music_box_6.SelectedIndex = order_data[5] - 1;
-                Music_box_7.SelectedIndex = order_data[6] - 1;
-                Music_box_8.SelectedIndex = order_data[7] - 1;
-                Music_box_9.SelectedIndex = order_data[8] - 1;
-                Music_box_10.SelectedIndex = order_data[9] - 1;
-                Music_box_11.SelectedIndex = order_data[10] - 1;
-                Music_box_12.SelectedIndex = order_data[11] - 1;
-                Music_box_13.SelectedIndex = order_data[12] - 1;
-                Music_box_14.SelectedIndex = order_data[13] - 1;
-                Music_box_15.SelectedIndex = order_data[14] - 1;
-                Music_box_16.SelectedIndex = order_data[15] - 1;
+                Music_box_1.SelectedIndex = 8;
+                Music_box_2.SelectedIndex = 8;
+                Music_box_3.SelectedIndex = 8;
+                Music_box_4.SelectedIndex = 8;
+                Music_box_5.SelectedIndex = 11;
+                Music_box_6.SelectedIndex = 11;
+                Music_box_7.SelectedIndex = 11;
+                Music_box_8.SelectedIndex = 11;
+                Music_box_9.SelectedIndex = 13;
+                Music_box_10.SelectedIndex = 13;
+                Music_box_11.SelectedIndex = 13;
+                Music_box_12.SelectedIndex = 13;
+                Music_box_13.SelectedIndex = 2;
+                Music_box_14.SelectedIndex = 2;
+                Music_box_15.SelectedIndex = 2;
+                Music_box_16.SelectedIndex = 2;
             }
             if (musicchip.SelectedIndex == 4)
             {
-                order_data[0] = 1;
-                order_data[1] = 3;
-                order_data[2] = 5;
-                order_data[3] = 7;
-                order_data[4] = 9;
-                order_data[5] = 11;
-                order_data[6] = 13;
-                order_data[7] = 15;
-                order_data[8] = 15;
-                order_data[9] = 13;
-                order_data[10] = 11;
-                order_data[11] = 9;
-                order_data[12] = 7;
-                order_data[13] = 5;
-                order_data[14] = 3;
-                order_data[15] = 3;
+                //order_data[0] = 1;
+                //order_data[1] = 3;
+                //order_data[2] = 5;
+                //order_data[3] = 7;
+                //order_data[4] = 9;
+                //order_data[5] = 11;
+                //order_data[6] = 13;
+                //order_data[7] = 15;
+                //order_data[8] = 15;
+                //order_data[9] = 13;
+                //order_data[10] = 11;
+                //order_data[11] = 9;
+                //order_data[12] = 7;
+                //order_data[13] = 5;
+                //order_data[14] = 3;
+                //order_data[15] = 3;
 
-                Music_box_1.SelectedIndex = order_data[0] - 1;
-                Music_box_2.SelectedIndex = order_data[1] - 1;
-                Music_box_3.SelectedIndex = order_data[2] - 1;
-                Music_box_4.SelectedIndex = order_data[3] - 1;
-                Music_box_5.SelectedIndex = order_data[4] - 1;
-                Music_box_6.SelectedIndex = order_data[5] - 1;
-                Music_box_7.SelectedIndex = order_data[6] - 1;
-                Music_box_8.SelectedIndex = order_data[7] - 1;
-                Music_box_9.SelectedIndex = order_data[8] - 1;
-                Music_box_10.SelectedIndex = order_data[9] - 1;
-                Music_box_11.SelectedIndex = order_data[10] - 1;
-                Music_box_12.SelectedIndex = order_data[11] - 1;
-                Music_box_13.SelectedIndex = order_data[12] - 1;
-                Music_box_14.SelectedIndex = order_data[13] - 1;
-                Music_box_15.SelectedIndex = order_data[14] - 1;
-                Music_box_16.SelectedIndex = order_data[15] - 1;
+                Music_box_1.SelectedIndex = 1;
+                Music_box_2.SelectedIndex = 3;
+                Music_box_3.SelectedIndex = 5;
+                Music_box_4.SelectedIndex = 7;
+                Music_box_5.SelectedIndex = 9;
+                Music_box_6.SelectedIndex = 11;
+                Music_box_7.SelectedIndex = 13;
+                Music_box_8.SelectedIndex = 15;
+                Music_box_9.SelectedIndex = 15;
+                Music_box_10.SelectedIndex = 13;
+                Music_box_11.SelectedIndex =11;
+                Music_box_12.SelectedIndex = 9;
+                Music_box_13.SelectedIndex = 7;
+                Music_box_14.SelectedIndex = 5;
+                Music_box_15.SelectedIndex = 3;
+                Music_box_16.SelectedIndex = 1;
             }
 
-            else if(musicchip.SelectedIndex == 5)
-                {
+            //else if(musicchip.SelectedIndex == 5)
+            //    {
 
-                Music_box_1.SelectedIndex = custom_order_data[0];
-                Music_box_2.SelectedIndex = custom_order_data[1];
-                Music_box_3.SelectedIndex = custom_order_data[2];
-                Music_box_4.SelectedIndex = custom_order_data[3];
-                Music_box_5.SelectedIndex = custom_order_data[4];
-                Music_box_6.SelectedIndex = custom_order_data[5];
-                Music_box_7.SelectedIndex = custom_order_data[6];
-                Music_box_8.SelectedIndex = custom_order_data[7];
-                Music_box_9.SelectedIndex = custom_order_data[8];
-                Music_box_10.SelectedIndex = custom_order_data[9];
-                Music_box_11.SelectedIndex = custom_order_data[10];
-                Music_box_12.SelectedIndex = custom_order_data[11];
-                Music_box_13.SelectedIndex = custom_order_data[13];
-                Music_box_15.SelectedIndex = custom_order_data[14];
-                Music_box_16.SelectedIndex = custom_order_data[15];
-            }
+            //    Music_box_1.SelectedIndex = custom_order_data[0];
+            //    Music_box_2.SelectedIndex = custom_order_data[1];
+            //    Music_box_3.SelectedIndex = custom_order_data[2];
+            //    Music_box_4.SelectedIndex = custom_order_data[3];
+            //    Music_box_5.SelectedIndex = custom_order_data[4];
+            //    Music_box_6.SelectedIndex = custom_order_data[5];
+            //    Music_box_7.SelectedIndex = custom_order_data[6];
+            //    Music_box_8.SelectedIndex = custom_order_data[7];
+            //    Music_box_9.SelectedIndex = custom_order_data[8];
+            //    Music_box_10.SelectedIndex = custom_order_data[9];
+            //    Music_box_11.SelectedIndex = custom_order_data[10];
+            //    Music_box_12.SelectedIndex = custom_order_data[11];
+            //    Music_box_13.SelectedIndex = custom_order_data[12];
+            //    Music_box_14.SelectedIndex = custom_order_data[13];
+            //    Music_box_15.SelectedIndex = custom_order_data[14];
+            //    Music_box_16.SelectedIndex = custom_order_data[15];
+            //}
 
             for (int i = 8; i <= 23; i++)
             {
@@ -2592,7 +2608,7 @@ namespace adrilight.View.SettingsWindowComponents
 
         private void OK1_Click(object sender, RoutedEventArgs e)
         {
-            order_data[0] = Music_box_1.SelectedIndex;   
+            //order_data[0] = Music_box_1.SelectedIndex;   
         }
 
         private void screenbox3_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -2691,80 +2707,85 @@ namespace adrilight.View.SettingsWindowComponents
 
         private void OK2_Click(object sender, RoutedEventArgs e)
         {
-            order_data[1] = Music_box_2.SelectedIndex;
+            //order_data[1] = Music_box_2.SelectedIndex;
         }
 
         private void OK3_Click(object sender, RoutedEventArgs e)
         {
-            order_data[2] = Music_box_3.SelectedIndex;
+            //order_data[2] = Music_box_3.SelectedIndex;
         }
 
         private void OK4_Click(object sender, RoutedEventArgs e)
         {
-            order_data[3] = Music_box_4.SelectedIndex;
+            //order_data[3] = Music_box_4.SelectedIndex;
         }
 
         private void OK5_Click(object sender, RoutedEventArgs e)
         {
-            order_data[4] = Music_box_5.SelectedIndex;
+            //order_data[4] = Music_box_5.SelectedIndex;
         }
 
         private void OK6_Click(object sender, RoutedEventArgs e)
         {
-            order_data[5] = Music_box_6.SelectedIndex;
+            //order_data[5] = Music_box_6.SelectedIndex;
         }
 
         private void OK7_Click(object sender, RoutedEventArgs e)
         {
-            order_data[6] = Music_box_7.SelectedIndex;
+            //order_data[6] = Music_box_7.SelectedIndex;
         }
 
         private void OK8_Click(object sender, RoutedEventArgs e)
         {
-            order_data[7] = Music_box_8.SelectedIndex;
+            //order_data[7] = Music_box_8.SelectedIndex;
         }
 
         private void OK9_Click(object sender, RoutedEventArgs e)
         {
-            order_data[8] = Music_box_9.SelectedIndex;
+            //order_data[8] = Music_box_9.SelectedIndex;
         }
 
         private void OK10_Click(object sender, RoutedEventArgs e)
         {
-            order_data[9] = Music_box_10.SelectedIndex;
+            //order_data[9] = Music_box_10.SelectedIndex;
         }
 
         private void OK11_Click(object sender, RoutedEventArgs e)
         {
-            order_data[10] = Music_box_11.SelectedIndex;
+            //order_data[10] = Music_box_11.SelectedIndex;
         }
 
         private void OK12_Click(object sender, RoutedEventArgs e)
         {
-            order_data[11] = Music_box_12.SelectedIndex;
+            //order_data[11] = Music_box_12.SelectedIndex;
         }
 
         private void OK13_Click(object sender, RoutedEventArgs e)
         {
-            order_data[12] = Music_box_13.SelectedIndex;
+            //order_data[12] = Music_box_13.SelectedIndex;
         }
 
         private void OK14_Click(object sender, RoutedEventArgs e)
         {
-            order_data[13] = Music_box_14.SelectedIndex;
+            //order_data[13] = Music_box_14.SelectedIndex;
         }
 
         private void OK15_Click(object sender, RoutedEventArgs e)
         {
-            order_data[14] = Music_box_15.SelectedIndex;
+            //order_data[14] = Music_box_15.SelectedIndex;
         }
 
         private void OK16_Click(object sender, RoutedEventArgs e)
         {
-            order_data[15] = Music_box_16.SelectedIndex;
+            //order_data[15] = Music_box_16.SelectedIndex;
         }
 
         private void OKPort_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void comportbox6_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

@@ -397,6 +397,283 @@ namespace adrilight
         }
 
 
+        private (byte[] Buffer, int OutputLength) GetOutputStreamCeiling()
+        {
+            byte[] outputStreamCeiling;
+
+            int counter = _messagePreamble.Length;
+            lock (SpotSet.Lock)
+            {
+                const int colorsPerLed = 3;
+                int bufferLength = _messagePreamble.Length
+                    + (UserSettings.LedsPerSpot * SpotSet.Spots.Length * colorsPerLed)
+                    + _messagePostamble.Length + 9 + 27 + 3 + 6 + 21 + 9;
+                if (UserSettings.effect && UserSettings.SendRandomColors)
+                {
+                    outputStreamCeiling = ArrayPool<byte>.Shared.Rent(bufferLength);
+
+                    Buffer.BlockCopy(_messagePreamble, 0, outputStreamCeiling, 0, _messagePreamble.Length);
+                    Buffer.BlockCopy(_messageZoeamble, 0, outputStreamCeiling, bufferLength - _messageZoeamble.Length, _messageZoeamble.Length);
+                }
+                else
+                {
+
+                    outputStreamCeiling = ArrayPool<byte>.Shared.Rent(bufferLength);
+
+                    Buffer.BlockCopy(_messagePreamble, 0, outputStreamCeiling, 0, _messagePreamble.Length);
+                    Buffer.BlockCopy(_messagePostamble, 0, outputStreamCeiling, bufferLength - _messagePostamble.Length, _messagePostamble.Length);
+                }
+
+
+
+
+
+
+
+                /*
+                    outputStreamCeiling[counter++] = UserSettings.brightnesscounter;
+
+
+
+                    outputStreamCeiling[counter++] = UserSettings.methodcounter;
+
+
+                outputStreamCeiling[counter++] = UserSettings.speedcounter;
+                outputStreamCeiling[counter++] = UserSettings.effectcounter;
+                outputStreamCeiling[counter++] = UserSettings.sincounter;
+                outputStreamCeiling[counter++] = UserSettings.lightstatus;
+
+
+                outputStreamCeiling[counter++] = UserSettings.edgebrightnesscounter;
+                outputStreamCeiling[counter++] = Convert.ToByte(ComPortSetup.volume);
+
+                outputStreamCeiling[counter++] = UserSettings.huecounter;
+
+
+
+
+
+                outputStreamCeiling[counter++] = UserSettings.color1.R;
+                outputStreamCeiling[counter++] = UserSettings.color1.G;
+                outputStreamCeiling[counter++] = UserSettings.color1.B;
+
+                outputStreamCeiling[counter++] = UserSettings.color2.R;
+                outputStreamCeiling[counter++] = UserSettings.color2.G;
+                outputStreamCeiling[counter++] = UserSettings.color2.B;
+
+                outputStreamCeiling[counter++] = UserSettings.color3.R;
+                outputStreamCeiling[counter++] = UserSettings.color3.G;
+                outputStreamCeiling[counter++] = UserSettings.color3.B;
+
+                outputStreamCeiling[counter++] = UserSettings.color4.R;
+                outputStreamCeiling[counter++] = UserSettings.color4.G;
+                outputStreamCeiling[counter++] = UserSettings.color4.B;
+
+                outputStreamCeiling[counter++] = UserSettings.color5.R;
+                outputStreamCeiling[counter++] = UserSettings.color5.G;
+                outputStreamCeiling[counter++] = UserSettings.color5.B;
+
+                outputStreamCeiling[counter++] = UserSettings.color6.R;
+                outputStreamCeiling[counter++] = UserSettings.color6.G;
+                outputStreamCeiling[counter++] = UserSettings.color6.B;
+
+                outputStreamCeiling[counter++] = UserSettings.color7.R;
+                outputStreamCeiling[counter++] = UserSettings.color7.G;
+                outputStreamCeiling[counter++] = UserSettings.color7.B;
+
+                outputStreamCeiling[counter++] = UserSettings.color8.R;
+                outputStreamCeiling[counter++] = UserSettings.color8.G;
+                outputStreamCeiling[counter++] = UserSettings.color8.B;
+
+                outputStreamCeiling[counter++] = Convert.ToByte((UserSettings.SpotsX-1)*2+(UserSettings.SpotsY-1)*2);
+                outputStreamCeiling[counter++] = Convert.ToByte(UserSettings.music);
+                outputStreamCeiling[counter++] = UserSettings.visualcounter;
+
+    */
+
+                outputStreamCeiling[counter++] = UserSettings.zone1speedcounter;
+                outputStreamCeiling[counter++] = UserSettings.zone2speedcounter;
+                outputStreamCeiling[counter++] = UserSettings.zone3speedcounter;
+                if (LedOutsideCase.DFU == 1)
+                {
+                    outputStreamCeiling[counter++] = 99;
+                }
+                else
+                {
+                    outputStreamCeiling[counter++] = UserSettings.fanmodecounter;
+                }
+
+                outputStreamCeiling[counter++] = UserSettings.LEDfanmodecounter;
+                outputStreamCeiling[counter++] = UserSettings.Port3Config;
+
+                outputStreamCeiling[counter++] = UserSettings.fanbrightnesscounter;
+                outputStreamCeiling[counter++] = UserSettings.methodcounter;
+                outputStreamCeiling[counter++] = UserSettings.speedcounter;
+
+                outputStreamCeiling[counter++] = UserSettings.effectcounter;
+                outputStreamCeiling[counter++] = UserSettings.sincounter;
+                outputStreamCeiling[counter++] = UserSettings.lightstatus;
+
+
+                outputStreamCeiling[counter++] = UserSettings.fanbrightnesscounter;
+                outputStreamCeiling[counter++] = UserSettings.Port1Config;
+                outputStreamCeiling[counter++] = UserSettings.Port2Config;
+
+                outputStreamCeiling[counter++] = UserSettings.color1.R;
+                outputStreamCeiling[counter++] = UserSettings.color1.G;
+                outputStreamCeiling[counter++] = UserSettings.color1.B;
+
+                outputStreamCeiling[counter++] = UserSettings.color2.R;
+                outputStreamCeiling[counter++] = UserSettings.color2.G;
+                outputStreamCeiling[counter++] = UserSettings.color2.B;
+
+                outputStreamCeiling[counter++] = UserSettings.color3.R;
+                outputStreamCeiling[counter++] = UserSettings.color3.G;
+                outputStreamCeiling[counter++] = UserSettings.color3.B;
+
+                outputStreamCeiling[counter++] = UserSettings.color4.R;
+                outputStreamCeiling[counter++] = UserSettings.color4.G;
+                outputStreamCeiling[counter++] = UserSettings.color4.B;
+
+                outputStreamCeiling[counter++] = UserSettings.color5.R;
+                outputStreamCeiling[counter++] = UserSettings.color5.G;
+                outputStreamCeiling[counter++] = UserSettings.color5.B;
+
+                outputStreamCeiling[counter++] = UserSettings.color6.R;
+                outputStreamCeiling[counter++] = UserSettings.color6.G;
+                outputStreamCeiling[counter++] = UserSettings.color6.B;
+
+                outputStreamCeiling[counter++] = UserSettings.color7.R;
+                outputStreamCeiling[counter++] = UserSettings.color7.G;
+                outputStreamCeiling[counter++] = UserSettings.color7.B;
+
+                outputStreamCeiling[counter++] = UserSettings.color8.R;
+                outputStreamCeiling[counter++] = UserSettings.color8.G;
+                outputStreamCeiling[counter++] = UserSettings.color8.B;
+
+
+
+
+
+                outputStreamCeiling[counter++] = Convert.ToByte((UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2);
+                outputStreamCeiling[counter++] = UserSettings.Port4Config;
+                outputStreamCeiling[counter++] = UserSettings.visualcounter;
+
+                outputStreamCeiling[counter++] = Convert.ToByte((UserSettings.SpotsX2 - 1) * 2 + (UserSettings.SpotsY2 - 1) * 2);
+                outputStreamCeiling[counter++] = UserSettings.fanbrightnesscounter;
+                outputStreamCeiling[counter++] = UserSettings.edgehuecounter;
+
+                outputStreamCeiling[counter++] = LedOutsideCase.output_spectrumdata[0];
+                outputStreamCeiling[counter++] = LedOutsideCase.output_spectrumdata[1];
+                outputStreamCeiling[counter++] = LedOutsideCase.output_spectrumdata[2];
+
+                outputStreamCeiling[counter++] = LedOutsideCase.output_spectrumdata[3];
+                outputStreamCeiling[counter++] = LedOutsideCase.output_spectrumdata[4];
+                outputStreamCeiling[counter++] = LedOutsideCase.output_spectrumdata[5];
+
+                outputStreamCeiling[counter++] = LedOutsideCase.output_spectrumdata[6];
+                outputStreamCeiling[counter++] = LedOutsideCase.output_spectrumdata[7];
+                outputStreamCeiling[counter++] = LedOutsideCase.output_spectrumdata[8];
+
+                outputStreamCeiling[counter++] = LedOutsideCase.output_spectrumdata[9];
+                outputStreamCeiling[counter++] = LedOutsideCase.output_spectrumdata[10];
+                outputStreamCeiling[counter++] = LedOutsideCase.output_spectrumdata[11];
+
+                outputStreamCeiling[counter++] = LedOutsideCase.output_spectrumdata[12];
+                outputStreamCeiling[counter++] = LedOutsideCase.output_spectrumdata[13];
+                outputStreamCeiling[counter++] = LedOutsideCase.output_spectrumdata[14];
+
+                outputStreamCeiling[counter++] = LedOutsideCase.output_spectrumdata[15];
+                outputStreamCeiling[counter++] = LedOutsideCase.output_spectrumdata[15];
+                outputStreamCeiling[counter++] = LedOutsideCase.output_spectrumdata[15];
+
+
+                outputStreamCeiling[counter++] = UserSettings.Faneffectcounter;
+                outputStreamCeiling[counter++] = UserSettings.Faneffectcounter;
+                outputStreamCeiling[counter++] = UserSettings.screeneffectcounter;
+
+                outputStreamCeiling[counter++] = UserSettings.CaseStatic.R;
+                outputStreamCeiling[counter++] = UserSettings.CaseStatic.G;
+                outputStreamCeiling[counter++] = UserSettings.CaseStatic.B;
+
+                outputStreamCeiling[counter++] = UserSettings.CaseStatic.R;
+                outputStreamCeiling[counter++] = UserSettings.CaseStatic.G;
+                outputStreamCeiling[counter++] = UserSettings.CaseStatic.B;
+
+                outputStreamCeiling[counter++] = UserSettings.DeskStatic.R;
+                outputStreamCeiling[counter++] = UserSettings.DeskStatic.G;
+                outputStreamCeiling[counter++] = UserSettings.DeskStatic.B;
+
+                var allBlack = true;
+                foreach (Spot spot in SpotSet.Spots)
+                {
+                    for (int i = 0; i < UserSettings.LedsPerSpot; i++)
+                    {
+                        if (!UserSettings.SendRandomColors)
+                        {
+                            outputStreamCeiling[counter++] = spot.Blue; // blue
+                            outputStreamCeiling[counter++] = spot.Green; // green
+                            outputStreamCeiling[counter++] = spot.Red; // red
+
+                            allBlack = allBlack && spot.Red == 0 && spot.Green == 0 && spot.Blue == 0;
+
+                        }
+
+                        else
+                        {
+                            allBlack = false;
+                            var n = UserSettings.zoecounter;
+                            var m = UserSettings.brightnesscounter;
+
+                            if (UserSettings.fixedcolor)
+                            {
+                                if (n == 255)
+                                {
+                                    outputStreamCeiling[counter++] = 255; // blue
+                                    outputStreamCeiling[counter++] = 255; // green
+                                    outputStreamCeiling[counter++] = 255; // red
+
+                                }
+                                else
+                                {
+                                    var c = ColorUtil.FromAhsb(255, n, 1, 0.5f);
+                                    outputStreamCeiling[counter++] = c.B; // blue
+                                    outputStreamCeiling[counter++] = c.G; // green
+                                    outputStreamCeiling[counter++] = c.R; // red
+                                }
+                            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        }
+                    }
+
+                }
+
+
+
+                if (allBlack)
+                {
+                    blackFrameCounter++;
+                }
+
+                return (outputStreamCeiling, bufferLength);
+            }
+        }
+
+
         private (byte[] Buffer, int OutputLength) GetOutputStreamHUB()
         {
             byte[] outputStreamHUB;
@@ -628,7 +905,7 @@ namespace adrilight
             }
         }
 
-        private (byte[] Buffer, int OutputLength) GetOutputStreamHUBV2()
+        private (byte[] Buffer, int OutputLength) GetOutputStreamHUBV2()  
         {
             byte[] outputStreamHUBV2;
             int bufferHUBV2Length = 0;
@@ -1671,6 +1948,282 @@ namespace adrilight
             }
         }
 
+        private (byte[] Buffer, int OutputLength) GetOutputStreamWall()
+        {
+            byte[] outputStreamWall;
+
+            int counter = _messagePreamble.Length;
+            lock (SpotSet.Lock)
+            {
+                const int colorsPerLed = 3;
+                int bufferLength = _messagePreamble.Length
+                    + (UserSettings.LedsPerSpot * SpotSet.Spots.Length * colorsPerLed)
+                    + _messagePostamble.Length + 9 + 27 + 3 + 6 + 21 + 9;
+                if (UserSettings.effect && UserSettings.SendRandomColors)
+                {
+                    outputStreamWall = ArrayPool<byte>.Shared.Rent(bufferLength);
+
+                    Buffer.BlockCopy(_messagePreamble, 0, outputStreamWall, 0, _messagePreamble.Length);
+                    Buffer.BlockCopy(_messageZoeamble, 0, outputStreamWall, bufferLength - _messageZoeamble.Length, _messageZoeamble.Length);
+                }
+                else
+                {
+
+                    outputStreamWall = ArrayPool<byte>.Shared.Rent(bufferLength);
+
+                    Buffer.BlockCopy(_messagePreamble, 0, outputStreamWall, 0, _messagePreamble.Length);
+                    Buffer.BlockCopy(_messagePostamble, 0, outputStreamWall, bufferLength - _messagePostamble.Length, _messagePostamble.Length);
+                }
+
+
+
+
+
+
+
+                /*
+                    outputStreamWall[counter++] = UserSettings.brightnesscounter;
+
+
+
+                    outputStreamWall[counter++] = UserSettings.methodcounter;
+
+
+                outputStreamWall[counter++] = UserSettings.speedcounter;
+                outputStreamWall[counter++] = UserSettings.effectcounter;
+                outputStreamWall[counter++] = UserSettings.sincounter;
+                outputStreamWall[counter++] = UserSettings.lightstatus;
+
+
+                outputStreamWall[counter++] = UserSettings.edgebrightnesscounter;
+                outputStreamWall[counter++] = Convert.ToByte(ComPortSetup.volume);
+
+                outputStreamWall[counter++] = UserSettings.huecounter;
+
+
+
+
+
+                outputStreamWall[counter++] = UserSettings.color1.R;
+                outputStreamWall[counter++] = UserSettings.color1.G;
+                outputStreamWall[counter++] = UserSettings.color1.B;
+
+                outputStreamWall[counter++] = UserSettings.color2.R;
+                outputStreamWall[counter++] = UserSettings.color2.G;
+                outputStreamWall[counter++] = UserSettings.color2.B;
+
+                outputStreamWall[counter++] = UserSettings.color3.R;
+                outputStreamWall[counter++] = UserSettings.color3.G;
+                outputStreamWall[counter++] = UserSettings.color3.B;
+
+                outputStreamWall[counter++] = UserSettings.color4.R;
+                outputStreamWall[counter++] = UserSettings.color4.G;
+                outputStreamWall[counter++] = UserSettings.color4.B;
+
+                outputStreamWall[counter++] = UserSettings.color5.R;
+                outputStreamWall[counter++] = UserSettings.color5.G;
+                outputStreamWall[counter++] = UserSettings.color5.B;
+
+                outputStreamWall[counter++] = UserSettings.color6.R;
+                outputStreamWall[counter++] = UserSettings.color6.G;
+                outputStreamWall[counter++] = UserSettings.color6.B;
+
+                outputStreamWall[counter++] = UserSettings.color7.R;
+                outputStreamWall[counter++] = UserSettings.color7.G;
+                outputStreamWall[counter++] = UserSettings.color7.B;
+
+                outputStreamWall[counter++] = UserSettings.color8.R;
+                outputStreamWall[counter++] = UserSettings.color8.G;
+                outputStreamWall[counter++] = UserSettings.color8.B;
+
+                outputStreamWall[counter++] = Convert.ToByte((UserSettings.SpotsX-1)*2+(UserSettings.SpotsY-1)*2);
+                outputStreamWall[counter++] = Convert.ToByte(UserSettings.music);
+                outputStreamWall[counter++] = UserSettings.visualcounter;
+
+    */
+
+                outputStreamWall[counter++] = UserSettings.zone1speedcounter;
+                outputStreamWall[counter++] = UserSettings.zone2speedcounter;
+                outputStreamWall[counter++] = UserSettings.zone3speedcounter;
+                if (LedOutsideCase.DFU == 1)
+                {
+                    outputStreamWall[counter++] = 99;
+                }
+                else
+                {
+                    outputStreamWall[counter++] = UserSettings.fanmodecounter;
+                }
+
+                outputStreamWall[counter++] = UserSettings.LEDfanmodecounter;
+                outputStreamWall[counter++] = UserSettings.Port3Config;
+
+                outputStreamWall[counter++] = UserSettings.edgebrightnesscounter;
+                outputStreamWall[counter++] = UserSettings.methodcounter;
+                outputStreamWall[counter++] = UserSettings.speedcounter;
+
+                outputStreamWall[counter++] = UserSettings.effectcounter;
+                outputStreamWall[counter++] = UserSettings.sincounter;
+                outputStreamWall[counter++] = UserSettings.lightstatus;
+
+
+                outputStreamWall[counter++] = UserSettings.edgebrightnesscounter;
+                outputStreamWall[counter++] = UserSettings.Port1Config;
+                outputStreamWall[counter++] = UserSettings.Port2Config;
+
+                outputStreamWall[counter++] = UserSettings.color1.R;
+                outputStreamWall[counter++] = UserSettings.color1.G;
+                outputStreamWall[counter++] = UserSettings.color1.B;
+
+                outputStreamWall[counter++] = UserSettings.color2.R;
+                outputStreamWall[counter++] = UserSettings.color2.G;
+                outputStreamWall[counter++] = UserSettings.color2.B;
+
+                outputStreamWall[counter++] = UserSettings.color3.R;
+                outputStreamWall[counter++] = UserSettings.color3.G;
+                outputStreamWall[counter++] = UserSettings.color3.B;
+
+                outputStreamWall[counter++] = UserSettings.color4.R;
+                outputStreamWall[counter++] = UserSettings.color4.G;
+                outputStreamWall[counter++] = UserSettings.color4.B;
+
+                outputStreamWall[counter++] = UserSettings.color5.R;
+                outputStreamWall[counter++] = UserSettings.color5.G;
+                outputStreamWall[counter++] = UserSettings.color5.B;
+
+                outputStreamWall[counter++] = UserSettings.color6.R;
+                outputStreamWall[counter++] = UserSettings.color6.G;
+                outputStreamWall[counter++] = UserSettings.color6.B;
+
+                outputStreamWall[counter++] = UserSettings.color7.R;
+                outputStreamWall[counter++] = UserSettings.color7.G;
+                outputStreamWall[counter++] = UserSettings.color7.B;
+
+                outputStreamWall[counter++] = UserSettings.color8.R;
+                outputStreamWall[counter++] = UserSettings.color8.G;
+                outputStreamWall[counter++] = UserSettings.color8.B;
+
+
+
+
+
+                outputStreamWall[counter++] = Convert.ToByte((UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2);
+                outputStreamWall[counter++] = UserSettings.Port4Config;
+                outputStreamWall[counter++] = UserSettings.visualcounter;
+
+                outputStreamWall[counter++] = Convert.ToByte((UserSettings.SpotsX2 - 1) * 2 + (UserSettings.SpotsY2 - 1) * 2);
+                outputStreamWall[counter++] = UserSettings.edgebrightnesscounter;
+                outputStreamWall[counter++] = UserSettings.edgehuecounter;
+
+                outputStreamWall[counter++] = LedOutsideCase.output_spectrumdata[0];
+                outputStreamWall[counter++] = LedOutsideCase.output_spectrumdata[1];
+                outputStreamWall[counter++] = LedOutsideCase.output_spectrumdata[2];
+
+                outputStreamWall[counter++] = LedOutsideCase.output_spectrumdata[3];
+                outputStreamWall[counter++] = LedOutsideCase.output_spectrumdata[4];
+                outputStreamWall[counter++] = LedOutsideCase.output_spectrumdata[5];
+
+                outputStreamWall[counter++] = LedOutsideCase.output_spectrumdata[6];
+                outputStreamWall[counter++] = LedOutsideCase.output_spectrumdata[7];
+                outputStreamWall[counter++] = LedOutsideCase.output_spectrumdata[8];
+
+                outputStreamWall[counter++] = LedOutsideCase.output_spectrumdata[9];
+                outputStreamWall[counter++] = LedOutsideCase.output_spectrumdata[10];
+                outputStreamWall[counter++] = LedOutsideCase.output_spectrumdata[11];
+
+                outputStreamWall[counter++] = LedOutsideCase.output_spectrumdata[12];
+                outputStreamWall[counter++] = LedOutsideCase.output_spectrumdata[13];
+                outputStreamWall[counter++] = LedOutsideCase.output_spectrumdata[14];
+
+                outputStreamWall[counter++] = LedOutsideCase.output_spectrumdata[15];
+                outputStreamWall[counter++] = LedOutsideCase.output_spectrumdata[15];
+                outputStreamWall[counter++] = LedOutsideCase.output_spectrumdata[15];
+
+
+                outputStreamWall[counter++] = UserSettings.lightstatus;
+                outputStreamWall[counter++] = UserSettings.lightstatus;
+                outputStreamWall[counter++] = UserSettings.screeneffectcounter;
+
+                outputStreamWall[counter++] = UserSettings.CaseStatic.R;
+                outputStreamWall[counter++] = UserSettings.CaseStatic.G;
+                outputStreamWall[counter++] = UserSettings.CaseStatic.B;
+
+                outputStreamWall[counter++] = UserSettings.DeskStatic.R;
+                outputStreamWall[counter++] = UserSettings.DeskStatic.G;
+                outputStreamWall[counter++] = UserSettings.DeskStatic.B;
+
+                outputStreamWall[counter++] = UserSettings.DeskStatic.R;
+                outputStreamWall[counter++] = UserSettings.DeskStatic.G;
+                outputStreamWall[counter++] = UserSettings.DeskStatic.B;
+
+                var allBlack = true;
+                foreach (Spot spot in SpotSet.Spots)
+                {
+                    for (int i = 0; i < UserSettings.LedsPerSpot; i++)
+                    {
+                        if (!UserSettings.SendRandomColors)
+                        {
+                            outputStreamWall[counter++] = spot.Blue; // blue
+                            outputStreamWall[counter++] = spot.Green; // green
+                            outputStreamWall[counter++] = spot.Red; // red
+
+                            allBlack = allBlack && spot.Red == 0 && spot.Green == 0 && spot.Blue == 0;
+
+                        }
+
+                        else
+                        {
+                            allBlack = false;
+                            var n = UserSettings.zoecounter;
+                            var m = UserSettings.brightnesscounter;
+
+                            if (UserSettings.fixedcolor)
+                            {
+                                if (n == 255)
+                                {
+                                    outputStreamWall[counter++] = 255; // blue
+                                    outputStreamWall[counter++] = 255; // green
+                                    outputStreamWall[counter++] = 255; // red
+
+                                }
+                                else
+                                {
+                                    var c = ColorUtil.FromAhsb(255, n, 1, 0.5f);
+                                    outputStreamWall[counter++] = c.B; // blue
+                                    outputStreamWall[counter++] = c.G; // green
+                                    outputStreamWall[counter++] = c.R; // red
+                                }
+                            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        }
+                    }
+
+                }
+
+
+
+                if (allBlack)
+                {
+                    blackFrameCounter++;
+                }
+
+                return (outputStreamWall, bufferLength);
+            }
+        }
+
 
 
         private void DoWork(object tokenObject)
@@ -1682,6 +2235,7 @@ namespace adrilight
             ISerialPortWrapper serialPort4 = null;
             ISerialPortWrapper serialPort5 = null;
             ISerialPortWrapper serialPort6 = null;
+            ISerialPortWrapper serialPort7 = null;
 
             if (String.IsNullOrEmpty(UserSettings.ComPort))
             {
@@ -1704,12 +2258,14 @@ namespace adrilight
                     
                     string openedComPort5 = null;
                     string openedComPort6 = null;
+                    string openedComPort7 = null;
+
 
 
                     while (!cancellationToken.IsCancellationRequested)
                     {
                         //open or change the serial port
-                        if (openedComPort != UserSettings.ComPort || openedComPort2 != UserSettings.ComPort2 || openedComPort3 != UserSettings.ComPort3 || openedComPort5 != UserSettings.ComPort5 || openedComPort6!=UserSettings.ComPort6)
+                        if (openedComPort != UserSettings.ComPort || openedComPort2 != UserSettings.ComPort2 || openedComPort3 != UserSettings.ComPort3 || openedComPort5 != UserSettings.ComPort5 || openedComPort6!=UserSettings.ComPort6 || openedComPort7 != UserSettings.ComPort7)
                         {
                             serialPort?.Close();
                             serialPort = UserSettings.ComPort != "Không có" ? (ISerialPortWrapper)new WrappedSerialPort(new SerialPort(UserSettings.ComPort, baudRate)) : new FakeSerialPort();
@@ -1758,6 +2314,15 @@ namespace adrilight
                                 openedComPort6 = UserSettings.ComPort6;
                             }
 
+                            if (openedComPort7 != UserSettings.ComPort7)
+                            {
+
+                                serialPort7?.Close();
+                                serialPort7 = UserSettings.ComPort7 != "Không có" ? (ISerialPortWrapper)new WrappedSerialPort(new SerialPort(UserSettings.ComPort7, baudRate)) : new FakeSerialPort();
+                                serialPort7.Open();
+                                openedComPort7 = UserSettings.ComPort7;
+                            }
+
                         }
 
                         //send frame data
@@ -1766,7 +2331,8 @@ namespace adrilight
                         var (secondoutputstream, secondbufferLength) = GetOutputStream();
                         var (thirdoutputstream, thirdbufferLength) = GetOutputStream();
                         // var (HUBoutputstream, HUBbufferLength) = GetOutputStreamHUB();
-                        var (HUBV2outputstream, HUBV2bufferLength) = GetOutputStreamHUBV2();
+                        var (outputStreamCeiling, CeilingbufferLength)= GetOutputStreamCeiling();
+                        var (outputStreamWall, WallbufferLength) = GetOutputStreamWall();
                         if (Screen.AllScreens.Length == 2)
                         {
                             (secondoutputstream, secondbufferLength) = GetSecondOutputStream();
@@ -1822,7 +2388,7 @@ namespace adrilight
                         if (UserSettings.Comport5Open)
                         {
                             //  if (Screen.AllScreens.Length == 2)
-                            serialPort5.Write(HUBV2outputstream, 0, HUBV2bufferLength);
+                            serialPort5.Write(outputStreamCeiling,0, CeilingbufferLength);
                             // else serialPort4.Write(outputBuffer, 0, streamLength);
                         }
                         else
@@ -1843,6 +2409,18 @@ namespace adrilight
                            // UserSettings.Comport6Open = false;
                         }
 
+                        if (UserSettings.Comport7Open)
+                        {
+                            //  if (Screen.AllScreens.Length == 2)
+                            serialPort7.Write(outputStreamWall, 0, WallbufferLength);
+                            // else serialPort4.Write(outputBuffer, 0, streamLength);
+                        }
+                        else
+                        {
+                            serialPort7.Close();
+                            // UserSettings.Comport6Open = false;
+                        }
+
 
                         if (++frameCounter == 1024 && blackFrameCounter > 1000)
                         {
@@ -1856,7 +2434,7 @@ namespace adrilight
                         //receiving over serial takes it time as well and the arduino does both tasks in sequence
                         //+1 ms extra safe zone
                         var fastLedTime = ((streamLength - _messagePreamble.Length - _messagePostamble.Length) / 3.0 * 0.030d) + 256 * 0.030d;
-                        var serialTransferTime = HUBV2bufferLength * 10 * 1000 / baudRate;
+                        var serialTransferTime = CeilingbufferLength * 10 * 1000 / baudRate;
                         var minTimespan = (int)(fastLedTime + serialTransferTime) + 6;
 
                         Thread.Sleep(minTimespan);
@@ -1913,6 +2491,11 @@ namespace adrilight
                     {
                         serialPort6.Close();
                         serialPort6.Dispose();
+                    }
+                    if (serialPort7 != null && serialPort7.IsOpen)
+                    {
+                        serialPort7.Close();
+                        serialPort7.Dispose();
                     }
                 }
             }
