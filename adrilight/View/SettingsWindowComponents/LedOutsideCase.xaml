@@ -596,7 +596,39 @@
                     Minimum="0" 
                     Maximum="255"  ToolTip="Độ sáng của các thiết bị bên trong case"
                    
-                    Value="{Binding Settings.brightnesscounter}" 
+                    Value="{Binding Settings.brightnesscounter}" Visibility="{Binding ElementName=Screen,Path=IsSelected,Converter={StaticResource boolToVisibilityConvert}}"
+					RenderTransformOrigin="0.066,0.839" Width="143" Foreground="#FF7344C3" >
+                            <Slider.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform AngleX="-0.299"/>
+                                    <RotateTransform/>
+                                    <TranslateTransform X="-0.131"/>
+                                </TransformGroup>
+                            </Slider.RenderTransform>
+                        </Slider>
+                        <Slider
+                    Grid.Row="2" Margin="108,12,0,7"
+                    Minimum="0" 
+                    Maximum="255"  ToolTip="Độ sáng của các thiết bị bên trong case"
+                   
+                    Value="{Binding Settings.fanbrightnesscounter}"  Visibility="{Binding ElementName=Case,Path=IsSelected,Converter={StaticResource boolToVisibilityConvert}}"
+					RenderTransformOrigin="0.066,0.839" Width="143" Foreground="#FF7344C3" >
+                            <Slider.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform AngleX="-0.299"/>
+                                    <RotateTransform/>
+                                    <TranslateTransform X="-0.131"/>
+                                </TransformGroup>
+                            </Slider.RenderTransform>
+                        </Slider>
+                        <Slider
+                    Grid.Row="2" Margin="108,12,0,7"
+                    Minimum="0" 
+                    Maximum="255"  ToolTip="Độ sáng của các thiết bị bên trong case"
+                   
+                    Value="{Binding Settings.edgebrightnesscounter}"  Visibility="{Binding ElementName=Desk,Path=IsSelected,Converter={StaticResource boolToVisibilityConvert}}"
 					RenderTransformOrigin="0.066,0.839" Width="143" Foreground="#FF7344C3" >
                             <Slider.RenderTransform>
                                 <TransformGroup>
