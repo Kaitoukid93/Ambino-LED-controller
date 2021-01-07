@@ -144,9 +144,12 @@
                                     <ColumnDefinition Width="166*"/>
                                     <ColumnDefinition Width="67*"/>
                                 </Grid.ColumnDefinitions>
+                                <TextBlock Margin="138,10,45,5" Grid.ColumnSpan="2">
+                                    Số lượng
+                                </TextBlock>
                                 <ComboBox ItemsSource="{Binding ScreenNumber}" x:Name="numberScreen"  
-                                    Margin="16,0,0,0"  
-                                    SelectedIndex="{Binding Settings.screencounter}" Visibility="{Binding MoreThan2Screen,Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Top" Grid.Column="1">
+                                    Margin="35,0,0,0"  
+                                    SelectedIndex="{Binding Settings.screencounter}"  VerticalAlignment="Top" Grid.Column="1">
 
                                    
 
@@ -247,32 +250,29 @@
                                     <ListBoxItem IsSelected="True" Content="Port 2" x:Name="Port_2"/>
                                     <ListBoxItem
                         Content="Port 3" IsSelected="False" x:Name="Port_3"/>
-                                    <ListBoxItem
-                        Content="Port 4" IsSelected="False" x:Name="Port_4"/>
+                                  
                                 </ListBox>
-                                <ComboBox x:Name="Port4_config" SelectedIndex="{Binding Settings.Port4Config}" Visibility="{Binding ElementName=Port_4,Path=IsSelected,Converter={StaticResource BooleanToVisibilityConverter}}" Margin="4,56,0,57">
+                                <!--<ComboBox x:Name="Port4_config" SelectedIndex="{Binding Settings.Port4Config}" Visibility="{Binding ElementName=Port_4,Path=IsSelected,Converter={StaticResource BooleanToVisibilityConverter}}" Margin="4,56,0,57">
                                     <Label Content="Sáng theo LED cạnh bàn"/>
                                     <Label Content="Sáng theo LED màn 1"/>
                                     <Label Content="Sáng theo LED màn 2"/>
                                     <Label Content="Sáng theo LED màn 3"/>
-                                </ComboBox>
+                                </ComboBox>-->
                                 <ComboBox x:Name="Port3_config" SelectedIndex="{Binding Settings.Port3Config}" Visibility="{Binding ElementName=Port_3,Path=IsSelected,Converter={StaticResource BooleanToVisibilityConverter}}" Margin="4,56,0,57">
                                     <Label Content="Sáng theo LED cạnh bàn"/>
-                                    <Label Content="Sáng theo LED màn 1"/>
-                                    <Label Content="Sáng theo LED màn 2"/>
+                                   
                                     <Label Content="Sáng theo LED màn 3"/>
                                 </ComboBox>
                                 <ComboBox x:Name="Port2_config" SelectedIndex="{Binding Settings.Port2Config}" Visibility="{Binding ElementName=Port_2,Path=IsSelected,Converter={StaticResource BooleanToVisibilityConverter}}" Margin="4,56,0,57">
                                     <Label Content="Sáng theo LED cạnh bàn"/>
-                                    <Label Content="Sáng theo LED màn 1"/>
+                                 
                                     <Label Content="Sáng theo LED màn 2"/>
-                                    <Label Content="Sáng theo LED màn 3"/>
+                                   
                                 </ComboBox>
                                 <ComboBox x:Name="Port1_config" SelectedIndex="{Binding Settings.Port1Config}" Visibility="{Binding ElementName=Port_1,Path=IsSelected,Converter={StaticResource BooleanToVisibilityConverter}}" Margin="4,56,0,57">
                                     <Label Content="Sáng theo LED cạnh bàn"/>
                                     <Label Content="Sáng theo LED màn 1"/>
-                                    <Label Content="Sáng theo LED màn 2"/>
-                                    <Label Content="Sáng theo LED màn 3"/>
+                                  
                                 </ComboBox>
 
 

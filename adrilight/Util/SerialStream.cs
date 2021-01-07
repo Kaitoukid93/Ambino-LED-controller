@@ -217,7 +217,7 @@ namespace adrilight
                 outputStream[counter++] = UserSettings.zone1speedcounter;
                 outputStream[counter++] = UserSettings.zone2speedcounter;
                 outputStream[counter++] = UserSettings.zone3speedcounter;
-                if (LedOutsideCase.DFU == 1)
+                if (LedOutsideCase.DFUVal == 1)
                 {
                     outputStream[counter++] = 99;
                 }
@@ -636,16 +636,23 @@ namespace adrilight
             lock (SpotSet.Lock)
             {
                 const int colorsPerLed = 3;
-                if (Screen.AllScreens.Length == 2)
+                if (Screen.AllScreens.Length == 3)
                 {
                     bufferHUBV2Length = _messagePreamble.Length
-                       + (UserSettings.LedsPerSpot * SpotSet.Spots.Length * colorsPerLed + UserSettings.LedsPerSpot * SpotSet2.Spots2.Length * colorsPerLed)
+                       + (UserSettings.LedsPerSpot * SpotSet.Spots.Length * colorsPerLed + UserSettings.LedsPerSpot * SpotSet2.Spots2.Length *  colorsPerLed + UserSettings.LedsPerSpot * SpotSet3.Spots3.Length * colorsPerLed)
                        + _messagePostamble.Length + 9 + 27 + 3 + 6 + 21 + 9;
                 }
-                else
+                else if(Screen.AllScreens.Length == 2)
                 {
                     bufferHUBV2Length = _messagePreamble.Length
-                                       + (UserSettings.LedsPerSpot * SpotSet.Spots.Length * colorsPerLed + UserSettings.LedsPerSpot * ((UserSettings.SpotsX2 - 1) * 2 + (UserSettings.SpotsY2 - 1) * 2) * colorsPerLed)
+                                       + (UserSettings.LedsPerSpot * SpotSet.Spots.Length * colorsPerLed + UserSettings.LedsPerSpot * SpotSet2.Spots2.Length * colorsPerLed + UserSettings.LedsPerSpot * ((UserSettings.SpotsX3 - 1) * 2 + (UserSettings.SpotsY3 - 1) * 2) * colorsPerLed)
+                                       + _messagePostamble.Length + 9 + 27 + 3 + 6 + 21 + 9;
+                }
+
+                else if (Screen.AllScreens.Length == 1)
+                {
+                    bufferHUBV2Length = _messagePreamble.Length
+                                       + (UserSettings.LedsPerSpot * SpotSet.Spots.Length * colorsPerLed + UserSettings.LedsPerSpot * ((UserSettings.SpotsX2 - 1) * 2 + (UserSettings.SpotsY2 - 1) * 2) * colorsPerLed + UserSettings.LedsPerSpot * ((UserSettings.SpotsX3 - 1) * 2 + (UserSettings.SpotsY3 - 1) * 2) * colorsPerLed)
                                        + _messagePostamble.Length + 9 + 27 + 3 + 6 + 21 + 9;
                 }
                 if (UserSettings.effect && UserSettings.SendRandomColors)
@@ -669,10 +676,10 @@ namespace adrilight
 
 
 
-                outputStreamHUBV2[counter++] = UserSettings.zone1speedcounter;
-                outputStreamHUBV2[counter++] = UserSettings.zone2speedcounter;
-                outputStreamHUBV2[counter++] = UserSettings.zone3speedcounter;
-                if (LedOutsideCase.DFU == 1)
+                outputStreamHUBV2[counter++] = UserSettings.Port3Config;
+                outputStreamHUBV2[counter++] = UserSettings.Port2Config;
+                outputStreamHUBV2[counter++] = UserSettings.Port1Config;
+                if (LedOutsideCase.DFUVal == 1)
                 {
                     outputStreamHUBV2[counter++] = 99;
                 }
@@ -682,7 +689,7 @@ namespace adrilight
                 }
 
                 outputStreamHUBV2[counter++] = UserSettings.LEDfanmodecounter;
-                outputStreamHUBV2[counter++] = UserSettings.zoecounter;
+                outputStreamHUBV2[counter++] = UserSettings.Port4Config;
 
                 outputStreamHUBV2[counter++] = UserSettings.brightnesscounter;
                 outputStreamHUBV2[counter++] = UserSettings.methodcounter;
@@ -734,7 +741,7 @@ namespace adrilight
 
 
                 outputStreamHUBV2[counter++] = Convert.ToByte((UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2);
-                outputStreamHUBV2[counter++] = Convert.ToByte(UserSettings.music);
+                outputStreamHUBV2[counter++] = Convert.ToByte((UserSettings.SpotsX3 - 1) * 2 + (UserSettings.SpotsY3 - 1) * 2);
                 outputStreamHUBV2[counter++] = UserSettings.visualcounter;
 
                 outputStreamHUBV2[counter++] = Convert.ToByte((UserSettings.SpotsX2 - 1) * 2 + (UserSettings.SpotsY2 - 1) * 2);
@@ -1212,7 +1219,7 @@ namespace adrilight
                 secondoutputstream[counter++] = UserSettings.zone1speedcounter;
                 secondoutputstream[counter++] = UserSettings.zone2speedcounter;
                 secondoutputstream[counter++] = UserSettings.zone3speedcounter;
-                if (LedOutsideCase.DFU == 1)
+                if (LedOutsideCase.DFUVal == 1)
                 {
                     secondoutputstream[counter++] = 99;
                 }
@@ -1492,7 +1499,7 @@ namespace adrilight
                 thirdoutputstream[counter++] = UserSettings.zone1speedcounter;
                 thirdoutputstream[counter++] = UserSettings.zone2speedcounter;
                 thirdoutputstream[counter++] = UserSettings.zone3speedcounter;
-                if (LedOutsideCase.DFU == 1)
+                if (LedOutsideCase.DFUVal == 1)
                 {
                     thirdoutputstream[counter++] = 99;
                 }

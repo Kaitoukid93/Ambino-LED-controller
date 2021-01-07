@@ -410,12 +410,80 @@
                             <ColumnDefinition Width="*" />
 
                         </Grid.ColumnDefinitions>
+
+                        <materialDesign:DialogHost  Grid.Column="0"
+                            DialogClosing="Sample1_DialogHost_OnDialogClosing"
+                            DialogTheme="Inherit"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top" Height="180" Margin="-23,-24,-38,-34" Grid.ColumnSpan="3" Width="315" Grid.RowSpan="3">
+                            <materialDesign:DialogHost.DialogContent>
+
+                                <StackPanel Margin="16">
+
+                                    <TextBlock Foreground="#FFFB6904"><Run Text="Nâng cao"/></TextBlock>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:Badged Margin="0,10,0,0"
+  x:Name="DFU"
+  BadgeColorZoneMode="PrimaryDark">
+                                            <Button
+    Style="{StaticResource MaterialDesignRaisedLightButton}"
+    Click="CountingButton_OnClick" Background="#FF7344C3" BorderBrush="#FF7344C3">
+                                                DFU!
+                                            </Button>
+                                        </materialDesign:Badged>
+                                        
+                                        
+                                        
+                                    </Grid>
+
+                                    <StackPanel
+                                        Orientation="Horizontal"
+                                        HorizontalAlignment="Right">
+                                        <Button x:Name="OKPort1" 
+                                            Style="{StaticResource MaterialDesignFlatButton}"
+                                            IsDefault="True"
+                                            Margin="0 8 8 0"
+                                            Command="materialDesign:DialogHost.CloseDialogCommand" Click="OKPort_Click" Content="OK" >
+                                            <Button.CommandParameter>
+                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
+                                            </Button.CommandParameter>
+                                        </Button>
+                                        <Button
+                                            Style="{StaticResource MaterialDesignFlatButton}"
+                                            IsCancel="True"
+                                            Margin="0 8 8 0"
+                                            Command="materialDesign:DialogHost.CloseDialogCommand" Content="Hủy">
+                                            <Button.CommandParameter>
+                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">False</system:Boolean>
+                                            </Button.CommandParameter>
+                                        </Button>
+                                    </StackPanel>
+
+                                </StackPanel>
+
+
+                            </materialDesign:DialogHost.DialogContent>
+                            <Grid Margin="101,142,101,0">
+
+
+
+                                <Button  Padding="0"  Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" ToolTip="Xem thêm" Height="Auto" Background="{x:Null}" BorderBrush="{x:Null}" Margin="152,-134,-73,137">
+                                    <materialDesign:PackIcon Kind="DotsHorizontal" Foreground="#FF6C6C6C" Height="25" Width="26"/>
+                                </Button>
+                            </Grid>
+
+                        </materialDesign:DialogHost>
+
                         <TextBlock 
                             Margin="0,0,106,10" HorizontalAlignment="Right" Padding="0" Width="85" 
                             VerticalAlignment="Center" FontSize="15" Grid.ColumnSpan="2" FontWeight="Bold" Height="20"><Run Text="Kết nối USB"/></TextBlock>
 
                         <CheckBox  
-                            Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
+                            Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}" x:Name="HUBV2Connect"
                             IsChecked="{Binding Settings.Comport5Open}" Grid.Column="1" Margin="116,7,0,6" Grid.Row="1" Grid.ColumnSpan="2" Width="74" Content="Kết nối"/>
 
 
@@ -807,7 +875,7 @@
                         Source="/adrilight;component/View/Images/new theme/lighting setup@2x.png"/>
                         <CheckBox  x:Name="shuffle"
                             Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
-                            IsChecked="{Binding Settings.Shuffle}" Margin="314,53,0,37" Width="60" Grid.Row="1" Content="Shuffle"/>
+                            IsChecked="{Binding Settings.shuffle}" Margin="314,53,0,37" Width="60" Grid.Row="1" Content="Shuffle"/>
 
 
 
@@ -1265,7 +1333,7 @@
                                 <RowDefinition Height="*"/>
 
                             </Grid.RowDefinitions>
-                            <ComboBox
+                            <ComboBox IsEnabled="False"
                             
                                 x:Name="screenSelect2"
                                 SelectedIndex="0"
@@ -1335,22 +1403,22 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{Binding Settings.order_data0}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="1" Text="{Binding Settings.order_data1}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="2" Text="{Binding Settings.order_data2}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="3" Text="{Binding Settings.order_data3}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="4" Text="{Binding Settings.order_data4}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="5" Text="{Binding Settings.order_data5}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="6" Text="{Binding Settings.order_data6}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="7" Text="{Binding Settings.order_data7}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="8" Text="{Binding Settings.order_data8}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="9" Text="{Binding Settings.order_data9}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="10" Text="{Binding Settings.order_data10}" Margin="20,0,6,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="11" Text="{Binding Settings.order_data11}" Margin="20,0,6,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="12" Text="{Binding Settings.order_data12}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="13" Text="{Binding Settings.order_data13}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="14" Text="{Binding Settings.order_data14}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="15" Text="{Binding Settings.order_data15}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="0" Text="{Binding ElementName=Music_box_1, Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="1" Text="{Binding ElementName=Music_box_2, Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="2" Text="{Binding ElementName=Music_box_3, Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="3" Text="{Binding ElementName=Music_box_4, Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="4" Text="{Binding ElementName=Music_box_5, Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="5" Text="{Binding ElementName=Music_box_6, Path=SelectedIndex}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="6" Text="{Binding ElementName=Music_box_7, Path=SelectedIndex}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="7" Text="{Binding ElementName=Music_box_8, Path=SelectedIndex}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="8" Text="{Binding ElementName=Music_box_9, Path=SelectedIndex}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="9" Text="{Binding ElementName=Music_box_10, Path=SelectedIndex}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="10" Text="{Binding ElementName=Music_box_11, Path=SelectedIndex}" Margin="20,0,6,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="11" Text="{Binding ElementName=Music_box_12, Path=SelectedIndex}" Margin="20,0,6,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="12" Text="{Binding ElementName=Music_box_13, Path=SelectedIndex}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="13" Text="{Binding ElementName=Music_box_14, Path=SelectedIndex}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="14" Text="{Binding ElementName=Music_box_15, Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
+                        <TextBlock Grid.Column="15" Text="{Binding ElementName=Music_box_16, Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
                     </Grid>
                     <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
                     Height="56" VerticalAlignment="Top" Width="55" Grid.Row="0"
@@ -1417,7 +1485,22 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_1" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data0}">
+                                    <ComboBox x:Name="Music_box_1" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
+                                        <ComboBox.Style>
+                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
+
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=IsCustomFreqSelected}" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data0}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=IsPreFreqSelected }" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data0}"/>
+
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.Style>
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1472,7 +1555,21 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_2" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data1}">
+                                    <ComboBox x:Name="Music_box_2" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
+                                        <ComboBox.Style>
+                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data1}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data1}"/>
+
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.Style>
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1529,7 +1626,21 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_3" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data2}">
+                                    <ComboBox x:Name="Music_box_3" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
+                                        <ComboBox.Style>
+                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data2}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data2}"/>
+
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.Style>
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1586,7 +1697,21 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_4" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data3}">
+                                    <ComboBox x:Name="Music_box_4" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
+                                        <ComboBox.Style>
+                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data3}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data3}"/>
+
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.Style>
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1644,7 +1769,21 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_5" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data4}">
+                                    <ComboBox x:Name="Music_box_5" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
+                                        <ComboBox.Style>
+                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data4}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data4}"/>
+
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.Style>
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1702,7 +1841,21 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_6" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data5}">
+                                    <ComboBox x:Name="Music_box_6" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
+                                        <ComboBox.Style>
+                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data5}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data5}"/>
+
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.Style>
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1760,7 +1913,21 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_7" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data6}">
+                                    <ComboBox x:Name="Music_box_7" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
+                                        <ComboBox.Style>
+                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data6}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data6}"/>
+
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.Style>
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1817,7 +1984,21 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_8" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data7}">
+                                    <ComboBox x:Name="Music_box_8" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}">
+                                        <ComboBox.Style>
+                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data7}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data7}"/>
+
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.Style>
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1874,7 +2055,21 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_9" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data8}">
+                                    <ComboBox x:Name="Music_box_9" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
+                                        <ComboBox.Style>
+                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data8}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data8}"/>
+
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.Style>
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1931,7 +2126,21 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_10" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data9}">
+                                    <ComboBox x:Name="Music_box_10" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
+                                        <ComboBox.Style>
+                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data9}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data9}"/>
+
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.Style>
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -1989,7 +2198,21 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_11" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data10}">
+                                    <ComboBox x:Name="Music_box_11" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
+                                        <ComboBox.Style>
+                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data10}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data10}"/>
+
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.Style>
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -2046,7 +2269,21 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_12" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data11}">
+                                    <ComboBox x:Name="Music_box_12" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
+                                        <ComboBox.Style>
+                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data11}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data11}"/>
+
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.Style>
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -2104,7 +2341,21 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_13" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data12}">
+                                    <ComboBox x:Name="Music_box_13" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
+                                        <ComboBox.Style>
+                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data12}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data12}"/>
+
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.Style>
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -2162,7 +2413,21 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_14" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data13}">
+                                    <ComboBox x:Name="Music_box_14" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
+                                        <ComboBox.Style>
+                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data13}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data13}"/>
+
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.Style>
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -2219,7 +2484,21 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_15" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data14}">
+                                    <ComboBox x:Name="Music_box_15" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
+                                        <ComboBox.Style>
+                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data14}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data14}"/>
+
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.Style>
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -2277,7 +2556,21 @@
   VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
                             <materialDesign:DialogHost.DialogContent>
                                 <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_16" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" SelectedIndex="{Binding Settings.order_data15}">
+                                    <ComboBox x:Name="Music_box_16" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
+                                        <ComboBox.Style>
+                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data15}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
+                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data15}"/>
+
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.Style>
                                     </ComboBox>
                                     <StackPanel
         Orientation="Horizontal"
@@ -2488,7 +2781,7 @@
                                 <ListBoxItem x:Name="chill"
     IsSelected="False" Content="Chill"/>
 
-                                <ListBoxItem x:Name="Custom" IsSelected="False" Content="Custom"/>
+                                <ListBoxItem  x:Name="Custom" IsSelected="False" Content="Custom"/>
                             </ListBox>
 
                             <!--<Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" materialDesign:ShadowAssist.ShadowDepth="Depth0"
@@ -2694,9 +2987,9 @@
                             <Button Margin="3,3,3,3" x:Name="btnReset" Click="resetButton_Click"
             Content="Mặc định" />
                             <Button Margin="3,3,3,3" x:Name="bt12"
-            Content="Áp dụng"  />
+            Content="Áp dụng" IsEnabled="False"  />
                             <Button Margin="3,3,3,3" x:Name="bt13" 
-            Content="Lưu lại"  />
+            Content="Lưu lại" IsEnabled="False"  />
                         </StackPanel>
 
 

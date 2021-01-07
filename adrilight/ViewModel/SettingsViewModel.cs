@@ -303,7 +303,12 @@ namespace adrilight.ViewModel
                         break;
 
                     case nameof(Settings.nodevice):
+                        if(Settings.nodevice)
+                        {
+                           
+                        }
                         RaisePropertyChanged(() => Yesdevice);
+                        
                         break;
                     case nameof(Settings.OffsetLed):
                         RaisePropertyChanged(() => OffsetLedMaximum);
@@ -338,10 +343,21 @@ namespace adrilight.ViewModel
                             Settings.nodevice = false;
                             RaisePropertyChanged(() => Settings.nodevice);
                         }
+
                         else
                         {
                             Settings.nodevice = true;
+                            RaisePropertyChanged(() => Settings.nodevice);
                         }
+
+                        //if(!Settings.Pro21||!Settings.hasUSB)
+                        //{
+                        //    Settings.Comport2Open = false;
+                        //    Settings.Comport3Open = false;
+                        //    Settings.Comport6Open = false;
+                            
+
+                        //}
                         break;
 
                     case nameof(Settings.caseenable):
@@ -353,7 +369,14 @@ namespace adrilight.ViewModel
                         else
                         {
                             Settings.nodevice = true;
+                            RaisePropertyChanged(() => Settings.nodevice);
                         }
+
+                        //if(!Settings.caseenable&&!Settings.hasPCI&&!Settings.Pro21)
+                        //{
+                        //    Settings.Comport5Open = false;
+                           
+                        //}    
                         break;
 
                     case nameof(Settings.Pro22):
@@ -365,7 +388,160 @@ namespace adrilight.ViewModel
                         else
                         {
                             Settings.nodevice = true;
+                            RaisePropertyChanged(() => Settings.nodevice);
                         }
+                        break;
+
+
+                    case nameof(Settings.genre):
+                        if(Settings.genre==0)
+                        {
+
+                         
+                            Settings.order_data0 = 2;
+                            Settings.order_data1 = 2;
+                            Settings.order_data2 = 4;
+                            Settings.order_data3 = 4;
+                            Settings.order_data4 = 6;
+                            Settings.order_data5 = 6;
+                            Settings.order_data6 = 8;
+                            Settings.order_data7 = 8;
+                            Settings.order_data8 = 8;
+                            Settings.order_data9 = 8;
+                            Settings.order_data10 = 6;
+                            Settings.order_data11 = 6;
+                            Settings.order_data12 = 4;
+                            Settings.order_data13 = 4;
+                            Settings.order_data14 = 2;
+                            Settings.order_data15 = 2;
+                           
+
+                        }
+                        else if (Settings.genre == 1)
+                        {
+
+                            Settings.order_data0 = 2;
+                            Settings.order_data1 = 2;
+                            Settings.order_data2 = 8;
+                            Settings.order_data3 = 8;
+                            Settings.order_data4 = 14;
+                            Settings.order_data5 = 14;
+                            Settings.order_data6 = 15;
+                            Settings.order_data7 = 15;
+                            Settings.order_data8 = 14;
+                            Settings.order_data9 = 14;
+                            Settings.order_data10 = 8;
+                            Settings.order_data11 = 8;
+                            Settings.order_data12 = 2;
+                            Settings.order_data13 = 2;
+                            Settings.order_data14 = 2;
+                            Settings.order_data15 = 2;
+                        }
+                        else if (Settings.genre == 2)
+                        {
+
+                            Settings.order_data0 = 2;
+                            Settings.order_data1 = 2;
+                            Settings.order_data2 = 2;
+                            Settings.order_data3 = 2;
+                            Settings.order_data4 = 2;
+                            Settings.order_data5 = 2;
+                            Settings.order_data6 = 8;
+                            Settings.order_data7 = 8;
+                            Settings.order_data8 = 8;
+                            Settings.order_data9 = 8;
+                            Settings.order_data10 = 2;
+                            Settings.order_data11 = 2;
+                            Settings.order_data12 = 2;
+                            Settings.order_data13 = 2;
+                            Settings.order_data14 = 2;
+                            Settings.order_data15 = 2;
+                        }
+                        else if (Settings.genre == 3)
+                        {
+
+
+                            Settings.order_data0 = 8;
+                            Settings.order_data1 = 8;
+                            Settings.order_data2 = 8;
+                            Settings.order_data3 = 8;
+                            Settings.order_data4 = 11;
+                            Settings.order_data5 = 11;
+                            Settings.order_data6 = 11;
+                            Settings.order_data7 = 11;
+                            Settings.order_data8 = 13;
+                            Settings.order_data9 = 13;
+                            Settings.order_data10 = 13;
+                            Settings.order_data11 = 13;
+                            Settings.order_data12 = 2;
+                            Settings.order_data13 = 2;
+                            Settings.order_data14 = 2;
+                            Settings.order_data15 = 2;
+                        }
+                        else if (Settings.genre == 4)
+                        {
+
+
+                            Settings.order_data0 = 1;
+                            Settings.order_data1 = 3;
+                            Settings.order_data2 = 5;
+                            Settings.order_data3 = 7;
+                            Settings.order_data4 = 9;
+                            Settings.order_data5 = 11;
+                            Settings.order_data6 = 13;
+                            Settings.order_data7 = 15;
+                            Settings.order_data8 = 15;
+                            Settings.order_data9 = 15;
+                            Settings.order_data10 = 13;
+                            Settings.order_data11 = 11;
+                            Settings.order_data12 = 9;
+                            Settings.order_data13 = 7;
+                            Settings.order_data14 = 5;
+                            Settings.order_data15 = 3;
+                        }
+                      
+
+
+
+
+
+                        RaisePropertyChanged(() => IsCustomFreqSelected);
+                        RaisePropertyChanged(() => IsPreFreqSelected);
+
+                        RaisePropertyChanged(() => Settings.order_data0);
+                        RaisePropertyChanged(() => Settings.order_data1);
+                        RaisePropertyChanged(() => Settings.order_data2);
+                        RaisePropertyChanged(() => Settings.order_data3);
+                        RaisePropertyChanged(() => Settings.order_data4);
+                        RaisePropertyChanged(() => Settings.order_data5);
+                        RaisePropertyChanged(() => Settings.order_data6);
+                        RaisePropertyChanged(() => Settings.order_data7);
+                        RaisePropertyChanged(() => Settings.order_data8);
+                        RaisePropertyChanged(() => Settings.order_data9);
+                        RaisePropertyChanged(() => Settings.order_data10);
+                        RaisePropertyChanged(() => Settings.order_data11);
+                        RaisePropertyChanged(() => Settings.order_data12);
+                        RaisePropertyChanged(() => Settings.order_data13);
+                        RaisePropertyChanged(() => Settings.order_data14);
+                        RaisePropertyChanged(() => Settings.order_data15);
+
+                        RaisePropertyChanged(() => Settings.custom_order_data0);
+                        RaisePropertyChanged(() => Settings.custom_order_data1);
+                        RaisePropertyChanged(() => Settings.custom_order_data2);
+                        RaisePropertyChanged(() => Settings.custom_order_data3);
+                        RaisePropertyChanged(() => Settings.custom_order_data4);
+                        RaisePropertyChanged(() => Settings.custom_order_data5);
+                        RaisePropertyChanged(() => Settings.custom_order_data6);
+                        RaisePropertyChanged(() => Settings.custom_order_data7);
+                        RaisePropertyChanged(() => Settings.custom_order_data8);
+                        RaisePropertyChanged(() => Settings.custom_order_data9);
+                        RaisePropertyChanged(() => Settings.custom_order_data10);
+                        RaisePropertyChanged(() => Settings.custom_order_data11);
+                        RaisePropertyChanged(() => Settings.custom_order_data12);
+                        RaisePropertyChanged(() => Settings.custom_order_data13);
+                        RaisePropertyChanged(() => Settings.custom_order_data14);
+                        RaisePropertyChanged(() => Settings.custom_order_data15);
+                        
                         break;
 
 
@@ -435,8 +611,20 @@ namespace adrilight.ViewModel
             get => Settings.desksize == 2;
             
         }
-            
-           
+
+
+
+        public bool IsCustomFreqSelected {
+            get => Settings.genre == 5;
+
+        }
+
+        public bool IsPreFreqSelected {
+            get => Settings.genre != 5;
+
+        }
+
+
 
 
 

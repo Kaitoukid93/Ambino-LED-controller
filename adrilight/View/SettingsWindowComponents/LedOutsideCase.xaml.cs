@@ -196,7 +196,7 @@ namespace adrilight.View.SettingsWindowComponents
         public static string ambino_port;
         public static string temp;
         private IUserSettings UserSettings { get; }
-        public static byte DFU = 0;
+        public static byte DFUVal = 0;
 
 
         private void Init()
@@ -266,29 +266,43 @@ namespace adrilight.View.SettingsWindowComponents
             }
             int i;
             //output_spectrumdata = spectrumdata;
-            for (i = 0; i < 16; i++)
-            {
-                if (order_data[i] >= 0)
+           
+            output_spectrumdata[0] = Convert.ToByte(spectrumdata[Music_box_1.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[1] = Convert.ToByte(spectrumdata[Music_box_2.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[2] = Convert.ToByte(spectrumdata[Music_box_3.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[3] = Convert.ToByte(spectrumdata[Music_box_4.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[4] = Convert.ToByte(spectrumdata[Music_box_5.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[5] = Convert.ToByte(spectrumdata[Music_box_6.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[6] = Convert.ToByte(spectrumdata[Music_box_7.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[7] = Convert.ToByte(spectrumdata[Music_box_8.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[8] = Convert.ToByte(spectrumdata[Music_box_9.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[9] = Convert.ToByte(spectrumdata[Music_box_10.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[10] = Convert.ToByte(spectrumdata[Music_box_11.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[11] = Convert.ToByte(spectrumdata[Music_box_12.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[12] = Convert.ToByte(spectrumdata[Music_box_13.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[13] = Convert.ToByte(spectrumdata[Music_box_14.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[14] = Convert.ToByte(spectrumdata[Music_box_15.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[15] = Convert.ToByte(spectrumdata[Music_box_16.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
 
-                    output_spectrumdata[i] = Convert.ToByte(spectrumdata[order_data[i]]); // Re-Arrange the value to match the order of LEDs
-                zoebar1.Value = spectrumdata[order_data[0]];
-                zoebar2.Value = spectrumdata[order_data[1]];
-                zoebar3.Value = spectrumdata[order_data[2]];
-                zoebar4.Value = spectrumdata[order_data[3]];
-                zoebar5.Value = spectrumdata[order_data[4]];
-                zoebar6.Value = spectrumdata[order_data[5]];
-                zoebar7.Value = spectrumdata[order_data[6]];
-                zoebar8.Value = spectrumdata[order_data[7]];
-                zoebar9.Value = spectrumdata[order_data[8]];
-                zoebar10.Value = spectrumdata[order_data[9]];
-                zoebar11.Value = spectrumdata[order_data[10]];
-                zoebar12.Value = spectrumdata[order_data[11]];
-                zoebar13.Value = spectrumdata[order_data[12]];
-                zoebar14.Value = spectrumdata[order_data[13]];
-                zoebar15.Value = spectrumdata[order_data[14]];
-                zoebar16.Value = spectrumdata[order_data[15]];
 
-            }
+            zoebar1.Value = spectrumdata[Music_box_1.SelectedIndex];
+                zoebar2.Value = spectrumdata[Music_box_2.SelectedIndex];
+                zoebar3.Value = spectrumdata[Music_box_3.SelectedIndex];
+                zoebar4.Value = spectrumdata[Music_box_4.SelectedIndex];
+                zoebar5.Value = spectrumdata[Music_box_5.SelectedIndex];
+                zoebar6.Value = spectrumdata[Music_box_6.SelectedIndex];
+                zoebar7.Value = spectrumdata[Music_box_7.SelectedIndex];
+                zoebar8.Value = spectrumdata[Music_box_8.SelectedIndex];
+                zoebar9.Value = spectrumdata[Music_box_9.SelectedIndex];
+                zoebar10.Value = spectrumdata[Music_box_10.SelectedIndex];
+                zoebar11.Value = spectrumdata[Music_box_11.SelectedIndex];
+                zoebar12.Value = spectrumdata[Music_box_12.SelectedIndex];
+                zoebar13.Value = spectrumdata[Music_box_13.SelectedIndex];
+                zoebar14.Value = spectrumdata[Music_box_14.SelectedIndex];
+                zoebar15.Value = spectrumdata[Music_box_15.SelectedIndex];
+                zoebar16.Value = spectrumdata[Music_box_16.SelectedIndex];
+
+           
 
 
 
@@ -332,9 +346,11 @@ namespace adrilight.View.SettingsWindowComponents
 
         private async Task DFU_func()
         {
-            DFU = 1;
+            DFUVal = 1;
             await Task.Delay(1000);
-            DFU = 0;
+            HUBV2Connect.IsChecked = false;
+            DFUVal = 0;
+
         }
 
 
@@ -689,9 +705,11 @@ namespace adrilight.View.SettingsWindowComponents
                     case "Sáng theo hiệu ứng":
                         this.effectCard.Visibility = Visibility.Visible;
                         this.staticCard.Visibility = Visibility.Collapsed;
-                       
-                        
-                      
+
+                        ambilightCard.Visibility = Visibility.Collapsed;
+                        Ambilightdesk_card.Visibility = Visibility.Collapsed;
+                        Ambilightcase.Visibility = Visibility.Collapsed;
+
                         this.offcard.Visibility = Visibility.Collapsed;
                         this.Auracard.Visibility = Visibility.Collapsed;
                         if (i != null)
@@ -805,6 +823,8 @@ namespace adrilight.View.SettingsWindowComponents
                         else if (NavigationChip.SelectedIndex==2)//desk tab selected
                         {
                             ambilightCard.Visibility = Visibility.Collapsed;
+                          
+
                             Ambilightdesk_card.Visibility = Visibility.Visible;
                             Ambilightcase.Visibility = Visibility.Collapsed;
                         }
@@ -820,12 +840,18 @@ namespace adrilight.View.SettingsWindowComponents
                         this.customZone.Visibility = Visibility.Collapsed;
                         this.offcard.Visibility = Visibility.Collapsed;
                         this.Auracard.Visibility = Visibility.Collapsed;
+                        ambilightCard.Visibility = Visibility.Collapsed;
+                        Ambilightdesk_card.Visibility = Visibility.Collapsed;
+                        Ambilightcase.Visibility = Visibility.Collapsed;
                         break;
                     case "Sáng theo nhạc":
                         this.effectCard.Visibility = Visibility.Visible;
                         this.staticCard.Visibility = Visibility.Collapsed;
                         this.offcard.Visibility = Visibility.Collapsed;
                         this.Auracard.Visibility = Visibility.Collapsed;
+                        ambilightCard.Visibility = Visibility.Collapsed;
+                        Ambilightdesk_card.Visibility = Visibility.Collapsed;
+                        Ambilightcase.Visibility = Visibility.Collapsed;
                         if (i != null)
                         {
                             if (i.Content.ToString() == "Rainbow Custom Zone")
@@ -993,7 +1019,11 @@ namespace adrilight.View.SettingsWindowComponents
                         this.customZone.Visibility = Visibility.Collapsed;
                         this.offcard.Visibility = Visibility.Collapsed;
                         this.Auracard.Visibility = Visibility.Visible;
-                        
+                        ambilightCard.Visibility = Visibility.Collapsed;
+                        Ambilightdesk_card.Visibility = Visibility.Collapsed;
+                        Ambilightcase.Visibility = Visibility.Collapsed;
+
+
                         break;
                     case "Tắt":
                         this.effectCard.Visibility = Visibility.Collapsed;
@@ -1001,6 +1031,9 @@ namespace adrilight.View.SettingsWindowComponents
                         this.customZone.Visibility = Visibility.Collapsed;
                         this.offcard.Visibility = Visibility.Visible;
                         this.Auracard.Visibility = Visibility.Collapsed;
+                        ambilightCard.Visibility = Visibility.Collapsed;
+                        Ambilightdesk_card.Visibility = Visibility.Collapsed;
+                        Ambilightcase.Visibility = Visibility.Collapsed;
                         break;
                 }
             }
@@ -1106,11 +1139,23 @@ namespace adrilight.View.SettingsWindowComponents
                 
            
                 
-                    for (int i = 0; i < 16; i++)
-                    {
-                        lines2[i + 8] = Convert.ToString(custom_order_data[i]);
-                    }
-                
+                   
+                lines2[8] = Convert.ToString(Music_box_1.SelectedIndex);
+                lines2[9] = Convert.ToString(Music_box_2.SelectedIndex);
+                lines2[10] = Convert.ToString(Music_box_3.SelectedIndex);
+                lines2[11] = Convert.ToString(Music_box_4.SelectedIndex);
+                lines2[12] = Convert.ToString(Music_box_5.SelectedIndex);
+                lines2[13] = Convert.ToString(Music_box_6.SelectedIndex);
+                lines2[14] = Convert.ToString(Music_box_7.SelectedIndex);
+                lines2[15] = Convert.ToString(Music_box_8.SelectedIndex);
+                lines2[16] = Convert.ToString(Music_box_9.SelectedIndex);
+                lines2[17] = Convert.ToString(Music_box_10.SelectedIndex);
+                lines2[18] = Convert.ToString(Music_box_11.SelectedIndex);
+                lines2[19] = Convert.ToString(Music_box_12.SelectedIndex);
+                lines2[20] = Convert.ToString(Music_box_13.SelectedIndex);
+                lines2[21] = Convert.ToString(Music_box_14.SelectedIndex);
+                lines2[22] = Convert.ToString(Music_box_15.SelectedIndex);
+                lines2[23] = Convert.ToString(Music_box_16.SelectedIndex);
 
 
                 System.IO.File.WriteAllLines(FileMau.FileName, lines2);
@@ -1127,6 +1172,22 @@ namespace adrilight.View.SettingsWindowComponents
                 //  UserSettings.filemau = filemaubox.Text;
 
             }
+        }
+
+        private void CountingButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (DFU.Badge == null || Equals(DFU.Badge, string.Empty))
+                DFU.Badge = 0;
+
+            var next = int.Parse(DFU.Badge.ToString() ?? "0") + 1;
+            if(next==15)
+            {
+                _ = DFU_func();
+            }
+
+            DFU.Badge = next < 21 ? (object)next : null;
+
+            
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
@@ -2353,207 +2414,208 @@ namespace adrilight.View.SettingsWindowComponents
 
         private void musicchip_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (musicchip.SelectedIndex == 0)
-            {
-                order_data[0] = 2;
-                order_data[1] = 2;
-                order_data[2] = 4;
-                order_data[3] = 4;
-                order_data[4] = 6;
-                order_data[5] = 6;
-                order_data[6] = 8;
-                order_data[7] = 8;
-                order_data[8] = 8;
-                order_data[9] = 8;
-                order_data[10] = 6;
-                order_data[11] = 6;
-                order_data[12] = 4;
-                order_data[13] = 4;
-                order_data[14] = 2;
-                order_data[15] = 2;
+            //if (musicchip.SelectedIndex == 0)
+            //{
+            //    order_data[0] = 2;
+            //    order_data[1] = 2;
+            //    order_data[2] = 4;
+            //    order_data[3] = 4;
+            //    order_data[4] = 6;
+            //    order_data[5] = 6;
+            //    order_data[6] = 8;
+            //    order_data[7] = 8;
+            //    order_data[8] = 8;
+            //    order_data[9] = 8;
+            //    order_data[10] = 6;
+            //    order_data[11] = 6;
+            //    order_data[12] = 4;
+            //    order_data[13] = 4;
+            //    order_data[14] = 2;
+            //    order_data[15] = 2;
 
 
-                Music_box_1.SelectedIndex = order_data[0]-1;
-                Music_box_2.SelectedIndex = order_data[1]-1 ;
-                Music_box_3.SelectedIndex = order_data[2]-1 ;
-                Music_box_4.SelectedIndex = order_data[3]-1 ;
-                Music_box_5.SelectedIndex = order_data[4]-1 ;
-                Music_box_6.SelectedIndex = order_data[5]-1 ;
-                Music_box_7.SelectedIndex = order_data[6]-1 ;
-                Music_box_8.SelectedIndex = order_data[7]-1 ;
-                Music_box_9.SelectedIndex = order_data[8]-1 ;
-                Music_box_10.SelectedIndex = order_data[9]-1 ;
-                Music_box_11.SelectedIndex = order_data[10]-1 ;
-                Music_box_12.SelectedIndex = order_data[11]-1 ;
-                Music_box_13.SelectedIndex = order_data[12]-1 ;
-                Music_box_14.SelectedIndex = order_data[13]-1 ;
-                Music_box_15.SelectedIndex = order_data[14]-1 ;
-                Music_box_16.SelectedIndex = order_data[15]-1 ;
-            }
-            else if (musicchip.SelectedIndex == 1)
-            {
-                order_data[0] = 2;
-                order_data[1] = 2;
-                order_data[2] = 8;
-                order_data[3] = 8;
-                order_data[4] = 14;
-                order_data[5] = 14;
-                order_data[6] = 15;
-                order_data[7] = 15;
-                order_data[8] = 14;
-                order_data[9] = 14;
-                order_data[10] = 8;
-                order_data[11] = 8;
-                order_data[12] = 2;
-                order_data[13] = 2;
-                order_data[14] = 2;
-                order_data[15] = 2;
+            //    Music_box_1.SelectedIndex = order_data[0]-1;
+            //    Music_box_2.SelectedIndex = order_data[1]-1 ;
+            //    Music_box_3.SelectedIndex = order_data[2]-1 ;
+            //    Music_box_4.SelectedIndex = order_data[3]-1 ;
+            //    Music_box_5.SelectedIndex = order_data[4]-1 ;
+            //    Music_box_6.SelectedIndex = order_data[5]-1 ;
+            //    Music_box_7.SelectedIndex = order_data[6]-1 ;
+            //    Music_box_8.SelectedIndex = order_data[7]-1 ;
+            //    Music_box_9.SelectedIndex = order_data[8]-1 ;
+            //    Music_box_10.SelectedIndex = order_data[9]-1 ;
+            //    Music_box_11.SelectedIndex = order_data[10]-1 ;
+            //    Music_box_12.SelectedIndex = order_data[11]-1 ;
+            //    Music_box_13.SelectedIndex = order_data[12]-1 ;
+            //    Music_box_14.SelectedIndex = order_data[13]-1 ;
+            //    Music_box_15.SelectedIndex = order_data[14]-1 ;
+            //    Music_box_16.SelectedIndex = order_data[15]-1 ;
+            //}
+            //else if (musicchip.SelectedIndex == 1)
+            //{
+            //    order_data[0] = 2;
+            //    order_data[1] = 2;
+            //    order_data[2] = 8;
+            //    order_data[3] = 8;
+            //    order_data[4] = 14;
+            //    order_data[5] = 14;
+            //    order_data[6] = 15;
+            //    order_data[7] = 15;
+            //    order_data[8] = 14;
+            //    order_data[9] = 14;
+            //    order_data[10] = 8;
+            //    order_data[11] = 8;
+            //    order_data[12] = 2;
+            //    order_data[13] = 2;
+            //    order_data[14] = 2;
+            //    order_data[15] = 2;
 
-                Music_box_1.SelectedIndex = order_data[0] - 1;
-                Music_box_2.SelectedIndex = order_data[1] - 1;
-                Music_box_3.SelectedIndex = order_data[2] - 1;
-                Music_box_4.SelectedIndex = order_data[3] - 1;
-                Music_box_5.SelectedIndex = order_data[4] - 1;
-                Music_box_6.SelectedIndex = order_data[5] - 1;
-                Music_box_7.SelectedIndex = order_data[6] - 1;
-                Music_box_8.SelectedIndex = order_data[7] - 1;
-                Music_box_9.SelectedIndex = order_data[8] - 1;
-                Music_box_10.SelectedIndex = order_data[9] - 1;
-                Music_box_11.SelectedIndex = order_data[10] - 1;
-                Music_box_12.SelectedIndex = order_data[11] - 1;
-                Music_box_13.SelectedIndex = order_data[12] - 1;
-                Music_box_14.SelectedIndex = order_data[13] - 1;
-                Music_box_15.SelectedIndex = order_data[14] - 1;
-                Music_box_16.SelectedIndex = order_data[15] - 1;
-            }
-            else if (musicchip.SelectedIndex == 2)
-            {
-                order_data[0] = 2;
-                order_data[1] = 2;
-                order_data[2] = 2;
-                order_data[3] = 2;
-                order_data[4] = 2;
-                order_data[5] = 2;
-                order_data[6] = 9;
-                order_data[7] = 9;
-                order_data[8] = 9;
-                order_data[9] = 9;
-                order_data[10] = 2;
-                order_data[11] = 2;
-                order_data[12] = 2;
-                order_data[13] = 2;
-                order_data[14] = 2;
-                order_data[15] = 2;
+            //    Music_box_1.SelectedIndex = order_data[0] - 1;
+            //    Music_box_2.SelectedIndex = order_data[1] - 1;
+            //    Music_box_3.SelectedIndex = order_data[2] - 1;
+            //    Music_box_4.SelectedIndex = order_data[3] - 1;
+            //    Music_box_5.SelectedIndex = order_data[4] - 1;
+            //    Music_box_6.SelectedIndex = order_data[5] - 1;
+            //    Music_box_7.SelectedIndex = order_data[6] - 1;
+            //    Music_box_8.SelectedIndex = order_data[7] - 1;
+            //    Music_box_9.SelectedIndex = order_data[8] - 1;
+            //    Music_box_10.SelectedIndex = order_data[9] - 1;
+            //    Music_box_11.SelectedIndex = order_data[10] - 1;
+            //    Music_box_12.SelectedIndex = order_data[11] - 1;
+            //    Music_box_13.SelectedIndex = order_data[12] - 1;
+            //    Music_box_14.SelectedIndex = order_data[13] - 1;
+            //    Music_box_15.SelectedIndex = order_data[14] - 1;
+            //    Music_box_16.SelectedIndex = order_data[15] - 1;
+            //}
+            //else if (musicchip.SelectedIndex == 2)
+            //{
+            //    order_data[0] = 2;
+            //    order_data[1] = 2;
+            //    order_data[2] = 2;
+            //    order_data[3] = 2;
+            //    order_data[4] = 2;
+            //    order_data[5] = 2;
+            //    order_data[6] = 9;
+            //    order_data[7] = 9;
+            //    order_data[8] = 9;
+            //    order_data[9] = 9;
+            //    order_data[10] = 2;
+            //    order_data[11] = 2;
+            //    order_data[12] = 2;
+            //    order_data[13] = 2;
+            //    order_data[14] = 2;
+            //    order_data[15] = 2;
 
-                Music_box_1.SelectedIndex = order_data[0] - 1;
-                Music_box_2.SelectedIndex = order_data[1] - 1;
-                Music_box_3.SelectedIndex = order_data[2] - 1;
-                Music_box_4.SelectedIndex = order_data[3] - 1;
-                Music_box_5.SelectedIndex = order_data[4] - 1;
-                Music_box_6.SelectedIndex = order_data[5] - 1;
-                Music_box_7.SelectedIndex = order_data[6] - 1;
-                Music_box_8.SelectedIndex = order_data[7] - 1;
-                Music_box_9.SelectedIndex = order_data[8] - 1;
-                Music_box_10.SelectedIndex = order_data[9] - 1;
-                Music_box_11.SelectedIndex = order_data[10] - 1;
-                Music_box_12.SelectedIndex = order_data[11] - 1;
-                Music_box_13.SelectedIndex = order_data[12] - 1;
-                Music_box_14.SelectedIndex = order_data[13] - 1;
-                Music_box_15.SelectedIndex = order_data[14] - 1;
-                Music_box_16.SelectedIndex = order_data[15] - 1;
-            }
-            else if (musicchip.SelectedIndex == 3)
-            {
-                order_data[0] = 8;
-                order_data[1] = 8;
-                order_data[2] = 8;
-                order_data[3] = 8;
-                order_data[4] = 11;
-                order_data[5] = 11;
-                order_data[6] = 11;
-                order_data[7] = 11;
-                order_data[8] = 13;
-                order_data[9] = 13;
-                order_data[10] = 13;
-                order_data[11] = 13;
-                order_data[12] = 2;
-                order_data[13] = 2;
-                order_data[14] = 2;
-                order_data[15] = 2;
+            //    Music_box_1.SelectedIndex = order_data[0] - 1;
+            //    Music_box_2.SelectedIndex = order_data[1] - 1;
+            //    Music_box_3.SelectedIndex = order_data[2] - 1;
+            //    Music_box_4.SelectedIndex = order_data[3] - 1;
+            //    Music_box_5.SelectedIndex = order_data[4] - 1;
+            //    Music_box_6.SelectedIndex = order_data[5] - 1;
+            //    Music_box_7.SelectedIndex = order_data[6] - 1;
+            //    Music_box_8.SelectedIndex = order_data[7] - 1;
+            //    Music_box_9.SelectedIndex = order_data[8] - 1;
+            //    Music_box_10.SelectedIndex = order_data[9] - 1;
+            //    Music_box_11.SelectedIndex = order_data[10] - 1;
+            //    Music_box_12.SelectedIndex = order_data[11] - 1;
+            //    Music_box_13.SelectedIndex = order_data[12] - 1;
+            //    Music_box_14.SelectedIndex = order_data[13] - 1;
+            //    Music_box_15.SelectedIndex = order_data[14] - 1;
+            //    Music_box_16.SelectedIndex = order_data[15] - 1;
+            //}
+            //else if (musicchip.SelectedIndex == 3)
+            //{
+            //    order_data[0] = 8;
+            //    order_data[1] = 8;
+            //    order_data[2] = 8;
+            //    order_data[3] = 8;
+            //    order_data[4] = 11;
+            //    order_data[5] = 11;
+            //    order_data[6] = 11;
+            //    order_data[7] = 11;
+            //    order_data[8] = 13;
+            //    order_data[9] = 13;
+            //    order_data[10] = 13;
+            //    order_data[11] = 13;
+            //    order_data[12] = 2;
+            //    order_data[13] = 2;
+            //    order_data[14] = 2;
+            //    order_data[15] = 2;
 
-                Music_box_1.SelectedIndex = order_data[0] - 1;
-                Music_box_2.SelectedIndex = order_data[1] - 1;
-                Music_box_3.SelectedIndex = order_data[2] - 1;
-                Music_box_4.SelectedIndex = order_data[3] - 1;
-                Music_box_5.SelectedIndex = order_data[4] - 1;
-                Music_box_6.SelectedIndex = order_data[5] - 1;
-                Music_box_7.SelectedIndex = order_data[6] - 1;
-                Music_box_8.SelectedIndex = order_data[7] - 1;
-                Music_box_9.SelectedIndex = order_data[8] - 1;
-                Music_box_10.SelectedIndex = order_data[9] - 1;
-                Music_box_11.SelectedIndex = order_data[10] - 1;
-                Music_box_12.SelectedIndex = order_data[11] - 1;
-                Music_box_13.SelectedIndex = order_data[12] - 1;
-                Music_box_14.SelectedIndex = order_data[13] - 1;
-                Music_box_15.SelectedIndex = order_data[14] - 1;
-                Music_box_16.SelectedIndex = order_data[15] - 1;
-            }
-            if (musicchip.SelectedIndex == 4)
-            {
-                order_data[0] = 1;
-                order_data[1] = 3;
-                order_data[2] = 5;
-                order_data[3] = 7;
-                order_data[4] = 9;
-                order_data[5] = 11;
-                order_data[6] = 13;
-                order_data[7] = 15;
-                order_data[8] = 15;
-                order_data[9] = 13;
-                order_data[10] = 11;
-                order_data[11] = 9;
-                order_data[12] = 7;
-                order_data[13] = 5;
-                order_data[14] = 3;
-                order_data[15] = 3;
+            //    Music_box_1.SelectedIndex = order_data[0] - 1;
+            //    Music_box_2.SelectedIndex = order_data[1] - 1;
+            //    Music_box_3.SelectedIndex = order_data[2] - 1;
+            //    Music_box_4.SelectedIndex = order_data[3] - 1;
+            //    Music_box_5.SelectedIndex = order_data[4] - 1;
+            //    Music_box_6.SelectedIndex = order_data[5] - 1;
+            //    Music_box_7.SelectedIndex = order_data[6] - 1;
+            //    Music_box_8.SelectedIndex = order_data[7] - 1;
+            //    Music_box_9.SelectedIndex = order_data[8] - 1;
+            //    Music_box_10.SelectedIndex = order_data[9] - 1;
+            //    Music_box_11.SelectedIndex = order_data[10] - 1;
+            //    Music_box_12.SelectedIndex = order_data[11] - 1;
+            //    Music_box_13.SelectedIndex = order_data[12] - 1;
+            //    Music_box_14.SelectedIndex = order_data[13] - 1;
+            //    Music_box_15.SelectedIndex = order_data[14] - 1;
+            //    Music_box_16.SelectedIndex = order_data[15] - 1;
+            //}
+            //if (musicchip.SelectedIndex == 4)
+            //{
+            //    order_data[0] = 1;
+            //    order_data[1] = 3;
+            //    order_data[2] = 5;
+            //    order_data[3] = 7;
+            //    order_data[4] = 9;
+            //    order_data[5] = 11;
+            //    order_data[6] = 13;
+            //    order_data[7] = 15;
+            //    order_data[8] = 15;
+            //    order_data[9] = 13;
+            //    order_data[10] = 11;
+            //    order_data[11] = 9;
+            //    order_data[12] = 7;
+            //    order_data[13] = 5;
+            //    order_data[14] = 3;
+            //    order_data[15] = 3;
 
-                Music_box_1.SelectedIndex = order_data[0] - 1;
-                Music_box_2.SelectedIndex = order_data[1] - 1;
-                Music_box_3.SelectedIndex = order_data[2] - 1;
-                Music_box_4.SelectedIndex = order_data[3] - 1;
-                Music_box_5.SelectedIndex = order_data[4] - 1;
-                Music_box_6.SelectedIndex = order_data[5] - 1;
-                Music_box_7.SelectedIndex = order_data[6] - 1;
-                Music_box_8.SelectedIndex = order_data[7] - 1;
-                Music_box_9.SelectedIndex = order_data[8] - 1;
-                Music_box_10.SelectedIndex = order_data[9] - 1;
-                Music_box_11.SelectedIndex = order_data[10] - 1;
-                Music_box_12.SelectedIndex = order_data[11] - 1;
-                Music_box_13.SelectedIndex = order_data[12] - 1;
-                Music_box_14.SelectedIndex = order_data[13] - 1;
-                Music_box_15.SelectedIndex = order_data[14] - 1;
-                Music_box_16.SelectedIndex = order_data[15] - 1;
-            }
+            //    Music_box_1.SelectedIndex = order_data[0] - 1;
+            //    Music_box_2.SelectedIndex = order_data[1] - 1;
+            //    Music_box_3.SelectedIndex = order_data[2] - 1;
+            //    Music_box_4.SelectedIndex = order_data[3] - 1;
+            //    Music_box_5.SelectedIndex = order_data[4] - 1;
+            //    Music_box_6.SelectedIndex = order_data[5] - 1;
+            //    Music_box_7.SelectedIndex = order_data[6] - 1;
+            //    Music_box_8.SelectedIndex = order_data[7] - 1;
+            //    Music_box_9.SelectedIndex = order_data[8] - 1;
+            //    Music_box_10.SelectedIndex = order_data[9] - 1;
+            //    Music_box_11.SelectedIndex = order_data[10] - 1;
+            //    Music_box_12.SelectedIndex = order_data[11] - 1;
+            //    Music_box_13.SelectedIndex = order_data[12] - 1;
+            //    Music_box_14.SelectedIndex = order_data[13] - 1;
+            //    Music_box_15.SelectedIndex = order_data[14] - 1;
+            //    Music_box_16.SelectedIndex = order_data[15] - 1;
+            //}
 
-            else if(musicchip.SelectedIndex == 5)
-                {
+            //else if(musicchip.SelectedIndex == 5)
+            //    {
 
-                Music_box_1.SelectedIndex = custom_order_data[0];
-                Music_box_2.SelectedIndex = custom_order_data[1];
-                Music_box_3.SelectedIndex = custom_order_data[2];
-                Music_box_4.SelectedIndex = custom_order_data[3];
-                Music_box_5.SelectedIndex = custom_order_data[4];
-                Music_box_6.SelectedIndex = custom_order_data[5];
-                Music_box_7.SelectedIndex = custom_order_data[6];
-                Music_box_8.SelectedIndex = custom_order_data[7];
-                Music_box_9.SelectedIndex = custom_order_data[8];
-                Music_box_10.SelectedIndex = custom_order_data[9];
-                Music_box_11.SelectedIndex = custom_order_data[10];
-                Music_box_12.SelectedIndex = custom_order_data[11];
-                Music_box_13.SelectedIndex = custom_order_data[13];
-                Music_box_15.SelectedIndex = custom_order_data[14];
-                Music_box_16.SelectedIndex = custom_order_data[15];
-            }
+            //    //Music_box_1.SelectedIndex = custom_order_data[0];
+            //    //Music_box_2.SelectedIndex = custom_order_data[1];
+            //    //Music_box_3.SelectedIndex = custom_order_data[2];
+            //    //Music_box_4.SelectedIndex = custom_order_data[3];
+            //    //Music_box_5.SelectedIndex = custom_order_data[4];
+            //    //Music_box_6.SelectedIndex = custom_order_data[5];
+            //    //Music_box_7.SelectedIndex = custom_order_data[6];
+            //    //Music_box_8.SelectedIndex = custom_order_data[7];
+            //    //Music_box_9.SelectedIndex = custom_order_data[8];
+            //    //Music_box_10.SelectedIndex = custom_order_data[9];
+            //    //Music_box_11.SelectedIndex = custom_order_data[10];
+            //    //Music_box_12.SelectedIndex = custom_order_data[11];
+            //    //Music_box_13.SelectedIndex = custom_order_data[12];
+            //    //Music_box_14.SelectedIndex = custom_order_data[13];
+            //    //Music_box_15.SelectedIndex = custom_order_data[14];  
+            //    //Music_box_16.SelectedIndex = custom_order_data[15];
+            //}
 
             for (int i = 8; i <= 23; i++)
             {

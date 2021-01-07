@@ -134,7 +134,24 @@ namespace adrilight
          int order_data12 { get; set; } 
          int order_data13 { get; set; } 
         int order_data14 { get; set; } 
-         int order_data15 { get; set; } 
+         int order_data15 { get; set; }
+
+        int custom_order_data0 { get; set; }
+        int custom_order_data1 { get; set; }
+        int custom_order_data2 { get; set; }
+        int custom_order_data3 { get; set; }
+        int custom_order_data4 { get; set; }
+        int custom_order_data5 { get; set; }
+        int custom_order_data6 { get; set; }
+        int custom_order_data7 { get; set; }
+        int custom_order_data8 { get; set; }
+        int custom_order_data9 { get; set; }
+        int custom_order_data10 { get; set; }
+        int custom_order_data11 { get; set; }
+        int custom_order_data12 { get; set; }
+        int custom_order_data13 { get; set; }
+        int custom_order_data14 { get; set; }
+        int custom_order_data15 { get; set; }
 
         byte holdeffectcounter { get; set; }
         byte screensizecounter { get; set; }

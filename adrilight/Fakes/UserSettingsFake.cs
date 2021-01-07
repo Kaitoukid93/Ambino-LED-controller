@@ -124,6 +124,23 @@ namespace adrilight.Fakes
         public int order_data14 { get; set; } = 14;
         public int order_data15 { get; set; } = 15;
 
+        public int custom_order_data0 { get; set; } = 0;
+        public int custom_order_data1 { get; set; } = 1;
+        public int custom_order_data2 { get; set; } = 2;
+        public int custom_order_data3 { get; set; } = 3;
+        public int custom_order_data4 { get; set; } = 4;
+        public int custom_order_data5 { get; set; } = 5;
+        public int custom_order_data6 { get; set; } = 6;
+        public int custom_order_data7 { get; set; } = 7;
+        public int custom_order_data8 { get; set; } = 8;
+        public int custom_order_data9 { get; set; } = 9;
+        public int custom_order_data10 { get; set; } = 10;
+        public int custom_order_data11 { get; set; } = 11;
+        public int custom_order_data12 { get; set; } = 12;
+        public int custom_order_data13 { get; set; } = 13;
+        public int custom_order_data14 { get; set; } = 14;
+        public int custom_order_data15 { get; set; } = 15;
+
         public byte holdeffectcounter { get; set; } = 0;
         public byte effectcounter { get; set; } = 0;
 

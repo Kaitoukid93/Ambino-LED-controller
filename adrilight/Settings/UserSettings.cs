@@ -152,6 +152,25 @@ namespace adrilight
         private int _order_data13 =13;
         private int _order_data14 = 14;
         private int _order_data15 = 15;
+
+        private int _custom_order_data0 = 0;
+        private int _custom_order_data1 = 1;
+        private int _custom_order_data2 = 2;
+        private int _custom_order_data3 = 3;
+        private int _custom_order_data4 = 4;
+        private int _custom_order_data5 = 5;
+        private int _custom_order_data6 = 6;
+        private int _custom_order_data7 = 7;
+        private int _custom_order_data8 = 8;
+        private int _custom_order_data9 = 9;
+        private int _custom_order_data10 = 10;
+        private int _custom_order_data11 = 11;
+        private int _custom_order_data12 = 12;
+        private int _custom_order_data13 = 13;
+        private int _custom_order_data14 = 14;
+        private int _custom_order_data15 = 15;
+
+
         private byte _holdeffectcounter = 0;
         private byte _effectcounter = 0;
         private byte _fanmodecounter = 0;
@@ -308,6 +327,24 @@ namespace adrilight
         public int order_data13 { get => _order_data13; set { Set(() => order_data13, ref _order_data13, value); } }
         public int order_data14 { get => _order_data14; set { Set(() => order_data14, ref _order_data14, value); } }
         public int order_data15 { get => _order_data15; set { Set(() => order_data15, ref _order_data15, value); } }
+
+        public int custom_order_data0 { get => _custom_order_data0; set { Set(() => custom_order_data0, ref _custom_order_data0, value); } }
+        public int custom_order_data1 { get => _custom_order_data1; set { Set(() => custom_order_data1, ref _custom_order_data1, value); } }
+        public int custom_order_data2 { get => _custom_order_data2; set { Set(() => custom_order_data2, ref _custom_order_data2, value); } }
+        public int custom_order_data3 { get => _custom_order_data3; set { Set(() => custom_order_data3, ref _custom_order_data3, value); } }
+        public int custom_order_data4 { get => _custom_order_data4; set { Set(() => custom_order_data4, ref _custom_order_data4, value); } }
+        public int custom_order_data5 { get => _custom_order_data5; set { Set(() => custom_order_data5, ref _custom_order_data5, value); } }
+        public int custom_order_data6 { get => _custom_order_data6; set { Set(() => custom_order_data6, ref _custom_order_data6, value); } }
+        public int custom_order_data7 { get => _custom_order_data7; set { Set(() => custom_order_data7, ref _custom_order_data7, value); } }
+        public int custom_order_data8 { get => _custom_order_data8; set { Set(() => custom_order_data8, ref _custom_order_data8, value); } }
+        public int custom_order_data9 { get => _custom_order_data9; set { Set(() => custom_order_data9, ref _custom_order_data9, value); } }
+        public int custom_order_data10 { get => _custom_order_data10; set { Set(() => custom_order_data10, ref _custom_order_data10, value); } }
+        public int custom_order_data11 { get => _custom_order_data11; set { Set(() => custom_order_data11, ref _custom_order_data11, value); } }
+        public int custom_order_data12 { get => _custom_order_data12; set { Set(() => custom_order_data12, ref _custom_order_data12, value); } }
+        public int custom_order_data13 { get => _custom_order_data13; set { Set(() => custom_order_data13, ref _custom_order_data13, value); } }
+        public int custom_order_data14 { get => _custom_order_data14; set { Set(() => custom_order_data14, ref _custom_order_data14, value); } }
+        public int custom_order_data15 { get => _custom_order_data15; set { Set(() => custom_order_data15, ref _custom_order_data15, value); } }
+
         public byte buttoneffectcounter { get => _buttoneffectcounter; set { Set(() => buttoneffectcounter, ref _buttoneffectcounter, value); } }
         public byte audiodevice { get => _audiodevice; set { Set(() => audiodevice, ref _audiodevice, value); } }
         public byte screensizecounter { get => _screensizecounter; set { Set(() => screensizecounter, ref _screensizecounter, value); } }
