@@ -68,7 +68,7 @@
     IsSelected="True" Content="Sản phẩm trong case" x:Name="Incase"/>
                     <ListBoxItem IsSelected="False" Content="Sản phẩm ngoài case" x:Name="Outside"/>
                     <ListBoxItem
-     Content="Cấu hình PCI" IsSelected="False" Visibility="{Binding Settings.hasPCI, Converter={StaticResource BooleanToVisibilityConverter}}" x:Name="Ultilities"/>
+     Content="Cấu hình PCI" IsSelected="False" Visibility="{Binding ElementName=SPCI,Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}" x:Name="Ultilities"/>
                 </ListBox>
                 <StackPanel Orientation="Horizontal" Grid.Row="1">
 
@@ -260,19 +260,21 @@
                                 </ComboBox>-->
                                 <ComboBox x:Name="Port3_config" SelectedIndex="{Binding Settings.Port3Config}" Visibility="{Binding ElementName=Port_3,Path=IsSelected,Converter={StaticResource BooleanToVisibilityConverter}}" Margin="4,56,0,57">
                                     <Label Content="Sáng theo LED cạnh bàn"/>
-                                   
+                                    <Label Content="Sáng theo LED màn 1"/>
+                                    <Label Content="Sáng theo LED màn 2"/>
                                     <Label Content="Sáng theo LED màn 3"/>
                                 </ComboBox>
                                 <ComboBox x:Name="Port2_config" SelectedIndex="{Binding Settings.Port2Config}" Visibility="{Binding ElementName=Port_2,Path=IsSelected,Converter={StaticResource BooleanToVisibilityConverter}}" Margin="4,56,0,57">
                                     <Label Content="Sáng theo LED cạnh bàn"/>
-                                 
+                                    <Label Content="Sáng theo LED màn 1"/>
                                     <Label Content="Sáng theo LED màn 2"/>
-                                   
+                                    <Label Content="Sáng theo LED màn 3"/>
                                 </ComboBox>
                                 <ComboBox x:Name="Port1_config" SelectedIndex="{Binding Settings.Port1Config}" Visibility="{Binding ElementName=Port_1,Path=IsSelected,Converter={StaticResource BooleanToVisibilityConverter}}" Margin="4,56,0,57">
                                     <Label Content="Sáng theo LED cạnh bàn"/>
                                     <Label Content="Sáng theo LED màn 1"/>
-                                  
+                                    <Label Content="Sáng theo LED màn 2"/>
+                                    <Label Content="Sáng theo LED màn 3"/>
                                 </ComboBox>
 
 

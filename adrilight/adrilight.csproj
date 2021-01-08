@@ -358,6 +358,7 @@
     <Compile Include="ViewModel\Product.xaml.cs">
       <DependentUpon>Product.xaml</DependentUpon>
     </Compile>
+    <Resource Include="View\SettingsWindowComponents\headerimagefafafa.png" />
     <Resource Include="View\SettingsWindowComponents\usb%402x.png" />
     <Resource Include="View\SettingsWindowComponents\no device%404x.png" />
     <Resource Include="View\SettingsWindowComponents\node%402x.png" />

@@ -422,10 +422,16 @@
 
                                     <TextBlock Foreground="#FFFB6904"><Run Text="Nâng cao"/></TextBlock>
                                     <Grid>
+                                        
+                                            
+                                        
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="3*"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
+                                        <StackPanel Orientation="Horizontal">
+                                            
+                                       
                                         <materialDesign:Badged Margin="0,10,0,0"
   x:Name="DFU"
   BadgeColorZoneMode="PrimaryDark">
@@ -434,11 +440,17 @@
     Click="CountingButton_OnClick" Background="#FF7344C3" BorderBrush="#FF7344C3">
                                                 DFU!
                                             </Button>
+                                            
+                                            
                                         </materialDesign:Badged>
-                                        
-                                        
-                                        
+
+                                        <ToggleButton Margin=" 20,10,0,0" IsChecked="{Binding Settings.TransferActive}" IsEnabled="{Binding TransferCanBeStarted}"
+  Style="{StaticResource MaterialDesignSwitchToggleButton}"
+  ToolTip="MaterialDesignSwitchLightToggleButton"
+   />
+                                        </StackPanel>
                                     </Grid>
+                                        
 
                                     <StackPanel
                                         Orientation="Horizontal"
@@ -452,7 +464,7 @@
                                                 <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
                                             </Button.CommandParameter>
                                         </Button>
-                                        <Button
+                                        <!--<Button
                                             Style="{StaticResource MaterialDesignFlatButton}"
                                             IsCancel="True"
                                             Margin="0 8 8 0"
@@ -460,7 +472,7 @@
                                             <Button.CommandParameter>
                                                 <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">False</system:Boolean>
                                             </Button.CommandParameter>
-                                        </Button>
+                                        </Button>-->
                                     </StackPanel>
 
                                 </StackPanel>

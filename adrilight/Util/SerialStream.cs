@@ -47,7 +47,7 @@ namespace adrilight
             }
         }
 
-        public bool IsValid() => SerialPort.GetPortNames().Contains(UserSettings.ComPort) || UserSettings.ComPort == "Không có";
+        public bool IsValid() => SerialPort.GetPortNames().Contains(UserSettings.ComPort) || UserSettings.ComPort == "Không có" || SerialPort.GetPortNames().Contains(UserSettings.ComPort2) || SerialPort.GetPortNames().Contains(UserSettings.ComPort3)|| SerialPort.GetPortNames().Contains(UserSettings.ComPort5)|| SerialPort.GetPortNames().Contains(UserSettings.ComPort6);
 
         private void RefreshTransferState()
         {
