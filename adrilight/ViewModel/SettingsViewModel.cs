@@ -120,7 +120,8 @@ namespace adrilight.ViewModel
            "Sáng màu tĩnh",
            "Sáng theo nhạc",
            "Đồng bộ Mainboard",
-           "Tắt"
+           "Tắt",
+           "image(beta)"
         };
             ScreenEffects = new ObservableCollection<string>
          {
@@ -129,7 +130,8 @@ namespace adrilight.ViewModel
            "Sáng màu tĩnh",
            "Sáng theo nhạc",
            "Đồng bộ Mainboard",
-           "Tắt"
+           "Tắt",
+           "image(beta)"
         };
             DeskEffects = new ObservableCollection<string>
   { 
@@ -138,7 +140,8 @@ namespace adrilight.ViewModel
            "Sáng màu tĩnh",
            "Sáng theo nhạc",
            "Đồng bộ Mainboard",
-           "Tắt"
+           "Tắt",
+           "image(beta)"
         };
             Freq = new ObservableCollection<string>
 {
