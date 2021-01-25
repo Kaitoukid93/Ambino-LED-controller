@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:adrilight.View.SettingsWindowComponents"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             xmlns:gif="http://wpfanimatedgif.codeplex.com"
 			 xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 		 	 xmlns:validationRules="clr-namespace:adrilight.ViewModel.ValidationRules"
 			 xmlns:vm="clr-namespace:adrilight.ViewModel" xmlns:converters="clr-namespace:adrilight.Converter"
@@ -83,7 +82,7 @@
         </WrapPanel>
         <!--navigation chip-->
 
-        <WrapPanel Visibility="Collapsed" Width="788" Height="790">
+        <WrapPanel Visibility="{Binding Yesdevice,Converter={StaticResource boolToVisibilityConvert}}" Width="788" Height="790">
             <Grid Height="788">
                 <Image  RenderOptions.BitmapScalingMode="HighQuality" Source="no device@4x.png" Margin="96,134,96,272" />
                 <Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="265" Margin="257,168,0,0" Height="255" Background="{x:Null}" BorderBrush="{x:Null}" Click="AddProduct"/>
@@ -91,7 +90,7 @@
 
 
         </WrapPanel>
-        <WrapPanel x:Name="Mainwindow" Visibility="Visible" Margin="0,15,2,1" Orientation="Horizontal" Height="777">
+        <WrapPanel x:Name="Mainwindow" Visibility="{Binding Settings.nodevice,Converter={StaticResource boolToVisibilityConvert}}" Margin="0,15,2,1" Orientation="Horizontal" Height="777">
 
 
 
@@ -423,35 +422,35 @@
 
                                     <TextBlock Foreground="#FFFB6904"><Run Text="Nâng cao"/></TextBlock>
                                     <Grid>
-
-
-
+                                        
+                                            
+                                        
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="3*"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         <StackPanel Orientation="Horizontal">
-
-
-                                            <materialDesign:Badged Margin="0,10,0,0"
+                                            
+                                       
+                                        <materialDesign:Badged Margin="0,10,0,0"
   x:Name="DFU"
   BadgeColorZoneMode="PrimaryDark">
-                                                <Button
+                                            <Button
     Style="{StaticResource MaterialDesignRaisedLightButton}"
     Click="CountingButton_OnClick" Background="#FF7344C3" BorderBrush="#FF7344C3">
-                                                    DFU!
-                                                </Button>
+                                                DFU!
+                                            </Button>
+                                            
+                                            
+                                        </materialDesign:Badged>
 
-
-                                            </materialDesign:Badged>
-
-                                            <ToggleButton Margin=" 20,10,0,0" IsChecked="{Binding Settings.TransferActive}" IsEnabled="{Binding TransferCanBeStarted}"
+                                        <ToggleButton Margin=" 20,10,0,0" IsChecked="{Binding Settings.TransferActive}" IsEnabled="{Binding TransferCanBeStarted}"
   Style="{StaticResource MaterialDesignSwitchToggleButton}"
   ToolTip="MaterialDesignSwitchLightToggleButton"
    />
                                         </StackPanel>
                                     </Grid>
-
+                                        
 
                                     <StackPanel
                                         Orientation="Horizontal"
@@ -929,7 +928,7 @@
 
 
                 <!--done-->
-                <materialDesign:Card x:Name="staticCard" Visibility="Visible" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0" materialDesign:ShadowAssist.ShadowEdges="All"
+                <materialDesign:Card x:Name="staticCard" Visibility="Collapsed" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0" materialDesign:ShadowAssist.ShadowEdges="All"
 				Margin="0 4 0 0" Width="403" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
                     <Grid VerticalAlignment="Top" Height="365">
 
@@ -1411,7 +1410,7 @@
 
 
             </WrapPanel>
-            <materialDesign:Card Visibility="Collapsed"
+            <materialDesign:Card Visibility="Visible"
                              x:Name="customZone" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
             Margin="25 10 0 0" Width="735" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
 
@@ -3047,54 +3046,6 @@
                             RenderTransformOrigin="0.5,0.5" Height="17" VerticalAlignment="Top" Foreground="#FF6C6C6C"><Run Text="Cân bằng trắng"/></TextBlock>
 
                 </Grid>
-            </materialDesign:Card>
-            <materialDesign:Card Visibility="Visible"
-                x:Name="pixelation" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
-                Margin="25 10 0 0" Width="735" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
-                <Grid>
-                    <Canvas Width="350" Height="350" x:Name="playground" Margin="54,8,331,8" MouseDown="CanvasTouch"/>
-
-                    <TextBox x:Name="ledx"
-  materialDesign:HintAssist.Hint="LEDX"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-  VerticalAlignment="Center" Margin="636,6,3,314" Height="46" />
-                    <TextBox x:Name="ledy"
-                        materialDesign:HintAssist.Hint="LEDY"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Center" Margin="636,60,3,260" Height="46" />
-
-                    <Grid
-  Width="124" Margin="607,130,4,182">
-                        <Button
-    Style="{StaticResource MaterialDesignRaisedDarkButton}"
-    Height="50"
-    materialDesign:ButtonAssist.CornerRadius="25"
-    ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Click="Button_Click">
-                            <TextBlock
-      Text="Apply" />
-                        </Button>
-                        <materialDesign:Chip Margin="-166,10,134,4" x:Name="gifchip" MaxWidth="290" Click="gifchip_Click" Height="Auto" HorizontalAlignment="Stretch" >
-                            <Binding Path="Settings.gifchip" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
-                                </Binding.ValidationRules>
-                            </Binding>
-
-                        </materialDesign:Chip>
-                    </Grid>
-                    <TextBox x:Name="pickxeltext"
-                            Text="{Binding Color, ElementName=pickxel, UpdateSourceTrigger=PropertyChanged}"
-                            Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
-                            materialDesign:HintAssist.Hint="Mã hex"
-                            AcceptsReturn="True"
-                            TextWrapping="Wrap"
-                            Margin="618,197,15,129" Foreground="Gray"/>
-                    <materialDesign:ColorPicker x:Name="pickxel" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="602,250,0,0" Height="116" Width="124"/>
-                    <Image x:Name="testimage" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="466,14,0,0"/>
-                </Grid>
-
-
-
             </materialDesign:Card>
 
 

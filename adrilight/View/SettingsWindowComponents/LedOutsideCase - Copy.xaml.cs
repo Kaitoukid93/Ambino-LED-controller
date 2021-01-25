@@ -28,8 +28,6 @@ using System.Collections.ObjectModel;
 using adrilight.Settings;
 using Un4seen.BassWasapi;
 using System.Windows.Controls.Primitives;
-using WpfAnimatedGif;
-using System.Drawing;
 
 namespace adrilight.View.SettingsWindowComponents
 {
@@ -51,10 +49,6 @@ namespace adrilight.View.SettingsWindowComponents
         public static int[] custom_order_data = new int[16];
         private float[] _fft;
         public bool isEffect { get; set; }
-        public BitmapImage gifimage;
-        public Stream gifStreamSource;
-        public int framecount = 0;
-        GifBitmapDecoder decoder;
 
 
 
@@ -108,17 +102,13 @@ namespace adrilight.View.SettingsWindowComponents
 
             DispatcherTimer dispatcherTimer = new DispatcherTimer();
             DispatcherTimer dispatcherTimer2 = new DispatcherTimer();
-            DispatcherTimer dispatcherTimer3 = new DispatcherTimer();
 
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = TimeSpan.FromMilliseconds(5);
             dispatcherTimer2.Tick += new EventHandler(random_Tick);
             dispatcherTimer2.Interval = new TimeSpan(0, 0, 30);
-            dispatcherTimer3.Tick += new EventHandler(gifxel_tick);
-            dispatcherTimer3.Interval = TimeSpan.FromMilliseconds(33);
             dispatcherTimer.Start();
             dispatcherTimer2.Start();
-            dispatcherTimer3.Start();
             _process = new WASAPIPROC(Process);
             _fft = new float[1024];
             //if (Music_box_1.SelectedIndex >= 0)
@@ -205,12 +195,8 @@ namespace adrilight.View.SettingsWindowComponents
         public static int musicvalue;
         public static string ambino_port;
         public static string temp;
-        public static string gifilepath;
         private IUserSettings UserSettings { get; }
         public static byte DFUVal = 0;
-        private bool[,] pix = new bool[30, 15];
-        private const int size = 30;
-        private const int space = 2;
 
 
         private void Init()
@@ -281,26 +267,25 @@ namespace adrilight.View.SettingsWindowComponents
             int i;
             //output_spectrumdata = spectrumdata;
            
-            if(Music_box_1.SelectedIndex>=0)
-            {
-                output_spectrumdata[0] = Convert.ToByte(spectrumdata[Music_box_1.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[1] = Convert.ToByte(spectrumdata[Music_box_2.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[2] = Convert.ToByte(spectrumdata[Music_box_3.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[3] = Convert.ToByte(spectrumdata[Music_box_4.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[4] = Convert.ToByte(spectrumdata[Music_box_5.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[5] = Convert.ToByte(spectrumdata[Music_box_6.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[6] = Convert.ToByte(spectrumdata[Music_box_7.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[7] = Convert.ToByte(spectrumdata[Music_box_8.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[8] = Convert.ToByte(spectrumdata[Music_box_9.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[9] = Convert.ToByte(spectrumdata[Music_box_10.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[10] = Convert.ToByte(spectrumdata[Music_box_11.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[11] = Convert.ToByte(spectrumdata[Music_box_12.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[12] = Convert.ToByte(spectrumdata[Music_box_13.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[13] = Convert.ToByte(spectrumdata[Music_box_14.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[14] = Convert.ToByte(spectrumdata[Music_box_15.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[15] = Convert.ToByte(spectrumdata[Music_box_16.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[0] = Convert.ToByte(spectrumdata[Music_box_1.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[1] = Convert.ToByte(spectrumdata[Music_box_2.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[2] = Convert.ToByte(spectrumdata[Music_box_3.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[3] = Convert.ToByte(spectrumdata[Music_box_4.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[4] = Convert.ToByte(spectrumdata[Music_box_5.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[5] = Convert.ToByte(spectrumdata[Music_box_6.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[6] = Convert.ToByte(spectrumdata[Music_box_7.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[7] = Convert.ToByte(spectrumdata[Music_box_8.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[8] = Convert.ToByte(spectrumdata[Music_box_9.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[9] = Convert.ToByte(spectrumdata[Music_box_10.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[10] = Convert.ToByte(spectrumdata[Music_box_11.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[11] = Convert.ToByte(spectrumdata[Music_box_12.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[12] = Convert.ToByte(spectrumdata[Music_box_13.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[13] = Convert.ToByte(spectrumdata[Music_box_14.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[14] = Convert.ToByte(spectrumdata[Music_box_15.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
+            output_spectrumdata[15] = Convert.ToByte(spectrumdata[Music_box_16.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
 
-                zoebar1.Value = spectrumdata[Music_box_1.SelectedIndex];
+
+            zoebar1.Value = spectrumdata[Music_box_1.SelectedIndex];
                 zoebar2.Value = spectrumdata[Music_box_2.SelectedIndex];
                 zoebar3.Value = spectrumdata[Music_box_3.SelectedIndex];
                 zoebar4.Value = spectrumdata[Music_box_4.SelectedIndex];
@@ -316,11 +301,6 @@ namespace adrilight.View.SettingsWindowComponents
                 zoebar14.Value = spectrumdata[Music_box_14.SelectedIndex];
                 zoebar15.Value = spectrumdata[Music_box_15.SelectedIndex];
                 zoebar16.Value = spectrumdata[Music_box_16.SelectedIndex];
-            }
-         
-
-
-          
 
            
 
@@ -374,47 +354,6 @@ namespace adrilight.View.SettingsWindowComponents
         }
 
 
-        public void gifxel_tick(object sender, EventArgs e)
-        {
-            //System.Drawing.Image img= System.Drawing.Image.FromFile("giphy.gif");
-            // int frameindex = 0;
-            // img.SelectActiveFrame()
-            // getPixels(img);
-            // getImageBytes(img);
-            //gifimage.fram
-            if(decoder!=null)
-            {
-
-
-                
-                if (framecount == decoder.Frames.Count - 1)
-                    framecount = 0;
-                else
-                    framecount++;
-                //Console.WriteLine(framecount);
-
-                    BitmapSource bitmapSource = decoder.Frames[framecount];
-
-                testimage.Source = bitmapSource;
-                testimage.Stretch = Stretch.Fill;
-
-
-
-
-
-            }
-                
-                
-                    
-                
-           
-            
-
-            
-
-
-        }
-
         public void random_Tick(object sender, EventArgs e)
         {
             if (Shuffle.IsChecked == true)
@@ -423,7 +362,7 @@ namespace adrilight.View.SettingsWindowComponents
                 int index = rnd.Next(0, 30);
                 effectbox.SelectedIndex = index;
             }
-            if (shuffle.IsChecked == true)
+            if(shuffle.IsChecked==true)
             {
                 Random rnd2 = new Random();
                 int index = rnd2.Next(0, 7);
@@ -432,39 +371,6 @@ namespace adrilight.View.SettingsWindowComponents
 
 
         }
-
-        System.Drawing.Color[,] getPixels(System.Drawing.Image image)
-        {
-            Bitmap bmp = (Bitmap)image;
-            System.Drawing.Color[,] pixels = new System.Drawing.Color[bmp.Width, bmp.Height];
-
-            for (int x = 0; x < bmp.Width; x++)
-                for (int y = 0; y < bmp.Height; y++)
-                    pixels[x, y] = bmp.GetPixel(x, y);
-
-            return pixels;
-        }
-
-        byte[] getImageBytes(System.Drawing.Image image)
-        {
-            Bitmap bmp = (Bitmap)image;
-            byte[] bytes = new byte[(bmp.Width * bmp.Height) * 3]; // 3 for R+G+B
-
-            for (int x = 0; x < bmp.Width; x++)
-            {
-                for (int y = 0; y < bmp.Height; y++)
-                {
-                    System.Drawing.Color pixel = bmp.GetPixel(x, y);
-                    bytes[x + y * bmp.Width + 0] = pixel.R;
-                    bytes[x + y * bmp.Width + 1] = pixel.G;
-                    bytes[x + y * bmp.Width + 2] = pixel.B;
-                }
-            }
-
-            return bytes;
-        }
-
-
 
 
 
@@ -806,7 +712,6 @@ namespace adrilight.View.SettingsWindowComponents
 
                         this.offcard.Visibility = Visibility.Collapsed;
                         this.Auracard.Visibility = Visibility.Collapsed;
-                        this.pixelation.Visibility = Visibility.Collapsed;
                         if (i != null)
                         {
                             if (i.Content.ToString() == "Rainbow Custom Zone")
@@ -899,7 +804,6 @@ namespace adrilight.View.SettingsWindowComponents
                         this.customZone.Visibility = Visibility.Collapsed;
                         this.offcard.Visibility = Visibility.Collapsed;
                         this.Auracard.Visibility = Visibility.Collapsed;
-                        this.pixelation.Visibility = Visibility.Collapsed;
 
 
                         previewCard.Visibility = Visibility.Visible;
@@ -939,7 +843,6 @@ namespace adrilight.View.SettingsWindowComponents
                         ambilightCard.Visibility = Visibility.Collapsed;
                         Ambilightdesk_card.Visibility = Visibility.Collapsed;
                         Ambilightcase.Visibility = Visibility.Collapsed;
-                        this.pixelation.Visibility = Visibility.Collapsed;
                         break;
                     case "Sáng theo nhạc":
                         this.effectCard.Visibility = Visibility.Visible;
@@ -949,7 +852,6 @@ namespace adrilight.View.SettingsWindowComponents
                         ambilightCard.Visibility = Visibility.Collapsed;
                         Ambilightdesk_card.Visibility = Visibility.Collapsed;
                         Ambilightcase.Visibility = Visibility.Collapsed;
-                        this.pixelation.Visibility = Visibility.Collapsed;
                         if (i != null)
                         {
                             if (i.Content.ToString() == "Rainbow Custom Zone")
@@ -1120,7 +1022,6 @@ namespace adrilight.View.SettingsWindowComponents
                         ambilightCard.Visibility = Visibility.Collapsed;
                         Ambilightdesk_card.Visibility = Visibility.Collapsed;
                         Ambilightcase.Visibility = Visibility.Collapsed;
-                        this.pixelation.Visibility = Visibility.Collapsed;
 
 
                         break;
@@ -1133,21 +1034,7 @@ namespace adrilight.View.SettingsWindowComponents
                         ambilightCard.Visibility = Visibility.Collapsed;
                         Ambilightdesk_card.Visibility = Visibility.Collapsed;
                         Ambilightcase.Visibility = Visibility.Collapsed;
-                        this.pixelation.Visibility = Visibility.Collapsed;
                         break;
-                    case "Pixelation":
-                        this.effectCard.Visibility = Visibility.Collapsed;
-                        this.staticCard.Visibility = Visibility.Collapsed;
-                        this.customZone.Visibility = Visibility.Collapsed;
-                        this.offcard.Visibility = Visibility.Collapsed;
-                        this.Auracard.Visibility = Visibility.Collapsed;
-                        ambilightCard.Visibility = Visibility.Collapsed;
-                        Ambilightdesk_card.Visibility = Visibility.Collapsed;
-                        Ambilightcase.Visibility = Visibility.Collapsed;
-                        this.pixelation.Visibility = Visibility.Visible;
-                        break;
-
-
                 }
             }
 
@@ -1324,14 +1211,14 @@ namespace adrilight.View.SettingsWindowComponents
                     {
                         if (!string.IsNullOrEmpty(lines[i]))
                         {
-                            ClrPcker_Background_1.SelectedColor = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(lines[0]);
-                            ClrPcker_Background_2.SelectedColor = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(lines[1]);
-                            ClrPcker_Background_3.SelectedColor = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(lines[2]);
-                            ClrPcker_Background_4.SelectedColor = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(lines[3]);
-                            ClrPcker_Background_5.SelectedColor = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(lines[4]);
-                            ClrPcker_Background_6.SelectedColor = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(lines[5]);
-                            ClrPcker_Background_7.SelectedColor = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(lines[6]);
-                            ClrPcker_Background_8.SelectedColor = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(lines[7]);
+                            ClrPcker_Background_1.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[0]);
+                            ClrPcker_Background_2.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[1]);
+                            ClrPcker_Background_3.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[2]);
+                            ClrPcker_Background_4.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[3]);
+                            ClrPcker_Background_5.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[4]);
+                            ClrPcker_Background_6.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[5]);
+                            ClrPcker_Background_7.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[6]);
+                            ClrPcker_Background_8.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[7]);
                             filemaubox.Text = filemau.SafeFileName;
                             filemauchip.Content = filemau.SafeFileName;
                             //  UserSettings.filemau = filemaubox.Text;
@@ -1489,7 +1376,20 @@ namespace adrilight.View.SettingsWindowComponents
             //Music_box_16.SelectedIndex = 15;
         }
 
-      
+        private void ClrPcker_Background_1_Copy2_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+
+        }
+
+        private void ClrPcker_Background_1_Copy1_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+
+        }
+
+        private void ClrPcker_Background_1_Copy3_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+
+        }
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -2087,7 +1987,7 @@ namespace adrilight.View.SettingsWindowComponents
             }
         }
 
-        private void ColorPicker_ColorChanged(object sender, RoutedPropertyChangedEventArgs<System.Windows.Media.Color> e)
+        private void ColorPicker_ColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
 
         }
@@ -2224,14 +2124,14 @@ namespace adrilight.View.SettingsWindowComponents
                     {
                         if (!string.IsNullOrEmpty(lines[i]))
                         {
-                            ClrPcker_Background_1.SelectedColor = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(lines[0]);
-                            ClrPcker_Background_2.SelectedColor = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(lines[1]);
-                            ClrPcker_Background_3.SelectedColor = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(lines[2]);
-                            ClrPcker_Background_4.SelectedColor = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(lines[3]);
-                            ClrPcker_Background_5.SelectedColor = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(lines[4]);
-                            ClrPcker_Background_6.SelectedColor = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(lines[5]);
-                            ClrPcker_Background_7.SelectedColor = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(lines[6]);
-                            ClrPcker_Background_8.SelectedColor = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(lines[7]);
+                            ClrPcker_Background_1.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[0]);
+                            ClrPcker_Background_2.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[1]);
+                            ClrPcker_Background_3.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[2]);
+                            ClrPcker_Background_4.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[3]);
+                            ClrPcker_Background_5.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[4]);
+                            ClrPcker_Background_6.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[5]);
+                            ClrPcker_Background_7.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[6]);
+                            ClrPcker_Background_8.SelectedColor = (Color)ColorConverter.ConvertFromString(lines[7]);
                             filemaubox.Text = filemau.SafeFileName;
                             filemauchip.Content = filemau.SafeFileName;
                             //  UserSettings.filemau = filemaubox.Text;
@@ -2931,128 +2831,12 @@ namespace adrilight.View.SettingsWindowComponents
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            //clear current rectangle matrix//
-            //Check if there is any rectangle inside the canvans//
-            playground.Children.Clear();
-            if(ledx.Text!=null&&ledy.Text!=null)
-            {
-                int width = Convert.ToInt32(ledx.Text);
-                int height = Convert.ToInt32(ledy.Text);
-
-                DrawRectangles(width, height);
-            }
-           
 
 
 
 
 
 
-
-
-
-
-
-
-
-            //Draw new rectangle matrix//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        }
-
-
-
-        public void DrawRectangles(Int32 width, Int32 height)
-        {
-            for (int j = 0; j < width; j++)
-            {
-                for (int i = 0; i < height; i++)
-                {
-
-                    System.Windows.Shapes.Rectangle rectangle = new System.Windows.Shapes.Rectangle {
-                        Width = 25, 
-                       Height = 25,
-                    };
-
-                    rectangle.Fill = pix[i, j] ? System.Windows.Media.Brushes.Red : System.Windows.Media.Brushes.Green;
-                    playground.Children.Add(rectangle);
-
-                    Canvas.SetLeft(rectangle, i * (25 + space));
-                    Canvas.SetTop(rectangle, j * (25 + space));
-                   
-                    
-                }
-            }
-        }
-        public void CanvasTouch(object sender, MouseButtonEventArgs e)
-        {
-            if (e.OriginalSource is System.Windows.Shapes.Rectangle)//rectangle clicked
-            {
-                System.Windows.Shapes.Rectangle activeRectangel = (System.Windows.Shapes.Rectangle)e.OriginalSource;
-                if (pickxeltext.Text != null)
-                    activeRectangel.Fill = (SolidColorBrush)new BrushConverter().ConvertFromString(pickxeltext.Text);
-
-            }
-            else
-            {
-
-            }
-        }
-        private ImageAnimationController _controller;
-
-        private void gifchip_Click(object sender, RoutedEventArgs e)
-        {
-            
-
-  
-
-            OpenFileDialog gifile = new OpenFileDialog();
-            gifile.Title = "Chọn file gif";
-            gifile.CheckFileExists = true;
-            gifile.CheckPathExists = true;
-            gifile.DefaultExt = "gif";
-            gifile.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
-            gifile.FilterIndex = 2;
-            gifile.ShowDialog();
-
-            if (!string.IsNullOrEmpty(gifile.FileName) && File.Exists(gifile.FileName))
-            {
-                var image = new BitmapImage();
-                image.BeginInit();
-                image.UriSource = new Uri(gifile.FileName);
-                image.EndInit();
-                //gifimage = image;
-                gifilepath = gifile.FileName;
-                 gifStreamSource = new FileStream(gifilepath, FileMode.Open, FileAccess.Read, FileShare.Read);
-                 decoder = new GifBitmapDecoder(gifStreamSource, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
-                //ImageBehavior.SetAnimatedSource(gifxel, image);
-
-                
-               
-                //_controller = ImageBehavior.GetAnimationController(gifxel);
-
-                //_controller.
-                //image.CopyPixels
-
-            }
-            }
 
 
 

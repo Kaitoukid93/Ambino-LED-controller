@@ -120,8 +120,9 @@ namespace adrilight.ViewModel
            "Sáng màu tĩnh",
            "Sáng theo nhạc",
            "Đồng bộ Mainboard",
-           "Tắt"
-            
+           "Tắt",
+           "Pixelation"
+
         };
             ScreenEffects = new ObservableCollection<string>
          {
@@ -130,8 +131,9 @@ namespace adrilight.ViewModel
            "Sáng màu tĩnh",
            "Sáng theo nhạc",
            "Đồng bộ Mainboard",
-           "Tắt"
-           
+           "Tắt",
+           "Pixelation"
+
         };
             DeskEffects = new ObservableCollection<string>
   { 
@@ -140,7 +142,8 @@ namespace adrilight.ViewModel
            "Sáng màu tĩnh",
            "Sáng theo nhạc",
            "Đồng bộ Mainboard",
-           "Tắt"
+           "Tắt",
+           "Pixelation"
             
         };
             Freq = new ObservableCollection<string>
@@ -627,7 +630,17 @@ namespace adrilight.ViewModel
 
         }
 
-
+        public BitmapSource ContentBitmap {
+            get { return _contentBitmap; }
+            set
+            {
+                if (value != _contentBitmap)
+                {
+                    _contentBitmap = value;
+                   
+                }
+            }
+        }
 
 
 
@@ -972,6 +985,7 @@ namespace adrilight.ViewModel
         public bool disStatic = false;
         public bool disMusic = false;
         public bool disMain = false;
+        private BitmapSource _contentBitmap;
 
     }
 
