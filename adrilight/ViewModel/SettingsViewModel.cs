@@ -38,6 +38,7 @@ namespace adrilight.ViewModel
         public ObservableCollection<string> DeskEffects { get; private set; }
         public ObservableCollection<string> Freq { get; private set; }
         public ObservableCollection<string> ScreenNumber { get; private set; }
+        private static int _gifFrameIndex = 0;
 
         private const string ProjectPage = "http://ambino.net";
         private const string IssuesPage = "https://www.messenger.com/t/109869992932970";
@@ -121,7 +122,10 @@ namespace adrilight.ViewModel
            "Sáng theo nhạc",
            "Đồng bộ Mainboard",
            "Tắt",
-           "Pixelation"
+           "Gifxelation",
+           "Pixelation",
+           "Ambilation"
+
 
         };
             ScreenEffects = new ObservableCollection<string>
@@ -132,7 +136,9 @@ namespace adrilight.ViewModel
            "Sáng theo nhạc",
            "Đồng bộ Mainboard",
            "Tắt",
-           "Pixelation"
+           "Gifxelation",
+           "Pixelation",
+           "Ambilation"
 
         };
             DeskEffects = new ObservableCollection<string>
@@ -143,8 +149,10 @@ namespace adrilight.ViewModel
            "Sáng theo nhạc",
            "Đồng bộ Mainboard",
            "Tắt",
-           "Pixelation"
-            
+           "Gifxelation",
+           "Pixelation",
+           "Ambilation"
+
         };
             Freq = new ObservableCollection<string>
 {
@@ -550,48 +558,226 @@ namespace adrilight.ViewModel
                         
                         break;
 
+                    //gifxelation//
+
+                    case nameof(Settings.IMX1):
+                        if (Settings.IMLockDim == true )
+                        {
+                            if(Settings.IMX1+ImageProcesser.ImageRect.Width>IMXMax)
+                            {
+                                Settings.IMX1 = IMXMax - ImageProcesser.ImageRect.Width;
+                                Settings.IMX2 = IMXMax;
+                            }
+                            else
+                            {
+                                Settings.IMX2 = Settings.IMX1 + ImageProcesser.ImageRect.Width;
+                            }
+
+
+                        }
+                        else
+                        {
+                            Settings.IMX1 = Settings.IMX1 > Settings.IMX2 - MatrixFrame.Width ? Settings.IMX2 - MatrixFrame.Width : Settings.IMX1;
+                        }
+
+                        RaisePropertyChanged(() => Settings.IMX1);
+                        RaisePropertyChanged(() => Settings.IMX2);
+                        IMDimensionsChanged();
+                        break;
+
+
+                    case nameof(Settings.IMX2):
+                        
+                       
+                        
+                            Settings.IMX2 = Settings.IMX2 < Settings.IMX1 + MatrixFrame.Width ? Settings.IMX1 + MatrixFrame.Width : Settings.IMX2;
+                            
+
+                        
+                        RaisePropertyChanged(() => Settings.IMX2);
+                        IMDimensionsChanged();
+                        break;
+
+                    case nameof(Settings.IMY1):
+                        if (Settings.IMLockDim == true)
+                        {
+                            if (Settings.IMY1 + ImageProcesser.ImageRect.Height > IMYMax)
+                            {
+                                Settings.IMY1 = IMYMax - ImageProcesser.ImageRect.Height;
+                                Settings.IMY2 = IMYMax;
+                            }
+                            else
+                            {
+                                Settings.IMY2 = Settings.IMY1 + ImageProcesser.ImageRect.Height;
+                            }
+
+
+                        }
+                        else
+                        {
+                            Settings.IMY1 = Settings.IMY1 > Settings.IMY2 - MatrixFrame.Height ? Settings.IMY2 - MatrixFrame.Height : Settings.IMY1;
+                        }
+
+                        RaisePropertyChanged(() => Settings.IMY1);
+                        RaisePropertyChanged(() => Settings.IMY2);
+                        IMDimensionsChanged();
+                        break;
+
+
+                    case nameof(Settings.IMY2):
+
+
+
+                        Settings.IMY2 = Settings.IMY2 < Settings.IMY1 + MatrixFrame.Height ? Settings.IMY1 + MatrixFrame.Height : Settings.IMY2;
+
+
+
+                        RaisePropertyChanged(() => Settings.IMY2);
+                        IMDimensionsChanged();
+                        break;
+                    case nameof(Settings.IMInterpolationModeIndex):
+
+                        switch(Settings.IMInterpolationModeIndex)
+                        {
+                            case 0: ImageProcesser.InterpMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor; break;
+                            case 1: ImageProcesser.InterpMode = System.Drawing.Drawing2D.InterpolationMode.Bicubic; break;
+                            case 2: ImageProcesser.InterpMode = System.Drawing.Drawing2D.InterpolationMode.Bilinear; break;
+                            case 3: ImageProcesser.InterpMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic; break;
+                            case 4: ImageProcesser.InterpMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear; break;
+                        }
+
+                        RefreshStillImage();
+                        RefreshGifImages();
+                        IMDimensionsChanged();
+
+
+
+
+
+
+
+
+                        break;
+
+                        //gifxelation//
+
+
 
                 }
             };
 
-            
-       
 
 
-    ////InsideEffects
-    ////   {
-    ////      new IEffect(){ Id=1, Name="Sáng theo hiệu ứng"}
-    ////            ,new IEffect(){Id=2, Name="Sáng theo màn hình"}
-    ////            ,new IEffect(){Id=3, Name="Sáng màu tĩnh"}
-    ////            ,new IEffect(){Id=4, Name="Sáng theo nhạc"}
-    ////            ,new IEffect(){Id=5, Name="Đồng bộ Mainboard"}
-    ////            ,new IEffect(){Id=6, Name="Tắt"}
-    ////    };
+           
 
-    //outsideEffects = new ObservableCollection<IEffect>()
-    //      {
-    //          new IEffect(){ Id=1, Name="Sáng theo hiệu ứng"}
-    //                ,new IEffect(){Id=2, Name="Sáng theo màn hình"}
-    //                ,new IEffect(){Id=3, Name="Sáng màu tĩnh"}
-    //                ,new IEffect(){Id=4, Name="Sáng theo nhạc"}
-    //                ,new IEffect(){Id=5, Name="Đồng bộ Mainboard"}
-    //                ,new IEffect(){Id=6, Name="Tắt"}
-    //        };
 
-    //        tableEffects = new ObservableCollection<IEffect>()
-    //      {
-    //          new IEffect(){ Id=1, Name="Sáng theo hiệu ứng"}
-    //                ,new IEffect(){Id=2, Name="Sáng theo màn hình"}
-    //                ,new IEffect(){Id=3, Name="Sáng màu tĩnh"}
-    //                ,new IEffect(){Id=4, Name="Sáng theo nhạc"}
-    //                ,new IEffect(){Id=5, Name="Đồng bộ Mainboard"}
-    //                ,new IEffect(){Id=6, Name="Tắt"}
-    //        };
+            ////InsideEffects
+            ////   {
+            ////      new IEffect(){ Id=1, Name="Sáng theo hiệu ứng"}
+            ////            ,new IEffect(){Id=2, Name="Sáng theo màn hình"}
+            ////            ,new IEffect(){Id=3, Name="Sáng màu tĩnh"}
+            ////            ,new IEffect(){Id=4, Name="Sáng theo nhạc"}
+            ////            ,new IEffect(){Id=5, Name="Đồng bộ Mainboard"}
+            ////            ,new IEffect(){Id=6, Name="Tắt"}
+            ////    };
+
+            //outsideEffects = new ObservableCollection<IEffect>()
+            //      {
+            //          new IEffect(){ Id=1, Name="Sáng theo hiệu ứng"}
+            //                ,new IEffect(){Id=2, Name="Sáng theo màn hình"}
+            //                ,new IEffect(){Id=3, Name="Sáng màu tĩnh"}
+            //                ,new IEffect(){Id=4, Name="Sáng theo nhạc"}
+            //                ,new IEffect(){Id=5, Name="Đồng bộ Mainboard"}
+            //                ,new IEffect(){Id=6, Name="Tắt"}
+            //        };
+
+            //        tableEffects = new ObservableCollection<IEffect>()
+            //      {
+            //          new IEffect(){ Id=1, Name="Sáng theo hiệu ứng"}
+            //                ,new IEffect(){Id=2, Name="Sáng theo màn hình"}
+            //                ,new IEffect(){Id=3, Name="Sáng màu tĩnh"}
+            //                ,new IEffect(){Id=4, Name="Sáng theo nhạc"}
+            //                ,new IEffect(){Id=5, Name="Đồng bộ Mainboard"}
+            //                ,new IEffect(){Id=6, Name="Tắt"}
+            //        };
 
 
         }
 
         //  private IUserSettings UserSettings { get; }
+
+        private void IMDimensionsChanged()
+        {
+            ImageProcesser.ImageRect = new Rectangle(Settings.IMX1, Settings.IMY1, Settings.IMX2 - Settings.IMX1, Settings.IMY2 - Settings.IMY1);
+            //Text_IM_WidthHeight = "Width: " + ImageProcesser.ImageRect.Width.ToString() + " " + "Height: " + ImageProcesser.ImageRect.Height.ToString();
+
+            RefreshStillImage();
+            RefreshGifImages();
+        }
+
+        private void RefreshStillImage()
+        {
+            if (ImageProcesser.ImageLoadState == ImageProcesser.LoadState.Still)
+            {
+                ImageProcesser.DisposeWorkingBitmap();
+                ImageProcesser.WorkingBitmap = ImageProcesser.CropBitmap(ImageProcesser.LoadedStillBitmap, ImageProcesser.ImageRect);
+                ContentBitmap = MatrixFrame.CreateBitmapSourceFromBitmap(ImageProcesser.WorkingBitmap);
+                MatrixFrame.BitmapToFrame(ImageProcesser.WorkingBitmap, ImageProcesser.InterpMode);
+                //FrameToPreview();
+                //SerialManager.PushFrame();
+            }
+        }
+
+        private void RefreshGifImages()
+        {
+            if (ImageProcesser.ImageLoadState == ImageProcesser.LoadState.Gif)
+            {
+
+                ImageProcesser.DisposeWorkingBitmap();
+
+                if (Settings.GifPlayPause != true) //if gif is not playing
+                {
+                    if (_gifFrameIndex > ImageProcesser.LoadedGifFrameCount - 1)
+                        _gifFrameIndex = 0;
+
+                    ImageProcesser.WorkingBitmap = ImageProcesser.CropBitmap(new Bitmap(ImageProcesser.LoadedGifImage), ImageProcesser.ImageRect);
+                    ContentBitmap = MatrixFrame.CreateBitmapSourceFromBitmap(ImageProcesser.WorkingBitmap);
+                    MatrixFrame.BitmapToFrame(ImageProcesser.WorkingBitmap, ImageProcesser.InterpMode);
+                    //FrameToPreview();
+                    //SerialManager.PushFrame();
+                }
+
+            }
+        }
+
+        private int _imXMax=800;
+        private int _imYMax=800;
+        public int IMXMax {
+            get { return _imXMax; }
+            set
+            {
+                if (value != _imXMax)
+                {
+                    _imXMax = value;
+                    RaisePropertyChanged(() => IMXMax);
+
+                }
+            }
+        }
+        public int IMYMax {
+            get { return _imYMax; }
+            set
+            {
+                if (value != _imYMax)
+                {
+                    _imYMax = value;
+                    RaisePropertyChanged(() => IMYMax);
+
+                }
+            }
+        }
+
+
 
         public string Title { get; } = $"adrilight {App.VersionNumber}";
         public int LedCount => spotSet.CountLeds(Settings.SpotsX, Settings.SpotsY) * Settings.LedsPerSpot;
@@ -637,7 +823,8 @@ namespace adrilight.ViewModel
                 if (value != _contentBitmap)
                 {
                     _contentBitmap = value;
-                   
+                    RaisePropertyChanged(() => ContentBitmap);
+
                 }
             }
         }
@@ -778,8 +965,28 @@ namespace adrilight.ViewModel
 
                     image.UnlockBits(data);
                 }
+
+
+
+                //if (Settings.screeneffectcounter == 8)
+                //{
+
+                //    ImageProcesser.WorkingBitmap = image;
+                //    ContentBitmap = MatrixFrame.CreateBitmapSourceFromBitmap(ImageProcesser.WorkingBitmap);
+                //    MatrixFrame.BitmapToFrame(ImageProcesser.WorkingBitmap, ImageProcesser.InterpMode);
+                //    ImageProcesser.DisposeWorkingBitmap();
+
+
+
+
+
+
+                //}
             });
         }
+
+
+
         public WriteableBitmap _previewImageSource;
         public WriteableBitmap PreviewImageSource {
             get => _previewImageSource;
@@ -794,6 +1001,11 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged(() => CanvasHeight);
             }
         }
+        //ambilation//
+       
+      
+
+        //ambilation//
 
 
         public ICommand OpenUrlProjectPageCommand { get; } = new RelayCommand(() => OpenUrl(ProjectPage));

@@ -351,6 +351,7 @@
     <Compile Include="Util\ColorUtil.cs" />
     <Compile Include="Util\FakeSerialPort.cs" />
     <Compile Include="Util\FpsLogger.cs" />
+    <Compile Include="Util\ImageProcesser.cs" />
     <Compile Include="Util\ISerialPortWrapper.cs" />
     <Compile Include="Util\ISerialStream.cs" />
     <Compile Include="Spots\ISpot.cs" />
@@ -358,9 +359,12 @@
     <Compile Include="Settings\IUserSettings.cs" />
     <Compile Include="Settings\UserSettings.cs" />
     <Compile Include="Messaging\TraceFrameMessage.cs" />
+    <Compile Include="Util\MatrixFrame.cs" />
     <Compile Include="ViewModel\Product.xaml.cs">
       <DependentUpon>Product.xaml</DependentUpon>
     </Compile>
+    <None Include="Resources\degif.gif" />
+    <None Include="Resources\gifxelation.gif" />
     <Resource Include="Resources\giphy.gif" />
     <Resource Include="View\SettingsWindowComponents\giphy.gif" />
     <Resource Include="View\SettingsWindowComponents\headerimagefafafa.png" />

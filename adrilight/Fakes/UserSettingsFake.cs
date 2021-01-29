@@ -91,6 +91,7 @@ namespace adrilight.Fakes
         public byte audiodevice { get; set; } = 0;
         public byte devicecounter { get; set; } = 0;
         public byte screeneffectcounter { get; set; } = 0;
+        public LEDOrder[] LEDorder { get; set; } 
         public byte screencounter { get; set; } = 0;
         public bool nodevice { get; set; } = false;
         public byte Port4Config { get; set; } = 0;
@@ -99,6 +100,17 @@ namespace adrilight.Fakes
         public byte Port1Config { get; set; } = 0;
         public byte genre { get; set; } = 0;
         public bool caseenable { get; set; } = false;
+        //gifxelation//
+        public bool GifPlayPause { get; set; } = false;
+        public byte IMInterpolationModeIndex { get; set; } = 0;
+        public int IMX1 { get; set; } = 0;
+     
+        public int IMY1 { get; set; } = 0;
+      
+        public int IMX2 { get; set; } = 0;
+        public int IMY2 { get; set; } = 0;
+        public bool IMLockDim { get; set; } = false;
+        //gifxelation//
         public byte tabindex { get; set; } = 0;
         
 

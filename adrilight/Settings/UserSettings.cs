@@ -114,6 +114,7 @@ namespace adrilight
         private Color _CaseStatic = AliceBlue;
         private Color _ScreenStatic = AliceBlue;
         private Color _DeskStatic = AliceBlue;
+        public LEDOrder[] _LEDorder;
 
 
         private byte _speedcounter = 5;
@@ -128,6 +129,19 @@ namespace adrilight
         private byte _Port3Config = 0;
         private byte _Port2Config = 0;
         private byte _Port1Config = 0;
+
+        //gifxelation//
+        private bool _GifPlayPause  = false;
+        private byte _IMInterpolationModeIndex  = 0;
+        private int _IMX1  = 0;
+        
+        private int _IMY1  = 0;
+       
+        private int _IMX2 = 0;
+        private int _IMY2  = 0;
+        private bool _IMLockDim = false;
+        //gifxelation//
+
 
         private byte _genre = 0;
         private byte _tabindex = 0;
@@ -292,7 +306,18 @@ namespace adrilight
 
 
         public bool UseLinearLighting { get => _useLinearLighting; set { Set(() => UseLinearLighting, ref _useLinearLighting, value); } }
-        
+        //gifxelation//
+
+        public bool GifPlayPause { get => _GifPlayPause; set { Set(() => GifPlayPause, ref _GifPlayPause, value); } }
+        public bool IMLockDim { get => _IMLockDim; set { Set(() => IMLockDim, ref _IMLockDim, value); } }
+       
+        public int IMY2 { get => _IMY2; set { Set(() => IMY2, ref _IMY2, value); } }
+        public int IMY1 { get => _IMY1; set { Set(() => IMY1, ref _IMY1, value); } }
+        public int IMX2 { get => _IMX2; set { Set(() => IMX2, ref _IMX2, value); } }
+        public int IMX1 { get => _IMX1; set { Set(() => IMX1, ref _IMX1, value); } }
+        public byte IMInterpolationModeIndex { get => _IMInterpolationModeIndex; set => Set(() => IMInterpolationModeIndex, ref _IMInterpolationModeIndex, value);  }
+
+        //gifxelation//
 
         public byte WhitebalanceRed { get => _whitebalanceRed; set { Set(() => WhitebalanceRed, ref _whitebalanceRed, value); } }
         public byte WhitebalanceGreen { get => _whitebalanceGreen; set { Set(() => WhitebalanceGreen, ref _whitebalanceGreen, value); } }
@@ -327,6 +352,7 @@ namespace adrilight
         public int order_data13 { get => _order_data13; set { Set(() => order_data13, ref _order_data13, value); } }
         public int order_data14 { get => _order_data14; set { Set(() => order_data14, ref _order_data14, value); } }
         public int order_data15 { get => _order_data15; set { Set(() => order_data15, ref _order_data15, value); } }
+        public LEDOrder[] LEDorder { get => _LEDorder; set { Set(() => LEDorder, ref _LEDorder, value); } }
 
         public int custom_order_data0 { get => _custom_order_data0; set { Set(() => custom_order_data0, ref _custom_order_data0, value); } }
         public int custom_order_data1 { get => _custom_order_data1; set { Set(() => custom_order_data1, ref _custom_order_data1, value); } }

@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using adrilight.ViewModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-
+using adrilight.Resources;
 
 namespace adrilight
 {
@@ -20,11 +20,12 @@ namespace adrilight
     {
         private readonly ILogger _log = LogManager.GetCurrentClassLogger();
 
-        public DesktopDuplicatorReader(IUserSettings userSettings, ISpotSet spotSet, SettingsViewModel settingsViewModel)
+        public DesktopDuplicatorReader(IUserSettings userSettings, ISpotSet spotSet, SettingsViewModel settingsViewModel, IContext context)
         {
             UserSettings = userSettings ?? throw new ArgumentNullException(nameof(userSettings));
             SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
             SpotSet2 = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
+            
             SettingsViewModel = settingsViewModel ?? throw new ArgumentNullException(nameof(settingsViewModel));
             _retryPolicy = Policy.Handle<Exception>()
                 .WaitAndRetryForever(ProvideDelayDuration);
@@ -190,6 +191,7 @@ namespace adrilight
             if (IsRunning) throw new Exception(nameof(DesktopDuplicatorReader) + " is already running!");
 
             IsRunning = true;
+            MatrixFrame.SetDimensions(MatrixFrame.Width, MatrixFrame.Height);
             _log.Debug("Started Desktop Duplication Reader.");
             Bitmap image = null;
            // Bitmap image2 = null;
@@ -218,6 +220,20 @@ namespace adrilight
                     {
                         SettingsViewModel.SetPreviewImage(image);
                     }
+                    //if (UserSettings.screeneffectcounter == 8)
+                    //{
+                        
+                    //        ImageProcesser.WorkingBitmap = image;
+                    //        SettingsViewModel.ContentBitmap = MatrixFrame.CreateBitmapSourceFromBitmap(ImageProcesser.WorkingBitmap);
+                    //        MatrixFrame.BitmapToFrame(ImageProcesser.WorkingBitmap, ImageProcesser.InterpMode);
+                    //        ImageProcesser.DisposeWorkingBitmap();
+                        
+                        
+
+                        
+
+
+                    //}
 
 
                     image.LockBits(new Rectangle(0, 0, image.Width, image.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppRgb, bitmapData);
@@ -305,6 +321,7 @@ namespace adrilight
 
 
                     image.UnlockBits(bitmapData);
+                    
                   // image2.UnlockBits(bitmapData2);
 
                     int minFrameTimeInMs = 1000 / UserSettings.LimitFps;
@@ -318,6 +335,7 @@ namespace adrilight
             finally
             {
                 image?.Dispose();
+               
                 //image2?.Dispose();
 
                 _desktopDuplicator?.Dispose();

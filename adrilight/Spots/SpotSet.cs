@@ -85,7 +85,8 @@ namespace adrilight
             }
 
             //normal case
-            return 2 * spotsX + 2 * spotsY - 4;
+            //return 2 * spotsX + 2 * spotsY - 4;
+            return spotsX * spotsY;
         }
 
         static public Screen GetSecondaryScreen()
@@ -203,8 +204,8 @@ namespace adrilight
                     var isFirstRow = j == 0;
                     var isLastRow = j == spotsY - 1;
 
-                    if (isFirstColumn || isLastColumn || isFirstRow || isLastRow) // needing only outer spots
-                    {
+                    //if (isFirstColumn || isLastColumn || isFirstRow || isLastRow) // needing only outer spots
+                    //{
                         var x = (xRemainingOffset + borderDistanceX + userSettings.OffsetX / scalingFactor + i * xResolution)
                                 .Clamp(0, screenWidth);
 
@@ -213,28 +214,28 @@ namespace adrilight
 
                         var index = counter++; // in first row index is always counter
 
-                        if (spotsX > 1 && spotsY > 1)
-                        {
-                            if (!isFirstRow && !isLastRow)
-                            {
-                                if (isFirstColumn)
-                                {
-                                    index += relationIndex + ((spotsY - 1 - j) * 3);
-                                }
-                                else if (isLastColumn)
-                                {
-                                    index -= j;
-                                }
-                            }
+                        //if (spotsX > 1 && spotsY > 1)
+                        //{
+                        //    if (!isFirstRow && !isLastRow)
+                        //    {
+                        //        if (isFirstColumn)
+                        //        {
+                        //            index += relationIndex + ((spotsY - 1 - j) * 3);
+                        //        }
+                        //        else if (isLastColumn)
+                        //        {
+                        //            index -= j;
+                        //        }
+                        //    }
 
-                            if (!isFirstRow && isLastRow)
-                            {
-                                index += relationIndex - i * 2;
-                            }
-                        }
+                        //    if (!isFirstRow && isLastRow)
+                        //    {
+                        //        index += relationIndex - i * 2;
+                        //    }
+                        //}
 
                         spots[index] = new Spot(x, y, spotWidth, spotHeight);
-                    }
+                    //}
                 }
             }
 

@@ -119,7 +119,20 @@ namespace adrilight
         byte holdtimecounter { get; set; }
         byte buttoneffectcounter { get; set; }
 
-         int order_data0 { get; set; } 
+        //gifxelation//
+         bool GifPlayPause { get; set; }
+         byte IMInterpolationModeIndex { get; set; } 
+         int IMX1 { get; set; } 
+        
+         int IMY1 { get; set; } 
+       
+         int IMX2 { get; set; }
+         int IMY2 { get; set; } 
+         bool IMLockDim { get; set; } 
+        LEDOrder[] LEDorder { get; set; }
+        //gifxelation//
+
+        int order_data0 { get; set; } 
          int order_data1 { get; set; } 
          int order_data2 { get; set; } 
          int order_data3 { get; set; }

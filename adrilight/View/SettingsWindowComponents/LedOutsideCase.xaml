@@ -3052,16 +3052,27 @@
                 x:Name="pixelation" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
                 Margin="25 10 0 0" Width="735" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
                 <Grid>
-                    <Canvas Width="350" Height="350" x:Name="playground" Margin="54,8,331,8" MouseDown="CanvasTouch"/>
+                    <Canvas Width="350" Height="350" x:Name="playground" Margin="15,15,331,8" MouseDown="CanvasTouch">
+                        <Canvas.Style>
+                            <Style TargetType="Canvas">
+                                <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=screenefectbox,Path=SelectedItem}" Value="Pixelation">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Canvas.Style>
+                    </Canvas>
 
                     <TextBox x:Name="ledx"
   materialDesign:HintAssist.Hint="LEDX"
   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-  VerticalAlignment="Center" Margin="636,6,3,314" Height="46" />
+  VerticalAlignment="Center" Margin="623,12,16,308" Height="46" />
                     <TextBox x:Name="ledy"
                         materialDesign:HintAssist.Hint="LEDY"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Center" Margin="636,60,3,260" Height="46" />
+                        VerticalAlignment="Center" Margin="622,66,17,254" Height="46" />
 
                     <Grid
   Width="124" Margin="607,130,4,182">
@@ -3069,11 +3080,11 @@
     Style="{StaticResource MaterialDesignRaisedDarkButton}"
     Height="50"
     materialDesign:ButtonAssist.CornerRadius="25"
-    ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Click="Button_Click">
+    ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Click="Button_Click" Margin="-5,0,5,4">
                             <TextBlock
       Text="Apply" />
                         </Button>
-                        <materialDesign:Chip Margin="-166,10,134,4" x:Name="gifchip" MaxWidth="290" Click="gifchip_Click" Height="Auto" HorizontalAlignment="Stretch" >
+                        <materialDesign:Chip Margin="-149,81,228,-57" x:Name="gifchip" MaxWidth="290" Click="gifchip_Click" Height="Auto" HorizontalAlignment="Stretch" >
                             <Binding Path="Settings.gifchip" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
@@ -3088,9 +3099,112 @@
                             materialDesign:HintAssist.Hint="Mã hex"
                             AcceptsReturn="True"
                             TextWrapping="Wrap"
-                            Margin="618,197,15,129" Foreground="Gray"/>
+                            Margin="611,196,22,130" Foreground="Gray"/>
                     <materialDesign:ColorPicker x:Name="pickxel" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="602,250,0,0" Height="116" Width="124"/>
-                    <Image x:Name="testimage" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="466,14,0,0"/>
+                    <Slider SmallChange="1" x:Name="startX" Margin="451,26,141,318"
+                            Minimum="0" 
+                            Maximum="{Binding Path=IMXMax,Mode=TwoWay}"  ToolTip="StartX"
+                   
+                            Value="{Binding Settings.IMX1,Mode=TwoWay}" 
+                            RenderTransformOrigin="0.066,0.839" Width="143" Foreground="#FF7344C3" >
+                        <Slider.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform AngleX="-0.299"/>
+                                <RotateTransform/>
+                                <TranslateTransform X="-0.131"/>
+                            </TransformGroup>
+                        </Slider.RenderTransform>
+                    </Slider>
+                    <Slider SmallChange="1" x:Name="EndX" Margin="451,51,141,293"
+                        Minimum="0" 
+                        Maximum="{Binding Path=IMXMax,Mode=TwoWay}"  ToolTip="StartX"
+                   
+                        Value="{Binding Settings.IMX2,Mode=TwoWay}" 
+                        RenderTransformOrigin="0.066,0.839" Width="143" Foreground="#FF7344C3" >
+                        <Slider.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform AngleX="-0.299"/>
+                                <RotateTransform/>
+                                <TranslateTransform X="-0.131"/>
+                            </TransformGroup>
+                        </Slider.RenderTransform>
+                    </Slider>
+                    <CheckBox x:Name="Lockdim" IsChecked="{Binding Settings.IMLockDim}"
+    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}"
+     Margin="522,210,0,124" RenderTransformOrigin="0.043,0.547">
+                        Lock
+                    </CheckBox>
+                    <Slider SmallChange="1" x:Name="StartY" Margin="451,76,141,268"
+                        Minimum="0" 
+                        Maximum="{Binding Path=IMYMax,Mode=TwoWay}"  ToolTip="StartX"
+                   
+                        Value="{Binding Settings.IMY1,Mode=TwoWay}" 
+                        RenderTransformOrigin="0.066,0.839" Width="143" Foreground="#FF7344C3" >
+                        <Slider.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform AngleX="-0.299"/>
+                                <RotateTransform/>
+                                <TranslateTransform X="-0.131"/>
+                            </TransformGroup>
+                        </Slider.RenderTransform>
+                    </Slider>
+                    <Slider SmallChange="1" x:Name="EndY" Margin="451,102,141,242"
+                        Minimum="0" 
+                        Maximum="{Binding Path=IMYMax,Mode=TwoWay}"  ToolTip="StartX"
+                   
+                        Value="{Binding Settings.IMY2,Mode=TwoWay}" 
+                        RenderTransformOrigin="0.066,0.839" Width="143" Foreground="#FF7344C3" >
+                        <Slider.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform AngleX="-0.299"/>
+                                <RotateTransform/>
+                                <TranslateTransform X="-0.131"/>
+                            </TransformGroup>
+                        </Slider.RenderTransform>
+                    </Slider>
+                    <ComboBox SelectedIndex="{Binding Settings.IMInterpolationModeIndex}"
+                            x:Name="ImagingInterpModeDrop" 
+						
+                            materialDesign:HintAssist.Hint=""
+                            IsEditable="False" Margin="457,254,152,84"
+                            materialDesign:HintAssist.HintOpacity=".26"
+						
+                            Height="28">
+                        <ComboBoxItem Content="Nearest Neighbor"/>
+                        <ComboBoxItem Content="Bicubic"/>
+                        <ComboBoxItem Content="Bilinear"/>
+                        <ComboBoxItem Content="High Quality Bicubic"/>
+                        <ComboBoxItem Content="High Quality Bilinear"/>
+
+
+
+                    </ComboBox>
+                    <Image  RenderOptions.BitmapScalingMode="NearestNeighbor"  Source="{Binding Path=ContentBitmap, Mode=OneWay}" Margin="440,289,211,0"/>
+                    <Image  x:Name="MatrixImage" RenderOptions.BitmapScalingMode="NearestNeighbor" Cursor="Cross"   Margin="4,0,310,0">
+                        <Image.Style>
+                            <Style TargetType="Image">
+                                <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=screenefectbox,Path=SelectedItem}" Value="Gifxelation">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                    <ToggleButton x:Name="gifplaypausebutton"
+  Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
+  ToolTip="MaterialDesignFlatPrimaryToggleButton"
+  IsChecked="{Binding Settings.GifPlayPause}" Margin="548,299,147,27" Checked="gifplaypausebutton_Checked">
+                        <materialDesign:PackIcon
+    Kind="Play"
+    Height="21"
+    Width="21" />
+                    </ToggleButton>
                 </Grid>
 
 

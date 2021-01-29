@@ -35,7 +35,28 @@ namespace adrilight
                 UserSettings.ComPort = null;
             }
         }
+        //new gifxelation mode//
+        public enum CMode { BPP24RGB, BPP16RGB, BPP8RGB, BPP8Gray, BPP1Mono };
+        public static CMode _colorMode = CMode.BPP24RGB;
+        private static SerialPort _sp = new SerialPort();
+        private static bool _serialReady = false;
 
+        public delegate void SerialAcknowledgedEventHandler();
+        public static event SerialAcknowledgedEventHandler SerialAcknowledged;
+        public delegate void ColorModeChangedEventHandler();
+        public static event ColorModeChangedEventHandler ColorModeChanged;
+        public static CMode ColorMode {
+            get { return _colorMode; }
+            set
+            {
+                if (value != _colorMode)
+                {
+                    _colorMode = value;
+                    ColorModeChanged?.Invoke();
+                }
+            }
+        }
+        //new gifxelation mode//
 
         private void UserSettings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
@@ -792,7 +813,87 @@ namespace adrilight
 
 
 
+
                 var allBlack = true;
+
+                if (UserSettings.screeneffectcounter==6)//gifxelation mode
+
+                {
+                    if (MatrixFrame.Frame != null)
+                    {
+                        byte[] orderedFrame = MatrixFrame.GetOrderedSerialFrame();
+
+                        for (int i = 0; i < Convert.ToByte(((UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2)*3); i++)
+                        {
+                            if(orderedFrame[i]<=3)
+                            {
+                                orderedFrame[i] = 0;
+                            }
+                            outputStreamHUBV2[counter++] = orderedFrame[i]; // blue
+
+                        }
+                        for (int i = 0; i < Convert.ToByte(((UserSettings.SpotsX2 - 1) * 2 + (UserSettings.SpotsY2 - 1) * 2)*3); i++)
+                        {
+                            if (orderedFrame[i] <= 3)
+                            {
+                                orderedFrame[i] = 0;
+                            }
+                            outputStreamHUBV2[counter++] = orderedFrame[i]; // blue
+
+
+                        }
+                        for (int i = 0; i < Convert.ToByte(((UserSettings.SpotsX3 - 1) * 2 + (UserSettings.SpotsY3 - 1) * 2)*3); i++)
+
+                        {
+                            if (orderedFrame[i] <= 3)
+                            {
+                                orderedFrame[i] = 0;
+                            }
+                            outputStreamHUBV2[counter++] = orderedFrame[i]; // blue
+
+                        }
+                    }
+
+
+                }
+                else if(UserSettings.screeneffectcounter==7)//pixelation mode
+                {
+                    //byte[] orderedFrame = MatrixFrame.GetOrderedSerialFrame();
+
+                    //for (int i = 0; i < Convert.ToByte(((UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2) * 3); i++)
+                    //{
+                    //    if (orderedFrame[i] <= 3)
+                    //    {
+                    //        orderedFrame[i] = 0;
+                    //    }
+                    //    outputStreamHUBV2[counter++] = orderedFrame[i]; // blue
+
+                    //}
+                    //for (int i = 0; i < Convert.ToByte(((UserSettings.SpotsX2 - 1) * 2 + (UserSettings.SpotsY2 - 1) * 2) * 3); i++)
+                    //{
+                    //    if (orderedFrame[i] <= 3)
+                    //    {
+                    //        orderedFrame[i] = 0;
+                    //    }
+                    //    outputStreamHUBV2[counter++] = orderedFrame[i]; // blue
+
+
+                    //}
+                    //for (int i = 0; i < Convert.ToByte(((UserSettings.SpotsX3 - 1) * 2 + (UserSettings.SpotsY3 - 1) * 2) * 3); i++)
+
+                    //{
+                    //    if (orderedFrame[i] <= 3)
+                    //    {
+                    //        orderedFrame[i] = 0;
+                    //    }
+                    //    outputStreamHUBV2[counter++] = orderedFrame[i]; // blue
+
+                    //}
+                }
+                else
+                {
+
+                
                 foreach (Spot spot in SpotSet.Spots)
                 {
                     for (int i = 0; i < UserSettings.LedsPerSpot; i++)
@@ -986,7 +1087,7 @@ namespace adrilight
                         outputStreamHUBV2[counter++] = 0; // red
                     }
                 }
-
+                }
                 if (allBlack)
                 {
                     blackFrameCounter++;

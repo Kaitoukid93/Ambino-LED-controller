@@ -41,7 +41,7 @@ namespace adrilight
     /// Interaction logic for App.xaml
     /// </summary>
     /// 
-    
+
     //structures to exist in the LMCSHD namespace
     public struct Pixel
     {
@@ -81,6 +81,14 @@ namespace adrilight
         public enum StartCorner { TL, TR, BL, BR }
         public enum NewLine { SC, SN }
     }
+    public struct LEDOrder
+        {
+        public int pixelcounter;
+        public int column;
+        public int row;
+
+        }
+
 
     public struct MatrixTitle
     {
