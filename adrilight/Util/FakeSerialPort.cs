@@ -31,6 +31,12 @@ namespace adrilight.Util
             //_log.Warn($"Faking writing of {streamLength} bytes to the serial port");
             fpsLogger.TrackSingleFrame();
         }
+
+        public void Print(string outputBuffer)
+        {
+            //_log.Warn($"Faking writing of {streamLength} bytes to the serial port");
+            fpsLogger.TrackSingleFrame();
+        }
         public void Read(byte[] inputBuffer, int v, int streamLength)
         {
             //_log.Warn($"Faking writing of {streamLength} bytes to the serial port");

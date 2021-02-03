@@ -98,6 +98,7 @@ namespace adrilight
         private readonly byte[] _messagePreamble = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 };
         private readonly byte[] _messagePostamble = { 85, 204, 165 };
         private readonly byte[] _messageZoeamble = { 15, 12, 93 };
+        private readonly byte[] _commandmessage = { 15, 12, 93 };
 
 
         private Thread _workerThread;
@@ -106,7 +107,9 @@ namespace adrilight
 
         private int frameCounter;
         private int blackFrameCounter;
-
+        private int smoothblue;
+        private int smoothgreen;
+        private int smoothred;
 
 
         public void Start()
@@ -1096,6 +1099,345 @@ namespace adrilight
                 return (outputStreamHUBV2, bufferHUBV2Length);
             }
         }
+        //stagelight color//
+        private(Color[] pixel,int ColorLength ) GetOutputStreamStageLight()
+
+        {
+            
+            
+            int ColorLength = 0;
+            int counter = 0;
+            lock (SpotSet.Lock)
+            {
+               
+
+
+                ColorLength = SpotSet.Spots.Length;
+
+               var pixel = new Color[ColorLength];
+
+
+
+
+
+                var allBlack = true;
+
+                if (UserSettings.screeneffectcounter == 6)//gifxelation mode
+
+                {
+                    if (MatrixFrame.Frame != null)
+                    {
+                        //byte[] orderedFrame = MatrixFrame.GetOrderedSerialFrame();
+
+                        for (int i = 0; i < ColorLength; i++)
+                        {
+                            //if (orderedFrame[i] <= 3)
+                            //{
+                            //    orderedFrame[i] = 0;
+                            //}
+                            pixel[i] = Color.FromRgb(MatrixFrame.Frame[i].R, MatrixFrame.Frame[i].G, MatrixFrame.Frame[i].B); // blue
+
+                        }
+                    
+                    }
+
+
+                }
+                else if (UserSettings.screeneffectcounter == 7)//pixelation mode
+                {
+                    //byte[] orderedFrame = MatrixFrame.GetOrderedSerialFrame();
+
+                    //for (int i = 0; i < Convert.ToByte(((UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2) * 3); i++)
+                    //{
+                    //    if (orderedFrame[i] <= 3)
+                    //    {
+                    //        orderedFrame[i] = 0;
+                    //    }
+                    //    outputStreamCH552[counter++] = orderedFrame[i]; // blue
+
+                    //}
+                    //for (int i = 0; i < Convert.ToByte(((UserSettings.SpotsX2 - 1) * 2 + (UserSettings.SpotsY2 - 1) * 2) * 3); i++)
+                    //{
+                    //    if (orderedFrame[i] <= 3)
+                    //    {
+                    //        orderedFrame[i] = 0;
+                    //    }
+                    //    outputStreamCH552[counter++] = orderedFrame[i]; // blue
+
+
+                    //}
+                    //for (int i = 0; i < Convert.ToByte(((UserSettings.SpotsX3 - 1) * 2 + (UserSettings.SpotsY3 - 1) * 2) * 3); i++)
+
+                    //{
+                    //    if (orderedFrame[i] <= 3)
+                    //    {
+                    //        orderedFrame[i] = 0;
+                    //    }
+                    //    outputStreamCH552[counter++] = orderedFrame[i]; // blue
+
+                    //}
+                }
+                else
+                {
+                   
+
+
+                    foreach (Spot spot in SpotSet.Spots)
+                    {
+                        for (int i = 0; i < UserSettings.LedsPerSpot; i++)
+                        {
+                            if (!UserSettings.SendRandomColors)
+                            {
+                                //if(spot.Blue<=3)
+
+
+                                //demo smoothing//
+                                smoothblue = (smoothblue * 6 + spot.Blue * 2) / 8;
+                                smoothgreen = (smoothgreen * 6 + spot.Green * 2) / 8;
+                                smoothred = (smoothred * 6 + spot.Red * 2) / 8;
+
+
+
+
+                                //demo smoothing//
+
+                                pixel[counter++] = Color.FromRgb(spot.Red, spot.Blue, spot.Green);
+                                
+
+                                allBlack = allBlack && spot.Red == 0 && spot.Green == 0 && spot.Blue == 0;
+
+                            }
+
+                            else
+                            {
+                                allBlack = false;
+                                var n = UserSettings.zoecounter;
+                                var m = UserSettings.brightnesscounter;
+
+                                if (UserSettings.fixedcolor)
+                                {
+                                  ////ununsed func////
+                                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            }
+                        }
+
+                    }
+                }
+
+                if (allBlack)
+                {
+                    blackFrameCounter++;
+                }
+
+                return (pixel, ColorLength);
+            }
+        }
+
+        //stagelight color//
+
+
+        private (byte[] Buffer, int OutputLength) GetOutputStreamCH552()
+        {
+            byte[] outputStreamCH552;
+            int bufferCH552Length = 0;
+            int counter = 0;
+            lock (SpotSet.Lock)
+            {
+                const int colorsPerLed = 3;
+              
+                
+                    bufferCH552Length = 2
+                                       + (UserSettings.LedsPerSpot * SpotSet.Spots.Length * colorsPerLed )
+                                       ;
+                
+                //if (UserSettings.effect && UserSettings.SendRandomColors)
+                //{
+                //    outputStreamCH552 = ArrayPool<byte>.Shared.Rent(bufferCH552Length);
+
+                //    Buffer.BlockCopy(_messagePreamble, 0, outputStreamCH552, 0, _messagePreamble.Length);
+                //    Buffer.BlockCopy(_messageZoeamble, 0, outputStreamCH552, bufferCH552Length - _messageZoeamble.Length, _messageZoeamble.Length);
+                //}
+                //else
+                //{
+
+                    outputStreamCH552 = ArrayPool<byte>.Shared.Rent(bufferCH552Length);
+
+                //    Buffer.BlockCopy(_messagePreamble, 0, outputStreamCH552, 0, _messagePreamble.Length);
+                //    Buffer.BlockCopy(_messagePostamble, 0, outputStreamCH552, bufferCH552Length - _messagePostamble.Length, _messagePostamble.Length);
+                //}
+
+
+
+
+
+
+                outputStreamCH552[counter++] = 1;//byte 0
+                outputStreamCH552[counter++] = Convert.ToByte((UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2);//byte `
+               
+
+
+
+                var allBlack = true;
+
+                if (UserSettings.screeneffectcounter == 6)//gifxelation mode
+
+                {
+                    if (MatrixFrame.Frame != null)
+                    {
+                        byte[] orderedFrame = MatrixFrame.GetOrderedSerialFrame();
+
+                        for (int i = 0; i < Convert.ToByte(((UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2) * 3); i++)
+                        {
+                            if (orderedFrame[i] <= 3)
+                            {
+                                orderedFrame[i] = 0;
+                            }
+                            outputStreamCH552[counter++] = orderedFrame[i]; // blue
+
+                        }
+                        for (int i = 0; i < Convert.ToByte(((UserSettings.SpotsX2 - 1) * 2 + (UserSettings.SpotsY2 - 1) * 2) * 3); i++)
+                        {
+                            if (orderedFrame[i] <= 3)
+                            {
+                                orderedFrame[i] = 0;
+                            }
+                            outputStreamCH552[counter++] = orderedFrame[i]; // blue
+
+
+                        }
+                        for (int i = 0; i < Convert.ToByte(((UserSettings.SpotsX3 - 1) * 2 + (UserSettings.SpotsY3 - 1) * 2) * 3); i++)
+
+                        {
+                            if (orderedFrame[i] <= 3)
+                            {
+                                orderedFrame[i] = 0;
+                            }
+                            outputStreamCH552[counter++] = orderedFrame[i]; // blue
+
+                        }
+                    }
+
+
+                }
+                else if (UserSettings.screeneffectcounter == 7)//pixelation mode
+                {
+                    //byte[] orderedFrame = MatrixFrame.GetOrderedSerialFrame();
+
+                    //for (int i = 0; i < Convert.ToByte(((UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2) * 3); i++)
+                    //{
+                    //    if (orderedFrame[i] <= 3)
+                    //    {
+                    //        orderedFrame[i] = 0;
+                    //    }
+                    //    outputStreamCH552[counter++] = orderedFrame[i]; // blue
+
+                    //}
+                    //for (int i = 0; i < Convert.ToByte(((UserSettings.SpotsX2 - 1) * 2 + (UserSettings.SpotsY2 - 1) * 2) * 3); i++)
+                    //{
+                    //    if (orderedFrame[i] <= 3)
+                    //    {
+                    //        orderedFrame[i] = 0;
+                    //    }
+                    //    outputStreamCH552[counter++] = orderedFrame[i]; // blue
+
+
+                    //}
+                    //for (int i = 0; i < Convert.ToByte(((UserSettings.SpotsX3 - 1) * 2 + (UserSettings.SpotsY3 - 1) * 2) * 3); i++)
+
+                    //{
+                    //    if (orderedFrame[i] <= 3)
+                    //    {
+                    //        orderedFrame[i] = 0;
+                    //    }
+                    //    outputStreamCH552[counter++] = orderedFrame[i]; // blue
+
+                    //}
+                }
+                else
+                {
+
+
+                    foreach (Spot spot in SpotSet.Spots)
+                    {
+                        for (int i = 0; i < UserSettings.LedsPerSpot; i++)
+                        {
+                            if (!UserSettings.SendRandomColors)
+                            {
+                                outputStreamCH552[counter++] = spot.Blue; // blue
+                                outputStreamCH552[counter++] = spot.Green; // green
+                                outputStreamCH552[counter++] = spot.Red; // red
+
+                                allBlack = allBlack && spot.Red == 0 && spot.Green == 0 && spot.Blue == 0;
+
+                            }
+
+                            else
+                            {
+                                allBlack = false;
+                                var n = UserSettings.zoecounter;
+                                var m = UserSettings.brightnesscounter;
+
+                                if (UserSettings.fixedcolor)
+                                {
+                                    if (n == 255)
+                                    {
+                                        outputStreamCH552[counter++] = 255; // blue
+                                        outputStreamCH552[counter++] = 255; // green
+                                        outputStreamCH552[counter++] = 255; // red
+
+                                    }
+                                    else
+                                    {
+                                        var c = ColorUtil.FromAhsb(255, n, 1, 0.5f);
+                                        outputStreamCH552[counter++] = c.B; // blue
+                                        outputStreamCH552[counter++] = c.G; // green
+                                        outputStreamCH552[counter++] = c.R; // red
+                                    }
+                                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            }
+                        }
+
+                    }
+                }
+                   
+                if (allBlack)
+                {
+                    blackFrameCounter++;
+                }
+
+                return (outputStreamCH552, bufferCH552Length);
+            }
+        }
 
         private (byte[] Buffer, int OutputLength) GetOutputStreambut()
         {
@@ -1875,6 +2217,8 @@ namespace adrilight
                         var (thirdoutputstream, thirdbufferLength) = GetOutputStream();
                         // var (HUBoutputstream, HUBbufferLength) = GetOutputStreamHUB();
                         var (HUBV2outputstream, HUBV2bufferLength) = GetOutputStreamHUBV2();
+                        //var (CH552outputstream, CH552bufferLength) = GetOutputStreamCH552();
+                        var (Stagelightcolor, StagelightstreamLength) = GetOutputStreamStageLight();
                         if (Screen.AllScreens.Length == 2)
                         {
                             (secondoutputstream, secondbufferLength) = GetSecondOutputStream();
@@ -1929,10 +2273,24 @@ namespace adrilight
 
                         if (UserSettings.Comport5Open)
                         {
+
                             //  if (Screen.AllScreens.Length == 2)
-                            serialPort5.Write(HUBV2outputstream, 0, HUBV2bufferLength);
-                            // else serialPort4.Write(outputBuffer, 0, streamLength);
-                        }
+                            //serialPort5.Write(HUBV2outputstream, 0, HUBV2bufferLength);
+                            //string zoe = string.Format("{0:X6}", Stagelightcolor[1]);
+                            
+                            for (int i = 0; i < StagelightstreamLength; i++)
+                            {
+                                //int colorHex = (Stagelightcolor[i].R ) << 16 | (Stagelightcolor[i].G ) << 8 | Stagelightcolor[i].B;
+                               
+
+                                serialPort5.Print("s" + i + " " + string.Format("{0:X2}{1:X2}{2:X2}", Stagelightcolor[i].R, Stagelightcolor[i].G, Stagelightcolor[i].B) + "\n");
+
+                            }
+                                //for()
+                                //WriteCommand("s" + ledId + " " + string.Format("{0:X6}", color));
+
+                                // else serialPort4.Write(outputBuffer, 0, streamLength);
+                            }
                         else
                         {
                             serialPort5.Close();
@@ -1963,11 +2321,11 @@ namespace adrilight
                         //ws2812b LEDs need 30 µs = 0.030 ms for each led to set its color so there is a lower minimum to the allowed refresh rate
                         //receiving over serial takes it time as well and the arduino does both tasks in sequence
                         //+1 ms extra safe zone
-                        var fastLedTime = ((streamLength - _messagePreamble.Length - _messagePostamble.Length) / 3.0 * 0.030d) + 256 * 0.030d;
-                        var serialTransferTime = HUBV2bufferLength * 10 * 1000 / baudRate;
-                        var minTimespan = (int)(fastLedTime + serialTransferTime) + 6;
+                        //var fastLedTime = ((streamLength - _messagePreamble.Length - _messagePostamble.Length) / 3.0 * 0.030d) + 256 * 0.030d;
+                        //var serialTransferTime = HUBV2bufferLength * 10 * 1000 / baudRate;
+                        //var minTimespan = (int)(fastLedTime + serialTransferTime) + 6;
 
-                        Thread.Sleep(minTimespan);
+                        //Thread.Sleep(10);
                     }
                 }
                 catch (OperationCanceledException)

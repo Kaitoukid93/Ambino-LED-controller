@@ -15,6 +15,7 @@ namespace adrilight.Util
         void Open();
         void Write(byte[] outputBuffer, int v, int streamLength);
         void Read(byte[] inputBuffer, int v, int streamLength);
+        void Print(string outputBuffer);
         int BytesToRead { get; }
         int ReadByte();
     }
