@@ -59,6 +59,7 @@ namespace adrilight
         private bool _Advancesettings = false;
         private bool _useLinearLighting = true;
         private byte _whitebalanceRed = 100;
+        private byte _ColorTemp = 100;
         private byte _whitebalanceGreen = 100;
         private byte _whitebalanceBlue = 100;
         private byte _zoecounter = 200;
@@ -295,6 +296,7 @@ namespace adrilight
         
 
         public byte WhitebalanceRed { get => _whitebalanceRed; set { Set(() => WhitebalanceRed, ref _whitebalanceRed, value); } }
+        public byte ColorTemp { get => _ColorTemp; set { Set(() => ColorTemp, ref _ColorTemp, value); } }
         public byte WhitebalanceGreen { get => _whitebalanceGreen; set { Set(() => WhitebalanceGreen, ref _whitebalanceGreen, value); } }
         public byte WhitebalanceBlue { get => _whitebalanceBlue; set { Set(() => WhitebalanceBlue, ref _whitebalanceBlue, value); } }
         public byte zoecounter { get => _zoecounter; set { Set(() => zoecounter, ref _zoecounter, value); } }

@@ -70,14 +70,16 @@
                     <ListBoxItem
      Content="Cấu hình PCI" IsSelected="False" Visibility="{Binding ElementName=SPCI,Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}" x:Name="Ultilities"/>
                 </ListBox>
-                <StackPanel Orientation="Horizontal" Grid.Row="1">
+
+
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,203" Grid.RowSpan="2">
 
 
 
 
 
 
-                    <Grid  Visibility="{Binding ElementName=Incase,Path=IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}"  Grid.Column="0" Margin="0,-3,0,0" Width="178" Height="305" VerticalAlignment="Top">
+                    <Grid  Visibility= "{Binding ElementName=Incase,Path=IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Column="0" Margin="0,-3,0,0" Width="178" Height="305" VerticalAlignment="Top">
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="39*"/>
@@ -95,6 +97,8 @@
                             <TextBlock Text="Dây nguồn RGB" FontWeight="Normal" FontSize="14"
                            Margin="0 0 0 0"/>
                         </CheckBox>-->
+
+
                         <CheckBox x:Name="Rainpow"
     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}"
      Margin="25,4,0,3" IsChecked="{Binding Settings.Pro11, Mode=TwoWay}"  HorizontalAlignment="Left" Content="Dây nguồn RGB" Width="124" Height="Auto"/>
@@ -151,7 +155,7 @@
                                     Margin="35,0,0,0"  
                                     SelectedIndex="{Binding Settings.screencounter}"  VerticalAlignment="Top" Grid.Column="1">
 
-                                   
+
 
 
                                 </ComboBox>
@@ -201,8 +205,12 @@
                                 GroupName="Interface2"                         
                             
                                 Content="USB" Margin="16,10,183,0" Height="26" VerticalAlignment="Top" />
+
+
                             </Grid>
+
                         </StackPanel>
+                        <TextBlock Foreground="#FFF9BE7B" FontSize="10" Margin="7,5,8,5" ><Run  Text="LED màn hình và cạnh bàn phải được chọn cùng loại"/></TextBlock>
                     </StackPanel>
                     <Grid  Visibility="Collapsed"  Margin="0,-7,0,0" Width="188" Height="368" VerticalAlignment="Top">
                         <Grid.RowDefinitions>
@@ -250,7 +258,7 @@
                                     <ListBoxItem IsSelected="True" Content="Port 2" x:Name="Port_2"/>
                                     <ListBoxItem
                         Content="Port 3" IsSelected="False" x:Name="Port_3"/>
-                                  
+
                                 </ListBox>
                                 <!--<ComboBox x:Name="Port4_config" SelectedIndex="{Binding Settings.Port4Config}" Visibility="{Binding ElementName=Port_4,Path=IsSelected,Converter={StaticResource BooleanToVisibilityConverter}}" Margin="4,56,0,57">
                                     <Label Content="Sáng theo LED cạnh bàn"/>
@@ -355,7 +363,7 @@
 
 
 
-                <Grid Grid.Row="2" RenderTransformOrigin="0.501,1.42" Margin="4,4,-4,0" Height="56" VerticalAlignment="Top">
+                <Grid Grid.Row="2" RenderTransformOrigin="0.501,1.42" Margin="4,0,-4,154" Height="56" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width ="*"/>
                         <ColumnDefinition Width ="*"/>

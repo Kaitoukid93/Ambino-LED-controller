@@ -332,9 +332,32 @@ namespace adrilight.ViewModel
                         RaisePropertyChanged(() => TransferCanBeStarted);
                         RaisePropertyChanged(() => TransferCanNotBeStarted);
                         break;
+                    case nameof(Settings.ColorTemp):
+                        if (Settings.ColorTemp >= 60)
+                        {
+                            Settings.WhitebalanceBlue = 100;
+                            Settings.WhitebalanceRed = (byte)(100 - (100 - Settings.ColorTemp) / 4);
+                            Settings.WhitebalanceGreen = (byte)(100 - (100 - Settings.ColorTemp) / 4);
+                        }
+
+                        else if (Settings.ColorTemp < 60)
+                        {
+                            Settings.WhitebalanceRed = 100;
+                            Settings.WhitebalanceBlue = (byte)(100 - (60 - Settings.ColorTemp));
+                            Settings.WhitebalanceGreen = (byte)(100 - (60 - Settings.ColorTemp) / 2);
+
+                        }
+
+                        RaisePropertyChanged(() => Settings.WhitebalanceRed);
+                        RaisePropertyChanged(() => Settings.WhitebalanceGreen);
+                        RaisePropertyChanged(() => Settings.WhitebalanceBlue);
+                        RaisePropertyChanged(() => Settings.ColorTemp);
+
+                        break;
+
 
                     //case nameof(Settings.tabindex):
-                       
+
                     //    RaisePropertyChanged(() => Settings.Faneffectcounter);
                     //    RaisePropertyChanged(() => Settings.effectcounter);
                     //    RaisePropertyChanged(() => Settings.screeneffectcounter);
@@ -358,9 +381,17 @@ namespace adrilight.ViewModel
                         //    Settings.Comport2Open = false;
                         //    Settings.Comport3Open = false;
                         //    Settings.Comport6Open = false;
-                            
+
 
                         //}
+
+                        if (Settings.Pro21 == false)
+                        {
+                            Settings.Comport3Open = false;
+                            Settings.ComPort3 = "Không có";
+                            RaisePropertyChanged(() => Settings.ComPort3);
+                            RaisePropertyChanged(() => Settings.Comport3Open);
+                        }
                         break;
 
                     case nameof(Settings.caseenable):
@@ -373,6 +404,15 @@ namespace adrilight.ViewModel
                         {
                             Settings.nodevice = true;
                             RaisePropertyChanged(() => Settings.nodevice);
+                        }
+
+                        if(Settings.caseenable==false)
+                        {
+                            Settings.Comport5Open = false;
+                            Settings.ComPort5 = "Không có";
+                            RaisePropertyChanged(() => Settings.ComPort5);
+                            RaisePropertyChanged(() => Settings.Comport5Open);
+
                         }
 
                         //if(!Settings.caseenable&&!Settings.hasPCI&&!Settings.Pro21)
@@ -392,6 +432,16 @@ namespace adrilight.ViewModel
                         {
                             Settings.nodevice = true;
                             RaisePropertyChanged(() => Settings.nodevice);
+                        }
+
+
+
+                        if (Settings.Pro22 == false)
+                        {
+                            Settings.Comport2Open = false;
+                            Settings.ComPort2 = "Không có";
+                            RaisePropertyChanged(() => Settings.ComPort2);
+                            RaisePropertyChanged(() => Settings.Comport2Open);
                         }
                         break;
 
@@ -602,6 +652,8 @@ namespace adrilight.ViewModel
             set => Settings.UseLinearLighting = !value;
 
         }
+       
+     
 
         public bool Yesdevice {
             get => !Settings.nodevice;

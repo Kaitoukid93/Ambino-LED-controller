@@ -2980,10 +2980,10 @@
                     <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Grid.Column="1" Margin="1,254,243,77"><Run Text="Space-X"/></TextBlock>
                     <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Grid.Column="1" Margin="105,254,138,77"><Run Text="Space-Y"/></TextBlock>
                     <Slider x:Name="Bluance" ToolTip=" Cân bằng trắng" Margin="219,84,58,247"
-                        Minimum="70" 
+                        Minimum="10" 
                         Maximum="100" 
                    
-                        Value="{Binding Settings.WhitebalanceBlue}" 
+                        Value="{Binding Settings.ColorTemp}" 
                         RenderTransformOrigin="0.066,0.839" Foreground="#FF7344C3" >
                         <Slider.RenderTransform>
                             <TransformGroup>

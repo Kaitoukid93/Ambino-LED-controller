@@ -79,6 +79,7 @@ namespace adrilight.Fakes
 
 
         public byte WhitebalanceRed { get; set; } = 100;
+        public byte ColorTemp { get; set; } = 100;
         public byte WhitebalanceGreen { get; set; } = 100;
         public byte WhitebalanceBlue { get; set; } = 100;
         public byte zoecounter { get; set; } = 200;

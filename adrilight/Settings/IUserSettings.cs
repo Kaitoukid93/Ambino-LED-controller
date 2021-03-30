@@ -79,6 +79,7 @@ namespace adrilight
         Guid InstallationId { get; set; }
 
         byte WhitebalanceRed { get; set; }
+        byte ColorTemp { get; set; }
 
         byte brightnesscounter { get; set; }
         byte edgebrightnesscounter { get; set; }
