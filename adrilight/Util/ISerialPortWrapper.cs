@@ -18,5 +18,6 @@ namespace adrilight.Util
         void Print(string outputBuffer);
         int BytesToRead { get; }
         int ReadByte();
+       // void Print(byte[] outputBuffer);
     }
 }
