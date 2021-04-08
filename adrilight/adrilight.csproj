@@ -527,6 +527,9 @@
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\ValidationRules\NotEmptyValidationRule.cs" />
     <Compile Include="ViewModel\ISelectableViewPart.cs" />
+    <Compile Include="View\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SettingsWindowComponents\LedOutsideCase.xaml.cs">
       <DependentUpon>LedOutsideCase.xaml</DependentUpon>
     </Compile>
@@ -579,6 +582,10 @@
     <Page Include="View\Images\Nzxth500i.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SettingsWindowComponents\LedOutsideCase.xaml">
       <SubType>Designer</SubType>
