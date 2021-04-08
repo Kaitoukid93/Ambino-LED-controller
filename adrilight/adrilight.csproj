@@ -360,6 +360,7 @@
     <Compile Include="Settings\UserSettings.cs" />
     <Compile Include="Messaging\TraceFrameMessage.cs" />
     <Compile Include="Util\MatrixFrame.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\Product.xaml.cs">
       <DependentUpon>Product.xaml</DependentUpon>
     </Compile>
