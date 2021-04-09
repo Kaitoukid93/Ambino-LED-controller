@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:adrilight.View"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
         mc:Ignorable="d" AllowsTransparency="True" Background="Transparent"
         WindowStartupLocation="CenterScreen"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -15,23 +15,116 @@
         FontFamily="{StaticResource MaterialDesignFont}"
        WindowStyle="None" 
         Title="MainView" Height="450" Width="800">
-    <materialDesign:Card >
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"></ColumnDefinition>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="pack://application:,,,/View/images/headerlogo.png"  Width="50"></Image>
-                    <TextBox Text="Ambino" FontSize="20" FontWeight="DemiBold" BorderThickness="0" VerticalAlignment="Center"></TextBox>
-                </StackPanel>
-            </StackPanel>
-        </Grid>
-    </materialDesign:Card>
 
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="sideBtn" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="Background" Value="White"></Setter>
+            <Setter Property="Foreground" Value="Gray"></Setter>
+            <Setter Property="FontWeight" Value="Regular"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="5" Background="{TemplateBinding Background}" BorderThickness="0">
+                            <StackPanel Orientation="Horizontal" >
+                                <Image Width="30"  Source="{Binding Images}"></Image>
+                                <TextBlock Margin="20,0,0,0" VerticalAlignment="Center" Text="{Binding Text}" Foreground="{TemplateBinding Foreground}"></TextBlock>
+                            </StackPanel>
+                        </Border>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsActive}" Value="True">
+                    <Setter Property="Background" Value="Purple"></Setter>
+                    <Setter Property="Foreground" Value="White"></Setter>
+                </DataTrigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Purple"></Setter>
+                    <Setter Property="Foreground" Value="White"></Setter>
+                </Trigger>
+                <DataTrigger Binding="{Binding IsVisible}" Value="False">
+                    <Setter Property="Height" Value="0"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <materialDesign:Card UniformCornerRadius="30" materialDesign:ShadowAssist.ShadowDepth="Depth5" Background="Transparent">
+        <Grid Background="White"  materialDesign:ShadowAssist.ShadowDepth="Depth5">
+            <Grid Margin="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition ></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Margin="0,50,0,0">
+                    <ItemsControl ItemsSource="{Binding Btn,UpdateSourceTrigger=PropertyChanged}"
+                                                IsTabStop="False"
+                                                BorderThickness="0">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource sideBtn}" materialDesign:ShadowAssist.ShadowDepth="Depth0"></Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
+                <Grid Grid.Column="1" Margin="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="40"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel>
+                        <TextBlock Text="Tất cả các thiết bị" FontWeight="Bold" FontSize="18"></TextBlock>
+                        <TextBlock Text="Bảng này chứa tất cả các thiết bị đã được thêm"></TextBlock>
+                    </StackPanel>
+                    <Border Grid.Column="1">
+                        <Button Background="Transparent" VerticalAlignment="Top" BorderThickness="0" Padding="0" Width="30" Height="30">
+                            <materialDesign:PackIcon Kind="PlusBox" Width="30" Height="30" Foreground="Purple"  Padding="0"></materialDesign:PackIcon>
+                        </Button>
+                    </Border>
+                    <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                        <ItemsControl ItemsSource="{Binding Devices,UpdateSourceTrigger=PropertyChanged}"
+                                                IsTabStop="False"
+                                                BorderThickness="0">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <materialDesign:Card Width="100" Margin="5">
+                                        <StackPanel >
+                                            <materialDesign:PackIcon Kind="FormatBold"></materialDesign:PackIcon>
+                                            <TextBlock FontSize="16" FontWeight="Bold" Text="{Binding Title}"></TextBlock>
+                                            <TextBlock FontSize="16" Text="{Binding TypeName}" FontWeight="Regular"></TextBlock>
+                                            <TextBlock FontSize="16" Text="{Binding ComPort}"  FontWeight="Regular"></TextBlock>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock FontSize="16"  FontWeight="Regular" Text="Độ sáng"></TextBlock>
+                                                <TextBlock FontSize="16"  FontWeight="Regular" Text="{Binding Brightness}"></TextBlock>
+                                                <TextBlock FontSize="16"  FontWeight="Regular" Text="%"></TextBlock>
+                                            </StackPanel>
+
+                                        </StackPanel>
+                                    </materialDesign:Card>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+
+
+    </materialDesign:Card>
 </Window>
