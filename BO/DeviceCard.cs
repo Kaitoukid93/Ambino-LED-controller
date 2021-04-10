@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-   public class DeviceCard: INotifyPropertyChanged
+   public class DeviceCard: NotifyObject
     {
         private bool _isActice = false;
         public bool IsActive
@@ -87,21 +87,17 @@ namespace BO
                 OnPropertyChanged();
             }
         }
-        private double _rightness;
+        private double _brightness;
         public double Brightness
         {
-            get { return _rightness; }
+            get { return _brightness; }
             set
             {
-                if (_rightness == value) return;
-                _rightness = value;
+                if (_brightness == value) return;
+                _brightness = value;
                 OnPropertyChanged();
             }
         }
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+       
     }
 }

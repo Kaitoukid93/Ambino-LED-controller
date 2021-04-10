@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace BO
 {
-  public  class VerticalMenuItem: INotifyPropertyChanged
+  public  class VerticalMenuItem: NotifyObject
     {
         private bool _isActice = false;
         public bool IsActive
@@ -78,11 +78,7 @@ namespace BO
                 OnPropertyChanged();
             }
         }
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        
     }
     public enum MenuButtonType : byte
     {
