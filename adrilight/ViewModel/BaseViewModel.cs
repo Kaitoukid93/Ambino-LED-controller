@@ -9,27 +9,28 @@ using System.Windows.Input;
 
 namespace adrilight.ViewModel
 {
-    public class BaseViewModel : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged;
+    //public class BaseViewModel : INotifyPropertyChanged
+    //{
+        
+    //    public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
+    //    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    //    {
+    //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    //    }
+    //}
     public class RelayCommand<T> : ICommand
     {
         private readonly Predicate<T> _canExecute;
         private readonly Action<T> _execute;
 
         public RelayCommand(Action<T> execute)
-           : this(execute, null)
+           : this(null, execute)
         {
             _execute = execute;
         }
 
-        public RelayCommand(Action<T> execute, Predicate<T> canExecute)
+        public RelayCommand(Predicate<T> canExecute,Action<T> execute)
         {
             if (execute == null)
             {

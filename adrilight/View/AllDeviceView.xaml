@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="adrilight.View.AllDeviceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:adrilight.View"
+             mc:Ignorable="d" 
+              xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"         
+             Name="alldevice"
+        FontFamily="{StaticResource MaterialDesignFont}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Grid.Column="1" Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="40"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <TextBlock Text="All Devices" FontWeight="Bold" FontSize="18"></TextBlock>
+            <TextBlock Text="This dashboard contain..."></TextBlock>
+        </StackPanel>
+        <Border Grid.Column="1">
+            <Button Background="Transparent" VerticalAlignment="Top" BorderThickness="0" Padding="0" Width="30" Height="30">
+                <materialDesign:PackIcon Kind="PlusBox" Width="30" Height="30" Foreground="Purple"  Padding="0"></materialDesign:PackIcon>
+            </Button>
+        </Border>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <ItemsControl Name="itm" ItemsSource="{Binding Cards,UpdateSourceTrigger=PropertyChanged}"
+                                                IsTabStop="False"
+                                                BorderThickness="0" Tag="{Binding}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        
+                            <materialDesign:Card Width="100" Margin="5"  >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDown">
+                                    <i:InvokeCommandAction Command="{Binding Path=DataContext.SelectCard, ElementName=itm}" CommandParameter="{Binding}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <StackPanel >
+                                    <materialDesign:PackIcon Kind="FormatBold"></materialDesign:PackIcon>
+                                    <TextBlock FontSize="16" FontWeight="Bold" Text="{Binding Title}"></TextBlock>
+                                    <TextBlock FontSize="16" Text="{Binding TypeName}" FontWeight="Regular"></TextBlock>
+                                    <TextBlock FontSize="16" Text="{Binding ComPort}"  FontWeight="Regular"></TextBlock>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontSize="16"  FontWeight="Regular" Text="Độ sáng"></TextBlock>
+                                        <TextBlock FontSize="16"  FontWeight="Regular" Text="{Binding Brightness}"></TextBlock>
+                                        <TextBlock FontSize="16"  FontWeight="Regular" Text="%"></TextBlock>
+                                    </StackPanel>
+
+                                </StackPanel>
+                            </materialDesign:Card>
+                        
+                    
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Grid>
+    </Grid>
+</UserControl>

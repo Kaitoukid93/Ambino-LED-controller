@@ -259,7 +259,7 @@ namespace adrilight
 
         SettingsWindow _mainForm;
         private IKernel kernel;
-
+        MainView _newUIForm;
         private void OpenSettingsWindow()
         {
             if (_mainForm == null)
@@ -275,7 +275,21 @@ namespace adrilight
                 _mainForm.Focus();
             }
         }
-
+        private void OpenNewUI()
+        {
+            if (_newUIForm == null)
+            {
+                _newUIForm = new MainView();
+               // _newUIForm.Closed += MainForm_FormClosed;
+                _newUIForm.Show();
+               // _telemetryClient.TrackEvent("SettingsWindow opened");
+            }
+            else
+            {
+                //bring to front?
+                _newUIForm.Focus();
+            }
+        }
         private void MainForm_FormClosed(object sender, EventArgs e)
         {
             if (_mainForm == null) return;
@@ -292,6 +306,7 @@ namespace adrilight
 
             var icon = new System.Drawing.Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("adrilight.zoe.ico"));
             var contextMenu = new System.Windows.Forms.ContextMenu();
+            contextMenu.MenuItems.Add(new System.Windows.Forms.MenuItem("Giao  diện mới", (s, e) => OpenNewUI()));
             contextMenu.MenuItems.Add(new System.Windows.Forms.MenuItem("Cài đặt...", (s, e) => OpenSettingsWindow()));
             contextMenu.MenuItems.Add(new System.Windows.Forms.MenuItem("Thoát", (s, e) => Shutdown(0)));
 

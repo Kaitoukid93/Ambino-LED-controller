@@ -360,7 +360,10 @@
     <Compile Include="Settings\UserSettings.cs" />
     <Compile Include="Messaging\TraceFrameMessage.cs" />
     <Compile Include="Util\MatrixFrame.cs" />
+    <Compile Include="ViewModel\AllDeviceViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\GeneralDeviceViewModel.cs" />
+    <Compile Include="ViewModel\MainViewViewModel.cs" />
     <Compile Include="ViewModel\Product.xaml.cs">
       <DependentUpon>Product.xaml</DependentUpon>
     </Compile>
@@ -527,6 +530,12 @@
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\ValidationRules\NotEmptyValidationRule.cs" />
     <Compile Include="ViewModel\ISelectableViewPart.cs" />
+    <Compile Include="View\AllDeviceView.xaml.cs">
+      <DependentUpon>AllDeviceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\GeneralView.xaml.cs">
+      <DependentUpon>GeneralView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -581,6 +590,14 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="ViewModel\Product.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AllDeviceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\GeneralView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
