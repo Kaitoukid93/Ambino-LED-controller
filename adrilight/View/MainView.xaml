@@ -57,34 +57,47 @@
         <DataTemplate DataType="{x:Type vm:GeneralDeviceViewModel}">
             <local:GeneralView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DeviceSettingViewModel}">
+            <local:DeviceSetting/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AppSettingViewModel}">
+            <local:AppSetting/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:FAQViewModel}">
+            <local:FAQ/>
+        </DataTemplate>
     </Window.Resources>
-    <materialDesign:Card UniformCornerRadius="30" materialDesign:ShadowAssist.ShadowDepth="Depth5" Background="Transparent">
-        <Grid Background="White"  materialDesign:ShadowAssist.ShadowDepth="Depth5">
-            <Grid Margin="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"></ColumnDefinition>
-                    <ColumnDefinition ></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <StackPanel Margin="0,50,0,0">
-                    <ItemsControl ItemsSource="{Binding MenuItems,UpdateSourceTrigger=PropertyChanged}"
+    <materialDesign:DialogHost Background="Transparent"
+Identifier="mainDialog" 
+  >
+        <materialDesign:Card UniformCornerRadius="30" materialDesign:ShadowAssist.ShadowDepth="Depth5" Background="Transparent">
+            <Grid Background="White"  materialDesign:ShadowAssist.ShadowDepth="Depth5">
+                <Grid Margin="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
+                        <ColumnDefinition ></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="0,50,0,0">
+                        <ItemsControl ItemsSource="{Binding MenuItems,UpdateSourceTrigger=PropertyChanged}"
                                                 IsTabStop="False"
                                                 BorderThickness="0">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Button Style="{StaticResource sideBtn}" materialDesign:ShadowAssist.ShadowDepth="Depth0"></Button>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
-                </StackPanel>
-                <ContentControl Content="{Binding CurrentView}" Grid.Column="1" Margin="20" />
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Style="{StaticResource sideBtn}" materialDesign:ShadowAssist.ShadowDepth="Depth0"></Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </StackPanel>
+                    <ContentControl Content="{Binding CurrentView}" Grid.Column="1" Margin="20" />
+                </Grid>
             </Grid>
-        </Grid>
 
 
-    </materialDesign:Card>
+        </materialDesign:Card>
+    </materialDesign:DialogHost>
 </Window>

@@ -360,8 +360,12 @@
     <Compile Include="Settings\UserSettings.cs" />
     <Compile Include="Messaging\TraceFrameMessage.cs" />
     <Compile Include="Util\MatrixFrame.cs" />
+    <Compile Include="ViewModel\AddNewDeviceViewModel.cs" />
     <Compile Include="ViewModel\AllDeviceViewModel.cs" />
+    <Compile Include="ViewModel\AppSettingViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\DeviceSettingViewModel.cs" />
+    <Compile Include="ViewModel\FAQViewModel.cs" />
     <Compile Include="ViewModel\GeneralDeviceViewModel.cs" />
     <Compile Include="ViewModel\MainViewViewModel.cs" />
     <Compile Include="ViewModel\Product.xaml.cs">
@@ -530,8 +534,20 @@
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\ValidationRules\NotEmptyValidationRule.cs" />
     <Compile Include="ViewModel\ISelectableViewPart.cs" />
+    <Compile Include="View\AddNewDevice.xaml.cs">
+      <DependentUpon>AddNewDevice.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AllDeviceView.xaml.cs">
       <DependentUpon>AllDeviceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AppSetting.xaml.cs">
+      <DependentUpon>AppSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DeviceSetting.xaml.cs">
+      <DependentUpon>DeviceSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FAQ.xaml.cs">
+      <DependentUpon>FAQ.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\GeneralView.xaml.cs">
       <DependentUpon>GeneralView.xaml</DependentUpon>
@@ -593,9 +609,25 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\AddNewDevice.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\AllDeviceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AppSetting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\DeviceSetting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\FAQ.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\GeneralView.xaml">
       <SubType>Designer</SubType>

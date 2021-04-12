@@ -29,8 +29,8 @@
             <TextBlock Text="This dashboard contain..."></TextBlock>
         </StackPanel>
         <Border Grid.Column="1">
-            <Button Background="Transparent" VerticalAlignment="Top" BorderThickness="0" Padding="0" Width="30" Height="30">
-                <materialDesign:PackIcon Kind="PlusBox" Width="30" Height="30" Foreground="Purple"  Padding="0"></materialDesign:PackIcon>
+            <Button  VerticalAlignment="Top" BorderThickness="0" Padding="0" Width="30" Height="30" Background="Purple" Foreground="White"  Content="{materialDesign:PackIcon Kind=Plus, Size=22}"  Command="{Binding ShowAddNewCommand}">
+
             </Button>
         </Border>
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
@@ -39,28 +39,28 @@
                                                 BorderThickness="0" Tag="{Binding}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        
-                            <materialDesign:Card Width="100" Margin="5"  >
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="MouseDown">
-                                    <i:InvokeCommandAction Command="{Binding Path=DataContext.SelectCard, ElementName=itm}" CommandParameter="{Binding}"/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                                <StackPanel >
-                                    <materialDesign:PackIcon Kind="FormatBold"></materialDesign:PackIcon>
-                                    <TextBlock FontSize="16" FontWeight="Bold" Text="{Binding Title}"></TextBlock>
-                                    <TextBlock FontSize="16" Text="{Binding TypeName}" FontWeight="Regular"></TextBlock>
-                                    <TextBlock FontSize="16" Text="{Binding ComPort}"  FontWeight="Regular"></TextBlock>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock FontSize="16"  FontWeight="Regular" Text="Độ sáng"></TextBlock>
-                                        <TextBlock FontSize="16"  FontWeight="Regular" Text="{Binding Brightness}"></TextBlock>
-                                        <TextBlock FontSize="16"  FontWeight="Regular" Text="%"></TextBlock>
-                                    </StackPanel>
 
+                        <materialDesign:Card Width="100" Margin="5"  >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseDown">
+                                    <i:InvokeCommandAction Command="{Binding Path=DataContext.SelectCardCommand, ElementName=itm}" CommandParameter="{Binding}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <StackPanel >
+                                <materialDesign:PackIcon Kind="FormatBold"></materialDesign:PackIcon>
+                                <TextBlock FontSize="16" FontWeight="Bold" Text="{Binding Title}"></TextBlock>
+                                <TextBlock FontSize="16" Text="{Binding TypeName}" FontWeight="Regular"></TextBlock>
+                                <TextBlock FontSize="16" Text="{Binding ComPort}"  FontWeight="Regular"></TextBlock>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="16"  FontWeight="Regular" Text="Độ sáng"></TextBlock>
+                                    <TextBlock FontSize="16"  FontWeight="Regular" Text="{Binding Brightness}"></TextBlock>
+                                    <TextBlock FontSize="16"  FontWeight="Regular" Text="%"></TextBlock>
                                 </StackPanel>
-                            </materialDesign:Card>
-                        
-                    
+
+                            </StackPanel>
+                        </materialDesign:Card>
+
+
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemsPanel>
@@ -70,5 +70,7 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
         </Grid>
+
     </Grid>
+
 </UserControl>
