@@ -27,7 +27,7 @@
         </StackPanel>
         <StackPanel Grid.Row="1" Margin="0,10,0,0">
             <TextBlock Text="USB Connection" FontSize="15" FontWeight="Bold" Height="25" VerticalAlignment="Center"></TextBlock>
-            <Border Background="LightGray" CornerRadius="10">
+            <Border Background="#f6f6f6" CornerRadius="10">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -54,7 +54,7 @@
         </StackPanel>
         <StackPanel Grid.Row="2" Margin="0,10,0,0">
             <TextBlock Text="Display" FontSize="15" FontWeight="Bold" Height="25" VerticalAlignment="Center"></TextBlock>
-            <Border Background="LightGray" CornerRadius="10">
+            <Border Background="#f6f6f6" CornerRadius="10">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>

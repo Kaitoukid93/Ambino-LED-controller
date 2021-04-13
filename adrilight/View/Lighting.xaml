@@ -1,0 +1,113 @@
+﻿<UserControl x:Class="adrilight.View.Lighting"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:adrilight.View"
+             mc:Ignorable="d" 
+                xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"         
+        FontFamily="{StaticResource MaterialDesignFont}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary
+                    Source="ControlStyle.xaml">
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="40"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <materialDesign:PackIcon Kind="LessThan" Foreground="Gray" FontWeight="Bold" VerticalAlignment="Center" Width="30"></materialDesign:PackIcon>
+            <materialDesign:PackIcon Kind="AlphabetHBox" Foreground="Purple" Width="45" Height="45" VerticalAlignment="Center"></materialDesign:PackIcon>
+            <StackPanel Margin="10,0,0,0">
+                <TextBlock FontSize="16" FontWeight="Bold" Text="{Binding Card.Title}"></TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontSize="16" Text="{Binding Card.TypeName}" FontWeight="Regular"></TextBlock>
+                    <TextBlock>-</TextBlock>
+                    <TextBlock FontSize="16" Text="{Binding Card.ComPort}"  FontWeight="Regular"></TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <TextBlock FontSize="15" FontWeight="Bold" Margin="10">Lighting</TextBlock>
+            <Border CornerRadius="30" Background="#f6f6f6">
+                <Grid Margin="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="90"/>
+                       
+                    </Grid.RowDefinitions>
+                    <Border>
+                        <TextBlock>Mode</TextBlock>
+                    </Border>
+                    <Border Grid.Column="1">
+                        <ComboBox Height="25"></ComboBox>
+                    </Border>
+                    <Border Grid.Row="1">
+                        <TextBlock>Source</TextBlock>
+                    </Border>
+                    <Border Grid.Column="1" Grid.Row="1">
+                        <ComboBox Height="25"></ComboBox>
+                    </Border>
+                    <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0">
+                            <TextBlock>Screen size</TextBlock>
+                        </Border>
+                        <Border Grid.Column="2" Grid.Row="0">
+                            <ComboBox Height="25" Width="50" HorizontalAlignment="Right"></ComboBox>
+                        </Border>
+                        <Border Grid.Row="1">
+                            <TextBlock>Color Temprature</TextBlock>
+                        </Border>
+                        <Border Grid.Row="1" Grid.Column="1">
+                            <Slider TickFrequency="5" VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="50" Value="25" />
+                        </Border>
+                        <Border Grid.Column="2" Grid.Row="1">
+                            <ComboBox Height="25" Width="50" HorizontalAlignment="Right"></ComboBox>
+                        </Border>
+                        <Border Grid.Row="2">
+                            <TextBlock>Brightness</TextBlock>
+                        </Border>
+                        <Border Grid.Row="2" Grid.Column="1">
+                            <Slider TickFrequency="5" VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="50" Value="25" />
+                        </Border>
+                        <Border Grid.Column="2" Grid.Row="2">
+                            <ComboBox Height="25" Width="50" HorizontalAlignment="Right"></ComboBox>
+                        </Border>
+                    </Grid>
+                   
+                </Grid>
+            </Border>
+        </StackPanel>
+    </Grid>
+</UserControl>

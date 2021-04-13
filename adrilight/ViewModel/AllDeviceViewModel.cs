@@ -11,7 +11,7 @@ using System.Windows.Input;
 using MaterialDesignThemes.Wpf;
 namespace adrilight.ViewModel
 {
-    public class AllDeviceViewModel : ViewModelBase
+   public class AllDeviceViewModel : ViewModelBase
     {
         private ObservableCollection<DeviceCard> _cards;
         public ObservableCollection<DeviceCard> Cards {
@@ -30,9 +30,9 @@ namespace adrilight.ViewModel
         {
             _parentVm = parent;
             ReadData();
-
+           
         }
-
+        
         public void LoadCard()
         {
             Cards = new ObservableCollection<DeviceCard>();
@@ -41,8 +41,8 @@ namespace adrilight.ViewModel
                 Brightness = 70,
                 ComPort = "COM3",
                 IsActive = true,
-                TypeName = "Ambino Basic",
-            });
+                TypeName = "Ambino Basic",             
+        });
             Cards.Add(new DeviceCard() {
                 Title = "LED màn 2",
                 Brightness = 70,
@@ -50,16 +50,16 @@ namespace adrilight.ViewModel
                 IsActive = true,
                 TypeName = "Ambino Basic"
             });
-
+           
         }
         public void ReadData()
         {
             SelectCardCommand = new RelayCommand<DeviceCard>((p) => {
                 return p != null;
             }, (p) =>
-            {
-                (_parentVm as MainViewViewModel).GotoChild(p);
-            });
+              {
+                  (_parentVm as MainViewViewModel).GotoChild(p);
+              });
             LoadCard();
             ShowAddNewCommand = new RelayCommand<DeviceCard>((p) => {
                 return true;
@@ -71,7 +71,7 @@ namespace adrilight.ViewModel
         public async void ShowAddNewDialog()
         {
 
-            await DialogHost.Show(new View.AddNewDevice(), "mainDialog");
+           await DialogHost.Show(new View.AddNewDevice(), "mainDialog");
         }
     }
 }

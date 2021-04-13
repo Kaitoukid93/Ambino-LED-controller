@@ -44,18 +44,6 @@ namespace BO
                 OnPropertyChanged();
             }
         }
-        private ICommand _action;
-        public ICommand Action
-        {
-            get { return _action; }
-            set
-            {
-                if (_action == value) return;
-                _action = value;
-                OnPropertyChanged();
-            }
-        }
-
         private bool _isVisible = true;
         public bool IsVisible
         {

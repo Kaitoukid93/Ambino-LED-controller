@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace adrilight.View
 {
     /// <summary>
-    /// Interaction logic for GeneralView.xaml
+    /// Interaction logic for Lighting.xaml
     /// </summary>
-    public partial class GeneralView : UserControl
+    public partial class Lighting : UserControl
     {
-        public GeneralView()
+        public Lighting()
         {
             InitializeComponent();
         }

@@ -14,8 +14,8 @@
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"         
         FontFamily="{StaticResource MaterialDesignFont}"
-       WindowStyle="None" 
-        Title="MainView" Height="450" Width="800">
+       WindowStyle="None" AllowDrop="True"
+        Title="MainView" Height="660" Width="820" MouseLeftButtonDown="Window_MouseLeftButtonDown">
 
     <Window.Resources>
         <Style TargetType="Button" x:Key="sideBtn" BasedOn="{StaticResource {x:Type Button}}">
@@ -39,12 +39,13 @@
             </Setter>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsActive}" Value="True">
-                    <Setter Property="Background" Value="Purple"></Setter>
+                    <Setter Property="Background" Value="#7344c3"></Setter>
                     <Setter Property="Foreground" Value="White"></Setter>
                 </DataTrigger>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="Purple"></Setter>
+                    <Setter Property="Background" Value="#7344c3"></Setter>
                     <Setter Property="Foreground" Value="White"></Setter>
+                    <Setter Property="Cursor" Value="Hand"></Setter>
                 </Trigger>
                 <DataTrigger Binding="{Binding IsVisible}" Value="False">
                     <Setter Property="Height" Value="0"></Setter>
@@ -55,7 +56,7 @@
             <local:AllDeviceView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:GeneralDeviceViewModel}">
-            <local:GeneralView/>
+            <local:General/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:DeviceSettingViewModel}">
             <local:DeviceSetting/>
@@ -66,13 +67,30 @@
         <DataTemplate DataType="{x:Type vm:FAQViewModel}">
             <local:FAQ/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LightingViewModel}">
+            <local:Lighting/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:PreviewViewModel}">
+            <local:Preview/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AdvanceViewModel}">
+            <local:Advance/>
+        </DataTemplate>
     </Window.Resources>
-    <materialDesign:DialogHost Background="Transparent"
-Identifier="mainDialog" 
-  >
-        <materialDesign:Card UniformCornerRadius="30" materialDesign:ShadowAssist.ShadowDepth="Depth5" Background="Transparent">
+ 
+        <materialDesign:Card UniformCornerRadius="30" Background="White" Margin="5">
+        <materialDesign:DialogHost Background="Transparent"
+Identifier="mainDialog"  >
             <Grid Background="White"  materialDesign:ShadowAssist.ShadowDepth="Depth5">
-                <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Image Margin="20,20,0,0" HorizontalAlignment="Left" Source="pack://application:,,,/adrilight;component/View/Images/headerlogo.png" Height="40" Width="40"></Image>
+                    <TextBlock FontSize="18" VerticalAlignment="Center" Margin="10,20,0,0" FontWeight="Bold">Ambino</TextBlock>
+                </StackPanel>
+                <Grid Margin="20,10,20,20" Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"></ColumnDefinition>
                         <ColumnDefinition ></ColumnDefinition>
@@ -83,7 +101,7 @@ Identifier="mainDialog"
                                                 BorderThickness="0">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Button Style="{StaticResource sideBtn}" materialDesign:ShadowAssist.ShadowDepth="Depth0"></Button>
+                                    <Button Style="{StaticResource sideBtn}" materialDesign:ShadowAssist.ShadowDepth="Depth0" Command="{Binding DataContext.SelectMenuItem,RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding}"></Button>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                             <ItemsControl.ItemsPanel>
@@ -97,7 +115,7 @@ Identifier="mainDialog"
                 </Grid>
             </Grid>
 
-
-        </materialDesign:Card>
-    </materialDesign:DialogHost>
+        </materialDesign:DialogHost>
+    </materialDesign:Card>
+   
 </Window>

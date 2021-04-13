@@ -361,13 +361,16 @@
     <Compile Include="Messaging\TraceFrameMessage.cs" />
     <Compile Include="Util\MatrixFrame.cs" />
     <Compile Include="ViewModel\AddNewDeviceViewModel.cs" />
+    <Compile Include="ViewModel\AdvanceViewModel.cs" />
     <Compile Include="ViewModel\AllDeviceViewModel.cs" />
     <Compile Include="ViewModel\AppSettingViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\DeviceSettingViewModel.cs" />
     <Compile Include="ViewModel\FAQViewModel.cs" />
     <Compile Include="ViewModel\GeneralDeviceViewModel.cs" />
+    <Compile Include="ViewModel\LightingViewModel.cs" />
     <Compile Include="ViewModel\MainViewViewModel.cs" />
+    <Compile Include="ViewModel\PreviewViewModel.cs" />
     <Compile Include="ViewModel\Product.xaml.cs">
       <DependentUpon>Product.xaml</DependentUpon>
     </Compile>
@@ -537,6 +540,9 @@
     <Compile Include="View\AddNewDevice.xaml.cs">
       <DependentUpon>AddNewDevice.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Advance.xaml.cs">
+      <DependentUpon>Advance.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AllDeviceView.xaml.cs">
       <DependentUpon>AllDeviceView.xaml</DependentUpon>
     </Compile>
@@ -549,11 +555,17 @@
     <Compile Include="View\FAQ.xaml.cs">
       <DependentUpon>FAQ.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\GeneralView.xaml.cs">
-      <DependentUpon>GeneralView.xaml</DependentUpon>
+    <Compile Include="View\General.xaml.cs">
+      <DependentUpon>General.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lighting.xaml.cs">
+      <DependentUpon>Lighting.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Preview.xaml.cs">
+      <DependentUpon>Preview.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SettingsWindowComponents\LedOutsideCase.xaml.cs">
       <DependentUpon>LedOutsideCase.xaml</DependentUpon>
@@ -613,6 +625,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\Advance.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\AllDeviceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -620,6 +636,10 @@
     <Page Include="View\AppSetting.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ControlStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\DeviceSetting.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -629,17 +649,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\GeneralView.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\General.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Images\Nzxth500i.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Lighting.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Preview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\SettingsWindowComponents\LedOutsideCase.xaml">
       <SubType>Designer</SubType>
