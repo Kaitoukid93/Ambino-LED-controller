@@ -123,7 +123,7 @@ namespace adrilight.ViewModel
                     IsDashboardType = false;
                     break;
                 case lighting:
-                    _lightingView = new LightingViewModel();
+                    _lightingView = new LightingViewModel(CurrentDevice,this);
                     CurrentView = _lightingView;
                     IsDashboardType = false;
                     break;

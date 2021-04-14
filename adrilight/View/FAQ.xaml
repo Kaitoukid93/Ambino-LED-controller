@@ -8,13 +8,16 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Margin="10">
         <TextBlock Text="About" FontWeight="Bold" FontSize="18"></TextBlock>
-        <Image Source="pack://application:,,,/adrilight;component/View/Images/headerlogo.png" Width="90"></Image>
-        <TextBlock Text="Adrilight 3.0" FontWeight="Bold" FontSize="18" TextAlignment="Center"></TextBlock>
-        <TextBlock Text="Build Version:xxxx"  TextAlignment="Center"></TextBlock>
-        <TextBlock Text="Last Update:xxxx"  TextAlignment="Center"></TextBlock>
-        <TextBlock Text="Author:xxxx"  TextAlignment="Center"></TextBlock>
-        <TextBlock Text="Git: xxxx"  TextAlignment="Center"></TextBlock>
+        <Image Source="pack://application:,,,/adrilight;component/View/Images/headerlogo.png" Width="90" HorizontalAlignment="Center"></Image>
+        <StackPanel HorizontalAlignment="Center">
+            <TextBlock Text="{Binding AppName}" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+            <TextBlock Text="{Binding BuildVersion,StringFormat=Build Version: {0}}"  HorizontalAlignment="Left" TextAlignment="Center"></TextBlock>
+            <TextBlock Text="{Binding LastUpdate,StringFormat=Last Update: {0:yyyy/MM/dd}}"  HorizontalAlignment="Left" TextAlignment="Center"></TextBlock>
+            <TextBlock Text="{Binding Author,StringFormat=Author: {0}}"  HorizontalAlignment="Left" TextAlignment="Center"></TextBlock>
+            <TextBlock Text="{Binding Git,StringFormat=Git: {0}}"  HorizontalAlignment="Left" TextAlignment="Center"></TextBlock>
+            
+        </StackPanel>
         <TextBlock Text="FAQ" FontWeight="Bold" FontSize="18"></TextBlock>
-        <TextBlock>xxxxxxxxxxxxxxxxxxxxxxxxx</TextBlock>
+        <TextBlock Text="{Binding FAQ}"></TextBlock>
     </StackPanel>
 </UserControl>

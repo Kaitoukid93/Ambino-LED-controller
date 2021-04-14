@@ -41,7 +41,7 @@
                         <TextBlock Text="Primary color" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1">
-                        <materialDesign:ColorPicker Color="Purple" Width="40" ></materialDesign:ColorPicker>
+                        <materialDesign:Card Width="30" Height="30" Background="Purple" UniformCornerRadius="5"></materialDesign:Card>
                     </Border>
                     <Border Grid.Row="1">
                         <TextBlock Text="Dark mode" Margin="10,0,0,0"   VerticalAlignment="Center"></TextBlock>

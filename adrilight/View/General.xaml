@@ -19,8 +19,11 @@
                 <ResourceDictionary
                     Source="ControlStyle.xaml">
                 </ResourceDictionary>
+               
             </ResourceDictionary.MergedDictionaries>
+          
         </ResourceDictionary>
+       
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -31,10 +34,10 @@
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Column="0" >
             <materialDesign:PackIcon Kind="LessThan" Foreground="Gray" FontWeight="Bold" VerticalAlignment="Center" Width="30"></materialDesign:PackIcon>
             <materialDesign:PackIcon Kind="AlphabetHBox" Foreground="#7344c3" Width="45" Height="45" VerticalAlignment="Center"></materialDesign:PackIcon>
-            <StackPanel>
+            <StackPanel Width="440">
                 <TextBlock FontSize="16" FontWeight="Bold" Text="{Binding Card.Title}"></TextBlock>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock FontSize="16" Text="{Binding Card.TypeName}" FontWeight="Regular"></TextBlock>
@@ -42,6 +45,9 @@
                     <TextBlock FontSize="16" Text="{Binding Card.ComPort}"  FontWeight="Regular"></TextBlock>
                 </StackPanel>
             </StackPanel>
+            <Button  Style="{StaticResource btnCloseStyle}" HorizontalAlignment="Right"  Width="30" Height="30" >
+                
+            </Button>
         </StackPanel>
         <StackPanel Grid.Row="1">
             <TextBlock FontSize="15" FontWeight="Bold" Margin="10">General</TextBlock>
@@ -61,19 +67,19 @@
                         <TextBlock>COM Port</TextBlock>
                     </Border>
                     <Border Grid.Column="1">
-                        <ComboBox Height="25"></ComboBox>
+                        <ComboBox Height="25" Text="{Binding Card.ComPort}"></ComboBox>
                     </Border>
                     <Border Grid.Row="1">
                         <TextBlock>Device'sName</TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="1">
-                        <ComboBox Height="25"></ComboBox>
+                        <TextBox Text="{Binding Card.Title}" Style="{StaticResource tbEdit}" ></TextBox>
                     </Border>
                     <Border Grid.Row="2">
                         <TextBlock>Show on dashboard</TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="2">
-                        <ToggleButton    VerticalAlignment="Center"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"    IsChecked="False" />
+                        <ToggleButton    VerticalAlignment="Center"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"    IsChecked="{Binding Card.IsShowOnDashboard}" />
                     </Border>
 
                 </Grid>

@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using BO;
+using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,21 @@ namespace adrilight.ViewModel
 {
   public  class LightingViewModel : ViewModelBase
     {
+        private DeviceCard _card;
+        public DeviceCard Card {
+            get { return _card; }
+            set
+            {
+                if (_card == value) return;
+                _card = value;
+                RaisePropertyChanged();
+            }
+        }
+        private readonly ViewModelBase _parentVm;
+        public LightingViewModel(DeviceCard device, ViewModelBase parent)
+        {
+            _parentVm = parent;
+            Card = device;
+        }
     }
 }

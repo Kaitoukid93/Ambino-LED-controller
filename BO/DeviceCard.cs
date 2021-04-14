@@ -44,6 +44,17 @@ namespace BO
                 OnPropertyChanged();
             }
         }
+        private bool _isShowOnDashboard = false;
+        public bool IsShowOnDashboard
+        {
+            get { return _isShowOnDashboard; }
+            set
+            {
+                if (_isShowOnDashboard == value) return;
+                _isShowOnDashboard = value;
+                OnPropertyChanged();
+            }
+        }
         private string _title;
         public string Title
         {
@@ -80,11 +91,11 @@ namespace BO
         private string _description;
         public string Description
         {
-            get { return _comPort; }
+            get { return _description; }
             set
             {
-                if (_comPort == value) return;
-                _comPort = value;
+                if (_description == value) return;
+                _description = value;
                 OnPropertyChanged();
             }
         }

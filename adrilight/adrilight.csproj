@@ -374,6 +374,7 @@
     <Compile Include="ViewModel\Product.xaml.cs">
       <DependentUpon>Product.xaml</DependentUpon>
     </Compile>
+    <Resource Include="View\Images\icon\close-box.png" />
     <None Include="Resources\degif.gif" />
     <None Include="Resources\gifxelation.gif" />
     <Resource Include="Resources\giphy.gif" />

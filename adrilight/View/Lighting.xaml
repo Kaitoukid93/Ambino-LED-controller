@@ -31,10 +31,10 @@
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Column="0" >
             <materialDesign:PackIcon Kind="LessThan" Foreground="Gray" FontWeight="Bold" VerticalAlignment="Center" Width="30"></materialDesign:PackIcon>
-            <materialDesign:PackIcon Kind="AlphabetHBox" Foreground="Purple" Width="45" Height="45" VerticalAlignment="Center"></materialDesign:PackIcon>
-            <StackPanel Margin="10,0,0,0">
+            <materialDesign:PackIcon Kind="AlphabetHBox" Foreground="#7344c3" Width="45" Height="45" VerticalAlignment="Center"></materialDesign:PackIcon>
+            <StackPanel Width="440">
                 <TextBlock FontSize="16" FontWeight="Bold" Text="{Binding Card.Title}"></TextBlock>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock FontSize="16" Text="{Binding Card.TypeName}" FontWeight="Regular"></TextBlock>
@@ -42,6 +42,9 @@
                     <TextBlock FontSize="16" Text="{Binding Card.ComPort}"  FontWeight="Regular"></TextBlock>
                 </StackPanel>
             </StackPanel>
+            <Button  Style="{StaticResource btnCloseStyle}" HorizontalAlignment="Right"  Width="30" Height="30" >
+
+            </Button>
         </StackPanel>
         <StackPanel Grid.Row="1">
             <TextBlock FontSize="15" FontWeight="Bold" Margin="10">Lighting</TextBlock>

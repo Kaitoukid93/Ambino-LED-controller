@@ -15,6 +15,15 @@
              Name="alldevice"
         FontFamily="{StaticResource MaterialDesignFont}"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary
+                    Source="ControlStyle.xaml">
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid Grid.Column="1" Margin="20" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -40,24 +49,26 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
 
-                        <materialDesign:Card Width="180" Height="190" Margin="5" UniformCornerRadius="20" Background="#f6f6f6">
+                        <materialDesign:Card Width="140" materialDesign:ShadowAssist.ShadowDepth="Depth0" Height="160" Margin="5" UniformCornerRadius="20" Background="#f6f6f6">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseDown">
                                     <i:InvokeCommandAction Command="{Binding Path=DataContext.SelectCardCommand, ElementName=itm}" CommandParameter="{Binding}"/>
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                                 <StackPanel  Margin="10">
-                                <materialDesign:PackIcon Kind="AlphaBBox" Foreground="#7344c3"></materialDesign:PackIcon>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="AlphaBBox" Width="50" Height="50" Foreground="#7344c3"></materialDesign:PackIcon>
+                                    <CheckBox  VerticalAlignment="Top" Style="{StaticResource chkPowerStyle}" IsChecked="{Binding IsConnected}" Margin="40,0,0,0" HorizontalAlignment="Right"></CheckBox>
+                                </StackPanel>
+                              
                                     <TextBlock FontSize="16" FontWeight="Bold" Text="{Binding Title}"></TextBlock>
                                     <TextBlock FontSize="12" Text="{Binding TypeName}" FontWeight="Regular"></TextBlock>
                                     <TextBlock FontSize="12" Text="{Binding ComPort}"  FontWeight="Regular"></TextBlock>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock FontSize="12"  FontWeight="Regular" Text="Độ sáng"></TextBlock>
-                                        <TextBlock FontSize="12"  FontWeight="Regular" Text="{Binding Brightness}"></TextBlock>
-                                        <TextBlock FontSize="12"  FontWeight="Regular" Text="%"></TextBlock>
-                                    </StackPanel>
-
-                                </StackPanel>
+                                <TextBlock FontSize="12" Text="{Binding Description}"  FontWeight="Regular"></TextBlock>
+                                <TextBlock FontSize="12"  FontWeight="Regular" Text="{Binding Brightness,StringFormat=Độ sáng {0}%}"></TextBlock>
+                                <materialDesign:Card Width="10" Margin="80,-10,0,0" Height="10" UniformCornerRadius="10" Background="#7344c3"></materialDesign:Card>
+                            </StackPanel>
+                            
                             </materialDesign:Card>
                         
                     
