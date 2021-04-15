@@ -11,14 +11,26 @@ namespace adrilight.ViewModel
 {
   public  class AddNewDeviceViewModel : ViewModelBase
     {
-        private ObservableCollection<DeviceCard> _devices;
-        public ObservableCollection<DeviceCard> Devices {
-            get { return _devices; }
+        private DeviceCard _device;
+        public DeviceCard Device {
+            get { return _device; }
             set
             {
-                if (_devices == value) return;
-                _devices = value;
+                if (_device == value) return;
+                _device = value;
                 RaisePropertyChanged();
+            }
+        }
+        private ViewModelBase _currentView;
+        private ViewModelBase _allDeviceView;
+        private ViewModelBase _changePortView;
+        private ViewModelBase _changeNameView;
+        public ViewModelBase CurrentView {
+            get { return _currentView; }
+            set
+            {
+                _currentView = value;
+                RaisePropertyChanged("CurrentView");
             }
         }
         public AddNewDeviceViewModel()
@@ -28,13 +40,25 @@ namespace adrilight.ViewModel
         }
         public void ReadData()
         {
-            Devices = new ObservableCollection<DeviceCard>();
-            Devices.Add(new DeviceCard() { Title = "Ambino Test" });
-            Devices.Add(new DeviceCard() { Title = "Ambino Test1" });
-            Devices.Add(new DeviceCard() { Title = "Ambino Test2" });
-            Devices.Add(new DeviceCard() { Title = "Ambino Test3" });
-            Devices.Add(new DeviceCard() { Title = "Ambino Test4" });
-            Devices.Add(new DeviceCard() { Title = "Ambino Test5" });
+            _allDeviceView =new AllNewDeviceViewModel(this);
+            CurrentView = _allDeviceView;
+        }
+        public void GoAllDeviceView()
+        {
+            _allDeviceView = new AllNewDeviceViewModel(this);
+            CurrentView = _allDeviceView;
+        }
+        public void GoToChangeNameView(DeviceCard device)
+        {
+            Device = device;
+            _changeNameView = new ChangeDeviceNameViewModel(this,Device);
+            CurrentView = _changeNameView;
+        }
+        public void GoToChangePort(DeviceCard device)
+        {
+            Device = device;
+            _changePortView = new ChangePortViewModel(this,device);
+            CurrentView = _changePortView;           
         }
     }
 }

@@ -41,14 +41,16 @@ namespace adrilight.ViewModel
                 Brightness = 70,
                 ComPort = "COM3",
                 IsActive = true,
-                TypeName = "Ambino Basic",             
+                TypeName = "Ambino Basic",    
+                Character="B"
         });
             Cards.Add(new DeviceCard() {
                 Title = "LED màn 2",
                 Brightness = 70,
                 ComPort = "COM4",
                 IsActive = true,
-                TypeName = "Ambino Basic"
+                TypeName = "Ambino Basic",
+                Character="H"
             });
            
         }

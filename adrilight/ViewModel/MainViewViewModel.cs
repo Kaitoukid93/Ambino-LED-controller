@@ -148,6 +148,7 @@ namespace adrilight.ViewModel
             CurrentView = _generalView;
             IsDashboardType = false;
             CurrentDevice = card;
+            SetMenuItemActiveStatus(general);
         }
         /// <summary>
         /// Load vertical menu

@@ -1,16 +1,17 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"                    
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
                     xmlns:local="clr-namespace:adrilight.View">
     <Style x:Key="ComboboxButtonStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Border   
-             x:Name="border"   Background="#e5e5e5" 
+             x:Name="border"   Background="#e5e5e5"
              CornerRadius="0,5,5,0"   
              BorderThickness="0,1,1,1"  
              BorderBrush="#e5e5e5">
-                        <ContentPresenter />
+                        <ContentPresenter HorizontalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -42,23 +43,26 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition MaxWidth="18"/>
+                            <ColumnDefinition MaxWidth="24"/>
                         </Grid.ColumnDefinitions>
                         <TextBox Name="PART_EditableTextBox"  
                 Style="{StaticResource ComboboxTextBoxStyle}"  
                 Padding="5,0,0,0"  
                 Height="{TemplateBinding Height}"/>
-                        <ToggleButton Grid.Column="1" Margin="0" Background="#e5e5e5" 
+                        <ToggleButton Grid.Column="1" HorizontalAlignment="Left" Margin="0" Background="#e5e5e5" 
                Height="{TemplateBinding Height}"  
                Style="{StaticResource ComboboxButtonStyle}"  
                Focusable="False"  
                IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"  
                ClickMode="Press">
-                            <Path Grid.Column="1"  
-                  HorizontalAlignment="Center"  
+                            <Grid Width="24" >
+                                <Path 
+                  HorizontalAlignment="Left"  
                   VerticalAlignment="Center"  
                   Data="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"  
-                  Fill="Gray" Stroke="#e5e5e5"/>
+                  Fill="Gray" Stroke="#e5e5e5" />
+                            </Grid>
+                           
                         </ToggleButton>
                         <ContentPresenter Name="ContentSite"  
                Content="{TemplateBinding SelectionBoxItem}"  
@@ -191,6 +195,134 @@
                             <Setter Property="Margin" Value="-1,0,0,0" TargetName="vb"></Setter>
                             
                         </DataTrigger>
+                      
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="btnCharacter" TargetType="{x:Type Button}">
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+        <Setter Property="Background" Value="#d6d5d5"></Setter>
+        <Setter Property="Foreground" Value="Gray"></Setter>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <materialDesign:Card  Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Background="{TemplateBinding Background}" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </materialDesign:Card>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"></Setter>
+                        </Trigger>
+                        <DataTrigger Binding="{Binding IsConnected}" Value="True">
+                            <Setter Property="Background" Value="#e7e0f4"></Setter>
+                            <Setter Property="Foreground" Value="#7344c3"></Setter>
+                            
+                        </DataTrigger>
+                        <Trigger Property="Width" Value="40">
+                            <Setter Property="FontSize" Value="22"></Setter>
+                        </Trigger>
+                        <Trigger Property="Tag" Value="True">
+                            <Setter Property="Background" Value="#e7e0f4"></Setter>
+                            <Setter Property="Foreground" Value="#7344c3"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="btnPrevious" TargetType="{x:Type Button}">
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+        <Setter Property="Background" Value="#d6d5d5"></Setter>
+        <Setter Property="Foreground" Value="Gray"></Setter>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <materialDesign:Card  Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Background="{TemplateBinding Background}" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        <Viewbox Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                            <Canvas Width="24" Height="24">
+                                <Path Fill="{TemplateBinding Foreground}" Data="M18.5,4.14L19.5,5.86L8.97,12L19.5,18.14L18.5,19.86L5,12L18.5,4.14Z" />
+                            </Canvas>
+                        </Viewbox>
+                    </materialDesign:Card>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"></Setter>
+                        </Trigger>
+                        
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="btnNext" TargetType="{x:Type Button}">
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+        <Setter Property="Background" Value="#d6d5d5"></Setter>
+        <Setter Property="Foreground" Value="Gray"></Setter>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <materialDesign:Card  Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Background="{TemplateBinding Background}" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        <Viewbox Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                            <Canvas Width="24" Height="24">
+                                <Path Fill="{TemplateBinding Foreground}" Data="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+                            </Canvas>
+                        </Viewbox>
+                    </materialDesign:Card>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"></Setter>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="btnDown" TargetType="{x:Type Button}">
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="Foreground" Value="#7344c3"></Setter>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <materialDesign:Card  Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Background="{TemplateBinding Background}" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        <Viewbox Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                            <Canvas Width="24" Height="24">
+                                <Path Fill="{TemplateBinding Foreground}" Data="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+                            </Canvas>
+                        </Viewbox>
+                    </materialDesign:Card>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"></Setter>
+                        </Trigger>
+
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

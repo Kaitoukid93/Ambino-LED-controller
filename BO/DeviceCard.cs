@@ -110,6 +110,16 @@ namespace BO
                 OnPropertyChanged();
             }
         }
-        
+        private string _character;
+        public string Character
+        {
+            get { return _character; }
+            set
+            {
+                if (_character == value) return;
+                _character = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

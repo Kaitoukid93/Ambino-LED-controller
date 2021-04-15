@@ -363,8 +363,11 @@
     <Compile Include="ViewModel\AddNewDeviceViewModel.cs" />
     <Compile Include="ViewModel\AdvanceViewModel.cs" />
     <Compile Include="ViewModel\AllDeviceViewModel.cs" />
+    <Compile Include="ViewModel\AllNewDeviceViewModel.cs" />
     <Compile Include="ViewModel\AppSettingViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\ChangeDeviceNameViewModel.cs" />
+    <Compile Include="ViewModel\ChangePortViewModel.cs" />
     <Compile Include="ViewModel\DeviceSettingViewModel.cs" />
     <Compile Include="ViewModel\FAQViewModel.cs" />
     <Compile Include="ViewModel\GeneralDeviceViewModel.cs" />
@@ -547,8 +550,17 @@
     <Compile Include="View\AllDeviceView.xaml.cs">
       <DependentUpon>AllDeviceView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AllNewDevice.xaml.cs">
+      <DependentUpon>AllNewDevice.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AppSetting.xaml.cs">
       <DependentUpon>AppSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ChangeDeviceNameView.xaml.cs">
+      <DependentUpon>ChangeDeviceNameView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ChangePortView.xaml.cs">
+      <DependentUpon>ChangePortView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DeviceSetting.xaml.cs">
       <DependentUpon>DeviceSetting.xaml</DependentUpon>
@@ -634,9 +646,21 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\AllNewDevice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AppSetting.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ChangeDeviceNameView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ChangePortView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ControlStyle.xaml">
       <SubType>Designer</SubType>

@@ -35,8 +35,8 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Column="0" >
-            <materialDesign:PackIcon Kind="LessThan" Foreground="Gray" FontWeight="Bold" VerticalAlignment="Center" Width="30"></materialDesign:PackIcon>
-            <materialDesign:PackIcon Kind="AlphabetHBox" Foreground="#7344c3" Width="45" Height="45" VerticalAlignment="Center"></materialDesign:PackIcon>
+            <Button Style="{StaticResource btnPrevious}" Width="30" Height="30"></Button>
+            <Button Style="{StaticResource btnCharacter}" Width="40" Height="40" Content="{Binding  Card.Character}" Margin="10,0,10,0" Tag="{Binding Card.IsConnected}"></Button>
             <StackPanel Width="440">
                 <TextBlock FontSize="16" FontWeight="Bold" Text="{Binding Card.Title}"></TextBlock>
                 <StackPanel Orientation="Horizontal">

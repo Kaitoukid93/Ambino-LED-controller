@@ -10,26 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using adrilight.ViewModel;
+
 namespace adrilight.View
 {
     /// <summary>
-    /// Interaction logic for MainView.xaml
+    /// Interaction logic for ChangePortView.xaml
     /// </summary>
-    public partial class MainView : Window
+    public partial class ChangePortView : UserControl
     {
-        public MainViewViewModel ViewModel;
-        public MainView()
+        public ChangePortView()
         {
             InitializeComponent();
-            ViewModel = new MainViewViewModel();
-            this.DataContext = ViewModel;
-        }
-
-        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {           
-            //this.DragMove();
         }
     }
 }

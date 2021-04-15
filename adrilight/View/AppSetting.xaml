@@ -6,14 +6,14 @@
              xmlns:local="clr-namespace:adrilight.View"
              mc:Ignorable="d" 
              xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
               TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"         
-             Name="deviceSetting"
         FontFamily="{StaticResource MaterialDesignFont}"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" Name="appSetting">
     <Grid Grid.Column="1" Margin="20">
 
         <Grid.RowDefinitions>
@@ -34,14 +34,24 @@
                         <ColumnDefinition Width="60"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
                         <RowDefinition Height="30"/>
                     </Grid.RowDefinitions>
                     <Border >
                         <TextBlock Text="Primary color" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1">
-                        <materialDesign:Card Width="30" Height="30" Background="Purple" UniformCornerRadius="5"></materialDesign:Card>
+                        <materialDesign:Card Width="30" Height="30"   UniformCornerRadius="5">
+                            <materialDesign:Card.Background>
+                                <SolidColorBrush  Color="{Binding SelectedColor}"/>
+                            </materialDesign:Card.Background>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseDown">
+                                    <i:InvokeCommandAction Command="{Binding Path=DataContext.SelectColorCommand, ElementName=appSetting}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </materialDesign:Card>
+                        
                     </Border>
                     <Border Grid.Row="1">
                         <TextBlock Text="Dark mode" Margin="10,0,0,0"   VerticalAlignment="Center"></TextBlock>

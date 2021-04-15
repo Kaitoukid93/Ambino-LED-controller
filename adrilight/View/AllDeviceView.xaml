@@ -57,7 +57,7 @@
                                 </i:Interaction.Triggers>
                                 <StackPanel  Margin="10">
                                 <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="AlphaBBox" Width="50" Height="50" Foreground="#7344c3"></materialDesign:PackIcon>
+                                    <Button Style="{StaticResource btnCharacter}" Width="40" Height="40" Content="{Binding Character}" ></Button>
                                     <CheckBox  VerticalAlignment="Top" Style="{StaticResource chkPowerStyle}" IsChecked="{Binding IsConnected}" Margin="40,0,0,0" HorizontalAlignment="Right"></CheckBox>
                                 </StackPanel>
                               

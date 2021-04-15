@@ -4,41 +4,32 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:adrilight.View"
-             mc:Ignorable="d" Background="Transparent" 
+             mc:Ignorable="d" Background="Transparent"
+              xmlns:vm="clr-namespace:adrilight.ViewModel" Name="avc"
               xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" Width="380" Height="380">
     <UserControl.Resources>
-        <Style x:Key="lstboxStyle" TargetType="{x:Type ListBoxItem}">
-            <Setter Property="SnapsToDevicePixels" Value="true"/>
-            <Setter Property="OverridesDefaultStyle" Value="true"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border Name="Border" CornerRadius="10"  SnapsToDevicePixels="True" Background="LightGray">
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="AlphaB" Foreground="Gray" VerticalAlignment="Center" Width="30" Height="20"></materialDesign:PackIcon>
-                                <TextBlock Width="220" Text="{Binding Title}" VerticalAlignment="Center" TextAlignment="Center"  Height="20"></TextBlock>
-                                <materialDesign:PackIcon Kind="GreaterThan" HorizontalAlignment="Right" VerticalAlignment="Center" Width="30" Height="20"/>
-                            </StackPanel>
-                        </Border>
-                       
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary
+                    Source="ControlStyle.xaml">
+                </ResourceDictionary>
+               
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type vm:AllNewDeviceViewModel}">
+                <local:AllNewDevice/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:ChangePortViewModel}">
+                <local:ChangePortView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:ChangeDeviceNameViewModel}">
+                <local:ChangeDeviceNameView/>
+            </DataTemplate>
+        </ResourceDictionary>
+       
     </UserControl.Resources>
     <Border CornerRadius="50" Background="White">
-        <StackPanel Width="300" Height="250" Margin="20" Background="Transparent">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center" Width="270" > Add New</TextBlock>
-                <Button  VerticalAlignment="Top" HorizontalAlignment="Right" BorderThickness="0" Padding="0" Width="30" Height="30" Background="Transparent" Foreground="Gray"  Content="{materialDesign:PackIcon Kind=Close, Size=22}"  Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
-
-                </Button>
-            </StackPanel>
-
-            <ListBox ItemsSource="{Binding Devices}" ItemContainerStyle="{StaticResource lstboxStyle}"></ListBox>
-        </StackPanel>
+        <ContentControl Content="{Binding CurrentView}" Grid.Column="1" Margin="20" />
     </Border>
    
 </UserControl>
