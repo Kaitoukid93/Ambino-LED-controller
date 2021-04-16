@@ -55,8 +55,8 @@
         <DataTemplate DataType="{x:Type vm:AllDeviceViewModel}">
             <local:AllDeviceView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:GeneralDeviceViewModel}">
-            <local:General/>
+        <DataTemplate DataType="{x:Type vm:DeviceDetailViewModel}">
+            <local:DeviceDetail/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:DeviceSettingViewModel}">
             <local:DeviceSetting/>
@@ -67,15 +67,7 @@
         <DataTemplate DataType="{x:Type vm:FAQViewModel}">
             <local:FAQ/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:LightingViewModel}">
-            <local:Lighting/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:PreviewViewModel}">
-            <local:Preview/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:AdvanceViewModel}">
-            <local:Advance/>
-        </DataTemplate>
+      
     </Window.Resources>
  
         <materialDesign:Card UniformCornerRadius="30" Background="White" Margin="5">

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -9,16 +10,15 @@ using System.Windows.Input;
 
 namespace adrilight.ViewModel
 {
-    //public class BaseViewModel : INotifyPropertyChanged
-    //{
+    public class BaseViewModel : ViewModelBase
+    {
+        public BaseViewModel()
+        {
+            ReadData();
+        }
         
-    //    public event PropertyChangedEventHandler PropertyChanged;
-
-    //    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-    //    {
-    //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    //    }
-    //}
+        public virtual void ReadData() { }
+    }
     public class RelayCommand<T> : ICommand
     {
         private readonly Predicate<T> _canExecute;

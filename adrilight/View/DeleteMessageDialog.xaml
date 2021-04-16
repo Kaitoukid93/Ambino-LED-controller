@@ -1,43 +1,35 @@
-﻿<UserControl x:Class="adrilight.View.ChangeDeviceNameView"
+﻿<UserControl x:Class="adrilight.View.DeleteMessageDialog"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                 xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:adrilight.View"
              mc:Ignorable="d" 
+               xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary
-                    Source="ControlStyle.xaml">
+                <ResourceDictionary  Source="ControlStyle.xaml">
                 </ResourceDictionary>
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="40"/>
-        </Grid.RowDefinitions>
-        <StackPanel>
-            <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Text="{Binding Device.Title}" FontWeight="Bold" FontSize="18"></TextBlock>
-            <TextBlock Margin="0,50,0,0" TextAlignment="Center" HorizontalAlignment="Center" Text="Custom Name"></TextBlock>
-            <TextBox Width="150" Style="{StaticResource tbEdit}" Height="30"></TextBox>
-          
-        </StackPanel>
+    <StackPanel Margin="20">
+        <TextBlock Text="Are you sure want to delete this device" FontWeight="Bold" TextAlignment="Center"></TextBlock>
+        <TextBlock Text="If you delete a device, all configs and data will be lost" TextAlignment="Center"></TextBlock>
+        <Border HorizontalAlignment="Center" Padding="10" CornerRadius="5" Background="#d6d5d5" Width="100" Height="30" Margin="0,20,0,20">
+            <TextBlock Text="{Binding Card.Title}"></TextBlock>
+        </Border>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30"/>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
-            <Button Style="{StaticResource btnPrevious}" Width="30" Height="30" Command="{Binding BackCommand}"></Button>
+            <Button Style="{StaticResource btnPrevious}" Width="30" Height="30" Command="{Binding DeleteCommand}"></Button>
             <Button Style="{StaticResource btnDown}" Grid.Column="2" Width="30" Height="30" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"></Button>
         </Grid>
-    </Grid>
- 
+    </StackPanel>
 </UserControl>
-

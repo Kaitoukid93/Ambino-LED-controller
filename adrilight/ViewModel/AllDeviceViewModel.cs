@@ -11,7 +11,7 @@ using System.Windows.Input;
 using MaterialDesignThemes.Wpf;
 namespace adrilight.ViewModel
 {
-   public class AllDeviceViewModel : ViewModelBase
+   public class AllDeviceViewModel : BaseViewModel
     {
         private ObservableCollection<DeviceCard> _cards;
         public ObservableCollection<DeviceCard> Cards {
@@ -30,7 +30,6 @@ namespace adrilight.ViewModel
         {
             _parentVm = parent;
             ReadData();
-           
         }
         
         public void LoadCard()

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace adrilight.ViewModel
 {
-   public class AdvanceViewModel : ViewModelBase
+   public class AdvanceViewModel : BaseViewModel
     {
     }
 }

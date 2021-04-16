@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace adrilight.ViewModel
 {
-  public  class AddNewDeviceViewModel : ViewModelBase
+  public  class AddNewDeviceViewModel : BaseViewModel
     {
         private DeviceCard _device;
         public DeviceCard Device {
@@ -33,12 +33,8 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged("CurrentView");
             }
         }
-        public AddNewDeviceViewModel()
-        {
-            ReadData();
-
-        }
-        public void ReadData()
+        
+        public override void ReadData()
         {
             _allDeviceView =new AllNewDeviceViewModel(this);
             CurrentView = _allDeviceView;

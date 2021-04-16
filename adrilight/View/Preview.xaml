@@ -4,9 +4,63 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:adrilight.View"
+                 xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+    <UserControl.Resources>
+        
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary
+                    Source="ControlStyle.xaml">
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="materialDesign:Card" BasedOn="{StaticResource {x:Type materialDesign:Card}}">
+                <Setter Property="Background" Value="#d6d5d5"></Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsActive}" Value="True">
+                        <Setter Property="Background" Value="Purple"></Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel>
+        <ItemsControl  ItemsSource="{Binding LedLights,UpdateSourceTrigger=PropertyChanged}"
+                                                IsTabStop="False"
+                                                BorderThickness="0" Tag="{Binding}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+
+                    <materialDesign:Card Width="38"  Height="38" Margin="5"  >
+                        <StackPanel>
+                            <TextBlock FontSize="8" Text="{Binding Num}" VerticalAlignment="Top" TextAlignment="Left" Foreground="White" Margin="2,2,0,0"></TextBlock>
+                        </StackPanel>
+                    </materialDesign:Card>
+
+
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
+            <TextBlock Width="50">LED X</TextBlock>
+            <ComboBox Width="100" Height="30">
+                <ComboBoxItem>8</ComboBoxItem>
+                <ComboBoxItem>9</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+            <TextBlock Width="50">LED Y</TextBlock>
+            <ComboBox Width="100" Height="30">
+                <ComboBoxItem>8</ComboBoxItem>
+                <ComboBoxItem>9</ComboBoxItem>
+            </ComboBox>
+            <Button Width="80" Height="30" Background="Purple"  Margin="10,0,0,0">Reset</Button>
+        </StackPanel>
+    </StackPanel>
 </UserControl>

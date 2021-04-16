@@ -10,7 +10,7 @@ using System.Windows.Media;
 
 namespace adrilight.ViewModel
 {
-  public  class AppSettingViewModel: ViewModelBase
+  public  class AppSettingViewModel: BaseViewModel
     {
         public ICommand SelectColorCommand { get; set; }
         private Color _selectedColor;
@@ -23,11 +23,8 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public AppSettingViewModel()
-        {
-            ReadData();
-        }
-        public void ReadData()
+       
+        public override void ReadData()
         {
             SelectedColor = Colors.White;
             SelectColorCommand = new RelayCommand<string>((p) => {

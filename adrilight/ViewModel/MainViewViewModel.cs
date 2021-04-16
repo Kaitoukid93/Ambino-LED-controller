@@ -11,7 +11,7 @@ using GalaSoft.MvvmLight;
 
 namespace adrilight.ViewModel
 {
-  public  class MainViewViewModel: ViewModelBase
+  public  class MainViewViewModel: BaseViewModel
     {
         #region constant string
         public const string ImagePathFormat= "pack://application:,,,/adrilight;component/View/Images/{0}";
@@ -49,13 +49,10 @@ namespace adrilight.ViewModel
         }
         private ViewModelBase _currentView;
         private ViewModelBase _allDeviceView;
-        private ViewModelBase _generalView;
+        private ViewModelBase _detailView;
         private ViewModelBase _deviceSettingView;
         private ViewModelBase _appSettingView;
         private ViewModelBase _faqSettingView;
-        private ViewModelBase _lightingView;
-        private ViewModelBase _advanceView;
-        private ViewModelBase _previewView;
         public ViewModelBase CurrentView {
             get { return _currentView; }
             set
@@ -75,7 +72,7 @@ namespace adrilight.ViewModel
         }
         public ICommand SelectMenuItem { get; set; }
         #endregion
-        public void ReadData()
+        public override  void ReadData()
         {
             LoadMenu();
             LoadMenuByType(true);
@@ -118,23 +115,29 @@ namespace adrilight.ViewModel
                     IsDashboardType = true;
                     break;
                 case general:
-                    _generalView = new GeneralDeviceViewModel(CurrentDevice,this);
-                    CurrentView = _generalView;
+                    _detailView = new DeviceDetailViewModel(CurrentDevice,this);
+                    CurrentView = _detailView;
                     IsDashboardType = false;
                     break;
                 case lighting:
-                    _lightingView = new LightingViewModel(CurrentDevice,this);
-                    CurrentView = _lightingView;
+                    if(_detailView==null)
+                        _detailView = new DeviceDetailViewModel(CurrentDevice,this);
+                    ((DeviceDetailViewModel)_detailView).TabType = DeviceTab.Lighting;
+                    CurrentView = _detailView;
                     IsDashboardType = false;
                     break;
                 case preview:
-                    _previewView= new PreviewViewModel();
-                    CurrentView = _previewView;
+                    if (_detailView == null)
+                        _detailView = new DeviceDetailViewModel(CurrentDevice, this);
+                    ((DeviceDetailViewModel)_detailView).TabType = DeviceTab.Preview;
+                    CurrentView = _detailView;
                     IsDashboardType = false;
                     break;
                 case advance:
-                    _advanceView = new AdvanceViewModel();
-                    CurrentView = _advanceView;
+                    if (_detailView == null)
+                        _detailView = new DeviceDetailViewModel(CurrentDevice, this);
+                    ((DeviceDetailViewModel)_detailView).TabType = DeviceTab.Advance;
+                    CurrentView = _detailView;
                     IsDashboardType = false;
                     break;
                 default:
@@ -142,13 +145,22 @@ namespace adrilight.ViewModel
             }
             SetMenuItemActiveStatus(menuItem.Text);
         }
+       
         public void GotoChild(DeviceCard card)
         {
-            _generalView = new GeneralDeviceViewModel(card,this);
-            CurrentView = _generalView;
+            _detailView = new DeviceDetailViewModel(card, this);
+            CurrentView = _detailView;
             IsDashboardType = false;
             CurrentDevice = card;
             SetMenuItemActiveStatus(general);
+        }
+        public void BackToDashboard()
+        {
+            _allDeviceView = new AllDeviceViewModel(this);
+
+            CurrentView = _allDeviceView;
+            IsDashboardType = true;
+            SetMenuItemActiveStatus(dashboard);
         }
         /// <summary>
         /// Load vertical menu
@@ -190,9 +202,6 @@ namespace adrilight.ViewModel
             RaisePropertyChanged(nameof(MenuItems));
         }
         
-        public MainViewViewModel()
-        {
-            ReadData();
-        }
+        
     }
 }

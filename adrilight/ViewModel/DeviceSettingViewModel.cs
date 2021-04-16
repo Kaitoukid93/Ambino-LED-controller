@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace adrilight.ViewModel
 {
-   public class DeviceSettingViewModel : ViewModelBase
+   public class DeviceSettingViewModel : BaseViewModel
     {
     }
 }

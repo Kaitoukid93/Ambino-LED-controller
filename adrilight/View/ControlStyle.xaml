@@ -84,7 +84,7 @@
                                 <Border   
                    x:Name="DropDownBorder"  
                    BorderThickness="1"  
-                   CornerRadius="5"  
+                   CornerRadius="5"  Background="#e5e5e5"
                    BorderBrush="#e5e5e5"/>
                                 <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
                                     <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />

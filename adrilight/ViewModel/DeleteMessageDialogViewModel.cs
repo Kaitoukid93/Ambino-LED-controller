@@ -1,15 +1,15 @@
 ﻿using BO;
 using GalaSoft.MvvmLight;
-using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace adrilight.ViewModel
 {
-   public class GeneralDeviceViewModel : ViewModelBase
+ public  class DeleteMessageDialogViewModel: ViewModelBase
     {
         private DeviceCard _card;
         public DeviceCard Card {
@@ -21,16 +21,19 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged();
             }
         }
-        private readonly ViewModelBase _parentVm;
-        public GeneralDeviceViewModel(DeviceCard device, ViewModelBase parent)
+        public ICommand DeleteCommand { get; set; }
+        public ViewModelBase _parentVm;
+        public DeleteMessageDialogViewModel(ViewModelBase parent, DeviceCard device)
         {
-            _parentVm = parent;
             Card = device;
-        }
-        public async void ShowDeleteDialog()
-        {
-
-            await DialogHost.Show(new View.DeleteMessageDialog(), "mainDialog");
+            _parentVm = parent;
+            DeleteCommand = new RelayCommand<string>((p) => {
+                return true;
+            }, (p) =>
+            {
+               // some action
+            });
+            
         }
     }
 }

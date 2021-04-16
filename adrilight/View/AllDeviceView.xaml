@@ -22,6 +22,14 @@
                     Source="ControlStyle.xaml">
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="cardShadow" TargetType="materialDesign:Card" BasedOn="{StaticResource {x:Type materialDesign:Card}}">
+                <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth0"></Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth5"></Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Grid.Column="1" Margin="20" >
@@ -49,7 +57,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
 
-                        <materialDesign:Card Width="140" materialDesign:ShadowAssist.ShadowDepth="Depth0" Height="160" Margin="5" UniformCornerRadius="20" Background="#f6f6f6">
+                        <materialDesign:Card Width="140"  Style="{StaticResource cardShadow}" Height="160" Margin="5" UniformCornerRadius="20" Background="#f6f6f6">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseDown">
                                     <i:InvokeCommandAction Command="{Binding Path=DataContext.SelectCardCommand, ElementName=itm}" CommandParameter="{Binding}"/>
