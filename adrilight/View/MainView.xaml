@@ -15,59 +15,187 @@
         TextOptions.TextRenderingMode="Auto"         
         FontFamily="{StaticResource MaterialDesignFont}"
        WindowStyle="None" AllowDrop="True"
-        Title="MainView" Height="660" Width="820" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+        Title="MainView" Height="866" Width="1050" MouseLeftButtonDown="Window_MouseLeftButtonDown">
 
     <Window.Resources>
-        <Style TargetType="Button" x:Key="sideBtn" BasedOn="{StaticResource {x:Type Button}}">
-            <Setter Property="BorderThickness" Value="0"></Setter>
-            <Setter Property="Height" Value="30"></Setter>
-            <Setter Property="Background" Value="White"></Setter>
-            <Setter Property="Foreground" Value="Gray"></Setter>
-            <Setter Property="FontWeight" Value="Regular"></Setter>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border CornerRadius="5" Background="{TemplateBinding Background}" BorderThickness="0">
-                            <StackPanel Orientation="Horizontal" >
-                                <Image Width="30"  Source="{Binding Images}"></Image>
-                                <TextBlock Margin="20,0,0,0" VerticalAlignment="Center" Text="{Binding Text}" Foreground="{TemplateBinding Foreground}"></TextBlock>
-                            </StackPanel>
-                        </Border>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary
+                    Source="ControlStyle.xaml">
+                </ResourceDictionary>
 
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding IsActive}" Value="True">
-                    <Setter Property="Background" Value="#7344c3"></Setter>
-                    <Setter Property="Foreground" Value="White"></Setter>
-                </DataTrigger>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#7344c3"></Setter>
-                    <Setter Property="Foreground" Value="White"></Setter>
-                    <Setter Property="Cursor" Value="Hand"></Setter>
-                </Trigger>
-                <DataTrigger Binding="{Binding IsVisible}" Value="False">
-                    <Setter Property="Height" Value="0"></Setter>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <DataTemplate DataType="{x:Type vm:AllDeviceViewModel}">
-            <local:AllDeviceView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:DeviceDetailViewModel}">
-            <local:DeviceDetail/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:DeviceSettingViewModel}">
-            <local:DeviceSetting/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:AppSettingViewModel}">
-            <local:AppSetting/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:FAQViewModel}">
-            <local:FAQ/>
-        </DataTemplate>
-      
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="Button" x:Key="sideBtn" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="BorderThickness" Value="0"></Setter>
+                <Setter Property="Height" Value="46"></Setter>
+                <Setter Property="Background" Value="#ffffff"></Setter>
+                <Setter Property="Foreground" Value="#666A83"></Setter>
+                <Setter Property="FontWeight" Value="Regular"></Setter>
+                <Setter Property="Cursor" Value="Hand"></Setter>
+                <Setter Property="FontSize" Value="15"></Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border CornerRadius="15" Background="{TemplateBinding Background}" BorderThickness="0">
+                                <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
+                                    <Image Width="16" Height="16"  Name="verticalMenuImage"></Image>
+                                    <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" Text="{Binding Text}" Foreground="{TemplateBinding Foreground}"></TextBlock>
+                                </StackPanel>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                              
+                              
+                                <!--dashboard-->
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsActive}" Value="True" />
+                                        <Condition Binding="{Binding Text}" Value="Dashboard"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Source" TargetName="verticalMenuImage" Value="{StaticResource svgDashboardActive}"></Setter>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsActive}" Value="False" />
+                                        <Condition Binding="{Binding Text}" Value="Dashboard"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Source" TargetName="verticalMenuImage" Value="{StaticResource svgDashboard}"></Setter>
+                                </MultiDataTrigger>
+                                <!--general-->
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsActive}" Value="True" />
+                                        <Condition Binding="{Binding Text}" Value="General"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Source" TargetName="verticalMenuImage" Value="{StaticResource svgDashboardActive}"></Setter>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsActive}" Value="False" />
+                                        <Condition Binding="{Binding Text}" Value="General"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Source" TargetName="verticalMenuImage" Value="{StaticResource svgDashboard}"></Setter>
+                                </MultiDataTrigger>
+                                <!--Device settings-->
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsActive}" Value="True" />
+                                        <Condition Binding="{Binding Text}" Value="Device Settings"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Source" TargetName="verticalMenuImage" Value="{StaticResource svgDeviceActive}"></Setter>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsActive}" Value="False" />
+                                        <Condition Binding="{Binding Text}" Value="Device Settings"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Source" TargetName="verticalMenuImage" Value="{StaticResource svgDevice}"></Setter>
+                                </MultiDataTrigger>
+                                
+                                <!--Lighting-->
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsActive}" Value="True" />
+                                        <Condition Binding="{Binding Text}" Value="Lighting"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Source" TargetName="verticalMenuImage" Value="{StaticResource svgDeviceActive}"></Setter>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsActive}" Value="False" />
+                                        <Condition Binding="{Binding Text}" Value="Lighting"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Source" TargetName="verticalMenuImage" Value="{StaticResource svgDevice}"></Setter>
+                                </MultiDataTrigger>
+                                <!--App settings-->
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsActive}" Value="True" />
+                                        <Condition Binding="{Binding Text}" Value="App Settings"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Source" TargetName="verticalMenuImage" Value="{StaticResource svgSettingActive}"></Setter>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsActive}" Value="False" />
+                                        <Condition Binding="{Binding Text}" Value="App Settings"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Source" TargetName="verticalMenuImage" Value="{StaticResource svgSetting}"></Setter>
+                                </MultiDataTrigger>
+                                <!--Preview-->
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsActive}" Value="True" />
+                                        <Condition Binding="{Binding Text}" Value="Preview"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Source" TargetName="verticalMenuImage" Value="{StaticResource svgSettingActive}"></Setter>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsActive}" Value="False" />
+                                        <Condition Binding="{Binding Text}" Value="Preview"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Source" TargetName="verticalMenuImage" Value="{StaticResource svgSetting}"></Setter>
+                                </MultiDataTrigger>
+                                <!--FAQ-->
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsActive}" Value="True" />
+                                        <Condition Binding="{Binding Text}" Value="FAQ"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Source" TargetName="verticalMenuImage" Value="{StaticResource svgBoldQuestionActive}"></Setter>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsActive}" Value="False" />
+                                        <Condition Binding="{Binding Text}" Value="FAQ"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Source" TargetName="verticalMenuImage" Value="{StaticResource svgBoldQuestion}"></Setter>
+                                </MultiDataTrigger>
+                                <!--Advance-->
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsActive}" Value="True" />
+                                        <Condition Binding="{Binding Text}" Value="Advance"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Source" TargetName="verticalMenuImage" Value="{StaticResource svgBoldQuestionActive}"></Setter>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsActive}" Value="False" />
+                                        <Condition Binding="{Binding Text}" Value="Advance"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Source" TargetName="verticalMenuImage" Value="{StaticResource svgBoldQuestion}"></Setter>
+                                </MultiDataTrigger>
+                                <DataTrigger Binding="{Binding IsActive}" Value="True">
+                                    <Setter Property="Background" Value="#7344c3"></Setter>
+                                    <Setter Property="Foreground" Value="White"></Setter>
+                                </DataTrigger>
+                                
+                                <DataTrigger Binding="{Binding IsVisible}" Value="False">
+                                    <Setter Property="Height" Value="0"></Setter>
+                                </DataTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                
+            </Style>
+            <DataTemplate DataType="{x:Type vm:AllDeviceViewModel}">
+                <local:AllDeviceView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:DeviceDetailViewModel}">
+                <local:DeviceDetail/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:DeviceSettingViewModel}">
+                <local:DeviceSetting/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:AppSettingViewModel}">
+                <local:AppSetting/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:FAQViewModel}">
+                <local:FAQ/>
+            </DataTemplate>
+        </ResourceDictionary>
     </Window.Resources>
  
         <materialDesign:Card UniformCornerRadius="30" Background="White" Margin="5">
@@ -79,12 +207,12 @@ Identifier="mainDialog"  >
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal">
-                    <Image Margin="20,20,0,0" HorizontalAlignment="Left" Source="pack://application:,,,/adrilight;component/View/Images/headerlogo.png" Height="40" Width="40"></Image>
+                    <Image Margin="20,20,0,0" HorizontalAlignment="Left" Source="{StaticResource svgLogo}" Height="40" Width="40"></Image>
                     <TextBlock FontSize="18" VerticalAlignment="Center" Margin="10,20,0,0" FontWeight="Bold">Ambino</TextBlock>
                 </StackPanel>
                 <Grid Margin="20,10,20,20" Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150"></ColumnDefinition>
+                        <ColumnDefinition Width="222"></ColumnDefinition>
                         <ColumnDefinition ></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <StackPanel Margin="0,50,0,0">
