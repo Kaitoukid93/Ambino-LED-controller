@@ -57,7 +57,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
 
-                        <materialDesign:Card Width="140"  Style="{StaticResource cardShadow}" Height="160" Margin="5" UniformCornerRadius="20" Background="#f6f6f6">
+                        <materialDesign:Card Width="230"  Style="{StaticResource cardShadow}" Height="245" Margin="28" UniformCornerRadius="20" Background="#f6f6f6">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseDown">
                                     <i:InvokeCommandAction Command="{Binding Path=DataContext.SelectCardCommand, ElementName=itm}" CommandParameter="{Binding}"/>
@@ -65,16 +65,16 @@
                                 </i:Interaction.Triggers>
                                 <StackPanel  Margin="10">
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Style="{StaticResource btnCharacter}" Width="40" Height="40" Content="{Binding Character}" ></Button>
-                                    <CheckBox  VerticalAlignment="Top" Style="{StaticResource chkPowerStyle}" IsChecked="{Binding IsConnected}" Margin="40,0,0,0" HorizontalAlignment="Right"></CheckBox>
+                                    <Button Style="{StaticResource btnCharacter}" Width="67" Height="67" Content="{Binding Character}" ></Button>
+                                    <CheckBox  VerticalAlignment="Top" Style="{StaticResource chkPowerStyle}" IsChecked="{Binding IsConnected}" Margin="110,0,0,0" HorizontalAlignment="Right"></CheckBox>
                                 </StackPanel>
                               
-                                    <TextBlock FontSize="16" FontWeight="Bold" Text="{Binding Title}"></TextBlock>
-                                    <TextBlock FontSize="12" Text="{Binding TypeName}" FontWeight="Regular"></TextBlock>
-                                    <TextBlock FontSize="12" Text="{Binding ComPort}"  FontWeight="Regular"></TextBlock>
-                                <TextBlock FontSize="12" Text="{Binding Description}"  FontWeight="Regular"></TextBlock>
-                                <TextBlock FontSize="12"  FontWeight="Regular" Text="{Binding Brightness,StringFormat=Độ sáng {0}%}"></TextBlock>
-                                <materialDesign:Card Width="10" Margin="80,-10,0,0" Height="10" UniformCornerRadius="10" Background="#7344c3"></materialDesign:Card>
+                                    <TextBlock FontSize="20" FontWeight="SemiBold" Text="{Binding Title}"></TextBlock>
+                                    <TextBlock FontSize="13" Text="{Binding TypeName}" FontWeight="Regular"></TextBlock>
+                                    <TextBlock FontSize="13" Text="{Binding ComPort}"  FontWeight="Regular"></TextBlock>
+                                <TextBlock FontSize="13" Text="{Binding Description}"  FontWeight="Regular"></TextBlock>
+                                <TextBlock FontSize="13"  FontWeight="Regular" Text="{Binding Brightness,StringFormat=Độ sáng {0}%}"></TextBlock>
+                                <materialDesign:Card Width="19" Margin="170,50,0,0" Height="19" UniformCornerRadius="10" Background="#7344c3"></materialDesign:Card>
                             </StackPanel>
                             
                             </materialDesign:Card>

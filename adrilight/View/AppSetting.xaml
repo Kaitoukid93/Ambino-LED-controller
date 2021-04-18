@@ -38,7 +38,7 @@
                         <RowDefinition Height="30"/>
                     </Grid.RowDefinitions>
                     <Border >
-                        <TextBlock  FontWeight="SemiBold" Text="Primary color" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock   FontWeight="Medium" FontSize="15"   Text="Primary color" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1">
                         <materialDesign:Card Width="30" Height="30"   UniformCornerRadius="5">
@@ -54,10 +54,10 @@
                         
                     </Border>
                     <Border Grid.Row="1">
-                        <TextBlock  FontWeight="SemiBold" Text="Dark mode" Margin="10,0,0,0"   VerticalAlignment="Center"></TextBlock>
+                        <TextBlock   FontWeight="Medium" FontSize="15"   Text="Dark mode" Margin="10,0,0,0"   VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="1">
-                        <ToggleButton    VerticalAlignment="Center"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"  Margin="0,0,10,0"  IsChecked="False" />
+                        <ToggleButton    VerticalAlignment="Center" Background="#7344c3"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"  Margin="0,0,10,0"  IsChecked="False" />
                     </Border>
                 </Grid>
             </Border>
@@ -77,28 +77,28 @@
                         <RowDefinition Height="30"/>
                     </Grid.RowDefinitions>
                     <Border >
-                        <TextBlock  FontWeight="SemiBold" Text="Auto start with Windows "  VerticalAlignment="Center"></TextBlock>
+                        <TextBlock   FontWeight="Medium" FontSize="15"   Text="Auto start with Windows "  VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1">
-                        <ToggleButton IsChecked="False"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"></ToggleButton>
+                        <ToggleButton IsChecked="False"  Background="#7344c3" Style="{StaticResource MaterialDesignSwitchLightToggleButton}"></ToggleButton>
                     </Border>
                     <Border Grid.Row="1">
-                        <TextBlock Text="Start Minimumz"  FontWeight="SemiBold"  VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="Start Minimumz"   FontWeight="Medium" FontSize="15"    VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="1">
-                        <ToggleButton    VerticalAlignment="Center"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"    IsChecked="False" />
+                        <ToggleButton    VerticalAlignment="Center"  Background="#7344c3" Style="{StaticResource MaterialDesignSwitchLightToggleButton}"    IsChecked="False" />
                     </Border>
                     <Border Grid.Row="2">
-                        <TextBlock Text="Push notification when new device is connected"  FontWeight="SemiBold"  VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="Push notification when new device is connected"   FontWeight="Medium" FontSize="15"    VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="2">
-                        <ToggleButton    VerticalAlignment="Center"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"   IsChecked="False" />
+                        <ToggleButton    VerticalAlignment="Center"  Background="#7344c3" Style="{StaticResource MaterialDesignSwitchLightToggleButton}"   IsChecked="False" />
                     </Border>
                     <Border Grid.Row="3">
-                        <TextBlock Text="Push notification when a device is disconnected"  FontWeight="SemiBold"   VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="Push notification when a device is disconnected"   FontWeight="Medium" FontSize="15"    VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="3">
-                        <ToggleButton    VerticalAlignment="Center"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"    IsChecked="False" />
+                        <ToggleButton    VerticalAlignment="Center"  Background="#7344c3" Style="{StaticResource MaterialDesignSwitchLightToggleButton}"    IsChecked="False" />
                     </Border>
                 </Grid>
             </Border>
