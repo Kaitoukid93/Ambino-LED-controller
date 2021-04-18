@@ -43,11 +43,11 @@
         </Grid.RowDefinitions>
         <StackPanel>
             <TextBlock Text="All Devices" FontWeight="Bold" FontSize="18"></TextBlock>
-            <TextBlock Text="This dashboard contain..."></TextBlock>
+            <TextBlock Text="This dashboard contain..." Foreground="#666A83"></TextBlock>
         </StackPanel>
             <Border Grid.Column="1">
-            <Button  VerticalAlignment="Top" BorderThickness="0" Padding="0" Width="30" Height="30" Background="#7344c3" Foreground="White"  Content="{materialDesign:PackIcon Kind=Plus, Size=22}"  Command="{Binding ShowAddNewCommand}">
-                 
+            <Button  VerticalAlignment="Top" BorderThickness="0" Padding="0" Width="30" Height="30" Background="Transparent" Foreground="White"    Command="{Binding ShowAddNewCommand}">
+                <Image Source="{StaticResource SvgPlusBox}"></Image>
                 </Button>
             </Border>
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">

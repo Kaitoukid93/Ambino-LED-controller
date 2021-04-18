@@ -664,7 +664,8 @@
                                 <ColumnDefinition Width="22" />
                             </Grid.ColumnDefinitions>
                             <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
-                            <Path Fill="Gray" Margin="0,-2,0,0"  VerticalAlignment="Center" Height="20" Width="20" HorizontalAlignment="Left" Grid.Column="1" Data="M5,3C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19H5V5H12V3H5M17.78,4C17.61,4 17.43,4.07 17.3,4.2L16.08,5.41L18.58,7.91L19.8,6.7C20.06,6.44 20.06,6 19.8,5.75L18.25,4.2C18.12,4.07 17.95,4 17.78,4M15.37,6.12L8,13.5V16H10.5L17.87,8.62L15.37,6.12Z" />
+                           
+                            <Image Source="{StaticResource svgEdit}" Margin="0,-2,0,0"  VerticalAlignment="Center" Height="20" Width="20" HorizontalAlignment="Left" Grid.Column="1"></Image>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -700,9 +701,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border CornerRadius="15" BorderThickness="0">
-                        <Image  Source="pack://application:,,,/adrilight;component/View/Images/icon/close-box.png" Height="30" Width="30"></Image>
-                    </Border>
+                    <Image  Source="{StaticResource SvgOrangeClose}"  Height="30" Width="30"></Image>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Cursor" Value="Hand"></Setter>
@@ -759,25 +758,54 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <materialDesign:Card  Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Background="{TemplateBinding Background}" materialDesign:ShadowAssist.ShadowDepth="Depth0">
-                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </materialDesign:Card>
+                    <Image Name="imgCharacter" Source="{StaticResource svgGrayBalpha}" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"></Image>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Cursor" Value="Hand"></Setter>
                         </Trigger>
-                        <DataTrigger Binding="{Binding IsConnected}" Value="True">
-                            <Setter Property="Background" Value="#e7e0f4"></Setter>
-                            <Setter Property="Foreground" Value="#7344c3"></Setter>
-                            
-                        </DataTrigger>
-                        <Trigger Property="Width" Value="40">
-                            <Setter Property="FontSize" Value="22"></Setter>
-                        </Trigger>
-                        <Trigger Property="Tag" Value="True">
-                            <Setter Property="Background" Value="#e7e0f4"></Setter>
-                            <Setter Property="Foreground" Value="#7344c3"></Setter>
-                        </Trigger>
+                       
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsConnected}" Value="True" />
+                                <Condition Binding="{Binding Character}" Value="B"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Source" TargetName="imgCharacter" Value="{StaticResource svgPurpleB}"></Setter>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsConnected}" Value="False" />
+                                <Condition Binding="{Binding Character}" Value="B"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Source" TargetName="imgCharacter" Value="{StaticResource svgGrayBalpha}"></Setter>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsConnected}" Value="True" />
+                                <Condition Binding="{Binding Character}" Value="E"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Source" TargetName="imgCharacter" Value="{StaticResource svgPurpleE}"></Setter>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsConnected}" Value="False" />
+                                <Condition Binding="{Binding Character}" Value="E"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Source" TargetName="imgCharacter" Value="{StaticResource svgGrayEAlpha}"></Setter>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsConnected}" Value="True" />
+                                <Condition Binding="{Binding Character}" Value="H"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Source" TargetName="imgCharacter" Value="{StaticResource svgPurpleH}"></Setter>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsConnected}" Value="False" />
+                                <Condition Binding="{Binding Character}" Value="H"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Source" TargetName="imgCharacter" Value="{StaticResource SvgGrayHAlpha}"></Setter>
+                        </MultiDataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -796,9 +824,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <materialDesign:Card  Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Background="{TemplateBinding Background}" materialDesign:ShadowAssist.ShadowDepth="Depth0">
-                        <Image Source="{StaticResource SvgBack}" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"></Image>
-                    </materialDesign:Card>
+                    <Image Source="{StaticResource SvgBack}" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"></Image>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Cursor" Value="Hand"></Setter>
@@ -822,9 +848,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <materialDesign:Card  Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Background="{TemplateBinding Background}" materialDesign:ShadowAssist.ShadowDepth="Depth0">
-                        <Image Source="{StaticResource SvgNext}" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"></Image>
-                    </materialDesign:Card>
+                    <Image Source="{StaticResource SvgNext}" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"></Image>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Cursor" Value="Hand"></Setter>
@@ -848,13 +872,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <materialDesign:Card  Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Background="{TemplateBinding Background}" materialDesign:ShadowAssist.ShadowDepth="Depth0">
-                        <Viewbox Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
-                            <Canvas Width="24" Height="24">
-                                <Path Fill="{TemplateBinding Foreground}" Data="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-                            </Canvas>
-                        </Viewbox>
-                    </materialDesign:Card>
+                    <Image Source="{StaticResource svgOK}" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"></Image>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Cursor" Value="Hand"></Setter>
