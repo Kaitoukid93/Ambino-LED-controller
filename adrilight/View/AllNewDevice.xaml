@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:adrilight.View"
               xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" Name="allDeviceNew"
-             d:DesignHeight="450" d:DesignWidth="800">
+              Width="500" Height="400">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -23,16 +23,16 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ListBoxItem">
-                            <Border Name="Border" CornerRadius="10"  SnapsToDevicePixels="True" Background="#f6f6f6" Padding="3">
+                            <Border Name="Border" CornerRadius="10" Width="425" Height="37" SnapsToDevicePixels="True" Background="#f6f6f6" Padding="3">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseDown">
                                         <i:InvokeCommandAction Command="{Binding Path=DataContext.SelectDeviceCommand, ElementName=allDeviceNew}" CommandParameter="{Binding}"/>
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Style="{StaticResource btnCharacter}" Width="25" Height="25" Content="{Binding Character}" ></Button>
-                                    <TextBlock Width="220" Text="{Binding Title}" VerticalAlignment="Center" TextAlignment="Center"  Height="20"></TextBlock>
-                                    <materialDesign:PackIcon Kind="GreaterThan" HorizontalAlignment="Right" VerticalAlignment="Center" Width="30" Height="20"/>
+                                <StackPanel Orientation="Horizontal" >
+                                    <Button Style="{StaticResource btnCharacter}" Margin="10,0,0,0" Width="28" Height="28" Content="{Binding Character}" ></Button>
+                                    <TextBlock Width="132" Margin="50,0,0,0" FontWeight="SemiBold" FontSize="20" Text="{Binding Title}" VerticalAlignment="Center" TextAlignment="Center"  Height="27"></TextBlock>
+                                    <Button Style="{StaticResource btnNext}" Margin="170,0,0,0" Width="28" Height="28"></Button>
                                 </StackPanel>
                             </Border>
 
@@ -43,15 +43,15 @@
         </ResourceDictionary>
 
     </UserControl.Resources>
-    <StackPanel Width="300" Height="250" Margin="20" Background="Transparent">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center" Width="270" > Add New</TextBlock>
-                <Button  VerticalAlignment="Top" HorizontalAlignment="Right" BorderThickness="0" Padding="0" Width="30" Height="30" Background="Transparent" Foreground="Gray"  Content="{materialDesign:PackIcon Kind=Close, Size=22}"  Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+    <StackPanel Width="500" Height="400"  Background="Transparent">
+        <StackPanel Width="500" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Margin="160,0,0,0" FontWeight="SemiBold" FontSize="30" HorizontalAlignment="Center" TextAlignment="Center" Width="162" > Add New</TextBlock>
+            <Button  VerticalAlignment="Center" Margin="120,0,0,0" HorizontalAlignment="Right" Style="{StaticResource btnClose}" Width="26" Height="26"    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
 
-                </Button>
-            </StackPanel>
+            </Button>
+        </StackPanel>
 
-            <ListBox ItemsSource="{Binding Devices}" ItemContainerStyle="{StaticResource lstboxStyle}" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"></ListBox>
+        <ListBox ItemsSource="{Binding Devices}" ItemContainerStyle="{StaticResource lstboxStyle}" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"></ListBox>
     </StackPanel>
 
 </UserControl>

@@ -69,12 +69,12 @@
                                     <CheckBox  VerticalAlignment="Top" Style="{StaticResource chkPowerStyle}" IsChecked="{Binding IsConnected}" Margin="110,0,0,0" HorizontalAlignment="Right"></CheckBox>
                                 </StackPanel>
                               
-                                    <TextBlock FontSize="20" FontWeight="SemiBold" Text="{Binding Title}"></TextBlock>
+                                    <TextBlock FontSize="20" Margin="0,50,0,0" FontWeight="SemiBold" Text="{Binding Title}"></TextBlock>
                                     <TextBlock FontSize="13" Text="{Binding TypeName}" FontWeight="Regular"></TextBlock>
                                     <TextBlock FontSize="13" Text="{Binding ComPort}"  FontWeight="Regular"></TextBlock>
                                 <TextBlock FontSize="13" Text="{Binding Description}"  FontWeight="Regular"></TextBlock>
                                 <TextBlock FontSize="13"  FontWeight="Regular" Text="{Binding Brightness,StringFormat=Độ sáng {0}%}"></TextBlock>
-                                <materialDesign:Card Width="19" Margin="170,50,0,0" Height="19" UniformCornerRadius="10" Background="#7344c3"></materialDesign:Card>
+                                <materialDesign:Card Width="19" Margin="170,0,0,0" Height="19" UniformCornerRadius="10" Background="#7344c3"></materialDesign:Card>
                             </StackPanel>
                             
                             </materialDesign:Card>

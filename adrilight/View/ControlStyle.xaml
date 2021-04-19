@@ -607,7 +607,7 @@
                   Data="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"  
                   Fill="Gray" Stroke="#e5e5e5" />
                             </Grid>
-                           
+
                         </ToggleButton>
                         <ContentPresenter Name="ContentSite"  
                Content="{TemplateBinding SelectionBoxItem}"  
@@ -664,7 +664,7 @@
                                 <ColumnDefinition Width="22" />
                             </Grid.ColumnDefinitions>
                             <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
-                           
+
                             <Image Source="{StaticResource svgEdit}" Margin="0,-2,0,0"  VerticalAlignment="Center" Height="20" Width="20" HorizontalAlignment="Left" Grid.Column="1"></Image>
                         </Grid>
                     </Border>
@@ -737,9 +737,9 @@
                             <Setter Property="Foreground" Value="#7344c3"></Setter>
                             <Setter Property="BorderThickness" Value="1"></Setter>
                             <Setter Property="Margin" Value="-1,0,0,0" TargetName="vb"></Setter>
-                            
+
                         </DataTrigger>
-                      
+
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -763,7 +763,7 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Cursor" Value="Hand"></Setter>
                         </Trigger>
-                       
+
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding IsConnected}" Value="True" />
@@ -829,7 +829,7 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Cursor" Value="Hand"></Setter>
                         </Trigger>
-                        
+
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -883,5 +883,26 @@
             </Setter.Value>
         </Setter>
     </Style>
-  
+    <Style x:Key="btnClose" TargetType="{x:Type Button}">
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Image Source="{StaticResource svgXClose}" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"></Image>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"></Setter>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

@@ -7,14 +7,14 @@
              mc:Ignorable="d" Background="Transparent"
               xmlns:vm="clr-namespace:adrilight.ViewModel"
               xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
-             d:DesignHeight="450" d:DesignWidth="800" Width="380" Height="380">
+              Width="520" Height="420">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary
                     Source="ControlStyle.xaml">
                 </ResourceDictionary>
-               
+
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type vm:AllNewDeviceViewModel}">
                 <local:AllNewDevice/>
@@ -26,10 +26,10 @@
                 <local:ChangeDeviceNameView/>
             </DataTemplate>
         </ResourceDictionary>
-       
+
     </UserControl.Resources>
     <Border CornerRadius="50" Background="White">
         <ContentControl Content="{Binding CurrentView}" Grid.Column="1" Margin="20" />
     </Border>
-   
+
 </UserControl>
