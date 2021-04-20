@@ -121,5 +121,38 @@ namespace BO
                 OnPropertyChanged();
             }
         }
+        private string _mode;
+        public string Mode
+        {
+            get { return _mode; }
+            set
+            {
+                if (_mode == value) return;
+                _mode = value;
+                OnPropertyChanged();
+            }
+        }
+        private string _source;
+        public string Source
+        {
+            get { return _source; }
+            set
+            {
+                if (_source == value) return;
+                _source = value;
+                OnPropertyChanged();
+            }
+        }
+        private string _size;
+        public string Size
+        {
+            get { return _size; }
+            set
+            {
+                if (_size == value) return;
+                _size = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

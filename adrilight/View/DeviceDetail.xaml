@@ -38,21 +38,21 @@
             <ColumnDefinition Width="40"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Column="0" >
-            <Button Style="{StaticResource btnPrevious}" Width="30" Height="30" Command="{Binding BackCommand}"></Button>
-            <Button Style="{StaticResource btnCharacter}" Width="40" Height="40" Content="{Binding  Card.Character}" Margin="10,0,10,0" Tag="{Binding Card.IsConnected}"></Button>
-            <StackPanel Width="440">
-                <TextBlock FontSize="16" FontWeight="Bold" Text="{Binding Card.Title}"></TextBlock>
+            <Button Style="{StaticResource btnPrevious}" Width="37" Height="37" Command="{Binding BackCommand}"></Button>
+            <Button Style="{StaticResource btnCharacter}" Width="67" Height="67" Content="{Binding  Card.Character}" Margin="10,0,10,0" Tag="{Binding Card.IsConnected}"></Button>
+            <StackPanel Width="540">
+                <TextBlock Style="{StaticResource tbHeadingStyle}"  Text="{Binding Card.Title}"></TextBlock>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="16" Text="{Binding Card.TypeName}" FontWeight="Regular"></TextBlock>
-                    <TextBlock>-</TextBlock>
-                    <TextBlock FontSize="16" Text="{Binding Card.ComPort}"  FontWeight="Regular"></TextBlock>
+                    <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding Card.TypeName}" ></TextBlock>
+                    <TextBlock Style="{StaticResource tbHeading3Style}">-</TextBlock>
+                    <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding Card.ComPort}" ></TextBlock>
                 </StackPanel>
             </StackPanel>
-            <Button  Style="{StaticResource btnCloseStyle}" HorizontalAlignment="Right"  Width="30" Height="30" Command="{Binding DeleteCommand}">
+            <Button  Style="{StaticResource btnCloseStyle}" HorizontalAlignment="Right"   Width="37" Height="37" Command="{Binding DeleteCommand}">
 
             </Button>
         </StackPanel>

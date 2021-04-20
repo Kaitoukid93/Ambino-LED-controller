@@ -62,8 +62,10 @@ namespace adrilight.ViewModel
         }
         public async void ShowDeleteDialog()
         {
-
-            await DialogHost.Show(new View.DeleteMessageDialog(), "mainDialog");
+            var view = new View.DeleteMessageDialog();
+            DeleteMessageDialogViewModel dialogViewModel = new DeleteMessageDialogViewModel(_parentVm, Card);
+            view.DataContext = dialogViewModel;
+            await DialogHost.Show(view, "mainDialog");
         }
         public void ReadData()
         {

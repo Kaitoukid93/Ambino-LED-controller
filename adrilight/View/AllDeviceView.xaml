@@ -42,8 +42,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel>
-            <TextBlock Text="All Devices" FontWeight="Bold" FontSize="18"></TextBlock>
-            <TextBlock Text="This dashboard contain..." Foreground="#666A83"></TextBlock>
+            <TextBlock Text="All Devices" Style="{StaticResource tbHeadingStyle}"></TextBlock>
+            <TextBlock Text="This dashboard contain..." Style="{StaticResource tbHeading3Style}" Foreground="#666A83"></TextBlock>
         </StackPanel>
             <Border Grid.Column="1">
             <Button  VerticalAlignment="Top" BorderThickness="0" Padding="0" Width="30" Height="30" Background="Transparent" Foreground="White"    Command="{Binding ShowAddNewCommand}">
@@ -68,12 +68,12 @@
                                     <Button Style="{StaticResource btnCharacter}" Width="67" Height="67" Content="{Binding Character}" ></Button>
                                     <CheckBox  VerticalAlignment="Top" Style="{StaticResource chkPowerStyle}" IsChecked="{Binding IsConnected}" Margin="110,0,0,0" HorizontalAlignment="Right"></CheckBox>
                                 </StackPanel>
-                              
-                                    <TextBlock FontSize="20" Margin="0,50,0,0" FontWeight="SemiBold" Text="{Binding Title}"></TextBlock>
-                                    <TextBlock FontSize="13" Text="{Binding TypeName}" FontWeight="Regular"></TextBlock>
-                                    <TextBlock FontSize="13" Text="{Binding ComPort}"  FontWeight="Regular"></TextBlock>
-                                <TextBlock FontSize="13" Text="{Binding Description}"  FontWeight="Regular"></TextBlock>
-                                <TextBlock FontSize="13"  FontWeight="Regular" Text="{Binding Brightness,StringFormat=Độ sáng {0}%}"></TextBlock>
+
+                                <TextBlock Style="{StaticResource tbHeading2Style}" Margin="0,50,0,0" Text="{Binding Title}"></TextBlock>
+                                <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding TypeName}"></TextBlock>
+                                <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding ComPort}" ></TextBlock>
+                                <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding Description}"  ></TextBlock>
+                                <TextBlock Style="{StaticResource tbHeading3Style}"  Text="{Binding Brightness,StringFormat=Độ sáng {0}%}"></TextBlock>
                                 <materialDesign:Card Width="19" Margin="170,0,0,0" Height="19" UniformCornerRadius="10" Background="#7344c3"></materialDesign:Card>
                             </StackPanel>
                             

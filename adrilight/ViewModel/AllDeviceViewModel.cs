@@ -41,7 +41,10 @@ namespace adrilight.ViewModel
                 ComPort = "COM3",
                 IsActive = true,
                 TypeName = "Ambino Basic",    
-                Character="B"
+                Character="B",
+                 Mode="Screen Capturing",
+                  Source="Display- 1920x1080",
+                  Size="24 inch"
         });
             Cards.Add(new DeviceCard() {
                 Title = "LED màn 2",
@@ -49,7 +52,10 @@ namespace adrilight.ViewModel
                 ComPort = "COM4",
                 IsActive = true,
                 TypeName = "Ambino Basic",
-                Character="H"
+                Character="H",
+                Mode = "Screen Capturing",
+                Source = "Display- 1920x1080",
+                Size = "24 inch"
             });
            
         }

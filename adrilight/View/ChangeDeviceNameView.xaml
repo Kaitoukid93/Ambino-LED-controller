@@ -23,19 +23,19 @@
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <StackPanel>
-            <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Text="{Binding Device.Title}" FontWeight="Bold" FontSize="18"></TextBlock>
-            <TextBlock Margin="0,50,0,0" TextAlignment="Center" HorizontalAlignment="Center" Text="Custom Name"></TextBlock>
-            <TextBox Width="150" Style="{StaticResource tbEdit}" Height="30"></TextBox>
+            <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Text="{Binding Device.TypeName}" Style="{StaticResource tbHeadingStyle}"></TextBlock>
+            <TextBlock Margin="0,50,0,0"  Style="{StaticResource tbHeading2Style}" TextAlignment="Center" HorizontalAlignment="Center" Text="Custom Name"></TextBlock>
+            <TextBox Width="217" Height="37" Style="{StaticResource tbEdit}" Text="{Binding Device.Title}"></TextBox>
           
         </StackPanel>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="37"/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="37"/>
             </Grid.ColumnDefinitions>
-            <Button Style="{StaticResource btnPrevious}" Width="30" Height="30" Command="{Binding BackCommand}"></Button>
-            <Button Style="{StaticResource btnDown}" Grid.Column="2" Width="30" Height="30" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"></Button>
+            <Button Style="{StaticResource btnPrevious}" Width="37" Height="37" Command="{Binding BackCommand}"></Button>
+            <Button Style="{StaticResource btnDown}" Grid.Column="2" Width="37" Height="37" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"></Button>
         </Grid>
     </Grid>
  

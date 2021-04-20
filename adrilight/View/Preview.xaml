@@ -19,48 +19,58 @@
                 <Setter Property="Background" Value="#d6d5d5"></Setter>
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding IsActive}" Value="True">
-                        <Setter Property="Background" Value="Purple"></Setter>
+                        <Setter Property="Background" Value="#7344c3"></Setter>
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel>
-        <ItemsControl  ItemsSource="{Binding LedLights,UpdateSourceTrigger=PropertyChanged}"
+        <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+            <TextBlock Style="{StaticResource tbHeading2Style}">Preview</TextBlock>
+            <ToggleButton Margin="540,0,0,0"  VerticalAlignment="Center" Background="#7344c3"  Width="48" Height="24"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"   IsChecked="True" />
+        </StackPanel>
+        <Border Background="#f6f6f6" CornerRadius="10" Margin="0,10,0,0">
+            <StackPanel Margin="20">
+
+                <ItemsControl Width="646" Height="334"  ItemsSource="{Binding LedLights,UpdateSourceTrigger=PropertyChanged}"
                                                 IsTabStop="False"
                                                 BorderThickness="0" Tag="{Binding}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
 
-                    <materialDesign:Card Width="38"  Height="38" Margin="5"  >
-                        <StackPanel>
-                            <TextBlock FontSize="8" Text="{Binding Num}" VerticalAlignment="Top" TextAlignment="Left" Foreground="White" Margin="2,2,0,0"></TextBlock>
-                        </StackPanel>
-                    </materialDesign:Card>
+                            <materialDesign:Card Width="46"  Height="46" Margin="5"  >
+                                <StackPanel>
+                                    <TextBlock FontSize="8" Text="{Binding Num}" VerticalAlignment="Top" TextAlignment="Left" Foreground="White" Margin="2,2,0,0"></TextBlock>
+                                </StackPanel>
+                            </materialDesign:Card>
 
 
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
-        <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
-            <TextBlock Width="50">LED X</TextBlock>
-            <ComboBox Width="100" Height="30">
-                <ComboBoxItem>8</ComboBoxItem>
-                <ComboBoxItem>9</ComboBoxItem>
-            </ComboBox>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-            <TextBlock Width="50">LED Y</TextBlock>
-            <ComboBox Width="100" Height="30">
-                <ComboBoxItem>8</ComboBoxItem>
-                <ComboBoxItem>9</ComboBoxItem>
-            </ComboBox>
-            <Button Width="80" Height="30" Background="Purple"  Margin="10,0,0,0">Reset</Button>
-        </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+                <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
+                    <TextBlock Width="50" Style="{StaticResource tbHeading4Style}">LED X</TextBlock>
+                    <ComboBox Width="69" Height="37">
+                        <ComboBoxItem>8</ComboBoxItem>
+                        <ComboBoxItem>9</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <TextBlock Width="50" Style="{StaticResource tbHeading4Style}">LED Y</TextBlock>
+                    <ComboBox Width="69" Height="37">
+                        <ComboBoxItem>8</ComboBoxItem>
+                        <ComboBoxItem>9</ComboBoxItem>
+                    </ComboBox>
+                    <Button Width="80" Height="30" Background="#7344c3" BorderThickness="0" FontWeight="Regular" FontSize="15" Margin="10,0,0,0">Reset</Button>
+                </StackPanel>
+            </StackPanel>
+        </Border>
     </StackPanel>
+    
 </UserControl>

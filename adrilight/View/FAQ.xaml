@@ -16,17 +16,17 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel Margin="10">
-        <TextBlock Text="About" FontWeight="SemiBold" FontSize="30"></TextBlock>
+        <TextBlock Text="About"  Style="{StaticResource tbHeadingStyle}"></TextBlock>
         <Image Source="{StaticResource svgLogo}" Width="139" HorizontalAlignment="Center"></Image>
         <StackPanel HorizontalAlignment="Center">
-            <TextBlock Text="{Binding AppName}" FontWeight="SemiBold" FontSize="30" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
-            <TextBlock FontWeight="Regular" FontSize="15" Foreground="#666A83" Text="{Binding BuildVersion,StringFormat=Build Version: {0}}"  HorizontalAlignment="Left" TextAlignment="Center"></TextBlock>
-            <TextBlock FontWeight="Regular" FontSize="15" Foreground="#666A83" Text="{Binding LastUpdate,StringFormat=Last Update: {0:yyyy/MM/dd}}"  HorizontalAlignment="Left" TextAlignment="Center"></TextBlock>
-            <TextBlock FontWeight="Regular" FontSize="15" Foreground="#666A83" Text="{Binding Author,StringFormat=Author: {0}}"  HorizontalAlignment="Left" TextAlignment="Center"></TextBlock>
-            <TextBlock FontWeight="Regular" FontSize="15" Foreground="#666A83" Text="{Binding Git,StringFormat=Git: {0}}"  HorizontalAlignment="Left" TextAlignment="Center"></TextBlock>
+            <TextBlock Text="{Binding AppName}" Style="{StaticResource tbHeadingStyle}" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+            <TextBlock Style="{StaticResource tbHeading5Style}" Foreground="#666A83" Text="{Binding BuildVersion,StringFormat=Build Version: {0}}"  HorizontalAlignment="Left" TextAlignment="Center"></TextBlock>
+            <TextBlock Style="{StaticResource tbHeading5Style}" Foreground="#666A83" Text="{Binding LastUpdate,StringFormat=Last Update: {0:yyyy/MM/dd}}"  HorizontalAlignment="Left" TextAlignment="Center"></TextBlock>
+            <TextBlock Style="{StaticResource tbHeading5Style}" Foreground="#666A83" Text="{Binding Author,StringFormat=Author: {0}}"  HorizontalAlignment="Left" TextAlignment="Center"></TextBlock>
+            <TextBlock Style="{StaticResource tbHeading5Style}" Foreground="#666A83" Text="{Binding Git,StringFormat=Git: {0}}"  HorizontalAlignment="Left" TextAlignment="Center"></TextBlock>
             
         </StackPanel>
-        <TextBlock Text="FAQ" FontWeight="SemiBold" FontSize="30"></TextBlock>
-        <TextBlock Text="{Binding FAQ}" FontWeight="Regular" FontSize="15" Foreground="#666A83" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"></TextBlock>
+        <TextBlock Text="FAQ" Style="{StaticResource tbHeadingStyle}"></TextBlock>
+        <TextBlock Text="{Binding FAQ}" Style="{StaticResource tbHeading5Style}" Foreground="#666A83" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow"></TextBlock>
     </StackPanel>
 </UserControl>

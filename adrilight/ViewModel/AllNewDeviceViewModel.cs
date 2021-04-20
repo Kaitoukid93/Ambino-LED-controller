@@ -33,11 +33,11 @@ namespace adrilight.ViewModel
         public void ReadData()
         {
             Devices = new ObservableCollection<DeviceCard>();
-            Devices.Add(new DeviceCard() { Title = "Ambino Test", Character = "A" });
-            Devices.Add(new DeviceCard() { Title = "Ambino Test1", Character = "B" });
-            Devices.Add(new DeviceCard() { Title = "Ambino Test2", Character = "C" });
-            Devices.Add(new DeviceCard() { Title = "Ambino Test3", Character = "D" });
-            Devices.Add(new DeviceCard() { Title = "Ambino Test4", Character = "D" });
+            Devices.Add(new DeviceCard() { Title = "Ambino Test", Character = "A" , ComPort="COM3", Size="12 inch"});
+            Devices.Add(new DeviceCard() { Title = "Ambino Test1", Character = "B", ComPort = "COM3", Size="24 inch" });
+            Devices.Add(new DeviceCard() { Title = "Ambino Test2", Character = "C", ComPort = "COM3", Size = "24 inch" });
+            Devices.Add(new DeviceCard() { Title = "Ambino Test3", Character = "D", ComPort = "COM3", Size = "24 inch" });
+            Devices.Add(new DeviceCard() { Title = "Ambino Test4", Character = "D", ComPort = "COM3", Size = "24 inch" });
             SelectDeviceCommand = new RelayCommand<DeviceCard>((p) => {
                 return true;
             }, (p) =>

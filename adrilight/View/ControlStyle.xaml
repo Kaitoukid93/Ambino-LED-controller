@@ -546,6 +546,13 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
+    <DrawingImage x:Key="svgOKOrange">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V26 H26 V0 H0 Z">
+                <GeometryDrawing Brush="#FF8a00"  Geometry="F1 M26,26z M0,0z M1.84645,14.7526L11.088,23.9941C11.5475,24.4536 12.1708,24.7118 12.8207,24.7118 13.4707,24.7118 14.094,24.4536 14.5535,23.9941L23.795,14.7526C24.2546,14.293 24.5128,13.6697 24.5128,13.0198 24.5128,12.3699 24.2546,11.7466 23.795,11.287 23.3355,10.8274 22.7122,10.5692 22.0623,10.5692 21.4123,10.5692 20.789,10.8274 20.3295,11.287L12.8207,18.7957 5.31202,11.287C4.85245,10.8274 4.22916,10.5692 3.57923,10.5692 2.92931,10.5692 2.30601,10.8274 1.84645,11.287 1.38689,11.7466 1.12871,12.3699 1.12871,13.0198 1.12871,13.6697 1.38689,14.293 1.84645,14.7526z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
     <!--end-->
     <Style x:Key="ComboboxButtonStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Template">
@@ -609,13 +616,13 @@
                             </Grid>
 
                         </ToggleButton>
-                        <ContentPresenter Name="ContentSite"  
+                        <!--<ContentPresenter Name="ContentSite"  
                Content="{TemplateBinding SelectionBoxItem}"  
                ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"  
                ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"  
                VerticalAlignment="Center" 
                HorizontalAlignment="Left"  
-               Margin="5,0,0,0"/>
+               Margin="5,0,0,0"/>-->
                         <Popup Name="Popup"  
                Placement="Bottom"  
                IsOpen="{TemplateBinding IsDropDownOpen}"  
@@ -883,6 +890,29 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="btnDownYellow" TargetType="{x:Type Button}">
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Image Source="{StaticResource svgOKOrange}" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"></Image>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"></Setter>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <Style x:Key="btnClose" TargetType="{x:Type Button}">
         <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
@@ -904,5 +934,40 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="tbHeadingStyle">
+        <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="FontWeight" Value="SemiBold"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="FontSize" Value="30"></Setter>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="tbHeading2Style">
+        <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="FontWeight" Value="SemiBold"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="FontSize" Value="20"></Setter>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="tbHeading3Style">
+        <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="FontWeight" Value="Regular"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="FontSize" Value="13"></Setter>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="tbHeading4Style">
+        <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="FontWeight" Value="Medium"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="FontSize" Value="15"></Setter>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="tbHeading5Style">
+        <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="FontWeight" Value="Regular"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="FontSize" Value="15"></Setter>
     </Style>
 </ResourceDictionary>

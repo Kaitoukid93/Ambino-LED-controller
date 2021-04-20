@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:adrilight.View"
              mc:Ignorable="d" 
                xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
-             d:DesignHeight="450" d:DesignWidth="800">
+             Width="518" Height="274">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -16,20 +16,26 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <StackPanel Margin="20">
-        <TextBlock Text="Are you sure want to delete this device" FontWeight="Bold" TextAlignment="Center"></TextBlock>
-        <TextBlock Text="If you delete a device, all configs and data will be lost" TextAlignment="Center"></TextBlock>
-        <Border HorizontalAlignment="Center" Padding="10" CornerRadius="5" Background="#d6d5d5" Width="100" Height="30" Margin="0,20,0,20">
-            <TextBlock Text="{Binding Card.Title}"></TextBlock>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Are you sure want to delete this device" Style="{StaticResource tbHeading2Style}" TextAlignment="Center"></TextBlock>
+        <TextBlock  Grid.Row="1"  Text="If you delete a device, all configs and data will be lost" Style="{StaticResource tbHeading3Style}" TextAlignment="Center"></TextBlock>
+        <Border  Grid.Row="2"  HorizontalAlignment="Center"  CornerRadius="5" Background="#d6d5d5" Height="35">
+            <TextBlock Text="{Binding Card.Title}"  Style="{StaticResource tbHeading2Style}" Margin="5"></TextBlock>
         </Border>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="43"/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="43"/>
             </Grid.ColumnDefinitions>
-            <Button Style="{StaticResource btnPrevious}" Width="30" Height="30" Command="{Binding DeleteCommand}"></Button>
-            <Button Style="{StaticResource btnDown}" Grid.Column="2" Width="30" Height="30" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"></Button>
+            <Button Style="{StaticResource btnPrevious}" Width="43" Height="37" Command="{Binding DeleteCommand}"></Button>
+            <Button Style="{StaticResource btnDownYellow}" Grid.Column="2" Width="43" Height="37" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"></Button>
         </Grid>
-    </StackPanel>
+    </Grid>
 </UserControl>

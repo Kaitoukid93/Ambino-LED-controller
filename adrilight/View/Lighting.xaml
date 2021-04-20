@@ -23,36 +23,36 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel>
-        <TextBlock FontSize="15" FontWeight="Bold" Margin="10">Lighting</TextBlock>
+        <TextBlock   Style="{StaticResource tbHeading2Style}" Margin="10">Lighting</TextBlock>
         <Border CornerRadius="30" Background="#f6f6f6">
             <Grid Margin="20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition Width="220"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="90"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="120"/>
 
                 </Grid.RowDefinitions>
                 <Border>
-                    <TextBlock>Mode</TextBlock>
+                    <TextBlock   Style="{StaticResource tbHeading4Style}">Mode</TextBlock>
                 </Border>
                 <Border Grid.Column="1">
-                    <ComboBox Height="25"></ComboBox>
+                    <ComboBox Width="217" Height="37" Text="{Binding Card.Mode}"></ComboBox>
                 </Border>
                 <Border Grid.Row="1">
-                    <TextBlock>Source</TextBlock>
+                    <TextBlock   Style="{StaticResource tbHeading4Style}">Source</TextBlock>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="1">
-                    <ComboBox Height="25"></ComboBox>
+                    <ComboBox Width="217" Height="37" Text="{Binding Card.Source}"></ComboBox>
                 </Border>
                 <Grid Grid.Row="2" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="240"/>
+                        <ColumnDefinition Width="106"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -60,28 +60,28 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Border Grid.Row="0">
-                        <TextBlock>Screen size</TextBlock>
+                        <TextBlock   Style="{StaticResource tbHeading4Style}">Screen size</TextBlock>
                     </Border>
                     <Border Grid.Column="2" Grid.Row="0">
-                        <ComboBox Height="25" Width="50" HorizontalAlignment="Right"></ComboBox>
+                        <ComboBox Height="37" Width="106" HorizontalAlignment="Right" Text="{Binding Card.Size}"></ComboBox>
                     </Border>
                     <Border Grid.Row="1">
-                        <TextBlock>Color Temprature</TextBlock>
+                        <TextBlock   Style="{StaticResource tbHeading4Style}">Color Temprature</TextBlock>
                     </Border>
                     <Border Grid.Row="1" Grid.Column="1">
-                        <Slider TickFrequency="5" VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="50" Value="25" />
+                        <Slider TickFrequency="5" Width="240"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="50" Value="25" />
                     </Border>
                     <Border Grid.Column="2" Grid.Row="1">
-                        <ComboBox Height="25" Width="50" HorizontalAlignment="Right"></ComboBox>
+                        <ComboBox Height="37" Width="106" HorizontalAlignment="Right"></ComboBox>
                     </Border>
                     <Border Grid.Row="2">
-                        <TextBlock>Brightness</TextBlock>
+                        <TextBlock   Style="{StaticResource tbHeading4Style}">Brightness</TextBlock>
                     </Border>
                     <Border Grid.Row="2" Grid.Column="1">
-                        <Slider TickFrequency="5" VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="50" Value="25" />
+                        <Slider TickFrequency="5" Width="240"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="100" Value="{Binding Card.Brightness}" />
                     </Border>
                     <Border Grid.Column="2" Grid.Row="2">
-                        <ComboBox Height="25" Width="50" HorizontalAlignment="Right"></ComboBox>
+                        <ComboBox Height="37" Width="106" HorizontalAlignment="Right"></ComboBox>
                     </Border>
                 </Grid>
 
