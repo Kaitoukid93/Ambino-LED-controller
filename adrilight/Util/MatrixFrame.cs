@@ -1,16 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using static adrilight.PixelOrder;
 using Orientation = adrilight.PixelOrder.Orientation;
 
+
+
 namespace adrilight
 {
-    public static class MatrixFrame 
+    public static class MatrixFrame
     {
         #region Public_Variables
         //implmented get/set to expose references
@@ -22,8 +26,9 @@ namespace adrilight
         public static Orientation orientation { get; set; } = Orientation.HZ;
         public static StartCorner startCorner { get; set; } = StartCorner.TL;
         public static NewLine newLine { get; set; } = NewLine.SC;
-        public static int [] CustomOrder { get; set; }
-        
+        public static int[] CustomOrder { get; set; }
+       
+     
         #endregion
 
 
@@ -350,7 +355,44 @@ namespace adrilight
         }
 
 
-        public static void SetRectanglesOrder(LEDOrder LEDorder, Canvas playground)
+        
+
+        public static void FillRectFromPaletteColors(int colorIndex)
+        {
+            //this is the function we get the color moving
+
+
+
+
+        }
+
+        
+
+        public static void ColorStripFromColorPoint(int numLED,int ledIndex, System.Windows.Media.Color[] small, Canvas playground)
+
+        {
+
+            playground.Children.Clear();
+            for (int i=0;i<numLED;i++)
+            {
+                System.Windows.Shapes.Rectangle rectangle = new System.Windows.Shapes.Rectangle {
+                    Width = playground.ActualWidth / numLED,
+                    Height = 20,
+                };
+
+                System.Windows.Media.Brush brush = new SolidColorBrush(small[i]);
+                rectangle.Fill = brush;
+                playground.Children.Add(rectangle);
+
+                Canvas.SetLeft(rectangle, i * (playground.ActualWidth / numLED + 3));
+                Canvas.SetTop(rectangle,0);
+            }    
+           
+
+        }
+
+
+    public static void SetRectanglesOrder(LEDOrder LEDorder, Canvas playground)
         {
             
             //customorder[pixelcounter] = width * i + j;

@@ -124,7 +124,9 @@ namespace adrilight.ViewModel
            "Tắt",
            "Gifxelation",
            "Pixelation",
-           "Ambilation"
+           "Ambilation",
+           "FastLED"
+
 
 
         };
@@ -138,7 +140,8 @@ namespace adrilight.ViewModel
            "Tắt",
            "Gifxelation",
            "Pixelation",
-           "Ambilation"
+           "Ambilation",
+           "FastLED"
 
         };
             DeskEffects = new ObservableCollection<string>
@@ -151,7 +154,8 @@ namespace adrilight.ViewModel
            "Tắt",
            "Gifxelation",
            "Pixelation",
-           "Ambilation"
+           "Ambilation",
+           "FastLED"
 
         };
             Freq = new ObservableCollection<string>

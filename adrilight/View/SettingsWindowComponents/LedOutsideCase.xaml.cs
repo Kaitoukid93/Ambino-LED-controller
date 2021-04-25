@@ -31,6 +31,9 @@ using System.Windows.Controls.Primitives;
 using WpfAnimatedGif;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using adrilight.Util;
+using OpenRGB;
+using System.Collections;
 
 namespace adrilight.View.SettingsWindowComponents
 {
@@ -59,8 +62,13 @@ namespace adrilight.View.SettingsWindowComponents
         GifBitmapDecoder decoder;
         public int pixelcounter = 0;
         private static WriteableBitmap MatrixBitmap { get; set; }
+        private static int numcolor = 16;
+        private static System.Windows.Media.Color[] small = new System.Windows.Media.Color[numcolor];
+
         
         
+
+
 
         //new gifxelation mode//
         //private int _imX1;
@@ -81,7 +89,9 @@ namespace adrilight.View.SettingsWindowComponents
         //private BitmapSource _gifPlayPauseImage = MatrixFrame.CreateBitmapSourceFromBitmap(Properties.Resources.icons8_play_32);
 
 
-         DispatcherTimer GifTimer = new DispatcherTimer();
+        DispatcherTimer GifTimer = new DispatcherTimer();
+        DispatcherTimer PixTimer = new DispatcherTimer();
+        private static double _pixframeIndex = 0;
         private static int _gifFrameIndex = 0;
         //new gifxelation mode//
 
@@ -178,7 +188,8 @@ namespace adrilight.View.SettingsWindowComponents
             
             dispatcherTimer.Start();
             dispatcherTimer2.Start();
-            
+            StartPix();
+
 
 
 
@@ -272,6 +283,16 @@ namespace adrilight.View.SettingsWindowComponents
             GifTimer.Start();
 
         }
+
+
+        public void StartPix()
+        {
+
+            PixTimer.Interval = new TimeSpan(0, 0, 0, 0, 10); 
+            PixTimer.Tick += new EventHandler(PixTimer_Tick);
+            PixTimer.Start();
+
+        }
         public void StopGif()
         {
             GifTimer.Stop();
@@ -297,12 +318,65 @@ namespace adrilight.View.SettingsWindowComponents
             
             ImageProcesser.DisposeWorkingBitmap();
             //SerialManager.PushFrame();
+
+            //this section is for RGB processing mode
+            //User input start color hue and we create a hue gradient or rainbow smooth color or whatever
+
+
+           
+
+            //create first frame
+            //push to view
+
+            //frame moving(index ++)
+
+
+            //end frame??
+
+
         }
 
+        public void PixTimer_Tick(object sender, EventArgs e)
+        {
+            var newcolor = OpenRGB.NET.Models.Color.GetHueRainbow(16, _pixframeIndex,1, 1, 1);
+            //while(colorarray.MoveNext())
+            //{
+            //    OpenRGB.NET.Models.Color currentColor = (OpenRGB.NET.Models.Color)colorarray.Current;
+            //    Console.WriteLine("current color is", currentColor.R, currentColor.G, currentColor.B);
+            //}
+            int counter = 0;
+            foreach (var color in newcolor)
+            {
 
-      
+               // Console.WriteLine("color R " + color.R + " color G " + color.G + " color B " + color.B);
+                small[counter++] = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
 
-     
+            }
+
+
+
+
+
+            // System.Windows.Media.Color[] small = { color1, color2, color3, color4, color5, color6, color7, color8 };
+
+            MatrixFrame.ColorStripFromColorPoint(16, 0, small, playground);
+            if(_pixframeIndex>255)
+            {
+                _pixframeIndex = 0;
+            }
+            else
+            {
+                _pixframeIndex +=15;
+            }
+            
+        }
+
+    
+
+
+
+
+
 
         //private void Button_Imaging_ImportImage_Click(object sender, RoutedEventArgs e)
         //{
@@ -3070,7 +3144,41 @@ namespace adrilight.View.SettingsWindowComponents
                 int width = Convert.ToInt32(ledx.Text);
                 int height = Convert.ToInt32(ledy.Text);
 
-               MatrixFrame.DrawRectangles(width, height,playground);
+                //  MatrixFrame.DrawRectangles(width, height,playground);
+                System.Windows.Media.Color color1, color2, color3, color4, color5, color6, color7, color8;
+                color1 = System.Windows.Media.Color.FromRgb(255, 0, 0);
+                color2 = System.Windows.Media.Color.FromRgb(255, 0, 02);
+                color3 = System.Windows.Media.Color.FromRgb(0, 255, 0);
+                color4 = System.Windows.Media.Color.FromRgb(0, 255, 0);
+                color5 = System.Windows.Media.Color.FromRgb(0, 0, 255);
+                color6 = System.Windows.Media.Color.FromRgb(0, 0, 255);
+                color7 = System.Windows.Media.Color.FromRgb(255,255, 0);
+                color8 = System.Windows.Media.Color.FromRgb(0, 255, 255);
+
+
+                var newcolor = OpenRGB.NET.Models.Color.GetHueRainbow(16, 0.1, 1, 1, 1);
+                IEnumerator colorarray = newcolor.GetEnumerator();
+                //while(colorarray.MoveNext())
+                //{
+                //    OpenRGB.NET.Models.Color currentColor = (OpenRGB.NET.Models.Color)colorarray.Current;
+                //    Console.WriteLine("current color is", currentColor.R, currentColor.G, currentColor.B);
+                //}
+                int counter = 0;
+                foreach( var color in newcolor)
+                {
+                    
+                    Console.WriteLine("color R "+ color.R + " color G "+ color.G + " color B "+ color.B);
+                    small[counter++]= System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
+
+                }
+                
+
+
+
+
+               // System.Windows.Media.Color[] small = { color1, color2, color3, color4, color5, color6, color7, color8 };
+
+                MatrixFrame.ColorStripFromColorPoint(16, 0, small, playground);
             }
 
 
@@ -3235,6 +3343,7 @@ namespace adrilight.View.SettingsWindowComponents
                 {
                     isPlaying = true;
                     StartGif();
+                    
                 }
                 
                 else
