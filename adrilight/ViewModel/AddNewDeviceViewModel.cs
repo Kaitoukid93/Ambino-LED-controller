@@ -1,5 +1,6 @@
 ﻿using BO;
 using GalaSoft.MvvmLight;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,8 +12,8 @@ namespace adrilight.ViewModel
 {
   public  class AddNewDeviceViewModel : BaseViewModel
     {
-        private DeviceCard _device;
-        public DeviceCard Device {
+        private DeviceInfoDTO _device;
+        public DeviceInfoDTO Device {
             get { return _device; }
             set
             {
@@ -33,9 +34,13 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged("CurrentView");
             }
         }
-        
+
+        /// <summary>
+        /// ReadData
+        /// </summary>
         public override void ReadData()
         {
+            Device = new DeviceInfoDTO();
             _allDeviceView =new AllNewDeviceViewModel(this);
             CurrentView = _allDeviceView;
         }
@@ -44,17 +49,18 @@ namespace adrilight.ViewModel
             _allDeviceView = new AllNewDeviceViewModel(this);
             CurrentView = _allDeviceView;
         }
-        public void GoToChangeNameView(DeviceCard device)
+        public void GoToChangeNameView(DeviceInfoDTO device)
         {
             Device = device;
             _changeNameView = new ChangeDeviceNameViewModel(this,Device);
             CurrentView = _changeNameView;
         }
-        public void GoToChangePort(DeviceCard device)
+        public void GoToChangePort(DeviceInfoDTO device)
         {
             Device = device;
             _changePortView = new ChangePortViewModel(this,device);
             CurrentView = _changePortView;           
         }
+        
     }
 }

@@ -554,7 +554,7 @@
         </DrawingImage.Drawing>
     </DrawingImage>
     <!--end-->
-    <Style x:Key="ComboboxButtonStyle" TargetType="{x:Type ToggleButton}">
+    <!--<Style x:Key="ComboboxButtonStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
@@ -616,13 +616,13 @@
                             </Grid>
 
                         </ToggleButton>
-                        <!--<ContentPresenter Name="ContentSite"  
+                        --><!--<ContentPresenter Name="ContentSite"  
                Content="{TemplateBinding SelectionBoxItem}"  
                ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"  
                ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"  
                VerticalAlignment="Center" 
                HorizontalAlignment="Left"  
-               Margin="5,0,0,0"/>-->
+               Margin="5,0,0,0"/>--><!--
                         <Popup Name="Popup"  
                Placement="Bottom"  
                IsOpen="{TemplateBinding IsDropDownOpen}"  
@@ -647,7 +647,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
     <Style x:Key="tbEdit" TargetType="{x:Type TextBox}">
         <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
         <Setter Property="BorderBrush" Value="#FFABAdB3"/>

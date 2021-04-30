@@ -23,7 +23,7 @@ namespace adrilight.View
         public AddNewDevice()
         {
             InitializeComponent();
-            this.DataContext = new ViewModel.AddNewDeviceViewModel();
+          
         }
     }
 }

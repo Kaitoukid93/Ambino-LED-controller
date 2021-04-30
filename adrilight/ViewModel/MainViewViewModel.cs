@@ -61,8 +61,8 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged("CurrentView");
             }
         }
-        private DeviceCard _currentDevice;
-        public DeviceCard CurrentDevice {
+        private DeviceInfoDTO _currentDevice;
+        public DeviceInfoDTO CurrentDevice {
             get { return _currentDevice; }
             set
             {
@@ -146,7 +146,7 @@ namespace adrilight.ViewModel
             SetMenuItemActiveStatus(menuItem.Text);
         }
        
-        public void GotoChild(DeviceCard card)
+        public void GotoChild(DeviceInfoDTO card)
         {
             _detailView = new DeviceDetailViewModel(card, this);
             CurrentView = _detailView;

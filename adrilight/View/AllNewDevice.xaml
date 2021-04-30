@@ -30,8 +30,8 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                                 <StackPanel Orientation="Horizontal" >
-                                    <Button Style="{StaticResource btnCharacter}" Margin="10,0,0,0" Width="28" Height="28" Content="{Binding Character}" ></Button>
-                                    <TextBlock Width="132" Margin="50,0,0,0" FontWeight="SemiBold" FontSize="20" Text="{Binding Title}" VerticalAlignment="Center" TextAlignment="Center"  Height="27"></TextBlock>
+                                    <Button Style="{StaticResource btnCharacter}" Margin="10,0,0,0" Width="28" Height="28" Content="{Binding StartCharacter}" ></Button>
+                                    <TextBlock Width="132" Margin="50,0,0,0" FontWeight="SemiBold" FontSize="20" Text="{Binding DeviceName}" VerticalAlignment="Center" TextAlignment="Center"  Height="27"></TextBlock>
                                     <Button Style="{StaticResource btnNext}" Margin="170,0,0,0" Width="28" Height="28"></Button>
                                 </StackPanel>
                             </Border>
@@ -46,8 +46,10 @@
     <StackPanel Width="500" Height="400"  Background="Transparent">
         <StackPanel Width="500" Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock Margin="160,0,0,0" FontWeight="SemiBold" FontSize="30" HorizontalAlignment="Center" TextAlignment="Center" Width="162" > Add New</TextBlock>
-            <Button  VerticalAlignment="Center" Margin="120,0,0,0" HorizontalAlignment="Right" Style="{StaticResource btnClose}" Width="26" Height="26"    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
-
+            <Button  VerticalAlignment="Center" Margin="120,0,0,0" HorizontalAlignment="Right" Style="{StaticResource btnClose}" Width="26" Height="26" IsCancel="True"   Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                <Button.CommandParameter>
+                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">False</system:Boolean>
+                </Button.CommandParameter>
             </Button>
         </StackPanel>
 

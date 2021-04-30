@@ -13,8 +13,8 @@ namespace adrilight.ViewModel
 {
    public class AllDeviceViewModel : BaseViewModel
     {
-        private ObservableCollection<DeviceCard> _cards;
-        public ObservableCollection<DeviceCard> Cards {
+        private ObservableCollection<DeviceInfoDTO> _cards;
+        public ObservableCollection<DeviceInfoDTO> Cards {
             get { return _cards; }
             set
             {
@@ -34,41 +34,20 @@ namespace adrilight.ViewModel
         
         public void LoadCard()
         {
-            Cards = new ObservableCollection<DeviceCard>();
-            Cards.Add(new DeviceCard() {
-                Title = "LED màn 1",
-                Brightness = 70,
-                ComPort = "COM3",
-                IsActive = true,
-                TypeName = "Ambino Basic",    
-                Character="B",
-                 Mode="Screen Capturing",
-                  Source="Display- 1920x1080",
-                  Size="24 inch"
-        });
-            Cards.Add(new DeviceCard() {
-                Title = "LED màn 2",
-                Brightness = 70,
-                ComPort = "COM4",
-                IsActive = true,
-                TypeName = "Ambino Basic",
-                Character="H",
-                Mode = "Screen Capturing",
-                Source = "Display- 1920x1080",
-                Size = "24 inch"
-            });
+            Cards = new ObservableCollection<DeviceInfoDTO>();
+       
            
         }
         public void ReadData()
         {
-            SelectCardCommand = new RelayCommand<DeviceCard>((p) => {
+            SelectCardCommand = new RelayCommand<DeviceInfoDTO>((p) => {
                 return p != null;
             }, (p) =>
               {
                   (_parentVm as MainViewViewModel).GotoChild(p);
               });
             LoadCard();
-            ShowAddNewCommand = new RelayCommand<DeviceCard>((p) => {
+            ShowAddNewCommand = new RelayCommand<DeviceInfoDTO>((p) => {
                 return true;
             }, (p) =>
             {
@@ -77,8 +56,14 @@ namespace adrilight.ViewModel
         }
         public async void ShowAddNewDialog()
         {
-
-           await DialogHost.Show(new View.AddNewDevice(), "mainDialog");
+            var vm = new ViewModel.AddNewDeviceViewModel();
+            var view = new View.AddNewDevice();
+            view.DataContext = vm;
+            bool addResult =(bool) (await DialogHost.Show(view, "mainDialog"));
+            if (addResult)
+            {
+                Cards.Add(vm.Device);
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,8 +12,8 @@ namespace adrilight.ViewModel
 {
    public class ChangePortViewModel: ViewModelBase
     {
-        private DeviceCard _device;
-        public DeviceCard Device {
+        private DeviceInfoDTO _device;
+        public DeviceInfoDTO Device {
             get { return _device; }
             set
             {
@@ -24,7 +25,19 @@ namespace adrilight.ViewModel
         public ICommand BackCommand { get; set; }
         public ICommand NextCommand { get; set; }
         public ViewModelBase _parentVm;
-        public ChangePortViewModel(ViewModelBase parent,DeviceCard device)
+        public IList<String> _AvailableComPorts;
+        public IList<String> AvailableComPorts {
+            get
+            {
+
+
+                _AvailableComPorts = SerialPort.GetPortNames().Concat(new[] { "Không có" }).ToList();
+                _AvailableComPorts.Remove("COM1");
+
+                return _AvailableComPorts;
+            }
+        }
+        public ChangePortViewModel(ViewModelBase parent, DeviceInfoDTO device)
         {
             Device = device;
             _parentVm = parent;

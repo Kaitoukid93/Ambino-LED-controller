@@ -23,12 +23,12 @@
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <StackPanel>
-            <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Text="{Binding Device.Title}" Style="{StaticResource tbHeadingStyle}"></TextBlock>
+            <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Text="{Binding Device.DeviceName}" Style="{StaticResource tbHeadingStyle}"></TextBlock>
             <TextBlock Margin="0,50,0,0" Style="{StaticResource tbHeading2Style}" TextAlignment="Center" HorizontalAlignment="Center" Text="Chose your screen size"></TextBlock>
-            <ComboBox Width="106" Height="37" HorizontalAlignment="Center" Text="{Binding Device.Size}" Margin="0,10,0,0"></ComboBox>
+            <ComboBox Width="106" Height="37" HorizontalAlignment="Center" Text="{Binding Device.DeviceSize}" Margin="0,10,0,0"></ComboBox>
             <TextBlock Margin="0,10,0,0" Style="{StaticResource tbHeading2Style}" TextAlignment="Center" Text="Chose COM Port"></TextBlock>
             <StackPanel Orientation="Horizontal" Margin="182,0,0,0">
-                <ComboBox Width="106" Height="37" HorizontalAlignment="Center" Text="{Binding Device.ComPort}" Margin="0,10,0,0"></ComboBox>
+                <ComboBox Width="106" Height="37" HorizontalAlignment="Center"  Text="{Binding Device.DevicePort}" Margin="0,10,0,0" ItemsSource="{Binding AvailableComPorts}"></ComboBox>
                 <Image Source="{StaticResource svgQuestion}" VerticalAlignment="Center" Margin="5,5,0,0"></Image>
             </StackPanel>
            

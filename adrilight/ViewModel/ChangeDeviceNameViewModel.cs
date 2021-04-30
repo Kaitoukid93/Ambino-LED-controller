@@ -11,8 +11,8 @@ namespace adrilight.ViewModel
 {
    public class ChangeDeviceNameViewModel : ViewModelBase
     {
-        private DeviceCard _device;
-        public DeviceCard Device {
+        private DeviceInfoDTO _device;
+        public DeviceInfoDTO Device {
             get { return _device; }
             set
             {
@@ -22,13 +22,19 @@ namespace adrilight.ViewModel
             }
         }
         public ICommand BackCommand { get; set; }
-        public ICommand NextCommand { get; set; }
+        public ICommand OkCommand { get; set; }
         public ViewModelBase _parentVm;
-        public ChangeDeviceNameViewModel(ViewModelBase parent, DeviceCard device)
+        public ChangeDeviceNameViewModel(ViewModelBase parent, DeviceInfoDTO device)
         {
             Device = device;
             _parentVm = parent;
             BackCommand = new RelayCommand<string>((p) => {
+                return true;
+            }, (p) =>
+            {
+                ((AddNewDeviceViewModel)_parentVm).GoAllDeviceView();
+            });
+            OkCommand = new RelayCommand<string>((p) => {
                 return true;
             }, (p) =>
             {

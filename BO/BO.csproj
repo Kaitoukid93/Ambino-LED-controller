@@ -41,7 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DeviceCard.cs" />
+    <Compile Include="DeviceInfo.cs" />
+    <Compile Include="DeviceInfoDTO.cs" />
     <Compile Include="LedLight.cs" />
     <Compile Include="NotifyObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

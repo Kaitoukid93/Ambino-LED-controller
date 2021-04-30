@@ -12,8 +12,8 @@ namespace adrilight.ViewModel
 {
     class AllNewDeviceViewModel : ViewModelBase
     {
-        private ObservableCollection<DeviceCard> _devices;
-        public ObservableCollection<DeviceCard> Devices {
+        private ObservableCollection<DeviceInfoDTO> _devices;
+        public ObservableCollection<DeviceInfoDTO> Devices {
             get { return _devices; }
             set
             {
@@ -32,13 +32,11 @@ namespace adrilight.ViewModel
         }
         public void ReadData()
         {
-            Devices = new ObservableCollection<DeviceCard>();
-            Devices.Add(new DeviceCard() { Title = "Ambino Test", Character = "A" , ComPort="COM3", Size="12 inch"});
-            Devices.Add(new DeviceCard() { Title = "Ambino Test1", Character = "B", ComPort = "COM3", Size="24 inch" });
-            Devices.Add(new DeviceCard() { Title = "Ambino Test2", Character = "C", ComPort = "COM3", Size = "24 inch" });
-            Devices.Add(new DeviceCard() { Title = "Ambino Test3", Character = "D", ComPort = "COM3", Size = "24 inch" });
-            Devices.Add(new DeviceCard() { Title = "Ambino Test4", Character = "D", ComPort = "COM3", Size = "24 inch" });
-            SelectDeviceCommand = new RelayCommand<DeviceCard>((p) => {
+            Devices = new ObservableCollection<DeviceInfoDTO>();
+            Devices.Add(new DeviceInfoDTO() { DeviceName = "aaa", DeviceId = 1 });
+            Devices.Add(new DeviceInfoDTO() { DeviceName = "bbb", DeviceId = 2 });
+            Devices.Add(new DeviceInfoDTO() { DeviceName = "ccc", DeviceId = 3 });
+            SelectDeviceCommand = new RelayCommand<DeviceInfoDTO>((p) => {
                 return true;
             }, (p) =>
             {

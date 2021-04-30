@@ -43,13 +43,13 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Column="0" >
             <Button Style="{StaticResource btnPrevious}" Width="37" Height="37" Command="{Binding BackCommand}"></Button>
-            <Button Style="{StaticResource btnCharacter}" Width="67" Height="67" Content="{Binding  Card.Character}" Margin="10,0,10,0" Tag="{Binding Card.IsConnected}"></Button>
+            <Button Style="{StaticResource btnCharacter}" Width="67" Height="67" Content="{Binding  Card.StartCharacter}" Margin="10,0,10,0" Tag="{Binding Card.IsConnected}"></Button>
             <StackPanel Width="540">
-                <TextBlock Style="{StaticResource tbHeadingStyle}"  Text="{Binding Card.Title}"></TextBlock>
+                <TextBlock Style="{StaticResource tbHeadingStyle}"  Text="{Binding Card.DeviceName}"></TextBlock>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding Card.TypeName}" ></TextBlock>
+                    <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding Card.DeviceType}" ></TextBlock>
                     <TextBlock Style="{StaticResource tbHeading3Style}">-</TextBlock>
-                    <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding Card.ComPort}" ></TextBlock>
+                    <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding Card.DevicePort}" ></TextBlock>
                 </StackPanel>
             </StackPanel>
             <Button  Style="{StaticResource btnCloseStyle}" HorizontalAlignment="Right"   Width="37" Height="37" Command="{Binding DeleteCommand}">

@@ -79,7 +79,7 @@
                         <TextBlock Text="Default name"    Style="{StaticResource tbHeading4Style}"  VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1">
-                        <TextBox Text="LED" Style="{StaticResource tbEdit}" Width="217" Height="37"></TextBox>
+                        <TextBox Text="LED" VerticalContentAlignment="Center" Width="217" Height="37"></TextBox>
                     </Border>
                     <Border Grid.Row="1">
                         <TextBlock Text="Display connection status"   Style="{StaticResource tbHeading4Style}"     VerticalAlignment="Center"></TextBlock>

@@ -65,14 +65,14 @@
                                 </i:Interaction.Triggers>
                                 <StackPanel  Margin="10">
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Style="{StaticResource btnCharacter}" Width="67" Height="67" Content="{Binding Character}" ></Button>
+                                    <Button Style="{StaticResource btnCharacter}" Width="67" Height="67" Content="{Binding StartCharacter}" ></Button>
                                     <CheckBox  VerticalAlignment="Top" Style="{StaticResource chkPowerStyle}" IsChecked="{Binding IsConnected}" Margin="110,0,0,0" HorizontalAlignment="Right"></CheckBox>
                                 </StackPanel>
 
-                                <TextBlock Style="{StaticResource tbHeading2Style}" Margin="0,50,0,0" Text="{Binding Title}"></TextBlock>
-                                <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding TypeName}"></TextBlock>
-                                <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding ComPort}" ></TextBlock>
-                                <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding Description}"  ></TextBlock>
+                                <TextBlock Style="{StaticResource tbHeading2Style}" Margin="0,50,0,0" Text="{Binding DeviceName}"></TextBlock>
+                                <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding DeviceType}"></TextBlock>
+                                <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding DevicePort}" ></TextBlock>
+                                <!--<TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding Description}"  ></TextBlock>-->
                                 <TextBlock Style="{StaticResource tbHeading3Style}"  Text="{Binding Brightness,StringFormat=Độ sáng {0}%}"></TextBlock>
                                 <materialDesign:Card Width="19" Margin="170,0,0,0" Height="19" UniformCornerRadius="10" Background="#7344c3"></materialDesign:Card>
                             </StackPanel>

@@ -40,13 +40,13 @@
                     <TextBlock   Style="{StaticResource tbHeading4Style}">Mode</TextBlock>
                 </Border>
                 <Border Grid.Column="1">
-                    <ComboBox Width="217" Height="37" Text="{Binding Card.Mode}"></ComboBox>
+                    <ComboBox Width="217" Height="37" Text="{Binding Card.LightingMode}" ItemsSource="{Binding CaseEffects}"></ComboBox>
                 </Border>
                 <Border Grid.Row="1">
                     <TextBlock   Style="{StaticResource tbHeading4Style}">Source</TextBlock>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="1">
-                    <ComboBox Width="217" Height="37" Text="{Binding Card.Source}"></ComboBox>
+                    <ComboBox Width="217" Height="37" Text="{Binding Card.CaptureSource}"></ComboBox>
                 </Border>
                 <Grid Grid.Row="2" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions>
@@ -63,13 +63,13 @@
                         <TextBlock   Style="{StaticResource tbHeading4Style}">Screen size</TextBlock>
                     </Border>
                     <Border Grid.Column="2" Grid.Row="0">
-                        <ComboBox Height="37" Width="106" HorizontalAlignment="Right" Text="{Binding Card.Size}"></ComboBox>
+                        <ComboBox Height="37" Width="106" ItemsSource="{Binding ScreenSizeSource}" HorizontalAlignment="Right" Text="{Binding Card.DeviceSize}"></ComboBox>
                     </Border>
                     <Border Grid.Row="1">
                         <TextBlock   Style="{StaticResource tbHeading4Style}">Color Temprature</TextBlock>
                     </Border>
                     <Border Grid.Row="1" Grid.Column="1">
-                        <Slider TickFrequency="5" Width="240"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="50" Value="25" />
+                        <Slider TickFrequency="5" Width="240"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="50" Value="{Binding Card.ColorTemp}" />
                     </Border>
                     <Border Grid.Column="2" Grid.Row="1">
                         <ComboBox Height="37" Width="106" HorizontalAlignment="Right"></ComboBox>

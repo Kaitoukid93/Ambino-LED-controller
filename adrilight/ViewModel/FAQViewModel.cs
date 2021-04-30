@@ -81,7 +81,7 @@ namespace adrilight.ViewModel
         }
         public void ReadData()
         {
-            AppName = "Adrilight 3.0";
+            AppName = $"adrilight {App.VersionNumber}";
             BuildVersion = "xxxxxxxxxxxxxxxxxxxxxxxxxxx";
             LastUpdate = new DateTime(2020, 06, 01);
             Author = "zOe";

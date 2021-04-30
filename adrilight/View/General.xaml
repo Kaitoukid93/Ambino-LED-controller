@@ -43,17 +43,15 @@
                     <TextBlock   Style="{StaticResource tbHeading4Style}">COM Port</TextBlock>
                 </Border>
                 <Border Grid.Column="1">
-                    <ComboBox Height="37" Width="217" Text="{Binding Card.ComPort}">
-                        <ComboBoxItem>COM1</ComboBoxItem>
-                        <ComboBoxItem>COM2</ComboBoxItem>
-                        <ComboBoxItem>COM3</ComboBoxItem>
+                    <ComboBox Height="37" ItemsSource="{Binding AvailableComPorts}" Width="217" Text="{Binding Card.DevicePort}">
+                       
                     </ComboBox>
                 </Border>
                 <Border Grid.Row="1">
                     <TextBlock   Style="{StaticResource tbHeading4Style}">Device'sName</TextBlock>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="1">
-                    <TextBox Text="{Binding Card.Title}" Width="217" Height="37" Style="{StaticResource tbEdit}" ></TextBox>
+                    <TextBox Text="{Binding Card.DeviceName}" Width="217" Height="37"></TextBox>
                 </Border>
                 <Border Grid.Row="2">
                     <TextBlock   Style="{StaticResource tbHeading4Style}">Show on dashboard</TextBlock>

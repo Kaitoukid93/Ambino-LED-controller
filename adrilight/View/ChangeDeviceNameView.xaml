@@ -23,9 +23,9 @@
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <StackPanel>
-            <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Text="{Binding Device.TypeName}" Style="{StaticResource tbHeadingStyle}"></TextBlock>
+            <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Text="{Binding Device.DeviceType}" Style="{StaticResource tbHeadingStyle}"></TextBlock>
             <TextBlock Margin="0,50,0,0"  Style="{StaticResource tbHeading2Style}" TextAlignment="Center" HorizontalAlignment="Center" Text="Custom Name"></TextBlock>
-            <TextBox Width="217" Height="37" Style="{StaticResource tbEdit}" Text="{Binding Device.Title}"></TextBox>
+            <TextBox Width="217" Height="37" Text="{Binding Device.DeviceName}"></TextBox>
           
         </StackPanel>
         <Grid Grid.Row="1">
@@ -35,7 +35,11 @@
                 <ColumnDefinition Width="37"/>
             </Grid.ColumnDefinitions>
             <Button Style="{StaticResource btnPrevious}" Width="37" Height="37" Command="{Binding BackCommand}"></Button>
-            <Button Style="{StaticResource btnDown}" Grid.Column="2" Width="37" Height="37" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"></Button>
+            <Button Style="{StaticResource btnDown}" Grid.Column="2" IsDefault="True" Width="37" Height="37" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                <Button.CommandParameter>
+                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
+                </Button.CommandParameter>
+            </Button>
         </Grid>
     </Grid>
  
