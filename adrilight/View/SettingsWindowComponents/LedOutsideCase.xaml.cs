@@ -63,7 +63,8 @@ namespace adrilight.View.SettingsWindowComponents
         public int pixelcounter = 0;
         private static WriteableBitmap MatrixBitmap { get; set; }
         private static int numcolor = 16;
-        private static System.Windows.Media.Color[] small = new System.Windows.Media.Color[numcolor];
+       
+        
 
         
         
@@ -288,8 +289,8 @@ namespace adrilight.View.SettingsWindowComponents
         public void StartPix()
         {
 
-            PixTimer.Interval = new TimeSpan(0, 0, 0, 0, 10); 
-            PixTimer.Tick += new EventHandler(PixTimer_Tick);
+            PixTimer.Interval = new TimeSpan(0, 0, 0, 0, 5); 
+            PixTimer.Tick += new EventHandler(Rainbow_Timer_Tick);
             PixTimer.Start();
 
         }
@@ -336,42 +337,60 @@ namespace adrilight.View.SettingsWindowComponents
 
         }
 
-        public void PixTimer_Tick(object sender, EventArgs e)
+        public void Rainbow_Timer_Tick(object sender, EventArgs e)
         {
-            var newcolor = OpenRGB.NET.Models.Color.GetHueRainbow(16, _pixframeIndex,1, 1, 1);
-            //while(colorarray.MoveNext())
-            //{
-            //    OpenRGB.NET.Models.Color currentColor = (OpenRGB.NET.Models.Color)colorarray.Current;
-            //    Console.WriteLine("current color is", currentColor.R, currentColor.G, currentColor.B);
-            //}
-            int counter = 0;
-            foreach (var color in newcolor)
-            {
-
-               // Console.WriteLine("color R " + color.R + " color G " + color.G + " color B " + color.B);
-                small[counter++] = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
-
-            }
 
 
-
-
-
-            // System.Windows.Media.Color[] small = { color1, color2, color3, color4, color5, color6, color7, color8 };
-
-            MatrixFrame.ColorStripFromColorPoint(16, 0, small, playground);
-            if(_pixframeIndex>255)
+            Rainbow.RainbowCreator(30, _pixframeIndex, playground,false, zoebar1.Value, 30);
+            if(_pixframeIndex>360)
             {
                 _pixframeIndex = 0;
             }
             else
             {
-                _pixframeIndex +=15;
+                _pixframeIndex +=1;
             }
             
         }
 
-    
+
+        public void Palette_Timer_Tick(object sender, EventArgs e)
+        {
+            System.Windows.Media.Color[] party = {System.Windows.Media.Color.FromRgb(255,0,0),
+                                                  System.Windows.Media.Color.FromRgb(255,255,0),
+                                                  System.Windows.Media.Color.FromRgb(255,255,255),
+                                                  System.Windows.Media.Color.FromRgb(0,255,255)
+
+
+
+
+
+
+            };
+            if (_pixframeIndex > 255)
+            {
+                _pixframeIndex = 0;
+            }
+            else
+            {
+                _pixframeIndex += 1;
+            }
+
+            Rainbow.PaletteCreator(30, _pixframeIndex, playground, false, zoebar1.Value, party);
+
+
+
+          
+
+        }
+
+
+
+
+
+
+
+
 
 
 
@@ -597,7 +616,7 @@ namespace adrilight.View.SettingsWindowComponents
             //  Array.Clear(spectrumdata, 0, 16);
 
             int level = BassWasapi.BASS_WASAPI_GetLevel(); // Get level (VU metter) for Old AMBINO Device (remove in the future)
-            volume = (byte)level;
+            
 
 
             // _l.Value = Utils.LowWord32(level);
@@ -3137,7 +3156,7 @@ namespace adrilight.View.SettingsWindowComponents
         {
             //clear current rectangle matrix//
             //Check if there is any rectangle inside the canvans//
-            pixelcounter = 0;    
+            pixelcounter = 0;
             playground.Children.Clear();
             if (ledx.Text != null && ledy.Text != null)
             {
@@ -3152,66 +3171,43 @@ namespace adrilight.View.SettingsWindowComponents
                 color4 = System.Windows.Media.Color.FromRgb(0, 255, 0);
                 color5 = System.Windows.Media.Color.FromRgb(0, 0, 255);
                 color6 = System.Windows.Media.Color.FromRgb(0, 0, 255);
-                color7 = System.Windows.Media.Color.FromRgb(255,255, 0);
+                color7 = System.Windows.Media.Color.FromRgb(255, 255, 0);
                 color8 = System.Windows.Media.Color.FromRgb(0, 255, 255);
 
 
-                var newcolor = OpenRGB.NET.Models.Color.GetHueRainbow(16, 0.1, 1, 1, 1);
-                IEnumerator colorarray = newcolor.GetEnumerator();
-                //while(colorarray.MoveNext())
-                //{
-                //    OpenRGB.NET.Models.Color currentColor = (OpenRGB.NET.Models.Color)colorarray.Current;
-                //    Console.WriteLine("current color is", currentColor.R, currentColor.G, currentColor.B);
-                //}
-                int counter = 0;
-                foreach( var color in newcolor)
-                {
-                    
-                    Console.WriteLine("color R "+ color.R + " color G "+ color.G + " color B "+ color.B);
-                    small[counter++]= System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
-
-                }
-                
 
 
 
 
-               // System.Windows.Media.Color[] small = { color1, color2, color3, color4, color5, color6, color7, color8 };
+                MatrixFrame.SetDimensions(Convert.ToInt32(ledx.Text), Convert.ToInt32(ledy.Text));
 
-                MatrixFrame.ColorStripFromColorPoint(16, 0, small, playground);
+
+
+
+
+
+
+
+
+                //Draw new rectangle matrix//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             }
-
-
-
-
-            MatrixFrame.SetDimensions(Convert.ToInt32(ledx.Text), Convert.ToInt32(ledy.Text));
-
-
-
-
-
-
-
-
-
-            //Draw new rectangle matrix//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
 
 

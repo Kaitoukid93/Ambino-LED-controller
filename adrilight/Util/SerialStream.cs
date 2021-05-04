@@ -11,6 +11,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using adrilight.View.SettingsWindowComponents;
 using System.Windows.Forms;
+using OpenRGB;
 
 namespace adrilight
 {
@@ -182,29 +183,44 @@ namespace adrilight
                 //else
                 //{
                     outputStream[counter++] = 1;
-                //}
-               
                 var allBlack = true;
-                foreach (Spot spot in SpotSet.Spots)
+                //}
+                if (UserSettings.screeneffectcounter==0)
                 {
-                    if (!UserSettings.SendRandomColors)
+                    
+                    foreach (Spot spot in SpotSet.Spots)
                     {
-                        outputStream[counter++] = spot.Green; // blue
-                        outputStream[counter++] = spot.Red; // green
-                        outputStream[counter++] = spot.Blue; // red
+                        if (!UserSettings.SendRandomColors)
+                        {
+                            outputStream[counter++] = spot.Green; // blue
+                            outputStream[counter++] = spot.Red; // green
+                            outputStream[counter++] = spot.Blue; // red
 
-                        allBlack = allBlack && spot.Red == 0 && spot.Green == 0 && spot.Blue == 0;
-                    }
-                    else
-                    {
-                        allBlack = false;
-                        var n = frameCounter % 360;
-                        var c = ColorUtil.FromAhsb(255, n, 1, 0.5f);
-                        outputStream[counter++] = c.B; // blue
-                        outputStream[counter++] = c.G; // green
-                        outputStream[counter++] = c.R; // red
+                            allBlack = allBlack && spot.Red == 0 && spot.Green == 0 && spot.Blue == 0;
+                        }
+                        else
+                        {
+                            allBlack = false;
+                            var n = frameCounter % 360;
+                            var c = ColorUtil.FromAhsb(255, n, 1, 0.5f);
+                            outputStream[counter++] = c.B; // blue
+                            outputStream[counter++] = c.G; // green
+                            outputStream[counter++] = c.R; // red
+                        }
                     }
                 }
+
+               else if(UserSettings.screeneffectcounter==7) //pixelation
+                {
+                    foreach (Color color in Rainbow.small.Take(30))
+                    {
+                        outputStream[counter++] = color.R; // blue
+                        outputStream[counter++] = color.G; // green
+                        outputStream[counter++] = color.B; // red
+                    }
+                   
+                }
+               
 
                 if (allBlack)
                 {

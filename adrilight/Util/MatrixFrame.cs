@@ -368,28 +368,7 @@ namespace adrilight
 
         
 
-        public static void ColorStripFromColorPoint(int numLED,int ledIndex, System.Windows.Media.Color[] small, Canvas playground)
-
-        {
-
-            playground.Children.Clear();
-            for (int i=0;i<numLED;i++)
-            {
-                System.Windows.Shapes.Rectangle rectangle = new System.Windows.Shapes.Rectangle {
-                    Width = playground.ActualWidth / numLED,
-                    Height = 20,
-                };
-
-                System.Windows.Media.Brush brush = new SolidColorBrush(small[i]);
-                rectangle.Fill = brush;
-                playground.Children.Add(rectangle);
-
-                Canvas.SetLeft(rectangle, i * (playground.ActualWidth / numLED + 3));
-                Canvas.SetTop(rectangle,0);
-            }    
-           
-
-        }
+      
 
 
     public static void SetRectanglesOrder(LEDOrder LEDorder, Canvas playground)
