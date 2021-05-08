@@ -21,16 +21,7 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged();
             }
         }
-       private ObservableCollection<string> _screenSizeSource;
-       public ObservableCollection<string> ScreenSizeSource {
-            get { return _screenSizeSource; }
-            set
-            {
-                if (_screenSizeSource == value) return;
-                _screenSizeSource = value;
-                RaisePropertyChanged();
-            }
-        }
+      
         private ObservableCollection<string> _caseEffects;
         public ObservableCollection<string> CaseEffects {
             get { return _caseEffects; }
@@ -41,23 +32,27 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged();
             }
         }
+        private ObservableCollection<CollectionItem> _collectionItm;
+        public ObservableCollection<CollectionItem> CollectionItems {
+            get { return _collectionItm; }
+            set
+            {
+                if (_collectionItm == value) return;
+                _collectionItm = value;
+                RaisePropertyChanged();
+            }
+        }
         private readonly ViewModelBase _parentVm;
         public LightingViewModel(DeviceInfoDTO device, ViewModelBase parent)
         {
             _parentVm = parent;
-            Card = device;
             ReadData();
+            Card = device;
+           
         }
         public void ReadData()
         {
-            ScreenSizeSource = new ObservableCollection<string>();
-            ScreenSizeSource.Add("19-22 inch");
-            ScreenSizeSource.Add("23-27 inch");
-            ScreenSizeSource.Add("29 inch");
-            ScreenSizeSource.Add("29 inch");
-            ScreenSizeSource.Add("32 inch");
-            ScreenSizeSource.Add("34 inch");
-            ScreenSizeSource.Add("Kích thước khác");
+          
             CaseEffects = new ObservableCollection<string>
       {
            "Sáng theo hiệu ứng",
@@ -72,6 +67,13 @@ namespace adrilight.ViewModel
 
 
         };
+            CollectionItems = new ObservableCollection<CollectionItem>();
+            CollectionItems.Add(new CollectionItem() { Value = 1, Text = "ARGB-1" });
+            CollectionItems.Add(new CollectionItem() { Value = 1, Text = "ARGB-2",IsSelected=true });
+            CollectionItems.Add(new CollectionItem() { Value = 1, Text = "PCI-1" });
+            CollectionItems.Add(new CollectionItem() { Value = 1, Text = "PCI-2" });
+            CollectionItems.Add(new CollectionItem() { Value = 1, Text = "PCI-3" });
+            CollectionItems.Add(new CollectionItem() { Value = 1, Text = "PCI-4" });
         }
     }
 }

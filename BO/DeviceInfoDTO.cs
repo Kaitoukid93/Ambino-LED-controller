@@ -240,10 +240,61 @@ namespace BO
                 OnPropertyChanged();
             }
         }
+        private bool _isshowondashboard;
+        public bool IsShowOnDashboard
+        {
+            get { return _isshowondashboard; }
+            set
+            {
+                if (_isshowondashboard == value) return;
+                _isshowondashboard = value;
+                OnPropertyChanged();
+            }
+        }
+        private int _lednumber;
+        public int LEDNumber
+        {
+            get { return _lednumber; }
+            set
+            {
+                if (_lednumber == value) return;
+                _lednumber = value;
+                OnPropertyChanged();
+            }
+        }
         public string StartChar => GetStartChar();
        public string GetStartChar()
         {
             return string.IsNullOrEmpty(DeviceName) ? string.Empty : DeviceName[0].ToString().ToUpper();
+        }
+        public DeviceInfo GetDeviceInfo()
+        {
+            return new DeviceInfo()
+            {
+                 brightness=Brightness,
+                  capturesource=CaptureSource,
+                   colortemp=ColorTemp,
+                    deviceid=DeviceId,
+                     devicename=DeviceName,
+                      deviceport=DevicePort,
+                       devicesize=DeviceSize,
+                        devicetype=DeviceType,
+                         fadeend=FadeEnd,
+                          fadestart=FadeStart,
+                           gifmode=GifMode,
+                            gifsource=GifSource,
+                             isbreathing=IsBreathing,
+                             isConnected=IsConnected,
+                             lightingmode=LightingMode,
+                              musicmode=MusicMode,
+                               musicsens=MusicSens,
+                                musicsource=MusicSource,
+                                 rainbowmode=RainbowMode,
+                                  rainbowspeed=RainbowSpeed,
+                                   staticcolor=Staticcolor,
+                                   isshowondashboard=IsShowOnDashboard,
+                                   lednumber=LEDNumber
+            };
         }
     }
 

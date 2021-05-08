@@ -29,5 +29,7 @@ namespace BO
         public string staticcolor { get; set; }
         public string fadestart { get; set; }
         public string fadeend { get; set; }
+        public bool isshowondashboard { get; set; }
+        public int lednumber { get; set; }
     }
 }

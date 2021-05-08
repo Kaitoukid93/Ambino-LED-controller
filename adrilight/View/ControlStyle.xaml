@@ -774,42 +774,42 @@
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding IsConnected}" Value="True" />
-                                <Condition Binding="{Binding Character}" Value="B"/>
+                                <Condition Binding="{Binding StartChar}" Value="B"/>
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Source" TargetName="imgCharacter" Value="{StaticResource svgPurpleB}"></Setter>
                         </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding IsConnected}" Value="False" />
-                                <Condition Binding="{Binding Character}" Value="B"/>
+                                <Condition Binding="{Binding StartChar}" Value="B"/>
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Source" TargetName="imgCharacter" Value="{StaticResource svgGrayBalpha}"></Setter>
                         </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding IsConnected}" Value="True" />
-                                <Condition Binding="{Binding Character}" Value="E"/>
+                                <Condition Binding="{Binding StartChar}" Value="E"/>
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Source" TargetName="imgCharacter" Value="{StaticResource svgPurpleE}"></Setter>
                         </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding IsConnected}" Value="False" />
-                                <Condition Binding="{Binding Character}" Value="E"/>
+                                <Condition Binding="{Binding StartChar}" Value="E"/>
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Source" TargetName="imgCharacter" Value="{StaticResource svgGrayEAlpha}"></Setter>
                         </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding IsConnected}" Value="True" />
-                                <Condition Binding="{Binding Character}" Value="H"/>
+                                <Condition Binding="{Binding StartChar}" Value="H"/>
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Source" TargetName="imgCharacter" Value="{StaticResource svgPurpleH}"></Setter>
                         </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding IsConnected}" Value="False" />
-                                <Condition Binding="{Binding Character}" Value="H"/>
+                                <Condition Binding="{Binding StartChar}" Value="H"/>
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Source" TargetName="imgCharacter" Value="{StaticResource SvgGrayHAlpha}"></Setter>
                         </MultiDataTrigger>

@@ -43,7 +43,7 @@
                     <TextBlock   Style="{StaticResource tbHeading4Style}">COM Port</TextBlock>
                 </Border>
                 <Border Grid.Column="1">
-                    <ComboBox Height="37" ItemsSource="{Binding AvailableComPorts}" Width="217" Text="{Binding Card.DevicePort}">
+                    <ComboBox Height="37" ItemsSource="{Binding AvailableComPorts}" Width="217" Text="{Binding Card.DevicePort}" IsSynchronizedWithCurrentItem="True" IsEditable="False">
                        
                     </ComboBox>
                 </Border>

@@ -19,10 +19,27 @@ namespace adrilight.ViewModel
             set
             {
                 if (_card == value) return;
+                if (_card != null)
+                {
+                    _card.PropertyChanged -= _card_PropertyChanged;
+                }
                 _card = value;
+                if (_card != null)
+                {
+                    _card.PropertyChanged += _card_PropertyChanged;
+                }
                 RaisePropertyChanged();
             }
         }
+
+        private void _card_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (_isInit||_isWrite) return;
+            _isWrite = true;
+            _mainView.WriteSettingJson();
+            _isWrite = false;
+        }
+
         private DeviceTab _tabType;
         public DeviceTab TabType {
             get { return _tabType; }
@@ -54,6 +71,8 @@ namespace adrilight.ViewModel
             }
         }
         private bool _isInit = false;
+        private bool _isWrite = false;
+        private MainViewViewModel _mainView => _parentVm as MainViewViewModel;
         public DeviceDetailViewModel(DeviceInfoDTO device, ViewModelBase parent)
         {
             _parentVm = parent;
@@ -65,7 +84,11 @@ namespace adrilight.ViewModel
             var view = new View.DeleteMessageDialog();
             DeleteMessageDialogViewModel dialogViewModel = new DeleteMessageDialogViewModel(_parentVm, Card);
             view.DataContext = dialogViewModel;
-            await DialogHost.Show(view, "mainDialog");
+            bool addResult = (bool)(await DialogHost.Show(view, "mainDialog"));
+            if (addResult)
+            {
+                _mainView.BackToDashboardAndDelete(Card);
+            }
         }
         public void ReadData()
         {
@@ -89,6 +112,7 @@ namespace adrilight.ViewModel
         }
         public void OnChangeTab(DeviceTab tab)
         {
+            _isInit = true;
             switch (tab)
             {
                 case DeviceTab.General:
@@ -108,6 +132,7 @@ namespace adrilight.ViewModel
                 default:
                     break; 
             }
+            _isInit = false;
         }
     }
     public enum DeviceTab : byte

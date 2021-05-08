@@ -50,13 +50,13 @@
                         <TextBlock     Style="{StaticResource tbHeading4Style}" HorizontalAlignment="Left"   Text="Auto add new device"  VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1">
-                        <ToggleButton  VerticalAlignment="Center" Background="#7344c3"  Width="48" Height="24"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"   IsChecked="True" />
+                        <ToggleButton  VerticalAlignment="Center" Background="#7344c3"  Width="48" Height="24"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"   IsChecked="{Binding SettingInfo.AutoAddNewDevice}" />
                     </Border>
                     <Border Grid.Row="1">
                         <TextBlock   Style="{StaticResource tbHeading4Style}"   Text="Auto connect new device"    VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="1">
-                        <ToggleButton    Width="48" Height="24"  VerticalAlignment="Center" Background="#7344c3" Style="{StaticResource MaterialDesignSwitchLightToggleButton}"   IsChecked="False" />
+                        <ToggleButton    Width="48" Height="24"  VerticalAlignment="Center" Background="#7344c3" Style="{StaticResource MaterialDesignSwitchLightToggleButton}"   IsChecked="{Binding SettingInfo.AutoConnectNewDevice}" />
                     </Border>
                 </Grid>
             </Border>
@@ -79,25 +79,25 @@
                         <TextBlock Text="Default name"    Style="{StaticResource tbHeading4Style}"  VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1">
-                        <TextBox Text="LED" VerticalContentAlignment="Center" Width="217" Height="37"></TextBox>
+                        <TextBox Text="{Binding SettingInfo.DefaultName}" VerticalContentAlignment="Center" Width="217" Height="37"></TextBox>
                     </Border>
                     <Border Grid.Row="1">
                         <TextBlock Text="Display connection status"   Style="{StaticResource tbHeading4Style}"     VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="1">
-                        <ToggleButton   Width="48" Height="24"  HorizontalAlignment="Right" Background="#7344c3" VerticalAlignment="Center"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"    IsChecked="False" />
+                        <ToggleButton   Width="48" Height="24"  HorizontalAlignment="Right" Background="#7344c3" VerticalAlignment="Center"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"    IsChecked="{Binding SettingInfo.DisplayConnectionStatus}" />
                     </Border>
                     <Border Grid.Row="2">
                         <TextBlock Text="Display lighting status"  Style="{StaticResource tbHeading4Style}"    VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="2">
-                        <ToggleButton    Width="48" Height="24"  HorizontalAlignment="Right" Background="#7344c3" VerticalAlignment="Center"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"    IsChecked="False" />
+                        <ToggleButton    Width="48" Height="24"  HorizontalAlignment="Right" Background="#7344c3" VerticalAlignment="Center"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"    IsChecked="{Binding SettingInfo.DisplayLightingStatus}" />
                     </Border>
                     <Border Grid.Row="3">
                         <TextBlock Text="Auto delete config when device is disconnected"  Style="{StaticResource tbHeading4Style}"   VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="3">
-                        <ToggleButton  Width="48" Height="24"  HorizontalAlignment="Right" Background="#7344c3"  VerticalAlignment="Center"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"   IsChecked="False" />
+                        <ToggleButton  Width="48" Height="24"  HorizontalAlignment="Right" Background="#7344c3"  VerticalAlignment="Center"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"   IsChecked="{Binding SettingInfo.AutoDeleteConfigWhenDisconnected}" />
                     </Border>
                 </Grid>
             </Border>

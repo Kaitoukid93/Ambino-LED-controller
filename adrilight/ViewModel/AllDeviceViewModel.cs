@@ -9,10 +9,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MaterialDesignThemes.Wpf;
+using System.IO;
+using Newtonsoft.Json;
+
 namespace adrilight.ViewModel
 {
    public class AllDeviceViewModel : BaseViewModel
     {
+        private string JsonPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "adrilight\\");
+
+        private string JsonFileNameAndPath => Path.Combine(JsonPath, "adrilight-deviceInfos.json");
         private ObservableCollection<DeviceInfoDTO> _cards;
         public ObservableCollection<DeviceInfoDTO> Cards {
             get { return _cards; }
@@ -26,6 +32,7 @@ namespace adrilight.ViewModel
         public ICommand SelectCardCommand { get; set; }
         public ICommand ShowAddNewCommand { get; set; }
         private readonly ViewModelBase _parentVm;
+        private bool _isAddnew = false;
         public AllDeviceViewModel(ViewModelBase parent)
         {
             _parentVm = parent;
@@ -35,10 +42,51 @@ namespace adrilight.ViewModel
         public void LoadCard()
         {
             Cards = new ObservableCollection<DeviceInfoDTO>();
-       
-           
+            var devices = LoadIfExists();
+            if (devices != null)
+            {
+                foreach (var item in devices)
+                {
+                    var deviceInfo = new DeviceInfoDTO() {
+                        Brightness = item.brightness,
+                        CaptureSource = item.capturesource,
+                        ColorTemp = item.colortemp,
+                        DeviceId = item.deviceid,
+                        DeviceName = item.devicename,
+                        DevicePort = item.deviceport,
+                        DeviceSize = item.devicesize,
+                        DeviceType = item.devicetype,
+                        FadeEnd = item.fadeend,
+                        FadeStart = item.fadestart,
+                        GifMode = item.gifmode,
+                        GifSource = item.gifsource,
+                        IsBreathing = item.isbreathing,
+                        IsConnected = item.isConnected,
+                        LightingMode = item.lightingmode,
+                        MusicMode = item.musicmode,
+                        MusicSens = item.musicsens,
+                        MusicSource = item.musicsource,
+                        RainbowMode = item.rainbowmode,
+                        RainbowSpeed = item.rainbowspeed,
+                        Staticcolor = item.staticcolor,
+                        IsShowOnDashboard=item.isshowondashboard
+                    };
+                    deviceInfo.PropertyChanged += DeviceInfo_PropertyChanged;
+                    Cards.Add(deviceInfo);
+                }
+            }
+
         }
-        public void ReadData()
+
+        private void DeviceInfo_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            //if (_isAddnew) return;
+            //_isAddnew = true;
+            //WriteJson();
+            //_isAddnew = false;
+        }
+
+        public override void ReadData()
         {
             SelectCardCommand = new RelayCommand<DeviceInfoDTO>((p) => {
                 return p != null;
@@ -62,8 +110,39 @@ namespace adrilight.ViewModel
             bool addResult =(bool) (await DialogHost.Show(view, "mainDialog"));
             if (addResult)
             {
+                vm.Device.PropertyChanged += DeviceInfo_PropertyChanged;
+                _isAddnew = true;
                 Cards.Add(vm.Device);
+                WriteJson();
+                _isAddnew = false;
             }
+        }
+        public void DeleteCard(DeviceInfoDTO deviceInfo)
+        {
+            Cards.Remove(deviceInfo);
+            WriteJson();
+        }
+      
+        public void WriteJson()
+        {
+            var devices = new List<DeviceInfo>();
+            foreach (var item in Cards)
+            {
+                devices.Add(item.GetDeviceInfo());
+            }
+            var json = JsonConvert.SerializeObject(devices, Formatting.Indented);
+            Directory.CreateDirectory(JsonPath);
+            File.WriteAllText(JsonFileNameAndPath, json);
+        }
+        public List<DeviceInfo> LoadIfExists()
+        {
+            if (!File.Exists(JsonFileNameAndPath)) return null;
+
+            var json = File.ReadAllText(JsonFileNameAndPath);
+
+            var devices = JsonConvert.DeserializeObject<List< DeviceInfo>>(json);
+          
+            return devices;
         }
     }
 }

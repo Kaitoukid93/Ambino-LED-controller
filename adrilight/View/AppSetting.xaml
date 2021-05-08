@@ -67,7 +67,7 @@
                         <TextBlock    Style="{StaticResource tbHeading4Style}"    Text="Dark mode" Margin="10,0,0,0"   VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="1">
-                        <ToggleButton   Width="48" Height="24"   VerticalAlignment="Center" Background="#7344c3"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"  Margin="0,0,10,0"  IsChecked="False" />
+                        <ToggleButton   Width="48" Height="24"   VerticalAlignment="Center" Background="#7344c3"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"  Margin="0,0,10,0"  IsChecked="{Binding SettingInfo.IsDarkMode}" />
                     </Border>
                 </Grid>
             </Border>
@@ -90,25 +90,25 @@
                         <TextBlock    Style="{StaticResource tbHeading4Style}"   Text="Auto start with Windows "  VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1">
-                        <ToggleButton IsChecked="False"  Background="#7344c3" Style="{StaticResource MaterialDesignSwitchLightToggleButton}"></ToggleButton>
+                        <ToggleButton IsChecked="{Binding SettingInfo.AutoStartWithWindows}"  Background="#7344c3" Style="{StaticResource MaterialDesignSwitchLightToggleButton}"></ToggleButton>
                     </Border>
                     <Border Grid.Row="1">
-                        <TextBlock Text="Start Minimumz"    Style="{StaticResource tbHeading4Style}"     VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="Start Minimum"    Style="{StaticResource tbHeading4Style}"     VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="1">
-                        <ToggleButton   Width="48" Height="24"   VerticalAlignment="Center"  Background="#7344c3" Style="{StaticResource MaterialDesignSwitchLightToggleButton}"    IsChecked="False" />
+                        <ToggleButton   Width="48" Height="24"   VerticalAlignment="Center"  Background="#7344c3" Style="{StaticResource MaterialDesignSwitchLightToggleButton}"    IsChecked="{Binding SettingInfo.StartMinimum}" />
                     </Border>
                     <Border Grid.Row="2">
                         <TextBlock Text="Push notification when new device is connected"    Style="{StaticResource tbHeading4Style}"     VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="2">
-                        <ToggleButton   Width="48" Height="24"   VerticalAlignment="Center"  Background="#7344c3" Style="{StaticResource MaterialDesignSwitchLightToggleButton}"   IsChecked="False" />
+                        <ToggleButton   Width="48" Height="24"   VerticalAlignment="Center"  Background="#7344c3" Style="{StaticResource MaterialDesignSwitchLightToggleButton}"     IsChecked="{Binding SettingInfo.PushNotificationWhenNewDeviceConnected}" />
                     </Border>
                     <Border Grid.Row="3">
                         <TextBlock Text="Push notification when a device is disconnected"    Style="{StaticResource tbHeading4Style}"    VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="3">
-                        <ToggleButton  Width="48" Height="24"    VerticalAlignment="Center"  Background="#7344c3" Style="{StaticResource MaterialDesignSwitchLightToggleButton}"    IsChecked="False" />
+                        <ToggleButton  Width="48" Height="24"    VerticalAlignment="Center"  Background="#7344c3" Style="{StaticResource MaterialDesignSwitchLightToggleButton}"     IsChecked="{Binding SettingInfo.PushNotificationWhenNewDeviceDisconnected}" />
                     </Border>
                 </Grid>
             </Border>

@@ -40,10 +40,6 @@ namespace adrilight.ViewModel
             _parentVm = parent;
             Card = device;
         }
-        public async void ShowDeleteDialog()
-        {
-
-            await DialogHost.Show(new View.DeleteMessageDialog(), "mainDialog");
-        }
+       
     }
 }

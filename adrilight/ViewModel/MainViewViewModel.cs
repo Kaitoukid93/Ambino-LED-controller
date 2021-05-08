@@ -1,18 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
 using adrilight.View;
 using BO;
 using GalaSoft.MvvmLight;
+using Newtonsoft.Json;
 
 namespace adrilight.ViewModel
 {
   public  class MainViewViewModel: BaseViewModel
     {
+        private string JsonPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "adrilight\\");
+
+        private string JsonFileNameAndPath => Path.Combine(JsonPath, "adrilight-settinginfo.json");
         #region constant string
         public const string ImagePathFormat= "pack://application:,,,/adrilight;component/View/Images/{0}";
         public const string dashboard = "Dashboard";
@@ -45,6 +51,16 @@ namespace adrilight.ViewModel
                 _isDashboardType = value;
                 RaisePropertyChanged();
                 LoadMenuByType(value);
+            }
+        }
+        private SettingInfoDTO _settingInfo ;
+        public SettingInfoDTO SettingInfo {
+            get { return _settingInfo; }
+            set
+            {
+                if (_settingInfo == value) return;
+                _settingInfo = value;
+                RaisePropertyChanged();
             }
         }
         private ViewModelBase _currentView;
@@ -85,6 +101,43 @@ namespace adrilight.ViewModel
             {
                 ChangeView(p);
             });
+            SettingInfo = new SettingInfoDTO();
+          var setting=  LoadSettingIfExists();
+            if (setting != null)
+            {
+                SettingInfo.AutoAddNewDevice = setting.autoaddnewdevice;
+                SettingInfo.AutoConnectNewDevice = setting.autoconnectnewdevice;
+                SettingInfo.AutoDeleteConfigWhenDisconnected = setting.autodeleteconfigwhendisconected;
+                SettingInfo.AutoStartWithWindows = setting.autostartwithwindows;
+                SettingInfo.DefaultName = setting.defaultname;
+                SettingInfo.DisplayConnectionStatus = setting.displayconnectionstatus;
+                SettingInfo.DisplayLightingStatus = setting.displaylightingstatus;
+                SettingInfo.IsDarkMode = setting.isdarkmode;
+                SettingInfo.PushNotificationWhenNewDeviceConnected = setting.pushnotificationwhennewdeviceconnected;
+                SettingInfo.PushNotificationWhenNewDeviceDisconnected = setting.pushnotificationwhennewdevicedisconnected;
+                SettingInfo.StartMinimum = setting.startminimum;
+                SettingInfo.PrimaryColor=(Color )ColorConverter.ConvertFromString(setting.primarycolor);
+            }
+            else
+            {
+                SettingInfo.PrimaryColor = Colors.White;
+            }
+        }
+        public void WriteSettingJson()
+        {
+            var json = JsonConvert.SerializeObject(SettingInfo.GetSettingInfo(), Formatting.Indented);
+            Directory.CreateDirectory(JsonPath);
+            File.WriteAllText(JsonFileNameAndPath, json);
+        }
+        public SettingInfo LoadSettingIfExists()
+        {
+            if (!File.Exists(JsonFileNameAndPath)) return null;
+
+            var json = File.ReadAllText(JsonFileNameAndPath);
+
+            var setting = JsonConvert.DeserializeObject<SettingInfo>(json);
+
+            return setting;
         }
         /// <summary>
         /// Change View
@@ -100,12 +153,12 @@ namespace adrilight.ViewModel
                     IsDashboardType = true;
                     break;
                 case deviceSetting:
-                    _deviceSettingView = new DeviceSettingViewModel();
+                    _deviceSettingView = new DeviceSettingViewModel(this,SettingInfo);
                     CurrentView = _deviceSettingView;
                     IsDashboardType = true;
                     break;
                 case appSetting:
-                    _appSettingView = new AppSettingViewModel();
+                    _appSettingView = new AppSettingViewModel(this, SettingInfo);
                     CurrentView = _appSettingView;
                     IsDashboardType = true;
                     break;
@@ -145,7 +198,11 @@ namespace adrilight.ViewModel
             }
             SetMenuItemActiveStatus(menuItem.Text);
         }
-       
+         public void WriteDeviceInfoJson()
+        {
+            if (_allDeviceView == null) return;
+            ((AllDeviceViewModel)_allDeviceView).WriteJson();
+        }
         public void GotoChild(DeviceInfoDTO card)
         {
             _detailView = new DeviceDetailViewModel(card, this);
@@ -161,6 +218,16 @@ namespace adrilight.ViewModel
             CurrentView = _allDeviceView;
             IsDashboardType = true;
             SetMenuItemActiveStatus(dashboard);
+        }
+        public void BackToDashboardAndDelete(DeviceInfoDTO device)
+        {
+            if (_allDeviceView != null)
+            {
+                ((AllDeviceViewModel)_allDeviceView).DeleteCard(device);
+                CurrentView = _allDeviceView;
+                IsDashboardType = true;
+                SetMenuItemActiveStatus(dashboard);
+            }
         }
         /// <summary>
         /// Load vertical menu

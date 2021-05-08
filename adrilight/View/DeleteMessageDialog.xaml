@@ -34,8 +34,16 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="43"/>
             </Grid.ColumnDefinitions>
-            <Button Style="{StaticResource btnPrevious}" Width="43" Height="37" Command="{Binding DeleteCommand}"></Button>
-            <Button Style="{StaticResource btnDownYellow}" Grid.Column="2" Width="43" Height="37" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"></Button>
+            <Button Style="{StaticResource btnPrevious}" Width="43" Height="37" IsCancel="True" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                <Button.CommandParameter>
+                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">False</system:Boolean>
+                </Button.CommandParameter>
+            </Button>
+            <Button Style="{StaticResource btnDownYellow}" Grid.Column="2" Width="43" Height="37" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" IsDefault="True">
+                <Button.CommandParameter>
+                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
+                </Button.CommandParameter>
+            </Button>
         </Grid>
     </Grid>
 </UserControl>
