@@ -351,6 +351,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Settings\IEffect.cs" />
+    <Compile Include="Util\Music.cs" />
     <Compile Include="Util\Rainbow.cs" />
     <Compile Include="Util\ColorUtil.cs" />
     <Compile Include="Util\FakeSerialPort.cs" />

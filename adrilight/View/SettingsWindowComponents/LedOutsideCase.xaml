@@ -3048,7 +3048,7 @@
 
                 </Grid>
             </materialDesign:Card>
-            <materialDesign:Card Visibility="Visible"
+            <materialDesign:Card Visibility="Collapsed"
                 x:Name="pixelation" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
                 Margin="25 10 0 0" Width="735" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
                 <Grid>
@@ -3210,7 +3210,45 @@
 
 
             </materialDesign:Card>
-           
+            <materialDesign:Card Visibility="Visible"
+                x:Name="Rainbowation" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                Margin="25 10 0 0" Width="735" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
+                <Grid>
+                    <Canvas Width="350" Height="350" x:Name="playground1" Margin="15,15,331,8" MouseDown="CanvasTouch">
+                        <Canvas.Style>
+                            <Style TargetType="{x:Type Canvas}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedItem, ElementName=screenefectbox}" Value="Pixelation">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Canvas.Style>
+                    </Canvas>
+
+                    <TextBox x:Name="numLED"
+                        materialDesign:HintAssist.Hint="LEDX"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center" Margin="623,12,16,308" Height="46" />
+                    <Image  x:Name="MatrixImage1" RenderOptions.BitmapScalingMode="NearestNeighbor" Cursor="Cross"   Margin="4,0,310,0">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedItem, ElementName=screenefectbox}" Value="Gifxelation">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                </Grid>
+
+
+
+            </materialDesign:Card>
+
 
 
         </WrapPanel>

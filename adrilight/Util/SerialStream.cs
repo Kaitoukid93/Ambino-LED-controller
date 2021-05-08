@@ -212,7 +212,7 @@ namespace adrilight
 
                else if(UserSettings.screeneffectcounter==7) //pixelation
                 {
-                    foreach (Color color in Rainbow.small.Take(30))
+                    foreach (Color color in Rainbow.paletteOutput.Take(30))
                     {
                         outputStream[counter++] = color.R; // blue
                         outputStream[counter++] = color.G; // green

@@ -92,6 +92,7 @@ namespace adrilight.View.SettingsWindowComponents
 
         DispatcherTimer GifTimer = new DispatcherTimer();
         DispatcherTimer PixTimer = new DispatcherTimer();
+        DispatcherTimer MusicTimer = new DispatcherTimer();
         private static double _pixframeIndex = 0;
         private static int _gifFrameIndex = 0;
         //new gifxelation mode//
@@ -177,19 +178,20 @@ namespace adrilight.View.SettingsWindowComponents
             BassNet.Registration("saorihara93@gmail.com", "2X2831021152222");
 
 
-            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+           // DispatcherTimer dispatcherTimer = new DispatcherTimer();
             DispatcherTimer dispatcherTimer2 = new DispatcherTimer();
             
 
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(5);
+           // dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+          //  dispatcherTimer.Interval = TimeSpan.FromMilliseconds(5);
             dispatcherTimer2.Tick += new EventHandler(random_Tick);
             dispatcherTimer2.Interval = new TimeSpan(0, 0, 30);
             
             
-            dispatcherTimer.Start();
+           // dispatcherTimer.Start();
             dispatcherTimer2.Start();
             StartPix();
+            StartMusic();
 
 
 
@@ -289,9 +291,17 @@ namespace adrilight.View.SettingsWindowComponents
         public void StartPix()
         {
 
-            PixTimer.Interval = new TimeSpan(0, 0, 0, 0, 5); 
-            PixTimer.Tick += new EventHandler(Rainbow_Timer_Tick);
+            PixTimer.Interval = new TimeSpan(0, 0, 0, 0, 1); 
+            PixTimer.Tick += new EventHandler(Gradient_Timer_Tick);
             PixTimer.Start();
+
+        }
+        public void StartMusic()
+        {
+
+            MusicTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
+            MusicTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            MusicTimer.Start();
 
         }
         public void StopGif()
@@ -341,7 +351,8 @@ namespace adrilight.View.SettingsWindowComponents
         {
 
 
-            Rainbow.RainbowCreator(30, _pixframeIndex, playground,false, zoebar1.Value, 30);
+            Rainbow.RainbowCreator(30, _pixframeIndex, playground1,false,volume , 30,output_spectrumdata,0);
+            
             if(_pixframeIndex>360)
             {
                 _pixframeIndex = 0;
@@ -367,7 +378,25 @@ namespace adrilight.View.SettingsWindowComponents
 
 
             };
-            if (_pixframeIndex > 255)
+            if (_pixframeIndex > 30)
+            {
+                _pixframeIndex = 0;
+            }
+            else
+            {
+                _pixframeIndex += 0.5;
+            }
+
+            Rainbow.PaletteCreator(30, _pixframeIndex, playground1, false, zoebar1.Value, party);
+
+
+
+          
+
+        }
+        public void Gradient_Timer_Tick(object sender,EventArgs e)
+        {
+            if (_pixframeIndex >255)
             {
                 _pixframeIndex = 0;
             }
@@ -376,13 +405,12 @@ namespace adrilight.View.SettingsWindowComponents
                 _pixframeIndex += 1;
             }
 
-            Rainbow.PaletteCreator(30, _pixframeIndex, playground, false, zoebar1.Value, party);
-
-
-
-          
+            double[] collection1 = { 0, 4, 8, 12, 16, 18,20, 36 };
+            Rainbow.GradientCreator(30, _pixframeIndex, playground1, false, zoebar1.Value,collection1);
 
         }
+
+
 
 
 
@@ -604,10 +632,10 @@ namespace adrilight.View.SettingsWindowComponents
                 zoebar15.Value = spectrumdata[Music_box_15.SelectedIndex];
                 zoebar16.Value = spectrumdata[Music_box_16.SelectedIndex];
             }
-         
 
 
-          
+
+           
 
            
 
@@ -622,21 +650,22 @@ namespace adrilight.View.SettingsWindowComponents
             // _l.Value = Utils.LowWord32(level);
             //  _r.Value = Utils.HighWord32(level);
             if (level == _lastlevel && level != 0) _hanctr++;
+            volume = Utils.LowWord32(level);
             _lastlevel = level;
+            //volume = level;
 
             //Required, because some programs hang the output. If the output hangs for a 75ms
             //this piece of code re initializes the output so it doesn't make a gliched sound for long.
-            /*  if (_hanctr > 3)
-              {
-                  _hanctr = 0;
-                //  _l.Value = 0;
-                 // _r.Value = 0;
-                  Free();
-                  Bass.BASS_Init(0, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
-                  _initialized = false;
-                //  Enable = true;
-              }
-              */
+             //if (_hanctr > 3)
+             // {
+             //     _hanctr = 0;
+               
+             //     Free();
+             //     Bass.BASS_Init(0, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
+             //     _initialized = false;
+                  
+             // }
+              
         }
         private int Process(IntPtr buffer, int length, IntPtr user)
         {
@@ -1028,6 +1057,7 @@ namespace adrilight.View.SettingsWindowComponents
                         this.offcard.Visibility = Visibility.Collapsed;
                         this.Auracard.Visibility = Visibility.Collapsed;
                         this.pixelation.Visibility = Visibility.Collapsed;
+                        this.Rainbowation.Visibility = Visibility.Collapsed;
                         if (i != null)
                         {
                             if (i.Content.ToString() == "Rainbow Custom Zone")
@@ -1121,6 +1151,7 @@ namespace adrilight.View.SettingsWindowComponents
                         this.offcard.Visibility = Visibility.Collapsed;
                         this.Auracard.Visibility = Visibility.Collapsed;
                         this.pixelation.Visibility = Visibility.Collapsed;
+                        this.Rainbowation.Visibility = Visibility.Collapsed;
 
 
                         previewCard.Visibility = Visibility.Visible;
@@ -1161,6 +1192,7 @@ namespace adrilight.View.SettingsWindowComponents
                         Ambilightdesk_card.Visibility = Visibility.Collapsed;
                         Ambilightcase.Visibility = Visibility.Collapsed;
                         this.pixelation.Visibility = Visibility.Collapsed;
+                        this.Rainbowation.Visibility = Visibility.Collapsed;
                         break;
                     case "Sáng theo nhạc":
                         this.effectCard.Visibility = Visibility.Visible;
@@ -1171,6 +1203,7 @@ namespace adrilight.View.SettingsWindowComponents
                         Ambilightdesk_card.Visibility = Visibility.Collapsed;
                         Ambilightcase.Visibility = Visibility.Collapsed;
                         this.pixelation.Visibility = Visibility.Collapsed;
+                        this.Rainbowation.Visibility = Visibility.Collapsed;
                         if (i != null)
                         {
                             if (i.Content.ToString() == "Rainbow Custom Zone")
@@ -1342,6 +1375,7 @@ namespace adrilight.View.SettingsWindowComponents
                         Ambilightdesk_card.Visibility = Visibility.Collapsed;
                         Ambilightcase.Visibility = Visibility.Collapsed;
                         this.pixelation.Visibility = Visibility.Collapsed;
+                        this.Rainbowation.Visibility = Visibility.Collapsed;
 
 
                         break;
@@ -1355,6 +1389,19 @@ namespace adrilight.View.SettingsWindowComponents
                         Ambilightdesk_card.Visibility = Visibility.Collapsed;
                         Ambilightcase.Visibility = Visibility.Collapsed;
                         this.pixelation.Visibility = Visibility.Collapsed;
+                        this.Rainbowation.Visibility = Visibility.Collapsed;
+                        break;
+                    case "Gifxelation":
+                        this.effectCard.Visibility = Visibility.Collapsed;
+                        this.staticCard.Visibility = Visibility.Collapsed;
+                        this.customZone.Visibility = Visibility.Collapsed;
+                        this.offcard.Visibility = Visibility.Collapsed;
+                        this.Auracard.Visibility = Visibility.Collapsed;
+                        ambilightCard.Visibility = Visibility.Collapsed;
+                        Ambilightdesk_card.Visibility = Visibility.Collapsed;
+                        Ambilightcase.Visibility = Visibility.Collapsed;
+                        this.pixelation.Visibility = Visibility.Visible;
+                        this.Rainbowation.Visibility = Visibility.Collapsed;
                         break;
                     case "Pixelation":
                         this.effectCard.Visibility = Visibility.Collapsed;
@@ -1365,7 +1412,8 @@ namespace adrilight.View.SettingsWindowComponents
                         ambilightCard.Visibility = Visibility.Collapsed;
                         Ambilightdesk_card.Visibility = Visibility.Collapsed;
                         Ambilightcase.Visibility = Visibility.Collapsed;
-                        this.pixelation.Visibility = Visibility.Visible;
+                        this.pixelation.Visibility = Visibility.Collapsed;
+                        this.Rainbowation.Visibility = Visibility.Visible;
                         break;
 
 
