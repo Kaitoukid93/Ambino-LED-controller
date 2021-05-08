@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:adrilight.View"
               xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             >
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -25,7 +26,14 @@
         <StackPanel>
             <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Text="{Binding Device.DeviceName}" Style="{StaticResource tbHeadingStyle}"></TextBlock>
             <TextBlock Margin="0,50,0,0" Style="{StaticResource tbHeading2Style}" TextAlignment="Center" HorizontalAlignment="Center" Text="Chose your screen size"></TextBlock>
-            <ComboBox Width="106" Height="37" HorizontalAlignment="Center" Text="{Binding Device.DeviceSize}" Margin="0,10,0,0"></ComboBox>
+            <ComboBox Width="106" Height="37" HorizontalAlignment="Center" SelectedIndex="{Binding Device.DeviceSize}" Margin="0,10,0,0">
+                <ComboBoxItem Content="23-24-25inch"/>
+                <ComboBoxItem Content="27inch"/>
+                <ComboBoxItem Content="29inch"/>
+                <ComboBoxItem Content="32inch"/>
+                <ComboBoxItem Content="34inch"/>
+                <ComboBoxItem Content="Kích thước khác"/>
+            </ComboBox>
             <TextBlock Margin="0,10,0,0" Style="{StaticResource tbHeading2Style}" TextAlignment="Center" Text="Chose COM Port"></TextBlock>
             <StackPanel Orientation="Horizontal" Margin="182,0,0,0">
                 <ComboBox Width="106" Height="37" HorizontalAlignment="Center"  Text="{Binding Device.DevicePort}" Margin="0,10,0,0" ItemsSource="{Binding AvailableComPorts}"></ComboBox>

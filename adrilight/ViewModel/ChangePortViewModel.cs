@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace adrilight.ViewModel
 {
    public class ChangePortViewModel: ViewModelBase
     {
+       
         private DeviceInfoDTO _device;
         public DeviceInfoDTO Device {
             get { return _device; }
@@ -37,7 +39,9 @@ namespace adrilight.ViewModel
                 return _AvailableComPorts;
             }
         }
-        public ChangePortViewModel(ViewModelBase parent, DeviceInfoDTO device)
+   
+
+    public ChangePortViewModel(ViewModelBase parent, DeviceInfoDTO device)
         {
             Device = device;
             _parentVm = parent;

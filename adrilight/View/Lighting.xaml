@@ -70,13 +70,13 @@
                     <TextBlock   Style="{StaticResource tbHeading4Style}">Mode</TextBlock>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="1">
-                    <ComboBox Width="217" Height="37" IsEditable="False" IsSynchronizedWithCurrentItem="True" Text="{Binding Card.LightingMode}" ></ComboBox>
+                    <ComboBox Width="217" Height="37" ItemsSource="{Binding CaseEffects}" IsEditable="False" IsSynchronizedWithCurrentItem="True" Text="{Binding Card.LightingMode}" ></ComboBox>
                 </Border>
                 <Border Grid.Row="2">
                     <TextBlock   Style="{StaticResource tbHeading4Style}">Source</TextBlock>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="2">
-                    <ComboBox Width="217" Height="37" SelectedIndex="{Binding Card.CaptureSource}"  ItemsSource="{Binding CaseEffects}" IsSynchronizedWithCurrentItem="True" IsEditable="False"></ComboBox>
+                    <ComboBox Width="217" Height="37" SelectedIndex="{Binding Card.CaptureSource}"  ItemsSource="{Binding AvailableDisplays}" IsSynchronizedWithCurrentItem="True" IsEditable="False"></ComboBox>
                 </Border>
                 <Grid Grid.Row="3" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions>

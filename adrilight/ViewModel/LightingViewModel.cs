@@ -6,6 +6,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+
 
 namespace adrilight.ViewModel
 {
@@ -50,6 +52,21 @@ namespace adrilight.ViewModel
             Card = device;
            
         }
+        public IList<String> _AvailableDisplays;
+        public IList<String> AvailableDisplays {
+            get
+            {
+                var listDisplay = new List<String>();
+                foreach (var screen in System.Windows.Forms.Screen.AllScreens)
+                {
+                    
+                    listDisplay.Add(screen.DeviceName);
+                }
+                _AvailableDisplays = listDisplay;
+                return _AvailableDisplays;
+            }
+        }
+
         public void ReadData()
         {
           
