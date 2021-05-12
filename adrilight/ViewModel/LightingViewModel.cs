@@ -42,6 +42,16 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged();
             }
         }
+        private ObservableCollection<string> _screenEffects;
+        public ObservableCollection<string> ScreenEffects {
+            get { return _screenEffects; }
+            set
+            {
+                if (_screenEffects == value) return;
+                _screenEffects = value;
+                RaisePropertyChanged();
+            }
+        }
         private readonly ViewModelBase _parentVm;
         public LightingViewModel(DeviceInfoDTO device, ViewModelBase parent)
         {
@@ -65,6 +75,19 @@ namespace adrilight.ViewModel
            "Pixelation",
            "Ambilation"
 
+
+        };
+            ScreenEffects = new ObservableCollection<string>
+      {
+           "Sáng theo màn hình",
+           "Sáng theo hiệu ứng",
+           "Sáng màu tĩnh",
+           "Sáng theo nhạc",
+           "Đồng bộ Mainboard",
+           "Tắt",
+           "Gifxelation",
+           "Pixelation",
+           "Ambilation"
 
         };
             CollectionItems = new ObservableCollection<CollectionItem>();

@@ -20,6 +20,57 @@
                     Source="ControlStyle.xaml">
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="RowDefinition" x:Key="RowStyle1">
+                <Setter Property="Height" Value="0"></Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=cboMode,Path=SelectedIndex}" Value="0">
+                        <Setter Property="Height" Value="40"></Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="RowDefinition" x:Key="RowStyle2">
+                <Setter Property="Height" Value="0"></Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=cboMode,Path=SelectedIndex}" Value="1">
+                        <Setter Property="Height" Value="40"></Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="RowDefinition" x:Key="RowStyle3">
+                <Setter Property="Height" Value="0"></Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=cboMode,Path=SelectedIndex}" Value="3">
+                        <Setter Property="Height" Value="40"></Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="RowDefinition" x:Key="RowStyle4">
+                <Setter Property="Height" Value="0"></Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=cboMode,Path=SelectedIndex}" Value="6">
+                        <Setter Property="Height" Value="40"></Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="RowDefinition" x:Key="RowStyle34">
+                <Setter Property="Height" Value="0"></Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=cboMode,Path=SelectedIndex}" Value="3">
+                        <Setter Property="Height" Value="40"></Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ElementName=cboMode,Path=SelectedIndex}" Value="6">
+                        <Setter Property="Height" Value="40"></Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="RowDefinition" x:Key="RowStyle5">
+                <Setter Property="Height" Value="0"></Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=cboMode,Path=SelectedIndex}" Value="2">
+                        <Setter Property="Height" Value="40"></Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel>
@@ -32,10 +83,31 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="120"/>
+                    <RowDefinition Height="40">
 
+                    </RowDefinition>
+                    <RowDefinition Style="{StaticResource RowStyle1}">
+
+                    </RowDefinition>
+                    <RowDefinition Style="{StaticResource RowStyle3}"/>
+                    <RowDefinition Style="{StaticResource RowStyle3}"/>
+                    <RowDefinition Style="{StaticResource RowStyle2}">
+
+                    </RowDefinition>
+                    <RowDefinition Style="{StaticResource RowStyle1}">
+
+                    </RowDefinition>
+                    <RowDefinition Style="{StaticResource RowStyle1}">
+
+                    </RowDefinition>
+                    <RowDefinition Style="{StaticResource RowStyle2}"></RowDefinition>
+                    <RowDefinition Style="{StaticResource RowStyle2}"></RowDefinition>
+                    <RowDefinition Style="{StaticResource RowStyle4}"/>
+                    <RowDefinition Style="{StaticResource RowStyle4}"/>
+                    <RowDefinition Style="{StaticResource RowStyle4}"/>
+                    <RowDefinition Style="{StaticResource RowStyle34}"/>
+                    <RowDefinition Style="{StaticResource RowStyle5}"/>
+                    <RowDefinition Style="{StaticResource RowStyle5}"/>
                 </Grid.RowDefinitions>
                 <StackPanel>
                     <ItemsControl Grid.Row="1" ItemsSource="{Binding CollectionItems}"   >
@@ -70,7 +142,7 @@
                     <TextBlock   Style="{StaticResource tbHeading4Style}">Mode</TextBlock>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="1">
-                    <ComboBox Width="217" Height="37" IsEditable="False" IsSynchronizedWithCurrentItem="True" Text="{Binding Card.LightingMode}" ></ComboBox>
+                    <ComboBox Width="217" Height="37" Name="cboMode" IsEditable="False" IsSynchronizedWithCurrentItem="True" Text="{Binding Card.LightingMode}" ItemsSource="{Binding ScreenEffects}" ></ComboBox>
                 </Border>
                 <Border Grid.Row="2">
                     <TextBlock   Style="{StaticResource tbHeading4Style}">Source</TextBlock>
@@ -78,43 +150,165 @@
                 <Border Grid.Column="1" Grid.Row="2">
                     <ComboBox Width="217" Height="37" SelectedIndex="{Binding Card.CaptureSource}"  ItemsSource="{Binding CaseEffects}" IsSynchronizedWithCurrentItem="True" IsEditable="False"></ComboBox>
                 </Border>
-                <Grid Grid.Row="3" Grid.ColumnSpan="2">
+                <Border Grid.Row="3">
+                    <TextBlock   Style="{StaticResource tbHeading4Style}">Audio Source</TextBlock>
+                </Border>
+                <Border Grid.Column="1" Grid.Row="3">
+                    <ComboBox Width="217" Height="37" SelectedIndex="{Binding Card.MusicSource}"   IsEditable="False"></ComboBox>
+                </Border>
+                <Grid Grid.Row="4" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition Width="240"/>
                         <ColumnDefinition Width="106"/>
                     </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Border Grid.Row="0">
-                        <TextBlock   Style="{StaticResource tbHeading4Style}">LED number</TextBlock>
+
+                    <Border >
+                        <TextBlock   Style="{StaticResource tbHeading4Style}">Sensivity</TextBlock>
                     </Border>
-                    <Border Grid.Column="2" Grid.Row="0">
-                        <ComboBox Height="37" Width="106" HorizontalAlignment="Right" Text="{Binding Card.LEDNumber}" IsEditable="False" ></ComboBox>
-                    </Border>
-                    <Border Grid.Row="1">
-                        <TextBlock   Style="{StaticResource tbHeading4Style}">Color Temprature</TextBlock>
-                    </Border>
-                    <Border Grid.Row="1" Grid.Column="1">
+                    <Border  Grid.Column="1">
                         <Slider TickFrequency="5" Width="240"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="50" Value="{Binding Card.ColorTemp}" />
                     </Border>
-                    <Border Grid.Column="2" Grid.Row="1">
+                    <Border Grid.Column="2">
                         <ComboBox Height="37" Width="106" HorizontalAlignment="Right" Text="{Binding Card.RainbowSpeed}"></ComboBox>
                     </Border>
-                    <Border Grid.Row="2">
+
+                </Grid>
+                <Grid Grid.Row="5" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="240"/>
+                        <ColumnDefinition Width="106"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Row="0">
+                        <TextBlock   Style="{StaticResource tbHeading4Style}">Color Pallete</TextBlock>
+                    </Border>
+                    <Border Grid.Column="2" Grid.Row="0">
+                        <ComboBox Height="37" Width="106" HorizontalAlignment="Right" Text="{Binding Card.RainbowMode}" IsEditable="False" ></ComboBox>
+                    </Border>
+
+                </Grid>
+                <Grid Grid.Row="6" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="240"/>
+                        <ColumnDefinition Width="106"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border >
+                        <TextBlock   Style="{StaticResource tbHeading4Style}">Color Temprature</TextBlock>
+                    </Border>
+                    <Border  Grid.Column="1">
+                        <Slider TickFrequency="5" Width="240"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="50" Value="{Binding Card.ColorTemp}" />
+                    </Border>
+                    <Border Grid.Column="2">
+                        <ComboBox Height="37" Width="106" HorizontalAlignment="Right" Text="{Binding Card.RainbowSpeed}"></ComboBox>
+                    </Border>
+
+                </Grid>
+                <Grid Grid.Row="7" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="240"/>
+                        <ColumnDefinition Width="106"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border >
                         <TextBlock   Style="{StaticResource tbHeading4Style}">Brightness</TextBlock>
                     </Border>
-                    <Border Grid.Row="2" Grid.Column="1">
+                    <Border  Grid.Column="1">
                         <Slider TickFrequency="5" Width="240"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="100" Value="{Binding Card.Brightness}" />
                     </Border>
-                    <Border Grid.Column="2" Grid.Row="2">
+                    <Border Grid.Row="2">
                         <ComboBox Height="37" Width="106" HorizontalAlignment="Right"></ComboBox>
                     </Border>
                 </Grid>
+                <Grid Grid.Row="8" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="240"/>
+                        <ColumnDefinition Width="106"/>
+                    </Grid.ColumnDefinitions>
 
+                    <Border >
+                        <TextBlock   Style="{StaticResource tbHeading4Style}">Effect Speed</TextBlock>
+                    </Border>
+                    <Border  Grid.Column="1">
+                        <Slider TickFrequency="5" Width="240"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="50" Value="{Binding Card.ColorTemp}" />
+                    </Border>
+                    <Border Grid.Column="2">
+                        <ComboBox Height="37" Width="106" HorizontalAlignment="Right" Text="{Binding Card.RainbowSpeed}"></ComboBox>
+                    </Border>
+
+                </Grid>
+                <Border Grid.Row="9">
+                    <TextBlock   Style="{StaticResource tbHeading4Style}">Running mode</TextBlock>
+                </Border>
+                <Border Grid.Column="1" Grid.Row="9">
+                    <ComboBox Width="217" Height="37" IsEditable="False"   ></ComboBox>
+                </Border>
+                <Border Grid.Row="10">
+                    <TextBlock   Style="{StaticResource tbHeading4Style}">Gif source</TextBlock>
+                </Border>
+                <Border Grid.Column="10" Grid.Row="10">
+                    <ComboBox Width="217" Height="37"  IsEditable="False"  Text="{Binding Card.GifSource}"  ></ComboBox>
+                </Border>
+                <Grid Grid.Row="11" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="240"/>
+                        <ColumnDefinition Width="106"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border >
+                        <TextBlock   Style="{StaticResource tbHeading4Style}">Gif Speed</TextBlock>
+                    </Border>
+                    <Border  Grid.Column="1">
+                        <Slider TickFrequency="5" Width="240"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="50"  />
+                    </Border>
+                    <Border Grid.Column="2">
+                        <ComboBox Height="37" Width="106" HorizontalAlignment="Right" Text="{Binding Card.GifSpeed}"></ComboBox>
+                    </Border>
+
+                </Grid>
+                <Border Grid.Row="12">
+                    <TextBlock   Style="{StaticResource tbHeading4Style}">Gif mode</TextBlock>
+                </Border>
+                <Border Grid.Column="12" Grid.Row="10">
+                    <ComboBox Width="217" Height="37"  IsEditable="False"    ></ComboBox>
+                </Border>
+                <Border Grid.Row="13">
+                    <TextBlock   Style="{StaticResource tbHeading4Style}">Dancing mode</TextBlock>
+                </Border>
+                <Border Grid.Column="1" Grid.Row="13">
+                    <ComboBox Width="217" Height="37" IsEditable="False"  ></ComboBox>
+                </Border>
+                <Border Grid.Row="14">
+                    <TextBlock   Style="{StaticResource tbHeading4Style}">Breathing</TextBlock>
+                </Border>
+                <Border Grid.Column="1" Grid.Row="14">
+                    <ToggleButton Width="40" HorizontalAlignment="Right" IsChecked="{Binding Card.IsBreathing}"></ToggleButton>
+                </Border>
+                <Grid Grid.Row="15" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="240"/>
+                        <ColumnDefinition Width="51.749"/>
+                        <ColumnDefinition Width="54.251"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Margin="0,0,0,0.333" >
+                        <TextBlock   Style="{StaticResource tbHeading4Style}">Breathing Speed</TextBlock>
+                    </Border>
+                    <Border  Grid.Column="1" Margin="0,0,0,0.333">
+                        <Slider TickFrequency="5" Width="240"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="50"  />
+                    </Border>
+                    <Border Grid.Column="2" Grid.ColumnSpan="2" Margin="0,0,0,0.333">
+                        <ComboBox Height="37" Width="106" HorizontalAlignment="Right" Text="{Binding Card.BreathingSpeed}"></ComboBox>
+                    </Border>
+
+                </Grid>
             </Grid>
         </Border>
     </StackPanel>
