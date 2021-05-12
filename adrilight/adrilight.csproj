@@ -351,6 +351,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Settings\IEffect.cs" />
+    <Compile Include="Util\Audio.cs" />
+    <Compile Include="Util\Brightness.cs" />
+    <Compile Include="Util\GradientColor.cs" />
+    <Compile Include="Util\IStaticColor.cs" />
+    <Compile Include="Util\StaticColor.cs" />
     <Compile Include="Util\Music.cs" />
     <Compile Include="Util\Rainbow.cs" />
     <Compile Include="Util\ColorUtil.cs" />

@@ -44,16 +44,16 @@ namespace adrilight.View.SettingsWindowComponents
     {
 
         private int devindex;
-        public static int volume;
+        
         private WASAPIPROC _process;
         private bool _initialized;
-        private int _hanctr;
-        private int _lastlevel;
-        public static int[] spectrumdata = new int[16];
+
+        private float[] _fft;
+
         public static byte[] output_spectrumdata = new byte[16];
         public static int[] order_data = new int[16];
         public static int[] custom_order_data = new int[16];
-        private float[] _fft;
+       
         public bool isEffect { get; set; }
         public bool isPlaying=false;
         public BitmapImage gifimage;
@@ -102,21 +102,7 @@ namespace adrilight.View.SettingsWindowComponents
             InitializeComponent();
             var settingsViewModel = DataContext as SettingsViewModel;
 
-            List<string> names = ComPortNames("1A86", "7523");
-            if (names.Count > 0)
-            {
-                foreach (String s in SerialPort.GetPortNames())
-                {
-                    if (names.Contains(s))
-                    {
-                        ambino_port = s;
-                    }
-                    else
-                    {
-                        ambino_port = null;
-                    }
-                }
-            }
+         
             MatrixFrame.DimensionsChanged += OnMatrixDimensionsChanged;
             MatrixFrame.FrameChanged += OnFrameChanged;
             MatrixFrame.SetDimensions(MatrixFrame.Width, MatrixFrame.Height);
@@ -191,7 +177,7 @@ namespace adrilight.View.SettingsWindowComponents
            // dispatcherTimer.Start();
             dispatcherTimer2.Start();
             StartPix();
-            StartMusic();
+            //StartMusic();
 
 
 
@@ -277,39 +263,62 @@ namespace adrilight.View.SettingsWindowComponents
         
 
 
-        public void StartGif()
-        {
-
-            GifTimer.Interval = new TimeSpan(0, 0, 0, 0, ImageProcesser.GifMillisconds);
-            GifTimer.Tick -= new EventHandler(GifTimer_Tick);
-            GifTimer.Tick += new EventHandler(GifTimer_Tick);
-            GifTimer.Start();
-
-        }
+      
 
 
         public void StartPix()
         {
 
-            PixTimer.Interval = new TimeSpan(0, 0, 0, 0, 1); 
-            PixTimer.Tick += new EventHandler(Gradient_Timer_Tick);
+            PixTimer.Interval = new TimeSpan(0, 0, 0, 0, 10); 
+           
+                PixTimer.Tick += (sender, e) => { 
+                    
+                    if(screenefectbox.SelectedIndex==7)
+                    {
+                        Palette_Timer_Tick(sender, e);
+                    }
+
+                    else if(screenefectbox.SelectedIndex==3)
+                    {
+                        Music_Timer_Tick(sender, e);
+                    }
+                    else if (screenefectbox.SelectedIndex == 9)
+                    {
+                      Gradient_Timer_Tick(sender, e);
+                    }
+                  
+                    else if (screenefectbox.SelectedIndex == 6)
+                    {
+                        Gif_Timer_Tick(sender, e);
+                    }
+                };
+             
+             
+            
+               
+
+            
+            
+           
+            
             PixTimer.Start();
 
         }
-        public void StartMusic()
+        //public void StartMusic()
+        //{
+
+        //    MusicTimer.Interval = new TimeSpan(0, 0, 0, 0, 5);
+        //    MusicTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+        //    MusicTimer.Start();
+
+        //}
+       
+        public void StopPix()
         {
-
-            MusicTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
-            MusicTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            MusicTimer.Start();
-
-        }
-        public void StopGif()
-        {
-            GifTimer.Stop();
+            PixTimer.Stop();
         }
 
-        public void GifTimer_Tick(object sender, EventArgs e)
+        public void Gif_Timer_Tick(object sender, EventArgs e)
         {
             var settingsViewModel = DataContext as SettingsViewModel;
             ImageProcesser.DisposeWorkingBitmap();
@@ -347,178 +356,47 @@ namespace adrilight.View.SettingsWindowComponents
 
         }
 
-        public void Rainbow_Timer_Tick(object sender, EventArgs e)
+
+        public void Palette_Timer_Tick(object sender, EventArgs e) //chose for running normal effect mode(rainbow,party..)
         {
+           
 
-
-            Rainbow.RainbowCreator(30, _pixframeIndex, playground1,false,volume , 30,output_spectrumdata,0);
             
-            if(_pixframeIndex>360)
-            {
-                _pixframeIndex = 0;
-            }
-            else
-            {
-                _pixframeIndex +=1;
-            }
-            
+                Rainbow.RainbowCreator(32, playground1,32,effectbox.SelectedIndex,1, BrightnessSlider.Value / 100.0);
+
+     
         }
 
 
-        public void Palette_Timer_Tick(object sender, EventArgs e)
+        public void Music_Timer_Tick(object sender, EventArgs e) //chose for running music effect mode(rainbow,party..)
         {
-            System.Windows.Media.Color[] party = {System.Windows.Media.Color.FromRgb(255,0,0),
-                                                  System.Windows.Media.Color.FromRgb(255,255,0),
-                                                  System.Windows.Media.Color.FromRgb(255,255,255),
-                                                  System.Windows.Media.Color.FromRgb(0,255,255)
 
 
 
+            Audio.MusicCreator(1, effectbox.SelectedIndex, playground2, 32, _fft, 1);
 
 
-
-            };
-            if (_pixframeIndex > 30)
-            {
-                _pixframeIndex = 0;
-            }
-            else
-            {
-                _pixframeIndex += 0.5;
-            }
-
-            Rainbow.PaletteCreator(30, _pixframeIndex, playground1, false, zoebar1.Value, party);
-
-
-
-          
 
         }
-        public void Gradient_Timer_Tick(object sender,EventArgs e)
+        public void Gradient_Timer_Tick(object sender, EventArgs e) //chose for running music effect mode(rainbow,party..)
         {
-            if (_pixframeIndex >255)
-            {
-                _pixframeIndex = 0;
-            }
-            else
-            {
-                _pixframeIndex += 1;
-            }
 
-            double[] collection1 = { 0, 4, 8, 12, 16, 18,20, 36 };
-            Rainbow.GradientCreator(30, _pixframeIndex, playground1, false, zoebar1.Value,collection1);
+
+
+            GradientColor.GradientCreator(32,playground3,false,0.2,0.4, BrightnessSlider.Value / 100.0);
+
+
 
         }
 
+      
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //private void Button_Imaging_ImportImage_Click(object sender, RoutedEventArgs e)
-        //{
-        //    OpenFileDialog openFileDialog = new OpenFileDialog();
-        //    openFileDialog.Filter = "Image Files(*.BMP;*.JPG;*.PNG;*.GIF)|*.BMP;*.JPG;*.PNG;*.GIF";
-        //    if (openFileDialog.ShowDialog() == System.Windows.DialogResult.OK)
-        //    {
-        //        IMLockDim = false;
-        //        GifPlayPause = false;
-        //        ImageProcesser.DisposeStill();
-        //        ImageProcesser.DisposeGif();
-        //        if (ImageProcesser.LoadBitmapFromDisk(openFileDialog.FileName))
-        //        {
-        //            ContentBitmap = MatrixFrame.CreateBitmapSourceFromBitmap(ImageProcesser.WorkingBitmap);
-        //            MatrixFrame.BitmapToFrame(ImageProcesser.WorkingBitmap, ImageProcesser.InterpMode);
-        //            IMXMax = IMX2 = ImageProcesser.WorkingBitmap.Width;
-        //            IMYMax = IMY2 = ImageProcesser.WorkingBitmap.Height;
-        //            IMX1 = 0;
-        //            IMY1 = 0;
-        //            //FrameToPreview();
-        //            //SerialManager.PushFrame();
-        //            ImageProcesser.ImageLoadState = ImageProcesser.LoadState.Still;
-        //            ResetSliders();
-        //        }
-        //        else
-        //        {
-        //            System.Windows.MessageBox.Show("Cannot load image.");
-        //        }
-        //    }
-        //}
-
-        //private void Button_Imaging_ImportGif_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var s = new System.Diagnostics.Stopwatch();
-        //    s.Start();
-        //    OpenFileDialog openFileDialog = new OpenFileDialog();
-        //    openFileDialog.Filter = "Image Files(*.GIF)|*.GIF";
-        //    if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-        //    {
-        //        GifPlayPause = false;
-        //        ImageProcesser.DisposeGif();
-        //        ImageProcesser.DisposeStill();
-        //        if (ImageProcesser.LoadGifFromDisk(openFileDialog.FileName))
-        //        {
-        //            ContentBitmap = MatrixFrame.CreateBitmapSourceFromBitmap(ImageProcesser.WorkingBitmap);
-        //            MatrixFrame.BitmapToFrame(ImageProcesser.WorkingBitmap, ImageProcesser.InterpMode);
-        //            IMXMax = IMX2 = ImageProcesser.LoadedGifImage.Width;
-        //            IMYMax = IMY2 = ImageProcesser.LoadedGifImage.Height;
-        //            IMX1 = 0;
-        //            IMY1 = 0;
-        //            //FrameToPreview();
-        //            //SerialManager.PushFrame();
-        //            ImageProcesser.ImageLoadState = ImageProcesser.LoadState.Gif;
-        //            ResetSliders();
-        //        }
-        //        else
-        //        {
-        //            System.Windows.MessageBox.Show("Cannot load image.");
-        //        }
-
-        //    }
-        //    //  System.Windows.MessageBox.Show(s.ElapsedMilliseconds.ToString());
-        //}
-
-        List<string> ComPortNames(String VID, String PID)
-        {
-            String pattern = String.Format("^VID_{0}.PID_{1}", VID, PID);
-            Regex _rx = new Regex(pattern, RegexOptions.IgnoreCase);
-            List<string> comports = new List<string>();
-            RegistryKey rk1 = Registry.LocalMachine;
-            RegistryKey rk2 = rk1.OpenSubKey("SYSTEM\\CurrentControlSet\\Enum");
-            foreach (String s3 in rk2.GetSubKeyNames())
-            {
-                RegistryKey rk3 = rk2.OpenSubKey(s3);
-                foreach (String s in rk3.GetSubKeyNames())
-                {
-                    if (_rx.Match(s).Success)
-                    {
-                        RegistryKey rk4 = rk3.OpenSubKey(s);
-                        foreach (String s2 in rk4.GetSubKeyNames())
-                        {
-                            RegistryKey rk5 = rk4.OpenSubKey(s2);
-                            RegistryKey rk6 = rk5.OpenSubKey("Device Parameters");
-                            comports.Add((string)rk6.GetValue("PortName"));
-                        }
-                    }
-                }
-            }
-            return comports;
-        }
 
         private static string[] lines = new string[28];
         private static string[] lines2 = new string[24];
-        public static int musicvalue;
-        public static string ambino_port;
+        
+        
         public static string temp;
         public static string gifilepath;
         private IUserSettings UserSettings { get; }
@@ -548,125 +426,7 @@ namespace adrilight.View.SettingsWindowComponents
             if (!result) throw new Exception("Init Error");
         }
 
-        public void dispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            /*  if(musicvisualize.IsChecked==true)
-              { 
-              MMDevice defaultDevice = new MMDeviceEnumerator().GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
-              if(defaultDevice!=null)
-              { 
-              //var device = (MMDevice)audio.SelectedItem;
-              zoebar.Value = (int)(Math.Round(defaultDevice.AudioMeterInformation.MasterPeakValue * 255));
-                  musicvalue = (int)(Math.Round(defaultDevice.AudioMeterInformation.MasterPeakValue * 255));
-
-              }
-              }
-              */
-
-            int ret = BassWasapi.BASS_WASAPI_GetData(_fft, (int)BASSData.BASS_DATA_FFT2048); //get channel fft data
-            if (ret < -1) return;
-            int x, y;
-            int b0 = 0;
-
-
-            //computes the spectrum data, the code is taken from a bass_wasapi sample.
-            for (x = 0; x < 16; x++)
-            {
-                float peak = 0;
-                int b1 = (int)Math.Pow(2, x * 10.0 / (16 - 1));
-                if (b1 > 1023) b1 = 1023;
-                if (b1 <= b0) b1 = b0 + 1;
-                for (; b0 < b1; b0++)
-                {
-                    if (peak < _fft[1 + b0]) peak = _fft[1 + b0];
-                }
-                y = (int)(Math.Sqrt(peak) * 3 * 250 - 4);
-                if (y > 255) y = 255;
-                if (y < 10) y = 0;
-                spectrumdata[x] = (spectrumdata[x] * 6 + y * 2 + 7) / 8; //Smoothing out the value (take 5/8 of old value and 3/8 of new value to make finnal value)
-                if (spectrumdata[x] > 255)
-                    spectrumdata[x] = 255;
-
-                //  Console.Write("{0, 3} ", y);
-
-
-
-
-            }
-            int i;
-            //output_spectrumdata = spectrumdata;
-           
-            if(Music_box_1.SelectedIndex>=0)
-            {
-                output_spectrumdata[0] = Convert.ToByte(spectrumdata[Music_box_1.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[1] = Convert.ToByte(spectrumdata[Music_box_2.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[2] = Convert.ToByte(spectrumdata[Music_box_3.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[3] = Convert.ToByte(spectrumdata[Music_box_4.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[4] = Convert.ToByte(spectrumdata[Music_box_5.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[5] = Convert.ToByte(spectrumdata[Music_box_6.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[6] = Convert.ToByte(spectrumdata[Music_box_7.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[7] = Convert.ToByte(spectrumdata[Music_box_8.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[8] = Convert.ToByte(spectrumdata[Music_box_9.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[9] = Convert.ToByte(spectrumdata[Music_box_10.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[10] = Convert.ToByte(spectrumdata[Music_box_11.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[11] = Convert.ToByte(spectrumdata[Music_box_12.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[12] = Convert.ToByte(spectrumdata[Music_box_13.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[13] = Convert.ToByte(spectrumdata[Music_box_14.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[14] = Convert.ToByte(spectrumdata[Music_box_15.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-                output_spectrumdata[15] = Convert.ToByte(spectrumdata[Music_box_16.SelectedIndex]); // Re-Arrange the value to match the order of LEDs
-
-                zoebar1.Value = spectrumdata[Music_box_1.SelectedIndex];
-                zoebar2.Value = spectrumdata[Music_box_2.SelectedIndex];
-                zoebar3.Value = spectrumdata[Music_box_3.SelectedIndex];
-                zoebar4.Value = spectrumdata[Music_box_4.SelectedIndex];
-                zoebar5.Value = spectrumdata[Music_box_5.SelectedIndex];
-                zoebar6.Value = spectrumdata[Music_box_6.SelectedIndex];
-                zoebar7.Value = spectrumdata[Music_box_7.SelectedIndex];
-                zoebar8.Value = spectrumdata[Music_box_8.SelectedIndex];
-                zoebar9.Value = spectrumdata[Music_box_9.SelectedIndex];
-                zoebar10.Value = spectrumdata[Music_box_10.SelectedIndex];
-                zoebar11.Value = spectrumdata[Music_box_11.SelectedIndex];
-                zoebar12.Value = spectrumdata[Music_box_12.SelectedIndex];
-                zoebar13.Value = spectrumdata[Music_box_13.SelectedIndex];
-                zoebar14.Value = spectrumdata[Music_box_14.SelectedIndex];
-                zoebar15.Value = spectrumdata[Music_box_15.SelectedIndex];
-                zoebar16.Value = spectrumdata[Music_box_16.SelectedIndex];
-            }
-
-
-
-           
-
-           
-
-
-
-            //  Array.Clear(spectrumdata, 0, 16);
-
-            int level = BassWasapi.BASS_WASAPI_GetLevel(); // Get level (VU metter) for Old AMBINO Device (remove in the future)
-            
-
-
-            // _l.Value = Utils.LowWord32(level);
-            //  _r.Value = Utils.HighWord32(level);
-            if (level == _lastlevel && level != 0) _hanctr++;
-            volume = Utils.LowWord32(level);
-            _lastlevel = level;
-            //volume = level;
-
-            //Required, because some programs hang the output. If the output hangs for a 75ms
-            //this piece of code re initializes the output so it doesn't make a gliched sound for long.
-             //if (_hanctr > 3)
-             // {
-             //     _hanctr = 0;
-               
-             //     Free();
-             //     Bass.BASS_Init(0, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
-             //     _initialized = false;
-                  
-             // }
-              
-        }
+       
         private int Process(IntPtr buffer, int length, IntPtr user)
         {
             return length;
@@ -734,15 +494,7 @@ namespace adrilight.View.SettingsWindowComponents
             public object Content { get => lazyContent.Value; }
         }
 
-        private void Button_Click_6(object sender, RoutedEventArgs e)
-        {
-            if (ambino_port != null)
-            {
-
-                comportbox3.SelectedValue = ambino_port;
-            }
-        }
-
+       
 
         private void Comportbox5_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -1027,6 +779,9 @@ namespace adrilight.View.SettingsWindowComponents
 
         private void ChangeEffect(object sender, SelectionChangedEventArgs e)
         {
+
+            StopPix();
+            StartPix();
             var item = (String)(sender as ComboBox).SelectedItem;
             var i = (Label)effectbox.SelectedItem;
             
@@ -1058,6 +813,7 @@ namespace adrilight.View.SettingsWindowComponents
                         this.Auracard.Visibility = Visibility.Collapsed;
                         this.pixelation.Visibility = Visibility.Collapsed;
                         this.Rainbowation.Visibility = Visibility.Collapsed;
+                        this.Gradient.Visibility = Visibility.Collapsed;
                         if (i != null)
                         {
                             if (i.Content.ToString() == "Rainbow Custom Zone")
@@ -1152,6 +908,7 @@ namespace adrilight.View.SettingsWindowComponents
                         this.Auracard.Visibility = Visibility.Collapsed;
                         this.pixelation.Visibility = Visibility.Collapsed;
                         this.Rainbowation.Visibility = Visibility.Collapsed;
+                        this.Gradient.Visibility = Visibility.Collapsed;
 
 
                         previewCard.Visibility = Visibility.Visible;
@@ -1193,6 +950,7 @@ namespace adrilight.View.SettingsWindowComponents
                         Ambilightcase.Visibility = Visibility.Collapsed;
                         this.pixelation.Visibility = Visibility.Collapsed;
                         this.Rainbowation.Visibility = Visibility.Collapsed;
+                        this.Gradient.Visibility = Visibility.Collapsed;
                         break;
                     case "Sáng theo nhạc":
                         this.effectCard.Visibility = Visibility.Visible;
@@ -1204,6 +962,8 @@ namespace adrilight.View.SettingsWindowComponents
                         Ambilightcase.Visibility = Visibility.Collapsed;
                         this.pixelation.Visibility = Visibility.Collapsed;
                         this.Rainbowation.Visibility = Visibility.Collapsed;
+                        this.Gradient.Visibility = Visibility.Collapsed;
+
                         if (i != null)
                         {
                             if (i.Content.ToString() == "Rainbow Custom Zone")
@@ -1390,6 +1150,7 @@ namespace adrilight.View.SettingsWindowComponents
                         Ambilightcase.Visibility = Visibility.Collapsed;
                         this.pixelation.Visibility = Visibility.Collapsed;
                         this.Rainbowation.Visibility = Visibility.Collapsed;
+                        this.Gradient.Visibility = Visibility.Collapsed;
                         break;
                     case "Gifxelation":
                         this.effectCard.Visibility = Visibility.Collapsed;
@@ -1402,6 +1163,7 @@ namespace adrilight.View.SettingsWindowComponents
                         Ambilightcase.Visibility = Visibility.Collapsed;
                         this.pixelation.Visibility = Visibility.Visible;
                         this.Rainbowation.Visibility = Visibility.Collapsed;
+                        this.Gradient.Visibility = Visibility.Collapsed;
                         break;
                     case "Pixelation":
                         this.effectCard.Visibility = Visibility.Collapsed;
@@ -1414,6 +1176,21 @@ namespace adrilight.View.SettingsWindowComponents
                         Ambilightcase.Visibility = Visibility.Collapsed;
                         this.pixelation.Visibility = Visibility.Collapsed;
                         this.Rainbowation.Visibility = Visibility.Visible;
+                        this.Gradient.Visibility = Visibility.Collapsed;
+                        break;
+                    case "Gradient":
+                        this.effectCard.Visibility = Visibility.Collapsed;
+                        this.staticCard.Visibility = Visibility.Collapsed;
+                        this.customZone.Visibility = Visibility.Collapsed;
+                        this.offcard.Visibility = Visibility.Collapsed;
+                        this.Auracard.Visibility = Visibility.Collapsed;
+                        ambilightCard.Visibility = Visibility.Collapsed;
+                        Ambilightdesk_card.Visibility = Visibility.Collapsed;
+                        Ambilightcase.Visibility = Visibility.Collapsed;
+                        this.pixelation.Visibility = Visibility.Collapsed;
+                        this.Rainbowation.Visibility = Visibility.Collapsed;
+                        this.Gradient.Visibility = Visibility.Visible;
+
                         break;
 
 
@@ -3381,21 +3158,21 @@ namespace adrilight.View.SettingsWindowComponents
         private void gifplaypausebutton_Checked(object sender, RoutedEventArgs e)
         {
             
-                if (ImageProcesser.ImageLoadState == ImageProcesser.LoadState.Gif)
-            {
-                if (gifplaypausebutton.IsChecked == true)
-                {
-                    isPlaying = true;
-                    StartGif();
+            //    if (ImageProcesser.ImageLoadState == ImageProcesser.LoadState.Gif)
+            //{
+            //    if (gifplaypausebutton.IsChecked == true)
+            //    {
+            //        isPlaying = true;
+            //        StartGif();
                     
-                }
+            //    }
                 
-                else
-                {
-                    isPlaying = false;
-                    StopGif();
-                }
-            }
+            //    else
+            //    {
+            //        isPlaying = false;
+            //        StopGif();
+            //    }
+            //}
         }
 
         private void OnMatrixDimensionsChanged()

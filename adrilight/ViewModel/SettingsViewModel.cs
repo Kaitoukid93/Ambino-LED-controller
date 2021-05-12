@@ -26,6 +26,7 @@ using System.IO;
 using System.Collections.ObjectModel;
 using adrilight.Settings;
 using System.Windows.Forms;
+using Color = System.Windows.Media.Color;
 
 namespace adrilight.ViewModel
 {
@@ -34,6 +35,8 @@ namespace adrilight.ViewModel
     {
         private static ILogger _log = LogManager.GetCurrentClassLogger();
         public ObservableCollection<string> CaseEffects { get; private set; }
+       // public ObservableCollection<Int32Rect> PreviewRect { get; private set; }
+
         public ObservableCollection<string> ScreenEffects { get; private set; }
         public ObservableCollection<string> DeskEffects { get; private set; }
         public ObservableCollection<string> Freq { get; private set; }
@@ -141,7 +144,7 @@ namespace adrilight.ViewModel
            "Gifxelation",
            "Pixelation",
            "Ambilation",
-           "FastLED"
+           "Gradient"
 
         };
             DeskEffects = new ObservableCollection<string>
@@ -939,6 +942,61 @@ namespace adrilight.ViewModel
         [DllImport("gdi32.dll")]
         public static extern bool DeleteObject(IntPtr hObject);
 
+    
+        public void SetPreviewRectangle(System.Windows.Media.Color[] colorCollection)
+        {
+            // playground.Children.Clear();
+
+            Context.Invoke(() =>
+            {
+                //if (PreviewRectangle== null)
+                //{
+                //    //first run creates writableimage
+                //    var b = new WriteableBitmap;
+                //    b.SetPixel(0, 0, System.Drawing.Color.FromArgb(0,255,255,255));
+                //    var background = new Bitmap(373, 24, b);
+
+                //    PreviewRectangle = background;
+                   
+                    
+                //}
+                //else
+                int counter=0;
+                    foreach (var color in colorCollection)
+                    {
+                        System.Windows.Shapes.Rectangle rectangle = new System.Windows.Shapes.Rectangle {
+                            Width = 30,
+                            Height = 30,
+                        };
+
+                        System.Windows.Media.Brush brush = new SolidColorBrush(color);
+                        rectangle.Fill = brush;
+                    Int32Rect newrect = new Int32Rect((counter*30)+3, 0, 30, 30);
+
+                    PreviewRectangle.Add(newrect);
+
+                    counter++;
+                }
+
+             
+                //}
+
+
+
+
+
+
+
+
+
+                //}
+            });
+
+
+            
+            }
+        
+
         public void SetPreviewImage(Bitmap image)
         {
             Context.Invoke(() =>
@@ -1005,9 +1063,25 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged(() => CanvasHeight);
             }
         }
+
+  
+    public ObservableCollection <Int32Rect> _previewRectangle;
+    public ObservableCollection<Int32Rect> PreviewRectangle {
+            get => _previewRectangle;
+            set
+            {
+                _log.Info("PreviewRectangle created.");
+                Set(ref _previewRectangle, value);
+
+                //RaisePropertyChanged(() => ScreenWidth);
+                //RaisePropertyChanged(() => ScreenHeight);
+                //RaisePropertyChanged(() => CanvasWidth);
+                //RaisePropertyChanged(() => CanvasHeight);
+            }
+        }
         //ambilation//
-       
-      
+
+
 
         //ambilation//
 

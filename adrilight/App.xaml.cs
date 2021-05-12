@@ -197,6 +197,7 @@ namespace adrilight
                 kernel.Bind<ISpotSet>().To<SpotSet>().InSingletonScope();
                 kernel.Bind<ISerialStream>().To<SerialStream>().InSingletonScope();
                 kernel.Bind<IDesktopDuplicatorReader>().To<DesktopDuplicatorReader>().InSingletonScope();
+                kernel.Bind<IStaticColor>().To<StaticColor>().InSingletonScope();
             }
             kernel.Bind<SettingsViewModel>().ToSelf().InSingletonScope();
             kernel.Bind<TelemetryClient>().ToConstant(SetupApplicationInsights(kernel.Get<IUserSettings>()));
@@ -208,6 +209,7 @@ namespace adrilight
             //eagerly create required singletons [could be replaced with actual pipeline]
             var desktopDuplicationReader = kernel.Get<IDesktopDuplicatorReader>();
             var serialStream = kernel.Get<ISerialStream>();
+            var staticColor = kernel.Get<IStaticColor>();
 
             return kernel;
         }

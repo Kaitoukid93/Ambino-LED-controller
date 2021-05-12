@@ -607,8 +607,9 @@
                         <Slider
                     Grid.Row="2" Margin="108,12,0,7"
                     Minimum="0" 
-                    Maximum="255"  ToolTip="Độ sáng của các thiết bị bên trong case"
-                   
+                    Maximum="100"  ToolTip="Độ sáng của các thiết bị bên trong case"
+                            
+                   x:Name="BrightnessSlider"
                     Value="{Binding Settings.brightnesscounter}" Visibility="{Binding ElementName=Screen,Path=IsSelected,Converter={StaticResource boolToVisibilityConvert}}"
 					RenderTransformOrigin="0.066,0.839" Width="143" Foreground="#FF7344C3" >
                             <Slider.RenderTransform>
@@ -934,8 +935,12 @@
                     <Grid VerticalAlignment="Top" Height="365">
 
 
-
-
+                        <Canvas x:Name="playground4" Margin="15,326,15,15">
+                            <ItemsControl ItemsSource="{Binding PreviewRectangle}">
+                                
+                            </ItemsControl>
+                        </Canvas>
+                        
                         <TextBlock FontWeight="Normal" HorizontalAlignment="Right"
 							   RenderTransformOrigin="0.596,0.275" 
 							   FontSize="30" Height="50"
@@ -1465,6 +1470,7 @@
                         <TextBlock Grid.Column="14" Text="{Binding ElementName=Music_box_15, Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
                         <TextBlock Grid.Column="15" Text="{Binding ElementName=Music_box_16, Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
                     </Grid>
+                    <Canvas Grid.Column="0" x:Name="playground2" Margin="194,0,57,0" Grid.ColumnSpan="2"></Canvas>
                     <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
                     Height="56" VerticalAlignment="Top" Width="55" Grid.Row="0"
                     Margin="16,13,0,0"
@@ -3210,7 +3216,7 @@
 
 
             </materialDesign:Card>
-            <materialDesign:Card Visibility="Visible"
+            <materialDesign:Card Visibility="Collapsed"
                 x:Name="Rainbowation" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
                 Margin="25 10 0 0" Width="735" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
                 <Grid>
@@ -3232,6 +3238,44 @@
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                         VerticalAlignment="Center" Margin="623,12,16,308" Height="46" />
                     <Image  x:Name="MatrixImage1" RenderOptions.BitmapScalingMode="NearestNeighbor" Cursor="Cross"   Margin="4,0,310,0">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedItem, ElementName=screenefectbox}" Value="Gifxelation">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                </Grid>
+
+
+
+            </materialDesign:Card>
+            <materialDesign:Card Visibility="Visible"
+                x:Name="Gradient" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                Margin="25 10 0 0" Width="735" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
+                <Grid>
+                    <Canvas Width="350" Height="350" x:Name="playground3" Margin="15,15,331,8" MouseDown="CanvasTouch">
+                        <Canvas.Style>
+                            <Style TargetType="{x:Type Canvas}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedItem, ElementName=screenefectbox}" Value="Pixelation">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Canvas.Style>
+                    </Canvas>
+
+                    <TextBox x:Name="numLED1"
+                        materialDesign:HintAssist.Hint="LEDX"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center" Margin="623,12,16,308" Height="46" />
+                    <Image  x:Name="MatrixImage2" RenderOptions.BitmapScalingMode="NearestNeighbor" Cursor="Cross"   Margin="4,0,310,0">
                         <Image.Style>
                             <Style TargetType="{x:Type Image}">
                                 <Setter Property="Visibility" Value="Collapsed"/>

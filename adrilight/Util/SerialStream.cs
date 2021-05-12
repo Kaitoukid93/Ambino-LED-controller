@@ -185,7 +185,7 @@ namespace adrilight
                     outputStream[counter++] = 1;
                 var allBlack = true;
                 //}
-                if (UserSettings.screeneffectcounter==0)
+                if (UserSettings.screeneffectcounter==0)//screen capturing mode
                 {
                     
                     foreach (Spot spot in SpotSet.Spots)
@@ -210,17 +210,68 @@ namespace adrilight
                     }
                 }
 
-               else if(UserSettings.screeneffectcounter==7) //pixelation
+               else if(UserSettings.screeneffectcounter==7)//pixelation/effect
                 {
                     foreach (Color color in Rainbow.paletteOutput.Take(30))
                     {
-                        outputStream[counter++] = color.R; // blue
-                        outputStream[counter++] = color.G; // green
+                        outputStream[counter++] = color.G; // blue
+                        outputStream[counter++] = color.R; // green
                         outputStream[counter++] = color.B; // red
                     }
                    
                 }
-               
+                else if (UserSettings.screeneffectcounter == 3)//Music mode
+                {
+                    foreach (Color color in Audio.paletteOutput.Take(30))
+                    {
+                        outputStream[counter++] = color.G; // blue
+                        outputStream[counter++] = color.R; // green
+                        outputStream[counter++] = color.B; // red
+                    }
+
+                }
+                else if (UserSettings.screeneffectcounter == 2)//Static mode
+                {
+                    foreach (Color color in StaticColor.paletteOutput.Take(30))
+                    {
+                        outputStream[counter++] = color.G; // blue
+                        outputStream[counter++] = color.R; // green
+                        outputStream[counter++] = color.B; // red
+                    }
+
+                }
+                else if (UserSettings.screeneffectcounter == 9)//Gradient mode
+                {
+                    foreach (Color color in GradientColor.paletteOutput.Take(30))
+                    {
+                        outputStream[counter++] = color.G; // blue
+                        outputStream[counter++] = color.R; // green
+                        outputStream[counter++] = color.B; // red
+                    }
+
+                }
+
+                else if (UserSettings.screeneffectcounter == 6)//Gradient mode
+                {
+                    if (MatrixFrame.Frame != null)
+                    {
+                        byte[] orderedFrame = MatrixFrame.GetOrderedSerialFrame();
+
+                        for (int i = 0; i < Convert.ToByte(((UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2) * 3); i++)
+                        {
+                            if (orderedFrame[i] <= 3)
+                            {
+                                orderedFrame[i] = 0;
+                            }
+                            outputStream[counter++] = orderedFrame[i]; // blue
+
+                        }
+                       
+                     
+                    }
+
+                }
+
 
                 if (allBlack)
                 {

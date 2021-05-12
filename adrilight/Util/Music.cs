@@ -26,18 +26,18 @@ namespace adrilight.Util
         public static byte currentBrightness=255;
         
 
-        public static void SpectrumCreator(byte[] fft, int sensitivity, double level, int musicMode, int numFreq)
+        public static void SpectrumCreator(byte[] fft, int sensitivity, double level, int musicMode, int numLED)
         {
 
             int counter = 0;
-            int factor = numFreq / fft.Length;
+            int factor = numLED / fft.Length;
             //this function take the input as frequency and output the color but the brightness change as the frequency band's value
            if(musicMode==0)//pulse mode, take current level and blackout the rest of the strip
             {
                 
 
                 double percent = level / 16384;
-                height = (int)((height*4 +numFreq * percent*4+7)/8);
+                height = (int)((height*4 +numLED * percent*4+7)/8);
                 //byte step = 0;
                 //if (height>0)
                 //{
@@ -55,15 +55,27 @@ namespace adrilight.Util
                 }
 
 
-                for (int i = height; i < numFreq; i++)
+                for (int i = height; i < numLED; i++)
                 {
 
                     brightnessMap[counter++] =0;
 
                 }
             }
-           else if(musicMode==1)
+           else if(musicMode==1)//equalizer mode, each block of LED is respond to 1 band of frequency spectrum
             {
+                byte[] holdarray = new byte[256];
+                for(int i=0;i<fft.Length;i++)
+                {
+                    for(int j=0;j<factor;j++)
+                    {
+                        holdarray[i+j] = fft[i];
+                        brightnessMap[counter++] = holdarray[i];
+                    }
+                }
+
+
+
 
             }
             else if (musicMode == 2)
