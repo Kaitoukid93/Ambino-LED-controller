@@ -36,6 +36,7 @@ namespace adrilight.ViewModel
         public ObservableCollection<string> CaseEffects { get; private set; }
         public ObservableCollection<string> ScreenEffects { get; private set; }
         public ObservableCollection<string> DeskEffects { get; private set; }
+        
         public ObservableCollection<string> Freq { get; private set; }
         public ObservableCollection<string> ScreenNumber { get; private set; }
         private static int _gifFrameIndex = 0;
@@ -141,6 +142,8 @@ namespace adrilight.ViewModel
            "Ambilation"
 
         };
+
+   
             DeskEffects = new ObservableCollection<string>
   { 
             "Sáng theo hiệu ứng",
