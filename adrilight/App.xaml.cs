@@ -198,6 +198,9 @@ namespace adrilight
                 kernel.Bind<ISerialStream>().To<SerialStream>().InSingletonScope();
                 kernel.Bind<IDesktopDuplicatorReader>().To<DesktopDuplicatorReader>().InSingletonScope();
                 kernel.Bind<IStaticColor>().To<StaticColor>().InSingletonScope();
+                kernel.Bind<IRainbow>().To<Rainbow>().InSingletonScope();
+                kernel.Bind<IMusic>().To<Music>().InSingletonScope();
+                kernel.Bind<IAtmosphere>().To<Atmosphere>().InSingletonScope();
             }
             kernel.Bind<SettingsViewModel>().ToSelf().InSingletonScope();
             kernel.Bind<TelemetryClient>().ToConstant(SetupApplicationInsights(kernel.Get<IUserSettings>()));
@@ -210,6 +213,9 @@ namespace adrilight
             var desktopDuplicationReader = kernel.Get<IDesktopDuplicatorReader>();
             var serialStream = kernel.Get<ISerialStream>();
             var staticColor = kernel.Get<IStaticColor>();
+            var rainbow = kernel.Get<IRainbow>();
+            var music = kernel.Get<IMusic>();
+            var atmosphere= kernel.Get<IAtmosphere>();
 
             return kernel;
         }

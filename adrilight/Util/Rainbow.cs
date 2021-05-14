@@ -10,81 +10,223 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Color = System.Windows.Media.Color;
 using adrilight.Util;
+using adrilight.ViewModel;
+using System.Threading;
+using NLog;
+using System.Threading.Tasks;
 
 namespace adrilight
 {
-    public static class Rainbow
+    internal class Rainbow : IRainbow
     {
         // public static Color[] small = new Color[30];
         public static double _huePosIndex = 0;//index for rainbow mode only
         public static double _palettePosIndex = 0;//index for other custom palette
-        public static Color[] paletteOutput = new Color[256];
+        
+        private readonly NLog.ILogger _log = LogManager.GetCurrentClassLogger();
 
-        public static void RainbowCreator(int numLED, Canvas playground, int numColor, int paletteSource, double effectSpeed, double currentBrightness)
+        public Rainbow(IUserSettings userSettings, ISpotSet spotSet, SettingsViewModel settingsViewModel)
+        {
+            UserSettings = userSettings ?? throw new ArgumentNullException(nameof(userSettings));
+            SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
+            SettingsViewModel = settingsViewModel ?? throw new ArgumentNullException(nameof(settingsViewModel));
+            UserSettings.PropertyChanged += PropertyChanged;
+            SettingsViewModel.PropertyChanged += PropertyChanged;
+            RefreshColorState();
+            _log.Info($"RainbowColor Created");
+
+        }
+
+        private IUserSettings UserSettings { get; }
+        private SettingsViewModel SettingsViewModel { get; }
+        public bool IsRunning { get; private set; } = false;
+        private CancellationTokenSource _cancellationTokenSource;
+
+        private void PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(UserSettings.TransferActive):
+                case nameof(UserSettings.SelectedEffect):
+                case nameof(UserSettings.Brightness):
+                case nameof(SettingsViewModel.IsSettingsWindowOpen):
+                    RefreshColorState();
+                    break;
+            }
+        }
+        private void RefreshColorState()
+        {
+
+            var isRunning = _cancellationTokenSource != null && IsRunning;
+            var shouldBeRunning = UserSettings.TransferActive && UserSettings.SelectedEffect== 1;
+            if (isRunning && !shouldBeRunning)
+            {
+                //stop it!
+                _log.Debug("stopping the Rainbow Color");
+                _cancellationTokenSource.Cancel();
+                _cancellationTokenSource = null;
+            }
+            else if (!isRunning && shouldBeRunning)
+            {
+                //start it
+                _log.Debug("starting the Rainbow Color");
+                _cancellationTokenSource = new CancellationTokenSource();
+                var thread = new Thread(() => Run(_cancellationTokenSource.Token)) {
+                    IsBackground = true,
+                    Priority = ThreadPriority.BelowNormal,
+                    Name = "RainbowColorCreator"
+                };
+                thread.Start();
+            }
+        }
+
+
+        
+        
+        private ISpotSet SpotSet { get; }
+        public void Run (CancellationToken token)
 
         {
-            if (paletteSource == 0)
+            if (IsRunning) throw new Exception(" Rainbow Color is already running!");
+
+            IsRunning = true;
+
+            _log.Debug("Started Rainbow Color.");
+
+            try
             {
-                var newcolor = OpenRGB.NET.Models.Color.GetHueRainbow(numColor, _huePosIndex, 1, 1, 1);
 
-                int counter = 0;
-
-
-
-                foreach (var color in newcolor.Take(numLED))
+                while (!token.IsCancellationRequested)
                 {
+                    double brightness = UserSettings.Brightness / 100d;
+                    int paletteSource = UserSettings.SelectedPalette;
+                    var numLED = (UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2;
+                    var colorOutput = new OpenRGB.NET.Models.Color[numLED];
 
-                    // Console.WriteLine("color R " + color.R + " color G " + color.G + " color B " + color.B);
-                    paletteOutput[counter++] = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
-                }
+                
 
-                if (_huePosIndex > 360)
-                {
-                    _huePosIndex = 0;
+                    bool isPreviewRunning = (SettingsViewModel.IsSettingsWindowOpen && UserSettings.SelectedEffect==1); 
+                    if (isPreviewRunning)
+                    {
+                       // SettingsViewModel.SetPreviewImage(backgroundimage);
+                    }
+
+
+                    OpenRGB.NET.Models.Color[] outputColor = new OpenRGB.NET.Models.Color[numLED];
+                    int counter = 0;               
+                    lock (SpotSet.Lock)
+                    {
+                        if (paletteSource == 0)
+                        {
+                            var newcolor = OpenRGB.NET.Models.Color.GetHueRainbow(numLED, _huePosIndex, 1, 1, 1);
+
+                            foreach (var color in newcolor)
+                            {
+                                outputColor[counter++] = Brightness.applyBrightness(color, brightness);
+
+                            }
+                            counter = 0;
+                            foreach(ISpot spot in SpotSet.Spots)
+                            {
+                                spot.SetColor(outputColor[counter].R, outputColor[counter].G, outputColor[counter].B, true);
+                                counter++;
+                              
+                            }
+
+                            if (_huePosIndex > 360)
+                            {
+                                _huePosIndex = 0;
+                            }
+                            else
+                            {
+                                _huePosIndex += 1;
+                            }
+
+                        }
+                        else
+                        {
+                            if (paletteSource == 1)//party color palette
+                            {
+                                //  PaletteCreator(numLED, _palettePosIndex, Rainbow.party);
+                            }
+                            else if (paletteSource == 2)//cloud color palette
+                            {
+                                //  PaletteCreator(numLED, _palettePosIndex, Rainbow.cloud);
+                            }
+
+                            if (_palettePosIndex > numLED)
+                            {
+                                _palettePosIndex = 0;
+                            }
+                            else
+                            {
+                                _palettePosIndex += 1;
+                            }
+                        }
+                        if (isPreviewRunning)
+                        {
+                            //copy all color data to the preview
+                            var needsNewArray = SettingsViewModel.PreviewSpots?.Length != SpotSet.Spots.Length;
+
+                            SettingsViewModel.PreviewSpots = SpotSet.Spots;
+                        }
+                    }
+                    Thread.Sleep(5); //motion speed
+
                 }
-                else
-                {
-                    _huePosIndex += effectSpeed;
-                }
+            }
+            catch (OperationCanceledException)
+            {
+                _log.Debug("OperationCanceledException catched. returning.");
+
+                // return;
+            }
+            catch (Exception ex)
+            {
+                _log.Debug(ex, "Exception catched.");
+              
+
+
+
+                //allow the system some time to recover
+                Thread.Sleep(500);
+            }
+            finally
+            {
+
+
+                _log.Debug("Stopped Rainbow Color Creator.");
+                IsRunning = false;
+            }
+
+
+
+               
+
+               
+
+
 
             }
-            else 
+
+
+
+
+        private Bitmap DrawFilledRectangle(int x, int y)
+        {
+            Bitmap bmp = new Bitmap(x, y);
+            using (Graphics graph = Graphics.FromImage(bmp))
             {
-                if(paletteSource==1)//party color palette
-                {
-                    PaletteCreator(32, _palettePosIndex, playground, Rainbow.party);
-                }
-                if (paletteSource == 2)//cloud color palette
-                {
-                    PaletteCreator(32, _palettePosIndex, playground, Rainbow.cloud);
-                }
-
-
-                if (_palettePosIndex > 32)
-                {
-                    _palettePosIndex = 0;
-                }
-                else
-                {
-                    _palettePosIndex += effectSpeed;
-                }
+                Rectangle ImageSize = new Rectangle(0, 0, x, y);
+                graph.FillRectangle(System.Drawing.Brushes.White, ImageSize);
             }
-
-
-
-
-            //apply current brightness
-            paletteOutput = Brightness.applyBrightness(paletteOutput, currentBrightness);
-            //finally
-
-            fillRectFromColor(paletteOutput, playground, numLED);
-
+            return bmp;
         }
 
 
 
 
-        public static void PaletteCreator(int numLED, double startIndex, Canvas playground, Color[] colorCollection)
+        private static  OpenRGB.NET.Models.Color[] PaletteCreator (int numLED, double startIndex, OpenRGB.NET.Models.Color[] colorCollection)
         {
             //numLED: number of LED to create on the view
             //startIndex: index to start drawing palette
@@ -96,11 +238,11 @@ namespace adrilight
             //expand color from Collection
             int factor = numLED / colorCollection.Count(); //scaling factor
             int colorcount = (int)startIndex;
+        var colorOutput = new OpenRGB.NET.Models.Color[numLED];
+        //todo: expand current palette to 256 color for smooth effect
 
-            //todo: expand current palette to 256 color for smooth effect
 
-
-            for (int i = 0; i < colorCollection.Count(); i++)
+        for (int i = 0; i < colorCollection.Count(); i++)
             {
                 for (int j = 0; j < factor; j++)
                 {
@@ -109,12 +251,13 @@ namespace adrilight
                     {
                         colorcount = 0;
                     }
-                    paletteOutput[colorcount++] = colorCollection[i];
+                    colorOutput[colorcount++] = colorCollection[i];
                 }
             }
 
-            //finally
-          //  fillRectFromColor(paletteOutput, playground, numLED);
+        //finally
+        //  fillRectFromColor(paletteOutput, playground, numLED);
+        return colorOutput;
 
         }
 
@@ -132,36 +275,8 @@ namespace adrilight
 
 
 
-        /// <summary>
-        /// Generates a smooth rainbow with the given amount of colors.
-        /// Uses HSV conversion to get a hue-based rainbow.
-        /// </summary>
-        /// <param name="amount">How many colors to generate.</param>
-        /// <param name="hueStart">The hue of the first color</param>
-        /// <param name="hueStop">stop hue.</param>
-        /// <param name="saturation">The HSV saturation of the colors</param>
-        /// <param name="value">The HSV value of the colors.</param>
-        /// <returns>An collection of Colors in a rainbow pattern.</returns>
 
-
-        public static void fillRectFromColor(Color[] colorarray, Canvas playground, int numLED)
-        {
-            playground.Children.Clear();
-            for (int i = 0; i < numLED; i++)
-            {
-                System.Windows.Shapes.Rectangle rectangle = new System.Windows.Shapes.Rectangle {
-                    Width = playground.ActualWidth / numLED,
-                    Height = 20,
-                };
-
-                System.Windows.Media.Brush brush = new SolidColorBrush(colorarray[i]);
-                rectangle.Fill = brush;
-                playground.Children.Add(rectangle);
-
-                Canvas.SetLeft(rectangle, i * (playground.ActualWidth / numLED + 3));
-                Canvas.SetTop(rectangle, 0);
-            }
-        }
+       
 
         public static Color[] party = {
             (Color)System.Windows.Media.ColorConverter.ConvertFromString("#5500AB"),

@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace adrilight.Converter
 {
-    public class Inverseboolvisibility : IValueConverter
+    public class Inverseboolvisibility  : IValueConverter
     {
         #region IValueConverter Members
 

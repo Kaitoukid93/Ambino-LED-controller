@@ -1,15 +1,14 @@
 ﻿
-
 using System.Threading;
 
 namespace adrilight
     {
-        public interface IStaticColor
+        public interface IAtmosphere
         {
-            bool IsRunning { get; }
+        bool IsRunning { get; }
 
         void Run(CancellationToken token);
-        }
+    }
 
 
     }

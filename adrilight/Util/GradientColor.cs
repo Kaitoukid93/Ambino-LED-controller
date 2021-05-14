@@ -30,10 +30,10 @@ namespace adrilight.Util
                 }
 
             //apply current brightness
-            paletteOutput = Brightness.applyBrightness(paletteOutput, currentBrightness);
+           // paletteOutput = Brightness.applyBrightness(paletteOutput, currentBrightness);
 
             //finally display rectangle to canvans
-            Rainbow.fillRectFromColor(paletteOutput, playground, numLED);
+           // Rainbow.fillRectFromColor(paletteOutput, playground, numLED);
 
             //if(isMoving)
             //{

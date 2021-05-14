@@ -121,31 +121,30 @@ namespace adrilight
         public static Int32[] FrameToInt32()
         {
             Int32[] data = new Int32[Width * Height];
-            if (SerialStream.ColorMode == SerialStream.CMode.BPP24RGB)
-            {
+            
                 for (int i = 0; i < Width * Height; i++)
                     data[i] = Frame[i].GetBPP24RGB_Int32();
-            }
-            else if (SerialStream.ColorMode == SerialStream.CMode.BPP16RGB)
-            {
-                for (int i = 0; i < Width * Height; i++)
-                    data[i] = Frame[i].GetBPP16RGB_Int32();
-            }
-            else if (SerialStream.ColorMode == SerialStream.CMode.BPP8RGB)
-            {
-                for (int i = 0; i < Width * Height; i++)
-                    data[i] = Frame[i].GetBPP8RGB_Int32();
-            }
-            else if (SerialStream.ColorMode == SerialStream.CMode.BPP8Gray)
-            {
-                for (int i = 0; i < Width * Height; i++)
-                    data[i] = Frame[i].GetBPP8Grayscale_Int32();
-            }
-            else if (SerialStream.ColorMode == SerialStream.CMode.BPP1Mono)
-            {
+            
+            //else if (SerialStream.ColorMode == SerialStream.CMode.BPP16RGB)
+            //{
+            //    for (int i = 0; i < Width * Height; i++)
+            //        data[i] = Frame[i].GetBPP16RGB_Int32();
+            //}
+            //else if (SerialStream.ColorMode == SerialStream.CMode.BPP8RGB)
+            //{
+            //    for (int i = 0; i < Width * Height; i++)
+            //        data[i] = Frame[i].GetBPP8RGB_Int32();
+            //}
+            //else if (SerialStream.ColorMode == SerialStream.CMode.BPP8Gray)
+            //{
+            //    for (int i = 0; i < Width * Height; i++)
+            //        data[i] = Frame[i].GetBPP8Grayscale_Int32();
+            //}
+            //else if (SerialStream.ColorMode == SerialStream.CMode.BPP1Mono)
+            //{
 
-                for (int i = 0; i < Width * Height; i++)
-                    data[i] = Frame[i].GetBPP1Monochrome_Int32();
+            //    for (int i = 0; i < Width * Height; i++)
+            //        data[i] = Frame[i].GetBPP1Monochrome_Int32();
 
 
 
@@ -169,7 +168,7 @@ namespace adrilight
                 }
             }
             */
-            }
+            
 
             return data;
         }

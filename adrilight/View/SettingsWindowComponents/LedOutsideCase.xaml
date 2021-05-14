@@ -30,6 +30,7 @@
             <converters:ColorToBrushConverter x:Key="ColorToBrushConverter" />
             <converters:BrushToHexConverter x:Key="BrushToHexConverter" />
             <BooleanToVisibilityConverter x:Key="boolToVisibilityConvert" />
+            <converters:ItemToStringConverter x:Key="ItemToStringConverter"/>
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
@@ -53,51 +54,21 @@
 
 
 
-            <Grid Width="784">
-                <StackPanel Orientation="Horizontal" Margin="0,-1,0,0" HorizontalAlignment="Left" Width="688">
-                    <ListBox SelectedIndex="{Binding Settings.tabindex}"   materialDesign:ShadowAssist.ShadowDepth="Depth5"
-  Style="{StaticResource MaterialDesignChoiceChipPrimaryListBox}"
-  x:Name="NavigationChip" Margin="24,0,0,0"  >
-
-                        <ListBoxItem x:Name="Screen"  Visibility="{Binding Settings.Pro21, Converter={StaticResource BooleanToVisibilityConverter}}" Content="LED màn hình" IsVisibleChanged="Screen_IsVisibleChanged" />
-                        <ListBoxItem x:Name="Case" Visibility="{Binding Settings.caseenable, Converter={StaticResource BooleanToVisibilityConverter}}"
-    IsSelected="False" Content="LED trong case" IsVisibleChanged="Case_IsVisibleChanged"/>
-                        <ListBoxItem x:Name="Desk" Visibility="{Binding Settings.Pro22, Converter={StaticResource BooleanToVisibilityConverter}}" Content="LED cạnh bàn" IsVisibleChanged="Desk_IsVisibleChanged"/>
-                        <ListBoxItem
-    IsEnabled="False" Width="56" Content="..."/>
-                    </ListBox>
-                    <Button x:Name="addbutton" Click="AddProduct" materialDesign:ShadowAssist.ShadowDepth="Depth0"
-                        Style="{StaticResource MaterialDesignRaisedLightButton}"
-                        Height="Auto" Padding="0"
-                            
-                        materialDesign:ButtonAssist.CornerRadius="15"
-                        ToolTip="Add more Device" Margin="0,4" Width="50" Background="#FF7344C3" BorderBrush="{x:Null}">
-                        <materialDesign:PackIcon
-                            Kind="Add" Height="28" Width="28" Foreground="#FFFCFCFC" />
-                    </Button>
-                </StackPanel>
-            </Grid>
+            <Grid Width="784"/>
 
 
 
         </WrapPanel>
         <!--navigation chip-->
 
-        <WrapPanel Visibility="Collapsed" Width="788" Height="790">
-            <Grid Height="788">
-                <Image  RenderOptions.BitmapScalingMode="HighQuality" Source="no device@4x.png" Margin="96,134,96,272" />
-                <Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="265" Margin="257,168,0,0" Height="255" Background="{x:Null}" BorderBrush="{x:Null}" Click="AddProduct"/>
-            </Grid>
 
-
-        </WrapPanel>
         <WrapPanel x:Name="Mainwindow" Visibility="Visible" Margin="0,15,2,1" Orientation="Horizontal" Height="777">
 
 
 
             <WrapPanel  Margin="15,0,0,0" Width="315" Orientation="Vertical">
 
-                <materialDesign:Card Visibility="{Binding ElementName=Screen, Path=IsSelected, Converter={StaticResource boolToVisibilityConvert}}"  Margin="10 4 4 4" Width="300" Height="168" Padding="8" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0" materialDesign:ShadowAssist.Darken="False" Background="#FFFCFCFC">
+                <materialDesign:Card Visibility="Visible"  Margin="10 4 4 4" Width="300" Height="168" Padding="8" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0" materialDesign:ShadowAssist.Darken="False" Background="#FFFCFCFC">
 
 
                     <Grid Margin="15,15,15,15" >
@@ -114,130 +85,20 @@
 
                         </Grid.ColumnDefinitions>
 
-                        <materialDesign:DialogHost  Grid.Column="0"
-  DialogClosing="Sample1_DialogHost_OnDialogClosing"
-  DialogTheme="Inherit"
-  HorizontalAlignment="Left"
-  VerticalAlignment="Top" Height="175" Margin="-23,-22,-15.5,-7.445" Grid.ColumnSpan="3" Width="309" Grid.RowSpan="3">
-                            <materialDesign:DialogHost.DialogContent>
-
-                                <StackPanel Margin="16">
-
-                                    <TextBlock>
-                                        Màn 3
-                                    </TextBlock>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="3*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <ComboBox Margin="15,0,25,0" Grid.Column="0" ItemsSource="{Binding AvailableComPorts}" >
-                                            <ComboBox.SelectedValue>
-                                                <Binding Path="Settings.ComPort6" UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </ComboBox.SelectedValue>
-                                        </ComboBox>
-                                        <CheckBox Margin="0,0,15,0" Grid.Column="1"
-    Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
-    IsChecked="{Binding Settings.Comport6Open}">
-                                            Kết nối
-                                        </CheckBox>
-                                    </Grid>
-
-                                    <StackPanel
-        Orientation="Horizontal"
-        HorizontalAlignment="Right">
-                                        <Button x:Name="OKPort" 
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsDefault="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand" Click="OKPort_Click" >
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    True
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            OK
-                                        </Button>
-                                        <Button
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsCancel="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    False
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            Hủy
-                                        </Button>
-                                    </StackPanel>
-
-                                </StackPanel>
-
-
-                            </materialDesign:DialogHost.DialogContent>
-                            <Grid Margin="101,142,101,0">
-
-
-
-                                <Button Visibility="{Binding MoreThan2Screen,Converter={StaticResource boolToVisibilityConvert}}" Padding="0"  Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" ToolTip="Xem thêm" Height="Auto" Background="{x:Null}" BorderBrush="{x:Null}" Margin="4,9,0,-9">
-                                    <materialDesign:PackIcon Kind="DotsHorizontal" Foreground="#FF6C6C6C" Height="25" Width="28">
-
-                                    </materialDesign:PackIcon>
-                                </Button>
-                            </Grid>
-
-                        </materialDesign:DialogHost>
+                      
                         <TextBlock 
 							Margin="0,0,106,10" HorizontalAlignment="Right" Padding="0" Width="85" 
 							VerticalAlignment="Center" FontSize="15" Grid.ColumnSpan="2" FontWeight="Bold" Height="20"><Run Text="Kết nối USB"/></TextBlock>
 
-                        <CheckBox  Visibility="{Binding Settings.hasPCI, Converter={StaticResource BooleanToVisibilityConverter}}"
-    Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
-    IsChecked="{Binding Settings.Comport5Open}" Grid.Column="1" Margin="116,7,0,6" Grid.Row="1" Grid.ColumnSpan="2" Width="74" Content="Kết nối"/>
-                        <Image Visibility="{Binding Settings.hasPCI,Converter={StaticResource boolToVisibilityConvert}}" Margin="29,5,0,0" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
-                                Height="22" VerticalAlignment="Top" Width="33"
-                                Source="pci@2x.png" Grid.Row="0" Grid.Column="2"/>
-                        <Image Visibility="{Binding Settings.hasUSB,Converter={StaticResource boolToVisibilityConvert}}" Margin="29,5,0,0" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
-                                Height="22" VerticalAlignment="Top" Width="33"
-                                Source="usb@2x.png" Grid.Row="0" Grid.Column="2"/>
 
-                        <ComboBox Grid.Row="1" Grid.Column="1"
-						x:Name="comportbox4" Visibility="{Binding Settings.hasPCI, Converter={StaticResource BooleanToVisibilityConverter}}"
+
+                        <ComboBox Grid.Row="1"
+						x:Name="comportbox" Visibility="Visible"
 						materialDesign:HintAssist.Hint="No device" ToolTip="Chọn COM của HUB All-in-One"
-						ItemsSource="{Binding AvailableComPorts}" Margin="11,8,0,7" Height="30" 
-						HorizontalAlignment="Left" Width="74">
+						ItemsSource="{Binding AvailableComPorts}" Margin="2,9,0,7" Height="30" 
+						HorizontalAlignment="Left" Width="147" Grid.ColumnSpan="2">
                             <ComboBox.SelectedValue>
-                                <Binding Path="Settings.ComPort5" UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </ComboBox.SelectedValue>
-                        </ComboBox>
-                        <TextBlock Visibility="{Binding Settings.hasPCI, Converter={StaticResource BooleanToVisibilityConverter}}"
-						HorizontalAlignment="Right" Width="73" Margin="-1,15,119,14" 
-							   RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="1" Grid.ColumnSpan="2"><Run Text="PCI V2"/></TextBlock>
-                        <TextBlock Visibility="{Binding Settings.hasUSB, Converter={StaticResource BooleanToVisibilityConverter}}"
-						HorizontalAlignment="Right" Width="40" Margin="0,15.445,20,13.555" 
-							   RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="1" Grid.ColumnSpan="1"><Run Text=" Màn 1"/></TextBlock>
-
-                        <TextBlock Visibility="{Binding Settings.hasUSBTwo, Converter={StaticResource BooleanToVisibilityConverter}}"
-						HorizontalAlignment="Right" Width="36" Margin="0,14.445,21,13.555" 
-							   RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="2"><Run Text="Màn 2"/></TextBlock>
-
-                        <ComboBox
-						x:Name="comportbox3"
-						materialDesign:HintAssist.Hint="No device" 
-						ItemsSource="{Binding AvailableComPorts}" Margin="11,9,0,7" Height="30" 
-						HorizontalAlignment="Left" Width="74" SelectionChanged="Comportbox3_SelectionChanged" Grid.Row="1" Grid.Column="1" Visibility="{Binding Settings.hasUSB
-                            , Converter={StaticResource BooleanToVisibilityConverter}}" >
-                            <ComboBox.SelectedValue>
-                                <Binding Path="Settings.ComPort3" UpdateSourceTrigger="PropertyChanged">
+                                <Binding Path="Settings.ComPort" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
                                         <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
                                     </Binding.ValidationRules>
@@ -245,30 +106,12 @@
                             </ComboBox.SelectedValue>
                         </ComboBox>
 
-                        <CheckBox x:Name="tg3" Visibility="{Binding Settings.hasUSB, Converter={StaticResource BooleanToVisibilityConverter}}"
+
+
+
+                        <CheckBox x:Name="tg3" Visibility="Visible"
     Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
-    IsChecked="{Binding Settings.Comport3Open}" Grid.Column="1" Margin="116,7,0,6" Grid.Row="1" Grid.ColumnSpan="2" Width="74" Content="Kết nối"/>
-
-
-                        <ComboBox
-						x:Name="comportbox2" Visibility="{Binding Settings.hasUSBTwo, Converter={StaticResource BooleanToVisibilityConverter}}"
-						materialDesign:HintAssist.Hint="No device"
-						ItemsSource="{Binding AvailableComPorts}" Margin="11,7,0,0" Height="29" 
-						VerticalAlignment="Top" HorizontalAlignment="Left" Width="74" 
-						SelectionChanged="Comportbox2_SelectionChanged" Grid.Column="1" Grid.Row="2" >
-                            <ComboBox.SelectedValue>
-                                <Binding Path="Settings.ComPort2" UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </ComboBox.SelectedValue>
-                        </ComboBox>
-
-
-                        <CheckBox  Visibility="{Binding Settings.hasUSBTwo, Converter={StaticResource BooleanToVisibilityConverter}}"
-    Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
-    IsChecked="{Binding Settings.Comport2Open}" Grid.Column="1" Margin="116,6,0,6" Grid.Row="2" Grid.ColumnSpan="2" Width="74" Content="Kết nối"/>
+    IsChecked="{Binding Settings.ComportOpen}" Grid.Column="1" Margin="116,7,0,6" Grid.Row="1" Grid.ColumnSpan="2" Width="74" Content="Kết nối"/>
                         <Image Grid.Column="0" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Right" 
 						   Margin="0,-1,35,41" VerticalAlignment="Bottom" 
 						   Source="new usb@2x.png" 
@@ -282,310 +125,6 @@
                                 </TransformGroup>
                             </Image.RenderTransform>
                         </Image>
-
-
-                    </Grid>
-                </materialDesign:Card>
-                <materialDesign:Card  Visibility="{Binding IsSelected, Converter={StaticResource boolToVisibilityConvert}, ElementName=Desk}" Margin="10 4 4 4" Width="300" Height="168" Padding="8" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0" materialDesign:ShadowAssist.Darken="False" Background="#FFFCFCFC">
-
-
-                    <Grid Margin="15,15,15,15">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30*"/>
-                            <RowDefinition Height="45*"/>
-                            <RowDefinition Height="44*" />
-
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="*" />
-
-                        </Grid.ColumnDefinitions>
-                        <TextBlock 
-                            Margin="0,0,106,10" HorizontalAlignment="Right" Padding="0" Width="85" 
-                            VerticalAlignment="Center" FontSize="15" Grid.ColumnSpan="2" FontWeight="Bold" Height="20"><Run Text="Kết nối USB"/></TextBlock>
-
-                        <CheckBox  Visibility="{Binding Settings.hasPCI, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
-                            IsChecked="{Binding Settings.Comport5Open}" Grid.Column="1" Margin="116,7,0,6" Grid.Row="1" Grid.ColumnSpan="2" Width="74" Content="Kết nối"/>
-
-
-                        <ComboBox Grid.Row="1" Grid.Column="1"
-                            x:Name="comportbox5" Visibility="{Binding Settings.hasPCI, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            materialDesign:HintAssist.Hint="No device" ToolTip="Chọn COM của HUB All-in-One"
-                            ItemsSource="{Binding AvailableComPorts}" Margin="11,8,0,7" Height="30" 
-                            HorizontalAlignment="Left" Width="74">
-                            <ComboBox.SelectedValue>
-                                <Binding Path="Settings.ComPort5" UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </ComboBox.SelectedValue>
-                        </ComboBox>
-                        <TextBlock Visibility="{Binding Settings.hasPCISecond, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            HorizontalAlignment="Right" Width="73" Margin="-1,15,119,14" 
-                            RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="1" Grid.ColumnSpan="2"><Run Text="PCI V2"/></TextBlock>
-                        <TextBlock Visibility="{Binding Settings.hasUSBSecond, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            HorizontalAlignment="Right" Width="73" Margin="-1,15,119,14" 
-                            RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="1" Grid.ColumnSpan="2"><Run Text="Cạnh bàn 1"/></TextBlock>
-
-                        <TextBlock Visibility="{Binding Settings.hasUSBTwo, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            HorizontalAlignment="Right" Width="65" Margin="0,14,124,14" 
-                            RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="2" Grid.ColumnSpan="2"><Run Text="Cạnh bàn 2"/></TextBlock>
-                        <Image Visibility="{Binding Settings.hasPCISecond,Converter={StaticResource boolToVisibilityConvert}}" Margin="29,5,0,0" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
-                                Height="22" VerticalAlignment="Top" Width="33"
-                                Source="pci@2x.png" Grid.Row="0" Grid.Column="2"/>
-                        <Image Visibility="{Binding Settings.hasUSBSecond,Converter={StaticResource boolToVisibilityConvert}}" Margin="29,5,0,0" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
-                                Height="22" VerticalAlignment="Top" Width="33"
-                                Source="usb@2x.png" Grid.Row="0" Grid.Column="2"/>
-                        <ComboBox
-                            x:Name="comportbox6"
-                            materialDesign:HintAssist.Hint="No device" 
-                            ItemsSource="{Binding AvailableComPorts}" Margin="11,8,0,7" Height="30" 
-                            HorizontalAlignment="Left" Width="74" SelectionChanged="Comportbox3_SelectionChanged" Grid.Row="1" Grid.Column="1" Visibility="{Binding Settings.hasUSB, Converter={StaticResource BooleanToVisibilityConverter}}" >
-                            <ComboBox.SelectedValue>
-                                <Binding Path="Settings.ComPort3" UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </ComboBox.SelectedValue>
-                        </ComboBox>
-
-                        <CheckBox x:Name="tg1" Visibility="{Binding Settings.hasUSB, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
-                            IsChecked="{Binding Settings.Comport3Open}" Grid.Column="1" Margin="116,7,0,6" Grid.Row="1" Grid.ColumnSpan="2" Width="74" Content="Kết nối"/>
-
-
-                        <ComboBox
-                            x:Name="comportbox7" Visibility="{Binding Settings.hasUSBTwo, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            materialDesign:HintAssist.Hint="No device"
-                            ItemsSource="{Binding AvailableComPorts}" Margin="11,7,0,0" Height="29" 
-                            VerticalAlignment="Top" HorizontalAlignment="Left" Width="74" 
-                            SelectionChanged="Comportbox2_SelectionChanged" Grid.Column="1" Grid.Row="2" >
-                            <ComboBox.SelectedValue>
-                                <Binding Path="Settings.ComPort2" UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </ComboBox.SelectedValue>
-                        </ComboBox>
-
-
-                        <CheckBox  Visibility="{Binding Settings.hasUSBTwo, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
-                            IsChecked="{Binding Settings.Comport2Open}" Grid.Column="1" Margin="116,6,0,6" Grid.Row="2" Grid.ColumnSpan="2" Width="74" Content="Kết nối"/>
-                        <Image Grid.Column="0" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Right" 
-                            Margin="0,-1,35,41" VerticalAlignment="Bottom" 
-                            Source="new usb@2x.png" 
-                            RenderTransformOrigin="-0.186,0.516" Height="35" Width="29" Grid.RowSpan="2" Visibility="Hidden" >
-                            <Image.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform/>
-                                    <RotateTransform Angle="-360"/>
-                                    <TranslateTransform/>
-                                </TransformGroup>
-                            </Image.RenderTransform>
-                        </Image>
-
-
-                    </Grid>
-                </materialDesign:Card>
-                <materialDesign:Card Visibility="{Binding ElementName=Case, Path=IsSelected, Converter= {StaticResource boolToVisibilityConvert}}"  Margin="10 4 4 4" Width="300" Height="168" Padding="8" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0" materialDesign:ShadowAssist.Darken="False" Background="#FFFCFCFC">
-
-
-                    <Grid Margin="15,15,15,15">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30*"/>
-                            <RowDefinition Height="45*"/>
-                            <RowDefinition Height="44*" />
-
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="*" />
-
-                        </Grid.ColumnDefinitions>
-
-                        <materialDesign:DialogHost  Grid.Column="0"
-                            DialogClosing="Sample1_DialogHost_OnDialogClosing"
-                            DialogTheme="Inherit"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top" Height="180" Margin="-23,-24,-38,-34" Grid.ColumnSpan="3" Width="315" Grid.RowSpan="3">
-                            <materialDesign:DialogHost.DialogContent>
-
-                                <StackPanel Margin="16">
-
-                                    <TextBlock Foreground="#FFFB6904"><Run Text="Nâng cao"/></TextBlock>
-                                    <Grid>
-
-
-
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="3*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <StackPanel Orientation="Horizontal">
-
-
-                                            <materialDesign:Badged Margin="0,10,0,0"
-  x:Name="DFU"
-  BadgeColorZoneMode="PrimaryDark">
-                                                <Button
-    Style="{StaticResource MaterialDesignRaisedLightButton}"
-    Click="CountingButton_OnClick" Background="#FF7344C3" BorderBrush="#FF7344C3">
-                                                    DFU!
-                                                </Button>
-
-
-                                            </materialDesign:Badged>
-
-                                            <ToggleButton Margin=" 20,10,0,0" IsChecked="{Binding Settings.TransferActive}" IsEnabled="{Binding TransferCanBeStarted}"
-  Style="{StaticResource MaterialDesignSwitchToggleButton}"
-  ToolTip="MaterialDesignSwitchLightToggleButton"
-   />
-                                        </StackPanel>
-                                    </Grid>
-
-
-                                    <StackPanel
-                                        Orientation="Horizontal"
-                                        HorizontalAlignment="Right">
-                                        <Button x:Name="OKPort1" 
-                                            Style="{StaticResource MaterialDesignFlatButton}"
-                                            IsDefault="True"
-                                            Margin="0 8 8 0"
-                                            Command="materialDesign:DialogHost.CloseDialogCommand" Click="OKPort_Click" Content="OK" >
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
-                                            </Button.CommandParameter>
-                                        </Button>
-                                        <!--<Button
-                                            Style="{StaticResource MaterialDesignFlatButton}"
-                                            IsCancel="True"
-                                            Margin="0 8 8 0"
-                                            Command="materialDesign:DialogHost.CloseDialogCommand" Content="Hủy">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">False</system:Boolean>
-                                            </Button.CommandParameter>
-                                        </Button>-->
-                                    </StackPanel>
-
-                                </StackPanel>
-
-
-                            </materialDesign:DialogHost.DialogContent>
-                            <Grid Margin="101,142,101,0">
-
-
-
-                                <Button  Padding="0"  Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" ToolTip="Xem thêm" Height="Auto" Background="{x:Null}" BorderBrush="{x:Null}" Margin="152,-134,-73,137">
-                                    <materialDesign:PackIcon Kind="DotsHorizontal" Foreground="#FF6C6C6C" Height="25" Width="26"/>
-                                </Button>
-                            </Grid>
-
-                        </materialDesign:DialogHost>
-
-                        <TextBlock 
-                            Margin="0,0,106,10" HorizontalAlignment="Right" Padding="0" Width="85" 
-                            VerticalAlignment="Center" FontSize="15" Grid.ColumnSpan="2" FontWeight="Bold" Height="20"><Run Text="Kết nối USB"/></TextBlock>
-
-                        <CheckBox  
-                            Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}" x:Name="HUBV2Connect"
-                            IsChecked="{Binding Settings.Comport5Open}" Grid.Column="1" Margin="116,7,0,6" Grid.Row="1" Grid.ColumnSpan="2" Width="74" Content="Kết nối"/>
-
-
-                        <ComboBox Grid.Row="1" Grid.Column="1"
-                            x:Name="comportbox1" 
-                            materialDesign:HintAssist.Hint="No device" ToolTip="Chọn COM của HUB All-in-One"
-                            ItemsSource="{Binding AvailableComPorts}" Margin="11,8,0,7" Height="30" 
-                            HorizontalAlignment="Left" Width="74">
-                            <ComboBox.SelectedValue>
-                                <Binding Path="Settings.ComPort5" UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </ComboBox.SelectedValue>
-                        </ComboBox>
-                        <TextBlock
-                            HorizontalAlignment="Right" Width="73" Margin="-1,15,119,14" 
-                            RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="1" Grid.ColumnSpan="2"><Run Text="HUB V2"/></TextBlock>
-                        <!--<TextBlock Visibility="{Binding Settings.hasUSB, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            HorizontalAlignment="Right" Width="73" Margin="-1,15,119,14" 
-                            RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="1" Grid.ColumnSpan="2"><Run Text=" Màn 1"/></TextBlock>-->
-
-                        <!--<TextBlock Visibility="{Binding Settings.hasUSBTwo, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            HorizontalAlignment="Right" Width="36" Margin="0,14,26,14" 
-                            RenderTransformOrigin="0.479,0.15" Foreground="#FF6C6C6C" Grid.Row="2"><Run Text="Màn 2"/></TextBlock>-->
-
-                        <!--<ComboBox
-                            x:Name="comportbox5"
-                            materialDesign:HintAssist.Hint="No device" 
-                            ItemsSource="{Binding AvailableComPorts}" Margin="11,8,0,7" Height="30" 
-                            HorizontalAlignment="Left" Width="74" SelectionChanged="Comportbox3_SelectionChanged" Grid.Row="1" Grid.Column="1" Visibility="{Binding Settings.hasUSB, Converter={StaticResource BooleanToVisibilityConverter}}" >
-                            <ComboBox.SelectedValue>
-                                <Binding Path="Settings.ComPort3" UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </ComboBox.SelectedValue>
-                        </ComboBox>-->
-
-                        <!--<CheckBox x:Name="tg1" Visibility="{Binding Settings.hasUSB, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
-                            IsChecked="{Binding Settings.Comport3Open}" Grid.Column="1" Margin="116,7,0,6" Grid.Row="1" Grid.ColumnSpan="2" Width="74" Content="Kết nối"/>-->
-
-
-                        <!--<ComboBox
-                            x:Name="comportbox6" Visibility="{Binding Settings.hasUSBTwo, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            materialDesign:HintAssist.Hint="No device"
-                            ItemsSource="{Binding AvailableComPorts}" Margin="11,7,0,0" Height="29" 
-                            VerticalAlignment="Top" HorizontalAlignment="Left" Width="74" 
-                            SelectionChanged="Comportbox2_SelectionChanged" Grid.Column="1" Grid.Row="2" >
-                            <ComboBox.SelectedValue>
-                                <Binding Path="Settings.ComPort2" UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </ComboBox.SelectedValue>
-                        </ComboBox>-->
-
-
-                        <!--<CheckBox  Visibility="{Binding Settings.hasUSBTwo, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
-                            IsChecked="{Binding Settings.Comport2Open}" Grid.Column="1" Margin="116,6,0,6" Grid.Row="2" Grid.ColumnSpan="2" Width="74" Content="Kết nối"/>-->
-                        <Image Grid.Column="0" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Right" 
-                            Margin="0,-1,35,41" VerticalAlignment="Bottom" 
-                            Source="new usb@2x.png" 
-                            RenderTransformOrigin="-0.186,0.516" Height="35" Width="29" Grid.RowSpan="2" Visibility="Hidden" >
-                            <Image.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform/>
-                                    <RotateTransform Angle="-360"/>
-                                    <TranslateTransform/>
-                                </TransformGroup>
-                            </Image.RenderTransform>
-                        </Image>
-                        <StackPanel Orientation="Horizontal" Margin="1,19,6,-5" Grid.Row="2" Grid.ColumnSpan="3">
-                            <Image Visibility="{Binding Settings.Pro11,Converter={StaticResource boolToVisibilityConvert}}" Margin="0,4,20,0" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
-                            Height="18" VerticalAlignment="Top" Width="28"
-                            Source="rainpow@2x.png"/>
-                            <Image Visibility="{Binding Settings.hasPCI,Converter={StaticResource boolToVisibilityConvert}}" Margin="0,4,20,0" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
-                                Height="22" VerticalAlignment="Top" Width="33"
-                                Source="pci@2x.png"/>
-                            <Image Visibility="{Binding Settings.Pro12,Converter={StaticResource boolToVisibilityConvert}}" Margin="0,3,20,-2" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
-                                Height="30" VerticalAlignment="Top" Width="46"
-                                Source="node@2x.png"/>
-                        </StackPanel>
 
 
                     </Grid>
@@ -610,7 +149,7 @@
                     Maximum="100"  ToolTip="Độ sáng của các thiết bị bên trong case"
                             
                    x:Name="BrightnessSlider"
-                    Value="{Binding Settings.brightnesscounter}" Visibility="{Binding ElementName=Screen,Path=IsSelected,Converter={StaticResource boolToVisibilityConvert}}"
+                    Value="{Binding Settings.Brightness}" Visibility="Visible"
 					RenderTransformOrigin="0.066,0.839" Width="143" Foreground="#FF7344C3" >
                             <Slider.RenderTransform>
                                 <TransformGroup>
@@ -621,38 +160,7 @@
                                 </TransformGroup>
                             </Slider.RenderTransform>
                         </Slider>
-                        <Slider
-                    Grid.Row="2" Margin="108,12,0,7"
-                    Minimum="0" 
-                    Maximum="255"  ToolTip="Độ sáng của các thiết bị bên trong case"
-                   
-                    Value="{Binding Settings.fanbrightnesscounter}"  Visibility="{Binding ElementName=Case,Path=IsSelected,Converter={StaticResource boolToVisibilityConvert}}"
-					RenderTransformOrigin="0.066,0.839" Width="143" Foreground="#FF7344C3" >
-                            <Slider.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform AngleX="-0.299"/>
-                                    <RotateTransform/>
-                                    <TranslateTransform X="-0.131"/>
-                                </TransformGroup>
-                            </Slider.RenderTransform>
-                        </Slider>
-                        <Slider
-                    Grid.Row="2" Margin="108,12,0,7"
-                    Minimum="0" 
-                    Maximum="255"  ToolTip="Độ sáng của các thiết bị bên trong case"
-                   
-                    Value="{Binding Settings.edgebrightnesscounter}"  Visibility="{Binding ElementName=Desk,Path=IsSelected,Converter={StaticResource boolToVisibilityConvert}}"
-					RenderTransformOrigin="0.066,0.839" Width="143" Foreground="#FF7344C3" >
-                            <Slider.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform AngleX="-0.299"/>
-                                    <RotateTransform/>
-                                    <TranslateTransform X="-0.131"/>
-                                </TransformGroup>
-                            </Slider.RenderTransform>
-                        </Slider>
+
                         <TextBlock Grid.Row="2" HorizontalAlignment="Right" Width="51" Margin="0,11,198,12"
 						   RenderTransformOrigin="0.5,0.5" Foreground="#FF6C6C6C"><Run Text="Độ sáng"/></TextBlock>
 
@@ -666,31 +174,22 @@
 						FontSize="15" FontWeight="Bold"><Run Text="Cài đặt chung"/></TextBlock>
 
                         <ComboBox 
-						x:Name="screenefectbox" 
+						x:Name="EffectSelection" 
 						
 						materialDesign:HintAssist.Hint=""
 						IsEditable="False" Margin="109,0,2,11"
 						materialDesign:HintAssist.HintOpacity=".26"
 						
-						SelectionChanged="ChangeEffect" Grid.Row="1" Height="29">
+						 Grid.Row="1" Height="29">
                             <ComboBox.Style>
                                 <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
 
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding ElementName=Screen,Path=IsSelected}" Value="True">
-                                            <Setter Property="SelectedIndex" Value="{Binding Settings.screeneffectcounter}"/>
-                                            <Setter Property="ItemsSource" Value="{Binding Path=ScreenEffects}"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding ElementName=Case,Path=IsSelected}" Value="True">
-                                            <Setter Property="SelectedIndex" Value="{Binding Settings.Faneffectcounter}"/>
-                                            <Setter Property="ItemsSource" Value="{Binding Path=CaseEffects}"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding ElementName=Desk,Path=IsSelected}" Value="True">
-                                            <Setter Property="SelectedIndex" Value="{Binding Settings.lightstatus}"/>
-                                            <Setter Property="ItemsSource" Value="{Binding Path=DeskEffects}"/>
-                                        </DataTrigger>
 
-                                    </Style.Triggers>
+
+                                    <Setter Property="SelectedIndex" Value="{Binding Settings.SelectedEffect}"/>
+                                    <Setter Property="ItemsSource" Value="{Binding Path=Effects}"/>
+
+
                                 </Style>
                             </ComboBox.Style>
 
@@ -752,11 +251,7 @@
 						Grid.Row="0" Margin="10,10,0,30"
 						FontSize="15" FontWeight="Bold"><Run Text="Cài đặt cấu hình Ambilight"/></TextBlock>
 
-                        <ToggleButton x:Name="settingScreenToggle" Margin="100 0 100 0" Grid.Row="1"
-                              IsChecked="False" Click="SettingScreen_Click"
-	                          VerticalAlignment="Center"
-	                          Style="{StaticResource MaterialDesignSwitchToggleButton}"
-	                          ToolTip="Setting screen" Foreground="#FF707070" Background="#FF7E3CBD" />
+
 
                         <!--<Button x:Name="btnReset"
 							Content="Reset" HorizontalAlignment="Center" Margin="0,30,0,-30" 
@@ -772,297 +267,19 @@
 
             <WrapPanel Margin="25,0,0,0" Width="425" Orientation="Vertical" Height="388">
 
-                <!--done-->
-                <!--done-->
-                <!--done-->
-                <!--done-->
-                <!--done-->
-                <!--done-->
-                <!--done-->
-                <materialDesign:Card Visibility="Collapsed" x:Name="effectCard" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                
+                <materialDesign:Card  x:Name="ambilightCard" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
 				Margin="0 4 0 0" Width="404" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
-
-                    <Grid VerticalAlignment="Top" Height="349" Margin="0,0,0,-5">
-
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="57*" />
-                            <RowDefinition Height="122*"/>
-                            <RowDefinition Height="85*"/>
-                            <RowDefinition Height="85*"/>
-                        </Grid.RowDefinitions>
-
-
-                        <ComboBox 
-						x:Name="effectbox" ToolTip="Các chế độ cài sẵn do Ambino thiết kế"
-						SelectedIndex="{Binding Settings.effectcounter}"
-						materialDesign:HintAssist.Hint=""
-						IsEditable="False" FontSize="13"
-						SelectionChanged="ChangeRunningMode"
-						materialDesign:HintAssist.HintOpacity=".26" 
-						Margin="149,5,104,88" Grid.Row="1" RenderTransformOrigin="0.413,1.821" Height="29">
-                            <Label Content="Rainbow" />
-                            <Label Content="Party"/>
-                            <Label Content="Cloud"/>
-                            <Label Content="Rainbow Stripe"/>
-                            <Label Content="The Flash"/>
-                            <Label Content="Ocean"/>
-                            <Label Content="Forest"/>
-                            <Label Content="Debug"/>
-                            <Label Content="Ice Blue" />
-                            <Label Content="Retro"/>
-                            <Label Content="debug2"/>
-                            <Label Content="debug3" />
-                            <Label Content="Aurora"/>
-                            <Label Content="Halloween"/>
-                            <Label Content="Summer"/>
-                            <Label Content="Wicked Qeen"/>
-                            <Label Content="Tron"/>
-                            <Label Content="Killgrave"/>
-                            <Label Content="Lime"/>
-                            <Label Content="RED"/>
-                            <Label Content="Christmas" />
-                            <Label Content="Mutant"/>
-                            <Label Content="Flame"/>
-                            <Label Content="France"/>
-                            <Label Content="Neo-noir"/>
-                            <Label Content="Aura"/>
-                            <Label Content="Temperature"/>
-                            <Label Content="Cosmic"/>
-                            <Label Content="Garden"/>
-                            <Label Content="Neon Midnight" />
-                            <Label Content="Rainbow Custom Zone" Foreground="#FF7344c3"/>
-                        </ComboBox>
-                        <TextBlock x:Name="txtHieuUng" FontSize="13"
-							   HorizontalAlignment="Right" Width="54" Margin="0,12,325,95"
-							   RenderTransformOrigin="0.479,0.15" Grid.Row="1" Foreground="#FF6C6C6C"><Run Text=" Dải màu"/></TextBlock>
-
-                        <CheckBox  x:Name="Shuffle"
-    Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
-    IsChecked="{Binding Settings.Shuffle}" Margin="315,3,0,87" Width="60" Grid.Row="1" Content="Shuffle"/>
-
-
-
-
-
-
-                        <TextBlock x:Name="txtChay" HorizontalAlignment="Right"
-						   RenderTransformOrigin="0.468,0.181"
-						   FontSize="13"
-						   Width="56" Margin="0,61,320,43" Grid.Row="1" Visibility="Visible" Foreground="#FF6C6C6C"><Run Text="Kiểu chạy"/></TextBlock>
-                        <ComboBox 
-						x:Name="method" ToolTip="Các kiểu phối hợp từ các màu hoặc chế độ đã chọn"
-						SelectedIndex="{Binding Settings.methodcounter}"
-						materialDesign:HintAssist.Hint=""
-						IsEditable="False"  Visibility="Visible"
-						materialDesign:HintAssist.HintOpacity=".26"
-						Grid.Row="1" Margin="147,54,105,39" Height="29" 
-						RenderTransformOrigin="0.67,0.518" FontSize="13">
-
-                            <Label Content="Chasing" />
-                            <Label Content="Sinwave"/>
-                            <Label Content="Matrix"/>
-                            <Label Content="Snake"/>
-                            <Label Content="Twinkles"/>
-                            <Label Content="Heartbeat"/>
-                            <Label Content="Juggle"/>
-                            <Label Content="Sinelon"/>
-
-
-                        </ComboBox>
-
-
-
-
-
-
-
-                        <TextBlock HorizontalAlignment="Right" 
-						FontSize="13"
-						Width="100" Margin="0,1,276,66" Grid.Row="2" RenderTransformOrigin="0.5,1.312" Foreground="#FF6C6C6C" ><Run Text="Tốc độ Hiệu ứng"/></TextBlock>
-                        <Slider
-						  x:Name="speed" ToolTip="Tốc độ nhanh chậm của LED (càng nhanh nhìn càng mượt)"
-						  TickFrequency="1"
-						  Orientation="Horizontal"
-						  Minimum="1"
-						  Maximum="20"
-						  Value="{Binding Settings.speedcounter}"
-						  Margin="146,2,106,61" Grid.Row="2" />
-
-
-                        <TextBlock x:Name="txtDoChia" HorizontalAlignment="Right"
-						       RenderTransformOrigin="0.337,1.821"
-							   FontSize="13"
-							   Width="50" Margin="0,56,325,12" Grid.Row="2" Foreground="#FF6C6C6C"><Run Text="Độ chia"/></TextBlock>
-                        <Slider x:Name="sin" 
-							ToolTip="Độ dày mỏng của các mảng màu kế tiếp nhau (càng cao màu càng đậm)"
-                    TickFrequency="16"
-                    TickPlacement="BottomRight"
-                    Orientation="Horizontal"
-                    Minimum="1"
-                    Maximum="64"
-                    Value="{Binding Settings.sincounter}" 
-					Margin="146,59,105,2" Grid.Row="2" />
-                        <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
-                        Height="40" VerticalAlignment="Top" Width="39" Grid.Row="0"
-                        Margin="18,14,0,0"
-                        Source="advance@2x.png" Visibility="Hidden"/>
-                        <TextBlock
-                        Margin="0,23,245,13" HorizontalAlignment="Right" Padding="0" Width="133" 
-                        VerticalAlignment="Center" FontSize="15" Height="21" FontWeight="Bold"><Run Text="Cài đặt hiệu ứng"/></TextBlock>
-                        <TextBlock x:Name="txtDoChia_Copy"
-                        FontWeight="Medium" HorizontalAlignment="Right"
-                        RenderTransformOrigin="0.337,1.821"
-                        FontSize="10"
-                        Width="318" Margin="0,24,18,29" Grid.Row="3" Foreground="#FFF9BE7B"><Run Text="Độ chia sẽ quy định số màu có trong một chu kỳ chạy"/><LineBreak/><Run Text="Phối hợp độ chia và kiểu chạy sẽ cho ra nhiều hiệu ứng"/></TextBlock>
-                        <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
-                        Height="32" VerticalAlignment="Top" Width="31" Grid.Row="3"
-                        Margin="25,22,0,0"
-                        Source="/adrilight;component/View/Images/new theme/lighting setup@2x.png"/>
-                        <CheckBox  x:Name="shuffle"
-                            Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
-                            IsChecked="{Binding Settings.shuffle}" Margin="314,53,0,37" Width="60" Grid.Row="1" Content="Shuffle"/>
-
-
-
-                    </Grid>
-                </materialDesign:Card>
-
-
-                <!--done-->
-                <materialDesign:Card x:Name="staticCard" Visibility="Visible" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0" materialDesign:ShadowAssist.ShadowEdges="All"
-				Margin="0 4 0 0" Width="403" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
-                    <Grid VerticalAlignment="Top" Height="365">
-
-
-                        <Canvas x:Name="playground4" Margin="15,326,15,15">
-                            <ItemsControl ItemsSource="{Binding PreviewRectangle}">
-                                
-                            </ItemsControl>
-                        </Canvas>
-                        
-                        <TextBlock FontWeight="Normal" HorizontalAlignment="Right"
-							   RenderTransformOrigin="0.596,0.275" 
-							   FontSize="30" Height="50"
-							   Width="160" Margin="0,30,547,20"
-							   Visibility="Visible"><Run Text="Màu tĩnh"/></TextBlock>
-
-
-                        <TextBox 
-                                Text="{Binding Color, ElementName=picker, UpdateSourceTrigger=PropertyChanged}"
-                                Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
-                                materialDesign:HintAssist.Hint="Mã hex"
-                            AcceptsReturn="True"
-                            TextWrapping="Wrap"
-                                DockPanel.Dock="Top"
-                                Margin="275,23,26,302" Foreground="Gray"/>
-                        <materialDesign:ColorPicker  x:Name="picker"   materialDesign:ColorChanged="ColorPicker_ColorChanged" HorizontalAlignment="Left" Height="202" Margin="27,68,0,0" VerticalAlignment="Top" Width="351">
-                            <materialDesign:ColorPicker.Style>
-                                <Style TargetType="materialDesign:ColorPicker">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding ElementName=Screen,Path=IsSelected}" Value="True">
-
-                                            <Setter Property="Color" Value="{Binding Settings.ScreenStatic}"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding ElementName=Case,Path=IsSelected}" Value="True">
-                                            <Setter Property="Color" Value="{Binding Settings.CaseStatic}"/>
-
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding ElementName=Desk,Path=IsSelected}" Value="True">
-                                            <Setter Property="Color" Value="{Binding Settings.DeskStatic}"/>
-
-                                        </DataTrigger>
-
-                                    </Style.Triggers>
-                                </Style>
-                            </materialDesign:ColorPicker.Style>
-                        </materialDesign:ColorPicker>
-                        <TextBlock
-                        Margin="0,23,258,322" HorizontalAlignment="Right" Padding="0" Width="117" 
-                        VerticalAlignment="Center" FontSize="15" FontWeight="Bold"><Run Text="Cài đặt màu tĩnh"/></TextBlock>
-
-                        <materialDesign:ColorZone ClipToBounds="False" x:Name="orange" materialDesign:ShadowAssist.ShadowDepth="Depth1"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="186,221,0,0" Height="32" Width="32" CornerRadius="16" Mode="PrimaryDark" RenderTransformOrigin="0.5,0.5" Background="#FFF7A30F" MouseEnter="ColorZone_MouseEnter" MouseDown="orange_MouseDown">
-                            <materialDesign:ColorZone.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform/>
-                                    <RotateTransform Angle="-90"/>
-                                    <TranslateTransform X="-67" Y="67"/>
-                                </TransformGroup>
-                            </materialDesign:ColorZone.RenderTransform>
-                        </materialDesign:ColorZone>
-                        <materialDesign:ColorZone ClipToBounds="False" x:Name="green" HorizontalAlignment="Left"  materialDesign:ShadowAssist.ShadowDepth="Depth1" VerticalAlignment="Top" Margin="186,266,0,0" Height="32" Width="32" CornerRadius="16" Mode="PrimaryDark" RenderTransformOrigin="0.5,0.5" Background="#FF8BF908" MouseDown="green_MouseDown">
-                            <materialDesign:ColorZone.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform/>
-                                    <RotateTransform Angle="-90"/>
-                                    <TranslateTransform X="-22" Y="22"/>
-                                </TransformGroup>
-                            </materialDesign:ColorZone.RenderTransform>
-                        </materialDesign:ColorZone>
-                        <materialDesign:ColorZone ClipToBounds="False" x:Name="aura"  materialDesign:ShadowAssist.ShadowDepth="Depth1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="186,311,0,0" Height="32" Width="32" CornerRadius="16" Mode="PrimaryDark" RenderTransformOrigin="0.5,0.5" Background="#FF34FB7C" MouseDown="aura_MouseDown">
-                            <materialDesign:ColorZone.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform/>
-                                    <RotateTransform Angle="-90"/>
-                                    <TranslateTransform X="23" Y="-23"/>
-                                </TransformGroup>
-                            </materialDesign:ColorZone.RenderTransform>
-                        </materialDesign:ColorZone>
-                        <materialDesign:ColorZone ClipToBounds="False" x:Name="cyan" materialDesign:ShadowAssist.ShadowDepth="Depth1"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="186,355,0,-22" Height="32" Width="32" CornerRadius="16" Mode="PrimaryDark" RenderTransformOrigin="0.5,0.5" Background="#FF08CCE0" MouseDown="cyan_MouseDown">
-                            <materialDesign:ColorZone.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform/>
-                                    <RotateTransform Angle="-90"/>
-                                    <TranslateTransform X="67" Y="-67"/>
-                                </TransformGroup>
-                            </materialDesign:ColorZone.RenderTransform>
-                        </materialDesign:ColorZone>
-                        <materialDesign:ColorZone ClipToBounds="False" x:Name="blue"  materialDesign:ShadowAssist.ShadowDepth="Depth1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="232,355,0,-22" Height="32" Width="32" CornerRadius="16" Mode="PrimaryDark" RenderTransformOrigin="0.5,0.5" Background="#FF1502D6" MouseDown="blue_MouseDown">
-                            <materialDesign:ColorZone.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform/>
-                                    <RotateTransform Angle="-90"/>
-                                    <TranslateTransform X="67" Y="-67"/>
-                                </TransformGroup>
-                            </materialDesign:ColorZone.RenderTransform>
-                        </materialDesign:ColorZone>
-                        <materialDesign:ColorZone ClipToBounds="False" x:Name="pink"  materialDesign:ShadowAssist.ShadowDepth="Depth1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="278,355,0,-22" Height="32" Width="32" CornerRadius="16" Mode="PrimaryDark" RenderTransformOrigin="0.5,0.5" Background="#FFF9076A" MouseDown="pink_MouseDown">
-                            <materialDesign:ColorZone.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform/>
-                                    <RotateTransform Angle="-90"/>
-                                    <TranslateTransform X="67" Y="-67"/>
-                                </TransformGroup>
-                            </materialDesign:ColorZone.RenderTransform>
-                        </materialDesign:ColorZone>
-                        <!--<xctk:ColorCanvas SelectedColor="{Binding Settings.ScreenStatic}"
-									  />
-                    <xctk:ColorPicker x:Name="ClrPcker_Background_1_Copy1"  RenderTransformOrigin="0.5,0.5" 
-								AvailableColorsSortingMode="HueSaturationBrightness" 
-								ShowDropDownButton="True" ShowStandardColors="False" 
-								SelectedColor="{Binding Settings.ScreenStatic}" 
-								UsingAlphaChannel="False" StandardButtonHeader="Chọn màu"
-								  AdvancedButtonHeader="Nâng cao" Visibility="Collapsed"
-								  AvailableColorsHeader="Các màu cơ bản" 
-								  Margin="222,65,70,70" IsOpen="True" FontSize="20" 
-								  SelectedColorChanged="ClrPcker_Background_1_Copy1_SelectedColorChanged"/>-->
-                        <!--<TextBox Margin="23,186,303,135"
-  materialDesign:HintAssist.Hint="Mã màu Hex" x:Name="colortext"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="colortext_TextChanged" Visibility="Collapsed" />-->
-                        <Rectangle RadiusX="40" RadiusY="40" Fill="{Binding ElementName=picker,Path=Color, Converter={StaticResource ColorToBrushConverter}}"   x:Name="bigcircle" HorizontalAlignment="Left" Height="73" VerticalAlignment="Top" Width="73" Margin="29,272,0,0" RenderTransformOrigin="0.52,0.8"/>
-
-                    </Grid>
-                </materialDesign:Card>
-
-                <!--done-->
-                <materialDesign:Card Visibility="Collapsed" x:Name="ambilightCard" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
-				Margin="0 4 0 0" Width="404" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
+                    <materialDesign:Card.Style>
+                        <Style TargetType="materialDesign:Card">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=EffectSelection, Path=SelectedItem}"    Value="Sáng theo màn hình">
+                                    <Setter Property="Visibility"  Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </materialDesign:Card.Style>
                     <Grid Visibility="Visible" VerticalAlignment="Top" Height="349" Margin="0,0,0,-5">
 
 
@@ -1073,64 +290,9 @@
                             <RowDefinition Height="85*"/>
                         </Grid.RowDefinitions>
 
-                        <Grid x:Name="screen3setup" Visibility="Collapsed" Margin="231,92,67,49" Grid.Row="1" Grid.RowSpan="3">
-                            <TextBox x:Name="width3" MinWidth="10"
-                            DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
-                            Margin="68,0,8,86"
-                            VerticalAlignment="Bottom"
-                            Text="{Binding Settings.SpotsX3, UpdateSourceTrigger=PropertyChanged}" 
-                            RenderTransformOrigin="-0.027,1.271" Height="24" />
-                            <TextBox x:Name="height3"
-                            MinWidth="10" Margin="68,0,7,26"
-                            DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
-                            VerticalAlignment="Bottom"
-                            Text="{Binding Settings.SpotsY3, UpdateSourceTrigger=PropertyChanged}" RenderTransformOrigin="0.44,-7.038" Height="24" />
-                            <ComboBox 
-                            x:Name="screenbox3"
-                            SelectedIndex="{Binding Settings.screen3sizecounter}"
-                            materialDesign:HintAssist.Hint="Chọn cỡ màn hình"
-                            IsEditable="False"
-                            materialDesign:HintAssist.HintOpacity=".26" Height="27" Margin="0,-26,0,150"
-                            SelectionChanged="screenbox3_SelectionChanged">
-                                <Label Content="19-22 inch"/>
-                                <Label Content="23-27 inch"/>
-                                <Label Content="29 inch"/>
-                                <Label Content="32 inch"/>
-                                <Label Content="34 inch"/>
-                                <Label Content="Kích thước khác"/>
-                            </ComboBox>
-
-                        </Grid>
-                        <Grid x:Name="screen2setup" Visibility="Collapsed" Margin="231,92,67,49" Grid.Row="1" Grid.RowSpan="3">
-                            <TextBox x:Name="width2" MinWidth="10"
-                            DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
-                            Margin="69,0,7,87"
-                            VerticalAlignment="Bottom"
-                            Text="{Binding Settings.SpotsX2, UpdateSourceTrigger=PropertyChanged}" 
-                            RenderTransformOrigin="-0.027,1.271" Height="24" />
-                            <TextBox x:Name="height2"
-                            MinWidth="10" Margin="69,0,6,26"
-                            DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
-                            VerticalAlignment="Bottom"
-                            Text="{Binding Settings.SpotsY2, UpdateSourceTrigger=PropertyChanged}" RenderTransformOrigin="0.44,-7.038" Height="24" />
-                            <ComboBox 
-                            x:Name="screenbox2"
-                            SelectedIndex="{Binding Settings.screen2sizecounter}"
-                            materialDesign:HintAssist.Hint="Chọn cỡ màn hình"
-                            IsEditable="False"
-                            materialDesign:HintAssist.HintOpacity=".26" Height="27" Margin="0,-26,0,150"
-                            SelectionChanged="Screenbox2_SelectionChanged">
-                                <Label Content="19-22 inch"/>
-                                <Label Content="23-27 inch"/>
-                                <Label Content="29 inch"/>
-                                <Label Content="32 inch"/>
-                                <Label Content="34 inch"/>
-                                <Label Content="Kích thước khác"/>
-                            </ComboBox>
 
 
-                        </Grid>
-                        <Grid x:Name="screen1setup"  Margin="231,92,67,49" Grid.Row="1" Grid.RowSpan="3">
+                        <Grid x:Name="screensetup"  Margin="231,92,67,49" Grid.Row="1" Grid.RowSpan="3">
                             <ComboBox
                             x:Name="screenbox"
                             SelectedIndex="{Binding Settings.screensizecounter}"
@@ -1188,13 +350,11 @@
                             
                             x:Name="screenSelect"
                            SelectedIndex="0"
-                            materialDesign:HintAssist.Hint="Chọn màn hình"
+                            materialDesign:HintAssist.Hint="Capture Source"
                             IsEditable="False"
                             materialDesign:HintAssist.HintOpacity=".26" Height="26" Margin="201,1,-45,26" 
-                            SelectionChanged="screenSelect_SelectionChanged" RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="2" BorderBrush="#89000000" >
-                                <Label Content="Màn 1"/>
-                                <Label Content="Màn 2"/>
-                                <Label Content="Màn 3"/>
+                             RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="2" BorderBrush="#89000000" >
+
 
                             </ComboBox>
                             <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,8,76,27" Foreground="#FF6C6C6C"
@@ -1233,28 +393,20 @@
 
                     </Grid>
                 </materialDesign:Card>
-                <materialDesign:Card Visibility="Collapsed" x:Name="Auracard" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0" Background="#FFFCFCFC"
-                Margin="0 4 0 0" Width="404" Height="366" RenderTransformOrigin="0.465,0.105">
-                    <Grid VerticalAlignment="Top" Height="349" Margin="0,0,0,-5">
-
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="57*" />
-                            <RowDefinition Height="122*"/>
-                            <RowDefinition Height="85*"/>
-                            <RowDefinition Height="85*"/>
-                        </Grid.RowDefinitions>
-
-
-                        <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
-                        Height="149" VerticalAlignment="Top" Width="150"
-                        Margin="127,31,0,0"
-                        Source="aura@2x.png" Grid.RowSpan="2" Grid.Row="1"/>
-
-                    </Grid>
-                </materialDesign:Card>
-                <materialDesign:Card Visibility="Collapsed" x:Name="Ambilightdesk_card" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+              
+                <materialDesign:Card  x:Name="MusicSetting"  UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
                     Margin="0 4 0 0" Width="404" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
+
+                    <materialDesign:Card.Style>
+                        <Style TargetType="materialDesign:Card">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=EffectSelection, Path=SelectedItem}"    Value="Sáng theo nhạc">
+                                    <Setter Property="Visibility"  Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </materialDesign:Card.Style>
                     <Grid Visibility="Visible" VerticalAlignment="Top" Height="349" Margin="0,0,0,-5">
 
 
@@ -1265,34 +417,30 @@
                             <RowDefinition Height="85*"/>
                         </Grid.RowDefinitions>
 
-                        <Grid x:Name="screen1setup1" Margin="231,92,67,49" Grid.Row="1" Grid.RowSpan="3">
+
+
+                        <Grid x:Name="screensetup1"  Margin="231,92,67,49" Grid.Row="1" Grid.RowSpan="3">
                             <ComboBox
-                                
-                                SelectedIndex="1"
+                                x:Name="screenbox1"
+                                SelectedIndex="{Binding Settings.SelectedMusicMode}"
                                 materialDesign:HintAssist.Hint="Chọn cỡ màn hình"
                                 IsEditable="False"
                                 materialDesign:HintAssist.HintOpacity=".26" Height="27" Margin="0,-26,0,150" 
                                 SelectionChanged="Screenbox_SelectionChanged" RenderTransformOrigin="0.478,0.792" >
-                                <Label Content="Từ trái sang phải"/>
-                                <Label Content="Từ phải sang trái"/>
+                                <Label Content="Equalizer"/>
+                                <Label Content="VU metter"/>
 
                             </ComboBox>
-                            <TextBox IsEnabled="{Binding DeskOtherSize}"
-  materialDesign:HintAssist.Hint="Số LED" Text="{Binding Settings.SpotsDesk,UpdateSourceTrigger=PropertyChanged}"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-  VerticalAlignment="Center" Margin="0,19,0,88" />
-
-                            <ComboBox
-                               
-                                SelectedIndex="1"
-                                materialDesign:HintAssist.Hint="Chọn cỡ màn hình"
-                                IsEditable="False"
-                                materialDesign:HintAssist.HintOpacity=".26" Height="27" Margin="0,97,0,27" 
-                                SelectionChanged="Screenbox_SelectionChanged" RenderTransformOrigin="0.478,0.792" >
-                                <Label Content="Cạnh dưới"/>
-                                <Label Content="Hai bên"/>
-
-                            </ComboBox>
+                            <TextBox x:Name="width1"
+                                MinWidth="10" Margin="69,41,7,86"
+                                DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
+                                Text="{Binding Settings.SpotsX, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox x:Name="height1" MinWidth="10"
+                                DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
+                                Margin="69,0,6,26"
+                                VerticalAlignment="Bottom"
+                                Text="{Binding Settings.SpotsY, UpdateSourceTrigger=PropertyChanged}" 
+                                RenderTransformOrigin="-0.027,1.271" Height="24" />
 
                         </Grid>
 
@@ -1302,7 +450,7 @@
                             Source="advance@2x.png" Visibility="Hidden"/>
                         <TextBlock
                             Margin="0,23,245,14" HorizontalAlignment="Right" Padding="0" Width="128" 
-                            VerticalAlignment="Center" FontSize="15" FontWeight="Bold"><Run Text="Cài đặt cạnh bàn"/></TextBlock>
+                            VerticalAlignment="Center" FontSize="15" FontWeight="Bold"><Run Text="Cài đặt màn hình"/></TextBlock>
                         <Grid Margin="31,6,111,77" Grid.Row="1" Grid.RowSpan="3" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="4*"/>
@@ -1316,34 +464,30 @@
 
                             </Grid.RowDefinitions>
 
-                            <TextBlock Foreground="#FF6C6C6C" Margin="5,34,37,0" Grid.Row="3"><Run Text="Vùng capture"/></TextBlock>
+                            <TextBlock Foreground="#FF6C6C6C" Margin="2,26,40,8" Grid.Row="2"><Run Text="Độ nhạy"/></TextBlock>
 
-                            <TextBlock Foreground="#FF6C6C6C" Margin="4,25,75,9" Grid.Row="2"><Run Text="Số lượng LED"/></TextBlock>
+                            <TextBlock Foreground="#FF6C6C6C" Margin="2,32,77,2" Grid.Row="3"><Run Text="Giới hạn độ sáng"/></TextBlock>
 
                             <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,15,76,19" Foreground="#FF6C6C6C"
-                                Height="18" Text="Chiều dán" Grid.Row="1"/>
-                            <ComboBox
-                            
+                                Height="18" Text="Style nháy theo nhạc" Grid.Row="1"/>
+                            <ComboBox ItemsSource="{Binding AvailableAudioDevice}"
+                             SelectedIndex="{Binding Settings.SelectedAudioDevice}"
+                             SelectedItem="{Binding Settings.SelectedAudioDeviceName}"         
+
                                 x:Name="screenSelect1"
-                                SelectedIndex="{Binding Settings.desksize}"
-                                materialDesign:HintAssist.Hint="Chiều dài"
+                                materialDesign:HintAssist.Hint="Capture Source"
                                 IsEditable="False"
                                 materialDesign:HintAssist.HintOpacity=".26" Height="26" Margin="201,1,-45,26" 
-                                SelectionChanged="screenSelect_SelectionChanged" RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="2" BorderBrush="#89000000" >
-                                <Label Content="Ambino 1m2"/>
-                                <Label Content="Ambino 2m"/>
-                                <Label Content="Kích thước khác"/>
-
-                            </ComboBox>
+                                RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="2" BorderBrush="#89000000" />
                             <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,8,76,27" Foreground="#FF6C6C6C"
-                                Height="18" Text="Chọn chiều dài"/>
+                                Height="18" Text="Chọn Audio Device"/>
 
                         </Grid>
                         <TextBlock x:Name="txtDoChia_Copy2"
                             FontWeight="Medium" HorizontalAlignment="Right"
                             RenderTransformOrigin="0.337,1.821"
                             FontSize="10"
-                            Width="318" Margin="0,33,15,12" Foreground="#FFF9BE7B" Grid.Row="3"><Run Text="Chọn&quot; Kích thước khác &quot; nếu bạn sử dụng DIY kit "/><LineBreak/><Run Text="Chiều chạy tính theo hướng nhìn từ vị trí người ngồi "/><LineBreak/><Run Text=""/></TextBlock>
+                            Width="318" Margin="0,33,15,12" Foreground="#FFF9BE7B" Grid.Row="3"><Run Text="Chọn&quot; Kích thước khác &quot; nếu bạn sử dụng DIY kit "/><LineBreak/><Run Text="Số LED mỗi cạnh bên và trên dưới sẽ là số LED "/><LineBreak/><Run Text="thực tế cộng thêm 1"/></TextBlock>
                         <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
                             Height="32" VerticalAlignment="Top" Width="31"
                             Margin="28,31,0,0"
@@ -1352,8 +496,19 @@
 
                     </Grid>
                 </materialDesign:Card>
-                <materialDesign:Card Visibility="Collapsed" x:Name="Ambilightcase" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
-                    Margin="0 4 0 0" Width="404" Height="169" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
+                <materialDesign:Card  x:Name="StaticSetting" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                    Margin="0 4 0 0" Width="404" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
+
+                    <materialDesign:Card.Style>
+                        <Style TargetType="materialDesign:Card">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=EffectSelection, Path=SelectedItem}"    Value="Sáng màu tĩnh">
+                                    <Setter Property="Visibility"  Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </materialDesign:Card.Style>
                     <Grid Visibility="Visible" VerticalAlignment="Top" Height="349" Margin="0,0,0,-5">
 
 
@@ -1364,13 +519,29 @@
                             <RowDefinition Height="85*"/>
                         </Grid.RowDefinitions>
 
+
+
+                        <Grid x:Name="screensetup2"  Margin="231,92,67,49" Grid.Row="1" Grid.RowSpan="3">
+                            <TextBox x:Name="width2"
+                                MinWidth="10" Margin="69,41,7,86"
+                                DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
+                                Text="{Binding Settings.SpotsX, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox x:Name="height2" MinWidth="10"
+                                DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
+                                Margin="69,0,6,26"
+                                VerticalAlignment="Bottom"
+                                Text="{Binding Settings.SpotsY, UpdateSourceTrigger=PropertyChanged}" 
+                                RenderTransformOrigin="-0.027,1.271" Height="24" />
+
+                        </Grid>
+
                         <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
                             Height="40" VerticalAlignment="Top" Width="39" Grid.Row="0"
                             Margin="18,14,0,0"
                             Source="advance@2x.png" Visibility="Hidden"/>
                         <TextBlock
                             Margin="0,23,245,14" HorizontalAlignment="Right" Padding="0" Width="128" 
-                            VerticalAlignment="Center" FontSize="15" FontWeight="Bold"><Run Text="Cài đặt case"/></TextBlock>
+                            VerticalAlignment="Center" FontSize="15" FontWeight="Bold"><Run Text="Cài đặt màn hình"/></TextBlock>
                         <Grid Margin="31,6,111,77" Grid.Row="1" Grid.RowSpan="3" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="4*"/>
@@ -1383,1483 +554,258 @@
                                 <RowDefinition Height="*"/>
 
                             </Grid.RowDefinitions>
-                            <ComboBox IsEnabled="False"
-                            
-                                x:Name="screenSelect2"
-                                SelectedIndex="0"
-                                materialDesign:HintAssist.Hint="Chọn màn hình"
-                                IsEditable="False"
-                                materialDesign:HintAssist.HintOpacity=".26" Height="26" Margin="201,1,-45,26" 
-                                SelectionChanged="screenSelect_SelectionChanged" RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="2" BorderBrush="#89000000" >
-                                <Label Content="Bên phải màn hình"/>
-                                <Label Content="Bên trái màn hình"/>
-                                <Label Content="Full màn hình"/>
 
-                            </ComboBox>
+                            <TextBlock Foreground="#FF6C6C6C" Margin="2,26,40,8" Grid.Row="2"><Run Text="Breathing Speed"/></TextBlock>
+
+                            <TextBlock Foreground="#FF6C6C6C" Margin="2,32,77,2" Grid.Row="3"><Run Text="Giới hạn độ sáng"/></TextBlock>
+
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,15,76,19" Foreground="#FF6C6C6C"
+                                Height="18" Text="Breathing" Grid.Row="1"/>
                             <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,8,76,27" Foreground="#FF6C6C6C"
-                                Height="18" Text="Vị trí case"/>
-
+                                Height="18" Text="Chọn màu tĩnh"/>
                         </Grid>
                         <TextBlock x:Name="txtDoChia_Copy3"
                             FontWeight="Medium" HorizontalAlignment="Right"
                             RenderTransformOrigin="0.337,1.821"
                             FontSize="10"
-                            Width="220" Margin="0,63,110,41" Foreground="#FFF9BE7B" Grid.Row="1"><Run Text="Vị trí case tính theo hướng nhìn từ người ngồi "/><LineBreak/><Run Text=""/></TextBlock>
+                            Width="318" Margin="0,33,15,12" Foreground="#FFF9BE7B" Grid.Row="3"><Run Text="Chọn&quot; Kích thước khác &quot; nếu bạn sử dụng DIY kit "/><LineBreak/><Run Text="Số LED mỗi cạnh bên và trên dưới sẽ là số LED "/><LineBreak/><Run Text="thực tế cộng thêm 1"/></TextBlock>
                         <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
                             Height="32" VerticalAlignment="Top" Width="31"
-                            Margin="31,56,0,0"
-                            Source="/adrilight;component/View/Images/new theme/lighting setup@2x.png" Grid.Row="1"/>
+                            Margin="28,31,0,0"
+                            Source="/adrilight;component/View/Images/new theme/lighting setup@2x.png" Grid.Row="3"/>
+                        <materialDesign:ColorPicker Color="{Binding Settings.StaticColor}" HorizontalAlignment="Left" Margin="230,15,0,0" VerticalAlignment="Top" Height="111" Width="162" Grid.RowSpan="2"/>
+                        <ToggleButton
+  Style="{StaticResource MaterialDesignSwitchToggleButton}"
+  ToolTip="MaterialDesignSwitchToggleButton"
+  IsChecked="{Binding Settings.Breathing}" Margin="347,60,13,9" Grid.Row="1" />
+
+
+                    </Grid>
+                </materialDesign:Card>
+                <materialDesign:Card x:Name="AtmosphereSettings" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                    Margin="0 4 0 0" Width="404" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
+                    <materialDesign:Card.Style>
+                        <Style TargetType="materialDesign:Card">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=EffectSelection, Path=SelectedItem}"    Value="Atmosphere">
+                                    <Setter Property="Visibility"  Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </materialDesign:Card.Style>
+                    <Grid Visibility="Visible" VerticalAlignment="Top" Height="349" Margin="0,0,0,-5">
+
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="57*" />
+                            <RowDefinition Height="122*"/>
+                            <RowDefinition Height="85*"/>
+                            <RowDefinition Height="85*"/>
+                        </Grid.RowDefinitions>
+
+
+
+                        <Grid x:Name="screensetup3"  Margin="231,92,67,49" Grid.Row="1" Grid.RowSpan="3">
+                            <TextBox x:Name="width3"
+                                MinWidth="10" Margin="69,41,7,86"
+                                DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
+                                Text="{Binding Settings.SpotsX, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox x:Name="height3" MinWidth="10"
+                                DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
+                                Margin="69,0,6,26"
+                                VerticalAlignment="Bottom"
+                                Text="{Binding Settings.SpotsY, UpdateSourceTrigger=PropertyChanged}" 
+                                RenderTransformOrigin="-0.027,1.271" Height="24" />
+
+                        </Grid>
+
+                        <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
+                            Height="40" VerticalAlignment="Top" Width="39" Grid.Row="0"
+                            Margin="18,14,0,0"
+                            Source="advance@2x.png" Visibility="Hidden"/>
+                        <TextBlock
+                            Margin="0,23,245,14" HorizontalAlignment="Right" Padding="0" Width="128" 
+                            VerticalAlignment="Center" FontSize="15" FontWeight="Bold"><Run Text="Cài đặt màn hình"/></TextBlock>
+                        <Grid Margin="31,6,111,77" Grid.Row="1" Grid.RowSpan="3" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="105*"/>
+                                <ColumnDefinition Width="19*"/>
+                                <ColumnDefinition Width="7*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Foreground="#FF6C6C6C" Margin="2,26,40,8" Grid.Row="2"><Run Text="Tốc độ di chuyển"/></TextBlock>
+
+                            <TextBlock Foreground="#FF6C6C6C" Margin="2,32,77,2" Grid.Row="3"><Run Text="Giới hạn độ sáng"/></TextBlock>
+
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,15,76,19" Foreground="#FF6C6C6C"
+                                Height="18" Text="Di chuyển theo thời gian" Grid.Row="1"/>
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,8,76,27" Foreground="#FF6C6C6C"
+                                Height="18" Text="Chọn khoảng màu"/>
+                        </Grid>
+                        <TextBlock x:Name="txtDoChia_Copy4"
+                            FontWeight="Medium" HorizontalAlignment="Right"
+                            RenderTransformOrigin="0.337,1.821"
+                            FontSize="10"
+                            Width="318" Margin="0,33,15,12" Foreground="#FFF9BE7B" Grid.Row="3"><Run Text="Chọn&quot; Kích thước khác &quot; nếu bạn sử dụng DIY kit "/><LineBreak/><Run Text="Số LED mỗi cạnh bên và trên dưới sẽ là số LED "/><LineBreak/><Run Text="thực tế cộng thêm 1"/></TextBlock>
+                        <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
+                            Height="32" VerticalAlignment="Top" Width="31"
+                            Margin="28,31,0,0"
+                            Source="/adrilight;component/View/Images/new theme/lighting setup@2x.png" Grid.Row="3"/>
+                        <ToggleButton
+                            Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                            ToolTip="MaterialDesignSwitchToggleButton"
+                            IsChecked="{Binding Settings.Breathing}" Margin="347,60,13,9" Grid.Row="1" />
+                        <Slider Margin="249,50,12,107"
+                            Minimum="0" 
+                            Maximum="360"  ToolTip="Độ sáng của các thiết bị bên trong case"
+                            
+                            x:Name="BrightnessSlider_Copy"
+                            Value="{Binding Settings.AtmosphereStart}" Visibility="Visible"
+                            RenderTransformOrigin="0.066,0.839" Width="143" Foreground="#FF7344C3" Grid.RowSpan="2" >
+                            <Slider.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform AngleX="-0.299"/>
+                                    <RotateTransform/>
+                                    <TranslateTransform X="-0.131"/>
+                                </TransformGroup>
+                            </Slider.RenderTransform>
+                        </Slider>
+                        <Slider Margin="249,14,12,86"
+                            Minimum="0" 
+                            Maximum="360"  ToolTip="Độ sáng của các thiết bị bên trong case"
+                            
+                            x:Name="BrightnessSlider_Copy1"
+                            Value="{Binding Settings.AtmosphereStop}" Visibility="Visible"
+                            RenderTransformOrigin="0.066,0.839" Width="143" Foreground="#FF7344C3" Grid.Row="1" >
+                            <Slider.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform AngleX="-0.299"/>
+                                    <RotateTransform/>
+                                    <TranslateTransform X="-0.131"/>
+                                </TransformGroup>
+                            </Slider.RenderTransform>
+                        </Slider>
+
+
+                    </Grid>
+                </materialDesign:Card>
+                <materialDesign:Card  x:Name="RainbowSettings"   UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                    Margin="0 4 0 0" Width="404" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
+
+                    <materialDesign:Card.Style>
+                        <Style TargetType="{x:Type materialDesign:Card}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedItem, ElementName=EffectSelection}" Value="Sáng theo dải màu">
+                                    <Setter Property="Visibility"  Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </materialDesign:Card.Style>
+                    <Grid Visibility="Visible" VerticalAlignment="Top" Height="349" Margin="0,0,0,-5">
+
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="57*" />
+                            <RowDefinition Height="122*"/>
+                            <RowDefinition Height="85*"/>
+                            <RowDefinition Height="85*"/>
+                        </Grid.RowDefinitions>
+
+
+
+                        <Grid x:Name="screensetup4"  Margin="231,92,67,49" Grid.Row="1" Grid.RowSpan="3">
+                            <ComboBox
+                                x:Name="screenbox2"
+                                SelectedIndex="{Binding Settings.SelectedMusicMode}"
+                                materialDesign:HintAssist.Hint="Chọn cỡ màn hình"
+                                IsEditable="False"
+                                materialDesign:HintAssist.HintOpacity=".26" Height="27" Margin="0,-26,0,150" 
+                                SelectionChanged="Screenbox_SelectionChanged" RenderTransformOrigin="0.478,0.792" >
+                                <Label Content="Equalizer"/>
+                                <Label Content="VU metter"/>
+
+                            </ComboBox>
+                            <TextBox x:Name="width4"
+                                MinWidth="10" Margin="69,41,7,86"
+                                DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
+                                Text="{Binding Settings.SpotsX, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox x:Name="height4" MinWidth="10"
+                                DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
+                                Margin="69,0,6,26"
+                                VerticalAlignment="Bottom"
+                                Text="{Binding Settings.SpotsY, UpdateSourceTrigger=PropertyChanged}" 
+                                RenderTransformOrigin="-0.027,1.271" Height="24" />
+
+                        </Grid>
+
+                        <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
+                            Height="40" VerticalAlignment="Top" Width="39" Grid.Row="0"
+                            Margin="18,14,0,0"
+                            Source="advance@2x.png" Visibility="Hidden"/>
+                        <TextBlock
+                            Margin="0,23,245,14" HorizontalAlignment="Right" Padding="0" Width="128" 
+                            VerticalAlignment="Center" FontSize="15" FontWeight="Bold"><Run Text="Cài đặt màn hình"/></TextBlock>
+                        <Grid Margin="31,6,111,77" Grid.Row="1" Grid.RowSpan="3" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Foreground="#FF6C6C6C" Margin="2,26,40,8" Grid.Row="2"><Run Text="Tần số"/></TextBlock>
+
+                            <TextBlock Foreground="#FF6C6C6C" Margin="2,32,77,2" Grid.Row="3"><Run Text="Kiểu chạy"/></TextBlock>
+
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,15,76,19" Foreground="#FF6C6C6C"
+                                Height="18" Text="Tốc độ hiệu ứng" Grid.Row="1"/>
+                            <ComboBox ItemsSource="{Binding AvailablePalette}"
+                                SelectedIndex="{Binding Settings.SelectedPalette}"
+                                     
+
+                                x:Name="screenSelect2"
+                                materialDesign:HintAssist.Hint="Capture Source"
+                                IsEditable="False"
+                                materialDesign:HintAssist.HintOpacity=".26" Height="26" Margin="201,1,-45,26" 
+                                RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="2" BorderBrush="#89000000" />
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,8,35,27" Foreground="#FF6C6C6C"
+                                Height="18" Text="Chọn dải màu(palette source)"/>
+
+                        </Grid>
+                        <TextBlock x:Name="txtDoChia_Copy5"
+                            FontWeight="Medium" HorizontalAlignment="Right"
+                            RenderTransformOrigin="0.337,1.821"
+                            FontSize="10"
+                            Width="318" Margin="0,33,15,12" Foreground="#FFF9BE7B" Grid.Row="3"><Run Text="Chọn&quot; Kích thước khác &quot; nếu bạn sử dụng DIY kit "/><LineBreak/><Run Text="Số LED mỗi cạnh bên và trên dưới sẽ là số LED "/><LineBreak/><Run Text="thực tế cộng thêm 1"/></TextBlock>
+                        <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
+                            Height="32" VerticalAlignment="Top" Width="31"
+                            Margin="28,31,0,0"
+                            Source="/adrilight;component/View/Images/new theme/lighting setup@2x.png" Grid.Row="3"/>
 
 
                     </Grid>
                 </materialDesign:Card>
 
 
+
             </WrapPanel>
-            <materialDesign:Card Visibility="Collapsed"
-                             x:Name="customZone" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
-            Margin="25 10 0 0" Width="735" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
-
-                <Grid VerticalAlignment="Top" Height="349" Margin="0,0,0,-5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="79*"/>
-                        <ColumnDefinition Width="26*"/>
-                    </Grid.ColumnDefinitions>
-
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="57*" />
-                        <RowDefinition Height="122*"/>
-                        <RowDefinition Height="70*"/>
-                        <RowDefinition Height="15*"/>
-                        <RowDefinition Height="85*"/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="2" Margin="24,63,22,0" Grid.ColumnSpan="2" Grid.RowSpan="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{Binding ElementName=Music_box_1, Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="1" Text="{Binding ElementName=Music_box_2, Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="2" Text="{Binding ElementName=Music_box_3, Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="3" Text="{Binding ElementName=Music_box_4, Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="4" Text="{Binding ElementName=Music_box_5, Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="5" Text="{Binding ElementName=Music_box_6, Path=SelectedIndex}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="6" Text="{Binding ElementName=Music_box_7, Path=SelectedIndex}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="7" Text="{Binding ElementName=Music_box_8, Path=SelectedIndex}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="8" Text="{Binding ElementName=Music_box_9, Path=SelectedIndex}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="9" Text="{Binding ElementName=Music_box_10, Path=SelectedIndex}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="10" Text="{Binding ElementName=Music_box_11, Path=SelectedIndex}" Margin="20,0,6,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="11" Text="{Binding ElementName=Music_box_12, Path=SelectedIndex}" Margin="20,0,6,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="12" Text="{Binding ElementName=Music_box_13, Path=SelectedIndex}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="13" Text="{Binding ElementName=Music_box_14, Path=SelectedIndex}" Margin="22,0,4,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="14" Text="{Binding ElementName=Music_box_15, Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
-                        <TextBlock Grid.Column="15" Text="{Binding ElementName=Music_box_16, Path=SelectedIndex}" Margin="23,0,3,0" Foreground="#FF6C6C6C"/>
-                    </Grid>
-                    <Canvas Grid.Column="0" x:Name="playground2" Margin="194,0,57,0" Grid.ColumnSpan="2"></Canvas>
-                    <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
-                    Height="56" VerticalAlignment="Top" Width="55" Grid.Row="0"
-                    Margin="16,13,0,0"
-                    Source="chameleon@2x.png" Grid.RowSpan="2" Visibility="Hidden"/>
-                    <TextBlock
-                    Margin="0,24,354,15" HorizontalAlignment="Right" Padding="0" Width="171" 
-                    VerticalAlignment="Center" FontSize="15" Height="18" FontWeight="Bold"><Run Text="Rainbow Custom Zone"/></TextBlock>
-                    <StackPanel Margin="31,28,33,62" Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2">
-
-
-                        <StackPanel Margin="0,6,30,6"  Grid.Column="0"  Orientation="Horizontal">
-
-
-                            <xctk:ColorPicker x:Name="ClrPcker_Background_1" SelectedColorChanged="ClrPcker_Background_1_SelectedColorChanged" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color1}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản" Padding="0" Height="20" BorderBrush="{x:Null}" Width="40"/>
-                            <xctk:ColorPicker x:Name="ClrPcker_Background_2" SelectedColorChanged="ClrPcker_Background_2_SelectedColorChanged" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color2}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản" Padding="0" Height="20" BorderBrush="{x:Null}" Width="40"/>
-                            <xctk:ColorPicker x:Name="ClrPcker_Background_3" SelectedColorChanged="ClrPcker_Background_3_SelectedColorChanged" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color3}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản" Padding="0" Height="20" BorderBrush="{x:Null}" Width="40"/>
-                            <xctk:ColorPicker x:Name="ClrPcker_Background_4" SelectedColorChanged="ClrPcker_Background_4_SelectedColorChanged" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color4}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản" Padding="0" Height="20" BorderBrush="{x:Null}" Width="40"/>
-                            <xctk:ColorPicker x:Name="ClrPcker_Background_5" SelectedColorChanged="ClrPcker_Background_5_SelectedColorChanged" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color5}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản" Padding="0" Height="20" BorderBrush="{x:Null}" Width="40"/>
-                            <xctk:ColorPicker x:Name="ClrPcker_Background_6" SelectedColorChanged="ClrPcker_Background_6_SelectedColorChanged" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color6}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản" Padding="0" Height="20" BorderBrush="{x:Null}" Width="40"/>
-                            <xctk:ColorPicker x:Name="ClrPcker_Background_7" SelectedColorChanged="ClrPcker_Background_7_SelectedColorChanged" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color7}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản" Padding="0" Height="20" BorderBrush="{x:Null}" Width="40"/>
-                            <xctk:ColorPicker x:Name="ClrPcker_Background_8" SelectedColorChanged="ClrPcker_Background_8_SelectedColorChanged" RenderTransformOrigin="0.5,0.5" AvailableColorsSortingMode="HueSaturationBrightness" ShowDropDownButton="False" ShowStandardColors="False" SelectedColor="{Binding Settings.color8}" UsingAlphaChannel="False" StandardButtonHeader="Chọn màu" AdvancedButtonHeader="Nâng cao" AvailableColorsHeader="Các màu cơ bản" Padding="0" Height="20" BorderBrush="{x:Null}" Width="40"/>
-
-                        </StackPanel>
-
-                        <materialDesign:Chip Margin="30,0,30,0" Grid.Column="1" x:Name="filemauchip" MaxWidth="290" Click="filemauchip_Click" Height="Auto" HorizontalAlignment="Stretch" >
-                            <Binding Path="Settings.filemauchip" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
-                                </Binding.ValidationRules>
-                            </Binding>
-
-                        </materialDesign:Chip>
-
-                    </StackPanel>
-
-
-
-                    <Grid x:Name="equalizer" Margin="22,83,24,11" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <!-- dialog 1 definition-->
-                        <materialDesign:DialogHost Grid.Column="0"
-  DialogClosing="Sample1_DialogHost_OnDialogClosing"
-  DialogTheme="Inherit"
-  HorizontalAlignment="Left"
-  VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
-                            <materialDesign:DialogHost.DialogContent>
-                                <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_1" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
-                                        <ComboBox.Style>
-                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
-
-
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Path=IsCustomFreqSelected}" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data0}"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Path=IsPreFreqSelected }" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data0}"/>
-
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </ComboBox.Style>
-                                    </ComboBox>
-                                    <StackPanel
-        Orientation="Horizontal"
-        HorizontalAlignment="Right">
-                                        <Button x:Name="OK1" 
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsDefault="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand" Click="OK1_Click">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    True
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            OK
-                                        </Button>
-                                        <Button
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsCancel="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    False
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            Hủy
-                                        </Button>
-                                    </StackPanel>
-
-                                </StackPanel>
-
-
-                            </materialDesign:DialogHost.DialogContent>
-                            <Grid>
-
-
-                                <ProgressBar  x:Name="zoebar1" Minimum="0" Maximum="255" Orientation="Vertical" Grid.Column="0" Background="#FFD4D4D4" BorderBrush="{x:Null}" Height="10" Foreground="#FF7344C3" Margin="0,0,1,0" 
-                                     />
-                                <Button IsEnabled="{Binding ElementName=Custom, Path=IsSelected}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Chose Order" Height="Auto" Background="{x:Null}" BorderBrush="{x:Null}"  />
-                            </Grid>
-
-                        </materialDesign:DialogHost>
-
-                        <!-- dialog 1 definition-->
-
-                        <!-- dialog 2 definition-->
-                        <materialDesign:DialogHost Grid.Column="1"
-  DialogClosing="Sample1_DialogHost_OnDialogClosing"
-  DialogTheme="Inherit"
-  HorizontalAlignment="Left"
-  VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
-                            <materialDesign:DialogHost.DialogContent>
-                                <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_2" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
-                                        <ComboBox.Style>
-                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
-
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data1}"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data1}"/>
-
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </ComboBox.Style>
-                                    </ComboBox>
-                                    <StackPanel
-        Orientation="Horizontal"
-        HorizontalAlignment="Right">
-                                        <Button x:Name="OK2" 
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsDefault="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand" Click="OK2_Click">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    True
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            OK
-                                        </Button>
-                                        <Button
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsCancel="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    False
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            Hủy
-                                        </Button>
-                                    </StackPanel>
-
-                                </StackPanel>
-
-
-                            </materialDesign:DialogHost.DialogContent>
-                            <Grid>
-
-
-                                <ProgressBar x:Name="zoebar2" Minimum="0" Maximum="255" Orientation="Vertical" Grid.Column="1" Background="#FFD4D4D4" BorderBrush="{x:Null}" Height="10" Foreground="#FF7344C3" 
-                            Margin="0" 
-                                     />
-
-                                <Button IsEnabled="{Binding ElementName=Custom, Path=IsSelected}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Chose Order" Height="Auto" Background="{x:Null}" BorderBrush="{x:Null}"  />
-                            </Grid>
-
-                        </materialDesign:DialogHost>
-
-                        <!-- dialog 2 definition-->
-
-                        <!-- dialog 3 definition-->
-                        <materialDesign:DialogHost Grid.Column="2"
-  DialogClosing="Sample1_DialogHost_OnDialogClosing"
-  DialogTheme="Inherit"
-  HorizontalAlignment="Left"
-  VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
-                            <materialDesign:DialogHost.DialogContent>
-                                <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_3" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
-                                        <ComboBox.Style>
-                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
-
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data2}"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data2}"/>
-
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </ComboBox.Style>
-                                    </ComboBox>
-                                    <StackPanel
-        Orientation="Horizontal"
-        HorizontalAlignment="Right">
-                                        <Button x:Name="OK3" 
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsDefault="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand" Click="OK3_Click">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    True
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            OK
-                                        </Button>
-                                        <Button
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsCancel="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    False
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            Hủy
-                                        </Button>
-                                    </StackPanel>
-
-                                </StackPanel>
-
-
-                            </materialDesign:DialogHost.DialogContent>
-                            <Grid>
-
-
-                                <ProgressBar x:Name="zoebar3" Minimum="0" Maximum="255" Orientation="Vertical" Grid.Column="2" Background="#FFD4D4D4" BorderBrush="{x:Null}" Height="10" Foreground="#FF7344C3" 
-                            Margin="0" 
-                                     />
-
-                                <Button IsEnabled="{Binding ElementName=Custom, Path=IsSelected}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Chose Order" Height="Auto" Background="{x:Null}" BorderBrush="{x:Null}"  />
-                            </Grid>
-
-                        </materialDesign:DialogHost>
-
-                        <!-- dialog 3 definition-->
-
-                        <!-- dialog 4 definition-->
-                        <materialDesign:DialogHost Grid.Column="3"
-  DialogClosing="Sample1_DialogHost_OnDialogClosing"
-  DialogTheme="Inherit"
-  HorizontalAlignment="Left"
-  VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
-                            <materialDesign:DialogHost.DialogContent>
-                                <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_4" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
-                                        <ComboBox.Style>
-                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
-
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data3}"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data3}"/>
-
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </ComboBox.Style>
-                                    </ComboBox>
-                                    <StackPanel
-        Orientation="Horizontal"
-        HorizontalAlignment="Right">
-                                        <Button x:Name="OK4" 
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsDefault="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand" Click="OK4_Click">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    True
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            OK
-                                        </Button>
-                                        <Button
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsCancel="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    False
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            Hủy
-                                        </Button>
-                                    </StackPanel>
-
-                                </StackPanel>
-
-
-                            </materialDesign:DialogHost.DialogContent>
-                            <Grid>
-
-
-
-                                <ProgressBar x:Name="zoebar4" Minimum="0" Maximum="255" Orientation="Vertical" Grid.Column="3" Background="#FFD4D4D4" BorderBrush="{x:Null}" Height="10" Foreground="#FF7344C3" 
-                            Margin="0" 
-                                     />
-
-                                <Button IsEnabled="{Binding ElementName=Custom, Path=IsSelected}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Chose Order" Height="Auto" Background="{x:Null}" BorderBrush="{x:Null}"  />
-                            </Grid>
-
-                        </materialDesign:DialogHost>
-
-                        <!-- dialog 4 definition-->
-
-                        <!-- dialog 5 definition-->
-                        <materialDesign:DialogHost Grid.Column="4"
-  DialogClosing="Sample1_DialogHost_OnDialogClosing"
-  DialogTheme="Inherit"
-  HorizontalAlignment="Left"
-  VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
-                            <materialDesign:DialogHost.DialogContent>
-                                <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_5" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
-                                        <ComboBox.Style>
-                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
-
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data4}"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data4}"/>
-
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </ComboBox.Style>
-                                    </ComboBox>
-                                    <StackPanel
-        Orientation="Horizontal"
-        HorizontalAlignment="Right">
-                                        <Button x:Name="OK5" 
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsDefault="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand" Click="OK5_Click">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    True
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            OK
-                                        </Button>
-                                        <Button
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsCancel="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    False
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            Hủy
-                                        </Button>
-                                    </StackPanel>
-
-                                </StackPanel>
-
-
-                            </materialDesign:DialogHost.DialogContent>
-                            <Grid>
-
-
-
-                                <ProgressBar x:Name="zoebar5" Minimum="0" Maximum="255" Orientation="Vertical" Grid.Column="4" Background="#FFD4D4D4" BorderBrush="{x:Null}" Height="10" Foreground="#FF7344C3" 
-                            Margin="0" 
-                                     />
-
-                                <Button IsEnabled="{Binding ElementName=Custom, Path=IsSelected}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Chose Order" Height="Auto" Background="{x:Null}" BorderBrush="{x:Null}"  />
-                            </Grid>
-
-                        </materialDesign:DialogHost>
-
-                        <!-- dialog 5 definition-->
-
-                        <!-- dialog 6 definition-->
-                        <materialDesign:DialogHost Grid.Column="5"
-  DialogClosing="Sample1_DialogHost_OnDialogClosing"
-  DialogTheme="Inherit"
-  HorizontalAlignment="Left"
-  VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
-                            <materialDesign:DialogHost.DialogContent>
-                                <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_6" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
-                                        <ComboBox.Style>
-                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
-
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data5}"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data5}"/>
-
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </ComboBox.Style>
-                                    </ComboBox>
-                                    <StackPanel
-        Orientation="Horizontal"
-        HorizontalAlignment="Right">
-                                        <Button x:Name="OK6" 
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsDefault="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand" Click="OK6_Click">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    True
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            OK
-                                        </Button>
-                                        <Button
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsCancel="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    False
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            Hủy
-                                        </Button>
-                                    </StackPanel>
-
-                                </StackPanel>
-
-
-                            </materialDesign:DialogHost.DialogContent>
-                            <Grid>
-
-
-
-                                <ProgressBar x:Name="zoebar6" Minimum="0" Maximum="255" Orientation="Vertical" Grid.Column="5" Background="#FFD4D4D4" BorderBrush="{x:Null}" Height="10" Foreground="#FF7344C3" 
-                            Margin="0" 
-                                     />
-
-                                <Button IsEnabled="{Binding ElementName=Custom, Path=IsSelected}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Chose Order" Height="Auto" Background="{x:Null}" BorderBrush="{x:Null}"  />
-                            </Grid>
-
-                        </materialDesign:DialogHost>
-
-                        <!-- dialog 6 definition-->
-
-                        <!-- dialog 7 definition-->
-                        <materialDesign:DialogHost Grid.Column="6"
-  DialogClosing="Sample1_DialogHost_OnDialogClosing"
-  DialogTheme="Inherit"
-  HorizontalAlignment="Left"
-  VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
-                            <materialDesign:DialogHost.DialogContent>
-                                <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_7" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
-                                        <ComboBox.Style>
-                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
-
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data6}"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data6}"/>
-
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </ComboBox.Style>
-                                    </ComboBox>
-                                    <StackPanel
-        Orientation="Horizontal"
-        HorizontalAlignment="Right">
-                                        <Button x:Name="OK7" 
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsDefault="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand" Click="OK7_Click">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    True
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            OK
-                                        </Button>
-                                        <Button
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsCancel="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    False
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            Hủy
-                                        </Button>
-                                    </StackPanel>
-
-                                </StackPanel>
-
-
-                            </materialDesign:DialogHost.DialogContent>
-                            <Grid>
-
-
-                                <ProgressBar x:Name="zoebar7" Minimum="0" Maximum="255" Orientation="Vertical" Grid.Column="6" Background="#FFD4D4D4" BorderBrush="{x:Null}" Height="10" Foreground="#FF7344C3" 
-                            Margin="0" 
-                                     />
-
-                                <Button IsEnabled="{Binding ElementName=Custom, Path=IsSelected}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Chose Order" Height="Auto" Background="{x:Null}" BorderBrush="{x:Null}"  />
-                            </Grid>
-
-                        </materialDesign:DialogHost>
-
-                        <!-- dialog 7 definition-->
-
-                        <!-- dialog 8 definition-->
-                        <materialDesign:DialogHost Grid.Column="7"
-  DialogClosing="Sample1_DialogHost_OnDialogClosing"
-  DialogTheme="Inherit"
-  HorizontalAlignment="Left"
-  VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
-                            <materialDesign:DialogHost.DialogContent>
-                                <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_8" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}">
-                                        <ComboBox.Style>
-                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
-
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data7}"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data7}"/>
-
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </ComboBox.Style>
-                                    </ComboBox>
-                                    <StackPanel
-        Orientation="Horizontal"
-        HorizontalAlignment="Right">
-                                        <Button x:Name="OK8" 
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsDefault="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand" Click="OK8_Click">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    True
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            OK
-                                        </Button>
-                                        <Button
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsCancel="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    False
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            Hủy
-                                        </Button>
-                                    </StackPanel>
-
-                                </StackPanel>
-
-
-                            </materialDesign:DialogHost.DialogContent>
-                            <Grid>
-
-
-                                <ProgressBar x:Name="zoebar8" Minimum="0" Maximum="255" Orientation="Vertical" Grid.Column="7" Background="#FFD4D4D4" BorderBrush="{x:Null}" Height="10" Foreground="#FF7344C3" 
-                            Margin="0" 
-                                     />
-
-                                <Button IsEnabled="{Binding ElementName=Custom, Path=IsSelected}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Chose Order" Height="Auto" Background="{x:Null}" BorderBrush="{x:Null}"  />
-                            </Grid>
-
-                        </materialDesign:DialogHost>
-
-                        <!-- dialog 8 definition-->
-
-                        <!-- dialog 9 definition-->
-                        <materialDesign:DialogHost Grid.Column="8"
-  DialogClosing="Sample1_DialogHost_OnDialogClosing"
-  DialogTheme="Inherit"
-  HorizontalAlignment="Left"
-  VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
-                            <materialDesign:DialogHost.DialogContent>
-                                <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_9" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
-                                        <ComboBox.Style>
-                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
-
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data8}"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data8}"/>
-
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </ComboBox.Style>
-                                    </ComboBox>
-                                    <StackPanel
-        Orientation="Horizontal"
-        HorizontalAlignment="Right">
-                                        <Button x:Name="OK9" 
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsDefault="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand" Click="OK9_Click">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    True
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            OK
-                                        </Button>
-                                        <Button
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsCancel="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    False
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            Hủy
-                                        </Button>
-                                    </StackPanel>
-
-                                </StackPanel>
-
-
-                            </materialDesign:DialogHost.DialogContent>
-                            <Grid>
-
-
-                                <ProgressBar x:Name="zoebar9" Minimum="0" Maximum="255" Orientation="Vertical" Grid.Column="8" Background="#FFD4D4D4" BorderBrush="{x:Null}" Height="10" Foreground="#FF7344C3" 
-                            Margin="0" 
-                                     />
-
-                                <Button IsEnabled="{Binding ElementName=Custom, Path=IsSelected}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Chose Order" Height="Auto" Background="{x:Null}" BorderBrush="{x:Null}"  />
-                            </Grid>
-
-                        </materialDesign:DialogHost>
-
-                        <!-- dialog 9 definition-->
-
-                        <!-- dialog 10 definition-->
-                        <materialDesign:DialogHost Grid.Column="9"
-  DialogClosing="Sample1_DialogHost_OnDialogClosing"
-  DialogTheme="Inherit"
-  HorizontalAlignment="Left"
-  VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
-                            <materialDesign:DialogHost.DialogContent>
-                                <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_10" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
-                                        <ComboBox.Style>
-                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
-
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data9}"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data9}"/>
-
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </ComboBox.Style>
-                                    </ComboBox>
-                                    <StackPanel
-        Orientation="Horizontal"
-        HorizontalAlignment="Right">
-                                        <Button x:Name="OK10" 
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsDefault="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand" Click="OK10_Click">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    True
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            OK
-                                        </Button>
-                                        <Button
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsCancel="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    False
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            Hủy
-                                        </Button>
-                                    </StackPanel>
-
-                                </StackPanel>
-
-
-                            </materialDesign:DialogHost.DialogContent>
-                            <Grid>
-
-
-
-                                <ProgressBar x:Name="zoebar10" Minimum="0" Maximum="255" Orientation="Vertical" Grid.Column="9" Background="#FFD4D4D4" BorderBrush="{x:Null}" Height="10" Foreground="#FF7344C3" 
-                            Margin="0" 
-                                     />
-
-                                <Button IsEnabled="{Binding ElementName=Custom, Path=IsSelected}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Chose Order" Height="Auto" Background="{x:Null}" BorderBrush="{x:Null}"  />
-                            </Grid>
-
-                        </materialDesign:DialogHost>
-
-                        <!-- dialog 10 definition-->
-
-                        <!-- dialog 11 definition-->
-                        <materialDesign:DialogHost Grid.Column="10"
-  DialogClosing="Sample1_DialogHost_OnDialogClosing"
-  DialogTheme="Inherit"
-  HorizontalAlignment="Left"
-  VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
-                            <materialDesign:DialogHost.DialogContent>
-                                <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_11" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
-                                        <ComboBox.Style>
-                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
-
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data10}"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data10}"/>
-
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </ComboBox.Style>
-                                    </ComboBox>
-                                    <StackPanel
-        Orientation="Horizontal"
-        HorizontalAlignment="Right">
-                                        <Button x:Name="OK11" 
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsDefault="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand" Click="OK11_Click">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    True
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            OK
-                                        </Button>
-                                        <Button
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsCancel="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    False
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            Hủy
-                                        </Button>
-                                    </StackPanel>
-
-                                </StackPanel>
-
-
-                            </materialDesign:DialogHost.DialogContent>
-                            <Grid>
-
-
-                                <ProgressBar x:Name="zoebar11" Minimum="0" Maximum="255" Orientation="Vertical" Grid.Column="10" Background="#FFD4D4D4" BorderBrush="{x:Null}" Height="10" Foreground="#FF7344C3" 
-                            Margin="0" 
-                                     />
-
-                                <Button IsEnabled="{Binding ElementName=Custom, Path=IsSelected}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Chose Order" Height="Auto" Background="{x:Null}" BorderBrush="{x:Null}"  />
-                            </Grid>
-
-                        </materialDesign:DialogHost>
-
-                        <!-- dialog 11 definition-->
-
-                        <!-- dialog 12 definition-->
-                        <materialDesign:DialogHost Grid.Column="11"
-  DialogClosing="Sample1_DialogHost_OnDialogClosing"
-  DialogTheme="Inherit"
-  HorizontalAlignment="Left"
-  VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
-                            <materialDesign:DialogHost.DialogContent>
-                                <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_12" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
-                                        <ComboBox.Style>
-                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
-
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data11}"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data11}"/>
-
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </ComboBox.Style>
-                                    </ComboBox>
-                                    <StackPanel
-        Orientation="Horizontal"
-        HorizontalAlignment="Right">
-                                        <Button x:Name="OK12" 
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsDefault="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand" Click="OK12_Click">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    True
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            OK
-                                        </Button>
-                                        <Button
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsCancel="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    False
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            Hủy
-                                        </Button>
-                                    </StackPanel>
-
-                                </StackPanel>
-
-
-                            </materialDesign:DialogHost.DialogContent>
-                            <Grid>
-
-
-
-                                <ProgressBar x:Name="zoebar12" Minimum="0" Maximum="255" Orientation="Vertical" Grid.Column="11" Background="#FFD4D4D4" BorderBrush="{x:Null}" Height="10" Foreground="#FF7344C3" 
-                            Margin="0" 
-                                     />
-
-                                <Button IsEnabled="{Binding ElementName=Custom, Path=IsSelected}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Chose Order" Height="Auto" Background="{x:Null}" BorderBrush="{x:Null}"  />
-                            </Grid>
-
-                        </materialDesign:DialogHost>
-
-                        <!-- dialog 12 definition-->
-
-                        <!-- dialog 13 definition-->
-                        <materialDesign:DialogHost Grid.Column="12"
-  DialogClosing="Sample1_DialogHost_OnDialogClosing"
-  DialogTheme="Inherit"
-  HorizontalAlignment="Left"
-  VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
-                            <materialDesign:DialogHost.DialogContent>
-                                <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_13" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
-                                        <ComboBox.Style>
-                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
-
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data12}"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data12}"/>
-
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </ComboBox.Style>
-                                    </ComboBox>
-                                    <StackPanel
-        Orientation="Horizontal"
-        HorizontalAlignment="Right">
-                                        <Button x:Name="OK13" 
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsDefault="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand" Click="OK13_Click">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    True
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            OK
-                                        </Button>
-                                        <Button
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsCancel="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    False
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            Hủy
-                                        </Button>
-                                    </StackPanel>
-
-                                </StackPanel>
-
-
-                            </materialDesign:DialogHost.DialogContent>
-                            <Grid>
-
-
-
-                                <ProgressBar x:Name="zoebar13" Minimum="0" Maximum="255" Orientation="Vertical" Grid.Column="12" Background="#FFD4D4D4" BorderBrush="{x:Null}" Height="10" Foreground="#FF7344C3" 
-                            Margin="0" 
-                                     />
-
-                                <Button IsEnabled="{Binding ElementName=Custom, Path=IsSelected}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Chose Order" Height="Auto" Background="{x:Null}" BorderBrush="{x:Null}"  />
-                            </Grid>
-
-                        </materialDesign:DialogHost>
-
-                        <!-- dialog 13 definition-->
-
-                        <!-- dialog 14 definition-->
-                        <materialDesign:DialogHost Grid.Column="13"
-  DialogClosing="Sample1_DialogHost_OnDialogClosing"
-  DialogTheme="Inherit"
-  HorizontalAlignment="Left"
-  VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
-                            <materialDesign:DialogHost.DialogContent>
-                                <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_14" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
-                                        <ComboBox.Style>
-                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
-
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data13}"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data13}"/>
-
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </ComboBox.Style>
-                                    </ComboBox>
-                                    <StackPanel
-        Orientation="Horizontal"
-        HorizontalAlignment="Right">
-                                        <Button x:Name="OK14" 
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsDefault="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand" Click="OK14_Click">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    True
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            OK
-                                        </Button>
-                                        <Button
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsCancel="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    False
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            Hủy
-                                        </Button>
-                                    </StackPanel>
-
-                                </StackPanel>
-
-
-                            </materialDesign:DialogHost.DialogContent>
-                            <Grid>
-
-
-                                <ProgressBar x:Name="zoebar14" Minimum="0" Maximum="255" Orientation="Vertical" Grid.Column="13" Background="#FFD4D4D4" BorderBrush="{x:Null}" Height="10" Foreground="#FF7344C3" 
-                            Margin="0" 
-                                     />
-
-                                <Button IsEnabled="{Binding ElementName=Custom, Path=IsSelected}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Chose Order" Height="Auto" Background="{x:Null}" BorderBrush="{x:Null}"  />
-                            </Grid>
-
-                        </materialDesign:DialogHost>
-
-                        <!-- dialog 14 definition-->
-
-                        <!-- dialog 15 definition-->
-                        <materialDesign:DialogHost Grid.Column="14"
-  DialogClosing="Sample1_DialogHost_OnDialogClosing"
-  DialogTheme="Inherit"
-  HorizontalAlignment="Left"
-  VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
-                            <materialDesign:DialogHost.DialogContent>
-                                <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_15" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
-                                        <ComboBox.Style>
-                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
-
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data14}"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data14}"/>
-
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </ComboBox.Style>
-                                    </ComboBox>
-                                    <StackPanel
-        Orientation="Horizontal"
-        HorizontalAlignment="Right">
-                                        <Button x:Name="OK15" 
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsDefault="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand" Click="OK15_Click">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    True
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            OK
-                                        </Button>
-                                        <Button
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsCancel="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    False
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            Hủy
-                                        </Button>
-                                    </StackPanel>
-
-                                </StackPanel>
-
-
-                            </materialDesign:DialogHost.DialogContent>
-                            <Grid>
-
-
-
-                                <ProgressBar x:Name="zoebar15" Minimum="0" Maximum="255" Orientation="Vertical" Grid.Column="14" Background="#FFD4D4D4" BorderBrush="{x:Null}" Height="10" Foreground="#FF7344C3" 
-                            Margin="0" 
-                                     />
-
-                                <Button IsEnabled="{Binding ElementName=Custom, Path=IsSelected}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Chose Order" Height="Auto" Background="{x:Null}" BorderBrush="{x:Null}"  />
-                            </Grid>
-
-                        </materialDesign:DialogHost>
-
-                        <!-- dialog 15 definition-->
-
-                        <!-- dialog 16 definition-->
-                        <materialDesign:DialogHost Grid.Column="15"
-  DialogClosing="Sample1_DialogHost_OnDialogClosing"
-  DialogTheme="Inherit"
-  HorizontalAlignment="Left"
-  VerticalAlignment="Center" Height="98" Margin="16,0,0,0">
-                            <materialDesign:DialogHost.DialogContent>
-                                <StackPanel Margin="16">
-                                    <ComboBox x:Name="Music_box_16" SelectionChanged="Music_box_SelectionChanged" ItemsSource="{Binding Path=Freq}" >
-                                        <ComboBox.Style>
-                                            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="ComboBox" >
-
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsCustomFreqSelected}" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.custom_order_data15}"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding IsPreFreqSelected }" Value="True">
-                                                        <Setter Property="SelectedIndex" Value="{Binding Settings.order_data15}"/>
-
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </ComboBox.Style>
-                                    </ComboBox>
-                                    <StackPanel
-        Orientation="Horizontal"
-        HorizontalAlignment="Right">
-                                        <Button x:Name="OK16" 
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsDefault="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand" Click="OK16_Click">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    True
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            OK
-                                        </Button>
-                                        <Button
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsCancel="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand">
-                                            <Button.CommandParameter>
-                                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                    False
-                                                </system:Boolean>
-                                            </Button.CommandParameter>
-                                            Hủy
-                                        </Button>
-                                    </StackPanel>
-
-                                </StackPanel>
-
-
-                            </materialDesign:DialogHost.DialogContent>
-                            <Grid>
-
-
-
-                                <ProgressBar x:Name="zoebar16" Minimum="0" Maximum="255" Orientation="Vertical" Grid.Column="15" Background="#FFD4D4D4" BorderBrush="{x:Null}" Height="10" Foreground="#FF7344C3" 
-                            Margin="0" 
-                                     />
-                                <Button IsEnabled="{Binding ElementName=Custom, Path=IsSelected}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="Chose Order" Height="Auto" Background="{x:Null}" BorderBrush="{x:Null}"  />
-                            </Grid>
-
-                        </materialDesign:DialogHost>
-
-                        <!-- dialog 16 definition-->
-
-
-
-                    </Grid>
-                    <TextBox Grid.Row="1" x:Name="filemaubox" Visibility="Collapsed">
-
-                        <Binding Path="Settings.filemau" UpdateSourceTrigger="PropertyChanged">
-                            <Binding.ValidationRules>
-                                <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox>
-
-                    <!--<Button x:Name="bt5" Padding="0" materialDesign:ButtonAssist.CornerRadius="8" materialDesign:ShadowAssist.ShadowDepth="Depth1" 
- 
-  
-                    Click="Button_Click_5" Height="Auto" Width="30" Margin="563,78,142,14" RenderTransformOrigin="0.5,0.5" Background="White" BorderBrush="{x:Null}" Grid.Row="1">
-                    <Button.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform AngleY="0.329"/>
-                            <RotateTransform/>
-                            <TranslateTransform Y="0.328"/>
-                        </TransformGroup>
-                    </Button.RenderTransform>
-                    <Grid Width="16" Margin="0,0,0,0">
-                        <materialDesign:PackIcon Margin="-4,0,-3,0"
-                            Kind="ArrowDownward"
-                            Height="21"
-                            Width="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
-                    </Grid>
-
-                </Button>-->
-
-
-
-                    <!--<Button x:Name="bt4" Padding="0" materialDesign:ButtonAssist.CornerRadius="8" materialDesign:ShadowAssist.ShadowDepth="Depth2" 
- 
-  
-                        Click="Button_Click_4" Height="30" Width="29.8" Margin="639,77,67,15" Grid.Row="1" RenderTransformOrigin="0.5,0.5" Background="White" BorderBrush="{x:Null}">
-                    <Button.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform AngleY="0.329"/>
-                            <RotateTransform/>
-                            <TranslateTransform Y="0.328"/>
-                        </TransformGroup>
-                    </Button.RenderTransform>
-                    <Grid Width="16" Margin="0,0,0,0">
-                        <materialDesign:PackIcon Margin="-4,0,-3,0"
-    Kind="Add"
-    Height="21"
-    Width="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="#FF7344C3" />
-                    </Grid>
-
-                </Button>-->
-
-                    <materialDesign:PopupBox
-                    
-                 
-        HorizontalAlignment="Right"
-        Style="{StaticResource MaterialDesignToolForegroundPopupBox}"
-        PlacementMode="LeftAndAlignTopEdges"           
-        Padding="2 0 2 0" Margin="0,9,18,12" RenderTransformOrigin="0.5,0.5" Foreground="#FF6C6C6C" Grid.Column="1" >
-                        <materialDesign:PopupBox.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform Angle="0"/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </materialDesign:PopupBox.RenderTransform>
-
-                        <materialDesign:PopupBox.ToggleContent>
-                            <materialDesign:PackIcon Kind="DotsHorizontal" Foreground="#FF6C6C6C" Height="24" Width="24" />
-                        </materialDesign:PopupBox.ToggleContent>
-
-
-
-                        <StackPanel Margin=" 3,3,3,3" Orientation="Vertical">
-                            <Button Margin="3,3,3,3" x:Name="bt4" Click="Button_Click_4"
-            Content="Áp dụng" />
-                            <Button Margin="3,3,3,3" x:Name="bt5" Click="Button_Click_5"
-            Content="Lưu lại"  />
-                        </StackPanel>
-
-
-                    </materialDesign:PopupBox>
-                    <ComboBox Grid.Row="4"
-                        x:Name="Bassbox"
-                        SelectedIndex="{Binding Settings.devindex}"
-                        materialDesign:HintAssist.Hint="Audio device"
-                        IsEditable="False"
-                   
-                        materialDesign:HintAssist.HintOpacity=".26" Margin="25,33,41,24" Height="28" 
-                        SelectionChanged="Devicebox_SelectionChanged" Grid.Column="1"/>
-                    <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
-                        Height="21" VerticalAlignment="Top" Width="26" Grid.Row="4"
-                        Margin="535,40,0,0"
-                        Source="speaker settings@2x.png" Grid.ColumnSpan="2"/>
-
-
-                    <materialDesign:DialogHost Grid.Row="4"
-  DialogClosing="Sample1_DialogHost_OnDialogClosing"
-  DialogTheme="Inherit"
-  HorizontalAlignment="Center"
-  VerticalAlignment="Center" Margin="0,1,1,-1" Width="734" Grid.ColumnSpan="2" Height="85">
-
-                        <materialDesign:DialogHost.DialogContent>
-                            <StackPanel
-      Margin="0,0,0,0" Orientation="Horizontal" >
-                                <TextBlock>
-      Chọn thứ tự dải tần
-                                </TextBlock>
-
-                                <StackPanel
-        Orientation="Horizontal"
-        HorizontalAlignment="Right">
-                                    <Button
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsDefault="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand">
-                                        <Button.CommandParameter>
-                                            <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                True
-                                            </system:Boolean>
-                                        </Button.CommandParameter>
-                                        ACCEPT
-                                    </Button>
-                                    <Button
-          Style="{StaticResource MaterialDesignFlatButton}"
-          IsCancel="True"
-          Margin="0 8 8 0"
-          Command="materialDesign:DialogHost.CloseDialogCommand">
-                                        <Button.CommandParameter>
-                                            <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                                False
-                                            </system:Boolean>
-                                        </Button.CommandParameter>
-                                        CANCEL
-                                    </Button>
-                                </StackPanel>
-                            </StackPanel>
-                        </materialDesign:DialogHost.DialogContent>
-
-                        <Grid Margin="0,17,233,8">
-                            <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
-                    Height="40" VerticalAlignment="Top" Width="38"
-                    Margin="33,12,0,0"
-                    Source="equalizer@2x.png"/>
-                            <ListBox SelectedIndex="{Binding Settings.genre}"
-  Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineListBox}"
-  x:Name="musicchip" Margin="93,8,57,8" SelectionChanged="musicchip_SelectionChanged">
-                                <ListBoxItem x:Name="pop" IsSelected="True" Content="Pop"/>
-                                <ListBoxItem x:Name="rock"
-    IsSelected="False" Content="Rock"/>
-                                <ListBoxItem x:Name="bass" IsSelected="False" Content="Bass"/>
-                                <ListBoxItem x:Name="vocal"
-    IsSelected="False" Content="Vocal"/>
-                                <ListBoxItem x:Name="chill"
-    IsSelected="False" Content="Chill"/>
-
-                                <ListBoxItem  x:Name="Custom" IsSelected="False" Content="Custom"/>
-                            </ListBox>
-
-                            <!--<Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" materialDesign:ShadowAssist.ShadowDepth="Depth0"
-    Style="{StaticResource MaterialDesignRaisedLightButton}"
-    Height="Auto" Padding="0"
-                            
-    materialDesign:ButtonAssist.CornerRadius="15"
-    ToolTip="Customize you Style" Margin="447,11,3,15" Background="#FF7344C3" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,0.5">
-                                <Button.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform ScaleX="-1"/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform/>
-                                    </TransformGroup>
-                                </Button.RenderTransform>
-                                <materialDesign:PackIcon
-    Kind="Edit" Height="22" Width="22" Foreground="#FFFCFCFC" />
-                            </Button>-->
-                        </Grid>
-                    </materialDesign:DialogHost>
-
-
-
-                </Grid>
-            </materialDesign:Card>
-            <materialDesign:Card Visibility="Collapsed" x:Name="previewCard" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+            <materialDesign:Card Visibility="Visible" x:Name="previewCard" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
             Margin="25 10 0 0" Width="735" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
 
                 <Grid VerticalAlignment="Top" Height="349" Margin="0,0,0,-5">
@@ -2871,7 +817,7 @@
                     </Grid.ColumnDefinitions>
                     <materialDesign:Card Padding="10,10" UniformCornerRadius="4" materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="24,114,60,24" x:Name="Projector">
                         <Viewbox Grid.Column="0" Margin="7,4,8,-38" Width="322" Height="225" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.ColumnSpan="2">
-                            <Canvas Width="{Binding CanvasWidth}" Height="{Binding CanvasHeight}">
+                            <Canvas Width="325" Height="186" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Canvas.Background>
                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                         <GradientStop Color="#FF686868"/>
@@ -2879,16 +825,13 @@
                                     </LinearGradientBrush>
                                 </Canvas.Background>
 
-                                <Image Source="{Binding PreviewImageSource}" 
-                           Width="{Binding ScreenWidth}" Height="{Binding ScreenHeight}"
-                           
-                           Canvas.Left="{Binding CanvasPadding}" Canvas.Top="{Binding CanvasPadding}" Opacity="0.7" />
+
 
                                 <ItemsControl ItemsSource="{Binding PreviewSpots}"
-                            Canvas.Left="{Binding CanvasPadding}" >
+                            Canvas.Left="0" Width="418" Height="239" HorizontalAlignment="Center" VerticalAlignment="Center" >
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <Canvas Width="{Binding CanvasWidth}" Height="{Binding CanvasHeight}" />
+                                            <Canvas Width="325" Height="186" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemContainerStyle>
@@ -2951,13 +894,13 @@
                              MinWidth="10"
                              Margin="165,0,99,124"
                              VerticalAlignment="Bottom" 
-                             Text="{Binding Settings.SpotWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Width="30" TextChanged="txtHeight_TextChanged" />
+                             Text="{Binding Settings.SpotWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Width="30"  />
                     <TextBox x:Name="txtWidth"
 								DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
                                 MinWidth="10"
                                 Margin="165,0,99,170"
                                 VerticalAlignment="Bottom" 
-                                Text="{Binding Settings.SpotHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Width="30" TextChanged="txtWidth_TextChanged" />
+                                Text="{Binding Settings.SpotHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Width="30"  />
                     <TextBox x:Name="txtLeftRight"
 								DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
                                 MinWidth="10"
@@ -3238,44 +1181,6 @@
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                         VerticalAlignment="Center" Margin="623,12,16,308" Height="46" />
                     <Image  x:Name="MatrixImage1" RenderOptions.BitmapScalingMode="NearestNeighbor" Cursor="Cross"   Margin="4,0,310,0">
-                        <Image.Style>
-                            <Style TargetType="{x:Type Image}">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SelectedItem, ElementName=screenefectbox}" Value="Gifxelation">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Image.Style>
-                    </Image>
-                </Grid>
-
-
-
-            </materialDesign:Card>
-            <materialDesign:Card Visibility="Visible"
-                x:Name="Gradient" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
-                Margin="25 10 0 0" Width="735" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
-                <Grid>
-                    <Canvas Width="350" Height="350" x:Name="playground3" Margin="15,15,331,8" MouseDown="CanvasTouch">
-                        <Canvas.Style>
-                            <Style TargetType="{x:Type Canvas}">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SelectedItem, ElementName=screenefectbox}" Value="Pixelation">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Canvas.Style>
-                    </Canvas>
-
-                    <TextBox x:Name="numLED1"
-                        materialDesign:HintAssist.Hint="LEDX"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        VerticalAlignment="Center" Margin="623,12,16,308" Height="46" />
-                    <Image  x:Name="MatrixImage2" RenderOptions.BitmapScalingMode="NearestNeighbor" Cursor="Cross"   Margin="4,0,310,0">
                         <Image.Style>
                             <Style TargetType="{x:Type Image}">
                                 <Setter Property="Visibility" Value="Collapsed"/>
