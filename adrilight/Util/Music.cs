@@ -24,11 +24,15 @@ namespace adrilight
     {
         public static double _huePosIndex = 0;//index for rainbow mode only
         public static double _palettePosIndex = 0;//index for other custom palette
-        public static byte[] spectrumdata = new byte[16];
+        
         public static float[] _fft;
         public static int _lastlevel;
         public static int _hanctr;
-        public static int volume;
+        public static int volumeLeft;
+        public static int volumeRight;
+        public static int height = 0;
+        public static int heightL = 0;
+        public static int heightR = 0;
         private WASAPIPROC _process;
 
         private readonly NLog.ILogger _log = LogManager.GetCurrentClassLogger();
@@ -46,20 +50,6 @@ namespace adrilight
             _lastlevel = 0;
             _hanctr = 0;
             
-            bool result = BassWasapi.BASS_WASAPI_Init(-1, 0, 0, BASSWASAPIInit.BASS_WASAPI_BUFFER, 1f, 0.05f, _process, IntPtr.Zero);
-            //  BassWasapi.BASS_WASAPI_Init(-1, 0, 0, BASSWASAPIInit.BASS_WASAPI_BUFFER, 1f, 0.05f, _process, IntPtr.Zero);
-            if (!result)
-            {
-                var error = Bass.BASS_ErrorGetCode();
-                MessageBox.Show(error.ToString());
-            }
-            else
-            {
-                //_initialized = true;
-                //  Bassbox.IsEnabled = false;
-            }
-          
-            BassWasapi.BASS_WASAPI_Start();
 
             RefreshAudioState();
             _log.Info($"MusicColor Created");
@@ -79,11 +69,15 @@ namespace adrilight
                 case nameof(UserSettings.SelectedEffect):
                 case nameof(UserSettings.Brightness):
                 case nameof(UserSettings.SelectedAudioDevice):
-                case nameof(UserSettings.SelectedAudioDeviceName):
                 case nameof(UserSettings.SelectedMusicMode):
+                case nameof(UserSettings.SpotsX):
+                case nameof(UserSettings.SpotsY):
                 case nameof(SettingsViewModel.IsSettingsWindowOpen):
 
                     RefreshAudioState();
+                    break;
+                case nameof(SettingsViewModel.AudioDeviceID):
+                    RefreshAudioDevice();
                     break;
             }
         }
@@ -92,6 +86,9 @@ namespace adrilight
 
             var isRunning = _cancellationTokenSource != null && IsRunning;
             var shouldBeRunning = UserSettings.TransferActive && UserSettings.SelectedEffect == 3;
+         
+
+            
             if (isRunning && !shouldBeRunning)
             {
                 //stop it!
@@ -100,28 +97,19 @@ namespace adrilight
                 _cancellationTokenSource = null;
                 Free();
             }
+           
+
+            
             else if (!isRunning && shouldBeRunning)
             {
                 //start it
                 _log.Debug("starting the Music Color");
-                _cancellationTokenSource = new CancellationTokenSource();
-                Init();
-                int devindex = -1;
-                if (UserSettings.SelectedAudioDeviceName!=null)
-                {
-                  //  var dvcstr = UserSettings.SelectedAudioDeviceName as string;
-                   // var audiodevice = dvcstr.Split(' ');
-                  //  devindex = Convert.ToInt32(audiodevice[0]);
-                }
-                else
-                {
-                    devindex = -1;
-                }
-                 
 
-  
-                bool result = BassWasapi.BASS_WASAPI_Init(35, 0, 0, BASSWASAPIInit.BASS_WASAPI_BUFFER, 1f, 0.05f, _process, IntPtr.Zero); // this is the function to init the device according to device index
-                                                                                                                                               
+                Init();
+                int deviceID = SettingsViewModel.AudioDeviceID;
+                Bass.BASS_SetConfig(BASSConfig.BASS_CONFIG_UPDATETHREADS, false);
+                bool result = BassWasapi.BASS_WASAPI_Init(deviceID, 0, 0, BASSWASAPIInit.BASS_WASAPI_BUFFER, 1f, 0.05f, _process, IntPtr.Zero); // this is the function to init the device according to device index
+
                 if (!result)
                 {
                     var error = Bass.BASS_ErrorGetCode();
@@ -132,16 +120,42 @@ namespace adrilight
                     //_initialized = true;
                     //  Bassbox.IsEnabled = false;
                 }
-                //BassWasapi.BASS_WASAPI_Init(-3, 0, 0, BASSWASAPIInit.BASS_WASAPI_BUFFER, 1f, 0.05f, _process, IntPtr.Zero);
-
                 BassWasapi.BASS_WASAPI_Start();
-
+                //BassWasapi.BASS_WASAPI_Init(-3, 0, 0, BASSWASAPIInit.BASS_WASAPI_BUFFER, 1f, 0.05f, _process, IntPtr.Zero);
+                _cancellationTokenSource = new CancellationTokenSource();
                 var thread = new Thread(() => Run(_cancellationTokenSource.Token)) {
                     IsBackground = true,
                     Priority = ThreadPriority.BelowNormal,
                     Name = "MusicColorCreator"
                 };
                 thread.Start();
+            }
+        }
+        private void RefreshAudioDevice()
+        {
+            var isRunning = _cancellationTokenSource != null && IsRunning;
+            var shouldBeRunning = UserSettings.TransferActive && UserSettings.SelectedEffect == 3;
+            if (isRunning && shouldBeRunning)
+            {
+
+                _log.Debug("Refreshing the Music Color");
+                Init();
+                int deviceID = SettingsViewModel.AudioDeviceID;
+                Bass.BASS_SetConfig(BASSConfig.BASS_CONFIG_UPDATETHREADS, false);
+                bool result = BassWasapi.BASS_WASAPI_Init(deviceID, 0, 0, BASSWASAPIInit.BASS_WASAPI_BUFFER, 1f, 0.05f, _process, IntPtr.Zero); // this is the function to init the device according to device index
+
+                if (!result)
+                {
+                    var error = Bass.BASS_ErrorGetCode();
+                    MessageBox.Show(error.ToString());
+                }
+                else
+                {
+                    //_initialized = true;
+                    //  Bassbox.IsEnabled = false;
+                }
+                BassWasapi.BASS_WASAPI_Start();
+                _log.Debug("Music Color Refreshed Successfully");
             }
         }
 
@@ -160,25 +174,27 @@ namespace adrilight
             IsRunning = true;
 
             _log.Debug("Started Music Color.");
+            double brightness = UserSettings.Brightness / 100d;
+            int paletteSource = UserSettings.SelectedPalette;
+            var numLED = (UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2;
+            byte[] spectrumdata = new byte[numLED];
 
             try
             {
 
                 while (!token.IsCancellationRequested)
                 {
-                    double brightness = UserSettings.Brightness / 100d;
-                    int paletteSource = UserSettings.SelectedPalette;
-                    var numLED = (UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2;
+                    
                     //audio capture section//
                     int ret = BassWasapi.BASS_WASAPI_GetData(_fft, (int)BASSData.BASS_DATA_FFT2048);// get channel fft data
                     if (ret < -1) return;
                     int x, y;
                     int b0 = 0;
                     //computes the spectrum data, the code is taken from a bass_wasapi sample.
-                    for (x = 0; x < 16; x++)
+                    for (x = 0; x < numLED; x++)
                     {
                         float peak = 0;
-                        int b1 = (int)Math.Pow(2, x * 10.0 / (16 - 1));
+                        int b1 = (int)Math.Pow(2, x * 10.0 / (numLED - 1));
                         if (b1 > 1023) b1 = 1023;
                         if (b1 <= b0) b1 = b0 + 1;
                         for (; b0 < b1; b0++)
@@ -198,17 +214,14 @@ namespace adrilight
 
                     int level = BassWasapi.BASS_WASAPI_GetLevel(); // Get level (VU metter) for Old AMBINO Device (remove in the future)
                     if (level == _lastlevel && level != 0) _hanctr++;
-                    volume = Utils.LowWord32(level);
+                    volumeLeft = (volumeLeft*6+ Utils.LowWord32(level)*2)/8;
+                    volumeRight =(volumeRight*6+Utils.HighWord32(level)*2)/8;
                     _lastlevel = level;
                     byte musicMode = UserSettings.SelectedMusicMode;
                     bool isPreviewRunning = (SettingsViewModel.IsSettingsWindowOpen && UserSettings.SelectedEffect == 3);
                     //audio capture section//
 
 
-                    //if (isPreviewRunning)
-                    //{
-                    //    // SettingsViewModel.SetPreviewImage(backgroundimage);// replace with grey gradient instead
-                    //}
 
 
                     OpenRGB.NET.Models.Color[] outputColor = new OpenRGB.NET.Models.Color[numLED];
@@ -218,7 +231,7 @@ namespace adrilight
                         if (paletteSource == 0)
                         {
                             var newcolor = OpenRGB.NET.Models.Color.GetHueRainbow(numLED, _huePosIndex, 1, 1, 1);
-                            var brightnessMap=SpectrumCreator(spectrumdata, 0, volume, musicMode, numLED);// get brightness map based on spectrum data
+                            var brightnessMap=SpectrumCreator(spectrumdata, 0, volumeLeft,volumeRight, musicMode, numLED);// get brightness map based on spectrum data
                                 foreach (var color in newcolor)
                             {
                                 outputColor[counter] = Brightness.applyBrightness(color, brightnessMap[counter]);
@@ -294,7 +307,7 @@ namespace adrilight
             {
 
 
-                _log.Debug("Stopped Rainbow Color Creator.");
+                _log.Debug("Stopped MusicColor Color Creator.");
                 IsRunning = false;
             }
 
@@ -305,7 +318,7 @@ namespace adrilight
 
 
 
-        public static double[] SpectrumCreator(byte[] fft, int sensitivity, double level, byte musicMode, int numLED)//create brightnessmap based on input fft or volume
+        public static double[] SpectrumCreator(byte[] fft, int sensitivity, double levelLeft, double levelRight, byte musicMode, int numLED)//create brightnessmap based on input fft or volume
         {
 
             int counter = 0;
@@ -313,17 +326,31 @@ namespace adrilight
             byte maxbrightness = 255;
             double[] brightnessMap = new double[numLED];
             //this function take the input as frequency and output the color but the brightness change as the frequency band's value
-            if (musicMode == 0)//pulse mode, take current level and blackout the rest of the strip
+            if (musicMode == 0)//equalizer mode, each block of LED is respond to 1 band of frequency spectrum
             {
               
-                int height = 0;
-                double percent = level / 16384;
-                height = (int)((height * 4 + numLED * percent * 4 + 7) / 8);
+                
+               
+               
+                for (int i = 0; i < fft.Length; i++)
+                {
+                   
+                        brightnessMap[counter++] = fft[i] / 255.0;
+                   
+                }
+
+            }
+            else if (musicMode == 1)//vu mode
+            {
+
+
+                double percent = ((levelLeft+levelRight)/2) / 16384;
+                height = (int)(percent * numLED);
 
                 foreach (var brightness in brightnessMap.Take(height))
                 {
 
-                    brightnessMap[counter++] = maxbrightness/255.0;
+                    brightnessMap[counter++] = maxbrightness / 255.0;
 
                 }
 
@@ -334,39 +361,143 @@ namespace adrilight
                     brightnessMap[counter++] = 0;
 
                 }
+
             }
-            else if (musicMode == 1)//equalizer mode, each block of LED is respond to 1 band of frequency spectrum
+            else if (musicMode == 2)// End to End
             {
-                byte[] holdarray = new byte[256];
-                for (int i = 0; i < fft.Length; i++)
+                double percent = ((levelLeft + levelRight) / 2) / 16384;
+                height = (int)(percent*numLED);
+
+                for (int i=0; i<numLED/2;i++)
                 {
-                    for (int j = 0; j < factor; j++)
-                    {
-                        holdarray[i + j] = fft[i];
-                        brightnessMap[counter++] = holdarray[i]/255.0;
-                    }
+                    if (i <= height/2)
+                        brightnessMap[i] = maxbrightness / 255.0;
+                    else
+                        brightnessMap[i] = 0.0;
+
+                }
+               
+
+                for (int i = numLED/2; i < numLED; i++)
+                {
+                    if (numLED - i <= height / 2)
+                        brightnessMap[i] = maxbrightness/255.0;
+                    else
+                        brightnessMap[i] = 0.0;
+
+                }
+            }
+            else if (musicMode == 3)//Push Pull
+            {
+                double percent = ((levelLeft + levelRight) / 2) / 16384;
+                height = (int)(percent * numLED);
+
+                for (int i = 0; i < numLED / 2; i++)
+                {
+                    if (i <= height / 2)
+                        brightnessMap[i] = maxbrightness / 255.0;
+                    else
+                        brightnessMap[i] = 0.0;
+
                 }
 
 
+                for (int i = numLED / 2; i < numLED; i++)
+                {
+                    if (numLED - i >= height / 2)
+                        brightnessMap[i] = maxbrightness/255.0;
+                    else
+                        brightnessMap[i] = 0.0;
 
-
+                }
             }
-            else if (musicMode == 2)
+            else if (musicMode == 4)//Symetric VU
             {
+                double percentleft = levelLeft / 16384;
+                heightL = (int)(percentleft*numLED);
+                double percentright = levelRight / 16384;
+                heightR = (int)(percentright*numLED);
 
+
+                for (int i = 0; i < numLED / 2; i++)
+                {
+                    if (i <= heightR )
+                        brightnessMap[i] = maxbrightness / 255.0;
+                    else
+                        brightnessMap[i] = 0.0;
+
+                }
+
+
+                for (int i = numLED / 2   ; i< numLED; i++)
+                {
+                    if (Math.Abs(numLED/2-i) <= heightL )
+                        brightnessMap[i] = maxbrightness / 255.0;
+                    else
+                        brightnessMap[i] = 0;
+
+                }
             }
-            else if (musicMode == 3)
+            else if (musicMode == 5)//Floating VU
             {
+                double percentleft = levelLeft / 16384;
+                heightL = (int)(percentleft * numLED);
+                double percentright = levelRight / 16384;
+                heightR = (int)(percentright * numLED);
 
+                for (int i = 0; i < numLED/2; i++)
+                {
+                    if (Math.Abs(0 - i) <= heightR)
+                        brightnessMap[i] =0.0 ;
+                    else
+                        brightnessMap[i] = maxbrightness / 255.0;
+
+                }
+
+
+                for (int i = numLED / 2; i < numLED; i++)
+                {
+                    if (Math.Abs(numLED / 2 - i) <= heightL)
+                        brightnessMap[i] = maxbrightness / 255.0;
+                    else
+                        brightnessMap[i] = 0;
+
+                }
             }
-            else if (musicMode == 4)
+            else if (musicMode == 6)//Center VU
             {
+                double percentleft = levelLeft / 16384;
+                heightL = (int)(percentleft * numLED);
+                double percentright = levelRight / 16384;
+                heightR = (int)(percentright * numLED);
 
+                for (int i = numLED/2; i>0; i--)
+                {
+                    if (Math.Abs(numLED / 2 - i) <= heightL)
+                        brightnessMap[i] = maxbrightness / 255.0;
+                    else
+                        brightnessMap[i] =0.0;
+
+                }
+
+
+                for (int i = numLED / 2; i < numLED; i++)
+                {
+                    if (Math.Abs(numLED / 2 - i) <= heightR)
+                        brightnessMap[i] = maxbrightness / 255.0;
+                    else
+                        brightnessMap[i] = 0;
+
+                }
             }
-            else if (musicMode == 5)
+
+            else if (musicMode==7)// jumping bass?
             {
-
+                //declair position to jump to when bass rise
+                //which bass to chose
+                //var Ba
             }
+
 
 
             return brightnessMap;

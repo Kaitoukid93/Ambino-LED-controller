@@ -144,8 +144,14 @@ namespace adrilight.ViewModel
                     RaisePropertyChanged(() => UseNonLinearLighting);
                     break;
 
+                case nameof(Settings.SelectedAudioDevice):
+                    RaisePropertyChanged(() => AudioDeviceID);
+                    break;
 
-                  
+
+
+
+
                 case nameof(Settings.OffsetLed):
                     RaisePropertyChanged(() => OffsetLedMaximum);
                     break;
@@ -409,35 +415,63 @@ namespace adrilight.ViewModel
             }
         }
 
-        public IList<String> _AvailableAudioDevice;
+        public IList<string> _AvailableAudioDevice = new List<string>();
         public IList<String> AvailableAudioDevice {
             get
             {
-                
+                _AvailableAudioDevice.Clear();
                 int devicecount = BassWasapi.BASS_WASAPI_GetDeviceCount();
                 string[] devicelist = new string[devicecount];
                 for (int i = 0; i < devicecount; i++)
                 {
-                    var device = BassWasapi.BASS_WASAPI_GetDeviceInfo(i);
                     
-                    if (device.IsEnabled && device.IsLoopback)
+                    var devices = BassWasapi.BASS_WASAPI_GetDeviceInfo(i);
+
+                    if (devices.IsEnabled && devices.IsLoopback)
                     {
-                        devicelist[i] = string.Format("{0} - {1}", i, device.name);
+                        var device = string.Format("{0} - {1}", i, devices.name);
+
+                        _AvailableAudioDevice.Add(device);
                     }
+
                 }
-                _AvailableAudioDevice = devicelist.Concat(new[] { "No idea" }).ToList();
 
                 return _AvailableAudioDevice;
             }
         }
+        public int _audioDeviceID = -1;
+        public int AudioDeviceID {
+            get {
+                if(Settings.SelectedAudioDevice>AvailableAudioDevice.Count)
+                {
+                    System.Windows.MessageBox.Show("Last Selected Audio Device is not Available");
+                    return -1;
+                }
+                else
+                {
+                    var currentDevice = AvailableAudioDevice.ElementAt(Settings.SelectedAudioDevice);
+
+                    var array = currentDevice.Split(' ');
+                    _audioDeviceID = Convert.ToInt32(array[0]);
+                    return _audioDeviceID;
+                }
+                
+            }
+
+           
+           
+        }
+        
+   
+        
 
 
-        public List<string> lsDevice = new List<string>();
+
+      
 
 
 
-        public System.Windows.Controls.Label OutsideEffects { get; }
-        public System.Windows.Controls.Label TableEffects { get; }
+      
 
         public IList<ISelectableViewPart> BackUpView { get; }
 

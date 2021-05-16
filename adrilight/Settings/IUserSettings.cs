@@ -58,7 +58,7 @@ namespace adrilight
         int AtmosphereStop { get; set; }
         byte SelectedEffect { get; set; }
         byte SelectedMusicMode { get; set; }
-        object SelectedAudioDeviceName { get; set; }
+   
 
         //gifxelation//
         bool GifPlayPause { get; set; }

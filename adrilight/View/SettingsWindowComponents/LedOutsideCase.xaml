@@ -110,8 +110,11 @@
 
 
                         <CheckBox x:Name="tg3" Visibility="Visible"
+                                   IsEnabled="{Binding TransferCanBeStarted}"
+                        
+                          ToolTip="Enable Sending" IsChecked="{Binding Settings.TransferActive}" 
     Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineCheckBox}"
-    IsChecked="{Binding Settings.ComportOpen}" Grid.Column="1" Margin="116,7,0,6" Grid.Row="1" Grid.ColumnSpan="2" Width="74" Content="Kết nối"/>
+    Grid.Column="1" Margin="116,7,0,6" Grid.Row="1" Grid.ColumnSpan="2" Width="74" Content="Kết nối"/>
                         <Image Grid.Column="0" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Right" 
 						   Margin="0,-1,35,41" VerticalAlignment="Bottom" 
 						   Source="new usb@2x.png" 
@@ -429,6 +432,11 @@
                                 SelectionChanged="Screenbox_SelectionChanged" RenderTransformOrigin="0.478,0.792" >
                                 <Label Content="Equalizer"/>
                                 <Label Content="VU metter"/>
+                                <Label Content="End to End"/>
+                                <Label Content="Push Pull"/>
+                                <Label Content="Symetric VU"/>
+                                <Label Content="Floating VU"/>
+                                <Label Content="Center VU"/>
 
                             </ComboBox>
                             <TextBox x:Name="width1"
@@ -471,9 +479,7 @@
                             <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,15,76,19" Foreground="#FF6C6C6C"
                                 Height="18" Text="Style nháy theo nhạc" Grid.Row="1"/>
                             <ComboBox ItemsSource="{Binding AvailableAudioDevice}"
-                             SelectedIndex="{Binding Settings.SelectedAudioDevice}"
-                             SelectedItem="{Binding Settings.SelectedAudioDeviceName}"         
-
+                             SelectedIndex="{Binding Settings.SelectedAudioDevice}"                                  
                                 x:Name="screenSelect1"
                                 materialDesign:HintAssist.Hint="Capture Source"
                                 IsEditable="False"
@@ -734,6 +740,7 @@
                                 SelectionChanged="Screenbox_SelectionChanged" RenderTransformOrigin="0.478,0.792" >
                                 <Label Content="Equalizer"/>
                                 <Label Content="VU metter"/>
+                                <Label Content="Symetric VU"/>
 
                             </ComboBox>
                             <TextBox x:Name="width4"
@@ -843,7 +850,7 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Grid>
-                                                <Rectangle Width="{Binding Rectangle.Width}" Height="{Binding Rectangle.Height}">
+                                                <Rectangle Stroke="White" RadiusX="{Binding RadiusX}" RadiusY="{Binding RadiusY}" StrokeThickness="0.5" Width="{Binding Rectangle.Width}" Height="{Binding Rectangle.Height}">
                                                     <Rectangle.Fill>
                                                         <RadialGradientBrush>
                                                             <GradientStop Color="{Binding OnDemandColor}"  Offset="0"/>
@@ -852,8 +859,8 @@
                                                     </Rectangle.Fill>
                                                 </Rectangle>
                                                 <Rectangle Visibility="{Binding IsFirst, Converter={StaticResource BooleanToVisibilityConverter}}" RadiusX="4" RadiusY="4" Fill="#FF673AB7"
-                                               Width="{Binding Rectangle.Width}" 
-                                               Height="{Binding Rectangle.Height}" />
+                                               Width="5" 
+                                               Height="5" />
 
                                             </Grid>
                                         </DataTemplate>

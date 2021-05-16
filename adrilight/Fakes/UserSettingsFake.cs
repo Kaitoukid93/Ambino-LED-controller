@@ -50,7 +50,6 @@ namespace adrilight.Fakes
         public int SelectedAudioDevice { get; set; } = 0;
         public byte SelectedPalette { get; set; } = 0;
         public byte SelectedMusicMode { get; set; } = 0;
-        public object SelectedAudioDeviceName { get; set; } = null;
         public int AtmosphereStart { get; set; } = 1;
         public int AtmosphereStop { get; set; } = 255;
 
@@ -76,7 +75,7 @@ namespace adrilight.Fakes
 
 
 
-        public byte Brightness { get; set; } = 200;
+        public byte Brightness { get; set; } = 80;
 
 
         public Color StaticColor { get; set; } = AliceBlue;
