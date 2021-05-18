@@ -437,6 +437,7 @@
                                 <Label Content="Symetric VU"/>
                                 <Label Content="Floating VU"/>
                                 <Label Content="Center VU"/>
+                                <Label Content="Naughty boy"/>
 
                             </ComboBox>
                             <TextBox x:Name="width1"

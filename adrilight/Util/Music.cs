@@ -34,6 +34,10 @@ namespace adrilight
         public static int heightL = 0;
         public static int heightR = 0;
         private WASAPIPROC _process;
+        public static byte lastvolume=0;
+        public static byte volume = 0;
+        
+        public static bool bump = false;
 
         private readonly NLog.ILogger _log = LogManager.GetCurrentClassLogger();
 
@@ -134,7 +138,8 @@ namespace adrilight
         private void RefreshAudioDevice()
         {
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            var shouldBeRunning = UserSettings.TransferActive && UserSettings.SelectedEffect == 3;
+            //var shouldBeRunning = UserSettings.TransferActive && UserSettings.SelectedEffect == 3;
+            var shouldBeRunning = DeviceSettings.TransferActive && DeviceSettings.SelectedEffect == 3;
             if (isRunning && shouldBeRunning)
             {
 
@@ -325,18 +330,19 @@ namespace adrilight
             int factor = numLED / fft.Length;
             byte maxbrightness = 255;
             double[] brightnessMap = new double[numLED];
+
             //this function take the input as frequency and output the color but the brightness change as the frequency band's value
             if (musicMode == 0)//equalizer mode, each block of LED is respond to 1 band of frequency spectrum
             {
-              
-                
-               
-               
+
+
+
+
                 for (int i = 0; i < fft.Length; i++)
                 {
-                   
-                        brightnessMap[counter++] = fft[i] / 255.0;
-                   
+
+                    brightnessMap[counter++] = fft[i] / 255.0;
+
                 }
 
             }
@@ -344,7 +350,7 @@ namespace adrilight
             {
 
 
-                double percent = ((levelLeft+levelRight)/2) / 16384;
+                double percent = ((levelLeft + levelRight) / 2) / 16384;
                 height = (int)(percent * numLED);
 
                 foreach (var brightness in brightnessMap.Take(height))
@@ -366,22 +372,22 @@ namespace adrilight
             else if (musicMode == 2)// End to End
             {
                 double percent = ((levelLeft + levelRight) / 2) / 16384;
-                height = (int)(percent*numLED);
+                height = (int)(percent * numLED);
 
-                for (int i=0; i<numLED/2;i++)
+                for (int i = 0; i < numLED / 2; i++)
                 {
-                    if (i <= height/2)
+                    if (i <= height / 2)
                         brightnessMap[i] = maxbrightness / 255.0;
                     else
                         brightnessMap[i] = 0.0;
 
                 }
-               
 
-                for (int i = numLED/2; i < numLED; i++)
+
+                for (int i = numLED / 2; i < numLED; i++)
                 {
                     if (numLED - i <= height / 2)
-                        brightnessMap[i] = maxbrightness/255.0;
+                        brightnessMap[i] = maxbrightness / 255.0;
                     else
                         brightnessMap[i] = 0.0;
 
@@ -405,7 +411,7 @@ namespace adrilight
                 for (int i = numLED / 2; i < numLED; i++)
                 {
                     if (numLED - i >= height / 2)
-                        brightnessMap[i] = maxbrightness/255.0;
+                        brightnessMap[i] = maxbrightness / 255.0;
                     else
                         brightnessMap[i] = 0.0;
 
@@ -413,26 +419,27 @@ namespace adrilight
             }
             else if (musicMode == 4)//Symetric VU
             {
+
                 double percentleft = levelLeft / 16384;
-                heightL = (int)(percentleft*numLED);
+                heightL = (int)(percentleft * numLED);
                 double percentright = levelRight / 16384;
-                heightR = (int)(percentright*numLED);
+                heightR = (int)(percentright * numLED);
 
 
                 for (int i = 0; i < numLED / 2; i++)
                 {
-                    if (i <= heightR )
-                        brightnessMap[i] = maxbrightness / 255.0;
+                    if (i <= heightR)
+                        brightnessMap[i] = maxbrightness;
                     else
                         brightnessMap[i] = 0.0;
 
                 }
 
 
-                for (int i = numLED / 2   ; i< numLED; i++)
+                for (int i = numLED / 2; i < numLED; i++)
                 {
-                    if (Math.Abs(numLED/2-i) <= heightL )
-                        brightnessMap[i] = maxbrightness / 255.0;
+                    if (Math.Abs(numLED / 2 - i) <= heightL)
+                        brightnessMap[i] = maxbrightness;
                     else
                         brightnessMap[i] = 0;
 
@@ -445,10 +452,10 @@ namespace adrilight
                 double percentright = levelRight / 16384;
                 heightR = (int)(percentright * numLED);
 
-                for (int i = 0; i < numLED/2; i++)
+                for (int i = 0; i < numLED / 2; i++)
                 {
                     if (Math.Abs(0 - i) <= heightR)
-                        brightnessMap[i] =0.0 ;
+                        brightnessMap[i] = 0.0;
                     else
                         brightnessMap[i] = maxbrightness / 255.0;
 
@@ -471,12 +478,12 @@ namespace adrilight
                 double percentright = levelRight / 16384;
                 heightR = (int)(percentright * numLED);
 
-                for (int i = numLED/2; i>0; i--)
+                for (int i = numLED / 2; i > 0; i--)
                 {
                     if (Math.Abs(numLED / 2 - i) <= heightL)
                         brightnessMap[i] = maxbrightness / 255.0;
                     else
-                        brightnessMap[i] =0.0;
+                        brightnessMap[i] = 0.0;
 
                 }
 
@@ -491,21 +498,112 @@ namespace adrilight
                 }
             }
 
-            else if (musicMode==7)// jumping bass?
+            else if (musicMode == 7)// jumping bass?
             {
-                //declair position to jump to when bass rise
-                //which bass to chose
-                //var Ba
+                Random random = new Random();
+                var equalizer = EqualizerPick(0, numLED);
+                for (int i = 0; i < brightnessMap.Count(); i++)
+                {
+
+                    brightnessMap[i] = fft[equalizer[i]]/255.0;
+
+                }
+
             }
-
-
-
-            return brightnessMap;
+                return brightnessMap;
 
         }
 
+        //utilities for creative music mode
+        //bleed, credit for Sparkfun music Neopixel https://github.com/mbartlet/SparkFun-RGB-LED-Music-Sound-Visualizer-Arduino-Code/blob/master/Visualizer_Program/Visualizer_Program.ino
+        //void bleed(int Point, int numLED, OpenRGB.NET.Models.Color[] currentcolor)
+        //{
+        //    for (int i = 1; i < numLED; i++)
+        //    {
+
+        //        //Starts by look at the pixels left and right of "Point"
+        //        //  then slowly works its way out
+        //        int[] sides = { Point - i, Point + i };
+
+        //        for (int j = 0; j < 2; j++)
+        //        {
+
+        //            //For each of Point+i and Point-i, the pixels to the left and right, plus themselves, are averaged together.
+        //            //  Basically, it's setting one pixel to the average of it and its neighbors, starting on the left and right
+        //            //  of the starting "Point," and moves to the ends of the strand
+        //            int point = sides[j];
+        //            int[] colors = { currentcolor(point - 1),currentcolor(point), currentcolor(point + 1) };
+
+        //            //Sets the new average values to just the central point, not the left and right points.
+        //            strand.setPixelColor(point, strand.Color(
+        //                                   float(split(colors[0], 0) + split(colors[1], 0) + split(colors[2], 0)) / 3.0,
+        //                                   float(split(colors[0], 1) + split(colors[1], 1) + split(colors[2], 1)) / 3.0,
+        //                                   float(split(colors[0], 2) + split(colors[1], 2) + split(colors[2], 2)) / 3.0)
+        //                                );
+        //        }
+        //    }
+        //}
+
+        OpenRGB.NET.Models.Color fade (double damper,OpenRGB.NET.Models.Color color)
+        {
+
+            //"damper" must be between 0 and 1, or else you'll end up brightening the lights or doing nothing.
+
+            OpenRGB.NET.Models.Color returncolor = new OpenRGB.NET.Models.Color();
+
+                //Retrieve the color at the current position.
 
 
+            //If it's black, you can't fade that any further.
+            if (color.R == 0&& color.G==0&&color.B==0)
+            {
+                returncolor.R = 0;
+                returncolor.G = 0;
+                returncolor.B = 0;
+            }
+            else
+            {
+                returncolor.R = (byte)(color.R * damper);
+                returncolor.G = (byte)(color.G * damper);
+                returncolor.B = (byte)(color.B * damper);
+            }
+
+            return returncolor;
+               
+        }
+        public static int[] EqualizerPick(int mode,int numLED)
+        {
+           
+            int[] equalizerPick = new int[numLED];
+            if (mode == 0)
+            {
+                for (int i = 0; i < numLED; i++)
+                {
+                    if(i<numLED/4)
+                    {
+                        equalizerPick[i] = 2;
+                    }
+                    if(i>numLED/2&&i<3*numLED/4)
+                    { 
+                        equalizerPick[i] = 2;
+                    }
+                    if(i>=numLED/4&&i<numLED/2)
+                    {
+                        equalizerPick[i] = numLED/2;
+                    }
+                    if(i>=3*numLED/4)
+                    {
+                        equalizerPick[i] = numLED/2;
+                    }
+                }
+
+            }
+           
+            
+           
+            return equalizerPick;
+
+        }
 
         private void Init()
         {
