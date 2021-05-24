@@ -83,7 +83,27 @@ namespace adrilight
         byte SelectedPalette { get; set; }
 
         Color StaticColor { get; set; }
-        
+
+        //Color Palette
+        Color Color0 { get; set; }
+        Color Color1 { get; set; }
+        Color Color2 { get; set; }
+        Color Color3 { get; set; }
+        Color Color4 { get; set; }
+        Color Color5 { get; set; }
+        Color Color6 { get; set; }
+        Color Color7 { get; set; }
+        Color Color8 { get; set; }
+        Color Color9 { get; set; }
+        Color Color10 { get; set; }
+        Color Color11 { get; set; }
+        Color Color12 { get; set; }
+        Color Color13 { get; set; }
+        Color Color14 { get; set; }
+        Color Color15 { get; set; }
+
+        //Color Palette
+
         int LimitFps { get; set; }
     }
 }

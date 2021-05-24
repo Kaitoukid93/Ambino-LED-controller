@@ -85,7 +85,7 @@
 
                         </Grid.ColumnDefinitions>
 
-                      
+
                         <TextBlock 
 							Margin="0,0,106,10" HorizontalAlignment="Right" Padding="0" Width="85" 
 							VerticalAlignment="Center" FontSize="15" Grid.ColumnSpan="2" FontWeight="Bold" Height="20"><Run Text="Kết nối USB"/></TextBlock>
@@ -270,7 +270,7 @@
 
             <WrapPanel Margin="25,0,0,0" Width="425" Orientation="Vertical" Height="388">
 
-                
+
                 <materialDesign:Card  x:Name="ambilightCard" UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
 				Margin="0 4 0 0" Width="404" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
                     <materialDesign:Card.Style>
@@ -396,7 +396,7 @@
 
                     </Grid>
                 </materialDesign:Card>
-              
+
                 <materialDesign:Card  x:Name="MusicSetting"  UniformCornerRadius="24" materialDesign:ShadowAssist.ShadowDepth="Depth0"
                     Margin="0 4 0 0" Width="404" Height="366" RenderTransformOrigin="0.465,0.105" Background="#FFFCFCFC">
 
@@ -823,6 +823,57 @@
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Margin="0,45,214,254" Grid.ColumnSpan="2">
+                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color0}" ColorMode="ColorCanvas" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color1}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color2}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color3}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color4}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color5}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color6}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color7}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color8}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color9}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color10}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color11}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color12}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color13}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color14}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color15}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                    </StackPanel>
+                    
                     <materialDesign:Card Padding="10,10" UniformCornerRadius="4" materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="24,114,60,24" x:Name="Projector">
                         <Viewbox Grid.Column="0" Margin="7,4,8,-38" Width="322" Height="225" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.ColumnSpan="2">
                             <Canvas Width="325" Height="186" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -897,30 +948,6 @@
                     <TextBlock Margin="236,105,18,208" Text="{Binding Settings.WhitebalanceBlue, Mode=TwoWay}" Grid.Column="1" Visibility="Hidden" />
                     <TextBlock Margin="236,75,18,238" Text="{Binding Settings.WhitebalanceGreen, Mode=TwoWay}" Grid.Column="1" Visibility="Hidden" />
                     <TextBlock Margin="234,49,20,264" Text="{Binding Settings.WhitebalanceRed, Mode=TwoWay}" Grid.Column="1" Visibility="Hidden" />
-                    <TextBox x:Name="txtHeight"
-							 DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
-                             MinWidth="10"
-                             Margin="165,0,99,124"
-                             VerticalAlignment="Bottom" 
-                             Text="{Binding Settings.SpotWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Width="30"  />
-                    <TextBox x:Name="txtWidth"
-								DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
-                                MinWidth="10"
-                                Margin="165,0,99,170"
-                                VerticalAlignment="Bottom" 
-                                Text="{Binding Settings.SpotHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Width="30"  />
-                    <TextBox x:Name="txtLeftRight"
-								DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
-                                MinWidth="10"
-                                Margin="63,0,201,73"
-                                VerticalAlignment="Bottom" 
-                                Text="{Binding Settings.BorderDistanceX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Width="30" RenderTransformOrigin="-2.517,2.407" />
-                    <TextBox x:Name="txtTopBottom"
-								DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
-                                MinWidth="10"
-                                Margin="165,0,99,73"
-                                VerticalAlignment="Bottom" 
-                                Text="{Binding Settings.BorderDistanceY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Width="30" />
                     <ToggleButton
                         Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" VerticalAlignment="Center" 
 						Margin="124,77,121,254" ToolTip="Mirror Y" IsChecked="{Binding Settings.MirrorY}" Background="#FF7E3CBD" Grid.Column="1" Visibility="Hidden" />
@@ -933,34 +960,52 @@
                             VerticalAlignment="Bottom" 
                             Text="{Binding Settings.OffsetLed, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Width="30" />
                     <TextBlock Visibility="Collapsed" FontWeight="Medium" Foreground="#FF6C6C6C" Grid.Column="1" Margin="0,111,174,220"><Run Text="Vị trí LED đầu tiên"/></TextBlock>
-                    <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Grid.Column="1" Margin="1,158,175,173"><Run Text="Chiều dài"/></TextBlock>
-                    <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Margin="0,203,176,128" Grid.Column="1"><Run Text="Chiều rộng"/></TextBlock>
-                    <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Grid.Column="1" Margin="1,254,243,77"><Run Text="Space-X"/></TextBlock>
-                    <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Grid.Column="1" Margin="105,254,138,77"><Run Text="Space-Y"/></TextBlock>
-                    <Slider x:Name="Bluance" ToolTip=" Cân bằng trắng" Margin="219,84,58,247"
-                        Minimum="70" 
-                        Maximum="100" 
-                   
-                        Value="{Binding Settings.WhitebalanceBlue}" 
-                        RenderTransformOrigin="0.066,0.839" Foreground="#FF7344C3" >
-                        <Slider.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform AngleX="-0.299"/>
-                                <RotateTransform/>
-                                <TranslateTransform X="-0.131"/>
-                            </TransformGroup>
-                        </Slider.RenderTransform>
-                    </Slider>
-                    <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
-                    Height="18" VerticalAlignment="Top" Width="36" Grid.Row="0"
-                    Margin="440,301,0,0"
-                    Source="warning@2x.png" Grid.ColumnSpan="2"/>
-                    <TextBlock  FontWeight="Medium" Foreground="#FFF9BE7B" Margin="41,295,39,26" RenderTransformOrigin="0.612,0.574" FontSize="10" Grid.Column="1"><Run Text="Các tuỳ chỉnh trong mục này có thể ảnh hưởng "/><LineBreak/><Run Text="đến màu sắc hiển thị của đèn LED"/></TextBlock>
-                    <RadioButton 
-    Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
-    IsChecked="False"
-    GroupName="GroupChoiceChipOutline" Margin="101,68,0,249" Content="Sống động"/>
+                    <Grid Grid.ColumnSpan="2" Margin="440,153,39,26">
+
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=EffectSelection, Path=SelectedItem}"    Value="Sáng theo màn hình">
+                                        <Setter Property="Visibility"  Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                        <TextBox x:Name="txtHeight"
+                            DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
+                            MinWidth="10"
+                            Margin="166,0,60,97"
+                            VerticalAlignment="Bottom" 
+                            Text="{Binding Settings.SpotWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="30"  />
+                        <TextBox x:Name="txtWidth"
+                            DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
+                            MinWidth="10"
+                            Margin="166,0,60,143"
+                            VerticalAlignment="Bottom" 
+                            Text="{Binding Settings.SpotHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="30"  />
+                        <TextBox x:Name="txtLeftRight"
+                            DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
+                            MinWidth="10"
+                            Margin="64,0,162,46"
+                            VerticalAlignment="Bottom" 
+                            Text="{Binding Settings.BorderDistanceX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="30" RenderTransformOrigin="-2.517,2.407" />
+                        <TextBox x:Name="txtTopBottom"
+                            DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
+                            MinWidth="10"
+                            Margin="166,0,60,46"
+                            VerticalAlignment="Bottom" 
+                            Text="{Binding Settings.BorderDistanceY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="30" />
+                        <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Margin="2,5,136,147"><Run Text="Chiều dài"/></TextBlock>
+                        <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Margin="1,50,137,102"><Run Text="Chiều rộng"/></TextBlock>
+                        <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Margin="2,101,204,51"><Run Text="Space-X"/></TextBlock>
+                        <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Margin="106,101,99,51"><Run Text="Space-Y"/></TextBlock>
+                        <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
+                            Height="18" VerticalAlignment="Top" Width="36" Grid.Row="0"
+                            Margin="0,148,0,0"
+                            Source="warning@2x.png"/>
+                        <TextBlock  FontWeight="Medium" Foreground="#FFF9BE7B" Margin="42,142,0,0" RenderTransformOrigin="0.612,0.574" FontSize="10"><Run Text="Các tuỳ chỉnh trong mục này có thể ảnh hưởng "/><LineBreak/><Run Text="đến màu sắc hiển thị của đèn LED"/></TextBlock>
+                    </Grid>
                     <materialDesign:PopupBox
                     
                     
@@ -996,12 +1041,44 @@
 
 
                     </materialDesign:PopupBox>
-                    <RadioButton
-                    Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
-                    IsChecked="{Binding Settings.UseLinearLighting}"
-                    GroupName="GroupChoiceChipOutline" Margin="25,68,0,249" Content="Dịu nhẹ"/>
-                    <TextBlock  HorizontalAlignment="Right" Width="90" Margin="0,60,103,0"
+                    <Grid Margin="25,60,58,247">
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=EffectSelection, Path=SelectedItem}"    Value="Sáng theo màn hình">
+                                        <Setter Property="Visibility"  Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                        <Slider x:Name="Bluance" ToolTip=" Cân bằng trắng" Margin="194,24,0,0"
+                            Minimum="70" 
+                            Maximum="100" 
+                   
+                            Value="{Binding Settings.WhitebalanceBlue}" 
+                            RenderTransformOrigin="0.066,0.839" Foreground="#FF7344C3" Height="18" VerticalAlignment="Top" >
+                            <Slider.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform AngleX="-0.299"/>
+                                    <RotateTransform/>
+                                    <TranslateTransform X="-0.131"/>
+                                </TransformGroup>
+                            </Slider.RenderTransform>
+                        </Slider>
+                        <RadioButton 
+                            Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
+                            IsChecked="False"
+                            GroupName="GroupChoiceChipOutline" Margin="76,8,0,2" Content="Sống động"/>
+                        <RadioButton
+                            Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
+                            IsChecked="{Binding Settings.UseLinearLighting}"
+                            GroupName="GroupChoiceChipOutline" Margin="0,8,0,2" Content="Dịu nhẹ"/>
+                        <TextBlock  HorizontalAlignment="Right" Width="90" Margin="0,0,45,0"
                             RenderTransformOrigin="0.5,0.5" Height="17" VerticalAlignment="Top" Foreground="#FF6C6C6C"><Run Text="Cân bằng trắng"/></TextBlock>
+
+                    </Grid>
 
                 </Grid>
             </materialDesign:Card>

@@ -79,6 +79,24 @@ namespace adrilight.Fakes
 
 
         public Color StaticColor { get; set; } = AliceBlue;
+        //Color Palette//
+        public Color Color0 { get; set; } = AliceBlue;
+        public Color Color1 { get; set; } = AliceBlue;
+        public Color Color2 { get; set; } = AliceBlue;
+        public Color Color3 { get; set; } = AliceBlue;
+        public Color Color4 { get; set; } = AliceBlue;
+        public Color Color5 { get; set; } = AliceBlue;
+        public Color Color6 { get; set; } = AliceBlue;
+        public Color Color7 { get; set; } = AliceBlue;
+        public Color Color8 { get; set; } = AliceBlue;
+        public Color Color9 { get; set; } = AliceBlue;
+        public Color Color10 { get; set; } = AliceBlue;
+        public Color Color11 { get; set; } = AliceBlue;
+        public Color Color12 { get; set; } = AliceBlue;
+        public Color Color13 { get; set; } = AliceBlue;
+        public Color Color14 { get; set; } = AliceBlue;
+        public Color Color15 { get; set; } = AliceBlue;
+        //Color Palette//
         public byte SelectedSize { get; set; } = 1;
 
 

@@ -69,9 +69,25 @@ namespace adrilight
         private string _filemauchip = "Blackout.txt";
 
         private byte _selectedEffect = 0;
-    
-      
-      
+        private Color _color0= Color.FromArgb(0, 0, 255, 255);
+        private Color _color1 = Color.FromArgb(0, 0, 255, 255);
+        private Color _color2 = Color.FromArgb(0, 0, 255, 255);
+        private Color _color3 = Color.FromArgb(0, 0, 255, 255);
+        private Color _color4 = Color.FromArgb(0, 0, 255, 255);
+        private Color _color5 = Color.FromArgb(0, 0, 255, 255);
+        private Color _color6 = Color.FromArgb(0, 0, 255, 255);
+        private Color _color7 = Color.FromArgb(0, 0, 255, 255);
+        private Color _color8 = Color.FromArgb(0, 0, 255, 255);
+        private Color _color9 = Color.FromArgb(0, 0, 255, 255);
+        private Color _color10 = Color.FromArgb(0, 0, 255, 255);
+        private Color _color11 = Color.FromArgb(0, 0, 255, 255);
+        private Color _color12 = Color.FromArgb(0, 0, 255, 255);
+        private Color _color13 = Color.FromArgb(0, 0, 255, 255);
+        private Color _color14 = Color.FromArgb(0, 0, 255, 255);
+        private Color _color15 = Color.FromArgb(0, 0, 255, 255);
+
+
+
 
         //gifxelation//
         private bool _GifPlayPause  = false;
@@ -184,8 +200,27 @@ namespace adrilight
        
         public byte SelectedEffect { get => _selectedEffect; set { Set(() => SelectedEffect, ref _selectedEffect, value); } }
         public int SelectedAudioDevice { get => _selectedAudioDevice; set { Set(() => SelectedAudioDevice, ref _selectedAudioDevice, value); } }
-     
 
+        //Color Palette
+
+        public Color Color0 { get => _color0; set { Set(() => Color0, ref _color0, value); } }
+        public Color Color1 { get => _color1; set { Set(() => Color1, ref _color1, value); } }
+        public Color Color2 { get => _color2; set { Set(() => Color2, ref _color2, value); } }
+        public Color Color3 { get => _color3; set { Set(() => Color3, ref _color3, value); } }
+        public Color Color4 { get => _color4; set { Set(() => Color4, ref _color4, value); } }
+        public Color Color5 { get => _color5; set { Set(() => Color5, ref _color5, value); } }
+        public Color Color6 { get => _color6; set { Set(() => Color6, ref _color6, value); } }
+        public Color Color7 { get => _color7; set { Set(() => Color7, ref _color7, value); } }
+        public Color Color8 { get => _color8; set { Set(() => Color8, ref _color8, value); } }
+        public Color Color9 { get => _color9; set { Set(() => Color9, ref _color9, value); } }
+        public Color Color10 { get => _color10; set { Set(() => Color10, ref _color10, value); } }
+        public Color Color11 { get => _color11; set { Set(() => Color11, ref _color11, value); } }
+        public Color Color12 { get => _color12; set { Set(() => Color12, ref _color12, value); } }
+        public Color Color13 { get => _color13; set { Set(() => Color13, ref _color13, value); } }
+        public Color Color14 { get => _color14; set { Set(() => Color14, ref _color14, value); } }
+        public Color Color15 { get => _color15; set { Set(() => Color15, ref _color15, value); } }
+
+        //Color Palette
 
 
         // Add new

@@ -138,8 +138,8 @@ namespace adrilight
         private void RefreshAudioDevice()
         {
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            //var shouldBeRunning = UserSettings.TransferActive && UserSettings.SelectedEffect == 3;
-            var shouldBeRunning = DeviceSettings.TransferActive && DeviceSettings.SelectedEffect == 3;
+            var shouldBeRunning = UserSettings.TransferActive && UserSettings.SelectedEffect == 3;
+            //var shouldBeRunning = DeviceSettings.TransferActive && DeviceSettings.SelectedEffect == 3;
             if (isRunning && shouldBeRunning)
             {
 

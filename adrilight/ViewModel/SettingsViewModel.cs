@@ -37,6 +37,7 @@ namespace adrilight.ViewModel
         private static ILogger _log = LogManager.GetCurrentClassLogger();
         public ObservableCollection<string> Effects { get; private set; }
         public ObservableCollection<string> AvailablePalette { get; private set; }
+        
 
 
         private static int _gifFrameIndex = 0;
@@ -461,17 +462,20 @@ namespace adrilight.ViewModel
            
            
         }
-        
-   
-        
-
-
 
       
 
 
 
-      
+
+
+
+
+
+
+
+
+
 
         public IList<ISelectableViewPart> BackUpView { get; }
 
