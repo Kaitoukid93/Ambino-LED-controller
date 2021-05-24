@@ -23,8 +23,8 @@ namespace adrilight.View
         public MainView()
         {
             InitializeComponent();
-            ViewModel = new MainViewViewModel();
-            this.DataContext = ViewModel;
+           // ViewModel = new MainViewViewModel();
+           // this.DataContext = ViewModel;
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

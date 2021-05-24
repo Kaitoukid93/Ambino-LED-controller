@@ -311,5 +311,39 @@
                 </Grid>
             </Grid>
         </Border>
+        <Border Margin="20">
+            <ItemsControl ItemsSource="{Binding PreviewSpots}"
+                            Width="418" Height="239" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Width="325" Height="186" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="{x:Type ContentPresenter}">
+                        <Setter Property="Canvas.Left" Value="{Binding Rectangle.X}"/>
+                        <Setter Property="Canvas.Top" Value="{Binding Rectangle.Y}"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Rectangle Stroke="White" RadiusX="{Binding RadiusX}" RadiusY="{Binding RadiusY}" StrokeThickness="0.5" Width="{Binding Rectangle.Width}" Height="{Binding Rectangle.Height}">
+                                <Rectangle.Fill>
+                                    <RadialGradientBrush>
+                                        <GradientStop Color="{Binding OnDemandColor}"  Offset="0"/>
+                                        <GradientStop Color="{Binding OnDemandColorTransparent}" Offset="1"/>
+                                    </RadialGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle Visibility="{Binding IsFirst, Converter={StaticResource BooleanToVisibilityConverter}}" RadiusX="4" RadiusY="4" Fill="#FF673AB7"
+                                               Width="5" 
+                                               Height="5" />
+
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Border>
     </StackPanel>
 </UserControl>

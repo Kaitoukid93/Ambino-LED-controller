@@ -48,7 +48,12 @@ namespace adrilight.ViewModel
                 return kernel.Get<SettingsViewModel>();
             }
         }
-
+        public MainViewViewModel MainViewViewModel {
+            get
+            {
+                return kernel.Get<MainViewViewModel>();
+            }
+        }
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

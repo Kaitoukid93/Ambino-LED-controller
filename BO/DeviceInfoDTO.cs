@@ -262,6 +262,17 @@ namespace BO
                 OnPropertyChanged();
             }
         }
+        private int _palette;
+        public int Palette
+        {
+            get { return _palette; }
+            set
+            {
+                if (_palette == value) return;
+                _palette = value;
+                OnPropertyChanged();
+            }
+        }
         public string StartChar => GetStartChar();
        public string GetStartChar()
         {
@@ -293,7 +304,8 @@ namespace BO
                                   rainbowspeed=RainbowSpeed,
                                    staticcolor=Staticcolor,
                                    isshowondashboard=IsShowOnDashboard,
-                                   lednumber=LEDNumber
+                                   lednumber=LEDNumber,
+                                   palette=Palette
             };
         }
     }

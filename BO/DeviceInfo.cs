@@ -31,5 +31,6 @@ namespace BO
         public string fadeend { get; set; }
         public bool isshowondashboard { get; set; }
         public int lednumber { get; set; }
+        public int palette { get; set; }
     }
 }

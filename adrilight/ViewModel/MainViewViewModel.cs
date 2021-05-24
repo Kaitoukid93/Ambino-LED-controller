@@ -88,6 +88,11 @@ namespace adrilight.ViewModel
         }
         public ICommand SelectMenuItem { get; set; }
         #endregion
+        private readonly ISpotSet spotSet;
+        public MainViewViewModel(ISpotSet spotSet)
+        {
+            this.spotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
+        }
         public override  void ReadData()
         {
             LoadMenu();
@@ -168,27 +173,27 @@ namespace adrilight.ViewModel
                     IsDashboardType = true;
                     break;
                 case general:
-                    _detailView = new DeviceDetailViewModel(CurrentDevice,this);
+                    _detailView = new DeviceDetailViewModel(CurrentDevice,this,spotSet);
                     CurrentView = _detailView;
                     IsDashboardType = false;
                     break;
                 case lighting:
                     if(_detailView==null)
-                        _detailView = new DeviceDetailViewModel(CurrentDevice,this);
+                        _detailView = new DeviceDetailViewModel(CurrentDevice,this,spotSet);
                     ((DeviceDetailViewModel)_detailView).TabType = DeviceTab.Lighting;
                     CurrentView = _detailView;
                     IsDashboardType = false;
                     break;
                 case preview:
                     if (_detailView == null)
-                        _detailView = new DeviceDetailViewModel(CurrentDevice, this);
+                        _detailView = new DeviceDetailViewModel(CurrentDevice, this,spotSet);
                     ((DeviceDetailViewModel)_detailView).TabType = DeviceTab.Preview;
                     CurrentView = _detailView;
                     IsDashboardType = false;
                     break;
                 case advance:
                     if (_detailView == null)
-                        _detailView = new DeviceDetailViewModel(CurrentDevice, this);
+                        _detailView = new DeviceDetailViewModel(CurrentDevice, this,spotSet);
                     ((DeviceDetailViewModel)_detailView).TabType = DeviceTab.Advance;
                     CurrentView = _detailView;
                     IsDashboardType = false;
@@ -205,7 +210,7 @@ namespace adrilight.ViewModel
         }
         public void GotoChild(DeviceInfoDTO card)
         {
-            _detailView = new DeviceDetailViewModel(card, this);
+            _detailView = new DeviceDetailViewModel(card, this,spotSet);
             CurrentView = _detailView;
             IsDashboardType = false;
             CurrentDevice = card;

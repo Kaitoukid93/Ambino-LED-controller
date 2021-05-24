@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:adrilight.View"
         xmlns:vm="clr-namespace:adrilight.ViewModel"
+         d:DataContext="{Binding Source={StaticResource Locator}, Path=MainViewViewModel}"
+        DataContext="{Binding Source={StaticResource Locator}, Path=MainViewViewModel}" 
         xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
         mc:Ignorable="d" AllowsTransparency="True" Background="Transparent"
         WindowStartupLocation="CenterScreen"

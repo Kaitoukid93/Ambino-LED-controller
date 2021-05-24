@@ -204,7 +204,7 @@ namespace adrilight
             .SelectAllClasses()
             .InheritedFrom<ISelectableViewPart>()
             .BindAllInterfaces());
-
+            kernel.Bind<MainViewViewModel>().ToSelf().InSingletonScope();
             //eagerly create required singletons [could be replaced with actual pipeline]
             var desktopDuplicationReader = kernel.Get<IDesktopDuplicatorReader>();
             var serialStream = kernel.Get<ISerialStream>();
