@@ -682,7 +682,15 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged();
             }
         }
-
+        public ISpot[] _previewGif;
+        public ISpot[] PreviewGif {
+            get => _previewGif;
+            set
+            {
+                _previewGif = value;
+                RaisePropertyChanged();
+            }
+        }
 
         private IEffect effect;
 

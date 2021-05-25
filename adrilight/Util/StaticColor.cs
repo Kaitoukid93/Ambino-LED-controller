@@ -9,6 +9,7 @@ using System.Threading;
 using Castle.Core.Logging;
 using NLog;
 using adrilight.ViewModel;
+using System.Diagnostics;
 
 namespace adrilight.Util
 {
@@ -18,7 +19,7 @@ namespace adrilight.Util
         
         private readonly NLog.ILogger _log = LogManager.GetCurrentClassLogger();
 
-        private double point = 0;
+        private int point = 0;
         public StaticColor(IUserSettings userSettings, ISpotSet spotSet, SettingsViewModel settingsViewModel)
         {
             UserSettings = userSettings ?? throw new ArgumentNullException(nameof(userSettings));
@@ -101,37 +102,45 @@ namespace adrilight.Util
                     Color currentStaticColor = UserSettings.StaticColor;
                     var colorOutput = new OpenRGB.NET.Models.Color[numLED];
                     double peekBrightness = 0.0;
+                    int breathingSpeed = UserSettings.BreathingSpeed;
 
                     bool isPreviewRunning = (SettingsViewModel.IsSettingsWindowOpen && UserSettings.SelectedEffect == 2);
                     bool isBreathing = UserSettings.Breathing;
                     lock (SpotSet.Lock)
                     {
-
-                        if(isBreathing)
+                        for (var i = 0; i < colorOutput.Count(); i++)
                         {
-                          if(point<500)
+                            if (isBreathing)
                             {
-                                //peekBrightness = 1.0 - Math.Abs((2.0 * (point / 500)) - 1.0);
-                                peekBrightness = Math.Exp(-(Math.Pow(((point / 500) - 0.5) /0.14, 2.0)) / 2.0);
-                                point++;
-                            }
-                          else
-                            {
-                                point = 0;
-                            }
-                        
 
-                          
-                        }
+                                Color colorPoint = Color.FromRgb(0, 0, 0);
+                                colorPoint = GetColorByOffset(GradientStaticColor(currentStaticColor), point);
+
+                                var newColor = new OpenRGB.NET.Models.Color(colorPoint.R, colorPoint.G, colorPoint.B);
+
+                                colorOutput[i] = newColor;
+                            }
+
+
+
+                        
                         else
                         {
                             peekBrightness = UserSettings.Brightness / 100.0;
+                                colorOutput[i] = Brightness.applyBrightness(new OpenRGB.NET.Models.Color(currentStaticColor.R, currentStaticColor.G, currentStaticColor.B), peekBrightness);
+                            }
+                    }
+
+                        point +=breathingSpeed;
+                        if (point > 5000)
+                        {
+                            point = 0;
                         }
 
-                                   int counter = 0;
+                        int counter = 0;
                         foreach (ISpot spot in SpotSet.Spots)
                         {
-                            colorOutput[counter] = Brightness.applyBrightness(new OpenRGB.NET.Models.Color(currentStaticColor.R, currentStaticColor.G, currentStaticColor.B), peekBrightness);
+                            
                             spot.SetColor(colorOutput[counter].R, colorOutput[counter].G, colorOutput[counter].B, true);
                             counter++;
 
@@ -196,6 +205,54 @@ namespace adrilight.Util
                 IsRunning = false;
             }
 
+        }
+
+        public GradientStopCollection GradientStaticColor(Color staticColor)
+        {
+            Color startColor = Color.FromRgb(0, 0, 0);
+            OpenRGB.NET.Models.Color staticColorHalf = Brightness.applyBrightness(new OpenRGB.NET.Models.Color(staticColor.R, staticColor.G, staticColor.B), 0.5);
+            Color staticColorMiddle = Color.FromRgb(staticColorHalf.R, staticColorHalf.G, staticColorHalf.B);
+            OpenRGB.NET.Models.Color staticColorQuad = Brightness.applyBrightness(new OpenRGB.NET.Models.Color(staticColor.R, staticColor.G, staticColor.B), 0.25);
+            Color staticColorQuat = Color.FromRgb(staticColorQuad.R, staticColorQuad.G, staticColorQuad.B);
+
+            GradientStopCollection gradientPalette = new GradientStopCollection(2);
+            gradientPalette.Add(new GradientStop(staticColor, 0.000));
+            gradientPalette.Add(new GradientStop(staticColorMiddle, 0.250));
+            gradientPalette.Add(new GradientStop(staticColorQuat, 0.400));
+            gradientPalette.Add(new GradientStop(startColor, 0.500));
+            gradientPalette.Add(new GradientStop(staticColorQuat, 0.600));
+            gradientPalette.Add(new GradientStop(staticColorMiddle, 0.750));
+            gradientPalette.Add(new GradientStop(staticColor, 1.000));
+            //gradientPalette.Add(new GradientStop(startColor, 0.600));
+            //gradientPalette.Add(new GradientStop(staticColorMiddle, 0.800));
+            //gradientPalette.Add(new GradientStop(staticColor, 1.000));
+
+            return gradientPalette;
+        }
+
+        private static Color GetColorByOffset(GradientStopCollection collection, double position)
+        {
+            double offset = position / 5000.0;
+            GradientStop[] stops = collection.OrderBy(x => x.Offset).ToArray();
+            if (offset <= 0) return stops[0].Color;
+            if (offset >= 1) return stops[stops.Length - 1].Color;
+            GradientStop left = stops[0], right = null;
+            foreach (GradientStop stop in stops)
+            {
+                if (stop.Offset >= offset)
+                {
+                    right = stop;
+                    break;
+                }
+                left = stop;
+            }
+            Debug.Assert(right != null);
+            offset = Math.Round((offset - left.Offset) / (right.Offset - left.Offset), 2);
+
+            byte r = (byte)((right.Color.R - left.Color.R) * offset + left.Color.R);
+            byte g = (byte)((right.Color.G - left.Color.G) * offset + left.Color.G);
+            byte b = (byte)((right.Color.B - left.Color.B) * offset + left.Color.B);
+            return Color.FromRgb(r, g, b);
         }
     }
 }

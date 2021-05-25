@@ -20,7 +20,7 @@ namespace adrilight
         private int _borderDistanceX = 0;
         private int _borderDistanceY = 100;
         private string _comPort = "Không có";
-        private Color _staticColor = Color.FromArgb(0, 0, 255, 255);
+        
 
 
         private DateTime? _lastUpdateCheck=DateTime.UtcNow;
@@ -47,7 +47,13 @@ namespace adrilight
         private bool _startMinimized = false;
         private bool _transferActive = true;
         private bool _captureActive = true;
+
+        //static color/
         private bool _breathing = false;
+        private Color _staticColor = Color.FromArgb(0, 0, 255, 255);
+        int _breathingSpeed = 5;
+        //static color//
+
         private bool _comportOpen = true;
         private byte _selectedPalette = 0;
 
@@ -113,7 +119,7 @@ namespace adrilight
 
 
         
-        private int _limitFps = 60;
+        private int _limitFps = 100;
 
         //support future config file migration
         public int ConfigFileVersion { get; set; } = 1;
@@ -163,6 +169,7 @@ namespace adrilight
         public byte SelectedSize { get => _selectedSize; set { Set(() => SelectedSize, ref _selectedSize, value); } }
         public Color StaticColor { get => _staticColor; set { Set(() => StaticColor, ref _staticColor, value); } }
         public bool Breathing { get => _breathing; set { Set(() => Breathing, ref _breathing, value); } }
+        public int BreathingSpeed { get => _breathingSpeed; set { Set(() => BreathingSpeed, ref _breathingSpeed, value); } }
         public int AtmosphereStart { get => _atmosphereStart; set { Set(() => AtmosphereStart, ref _atmosphereStart, value); } }
         public int AtmosphereStop { get => _atmosphereStop; set { Set(() => AtmosphereStop, ref _atmosphereStop, value); } }
 

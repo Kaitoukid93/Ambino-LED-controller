@@ -53,7 +53,7 @@ namespace adrilight
         string filemau { get; set; }
         string filemauchip { get; set; }
         
-        bool Breathing { get; set; }
+        
         int AtmosphereStart { get; set; }
         int AtmosphereStop { get; set; }
         byte SelectedEffect { get; set; }
@@ -87,7 +87,12 @@ namespace adrilight
         int  ColorFrequency { get; set; }
         //rainbow settings//
 
+        //static color settings//
         Color StaticColor { get; set; }
+        bool Breathing { get; set; }
+        int BreathingSpeed { get; set; }
+        //static color settings//
+
 
         //Color Palette
         Color Color0 { get; set; }

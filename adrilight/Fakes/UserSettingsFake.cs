@@ -81,6 +81,7 @@ namespace adrilight.Fakes
 
 
         public Color StaticColor { get; set; } = AliceBlue;
+        public int  BreathingSpeed { get; set; } = 5;
         //Color Palette//
         public Color Color0 { get; set; } = AliceBlue;
         public Color Color1 { get; set; } = AliceBlue;
@@ -112,7 +113,7 @@ namespace adrilight.Fakes
         
 
 
-        public int LimitFps { get; set; } = 60;
+        public int LimitFps { get; set; } = 100;
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

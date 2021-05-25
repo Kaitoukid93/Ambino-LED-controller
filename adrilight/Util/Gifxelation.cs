@@ -110,6 +110,7 @@ namespace adrilight.Util
         }
 
         private ISpotSet SpotSet { get; }
+        
 
         public void Run(CancellationToken token)//static color creator
         {
@@ -153,7 +154,7 @@ namespace adrilight.Util
                             
                             MatrixFrame.BitmapToFrame(ImageProcesser.WorkingBitmap, ImageProcesser.InterpMode);
                         
-                        ImageProcesser.DisposeWorkingBitmap();
+                            ImageProcesser.DisposeWorkingBitmap();
 
                         //if (isBreathing)
                         //{
@@ -185,6 +186,16 @@ namespace adrilight.Util
 
 
                         }
+                        counter = 0;
+                        foreach (ISpot spot in SpotSet.Spots2)
+                        {
+                            //colorOutput[counter] = Brightness.applyBrightness(new OpenRGB.NET.Models.Color(currentStaticColor.R, currentStaticColor.G, currentStaticColor.B), peekBrightness);
+                            spot.SetColor(MatrixFrame.Frame[counter].R, MatrixFrame.Frame[counter].G, MatrixFrame.Frame[counter].B, true);
+                            counter++;
+
+
+                        }
+
 
                         if (isPreviewRunning)
                         {
@@ -192,9 +203,10 @@ namespace adrilight.Util
                             var needsNewArray = SettingsViewModel.PreviewSpots?.Length != SpotSet.Spots.Length;
 
                            SettingsViewModel.PreviewSpots = SpotSet.Spots;
-                           //SettingsViewModel.ContentBitmap = MatrixFrame.CreateBitmapSourceFromBitmap(ImageProcesser.WorkingBitmap);
+
+                            SettingsViewModel.PreviewGif = SpotSet.Spots2;
                         }
-                        Thread.Sleep(20);
+                        Thread.Sleep(33);
                     }
 
 

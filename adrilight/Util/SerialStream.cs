@@ -225,7 +225,7 @@ namespace adrilight
                 //}
                 //else
                 //{
-                outputStream[counter++] = 1;
+                outputStream[counter++] = 0;
                 var allBlack = true;
                 //}
 
@@ -233,8 +233,8 @@ namespace adrilight
                 foreach (Spot spot in SpotSet.Spots)
                 {
 
-                    outputStream[counter++] = spot.Green; // blue
-                    outputStream[counter++] = spot.Red; // green
+                    outputStream[counter++] = spot.Red; // blue
+                    outputStream[counter++] = spot.Green; // green
                     outputStream[counter++] = spot.Blue; // red
 
                     allBlack = allBlack && spot.Red == 0 && spot.Green == 0 && spot.Blue == 0;
@@ -333,7 +333,7 @@ namespace adrilight
                         //ws2812b LEDs need 30 µs = 0.030 ms for each led to set its color so there is a lower minimum to the allowed refresh rate
                         //receiving over serial takes it time as well and the arduino does both tasks in sequence
                         //+1 ms extra safe zone
-                        var fastLedTime = ((streamLength - _messagePreamble.Length - _messagePostamble.Length) / 3.0 * 0.030d) + 256 * 0.030d;
+                        var fastLedTime = ((streamLength - _messagePreamble.Length - _messagePostamble.Length) / 3.0 * 0.030d);
                         var serialTransferTime = outputBuffer.Length * 10 * 1000 / baudRate;
                         var minTimespan = (int)(fastLedTime + serialTransferTime) + 1;
 

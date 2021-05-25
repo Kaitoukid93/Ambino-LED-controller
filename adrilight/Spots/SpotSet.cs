@@ -121,11 +121,34 @@ namespace adrilight
             lock (Lock)
             {
                 Spots = BuildSpots(ExpectedScreenWidth, ExpectedScreenHeight, UserSettings);
+                Spots2 = BuildMatrixSpot(16, 16, UserSettings);
             }
-        }
-      
-       
 
+        }
+
+        internal ISpot[] BuildMatrixSpot(int matrixWidth, int matrixHeight, IUserSettings userSettings)
+        {
+            ISpot[] spots;
+            var counter = 0;
+            spots = new Spot[matrixHeight*matrixWidth];
+            var scalingFactor = DesktopDuplicator.ScalingFactor;
+            var spotWidth = 10;
+            var spotHeight = 10;
+            
+
+            for (var j = 0; j < matrixWidth; j++)
+            {
+                for (var i = 0; i < matrixHeight; i++)
+                {
+ 
+                    var x = j * spotWidth;
+                    var y = i * spotHeight;
+                    var index = counter++;
+                    spots[index] = new Spot(x, y, spotWidth, spotHeight);
+                }
+            }
+            return spots;
+        }
         internal ISpot[] BuildSpots(int screenWidth, int screenHeight, IUserSettings userSettings)
         {
             var spotsX = userSettings.SpotsX;
