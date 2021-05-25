@@ -83,15 +83,77 @@ namespace adrilight.ViewModel
             set
             {
                 _currentDevice = value;
+                if (_currentDevice != null)
+                {
+                    _currentDevice.PropertyChanged -= _currentDevice_PropertyChanged;
+                }
                 RaisePropertyChanged("CurrentDevice");
+                if (_currentDevice != null)
+                {
+                    LightingMode = value.LightingMode;
+                    _currentDevice.PropertyChanged += _currentDevice_PropertyChanged;
+                }
+            }
+        }
+
+        private void _currentDevice_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "LightingMode":
+                    LightingMode = _currentDevice.LightingMode;
+                    Settings.Brightness = (byte)CurrentDevice.Brightness;
+                    switch (LightingMode)
+                    {
+                        case "Sáng theo màn hình":
+                            Settings.SelectedEffect = 0; break;
+                        case "Sáng theo dải màu":
+                            Settings.SelectedEffect = 1; break;
+                        case "Sáng màu tĩnh":
+                            Settings.SelectedEffect = 2; break;
+                        case "Sáng theo nhạc":
+                            Settings.SelectedEffect = 3; break;
+                        case "Atmosphere":
+                            Settings.SelectedEffect = 4; break;
+
+                    }
+                    break;
+
+            }
+        }
+        private string _lightingmode;
+        public string LightingMode {
+            get { return _lightingmode; }
+            set
+            {
+                if (_lightingmode == value) return;
+                _lightingmode = value;
+                RaisePropertyChanged("LightingMode");
             }
         }
         public ICommand SelectMenuItem { get; set; }
         #endregion
-        private readonly ISpotSet spotSet;
-        public MainViewViewModel(ISpotSet spotSet)
+        private  ISpotSet spotSet;
+        public ISpotSet SpotSet {
+            get { return spotSet; }
+            set
+            {
+                //if (spotSet == value) return;
+                spotSet = value;
+                RaisePropertyChanged("SpotSet");
+                if (isPreview)
+                {
+                    var view = CurrentView as DeviceDetailViewModel;
+                    view.SpotSet = value;
+                }
+            }
+        }
+        private bool isPreview = false;
+        public IUserSettings Settings { get; }
+        public MainViewViewModel(IUserSettings userSettings,ISpotSet spotSet)
         {
-            this.spotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
+            this.SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
+            this.Settings = userSettings ?? throw new ArgumentNullException(nameof(userSettings));
         }
         public override  void ReadData()
         {
@@ -165,20 +227,22 @@ namespace adrilight.ViewModel
                 case appSetting:
                     _appSettingView = new AppSettingViewModel(this, SettingInfo);
                     CurrentView = _appSettingView;
-                    IsDashboardType = true;
+                    IsDashboardType = true; isPreview = false;
                     break;
                 case faq:
                     _faqSettingView = new FAQViewModel();
                     CurrentView = _faqSettingView;
-                    IsDashboardType = true;
+                    IsDashboardType = true; isPreview = false;
                     break;
                 case general:
                     _detailView = new DeviceDetailViewModel(CurrentDevice,this,spotSet);
                     CurrentView = _detailView;
                     IsDashboardType = false;
+                    isPreview = false;
                     break;
                 case lighting:
-                    if(_detailView==null)
+                    isPreview = true;
+                    if (_detailView==null)
                         _detailView = new DeviceDetailViewModel(CurrentDevice,this,spotSet);
                     ((DeviceDetailViewModel)_detailView).TabType = DeviceTab.Lighting;
                     CurrentView = _detailView;
@@ -196,7 +260,7 @@ namespace adrilight.ViewModel
                         _detailView = new DeviceDetailViewModel(CurrentDevice, this,spotSet);
                     ((DeviceDetailViewModel)_detailView).TabType = DeviceTab.Advance;
                     CurrentView = _detailView;
-                    IsDashboardType = false;
+                    IsDashboardType = false; isPreview = false;
                     break;
                 default:
                     break;
@@ -210,6 +274,7 @@ namespace adrilight.ViewModel
         }
         public void GotoChild(DeviceInfoDTO card)
         {
+            isPreview = false;
             _detailView = new DeviceDetailViewModel(card, this,spotSet);
             CurrentView = _detailView;
             IsDashboardType = false;
@@ -219,7 +284,7 @@ namespace adrilight.ViewModel
         public void BackToDashboard()
         {
             _allDeviceView = new AllDeviceViewModel(this);
-
+            isPreview = false;
             CurrentView = _allDeviceView;
             IsDashboardType = true;
             SetMenuItemActiveStatus(dashboard);
@@ -233,6 +298,7 @@ namespace adrilight.ViewModel
                 IsDashboardType = true;
                 SetMenuItemActiveStatus(dashboard);
             }
+            isPreview = false;
         }
         /// <summary>
         /// Load vertical menu

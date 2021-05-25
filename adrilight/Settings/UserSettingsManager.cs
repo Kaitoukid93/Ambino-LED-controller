@@ -75,14 +75,7 @@ namespace adrilight
                 ReadAndApply(xdoc, settings, "OFFSET_LED", s => s.OffsetLed);
 
                 ReadAndApply(xdoc, settings, "AUTOSTART", s => s.Autostart);
-                ReadAndApply(xdoc, settings, "color1", s => s.color1);
-                ReadAndApply(xdoc, settings, "color2", s => s.color2);
-                ReadAndApply(xdoc, settings, "color3", s => s.color3);
-                ReadAndApply(xdoc, settings, "color4", s => s.color4);
-                ReadAndApply(xdoc, settings, "color5", s => s.color5);
-                ReadAndApply(xdoc, settings, "color6", s => s.color6);
-                ReadAndApply(xdoc, settings, "color7", s => s.color7);
-                ReadAndApply(xdoc, settings, "color8", s => s.color8);
+      
 
                 //migrate actual autostart registry stuff as well
                 HandleAutostart(settings);

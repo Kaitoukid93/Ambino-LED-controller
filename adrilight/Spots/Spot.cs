@@ -16,10 +16,12 @@ namespace adrilight
         public Spot(int top, int left, int width, int height)
         {
             Rectangle = new Rectangle(top, left, width, height);
+            RadiusX = width / 4;
+            RadiusY = height / 4;
         }
 
         public Rectangle Rectangle { get; private set; }
-
+        
         private bool _isFirst;
         public bool IsFirst {
             get => _isFirst;
@@ -27,7 +29,10 @@ namespace adrilight
         }
 
         public Color OnDemandColor => Color.FromRgb(Red, Green, Blue);
-        public Color OnDemandColorTransparent => Color.FromArgb(0, Red, Green, Blue);
+        public Color OnDemandColorTransparent => Color.FromArgb(255, Red, Green, Blue);
+        public int RadiusX { get; private set; }
+        public int RadiusY { get; private set; }
+
 
         public byte Red { get; private set; }
         public byte Green { get; private set; }

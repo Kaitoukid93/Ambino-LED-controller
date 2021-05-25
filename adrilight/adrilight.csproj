@@ -332,7 +332,8 @@
     </Compile>
     <Compile Include="Converter\BrushToHexConverter.cs" />
     <Compile Include="Converter\ColorToBrushConverter.cs" />
-    <Compile Include="Converter\Inverseboolvisibility.cs" />
+    <Compile Include="Converter\Inverseboolvisibility .cs" />
+    <Compile Include="Converter\ItemToStringConverter.cs" />
     <Compile Include="DesktopDuplication\DesktopDuplicationException.cs" />
     <Compile Include="DesktopDuplication\DesktopDuplicator.cs" />
     <Compile Include="DesktopDuplication\MovedRegion.cs" />
@@ -351,11 +352,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Settings\IEffect.cs" />
+    <Compile Include="Util\Atmosphere.cs" />
     <Compile Include="Util\Brightness.cs" />
     <Compile Include="Util\ColorUtil.cs" />
     <Compile Include="Util\FakeSerialPort.cs" />
     <Compile Include="Util\FpsLogger.cs" />
+    <Compile Include="Util\GradientColor.cs" />
+    <Compile Include="Util\IAtmosphere.cs" />
     <Compile Include="Util\ImageProcesser.cs" />
+    <Compile Include="Util\IMusic.cs" />
+    <Compile Include="Util\IRainbow.cs" />
     <Compile Include="Util\ISerialPortWrapper.cs" />
     <Compile Include="Util\ISerialStream.cs" />
     <Compile Include="Spots\ISpot.cs" />
@@ -363,7 +369,11 @@
     <Compile Include="Settings\IUserSettings.cs" />
     <Compile Include="Settings\UserSettings.cs" />
     <Compile Include="Messaging\TraceFrameMessage.cs" />
+    <Compile Include="Util\IStaticColor.cs" />
     <Compile Include="Util\MatrixFrame.cs" />
+    <Compile Include="Util\Music.cs" />
+    <Compile Include="Util\Rainbow.cs" />
+    <Compile Include="Util\StaticColor.cs" />
     <Compile Include="ViewModel\AddNewDeviceViewModel.cs" />
     <Compile Include="ViewModel\AdvanceViewModel.cs" />
     <Compile Include="ViewModel\AllDeviceViewModel.cs" />

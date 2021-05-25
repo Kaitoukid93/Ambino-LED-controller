@@ -73,10 +73,20 @@ namespace adrilight.ViewModel
         private bool _isInit = false;
         private bool _isWrite = false;
         private MainViewViewModel _mainView => _parentVm as MainViewViewModel;
-        private readonly ISpotSet spotSet;
+        private ISpotSet spotSet;
+        public ISpotSet SpotSet {
+            get { return spotSet; }
+            set
+            {
+                if (spotSet == value) return;
+                spotSet = value;
+                RaisePropertyChanged("SpotSet");
+                
+            }
+        }
         public DeviceDetailViewModel(DeviceInfoDTO device, ViewModelBase parent, ISpotSet spotSet)
         {
-            this.spotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
+            this.SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
             _parentVm = parent;
             Card = device;
             ReadData();
@@ -122,7 +132,7 @@ namespace adrilight.ViewModel
                     CurrentView = _generalView;
                     break;
                 case DeviceTab.Lighting:
-                    _lightingView = new LightingViewModel(Card, _parentVm, spotSet);
+                    _lightingView = new LightingViewModel(Card, _parentVm, SpotSet);
                     CurrentView = _lightingView;
                     break;
                 case DeviceTab.Preview:

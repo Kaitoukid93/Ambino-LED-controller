@@ -9,7 +9,7 @@ namespace adrilight.Util
     class ColorUtil
     {
         //source https://stackoverflow.com/a/18840768
-        public static System.Drawing.Color FromAhsb(int alpha, float hue, float saturation, float brightness)
+        public static System.Windows.Media.Color FromAhsb(byte alpha, double hue, double saturation, double brightness)
         {
             if (0 > alpha
                 || 255 < alpha)
@@ -49,15 +49,16 @@ namespace adrilight.Util
 
             if (0 == saturation)
             {
-                return System.Drawing.Color.FromArgb(
+                return System.Windows.Media.Color.FromArgb(
                                     alpha,
-                                    Convert.ToInt32(brightness * 255),
-                                    Convert.ToInt32(brightness * 255),
-                                    Convert.ToInt32(brightness * 255));
+                                    Convert.ToByte(brightness * 255),
+                                    Convert.ToByte(brightness * 255),
+                                    Convert.ToByte(brightness * 255));
             }
 
-            float fMax, fMid, fMin;
-            int iSextant, iMax, iMid, iMin;
+            double fMax, fMid, fMin;
+            int iSextant;
+            byte iMax, iMid, iMin;
 
             if (0.5 < brightness)
             {
@@ -87,24 +88,24 @@ namespace adrilight.Util
                 fMid = fMin - (hue * (fMax - fMin));
             }
 
-            iMax = Convert.ToInt32(fMax * 255);
-            iMid = Convert.ToInt32(fMid * 255);
-            iMin = Convert.ToInt32(fMin * 255);
+            iMax = Convert.ToByte(fMax * 255);
+            iMid = Convert.ToByte(fMid * 255);
+            iMin = Convert.ToByte(fMin * 255);
 
             switch (iSextant)
             {
                 case 1:
-                    return System.Drawing.Color.FromArgb(alpha, iMid, iMax, iMin);
+                    return System.Windows.Media.Color.FromArgb(alpha, iMid, iMax, iMin);
                 case 2:
-                    return System.Drawing.Color.FromArgb(alpha, iMin, iMax, iMid);
+                    return System.Windows.Media.Color.FromArgb(alpha, iMin, iMax, iMid);
                 case 3:
-                    return System.Drawing.Color.FromArgb(alpha, iMin, iMid, iMax);
+                    return System.Windows.Media.Color.FromArgb(alpha, iMin, iMid, iMax);
                 case 4:
-                    return System.Drawing.Color.FromArgb(alpha, iMid, iMin, iMax);
+                    return System.Windows.Media.Color.FromArgb(alpha, iMid, iMin, iMax);
                 case 5:
-                    return System.Drawing.Color.FromArgb(alpha, iMax, iMin, iMid);
+                    return System.Windows.Media.Color.FromArgb(alpha, iMax, iMin, iMid);
                 default:
-                    return System.Drawing.Color.FromArgb(alpha, iMax, iMid, iMin);
+                    return System.Windows.Media.Color.FromArgb(alpha, iMax, iMid, iMin);
             }
         }
     }

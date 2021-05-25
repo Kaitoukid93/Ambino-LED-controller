@@ -1,16 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using static adrilight.PixelOrder;
 using Orientation = adrilight.PixelOrder.Orientation;
 
+
+
 namespace adrilight
 {
-    public static class MatrixFrame 
+    public static class MatrixFrame
     {
         #region Public_Variables
         //implmented get/set to expose references
@@ -22,8 +26,9 @@ namespace adrilight
         public static Orientation orientation { get; set; } = Orientation.HZ;
         public static StartCorner startCorner { get; set; } = StartCorner.TL;
         public static NewLine newLine { get; set; } = NewLine.SC;
-        public static int [] CustomOrder { get; set; }
-        
+        public static int[] CustomOrder { get; set; }
+       
+     
         #endregion
 
 
@@ -116,31 +121,30 @@ namespace adrilight
         public static Int32[] FrameToInt32()
         {
             Int32[] data = new Int32[Width * Height];
-            if (SerialStream.ColorMode == SerialStream.CMode.BPP24RGB)
-            {
+            
                 for (int i = 0; i < Width * Height; i++)
                     data[i] = Frame[i].GetBPP24RGB_Int32();
-            }
-            else if (SerialStream.ColorMode == SerialStream.CMode.BPP16RGB)
-            {
-                for (int i = 0; i < Width * Height; i++)
-                    data[i] = Frame[i].GetBPP16RGB_Int32();
-            }
-            else if (SerialStream.ColorMode == SerialStream.CMode.BPP8RGB)
-            {
-                for (int i = 0; i < Width * Height; i++)
-                    data[i] = Frame[i].GetBPP8RGB_Int32();
-            }
-            else if (SerialStream.ColorMode == SerialStream.CMode.BPP8Gray)
-            {
-                for (int i = 0; i < Width * Height; i++)
-                    data[i] = Frame[i].GetBPP8Grayscale_Int32();
-            }
-            else if (SerialStream.ColorMode == SerialStream.CMode.BPP1Mono)
-            {
+            
+            //else if (SerialStream.ColorMode == SerialStream.CMode.BPP16RGB)
+            //{
+            //    for (int i = 0; i < Width * Height; i++)
+            //        data[i] = Frame[i].GetBPP16RGB_Int32();
+            //}
+            //else if (SerialStream.ColorMode == SerialStream.CMode.BPP8RGB)
+            //{
+            //    for (int i = 0; i < Width * Height; i++)
+            //        data[i] = Frame[i].GetBPP8RGB_Int32();
+            //}
+            //else if (SerialStream.ColorMode == SerialStream.CMode.BPP8Gray)
+            //{
+            //    for (int i = 0; i < Width * Height; i++)
+            //        data[i] = Frame[i].GetBPP8Grayscale_Int32();
+            //}
+            //else if (SerialStream.ColorMode == SerialStream.CMode.BPP1Mono)
+            //{
 
-                for (int i = 0; i < Width * Height; i++)
-                    data[i] = Frame[i].GetBPP1Monochrome_Int32();
+            //    for (int i = 0; i < Width * Height; i++)
+            //        data[i] = Frame[i].GetBPP1Monochrome_Int32();
 
 
 
@@ -164,7 +168,7 @@ namespace adrilight
                 }
             }
             */
-            }
+            
 
             return data;
         }
@@ -350,7 +354,23 @@ namespace adrilight
         }
 
 
-        public static void SetRectanglesOrder(LEDOrder LEDorder, Canvas playground)
+        
+
+        public static void FillRectFromPaletteColors(int colorIndex)
+        {
+            //this is the function we get the color moving
+
+
+
+
+        }
+
+        
+
+      
+
+
+    public static void SetRectanglesOrder(LEDOrder LEDorder, Canvas playground)
         {
             
             //customorder[pixelcounter] = width * i + j;

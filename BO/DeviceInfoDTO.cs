@@ -122,11 +122,11 @@ namespace BO
         private int _rainbowmode;
         public int RainbowMode
         {
-            get { return _capturesource; }
+            get { return _rainbowmode; }
             set
             {
-                if (_capturesource == value) return;
-                _capturesource = value;
+                if (_rainbowmode == value) return;
+                _rainbowmode = value;
                 OnPropertyChanged();
             }
         }

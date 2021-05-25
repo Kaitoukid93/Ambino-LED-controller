@@ -197,6 +197,10 @@ namespace adrilight
                 kernel.Bind<ISpotSet>().To<SpotSet>().InSingletonScope();
                 kernel.Bind<ISerialStream>().To<SerialStream>().InSingletonScope();
                 kernel.Bind<IDesktopDuplicatorReader>().To<DesktopDuplicatorReader>().InSingletonScope();
+                kernel.Bind<IStaticColor>().To<StaticColor>().InSingletonScope();
+                kernel.Bind<IRainbow>().To<Rainbow>().InSingletonScope();
+                kernel.Bind<IMusic>().To<Music>().InSingletonScope();
+                kernel.Bind<IAtmosphere>().To<Atmosphere>().InSingletonScope();
             }
             kernel.Bind<SettingsViewModel>().ToSelf().InSingletonScope();
             kernel.Bind<TelemetryClient>().ToConstant(SetupApplicationInsights(kernel.Get<IUserSettings>()));
