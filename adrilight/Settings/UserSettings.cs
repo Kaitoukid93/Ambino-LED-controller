@@ -39,6 +39,9 @@ namespace adrilight
         
 
         private int _spotsY = 6;
+        private int _effectSpeed = 5;
+        private int _colorFrequency = 0;
+        private int _selectedMusicPalette = 0;
 
         private int _spotWidth = 150;
         private bool _startMinimized = false;
@@ -200,7 +203,9 @@ namespace adrilight
        
         public byte SelectedEffect { get => _selectedEffect; set { Set(() => SelectedEffect, ref _selectedEffect, value); } }
         public int SelectedAudioDevice { get => _selectedAudioDevice; set { Set(() => SelectedAudioDevice, ref _selectedAudioDevice, value); } }
-
+        public int EffectSpeed { get => _effectSpeed; set { Set(() => EffectSpeed, ref _effectSpeed, value); } }
+        public int ColorFrequency { get => _colorFrequency; set { Set(() => ColorFrequency, ref _colorFrequency, value); } }
+        public int SelectedMusicPalette { get => _selectedMusicPalette; set { Set(() => SelectedMusicPalette, ref _selectedMusicPalette, value); } }
         //Color Palette
 
         public Color Color0 { get => _color0; set { Set(() => Color0, ref _color0, value); } }

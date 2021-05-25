@@ -52,7 +52,9 @@ namespace adrilight.Fakes
         public byte SelectedMusicMode { get; set; } = 0;
         public int AtmosphereStart { get; set; } = 1;
         public int AtmosphereStop { get; set; } = 255;
-
+        public int EffectSpeed { get; set; } = 5;
+        public int ColorFrequency { get; set; } = 0;
+        public int SelectedMusicPalette { get; set; } = 0;
 
         public byte screensizecounter { get; set; } = 2;
 

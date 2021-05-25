@@ -352,7 +352,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Settings\IEffect.cs" />
+    <Compile Include="Util\Gifxelation.cs" />
     <Compile Include="Util\IAtmosphere.cs" />
+    <Compile Include="Util\IGifxelation.cs" />
     <Compile Include="Util\Music.cs" />
     <Compile Include="Util\Brightness.cs" />
     <Compile Include="Util\GradientColor.cs" />

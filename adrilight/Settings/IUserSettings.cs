@@ -58,7 +58,7 @@ namespace adrilight
         int AtmosphereStop { get; set; }
         byte SelectedEffect { get; set; }
         byte SelectedMusicMode { get; set; }
-   
+        int SelectedMusicPalette { get; set; }
 
         //gifxelation//
         bool GifPlayPause { get; set; }
@@ -80,7 +80,12 @@ namespace adrilight
   
 
         byte SelectedSize { get; set; }
+
+        //rainbow settings//
         byte SelectedPalette { get; set; }
+        int  EffectSpeed { get; set; }
+        int  ColorFrequency { get; set; }
+        //rainbow settings//
 
         Color StaticColor { get; set; }
 

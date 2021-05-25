@@ -90,48 +90,48 @@ namespace adrilight.View.SettingsWindowComponents
         //private BitmapSource _gifPlayPauseImage = MatrixFrame.CreateBitmapSourceFromBitmap(Properties.Resources.icons8_play_32);
 
 
-        DispatcherTimer GifTimer = new DispatcherTimer();
-        DispatcherTimer PixTimer = new DispatcherTimer();
-        DispatcherTimer MusicTimer = new DispatcherTimer();
-        private static double _pixframeIndex = 0;
-        private static int _gifFrameIndex = 0;
-        //new gifxelation mode//
+        //DispatcherTimer GifTimer = new DispatcherTimer();
+        //DispatcherTimer PixTimer = new DispatcherTimer();
+        //DispatcherTimer MusicTimer = new DispatcherTimer();
+        //private static double _pixframeIndex = 0;
+        //private static int _gifFrameIndex = 0;
+        ////new gifxelation mode//
 
         public LedOutsideCase()
         {
             InitializeComponent();
-            var settingsViewModel = DataContext as SettingsViewModel;
+            //var settingsViewModel = DataContext as SettingsViewModel;
 
          
-            MatrixFrame.DimensionsChanged += OnMatrixDimensionsChanged;
-            MatrixFrame.FrameChanged += OnFrameChanged;
-            MatrixFrame.SetDimensions(MatrixFrame.Width, MatrixFrame.Height);
-            //gifxelation load default gif//
+            //MatrixFrame.DimensionsChanged += OnMatrixDimensionsChanged;
+            //MatrixFrame.FrameChanged += OnFrameChanged;
+            //MatrixFrame.SetDimensions(MatrixFrame.Width, MatrixFrame.Height);
+            ////gifxelation load default gif//
 
 
 
-            ImageProcesser.DisposeGif();
-            ImageProcesser.DisposeStill();
-            ImageProcesser.LoadGifFromResource();
+            //ImageProcesser.DisposeGif();
+            //ImageProcesser.DisposeStill();
+            //ImageProcesser.LoadGifFromResource();
 
 
             
 
             //settingsViewModel.ContentBitmap = MatrixFrame.CreateBitmapSourceFromBitmap(ImageProcesser.WorkingBitmap);
-            MatrixFrame.BitmapToFrame(ImageProcesser.WorkingBitmap, ImageProcesser.InterpMode);
-                EndX.Maximum = ImageProcesser.LoadedGifImage.Width;
-                startX.Maximum = ImageProcesser.LoadedGifImage.Width;
-                EndX.Value = ImageProcesser.LoadedGifImage.Width;
-                EndY.Maximum = ImageProcesser.LoadedGifImage.Height;
-                StartY.Maximum = ImageProcesser.LoadedGifImage.Height;
-                EndY.Value = ImageProcesser.LoadedGifImage.Height;
-                startX.Value = 0;
-                StartY.Value = 0;
-            ImageProcesser.ImageRect = new System.Drawing.Rectangle(Convert.ToInt32(startX.Value), Convert.ToInt32(StartY.Value), Convert.ToInt32(EndX.Value - startX.Value),Convert.ToInt32(EndY.Value-StartY.Value));
-            //FrameToPreview();
-            //SerialManager.PushFrame();
-            ImageProcesser.ImageLoadState = ImageProcesser.LoadState.Gif;
-            //ResetSliders();
+            //MatrixFrame.BitmapToFrame(ImageProcesser.WorkingBitmap, ImageProcesser.InterpMode);
+            //    EndX.Maximum = ImageProcesser.LoadedGifImage.Width;
+            //    startX.Maximum = ImageProcesser.LoadedGifImage.Width;
+            //    EndX.Value = ImageProcesser.LoadedGifImage.Width;
+            //    EndY.Maximum = ImageProcesser.LoadedGifImage.Height;
+            //    StartY.Maximum = ImageProcesser.LoadedGifImage.Height;
+            //    EndY.Value = ImageProcesser.LoadedGifImage.Height;
+            //    startX.Value = 0;
+            //    StartY.Value = 0;
+            //ImageProcesser.ImageRect = new System.Drawing.Rectangle(Convert.ToInt32(startX.Value), Convert.ToInt32(StartY.Value), Convert.ToInt32(EndX.Value - startX.Value),Convert.ToInt32(EndY.Value-StartY.Value));
+            ////FrameToPreview();
+            ////SerialManager.PushFrame();
+            //ImageProcesser.ImageLoadState = ImageProcesser.LoadState.Gif;
+            ////ResetSliders();
 
             //gifxelation//
 
@@ -245,48 +245,48 @@ namespace adrilight.View.SettingsWindowComponents
 
         //}
        
-        public void StopPix()
-        {
-            PixTimer.Stop();
-        }
+        //public void StopPix()
+        //{
+        //    PixTimer.Stop();
+        //}
 
-        public void Gif_Timer_Tick(object sender, EventArgs e)
-        {
-            var settingsViewModel = DataContext as SettingsViewModel;
-            ImageProcesser.DisposeWorkingBitmap();
+        //public void Gif_Timer_Tick(object sender, EventArgs e)
+        //{
+        //    var settingsViewModel = DataContext as SettingsViewModel;
+        //    ImageProcesser.DisposeWorkingBitmap();
            
-            if(EffectSelection.SelectedIndex==6)
-            {
-                if (_gifFrameIndex >= ImageProcesser.LoadedGifFrameCount - 1)
-                    _gifFrameIndex = 0;
-                else
-                    _gifFrameIndex++;
-                //Console.WriteLine(_gifFrameIndex);
-                ImageProcesser.LoadedGifImage.SelectActiveFrame(ImageProcesser.LoadedGifFrameDim, _gifFrameIndex);
-                ImageProcesser.WorkingBitmap = ImageProcesser.CropBitmap(new Bitmap(ImageProcesser.LoadedGifImage), ImageProcesser.ImageRect);
-                settingsViewModel.ContentBitmap = MatrixFrame.CreateBitmapSourceFromBitmap(ImageProcesser.WorkingBitmap);
-                MatrixFrame.BitmapToFrame(ImageProcesser.WorkingBitmap, ImageProcesser.InterpMode);
-            }
+        //    if(EffectSelection.SelectedIndex==6)
+        //    {
+        //        if (_gifFrameIndex >= ImageProcesser.LoadedGifFrameCount - 1)
+        //            _gifFrameIndex = 0;
+        //        else
+        //            _gifFrameIndex++;
+        //        //Console.WriteLine(_gifFrameIndex);
+        //        ImageProcesser.LoadedGifImage.SelectActiveFrame(ImageProcesser.LoadedGifFrameDim, _gifFrameIndex);
+        //        ImageProcesser.WorkingBitmap = ImageProcesser.CropBitmap(new Bitmap(ImageProcesser.LoadedGifImage), ImageProcesser.ImageRect);
+        //        settingsViewModel.ContentBitmap = MatrixFrame.CreateBitmapSourceFromBitmap(ImageProcesser.WorkingBitmap);
+        //        MatrixFrame.BitmapToFrame(ImageProcesser.WorkingBitmap, ImageProcesser.InterpMode);
+        //    }
             
-            ImageProcesser.DisposeWorkingBitmap();
-            //SerialManager.PushFrame();
+        //    ImageProcesser.DisposeWorkingBitmap();
+        //    //SerialManager.PushFrame();
 
-            //this section is for RGB processing mode
-            //User input start color hue and we create a hue gradient or rainbow smooth color or whatever
+        //    //this section is for RGB processing mode
+        //    //User input start color hue and we create a hue gradient or rainbow smooth color or whatever
 
 
            
 
-            //create first frame
-            //push to view
+        //    //create first frame
+        //    //push to view
 
-            //frame moving(index ++)
-
-
-            //end frame??
+        //    //frame moving(index ++)
 
 
-        }
+        //    //end frame??
+
+
+        //}
 
 
 
@@ -297,16 +297,16 @@ namespace adrilight.View.SettingsWindowComponents
 
 
 
-        private static string[] lines = new string[28];
-        private static string[] lines2 = new string[24];
+        //private static string[] lines = new string[28];
+        //private static string[] lines2 = new string[24];
         
         
-        public static string temp;
-        public static string gifilepath;
-        private IUserSettings UserSettings { get; }
-        public static byte DFUVal = 0;
+        //public static string temp;
+        //public static string gifilepath;
+        //private IUserSettings UserSettings { get; }
+        //public static byte DFUVal = 0;
         
-        private const int size = 30;
+        //private const int size = 30;
         private const int space = 3;
 
 
@@ -682,68 +682,68 @@ namespace adrilight.View.SettingsWindowComponents
         
         private ImageAnimationController _controller;
 
-        private void gifchip_Click(object sender, RoutedEventArgs e)
-        {
-            var settingsViewModel = DataContext as SettingsViewModel;
+        //private void gifchip_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var settingsViewModel = DataContext as SettingsViewModel;
 
 
 
-            OpenFileDialog gifile = new OpenFileDialog();
-            gifile.Title = "Chọn file gif";
-            gifile.CheckFileExists = true;
-            gifile.CheckPathExists = true;
-            gifile.DefaultExt = "gif";
-            gifile.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
-            gifile.FilterIndex = 2;
-            gifile.ShowDialog();
+        //    OpenFileDialog gifile = new OpenFileDialog();
+        //    gifile.Title = "Chọn file gif";
+        //    gifile.CheckFileExists = true;
+        //    gifile.CheckPathExists = true;
+        //    gifile.DefaultExt = "gif";
+        //    gifile.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
+        //    gifile.FilterIndex = 2;
+        //    gifile.ShowDialog();
 
-            if (!string.IsNullOrEmpty(gifile.FileName) && File.Exists(gifile.FileName))
-            {
-                var image = new BitmapImage();
-                image.BeginInit();
-                image.UriSource = new Uri(gifile.FileName);
-                image.EndInit();
-                //gifimage = image;
-                gifilepath = gifile.FileName;
-                 gifStreamSource = new FileStream(gifilepath, FileMode.Open, FileAccess.Read, FileShare.Read);
-                 decoder = new GifBitmapDecoder(gifStreamSource, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
-                //ImageBehavior.SetAnimatedSource(gifxel, image);
+        //    if (!string.IsNullOrEmpty(gifile.FileName) && File.Exists(gifile.FileName))
+        //    {
+        //        var image = new BitmapImage();
+        //        image.BeginInit();
+        //        image.UriSource = new Uri(gifile.FileName);
+        //        image.EndInit();
+        //        gifimage = image;
+        //        gifilepath = gifile.FileName;
+        //        gifStreamSource = new FileStream(gifilepath, FileMode.Open, FileAccess.Read, FileShare.Read);
+        //        decoder = new GifBitmapDecoder(gifStreamSource, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+        //        ImageBehavior.SetAnimatedSource(gifxel, image);
 
 
 
-                //_controller = ImageBehavior.GetAnimationController(gifxel);
+        //        _controller = ImageBehavior.GetAnimationController(gifxel);
 
-                //_controller.
-                //image.CopyPixels
-               
-                    //GifPlayPause = false;
-                    ImageProcesser.DisposeGif();
-                    ImageProcesser.DisposeStill();
-                    if (ImageProcesser.LoadGifFromDisk(gifile.FileName))
-                    {
-                       settingsViewModel.ContentBitmap = MatrixFrame.CreateBitmapSourceFromBitmap(ImageProcesser.WorkingBitmap);
-                        MatrixFrame.BitmapToFrame(ImageProcesser.WorkingBitmap, ImageProcesser.InterpMode);
-                    EndX.Maximum = ImageProcesser.LoadedGifImage.Width;
-                    startX.Maximum= ImageProcesser.LoadedGifImage.Width;
-                    EndX.Value = ImageProcesser.LoadedGifImage.Width;
-                    EndY.Maximum = ImageProcesser.LoadedGifImage.Height;
-                    StartY.Maximum= ImageProcesser.LoadedGifImage.Height;
-                    EndY.Value = ImageProcesser.LoadedGifImage.Height;
-                        startX.Value = 0;
-                        StartY.Value = 0;
-                        //FrameToPreview();
-                        //SerialManager.PushFrame();
-                        ImageProcesser.ImageLoadState = ImageProcesser.LoadState.Gif;
-                        //ResetSliders();
-                    }
-                    else
-                    {
-                        System.Windows.MessageBox.Show("Cannot load image.");
-                    }
+        //        _controller.
+        //        image.CopyPixels
 
-                }
+        //            GifPlayPause = false;
+        //        ImageProcesser.DisposeGif();
+        //        ImageProcesser.DisposeStill();
+        //        if (ImageProcesser.LoadGifFromDisk(gifile.FileName))
+        //        {
+        //            settingsViewModel.ContentBitmap = MatrixFrame.CreateBitmapSourceFromBitmap(ImageProcesser.WorkingBitmap);
+        //            MatrixFrame.BitmapToFrame(ImageProcesser.WorkingBitmap, ImageProcesser.InterpMode);
+        //            EndX.Maximum = ImageProcesser.LoadedGifImage.Width;
+        //            startX.Maximum = ImageProcesser.LoadedGifImage.Width;
+        //            EndX.Value = ImageProcesser.LoadedGifImage.Width;
+        //            EndY.Maximum = ImageProcesser.LoadedGifImage.Height;
+        //            StartY.Maximum = ImageProcesser.LoadedGifImage.Height;
+        //            EndY.Value = ImageProcesser.LoadedGifImage.Height;
+        //            startX.Value = 0;
+        //            StartY.Value = 0;
+        //            FrameToPreview();
+        //            SerialManager.PushFrame();
+        //            ImageProcesser.ImageLoadState = ImageProcesser.LoadState.Gif;
+        //            ResetSliders();
+        //        }
+        //        else
+        //        {
+        //            System.Windows.MessageBox.Show("Cannot load image.");
+        //        }
 
-            }
+        //    }
+
+        //}
 
         private void gifplaypausebutton_Checked(object sender, RoutedEventArgs e)
         {
@@ -751,28 +751,28 @@ namespace adrilight.View.SettingsWindowComponents
       
         }
 
-        private void OnMatrixDimensionsChanged()
-        {
-            MatrixBitmap = new WriteableBitmap(MatrixFrame.Width, MatrixFrame.Height, 96, 96, PixelFormats.Bgr32, null);
+        //private void OnMatrixDimensionsChanged()
+        //{
+        //    MatrixBitmap = new WriteableBitmap(MatrixFrame.Width, MatrixFrame.Height, 96, 96, PixelFormats.Bgr32, null);
 
-            MatrixImage.Source = MatrixBitmap;
+        //    MatrixImage.Source = MatrixBitmap;
 
         
-        }
-        private void OnFrameChanged()
-        {
-            Dispatcher.Invoke(() => { FrameToPreview(); });
-        }
-        private void FrameToPreview()
-        {
-            MatrixBitmap.Lock();
-            IntPtr pixelAddress = MatrixBitmap.BackBuffer;
+        //}
+        //private void OnFrameChanged()
+        //{
+        //    Dispatcher.Invoke(() => { FrameToPreview(); });
+        //}
+        //private void FrameToPreview()
+        //{
+        //    MatrixBitmap.Lock();
+        //    IntPtr pixelAddress = MatrixBitmap.BackBuffer;
 
-            Marshal.Copy(MatrixFrame.FrameToInt32(), 0, pixelAddress, (MatrixFrame.Width * MatrixFrame.Height));
+        //    Marshal.Copy(MatrixFrame.FrameToInt32(), 0, pixelAddress, (MatrixFrame.Width * MatrixFrame.Height));
 
-            MatrixBitmap.AddDirtyRect(new Int32Rect(0, 0, MatrixFrame.Width, MatrixFrame.Height));
-            MatrixBitmap.Unlock();
-        }
+        //    MatrixBitmap.AddDirtyRect(new Int32Rect(0, 0, MatrixFrame.Width, MatrixFrame.Height));
+        //    MatrixBitmap.Unlock();
+        //}
     }
 
 

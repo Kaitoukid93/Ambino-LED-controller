@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using Un4seen.BassWasapi;
 using Un4seen.Bass;
 using System.Windows;
+using System.Diagnostics;
 
 namespace adrilight
 {
@@ -24,7 +25,8 @@ namespace adrilight
     {
         public static double _huePosIndex = 0;//index for rainbow mode only
         public static double _palettePosIndex = 0;//index for other custom palette
-        
+        public static double _startIndex = 0;
+
         public static float[] _fft;
         public static int _lastlevel;
         public static int _hanctr;
@@ -36,6 +38,7 @@ namespace adrilight
         private WASAPIPROC _process;
         public static byte lastvolume=0;
         public static byte volume = 0;
+        public static int lastheight = 0;
         
         public static bool bump = false;
 
@@ -74,6 +77,7 @@ namespace adrilight
                 case nameof(UserSettings.Brightness):
                 case nameof(UserSettings.SelectedAudioDevice):
                 case nameof(UserSettings.SelectedMusicMode):
+                case nameof(UserSettings.SelectedMusicPalette):
                 case nameof(UserSettings.SpotsX):
                 case nameof(UserSettings.SpotsY):
                 case nameof(SettingsViewModel.IsSettingsWindowOpen):
@@ -179,8 +183,8 @@ namespace adrilight
             IsRunning = true;
 
             _log.Debug("Started Music Color.");
-            double brightness = UserSettings.Brightness / 100d;
-            int paletteSource = UserSettings.SelectedPalette;
+           // double brightness = UserSettings.Brightness / 100d;
+            
             var numLED = (UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2;
             byte[] spectrumdata = new byte[numLED];
 
@@ -189,7 +193,7 @@ namespace adrilight
 
                 while (!token.IsCancellationRequested)
                 {
-                    
+
                     //audio capture section//
                     int ret = BassWasapi.BASS_WASAPI_GetData(_fft, (int)BASSData.BASS_DATA_FFT2048);// get channel fft data
                     if (ret < -1) return;
@@ -216,33 +220,73 @@ namespace adrilight
                             spectrumdata[x] = 0;
 
                     }
-
+                    int paletteSource = UserSettings.SelectedMusicPalette;
                     int level = BassWasapi.BASS_WASAPI_GetLevel(); // Get level (VU metter) for Old AMBINO Device (remove in the future)
                     if (level == _lastlevel && level != 0) _hanctr++;
-                    volumeLeft = (volumeLeft*6+ Utils.LowWord32(level)*2)/8;
-                    volumeRight =(volumeRight*6+Utils.HighWord32(level)*2)/8;
+                    volumeLeft = (volumeLeft * 6 + Utils.LowWord32(level) * 2) / 8;
+                    volumeRight = (volumeRight * 6 + Utils.HighWord32(level) * 2) / 8;
                     _lastlevel = level;
                     byte musicMode = UserSettings.SelectedMusicMode;
                     bool isPreviewRunning = (SettingsViewModel.IsSettingsWindowOpen && UserSettings.SelectedEffect == 3);
                     //audio capture section//
 
 
-
+                    var newcolor = OpenRGB.NET.Models.Color.GetHueRainbow(numLED, _huePosIndex, 1, 1, 1);
 
                     OpenRGB.NET.Models.Color[] outputColor = new OpenRGB.NET.Models.Color[numLED];
                     int counter = 0;
                     lock (SpotSet.Lock)
                     {
+                        var brightnessMap = SpectrumCreator(spectrumdata, 0, volumeLeft, volumeRight, musicMode, numLED);// get brightness map based on spectrum data
                         if (paletteSource == 0)
                         {
-                            var newcolor = OpenRGB.NET.Models.Color.GetHueRainbow(numLED, _huePosIndex, 1, 1, 1);
-                            var brightnessMap=SpectrumCreator(spectrumdata, 0, volumeLeft,volumeRight, musicMode, numLED);// get brightness map based on spectrum data
-                                foreach (var color in newcolor)
+                            newcolor = OpenRGB.NET.Models.Color.GetHueRainbow(numLED, _huePosIndex, 1, 1, 1);
+                            foreach (var color in newcolor)
                             {
                                 outputColor[counter] = Brightness.applyBrightness(color, brightnessMap[counter]);
                                 counter++;
 
                             }
+                        }
+                        else
+                        {
+                            for (int i = 0; i < numLED; i++)
+                            {
+                                //double position = i / (double)numLED;
+                                var position = _startIndex + (1000d / (1 * numLED)) * i;
+
+                                if (position > 1000)
+                                    position = position - 1000;
+                                Color colorPoint = Color.FromRgb(0, 0, 0);
+                                if (paletteSource == 1)//party color palette
+                                {
+                                    colorPoint = GetColorByOffset(GradientPaletteColor(cafe), position);
+                                }
+                                else if (paletteSource == 2)//cloud color palette
+                                {
+                                    colorPoint = GetColorByOffset(GradientPaletteColor(jazz), position);
+                                }
+                                else if (paletteSource == 3)//cloud color palette
+                                {
+                                    colorPoint = GetColorByOffset(GradientPaletteColor(party), position);
+                                }
+                                else if (paletteSource == 4)//cloud color palette
+                                {
+                                    colorPoint = GetColorByOffset(GradientPaletteColor(custom), position);
+                                }
+                                var newColor = new OpenRGB.NET.Models.Color(colorPoint.R, colorPoint.G, colorPoint.B);
+                                outputColor[i] = Brightness.applyBrightness(newColor, brightnessMap[i]);
+
+
+                            }
+                            _startIndex += 1;
+                            if (_startIndex > 1000)
+                            {
+                                _startIndex = 0;
+                            }
+                        }
+                            
+                           
                             counter = 0;
                             foreach (ISpot spot in SpotSet.Spots)
                             {
@@ -260,39 +304,22 @@ namespace adrilight
                                 _huePosIndex += 1;
                             }
 
-                        }
-                        else
-                        {
-                            if (paletteSource == 1)//party color palette
-                            {
-                                //  PaletteCreator(numLED, _palettePosIndex, Rainbow.party);
-                            }
-                            else if (paletteSource == 2)//cloud color palette
-                            {
-                                //  PaletteCreator(numLED, _palettePosIndex, Rainbow.cloud);
-                            }
 
-                            if (_palettePosIndex > numLED)
-                            {
-                                _palettePosIndex = 0;
-                            }
-                            else
-                            {
-                                _palettePosIndex += 1;
-                            }
-                        }
-                        if (isPreviewRunning)
-                        {
-                            //copy all color data to the preview
-                            var needsNewArray = SettingsViewModel.PreviewSpots?.Length != SpotSet.Spots.Length;
 
-                            SettingsViewModel.PreviewSpots = SpotSet.Spots;
+                            if (isPreviewRunning)
+                            {
+                                //copy all color data to the preview
+                                var needsNewArray = SettingsViewModel.PreviewSpots?.Length != SpotSet.Spots.Length;
+
+                                SettingsViewModel.PreviewSpots = SpotSet.Spots;
+                            }
                         }
+                        Thread.Sleep(5); //motion speed
+
+
                     }
-                    Thread.Sleep(5); //motion speed
-
                 }
-            }
+            
             catch (OperationCanceledException)
             {
                 _log.Debug("OperationCanceledException catched. returning.");
@@ -352,8 +379,8 @@ namespace adrilight
 
                 double percent = ((levelLeft + levelRight) / 2) / 16384;
                 height = (int)(percent * numLED);
-
-                foreach (var brightness in brightnessMap.Take(height))
+                int finalheight = (height * 4 + lastheight * 4 + 7) / 8;
+                foreach (var brightness in brightnessMap.Take(finalheight))
                 {
 
                     brightnessMap[counter++] = maxbrightness / 255.0;
@@ -361,46 +388,49 @@ namespace adrilight
                 }
 
 
-                for (int i = height; i < numLED; i++)
+                for (int i = finalheight; i < numLED; i++)
                 {
 
                     brightnessMap[counter++] = 0;
 
                 }
-
+                lastheight = finalheight;
             }
             else if (musicMode == 2)// End to End
             {
                 double percent = ((levelLeft + levelRight) / 2) / 16384;
                 height = (int)(percent * numLED);
-
+                height = (int)(percent * numLED);
+                int finalheight = (height * 4 + lastheight * 4 + 7) / 8;
                 for (int i = 0; i < numLED / 2; i++)
                 {
-                    if (i <= height / 2)
+                    if (i <= finalheight / 2)
                         brightnessMap[i] = maxbrightness / 255.0;
                     else
                         brightnessMap[i] = 0.0;
 
                 }
-
+                
 
                 for (int i = numLED / 2; i < numLED; i++)
                 {
-                    if (numLED - i <= height / 2)
+                    if (numLED - i <= finalheight / 2)
                         brightnessMap[i] = maxbrightness / 255.0;
                     else
                         brightnessMap[i] = 0.0;
 
                 }
+                lastheight = finalheight;
             }
             else if (musicMode == 3)//Push Pull
             {
                 double percent = ((levelLeft + levelRight) / 2) / 16384;
                 height = (int)(percent * numLED);
-
+                height = (int)(percent * numLED);
+                int finalheight = (height * 4 + lastheight * 4 + 7) / 8;
                 for (int i = 0; i < numLED / 2; i++)
                 {
-                    if (i <= height / 2)
+                    if (i <= finalheight / 2)
                         brightnessMap[i] = maxbrightness / 255.0;
                     else
                         brightnessMap[i] = 0.0;
@@ -410,12 +440,13 @@ namespace adrilight
 
                 for (int i = numLED / 2; i < numLED; i++)
                 {
-                    if (numLED - i >= height / 2)
+                    if (numLED - i >= finalheight / 2)
                         brightnessMap[i] = maxbrightness / 255.0;
                     else
                         brightnessMap[i] = 0.0;
 
                 }
+                lastheight = finalheight;
             }
             else if (musicMode == 4)//Symetric VU
             {
@@ -628,11 +659,153 @@ namespace adrilight
 
 
 
+        private static Color GetColorByOffset(GradientStopCollection collection, double position)
+        {
+            double offset = position / 1000.0;
+            GradientStop[] stops = collection.OrderBy(x => x.Offset).ToArray();
+            if (offset <= 0) return stops[0].Color;
+            if (offset >= 1) return stops[stops.Length - 1].Color;
+            GradientStop left = stops[0], right = null;
+            foreach (GradientStop stop in stops)
+            {
+                if (stop.Offset >= offset)
+                {
+                    right = stop;
+                    break;
+                }
+                left = stop;
+            }
+            Debug.Assert(right != null);
+            offset = Math.Round((offset - left.Offset) / (right.Offset - left.Offset), 2);
+
+            byte r = (byte)((right.Color.R - left.Color.R) * offset + left.Color.R);
+            byte g = (byte)((right.Color.G - left.Color.G) * offset + left.Color.G);
+            byte b = (byte)((right.Color.B - left.Color.B) * offset + left.Color.B);
+            return Color.FromRgb(r, g, b);
+        }
+        public GradientStopCollection GradientPaletteColor(Color[] ColorCollection)
+        {
+            GetCustomColor();
+            GradientStopCollection gradientPalette = new GradientStopCollection(16);
+            gradientPalette.Add(new GradientStop(ColorCollection[0], 0.00));
+            gradientPalette.Add(new GradientStop(ColorCollection[1], 0.066));
+            gradientPalette.Add(new GradientStop(ColorCollection[2], 0.133));
+            gradientPalette.Add(new GradientStop(ColorCollection[3], 0.199));
+            gradientPalette.Add(new GradientStop(ColorCollection[4], 0.265));
+            gradientPalette.Add(new GradientStop(ColorCollection[5], 0.331));
+            gradientPalette.Add(new GradientStop(ColorCollection[6], 0.397));
+            gradientPalette.Add(new GradientStop(ColorCollection[7], 0.464));
+            gradientPalette.Add(new GradientStop(ColorCollection[8], 0.529));
+            gradientPalette.Add(new GradientStop(ColorCollection[9], 0.595));
+            gradientPalette.Add(new GradientStop(ColorCollection[10], 0.661));
+            gradientPalette.Add(new GradientStop(ColorCollection[11], 0.727));
+            gradientPalette.Add(new GradientStop(ColorCollection[12], 0.793));
+            gradientPalette.Add(new GradientStop(ColorCollection[13], 0.859));
+            gradientPalette.Add(new GradientStop(ColorCollection[14], 0.925));
+            gradientPalette.Add(new GradientStop(ColorCollection[15], 1));
+            //gradientPalette.Add(new GradientStop(ColorCollection[0], 1));
+            //gradientPalette.Add(new GradientStop(ColorCollection[0], 0.0000));
+            //gradientPalette.Add(new GradientStop(ColorCollection[1], 0.0625));
+            //gradientPalette.Add(new GradientStop(ColorCollection[2], 0.1250));
+            //gradientPalette.Add(new GradientStop(ColorCollection[3], 0.1875));
+            //gradientPalette.Add(new GradientStop(ColorCollection[4], 0.2500));
+            //gradientPalette.Add(new GradientStop(ColorCollection[5], 0.3125));
+            //gradientPalette.Add(new GradientStop(ColorCollection[6], 0.3750));
+            //gradientPalette.Add(new GradientStop(ColorCollection[7], 0.4375));
+            //gradientPalette.Add(new GradientStop(ColorCollection[8], 0.5000));
+            //gradientPalette.Add(new GradientStop(ColorCollection[9], 0.5625));
+            //gradientPalette.Add(new GradientStop(ColorCollection[10], 0.6250));
+            //gradientPalette.Add(new GradientStop(ColorCollection[11], 0.6875));
+            //gradientPalette.Add(new GradientStop(ColorCollection[12], 0.7500));
+            //gradientPalette.Add(new GradientStop(ColorCollection[13], 0.8125));
+            //gradientPalette.Add(new GradientStop(ColorCollection[14], 0.8750));
+            //gradientPalette.Add(new GradientStop(ColorCollection[15], 0.9375));
+            //gradientPalette.Add(new GradientStop(ColorCollection[0], 1.000));
+            return gradientPalette;
+        }
 
 
+        //Custom color by color picker value
+        public Color[] custom = new Color[16];
+        public void GetCustomColor()
+        {
+            custom[0] = UserSettings.Color0;
+            custom[1] = UserSettings.Color1;
+            custom[2] = UserSettings.Color2;
+            custom[3] = UserSettings.Color3;
+            custom[4] = UserSettings.Color4;
+            custom[5] = UserSettings.Color5;
+            custom[6] = UserSettings.Color6;
+            custom[7] = UserSettings.Color7;
+            custom[8] = UserSettings.Color8;
+            custom[9] = UserSettings.Color9;
+            custom[10] = UserSettings.Color10;
+            custom[11] = UserSettings.Color11;
+            custom[12] = UserSettings.Color12;
+            custom[13] = UserSettings.Color13;
+            custom[14] = UserSettings.Color14;
+            custom[15] = UserSettings.Color15;
 
 
+        }
 
+        public static Color[] cafe = {
+             Color.FromRgb (253,237,204),
+              Color.FromRgb (253,237,204),
+             Color.FromRgb (246,172,51),
+             Color.FromRgb (246,172,51),
+             Color.FromRgb (67,168,150),
+             Color.FromRgb (67,168,150),
+             Color.FromRgb (253,237,204),
+             Color.FromRgb (253,237,204),
+             Color.FromRgb (253,237,204),
+             Color.FromRgb (253,237,204),
+             Color.FromRgb (67,168,150),
+             Color.FromRgb (67,168,150),
+             Color.FromRgb (246,172,51),
+             Color.FromRgb (246,172,51),
+             Color.FromRgb (253,237,204),
+              Color.FromRgb (253,237,204)
+
+    };
+        public static Color[] jazz = {
+             Color.FromRgb (227,74,39),
+             Color.FromRgb (227,74,39),
+             Color.FromRgb (254,166,85),
+            Color.FromRgb (254,166,85),
+             Color.FromRgb (86,99,87),
+             Color.FromRgb (86,99,87),
+             Color.FromRgb (144,148,115),
+             Color.FromRgb (144,148,115),
+             Color.FromRgb (255,217,142),
+              Color.FromRgb (255,217,142),
+              Color.FromRgb (86,99,87),
+             Color.FromRgb (86,99,87),
+             Color.FromRgb (254,166,85),
+             Color.FromRgb (254,166,85),
+             Color.FromRgb (227,74,39),
+             Color.FromRgb (227,74,39)
+
+    };
+        public static Color[] party = {
+             Color.FromRgb (73,145,1),
+             Color.FromRgb (250,186,3),
+             Color.FromRgb (52,195,203),
+            Color.FromRgb (0,237,1),
+             Color.FromRgb (251,50,164),
+             Color.FromRgb (209,2,172),
+             Color.FromRgb (255,1,100),
+             Color.FromRgb (253,166,53),
+             Color.FromRgb (5,96,140),
+              Color.FromRgb (76,148,4),
+              Color.FromRgb (228,0,77),
+             Color.FromRgb (0,217,2),
+             Color.FromRgb (205,2,154),
+             Color.FromRgb (253,190,14),
+             Color.FromRgb (233,157,73),
+             Color.FromRgb (73,145,1)
+
+    };
 
 
     }

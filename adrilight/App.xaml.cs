@@ -201,6 +201,7 @@ namespace adrilight
                 kernel.Bind<IRainbow>().To<Rainbow>().InSingletonScope();
                 kernel.Bind<IMusic>().To<Music>().InSingletonScope();
                 kernel.Bind<IAtmosphere>().To<Atmosphere>().InSingletonScope();
+                kernel.Bind<IGifxelation>().To<Gifxelation>().InSingletonScope();
             }
             kernel.Bind<SettingsViewModel>().ToSelf().InSingletonScope();
             kernel.Bind<TelemetryClient>().ToConstant(SetupApplicationInsights(kernel.Get<IUserSettings>()));
@@ -216,6 +217,7 @@ namespace adrilight
             var rainbow = kernel.Get<IRainbow>();
             var music = kernel.Get<IMusic>();
             var atmosphere= kernel.Get<IAtmosphere>();
+            var gifxelation = kernel.Get<IGifxelation>();
 
             return kernel;
         }

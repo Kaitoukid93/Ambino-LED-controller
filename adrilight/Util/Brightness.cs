@@ -24,10 +24,12 @@ namespace adrilight.Util
                 //now we can turn this color to HSV
                 var hue = inputColor.ToHsv().h;
                 var saturation = inputColor.ToHsv().s;
+                var value = inputColor.ToHsv().v;
             //apply brightness value
             if (brightness > 1.0)
                 brightness = 1.0;
-                var returnColor = OpenRGB.NET.Models.Color.FromHsv(hue, saturation, brightness);
+            var percent = brightness / 1.0;
+                var returnColor = OpenRGB.NET.Models.Color.FromHsv(hue, saturation, value*percent);
 
 
             return returnColor;

@@ -37,7 +37,8 @@ namespace adrilight.ViewModel
         private static ILogger _log = LogManager.GetCurrentClassLogger();
         public ObservableCollection<string> Effects { get; private set; }
         public ObservableCollection<string> AvailablePalette { get; private set; }
-        
+        public ObservableCollection<string> AvailableFrequency { get; private set; }
+        public ObservableCollection<string> AvailableMusicPalette { get; private set; }
 
 
         private static int _gifFrameIndex = 0;
@@ -75,17 +76,44 @@ namespace adrilight.ViewModel
            "Sáng theo dải màu",
            "Sáng màu tĩnh",
            "Sáng theo nhạc",
-           "Atmosphere"
+           "Atmosphere",
+           "Gifxelation"
 
         };
 
             AvailablePalette = new ObservableCollection<string>
       {
            "Rainbow",
-           "Party",
            "Cloud",
            "Forest",
-           "Larva"
+           "Sunset",
+           "Scarlet",
+           "Aurora",
+           "France",
+           "Lemon",
+           "Badtrip",
+           "Police",
+           "Ice and Fire",
+           "Custom"
+
+        };
+            AvailableMusicPalette = new ObservableCollection<string>
+ {
+           "Rainbow",
+           "Cafe",
+           "Jazz",
+           "Party",
+           "Custom"
+
+
+        };
+            AvailableFrequency = new ObservableCollection<string>
+{
+           "1",
+           "2",
+           "3",
+           "4"
+         
 
         };
 

@@ -13,6 +13,7 @@ using adrilight.ViewModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using adrilight.Resources;
+using adrilight.Util;
 
 namespace adrilight
 {
@@ -45,6 +46,7 @@ namespace adrilight
                 case nameof(UserSettings.TransferActive):
                 case nameof(UserSettings.IsPreviewEnabled):
                 case nameof(UserSettings.CaptureActive):
+                
                 case nameof(SettingsViewModel.IsSettingsWindowOpen):
                 
                
@@ -179,7 +181,7 @@ namespace adrilight
                     var frameTime = Stopwatch.StartNew();
                     var newImage = _retryPolicy.Execute(() => GetNextFrame(image));
                     TraceFrameDetails(newImage);
-              
+                    var brightness = UserSettings.Brightness/100d;
 
                     if (newImage == null )
                     {
@@ -226,8 +228,9 @@ namespace adrilight
                                     ApplyColorCorrections(sumR * countInverse, sumG * countInverse, sumB * countInverse
                                         , out byte finalR, out byte finalG, out byte finalB, useLinearLighting
                                         , UserSettings.SaturationTreshold, spot.Red, spot.Green, spot.Blue);
-
-                                    spot.SetColor(finalR, finalG, finalB, isPreviewRunning);
+                                    var spotColor = new OpenRGB.NET.Models.Color(finalR,finalG,finalB);
+                                    var finalSpotColor= Brightness.applyBrightness(spotColor, brightness);
+                                    spot.SetColor(finalSpotColor.R, finalSpotColor.G, finalSpotColor.B, isPreviewRunning);
 
                                 });
                         }

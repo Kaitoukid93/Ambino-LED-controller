@@ -304,18 +304,18 @@ namespace adrilight
 
 
                         
-                            if (LedOutsideCase.DFUVal == 1)
-                            {
-                                serialPort?.Close();
-                                serialPort = (ISerialPortWrapper)new WrappedSerialPort(new SerialPort(UserSettings.ComPort, 1200));
-                                serialPort.Open();
-                                serialPort.Close();
+                            //if (LedOutsideCase.DFUVal == 1)
+                            //{
+                            //    serialPort?.Close();
+                            //    serialPort = (ISerialPortWrapper)new WrappedSerialPort(new SerialPort(UserSettings.ComPort, 1200));
+                            //    serialPort.Open();
+                            //    serialPort.Close();
 
-                            }
-                             else
-                            {
+                            //}
+                            // else
+                            //{
                             serialPort.Write(outputBuffer, 0, streamLength);
-                            }
+                            //}
                             
 
                         

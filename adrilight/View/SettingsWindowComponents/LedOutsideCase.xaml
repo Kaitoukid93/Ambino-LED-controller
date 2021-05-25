@@ -423,13 +423,18 @@
 
 
                         <Grid x:Name="screensetup1"  Margin="231,92,67,49" Grid.Row="1" Grid.RowSpan="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="35*"/>
+                                <ColumnDefinition Width="45*"/>
+                                <ColumnDefinition Width="26*"/>
+                            </Grid.ColumnDefinitions>
                             <ComboBox
                                 x:Name="screenbox1"
                                 SelectedIndex="{Binding Settings.SelectedMusicMode}"
                                 materialDesign:HintAssist.Hint="Chọn cỡ màn hình"
                                 IsEditable="False"
                                 materialDesign:HintAssist.HintOpacity=".26" Height="27" Margin="0,-26,0,150" 
-                                SelectionChanged="Screenbox_SelectionChanged" RenderTransformOrigin="0.478,0.792" >
+                                SelectionChanged="Screenbox_SelectionChanged" RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="3" >
                                 <Label Content="Equalizer"/>
                                 <Label Content="VU metter"/>
                                 <Label Content="End to End"/>
@@ -441,15 +446,9 @@
 
                             </ComboBox>
                             <TextBox x:Name="width1"
-                                MinWidth="10" Margin="69,41,7,86"
+                                MinWidth="10" Margin="34,41,7,86"
                                 DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
-                                Text="{Binding Settings.SpotsX, UpdateSourceTrigger=PropertyChanged}" />
-                            <TextBox x:Name="height1" MinWidth="10"
-                                DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
-                                Margin="69,0,6,26"
-                                VerticalAlignment="Bottom"
-                                Text="{Binding Settings.SpotsY, UpdateSourceTrigger=PropertyChanged}" 
-                                RenderTransformOrigin="-0.027,1.271" Height="24" />
+                                Text="{Binding Settings.SpotsX, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2" Grid.Column="1" />
 
                         </Grid>
 
@@ -473,12 +472,12 @@
 
                             </Grid.RowDefinitions>
 
-                            <TextBlock Foreground="#FF6C6C6C" Margin="2,26,40,8" Grid.Row="2"><Run Text="Độ nhạy"/></TextBlock>
+                            <TextBlock Foreground="#FF6C6C6C" Margin="2,26,147,8" Grid.Row="2"><Run Text="Độ nhạy"/></TextBlock>
 
-                            <TextBlock Foreground="#FF6C6C6C" Margin="2,32,77,2" Grid.Row="3"><Run Text="Giới hạn độ sáng"/></TextBlock>
+                            <TextBlock Foreground="#FF6C6C6C" Margin="2,32,97,2" Grid.Row="3"><Run Text="Màu sắc"/></TextBlock>
 
-                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,15,76,19" Foreground="#FF6C6C6C"
-                                Height="18" Text="Style nháy theo nhạc" Grid.Row="1"/>
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,15,0,19" Foreground="#FF6C6C6C"
+                                Height="18" Text="Style nháy theo nhạc" Grid.Row="1" HorizontalAlignment="Left" Width="131"/>
                             <ComboBox ItemsSource="{Binding AvailableAudioDevice}"
                              SelectedIndex="{Binding Settings.SelectedAudioDevice}"                                  
                                 x:Name="screenSelect1"
@@ -488,6 +487,13 @@
                                 RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="2" BorderBrush="#89000000" />
                             <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,8,76,27" Foreground="#FF6C6C6C"
                                 Height="18" Text="Chọn Audio Device"/>
+                            <ComboBox ItemsSource="{Binding AvailableMusicPalette}"
+                                SelectedIndex="{Binding Settings.SelectedMusicPalette}"                                  
+                                x:Name="screenSelect1_Copy"
+                                materialDesign:HintAssist.Hint="Capture Source"
+                                IsEditable="False"
+                                materialDesign:HintAssist.HintOpacity=".26" Height="26" Margin="200,27,-44,-1" 
+                                RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="2" BorderBrush="#89000000" Grid.Row="3" />
 
                         </Grid>
                         <TextBlock x:Name="txtDoChia_Copy2"
@@ -731,31 +737,7 @@
 
 
 
-                        <Grid x:Name="screensetup4"  Margin="231,92,67,49" Grid.Row="1" Grid.RowSpan="3">
-                            <ComboBox
-                                x:Name="screenbox2"
-                                SelectedIndex="{Binding Settings.SelectedMusicMode}"
-                                materialDesign:HintAssist.Hint="Chọn cỡ màn hình"
-                                IsEditable="False"
-                                materialDesign:HintAssist.HintOpacity=".26" Height="27" Margin="0,-26,0,150" 
-                                SelectionChanged="Screenbox_SelectionChanged" RenderTransformOrigin="0.478,0.792" >
-                                <Label Content="Equalizer"/>
-                                <Label Content="VU metter"/>
-                                <Label Content="Symetric VU"/>
-
-                            </ComboBox>
-                            <TextBox x:Name="width4"
-                                MinWidth="10" Margin="69,41,7,86"
-                                DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
-                                Text="{Binding Settings.SpotsX, UpdateSourceTrigger=PropertyChanged}" />
-                            <TextBox x:Name="height4" MinWidth="10"
-                                DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
-                                Margin="69,0,6,26"
-                                VerticalAlignment="Bottom"
-                                Text="{Binding Settings.SpotsY, UpdateSourceTrigger=PropertyChanged}" 
-                                RenderTransformOrigin="-0.027,1.271" Height="24" />
-
-                        </Grid>
+                        <Grid x:Name="screensetup4"  Margin="231,92,67,49" Grid.Row="1" Grid.RowSpan="3"/>
 
                         <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
                             Height="40" VerticalAlignment="Top" Width="39" Grid.Row="0"
@@ -777,23 +759,41 @@
 
                             </Grid.RowDefinitions>
 
-                            <TextBlock Foreground="#FF6C6C6C" Margin="2,26,40,8" Grid.Row="2"><Run Text="Tần số"/></TextBlock>
+                            <TextBlock Foreground="#FF6C6C6C" Margin="2,26,162,8" Grid.Row="2"><Run Text="Tần số"/></TextBlock>
 
                             <TextBlock Foreground="#FF6C6C6C" Margin="2,32,77,2" Grid.Row="3"><Run Text="Kiểu chạy"/></TextBlock>
 
-                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,15,76,19" Foreground="#FF6C6C6C"
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,15,106,19" Foreground="#FF6C6C6C"
                                 Height="18" Text="Tốc độ hiệu ứng" Grid.Row="1"/>
                             <ComboBox ItemsSource="{Binding AvailablePalette}"
                                 SelectedIndex="{Binding Settings.SelectedPalette}"
                                      
 
-                                x:Name="screenSelect2"
-                                materialDesign:HintAssist.Hint="Capture Source"
+                                x:Name="PaletteSource"
+                                materialDesign:HintAssist.Hint="PaletteSource"
                                 IsEditable="False"
                                 materialDesign:HintAssist.HintOpacity=".26" Height="26" Margin="201,1,-45,26" 
                                 RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="2" BorderBrush="#89000000" />
                             <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,8,35,27" Foreground="#FF6C6C6C"
                                 Height="18" Text="Chọn dải màu(palette source)"/>
+                            <ComboBox ItemsSource="{Binding AvailablePalette}"
+                                SelectedIndex="{Binding Settings.SelectedPalette}"
+                                     
+
+                                x:Name="PaletteSource_Copy"
+                                materialDesign:HintAssist.Hint="Frequency"
+                                IsEditable="False"
+                                materialDesign:HintAssist.HintOpacity=".26" Height="26" Margin="204,22,-48,4" 
+                                RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="2" BorderBrush="#89000000" Grid.Row="3" />
+                            <ComboBox ItemsSource="{Binding AvailableFrequency}"
+                                SelectedIndex="{Binding Settings.ColorFrequency}"
+                                     
+
+                                x:Name="PaletteSource_Copy1"
+                                materialDesign:HintAssist.Hint="PaletteSource"
+                                IsEditable="False"
+                                materialDesign:HintAssist.HintOpacity=".26" Height="26" Margin="202,22,-44,4" 
+                                RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="2" BorderBrush="#89000000" Grid.Row="2" />
 
                         </Grid>
                         <TextBlock x:Name="txtDoChia_Copy5"
@@ -805,6 +805,23 @@
                             Height="32" VerticalAlignment="Top" Width="31"
                             Margin="28,31,0,0"
                             Source="/adrilight;component/View/Images/new theme/lighting setup@2x.png" Grid.Row="3"/>
+                        <Slider
+                            Grid.Row="1" Margin="231,75,67,25"
+                            Minimum="0" 
+                            Maximum="10"  ToolTip="Độ sáng của các thiết bị bên trong case"
+                            
+                            x:Name="BrightnessSlider_Copy2"
+                            Value="{Binding Settings.EffectSpeed}" Visibility="Visible"
+                            RenderTransformOrigin="0.066,0.839" Foreground="#FF7344C3" >
+                            <Slider.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform AngleX="-0.299"/>
+                                    <RotateTransform/>
+                                    <TranslateTransform X="-0.131"/>
+                                </TransformGroup>
+                            </Slider.RenderTransform>
+                        </Slider>
 
 
                     </Grid>
@@ -823,7 +840,24 @@
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
+                    <Image Grid.Column="1"  RenderOptions.BitmapScalingMode="NearestNeighbor"  Source="{Binding Path=ContentBitmap, Mode=OneWay}" Margin="54,157,38,0" RenderTransformOrigin="-256.208,0.467">
+                       
+                    </Image>
                     <StackPanel Orientation="Horizontal" Margin="0,45,214,254" Grid.ColumnSpan="2">
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Setter Property="IsEnabled" Value="False" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=EffectSelection, Path=SelectedItem}"    Value="Sáng theo dải màu">
+                                        <Setter Property="Visibility"  Value="Visible"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ElementName=PaletteSource, Path=SelectedItem}"    Value="Custom">
+                                        <Setter Property="IsEnabled"  Value="True"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
                         <xctk:ColorPicker SelectedColor="{Binding Settings.Color0}" ColorMode="ColorCanvas" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
@@ -873,7 +907,7 @@
 
                         </xctk:ColorPicker>
                     </StackPanel>
-                    
+
                     <materialDesign:Card Padding="10,10" UniformCornerRadius="4" materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="24,114,60,24" x:Name="Projector">
                         <Viewbox Grid.Column="0" Margin="7,4,8,-38" Width="322" Height="225" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.ColumnSpan="2">
                             <Canvas Width="325" Height="186" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -1118,7 +1152,7 @@
                             <TextBlock
       Text="Apply" />
                         </Button>
-                        <materialDesign:Chip Margin="-149,81,228,-57" x:Name="gifchip" MaxWidth="290" Click="gifchip_Click" Height="Auto" HorizontalAlignment="Stretch" >
+                        <materialDesign:Chip Margin="-149,81,228,-57" x:Name="gifchip" MaxWidth="290"  Height="Auto" HorizontalAlignment="Stretch" >
                             <Binding Path="Settings.gifchip" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
