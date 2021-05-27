@@ -126,6 +126,20 @@ namespace adrilight.DesktopDuplication
                 {
                     return false;
                 }
+                if(ex.ResultCode.Code == SharpDX.DXGI.ResultCode.AccessLost.Result.Code)
+                {
+                   // ReleaseFrame();
+                    throw new Exception("Access Lost, resolution might be changed");
+
+                    
+                }
+                if (ex.ResultCode.Code == SharpDX.DXGI.ResultCode.InvalidCall.Result.Code)
+                {
+                  // ReleaseFrame();
+                    throw new Exception("Invalid call, might be retrying");
+
+
+                }
 
                 throw new DesktopDuplicationException("Failed to acquire next frame.", ex);
             }
@@ -178,19 +192,21 @@ namespace adrilight.DesktopDuplication
             Bitmap image;
             var width = _outputDescription.DesktopBounds.GetWidth() / scalingFactor;
             var height = _outputDescription.DesktopBounds.GetHeight() / scalingFactor;
+            
 
-            if (reusableImage != null && reusableImage.Width == width && reusableImage.Height == height)
-            {
-                image = reusableImage;
-            }
-            else
-            {
+            //if (reusableImage != null && reusableImage.Width == width && reusableImage.Height == height)
+            //{
+            //    image = reusableImage;
+            //}
+            //else
+            //{
                 image = new Bitmap(width, height, PixelFormat.Format32bppRgb);
-            }
+            //}
 
             var boundsRect = new System.Drawing.Rectangle(0, 0, width, height);
 
             // Copy pixels from screen capture Texture to GDI bitmap
+
             var mapDest = image.LockBits(boundsRect, ImageLockMode.WriteOnly, image.PixelFormat);
             var sourcePtr = mapSource.DataPointer;
             var destPtr = mapDest.Scan0;
@@ -217,6 +233,7 @@ namespace adrilight.DesktopDuplication
             // Release source and dest locks
             image.UnlockBits(mapDest);
             _device.ImmediateContext.UnmapSubresource(_stagingTexture, 0);
+         
             return image;
         }
 
@@ -232,6 +249,20 @@ namespace adrilight.DesktopDuplication
             _outputDuplication?.Dispose();
             _device?.Dispose();
             _desktopFrameLogger?.Dispose();
+        }
+        private void ReleaseFrame()
+        {
+            try
+            {
+                _outputDuplication.ReleaseFrame();
+            }
+            catch (SharpDXException ex)
+            {
+                if (ex.ResultCode.Failure)
+                {
+                    throw new DesktopDuplicationException("Failed to release frame.");
+                }
+            }
         }
     }
 }

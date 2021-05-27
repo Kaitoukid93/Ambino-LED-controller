@@ -23,7 +23,7 @@ namespace adrilight.Util
 
         private readonly NLog.ILogger _log = LogManager.GetCurrentClassLogger();
 
-        private static int _gifFrameIndex = 0;
+         
         private static WriteableBitmap MatrixBitmap { get; set; }
         public Gifxelation(IUserSettings userSettings, ISpotSet spotSet, SettingsViewModel settingsViewModel)
         {
@@ -41,7 +41,11 @@ namespace adrilight.Util
 
             ImageProcesser.DisposeGif();
             ImageProcesser.DisposeStill();
-            ImageProcesser.LoadGifFromResource();
+            if(!ImageProcesser.LoadGifFromDisk(UserSettings.GifFilePath))
+            {
+                ImageProcesser.LoadGifFromResource();
+            }
+            
 
 
 
@@ -73,6 +77,7 @@ namespace adrilight.Util
                 case nameof(UserSettings.TransferActive):
                 case nameof(UserSettings.StaticColor):
                 case nameof(UserSettings.SelectedEffect):
+                case nameof(UserSettings.GifFilePath):
                     RefreshColorState();
                     break;
 
@@ -97,7 +102,23 @@ namespace adrilight.Util
 
             else if (!isRunning && shouldBeRunning)
             {
+                
                 //start it
+                _log.Debug("starting the StaticColor");
+                _cancellationTokenSource = new CancellationTokenSource();
+                var thread = new Thread(() => Run(_cancellationTokenSource.Token)) {
+                    IsBackground = true,
+                    Priority = ThreadPriority.BelowNormal,
+                    Name = "StaticColorCreator"
+                };
+                thread.Start();
+            }
+            else if (isRunning && shouldBeRunning)//refresh called
+            {
+                ImageProcesser.DisposeWorkingBitmap();
+                ImageProcesser.DisposeGif();
+                //start it
+               IsRunning = false;
                 _log.Debug("starting the StaticColor");
                 _cancellationTokenSource = new CancellationTokenSource();
                 var thread = new Thread(() => Run(_cancellationTokenSource.Token)) {
@@ -122,6 +143,7 @@ namespace adrilight.Util
 
 
             MatrixBitmap = new WriteableBitmap(MatrixFrame.Width, MatrixFrame.Height, 96, 96, PixelFormats.Bgr32, null);
+            
 
             try
             {
@@ -129,7 +151,7 @@ namespace adrilight.Util
                 //  BitmapData bitmapData2 = new BitmapData();
                 //  int colorcount = 0;
 
-
+                int _gifFrameIndex = 0;
                 while (!token.IsCancellationRequested)
                 {
                     //var numLED = (UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2;
@@ -141,10 +163,10 @@ namespace adrilight.Util
                     //bool isBreathing = UserSettings.Breathing;
                     lock (SpotSet.Lock)
                     {
-                        ImageProcesser.DisposeWorkingBitmap();
-
                         
-                            if (_gifFrameIndex >= ImageProcesser.LoadedGifFrameCount - 1)
+                        
+
+                        if (_gifFrameIndex >= ImageProcesser.LoadedGifFrameCount - 1)
                                 _gifFrameIndex = 0;
                             else
                                 _gifFrameIndex++;
@@ -206,6 +228,7 @@ namespace adrilight.Util
 
                             SettingsViewModel.PreviewGif = SpotSet.Spots2;
                         }
+                       
                         Thread.Sleep(33);
                     }
 
@@ -252,7 +275,8 @@ namespace adrilight.Util
             finally
             {
 
-
+                ImageProcesser.DisposeWorkingBitmap();
+                ImageProcesser.DisposeGif();
                 _log.Debug("Stopped Static Color Creator.");
                 IsRunning = false;
             }

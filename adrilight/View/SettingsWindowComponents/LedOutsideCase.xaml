@@ -90,7 +90,7 @@
 							Margin="0,0,106,10" HorizontalAlignment="Right" Padding="0" Width="85" 
 							VerticalAlignment="Center" FontSize="15" Grid.ColumnSpan="2" FontWeight="Bold" Height="20"><Run Text="Kết nối USB"/></TextBlock>
 
-
+                        <Button Grid.Column="2" Margin="6,5,11,8" Grid.Row="2" Click="Button_Click_1"/>
 
                         <ComboBox Grid.Row="1"
 						x:Name="comportbox" Visibility="Visible"
@@ -834,7 +834,7 @@
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <Canvas Grid.Column="1" Margin="43,134,44,26">
+                    <Canvas  Grid.Column="1" Margin="25,125,44,26">
                         <Canvas.Style>
                             <Style TargetType="Canvas">
                                 <Setter Property="Visibility" Value="Collapsed" />
@@ -880,6 +880,7 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </Canvas>
+                    <Image Visibility="Collapsed" Source="{Binding PreviewImageSource}" Margin="1,0,2,0" Grid.Column="1"/>
                     <StackPanel Orientation="Horizontal" Margin="0,45,214,254" Grid.ColumnSpan="2">
                         <StackPanel.Style>
                             <Style TargetType="StackPanel">
@@ -895,52 +896,52 @@
                                 </Style.Triggers>
                             </Style>
                         </StackPanel.Style>
-                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color0}" ColorMode="ColorCanvas" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker x:Name="color0" SelectedColor="{Binding Settings.Color0}" ColorMode="ColorCanvas" ShowDropDownButton="False" Margin="5,5,0,19" Width="27" >
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color1}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker x:Name="color1" SelectedColor="{Binding Settings.Color1}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color2}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker  x:Name="color2" SelectedColor="{Binding Settings.Color2}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color3}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker x:Name="color3" SelectedColor="{Binding Settings.Color3}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color4}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker x:Name="color4" SelectedColor="{Binding Settings.Color4}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color5}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker x:Name="color5" SelectedColor="{Binding Settings.Color5}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color6}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker x:Name="color6" SelectedColor="{Binding Settings.Color6}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color7}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker x:Name="color7" SelectedColor="{Binding Settings.Color7}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color8}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker x:Name="color8" SelectedColor="{Binding Settings.Color8}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color9}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker x:Name="color9" SelectedColor="{Binding Settings.Color9}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color10}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker x:Name="color10" SelectedColor="{Binding Settings.Color10}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color11}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker x:Name="color11" SelectedColor="{Binding Settings.Color11}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color12}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker x:Name="color12" SelectedColor="{Binding Settings.Color12}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color13}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker x:Name="color13" SelectedColor="{Binding Settings.Color13}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color14}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker x:Name="color14" SelectedColor="{Binding Settings.Color14}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker SelectedColor="{Binding Settings.Color15}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker x:Name="color15" SelectedColor="{Binding Settings.Color15}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
                     </StackPanel>
@@ -1079,14 +1080,20 @@
                         <TextBlock  FontWeight="Medium" Foreground="#FFF9BE7B" Margin="42,142,0,0" RenderTransformOrigin="0.612,0.574" FontSize="10"><Run Text="Các tuỳ chỉnh trong mục này có thể ảnh hưởng "/><LineBreak/><Run Text="đến màu sắc hiển thị của đèn LED"/></TextBlock>
                     </Grid>
                     <materialDesign:PopupBox
-                    
-                    
-                    
-                 
-        HorizontalAlignment="Right"
-        Style="{StaticResource MaterialDesignToolForegroundPopupBox}"
+                        HorizontalAlignment="Right"
+        
         PlacementMode="LeftAndAlignTopEdges"           
         Padding="2 0 2 0" Margin="0,9,18,306" RenderTransformOrigin="0.5,0.5" Foreground="#FF6C6C6C" Grid.Column="1" >
+                        <materialDesign:PopupBox.Style>
+                            <Style TargetType="materialDesign:PopupBox" BasedOn="{StaticResource MaterialDesignToolForegroundPopupBox}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=EffectSelection, Path=SelectedItem}" Value="Sáng theo dải màu">
+                                        <Setter Property="Visibility"  Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </materialDesign:PopupBox.Style>
                         <materialDesign:PopupBox.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -1106,9 +1113,48 @@
                             <Button Margin="3,3,3,3" x:Name="btnReset" Click="resetButton_Click"
             Content="Mặc định" />
                             <Button Margin="3,3,3,3" x:Name="bt12"
-            Content="Áp dụng" IsEnabled="False"  />
+            Content="Áp dụng" IsEnabled="True" Click="bt12_Click"  />
                             <Button Margin="3,3,3,3" x:Name="bt13" 
-            Content="Lưu lại" IsEnabled="False"  />
+            Content="Lưu lại" IsEnabled="True" Click="bt13_Click"   />
+                        </StackPanel>
+
+
+                    </materialDesign:PopupBox>
+
+                    <materialDesign:PopupBox
+                        HorizontalAlignment="Right"
+        
+        PlacementMode="LeftAndAlignTopEdges"           
+        Padding="2 0 2 0" Margin="0,9,18,306" RenderTransformOrigin="0.5,0.5" Foreground="#FF6C6C6C" Grid.Column="1" >
+                        <materialDesign:PopupBox.Style>
+                            <Style TargetType="materialDesign:PopupBox" BasedOn="{StaticResource MaterialDesignToolForegroundPopupBox}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=EffectSelection, Path=SelectedItem}" Value="Gifxelation">
+                                        <Setter Property="Visibility"  Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </materialDesign:PopupBox.Style>
+                        <materialDesign:PopupBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="0"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </materialDesign:PopupBox.RenderTransform>
+
+                        <materialDesign:PopupBox.ToggleContent>
+                            <materialDesign:PackIcon Kind="DotsHorizontal" Foreground="#FF6C6C6C" Height="24" Width="24" />
+                        </materialDesign:PopupBox.ToggleContent>
+
+
+
+                        <StackPanel Orientation="Horizontal" Margin=" 3,3,3,3" >
+                            <Button Margin="3,3,3,3" x:Name="gifselect" Click="gifchip_Click"
+            Content="Chọn ảnh động" />
+
                         </StackPanel>
 
 

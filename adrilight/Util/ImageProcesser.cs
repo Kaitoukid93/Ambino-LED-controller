@@ -19,7 +19,7 @@ namespace adrilight
         public static int LoadedGifFrameCount { get; set; }
         //   public static Bitmap[] WorkingGifBitmapFrames { get; set; }
         //  public static Bitmap[] LoadedGifBitmapFrames { get; set; }
-        public static System.Drawing.Drawing2D.InterpolationMode InterpMode { get; set; } = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+        public static System.Drawing.Drawing2D.InterpolationMode InterpMode { get; set; } = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
         public static int GifMillisconds { get; set; } = 0;
 
         public static Bitmap CropBitmap(Bitmap img, Rectangle cropArea)
@@ -61,7 +61,7 @@ namespace adrilight
                 LoadedGifImage = Image.FromFile(path);
                 LoadedGifFrameDim = new FrameDimension(LoadedGifImage.FrameDimensionsList[0]);
                 LoadedGifFrameCount = LoadedGifImage.GetFrameCount(LoadedGifFrameDim);
-
+                ImageRect = new System.Drawing.Rectangle(Convert.ToInt32(0), Convert.ToInt32(0), Convert.ToInt32(LoadedGifImage.Width), Convert.ToInt32(LoadedGifImage.Height));
                 var delayPropertyBytes = LoadedGifImage.GetPropertyItem(0x5100).Value;
 
                 int averageFrameLen = 0;

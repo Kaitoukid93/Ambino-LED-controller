@@ -34,6 +34,7 @@ using System.Runtime.InteropServices;
 using adrilight.Util;
 using OpenRGB;
 using System.Collections;
+using ColorConverter = System.Windows.Media.ColorConverter;
 
 namespace adrilight.View.SettingsWindowComponents
 {
@@ -680,76 +681,184 @@ namespace adrilight.View.SettingsWindowComponents
                     }
             }
         
-        private ImageAnimationController _controller;
+      //  private ImageAnimationController _controller;
 
-        //private void gifchip_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var settingsViewModel = DataContext as SettingsViewModel;
-
-
-
-        //    OpenFileDialog gifile = new OpenFileDialog();
-        //    gifile.Title = "Chọn file gif";
-        //    gifile.CheckFileExists = true;
-        //    gifile.CheckPathExists = true;
-        //    gifile.DefaultExt = "gif";
-        //    gifile.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
-        //    gifile.FilterIndex = 2;
-        //    gifile.ShowDialog();
-
-        //    if (!string.IsNullOrEmpty(gifile.FileName) && File.Exists(gifile.FileName))
-        //    {
-        //        var image = new BitmapImage();
-        //        image.BeginInit();
-        //        image.UriSource = new Uri(gifile.FileName);
-        //        image.EndInit();
-        //        gifimage = image;
-        //        gifilepath = gifile.FileName;
-        //        gifStreamSource = new FileStream(gifilepath, FileMode.Open, FileAccess.Read, FileShare.Read);
-        //        decoder = new GifBitmapDecoder(gifStreamSource, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
-        //        ImageBehavior.SetAnimatedSource(gifxel, image);
+        private void gifchip_Click(object sender, RoutedEventArgs e)
+        {
+            var settingsViewModel = DataContext as SettingsViewModel;
 
 
 
-        //        _controller = ImageBehavior.GetAnimationController(gifxel);
+            OpenFileDialog gifile = new OpenFileDialog();
+            gifile.Title = "Chọn file gif";
+            gifile.CheckFileExists = true;
+            gifile.CheckPathExists = true;
+            gifile.DefaultExt = "gif";
+            gifile.Filter = "Image Files(*.gif)| *.gif";
+            gifile.FilterIndex = 2;
+            gifile.ShowDialog();
 
-        //        _controller.
-        //        image.CopyPixels
+            if (!string.IsNullOrEmpty(gifile.FileName) && File.Exists(gifile.FileName))
+            {
+                var image = new BitmapImage();
+                image.BeginInit();
+                image.UriSource = new Uri(gifile.FileName);
+                image.EndInit();
+                gifimage = image;
+               var gifilepath = gifile.FileName;
+                gifStreamSource = new FileStream(gifilepath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                decoder = new GifBitmapDecoder(gifStreamSource, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+               // ImageBehavior.SetAnimatedSource(gifxel, image);
 
-        //            GifPlayPause = false;
-        //        ImageProcesser.DisposeGif();
-        //        ImageProcesser.DisposeStill();
-        //        if (ImageProcesser.LoadGifFromDisk(gifile.FileName))
-        //        {
-        //            settingsViewModel.ContentBitmap = MatrixFrame.CreateBitmapSourceFromBitmap(ImageProcesser.WorkingBitmap);
-        //            MatrixFrame.BitmapToFrame(ImageProcesser.WorkingBitmap, ImageProcesser.InterpMode);
-        //            EndX.Maximum = ImageProcesser.LoadedGifImage.Width;
-        //            startX.Maximum = ImageProcesser.LoadedGifImage.Width;
-        //            EndX.Value = ImageProcesser.LoadedGifImage.Width;
-        //            EndY.Maximum = ImageProcesser.LoadedGifImage.Height;
-        //            StartY.Maximum = ImageProcesser.LoadedGifImage.Height;
-        //            EndY.Value = ImageProcesser.LoadedGifImage.Height;
-        //            startX.Value = 0;
-        //            StartY.Value = 0;
-        //            FrameToPreview();
-        //            SerialManager.PushFrame();
-        //            ImageProcesser.ImageLoadState = ImageProcesser.LoadState.Gif;
-        //            ResetSliders();
-        //        }
-        //        else
-        //        {
-        //            System.Windows.MessageBox.Show("Cannot load image.");
-        //        }
 
-        //    }
 
-        //}
+               // _controller = ImageBehavior.GetAnimationController(gifxel);
+
+               // _controller.
+               // image.CopyPixels
+
+                   // GifPlayPause = false;
+                ImageProcesser.DisposeGif();
+                ImageProcesser.DisposeStill();
+                if (ImageProcesser.LoadGifFromDisk(gifile.FileName))
+                {
+                    settingsViewModel.GifFilePath = gifile.FileName;
+                    //FrameToPreview();
+                   // SerialManager.PushFrame();
+                    ImageProcesser.ImageLoadState = ImageProcesser.LoadState.Gif;
+                    //ResetSliders();
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("Cannot load image.");
+                }
+
+            }
+
+        }
 
         private void gifplaypausebutton_Checked(object sender, RoutedEventArgs e)
         {
             
       
         }
+        
+        private void bt12_Click(object sender, RoutedEventArgs e) // apply effect
+        {
+            OpenFileDialog filemau = new OpenFileDialog();
+            filemau.Title = "Chọn file màu";
+            filemau.CheckFileExists = true;
+            filemau.CheckPathExists = true;
+            filemau.DefaultExt = "txt";
+            filemau.Filter = "Text files (*.txt)|*.txt";
+            filemau.FilterIndex = 2;
+
+
+            filemau.ShowDialog();
+
+
+            if (!string.IsNullOrEmpty(filemau.FileName) && File.Exists(filemau.FileName))
+            {
+                
+
+                var lines = System.IO.File.ReadAllLines(filemau.FileName);
+                
+               
+                    try
+                    {
+                        
+                            
+
+                                color0.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[0]);
+                                color1.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[1]);
+                                color2.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[2]);
+                                color3.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[3]);
+                                color4.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[4]);
+                                color5.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[5]);
+                                color6.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[6]);
+                                color7.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[7]);
+                                color8.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[8]);
+                                color9.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[9]);
+                                color10.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[10]);
+                                color11.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[11]);
+                                color12.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[12]);
+                                color13.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[13]);
+                                color14.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[14]);
+                                color15.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[15]);
+                            
+                        }
+                            catch (FormatException)
+                            {
+                                MessageBox.Show("Corrupted Color File!!!");
+                            }
+                           
+
+
+
+                           // filemaubox.Text = filemau.SafeFileName;
+                        
+                    }
+
+                
+               
+
+            }
+        
+
+        private void bt13_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog FileMau = new SaveFileDialog();
+            FileMau.CreatePrompt = true;
+            FileMau.OverwritePrompt = true;
+
+            FileMau.Title = "Lưu file màu";
+            FileMau.FileName = "Ambino_Color_Palette";
+            FileMau.CheckFileExists = false;
+            FileMau.CheckPathExists = true;
+            FileMau.DefaultExt = "txt";
+            FileMau.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            FileMau.InitialDirectory =
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            FileMau.RestoreDirectory = true;
+            string[] colorData =
+                {
+                color0.SelectedColorText.ToString(),
+                color1.SelectedColorText.ToString(),
+                color2.SelectedColorText.ToString(),
+                color3.SelectedColorText.ToString(),
+                color4.SelectedColorText.ToString(),
+                color5.SelectedColorText.ToString(),
+                color6.SelectedColorText.ToString(),
+                color7.SelectedColorText.ToString(),
+                color8.SelectedColorText.ToString(),
+                color9.SelectedColorText.ToString(),
+                color10.SelectedColorText.ToString(),
+                color11.SelectedColorText.ToString(),
+                color12.SelectedColorText.ToString(),
+                color13.SelectedColorText.ToString(),
+                color14.SelectedColorText.ToString(),
+                color15.SelectedColorText.ToString(),
+
+            };
+            if (FileMau.ShowDialog() == true)
+            {
+
+                System.IO.File.WriteAllLines(FileMau.FileName, colorData);
+
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)// snapshot button for sleep mode
+        {
+            var settingsViewModel = DataContext as SettingsViewModel;
+            settingsViewModel.SnapShot();
+
+        }
+
+
+
+
+
 
         //private void OnMatrixDimensionsChanged()
         //{
@@ -757,7 +866,7 @@ namespace adrilight.View.SettingsWindowComponents
 
         //    MatrixImage.Source = MatrixBitmap;
 
-        
+
         //}
         //private void OnFrameChanged()
         //{

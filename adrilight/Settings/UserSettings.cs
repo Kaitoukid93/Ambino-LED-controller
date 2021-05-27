@@ -20,7 +20,7 @@ namespace adrilight
         private int _borderDistanceX = 0;
         private int _borderDistanceY = 100;
         private string _comPort = "Không có";
-        
+        private string _gifFilePath = "";
 
 
         private DateTime? _lastUpdateCheck=DateTime.UtcNow;
@@ -56,7 +56,7 @@ namespace adrilight
 
         private bool _comportOpen = true;
         private byte _selectedPalette = 0;
-
+        private byte[] _snapShot = new byte[256];
 
         private bool _useLinearLighting = true;
         private byte _whitebalanceRed = 100;
@@ -134,9 +134,10 @@ namespace adrilight
         public int BorderDistanceX { get => _borderDistanceX; set { Set(() => BorderDistanceX, ref _borderDistanceX, value); } }
         public int BorderDistanceY { get => _borderDistanceY; set { Set(() => BorderDistanceY, ref _borderDistanceY, value); } }
         public string ComPort { get => _comPort; set { Set(() => ComPort, ref _comPort, value); } }
+        public string GifFilePath { get => _gifFilePath; set { Set(() => GifFilePath, ref _gifFilePath, value); } }
 
         //public string ComPort4 { get => _comPort4; set { Set(() => ComPort4, ref _comPort4, value); } }
- 
+
 
         public DateTime? LastUpdateCheck { get => _lastUpdateCheck; set { Set(() => LastUpdateCheck, ref _lastUpdateCheck, value); } }
 
@@ -172,6 +173,7 @@ namespace adrilight
         public int BreathingSpeed { get => _breathingSpeed; set { Set(() => BreathingSpeed, ref _breathingSpeed, value); } }
         public int AtmosphereStart { get => _atmosphereStart; set { Set(() => AtmosphereStart, ref _atmosphereStart, value); } }
         public int AtmosphereStop { get => _atmosphereStop; set { Set(() => AtmosphereStop, ref _atmosphereStop, value); } }
+        public byte[] SnapShot { get => _snapShot; set { Set(() => SnapShot, ref _snapShot, value); } }
 
         //public bool Comport4Open { get => _Comport4Open; set { Set(() => Comport4Open, ref _Comport4Open, value); } }
 

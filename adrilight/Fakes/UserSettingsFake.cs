@@ -18,8 +18,9 @@ namespace adrilight.Fakes
         public int BorderDistanceX { get; set; } = 33;
         public int BorderDistanceY { get; set; } = 44;
         public string ComPort { get; set; } = "Không có";
+        public string GifFilePath { get; set; } = "";
         //public string ComPort4 { get; set; } = "Không có";
-
+        public byte[] SnapShot { get; set; } = new byte[256];
         public DateTime? LastUpdateCheck { get; set; } = DateTime.Now;
         public int LedsPerSpot { get; set; } = 1;
         public bool MirrorX { get; set; } = true;

@@ -13,6 +13,7 @@ namespace adrilight
         int BorderDistanceX { get; set; }
         int BorderDistanceY { get; set; }
         string ComPort { get; set; }
+        string GifFilePath { get; set; }
 
 
         DateTime? LastUpdateCheck { get; set; }
@@ -70,9 +71,9 @@ namespace adrilight
          int IMX2 { get; set; }
          int IMY2 { get; set; } 
          bool IMLockDim { get; set; } 
-        LEDOrder[] LEDorder { get; set; }
+       
         //gifxelation//
-
+        byte[] SnapShot { get; set; }
        
         int SelectedAudioDevice { get; set; }
        

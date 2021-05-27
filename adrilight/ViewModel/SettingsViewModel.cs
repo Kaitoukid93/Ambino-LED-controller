@@ -365,6 +365,22 @@ namespace adrilight.ViewModel
             }
         }
 
+        public  void SnapShot()
+        {
+            int counter = 0;
+            byte[] snapshot = new byte[256];
+            foreach (ISpot spot in spotSet.Spots)
+            {
+                
+                snapshot[counter++] = spot.Red;
+                snapshot[counter++] = spot.Green;
+                snapshot[counter++] = spot.Blue;
+               // counter++;
+            }
+            Settings.SnapShot = snapshot;
+            RaisePropertyChanged(() => Settings.SnapShot);
+        }
+
         private int _imXMax = 800;
         private int _imYMax = 800;
         public int IMXMax {
@@ -410,7 +426,16 @@ namespace adrilight.ViewModel
 
 
 
-
+        private string _gifFilePath="" ;
+        public string GifFilePath {
+            get { return _gifFilePath; }
+            set
+            {
+                _gifFilePath = value;
+                Settings.GifFilePath = value;
+            }
+        }
+        
 
         public BitmapSource ContentBitmap {
             get { return _contentBitmap; }
@@ -574,13 +599,14 @@ namespace adrilight.ViewModel
                 }
                 else
                 {
+                  
                     //next runs reuse the writable image
                     Rectangle colorBitmapRectangle = new Rectangle(0, 0, image.Width, image.Height);
                     Int32Rect colorBitmapInt32Rect = new Int32Rect(0, 0, PreviewImageSource.PixelWidth, PreviewImageSource.PixelHeight);
 
                     BitmapData data = image.LockBits(colorBitmapRectangle, ImageLockMode.WriteOnly, image.PixelFormat);
 
-                    PreviewImageSource.WritePixels(colorBitmapInt32Rect, data.Scan0, data.Width * data.Height * 4, data.Stride);
+                   PreviewImageSource.WritePixels(colorBitmapInt32Rect, data.Scan0, data.Width * data.Height * 4, data.Stride);
 
                     image.UnlockBits(data);
                 }

@@ -290,7 +290,8 @@ namespace adrilight
                             counter = 0;
                             foreach (ISpot spot in SpotSet.Spots)
                             {
-                                spot.SetColor(outputColor[counter].R, outputColor[counter].G, outputColor[counter].B, true);
+                            ApplySmoothing(outputColor[counter].R, outputColor[counter].G, outputColor[counter].B, out byte FinalR, out byte FinalG, out byte FinalB, spot.Red, spot.Green, spot.Blue);
+                                spot.SetColor(FinalR,FinalG,FinalB, true);
                                 counter++;
 
                             }
@@ -347,7 +348,15 @@ namespace adrilight
 
         }
 
+        private void ApplySmoothing(float r, float g, float b, out byte semifinalR, out byte semifinalG, out byte semifinalB,
+        byte lastColorR, byte lastColorG, byte lastColorB)
+        {
+            ;
 
+            semifinalR = (byte)((r + 3 * lastColorR) / (3 + 1));
+            semifinalG = (byte)((g + 3 * lastColorG) / (3 + 1));
+            semifinalB = (byte)((b + 3 * lastColorB) / (3 + 1));
+        }
 
 
         public static double[] SpectrumCreator(byte[] fft, int sensitivity, double levelLeft, double levelRight, byte musicMode, int numLED)//create brightnessmap based on input fft or volume

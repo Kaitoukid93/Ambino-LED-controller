@@ -260,6 +260,75 @@ namespace adrilight
 
 
         }
+        private (byte[] Buffer, int OutputLength) GetOutputStreamSleep()
+        {
+            byte[] outputStream;
+
+            int counter = _messagePreamble.Length;
+            lock (SpotSet.Lock)
+            {
+                const int colorsPerLed = 3;
+                int bufferLength = _messagePreamble.Length + 3
+                    + (SpotSet.Spots.Length * colorsPerLed);
+
+
+                outputStream = ArrayPool<byte>.Shared.Rent(bufferLength);
+
+                Buffer.BlockCopy(_messagePreamble, 0, outputStream, 0, _messagePreamble.Length);
+
+
+
+
+                ///device param///
+                ///numleds/////đây là thiết bị dạng led màn hình có số led chiều dọc và chiều ngang, tổng số led sẽ là (dọc-1)*2+(ngang-1)*2///
+                //////2 byte ngay tiếp sau Preamable là để ghép lại thành 1 số 16bit (vì số led có thể lớn hơn 255 nhiều) vi điều khiển sẽ dựa vào số led này để biết cần đọc bao nhiêu byte nữa///
+                byte lo = (byte)(((UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2) & 0xff);
+                byte hi = (byte)((((UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2) >> 8) & 0xff);
+                outputStream[counter++] = hi;
+                outputStream[counter++] = lo;
+
+                ///byte tiếp theo ngay bên dưới sẽ là byte quy định trạng thái thiết bị/// 1 là sáng bình thường, 2 là chế độ đèn ngủ (sáng theo màu lưu sẵn) 3 là chế độ DFU (nạp code)///
+                //if(devcheck==false)
+                //{
+                //    outputStream[counter++] = 0;
+                //}
+                //else
+                //{
+                outputStream[counter++] = 0;
+                var allBlack = true;
+                //}
+
+                int snapshotCounter = 0;
+                foreach (Spot spot in SpotSet.Spots)
+                {
+
+                    outputStream[counter++] = UserSettings.SnapShot[snapshotCounter++]; // blue
+                    outputStream[counter++] = UserSettings.SnapShot[snapshotCounter++]; // green
+                    outputStream[counter++] = UserSettings.SnapShot[snapshotCounter++]; // red
+                    
+                    allBlack = allBlack && spot.Red == 0 && spot.Green == 0 && spot.Blue == 0;
+
+
+
+
+
+
+
+                }
+
+                if (allBlack)
+                {
+                    blackFrameCounter++;
+                }
+
+                return (outputStream, bufferLength);
+            }
+
+
+
+
+
+        }
 
         private void DoWork(object tokenObject)
         {
@@ -299,22 +368,23 @@ namespace adrilight
                         }
                         //send frame data
                         var (outputBuffer, streamLength) = GetOutputStream();
-               
-                      
+                        var (outputBufferSleep, streamLengthSleep) = GetOutputStreamSleep();
 
 
-                        
-                            //if (LedOutsideCase.DFUVal == 1)
-                            //{
-                            //    serialPort?.Close();
-                            //    serialPort = (ISerialPortWrapper)new WrappedSerialPort(new SerialPort(UserSettings.ComPort, 1200));
-                            //    serialPort.Open();
-                            //    serialPort.Close();
 
-                            //}
-                            // else
-                            //{
-                            serialPort.Write(outputBuffer, 0, streamLength);
+
+
+                        //if (LedOutsideCase.DFUVal == 1)
+                        //{
+                        //    serialPort?.Close();
+                        //    serialPort = (ISerialPortWrapper)new WrappedSerialPort(new SerialPort(UserSettings.ComPort, 1200));
+                        //    serialPort.Open();
+                        //    serialPort.Close();
+
+                        //}
+                        // else
+                        //{
+                        serialPort.Write(outputBufferSleep, 0, streamLengthSleep);
                             //}
                             
 

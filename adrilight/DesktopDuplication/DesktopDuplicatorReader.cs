@@ -58,6 +58,7 @@ namespace adrilight
         }
 
         public bool IsRunning { get; private set; } = false;
+        public bool NeededRefreshing { get; private set; } = false;
         private CancellationTokenSource _cancellationTokenSource;
 
 
@@ -65,6 +66,7 @@ namespace adrilight
         {
             var isRunning = _cancellationTokenSource != null && IsRunning;
             var shouldBeRunning = UserSettings.TransferActive && UserSettings.SelectedEffect==0;
+            var shouldBeRefreshing = NeededRefreshing;
 
             
 
@@ -74,7 +76,26 @@ namespace adrilight
                 _log.Debug("stopping the capturing");
                 _cancellationTokenSource.Cancel();
                 _cancellationTokenSource = null;
+
             }
+            else if (isRunning && shouldBeRefreshing)
+            {
+                //start it
+             
+                IsRunning = false;
+                _cancellationTokenSource.Cancel();
+                _cancellationTokenSource = null;
+                _log.Debug("starting the capturing");
+                _cancellationTokenSource = new CancellationTokenSource();
+                var thread = new Thread(() => Run(_cancellationTokenSource.Token)) {
+                    IsBackground = true,
+                    Priority = ThreadPriority.BelowNormal,
+                    Name = "DesktopDuplicatorReader"
+                };
+                thread.Start();
+
+            }
+
             else if (!isRunning && shouldBeRunning)
             {
                 //start it
@@ -161,19 +182,21 @@ namespace adrilight
         private DesktopDuplicator _desktopDuplicator;
         private DesktopDuplicator _desktopDuplicator2;
         private DesktopDuplicator _desktopDuplicator3;
-
+        
 
         public void Run(CancellationToken token)
         {
             if (IsRunning) throw new Exception(nameof(DesktopDuplicatorReader) + " is already running!");
 
             IsRunning = true;
+            NeededRefreshing = false;
             _log.Debug("Started Desktop Duplication Reader.");
             Bitmap image = null;
-        
+            BitmapData bitmapData = new BitmapData();
+
             try
             {
-                BitmapData bitmapData = new BitmapData();
+                
             
 
                 while (!token.IsCancellationRequested)
@@ -193,11 +216,11 @@ namespace adrilight
                     bool isPreviewRunning = (SettingsViewModel.IsSettingsWindowOpen && UserSettings.SelectedEffect == 0);
                     if (isPreviewRunning)
                     {
-                      // SettingsViewModel.SetPreviewImage(image); remove this, using grey gradient background for better visual
+                      // SettingsViewModel.SetPreviewImage(image); //remove this, using grey gradient background for better visual
                     }
-            
-  
-                    image.LockBits(new Rectangle(0, 0, image.Width, image.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppRgb, bitmapData);
+                   
+
+                  image.LockBits(new Rectangle(0, 0, image.Width, image.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppRgb, bitmapData);
                
                     lock (SpotSet.Lock)
                     {
@@ -209,7 +232,8 @@ namespace adrilight
                         {
                             //the screen was resized or this is some kind of powersaving state
                             SpotSet.IndicateMissingValues();
-                            return;
+                          
+                            continue;
                         }
                         else
                         {
@@ -228,8 +252,12 @@ namespace adrilight
                                     ApplyColorCorrections(sumR * countInverse, sumG * countInverse, sumB * countInverse
                                         , out byte finalR, out byte finalG, out byte finalB, useLinearLighting
                                         , UserSettings.SaturationTreshold, spot.Red, spot.Green, spot.Blue);
-                                    var spotColor = new OpenRGB.NET.Models.Color(finalR,finalG,finalB);
-                                    var finalSpotColor= Brightness.applyBrightness(spotColor, brightness);
+                                    ApplySmoothing(finalR, finalG, finalB
+                                        , out byte RealfinalR, out byte RealfinalG, out byte RealfinalB,
+                                     spot.Red, spot.Green, spot.Blue);
+                                    var spotColor = new OpenRGB.NET.Models.Color(RealfinalR, RealfinalG, RealfinalB);
+
+                                    var finalSpotColor = Brightness.applyBrightness(spotColor, brightness);
                                     spot.SetColor(finalSpotColor.R, finalSpotColor.G, finalSpotColor.B, isPreviewRunning);
 
                                 });
@@ -256,6 +284,8 @@ namespace adrilight
                     }
                 }
             }
+           
+           
             finally
             {
                 image?.Dispose();
@@ -341,6 +371,15 @@ namespace adrilight
                 finalB = (byte)b;
             }
         }
+        private void ApplySmoothing(float r, float g, float b, out byte semifinalR, out byte semifinalG, out byte semifinalB,
+           byte lastColorR, byte lastColorG, byte lastColorB)
+        {
+           ;
+
+            semifinalR = (byte)((r + 3 * lastColorR) / (3 + 1));
+            semifinalG = (byte)((g + 3 * lastColorG) / (3+ 1));
+            semifinalB = (byte)((b + 3 * lastColorB) / (3 + 1));
+        }
 
         private readonly byte[] _nonLinearFadingCache = Enumerable.Range(0, 2560)
             .Select(n => FadeNonLinearUncached(n / 10f))
@@ -364,23 +403,39 @@ namespace adrilight
             {
                 _desktopDuplicator = new DesktopDuplicator(0, 0);
             }
-
-            try
-            {
-                return _desktopDuplicator.GetLatestFrame(reusableBitmap);
-            }
-            catch (Exception ex)
-            {
-                if (ex.Message != "_outputDuplication is null")
+           
+                try
                 {
-                    _log.Error(ex, "GetNextFrame() failed.");
+                    return _desktopDuplicator.GetLatestFrame(reusableBitmap);
                 }
+                catch (Exception ex)
+                {
+                    if (ex.Message != "_outputDuplication is null" && ex.Message != "Access Lost, resolution might be changed" && ex.Message != "Invalid call, might be retrying"&& ex.Message!= "Failed to release frame.")
+                    {
+                        _log.Error(ex, "GetNextFrame() failed.");
 
-                _desktopDuplicator?.Dispose();
-                _desktopDuplicator = null;
-                throw;
+                        throw;
+                    }
+                    else if (ex.Message == "Access Lost, resolution might be changed")
+                    {
+                        _log.Error(ex, "Access Lost, retrying");
+
+                    }
+                    else if (ex.Message == "Invalid call, might be retrying")
+                    {
+                        _log.Error(ex, "Invalid Call Lost, retrying");
+                    }
+                    else if (ex.Message == "Failed to release frame.")
+                    {
+                        _log.Error(ex, "Failed to release frame.");
+                    }
+
+                    _desktopDuplicator = new DesktopDuplicator(0, 0);
+
+                return null;
+                }
             }
-        }
+        
         private Bitmap GetNextFrame2(Bitmap reusableBitmap2)
         {
             if (_desktopDuplicator2 == null)
