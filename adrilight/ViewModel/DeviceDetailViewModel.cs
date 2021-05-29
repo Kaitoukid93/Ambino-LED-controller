@@ -84,9 +84,19 @@ namespace adrilight.ViewModel
                 
             }
         }
-        public DeviceDetailViewModel(DeviceInfoDTO device, ViewModelBase parent, ISpotSet spotSet)
+        private SettingInfoDTO _settingInfo;
+        public SettingInfoDTO SettingInfo {
+            get { return _settingInfo; }
+            set
+            {
+                if (_settingInfo == value) return;
+                _settingInfo = value;
+                RaisePropertyChanged();
+            }
+        }
+        public DeviceDetailViewModel(DeviceInfoDTO device, ViewModelBase parent, SettingInfoDTO setting)
         {
-            this.SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
+            this.SettingInfo = setting;
             _parentVm = parent;
             Card = device;
             ReadData();
@@ -132,11 +142,11 @@ namespace adrilight.ViewModel
                     CurrentView = _generalView;
                     break;
                 case DeviceTab.Lighting:
-                    _lightingView = new LightingViewModel(Card, _parentVm, SpotSet);
+                    _lightingView = new LightingViewModel(Card, _parentVm, SettingInfo);
                     CurrentView = _lightingView;
                     break;
                 case DeviceTab.Preview:
-                    _previewView = new PreviewViewModel(Card, _parentVm,spotSet);
+                    _previewView = new PreviewViewModel(Card, _parentVm,null);
                     CurrentView = _previewView;
                     break;
                 case DeviceTab.Advance:

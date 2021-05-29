@@ -1,5 +1,6 @@
 ﻿using adrilight.DesktopDuplication;
 using adrilight.Extensions;
+using BO;
 using NLog;
 using System;
 using System.Drawing;
@@ -22,7 +23,37 @@ namespace adrilight
    
             _log.Info($"SpotSet created.");
         }
+        public SpotSet(DeviceInfoDTO userSettings)
+        {
+            DeviceInfo = userSettings ?? throw new ArgumentNullException(nameof(userSettings));
 
+
+            DeviceInfo.PropertyChanged += (_, e) => DecideRefresh(e.PropertyName);
+            RefreshDevice();
+
+            _log.Info($"SpotSet created.");
+        }
+        private void DeviceRefresh(string propertyName)
+        {
+            switch (propertyName)
+            {
+                case nameof(DeviceInfo.BorderDistanceX):
+                case nameof(DeviceInfo.BorderDistanceY):
+                case nameof(DeviceInfo.MirrorX):
+                case nameof(DeviceInfo.MirrorY):
+                case nameof(DeviceInfo.OffsetLed):
+
+                case nameof(DeviceInfo.OffsetX):
+                case nameof(DeviceInfo.OffsetY):
+                case nameof(DeviceInfo.SpotHeight):
+                case nameof(DeviceInfo.SpotsX):
+                case nameof(DeviceInfo.SpotsY):
+
+                case nameof(DeviceInfo.SpotWidth):
+                    RefreshDevice();
+                    break;
+            }
+        }
         private void DecideRefresh(string propertyName)
         {
             switch (propertyName)
@@ -115,7 +146,7 @@ namespace adrilight
         public int ExpectedScreenHeight3 => screen3.Bounds.Height / DesktopDuplicator.ScalingFactor;
         private IUserSettings UserSettings { get; }
 
-
+        private DeviceInfoDTO DeviceInfo { get; }
         private void Refresh()
         {
             lock (Lock)
@@ -123,8 +154,14 @@ namespace adrilight
                 Spots = BuildSpots(ExpectedScreenWidth, ExpectedScreenHeight, UserSettings);
             }
         }
-      
-       
+
+        private void RefreshDevice()
+        {
+            lock (Lock)
+            {
+                Spots = BuildSpots(ExpectedScreenWidth, ExpectedScreenHeight, DeviceInfo);
+            }
+        }
 
         internal ISpot[] BuildSpots(int screenWidth, int screenHeight, IUserSettings userSettings)
         {
@@ -219,10 +256,101 @@ namespace adrilight
             return spots;
         }
 
-        
+        internal ISpot[] BuildSpots(int screenWidth, int screenHeight, DeviceInfoDTO userSettings)
+        {
+            var spotsX = userSettings.SpotsX;
+            var spotsY = userSettings.SpotsY;
+            ISpot[] spots;
+            if (spotsX > 0 && spotsY > 0)
+            {
+                spots = new Spot[CountLeds(spotsX, spotsY)];
+            }
+            else
+            {
+                spotsX = 11;
+                spotsY = 6;
+                spots = new Spot[CountLeds(spotsX, spotsY)];
+            }
 
 
-       
+
+
+            var scalingFactor = DesktopDuplicator.ScalingFactor;
+            var borderDistanceX = userSettings.BorderDistanceX / scalingFactor;
+            var borderDistanceY = userSettings.BorderDistanceY / scalingFactor;
+            var spotWidth = userSettings.SpotWidth / scalingFactor;
+            var spotHeight = userSettings.SpotHeight / scalingFactor;
+
+            var canvasSizeX = screenWidth - 2 * borderDistanceX;
+            var canvasSizeY = screenHeight - 2 * borderDistanceY;
+
+
+            var xResolution = spotsX > 1 ? (canvasSizeX - spotWidth) / (spotsX - 1) : 0;
+            var xRemainingOffset = spotsX > 1 ? ((canvasSizeX - spotWidth) % (spotsX - 1)) / 2 : 0;
+            var yResolution = spotsY > 1 ? (canvasSizeY - spotHeight) / (spotsY - 1) : 0;
+            var yRemainingOffset = spotsY > 1 ? ((canvasSizeY - spotHeight) % (spotsY - 1)) / 2 : 0;
+
+            var counter = 0;
+            var relationIndex = spotsX - spotsY + 1;
+
+            for (var j = 0; j < spotsY; j++)
+            {
+                for (var i = 0; i < spotsX; i++)
+                {
+                    var isFirstColumn = i == 0;
+                    var isLastColumn = i == spotsX - 1;
+                    var isFirstRow = j == 0;
+                    var isLastRow = j == spotsY - 1;
+
+                    if (isFirstColumn || isLastColumn || isFirstRow || isLastRow) // needing only outer spots
+                    {
+                        var x = (xRemainingOffset + borderDistanceX + userSettings.OffsetX / scalingFactor + i * xResolution)
+                                .Clamp(0, screenWidth);
+
+                        var y = (yRemainingOffset + borderDistanceY + userSettings.OffsetY / scalingFactor + j * yResolution)
+                                .Clamp(0, screenHeight);
+
+                        var index = counter++; // in first row index is always counter
+
+                        if (spotsX > 1 && spotsY > 1)
+                        {
+                            if (!isFirstRow && !isLastRow)
+                            {
+                                if (isFirstColumn)
+                                {
+                                    index += relationIndex + ((spotsY - 1 - j) * 3);
+                                }
+                                else if (isLastColumn)
+                                {
+                                    index -= j;
+                                }
+                            }
+
+                            if (!isFirstRow && isLastRow)
+                            {
+                                index += relationIndex - i * 2;
+                            }
+                        }
+
+                        spots[index] = new Spot(x, y, spotWidth, spotHeight);
+                    }
+                }
+            }
+
+
+
+            //TODO totally broken :(
+
+            if (userSettings.OffsetLed != 0) Offset(ref spots, userSettings.OffsetLed);
+            if (spotsY > 1 && userSettings.MirrorX) MirrorX(spots, spotsX, spotsY);
+            if (spotsX > 1 && userSettings.MirrorY) MirrorY(spots, spotsX, spotsY);
+
+            spots[0].IsFirst = true;
+            return spots;
+        }
+
+
+
 
 
         private static void Mirror(ISpot[] spots, int startIndex, int length)

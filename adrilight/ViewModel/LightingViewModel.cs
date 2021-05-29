@@ -1,4 +1,5 @@
-﻿using adrilight.Util;
+﻿using adrilight.Fakes;
+using adrilight.Util;
 using BO;
 using GalaSoft.MvvmLight;
 using System;
@@ -29,8 +30,17 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged();
             }
         }
+        private SettingInfoDTO _settingInfo;
+        public SettingInfoDTO SettingInfo {
+            get { return _settingInfo; }
+            set
+            {
+                if (_settingInfo == value) return;
+                _settingInfo = value;
+                RaisePropertyChanged();
+            }
+        }
 
-        
         private ObservableCollection<string> _caseEffects;
         public ObservableCollection<string> CaseEffects {
             get { return _caseEffects; }
@@ -83,15 +93,60 @@ namespace adrilight.ViewModel
                 PreviewSpots = spotSet.Spots;
             }
         }
-        public LightingViewModel(DeviceInfoDTO device, ViewModelBase parent, ISpotSet spotSet)
+        private DeviceRainbow _rainbow;
+        public DeviceRainbow Rainbow {
+            get { return _rainbow; }
+            set
+            {
+                if (_rainbow == value) return;
+                _rainbow = value;
+                RaisePropertyChanged();
+            }
+        }
+        private DeviceStaticColor _staticcolor;
+        public DeviceStaticColor StaticColor {
+            get { return _staticcolor; }
+            set
+            {
+                if (_staticcolor == value) return;
+                _staticcolor = value;
+                RaisePropertyChanged();
+            }
+        }
+        private DeviceMusic _music;
+        public DeviceMusic Music {
+            get { return _music; }
+            set
+            {
+                if (_music == value) return;
+                _music = value;
+                RaisePropertyChanged();
+            }
+        }
+        private DeviceAtmosphere _atmosphere;
+        public DeviceAtmosphere Atmosphere {
+            get { return _atmosphere; }
+            set
+            {
+                if (_atmosphere == value) return;
+                _atmosphere = value;
+                RaisePropertyChanged();
+            }
+        }
+        public LightingViewModel(DeviceInfoDTO device, ViewModelBase parent, SettingInfoDTO setting)
         {
-            this.SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
-            PreviewSpots = spotSet.Spots;
+            this.Card = device;
+            this.SettingInfo = setting;
+            this.SpotSet = new SpotSet(Card);
+            PreviewSpots = SpotSet.Spots;
             _parentVm = parent;
             ReadData();
             Card = device;
-            Card.LEDNumber = 30;
-           
+           // Card.LEDNumber = 30;
+            Rainbow = new DeviceRainbow(Card, SpotSet, this, SettingInfo);
+            StaticColor = new DeviceStaticColor(Card, SpotSet, this, SettingInfo);
+            Atmosphere = new DeviceAtmosphere(Card, SpotSet, this, SettingInfo);
+            Music = new DeviceMusic(Card, SpotSet, this, SettingInfo);
         }
         public IList<String> _AvailableDisplays;
         public IList<String> AvailableDisplays {

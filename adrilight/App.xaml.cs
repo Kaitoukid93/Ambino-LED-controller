@@ -212,7 +212,10 @@ namespace adrilight
             //eagerly create required singletons [could be replaced with actual pipeline]
             var desktopDuplicationReader = kernel.Get<IDesktopDuplicatorReader>();
             var serialStream = kernel.Get<ISerialStream>();
-
+            var staticColor = kernel.Get<IStaticColor>();
+            var rainbow = kernel.Get<IRainbow>();
+            var music = kernel.Get<IMusic>();
+            var atmosphere = kernel.Get<IAtmosphere>();
             return kernel;
         }
 

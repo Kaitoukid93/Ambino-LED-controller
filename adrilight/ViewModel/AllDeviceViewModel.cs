@@ -71,6 +71,7 @@ namespace adrilight.ViewModel
                         Staticcolor = item.staticcolor,
                         IsShowOnDashboard=item.isshowondashboard
                     };
+                    if (item.staticcolor == null) deviceInfo.Staticcolor = "#FF2BFF00";
                     deviceInfo.PropertyChanged += DeviceInfo_PropertyChanged;
                     Cards.Add(deviceInfo);
                 }

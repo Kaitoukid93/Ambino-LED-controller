@@ -355,6 +355,10 @@
     <Compile Include="Util\Atmosphere.cs" />
     <Compile Include="Util\Brightness.cs" />
     <Compile Include="Util\ColorUtil.cs" />
+    <Compile Include="Util\DeviceAtmosphere.cs" />
+    <Compile Include="Util\DeviceMusic.cs" />
+    <Compile Include="Util\DeviceRainbow.cs" />
+    <Compile Include="Util\DeviceStaticColor.cs" />
     <Compile Include="Util\FakeSerialPort.cs" />
     <Compile Include="Util\FpsLogger.cs" />
     <Compile Include="Util\GradientColor.cs" />

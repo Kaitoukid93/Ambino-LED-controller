@@ -98,28 +98,28 @@ namespace adrilight.ViewModel
 
         private void _currentDevice_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            switch (e.PropertyName)
-            {
-                case "LightingMode":
-                    LightingMode = _currentDevice.LightingMode;
-                    Settings.Brightness = (byte)CurrentDevice.Brightness;
-                    switch (LightingMode)
-                    {
-                        case "Sáng theo màn hình":
-                            Settings.SelectedEffect = 0; break;
-                        case "Sáng theo dải màu":
-                            Settings.SelectedEffect = 1; break;
-                        case "Sáng màu tĩnh":
-                            Settings.SelectedEffect = 2; break;
-                        case "Sáng theo nhạc":
-                            Settings.SelectedEffect = 3; break;
-                        case "Atmosphere":
-                            Settings.SelectedEffect = 4; break;
+            //switch (e.PropertyName)
+            //{
+            //    case "LightingMode":
+            //        LightingMode = _currentDevice.LightingMode;
+            //        Settings.Brightness = (byte)CurrentDevice.Brightness;
+            //        switch (LightingMode)
+            //        {
+            //            case "Sáng theo màn hình":
+            //                Settings.SelectedEffect = 0; break;
+            //            case "Sáng theo dải màu":
+            //                Settings.SelectedEffect = 1; break;
+            //            case "Sáng màu tĩnh":
+            //                Settings.SelectedEffect = 2; break;
+            //            case "Sáng theo nhạc":
+            //                Settings.SelectedEffect = 3; break;
+            //            case "Atmosphere":
+            //                Settings.SelectedEffect = 4; break;
 
-                    }
-                    break;
+            //        }
+            //        break;
 
-            }
+            //}
         }
         private string _lightingmode;
         public string LightingMode {
@@ -141,11 +141,11 @@ namespace adrilight.ViewModel
                 //if (spotSet == value) return;
                 spotSet = value;
                 RaisePropertyChanged("SpotSet");
-                if (isPreview)
-                {
-                    var view = CurrentView as DeviceDetailViewModel;
-                    view.SpotSet = value;
-                }
+                //if (isPreview)
+                //{
+                //    var view = CurrentView as DeviceDetailViewModel;
+                //    view.SpotSet = value;
+                //}
             }
         }
         private bool isPreview = false;
@@ -235,7 +235,7 @@ namespace adrilight.ViewModel
                     IsDashboardType = true; isPreview = false;
                     break;
                 case general:
-                    _detailView = new DeviceDetailViewModel(CurrentDevice,this,spotSet);
+                    _detailView = new DeviceDetailViewModel(CurrentDevice,this,SettingInfo);
                     CurrentView = _detailView;
                     IsDashboardType = false;
                     isPreview = false;
@@ -243,21 +243,21 @@ namespace adrilight.ViewModel
                 case lighting:
                     isPreview = true;
                     if (_detailView==null)
-                        _detailView = new DeviceDetailViewModel(CurrentDevice,this,spotSet);
+                        _detailView = new DeviceDetailViewModel(CurrentDevice,this, SettingInfo);
                     ((DeviceDetailViewModel)_detailView).TabType = DeviceTab.Lighting;
                     CurrentView = _detailView;
                     IsDashboardType = false;
                     break;
                 case preview:
                     if (_detailView == null)
-                        _detailView = new DeviceDetailViewModel(CurrentDevice, this,spotSet);
+                        _detailView = new DeviceDetailViewModel(CurrentDevice, this,null);
                     ((DeviceDetailViewModel)_detailView).TabType = DeviceTab.Preview;
                     CurrentView = _detailView;
                     IsDashboardType = false;
                     break;
                 case advance:
                     if (_detailView == null)
-                        _detailView = new DeviceDetailViewModel(CurrentDevice, this,spotSet);
+                        _detailView = new DeviceDetailViewModel(CurrentDevice, this,null);
                     ((DeviceDetailViewModel)_detailView).TabType = DeviceTab.Advance;
                     CurrentView = _detailView;
                     IsDashboardType = false; isPreview = false;
@@ -275,7 +275,7 @@ namespace adrilight.ViewModel
         public void GotoChild(DeviceInfoDTO card)
         {
             isPreview = false;
-            _detailView = new DeviceDetailViewModel(card, this,spotSet);
+            _detailView = new DeviceDetailViewModel(card, this,SettingInfo);
             CurrentView = _detailView;
             IsDashboardType = false;
             CurrentDevice = card;
