@@ -100,50 +100,14 @@ namespace adrilight
             //return spotsX * spotsY;
         }
 
-        static public Screen GetSecondaryScreen()
-        {
-            if (Screen.AllScreens.Length == 1)
-            {
-                return null;
-            }
+      
 
-            foreach (Screen screen in Screen.AllScreens)
-            {
-                if (screen.Primary == false)
-                {
-                    return screen;
-                }
-            }
-
-            return null;
-        }
-
-        static public Screen GetThirdScreen()
-        {
-            if (Screen.AllScreens.Length == 1|| Screen.AllScreens.Length == 2)
-            {
-                return null;
-            }
-
-            foreach (Screen screen in Screen.AllScreens )
-            {
-                if (screen.Primary == false)
-                {
-                    return screen;
-                }
-            }
-
-            return null;
-        }
+     
         public int ExpectedScreenWidth => Screen.PrimaryScreen.Bounds.Width / DesktopDuplicator.ScalingFactor;
         public int ExpectedScreenHeight => Screen.PrimaryScreen.Bounds.Height / DesktopDuplicator.ScalingFactor;
 
-        readonly Screen screen = GetSecondaryScreen();
-        public int ExpectedScreenWidth2 => screen.Bounds.Width / DesktopDuplicator.ScalingFactor;
-        public int ExpectedScreenHeight2 => screen.Bounds.Height / DesktopDuplicator.ScalingFactor;
-        readonly Screen screen3 = GetThirdScreen();
-        public int ExpectedScreenWidth3 => screen3.Bounds.Width / DesktopDuplicator.ScalingFactor;
-        public int ExpectedScreenHeight3 => screen3.Bounds.Height / DesktopDuplicator.ScalingFactor;
+       
+        
         private IUserSettings UserSettings { get; }
 
         private DeviceInfoDTO DeviceInfo { get; }

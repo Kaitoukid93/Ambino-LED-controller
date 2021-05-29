@@ -42,8 +42,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel>
-            <TextBlock Text="All Devices" Style="{StaticResource tbHeadingStyle}"></TextBlock>
-            <TextBlock Text="This dashboard contain..." Style="{StaticResource tbHeading3Style}" Foreground="#666A83"></TextBlock>
+            <TextBlock Text="Tất cả các thiết bị" Style="{StaticResource tbHeadingStyle}"></TextBlock>
+            <TextBlock Text="Bảng này chứa tất cả các thiết bị hiện có hoặc đã được thêm trước đó" Style="{StaticResource tbHeading3Style}" Foreground="#666A83"></TextBlock>
         </StackPanel>
             <Border Grid.Column="1">
             <Button  VerticalAlignment="Top" BorderThickness="0" Padding="0" Width="30" Height="30" Background="Transparent" Foreground="White"    Command="{Binding ShowAddNewCommand}">

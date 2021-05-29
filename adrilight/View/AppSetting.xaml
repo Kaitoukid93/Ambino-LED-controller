@@ -32,11 +32,11 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel>
-            <TextBlock Text="App Settings" Style="{StaticResource tbHeadingStyle}"></TextBlock>
-            <TextBlock Text="This page allow you to..." Style="{StaticResource tbHeading3Style}" Foreground="#666A83"></TextBlock>
+            <TextBlock Text="Cài đặt ứng dụng" Style="{StaticResource tbHeadingStyle}"></TextBlock>
+            <TextBlock Text="Trang này cho phép bạn tùy chỉnh một số cài đặt về cách hoạt động của ứng dụng" Style="{StaticResource tbHeading3Style}" Foreground="#666A83"></TextBlock>
         </StackPanel>
         <StackPanel Grid.Row="1" Margin="0,10,0,0">
-            <TextBlock Text="User Interface" Style="{StaticResource tbHeading2Style}" Height="25" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Text="Giao diện" Style="{StaticResource tbHeading2Style}" Height="25" VerticalAlignment="Center"></TextBlock>
             <Border Background="#f6f6f6" CornerRadius="10">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -45,10 +45,10 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"></RowDefinition>
-                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="40"/>
                     </Grid.RowDefinitions>
                     <Border >
-                        <TextBlock  Style="{StaticResource tbHeading4Style}"   Text="Primary color" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock  Style="{StaticResource tbHeading4Style}"   Text="Màu chủ đạo" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1">
                         <materialDesign:Card Width="30" Height="30"   UniformCornerRadius="5">
@@ -64,7 +64,7 @@
                         
                     </Border>
                     <Border Grid.Row="1">
-                        <TextBlock    Style="{StaticResource tbHeading4Style}"    Text="Dark mode" Margin="10,0,0,0"   VerticalAlignment="Center"></TextBlock>
+                        <TextBlock    Style="{StaticResource tbHeading4Style}"    Text="Chế độ tối" Margin="10,0,0,0"   VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="1">
                         <ToggleButton   Width="48" Height="24"   VerticalAlignment="Center" Background="#7344c3"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"  Margin="0,0,10,0"  IsChecked="{Binding SettingInfo.IsDarkMode}" />
@@ -81,31 +81,31 @@
                         <ColumnDefinition Width="60"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
                     </Grid.RowDefinitions>
                     <Border >
-                        <TextBlock    Style="{StaticResource tbHeading4Style}"   Text="Auto start with Windows "  VerticalAlignment="Center"></TextBlock>
+                        <TextBlock    Style="{StaticResource tbHeading4Style}"   Text="Tự khởi động cùng windows "  VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1">
                         <ToggleButton IsChecked="{Binding SettingInfo.AutoStartWithWindows}"  Background="#7344c3" Style="{StaticResource MaterialDesignSwitchLightToggleButton}"></ToggleButton>
                     </Border>
                     <Border Grid.Row="1">
-                        <TextBlock Text="Start Minimum"    Style="{StaticResource tbHeading4Style}"     VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="Khởi động ẩn"    Style="{StaticResource tbHeading4Style}"     VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="1">
                         <ToggleButton   Width="48" Height="24"   VerticalAlignment="Center"  Background="#7344c3" Style="{StaticResource MaterialDesignSwitchLightToggleButton}"    IsChecked="{Binding SettingInfo.StartMinimum}" />
                     </Border>
                     <Border Grid.Row="2">
-                        <TextBlock Text="Push notification when new device is connected"    Style="{StaticResource tbHeading4Style}"     VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="Thông báo khi có thiết bị ngắt kết nối"    Style="{StaticResource tbHeading4Style}"     VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="2">
                         <ToggleButton   Width="48" Height="24"   VerticalAlignment="Center"  Background="#7344c3" Style="{StaticResource MaterialDesignSwitchLightToggleButton}"     IsChecked="{Binding SettingInfo.PushNotificationWhenNewDeviceConnected}" />
                     </Border>
                     <Border Grid.Row="3">
-                        <TextBlock Text="Push notification when a device is disconnected"    Style="{StaticResource tbHeading4Style}"    VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="Thông báo khi có thiết bị mới cắm vào"    Style="{StaticResource tbHeading4Style}"    VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="3">
                         <ToggleButton  Width="48" Height="24"    VerticalAlignment="Center"  Background="#7344c3" Style="{StaticResource MaterialDesignSwitchLightToggleButton}"     IsChecked="{Binding SettingInfo.PushNotificationWhenNewDeviceDisconnected}" />
