@@ -149,7 +149,7 @@
                         <Slider
                     Grid.Row="2" Margin="108,12,0,7"
                     Minimum="0" 
-                    Maximum="80"  ToolTip="Độ sáng của các thiết bị bên trong case"
+                    Maximum="90"  ToolTip="Độ sáng của các thiết bị bên trong case"
                             
                    x:Name="BrightnessSlider"
                     Value="{Binding Settings.Brightness}" Visibility="Visible"
@@ -350,12 +350,13 @@
                             <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,15,76,19" Foreground="#FF6C6C6C"
                             Height="18" Text="Kích Thước màn hình" Grid.Row="1"/>
                             <ComboBox
-                            
+                            ItemsSource="{Binding AvailableDisplays}"
+                            SelectedIndex="{Binding Settings.SelectedDisplay}"
                             x:Name="screenSelect"
-                           SelectedIndex="0"
+                           
                             materialDesign:HintAssist.Hint="Capture Source"
                             IsEditable="False"
-                            materialDesign:HintAssist.HintOpacity=".26" Height="26" Margin="201,1,-45,26" 
+                            materialDesign:HintAssist.HintOpacity=".26" Height="26" Margin="141,1,-100,26" 
                              RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="2" BorderBrush="#89000000" >
 
 

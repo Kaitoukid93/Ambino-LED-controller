@@ -30,8 +30,6 @@ namespace adrilight.Util
                 brightness = 1.0;
             var percent = brightness / 1.0;
                 var returnColor = OpenRGB.NET.Models.Color.FromHsv(hue, saturation, value*percent);
-
-
             return returnColor;
         }
 

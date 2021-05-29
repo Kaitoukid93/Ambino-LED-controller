@@ -469,6 +469,24 @@ namespace adrilight.ViewModel
             }
         }
 
+        public IList<String> _AvailableDisplays;
+        public IList<String> AvailableDisplays {
+            get
+            {
+                var listDisplay = new List<String>();
+                foreach (var screen in System.Windows.Forms.Screen.AllScreens)
+                {
+                    Rectangle resolution = screen.Bounds;
+
+
+                    listDisplay.Add(screen.DeviceName.ToString()+ " at "+ resolution.Width.ToString() +"x"+resolution.Height.ToString());
+                }
+                _AvailableDisplays = listDisplay;
+                return _AvailableDisplays;
+            }
+        }
+
+
         public IList<string> _AvailableAudioDevice = new List<string>();
         public IList<String> AvailableAudioDevice {
             get

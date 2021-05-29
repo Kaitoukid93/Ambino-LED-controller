@@ -64,6 +64,7 @@ namespace adrilight
         private byte _whitebalanceBlue = 100;
 
         private int  _selectedAudioDevice = 0;
+        private int _selectedDisplay = 0;
        
         private int _atmosphereStart = 1;
         private int _atmosphereStop = 255;
@@ -212,6 +213,7 @@ namespace adrilight
        
         public byte SelectedEffect { get => _selectedEffect; set { Set(() => SelectedEffect, ref _selectedEffect, value); } }
         public int SelectedAudioDevice { get => _selectedAudioDevice; set { Set(() => SelectedAudioDevice, ref _selectedAudioDevice, value); } }
+        public int SelectedDisplay { get => _selectedDisplay; set { Set(() => SelectedDisplay, ref _selectedDisplay, value); } }
         public int EffectSpeed { get => _effectSpeed; set { Set(() => EffectSpeed, ref _effectSpeed, value); } }
         public int ColorFrequency { get => _colorFrequency; set { Set(() => ColorFrequency, ref _colorFrequency, value); } }
         public int SelectedMusicPalette { get => _selectedMusicPalette; set { Set(() => SelectedMusicPalette, ref _selectedMusicPalette, value); } }

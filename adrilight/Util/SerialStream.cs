@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using OpenRGB;
 using adrilight.ViewModel;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace adrilight
 {
@@ -52,7 +53,7 @@ namespace adrilight
             {
                 if(serialport=="Không có")
                 {
-                    MessageBox.Show("Serial Port " + serialport + " is just for testing effects, not the real device, please note");
+                    System.Windows.MessageBox.Show("Serial Port " + serialport + " is just for testing effects, not the real device, please note");
                     available = true;
                     return available;
                     
@@ -71,7 +72,7 @@ namespace adrilight
                     
                     // BlockedComport.Add(serialport);
                     _log.Debug("Serial Port " + serialport + " access denied, added to Blacklist");
-                    MessageBox.Show("Serial Port " + serialport + " is in use or unavailable, Please chose another COM Port");
+                    System.Windows.MessageBox.Show("Serial Port " + serialport + " is in use or unavailable, Please chose another COM Port");
                     available = false;
 
                     //_log.Debug(ex, "Exception catched.");
@@ -362,13 +363,15 @@ namespace adrilight
                         {
                             serialPort?.Close();
                             serialPort = UserSettings.ComPort != "Không có" ? (ISerialPortWrapper)new WrappedSerialPort(new SerialPort(UserSettings.ComPort, baudRate)) : new FakeSerialPort();
+                            serialPort.DisableDtr();
+                            serialPort.DisableRts();
                             serialPort.Open();
                             openedComPort = UserSettings.ComPort;  
 
                         }
                         //send frame data
                         var (outputBuffer, streamLength) = GetOutputStream();
-                        var (outputBufferSleep, streamLengthSleep) = GetOutputStreamSleep();
+                        
 
 
 
@@ -384,7 +387,7 @@ namespace adrilight
                         //}
                         // else
                         //{
-                        serialPort.Write(outputBufferSleep, 0, streamLengthSleep);
+                        serialPort.Write(outputBuffer, 0, streamLength);
                             //}
                             
 
@@ -440,8 +443,23 @@ namespace adrilight
                 {
                     if (serialPort != null && serialPort.IsOpen)
                     {
+                        //write last frame
+                        // Thread.Sleep(500);
+                       // serialPort.Close();
+                         //Thread.Sleep(500);
+                       // serialPort.Open();
+                        var (outputBuffer, streamLength) = GetOutputStreamSleep();
+                        serialPort.Write(outputBuffer, 0, streamLength);
+                        serialPort.Write(outputBuffer, 0, streamLength);
+                        serialPort.Write(outputBuffer, 0, streamLength);
+                        serialPort.Write(outputBuffer, 0, streamLength);
+                        serialPort.Write(outputBuffer, 0, streamLength);
+                        serialPort.Write(outputBuffer, 0, streamLength);
+                        _log.Debug("Last Frame Sent!");
+                       
                         serialPort.Close();
                         serialPort.Dispose();
+                        _log.Debug("SerialPort Disposed!");
                     }
                     
 
@@ -455,7 +473,7 @@ namespace adrilight
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
+       
         private void Dispose(bool disposing)
         {
             if (disposing)

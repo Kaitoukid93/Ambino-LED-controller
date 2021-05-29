@@ -47,13 +47,17 @@ namespace adrilight
                 case nameof(UserSettings.IsPreviewEnabled):
                 case nameof(UserSettings.CaptureActive):
                 
+
                 case nameof(SettingsViewModel.IsSettingsWindowOpen):
                 
                
 
                     RefreshCapturingState();
                     break;
-                 
+
+                case nameof(UserSettings.SelectedDisplay):
+                    RefreshCaptureSource();
+                    break;
             }
         }
 
@@ -61,27 +65,15 @@ namespace adrilight
         public bool NeededRefreshing { get; private set; } = false;
         private CancellationTokenSource _cancellationTokenSource;
 
-
-        private void RefreshCapturingState()
+        private void RefreshCaptureSource()
         {
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            var shouldBeRunning = UserSettings.TransferActive && UserSettings.SelectedEffect==0;
-            var shouldBeRefreshing = NeededRefreshing;
-
-            
-
-            if (isRunning && !shouldBeRunning)
-            {
-                //stop it!
-                _log.Debug("stopping the capturing");
-                _cancellationTokenSource.Cancel();
-                _cancellationTokenSource = null;
-
-            }
-            else if (isRunning && shouldBeRefreshing)
+            var shouldBeRunning = UserSettings.TransferActive && UserSettings.SelectedEffect == 0;
+          //  var shouldBeRefreshing = NeededRefreshing;
+            if (isRunning && shouldBeRunning)
             {
                 //start it
-             
+
                 IsRunning = false;
                 _cancellationTokenSource.Cancel();
                 _cancellationTokenSource = null;
@@ -95,6 +87,24 @@ namespace adrilight
                 thread.Start();
 
             }
+        }
+        private void RefreshCapturingState()
+        {
+            var isRunning = _cancellationTokenSource != null && IsRunning;
+            var shouldBeRunning = UserSettings.TransferActive && UserSettings.SelectedEffect==0;
+          //  var shouldBeRefreshing = NeededRefreshing;
+          
+
+
+            if (isRunning && !shouldBeRunning)
+            {
+                //stop it!
+                _log.Debug("stopping the capturing");
+                _cancellationTokenSource.Cancel();
+                _cancellationTokenSource = null;
+
+            }
+         
 
             else if (!isRunning && shouldBeRunning)
             {
@@ -107,6 +117,7 @@ namespace adrilight
                     Name = "DesktopDuplicatorReader"
                 };
                 thread.Start();
+                
   
             }
 
@@ -377,7 +388,7 @@ namespace adrilight
            ;
 
             semifinalR = (byte)((r + 3 * lastColorR) / (3 + 1));
-            semifinalG = (byte)((g + 3 * lastColorG) / (3+ 1));
+            semifinalG = (byte)((g + 3 * lastColorG) / (3 + 1));
             semifinalB = (byte)((b + 3 * lastColorB) / (3 + 1));
         }
 
@@ -399,9 +410,10 @@ namespace adrilight
 
         private Bitmap GetNextFrame(Bitmap reusableBitmap)
         {
+            var selectedDisplay = UserSettings.SelectedDisplay;
             if (_desktopDuplicator == null)
             {
-                _desktopDuplicator = new DesktopDuplicator(0, 0);
+                _desktopDuplicator = new DesktopDuplicator(0, selectedDisplay);
             }
            
                 try
@@ -436,52 +448,8 @@ namespace adrilight
                 }
             }
         
-        private Bitmap GetNextFrame2(Bitmap reusableBitmap2)
-        {
-            if (_desktopDuplicator2 == null)
-            {
-                _desktopDuplicator2 = new DesktopDuplicator(0, 1);
-            }
-
-            try
-            {
-                return _desktopDuplicator2.GetLatestFrame(reusableBitmap2);
-            }
-            catch (Exception ex)
-            {
-                if (ex.Message != "_outputDuplication2 is null")
-                {
-                    _log.Error(ex, "GetNextFrame2() failed.");
-                }
-
-                _desktopDuplicator2?.Dispose();
-                _desktopDuplicator2 = null;
-                throw;
-            }
-        }
-        private Bitmap GetNextFrame3(Bitmap reusableBitmap3)
-        {
-            if (_desktopDuplicator3 == null)
-            {
-                _desktopDuplicator3 = new DesktopDuplicator(0, 2);
-            }
-
-            try
-            {
-                return _desktopDuplicator3.GetLatestFrame(reusableBitmap3);
-            }
-            catch (Exception ex)
-            {
-                if (ex.Message != "_outputDuplication3 is null")
-                {
-                    _log.Error(ex, "GetNextFrame3() failed.");
-                }
-
-                _desktopDuplicator3?.Dispose();
-                _desktopDuplicator3 = null;
-                throw;
-            }
-        }
+    
+     
 
         private unsafe void GetAverageColorOfRectangularRegion(Rectangle spotRectangle, int stepy, int stepx, BitmapData bitmapData, out int sumR, out int sumG,
             out int sumB, out int count)

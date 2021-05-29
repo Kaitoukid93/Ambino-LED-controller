@@ -136,7 +136,7 @@ namespace adrilight
                             }
                             else
                             {
-                                _huePosIndex += effectSpeed-3;
+                                _huePosIndex += effectSpeed;
                             }
 
                         }

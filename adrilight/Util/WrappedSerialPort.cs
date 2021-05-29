@@ -17,6 +17,10 @@ namespace adrilight.Util
         private SerialPort SerialPort { get; }
 
         public bool IsOpen => SerialPort.IsOpen;
+        public bool DtrEnabled => SerialPort.DtrEnable;
+        public bool RtsEnabled => SerialPort.RtsEnable;
+        public void DisableDtr() => SerialPort.DtrEnable = false;
+        public void DisableRts() => SerialPort.RtsEnable = false;
 
         public void Close() => SerialPort.Close();
 

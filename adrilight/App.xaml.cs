@@ -109,10 +109,12 @@ namespace adrilight
         }
     }
 
-    public sealed partial class App : Application
+    public sealed partial class App : Application 
     {
         private static readonly ILogger _log = LogManager.GetCurrentClassLogger();
+       
         private static System.Threading.Mutex _mutex = null;
+       
 
         protected override void OnStartup(StartupEventArgs startupEvent)
         {
@@ -134,6 +136,7 @@ namespace adrilight
 
 
             UserSettings = kernel.Get<IUserSettings>();
+            SerialStream = kernel.Get<ISerialStream>();
             _telemetryClient = kernel.Get<TelemetryClient>();
 
             SetupNotifyIcon();
@@ -221,17 +224,41 @@ namespace adrilight
 
             return kernel;
         }
-
+       // private readonly ISerialStream serialStream;
         private void SetupLoggingForProcessWideEvents()
         {
+           
             AppDomain.CurrentDomain.UnhandledException +=
     (sender, args) => ApplicationWideException(sender, args.ExceptionObject as Exception, "CurrentDomain.UnhandledException");
 
             DispatcherUnhandledException += (sender, args) => ApplicationWideException(sender, args.Exception, "DispatcherUnhandledException");
 
-            Exit += (s, e) => _log.Debug("Application exit!");
+            Exit += (s, e) =>
+            {
+                _log.Debug("Application exit!");
+                SerialStream.Stop();
 
-            SystemEvents.PowerModeChanged += (s, e) => _log.Debug("Changing Powermode to {0}", e.Mode);
+            };
+            SystemEvents.PowerModeChanged += (s, e) =>
+            {
+                _log.Debug("Changing Powermode to {0}", e.Mode);
+                if(e.Mode==PowerModes.Resume)
+                {
+                    SerialStream.Start();
+                    _log.Debug("Restart the serial stream after sleep!");
+                }
+                else if (e.Mode == PowerModes.Suspend)
+                {
+                    SerialStream.Stop();
+                    _log.Debug("Stop the serial stream due to sleep condition!");
+                }
+
+            };
+            SystemEvents.SessionEnding += (s, e) =>
+             {
+                 SerialStream.Stop();
+                 _log.Debug("Stop the serial stream due to power down or log off condition!");
+             };
         }
 
 
@@ -322,6 +349,7 @@ namespace adrilight
 
 
         private IUserSettings UserSettings { get; set; }
+        private ISerialStream SerialStream { get; set; }
       
 
             private void ApplicationWideException(object sender, Exception ex, string eventSource)

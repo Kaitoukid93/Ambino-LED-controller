@@ -18,6 +18,10 @@ namespace adrilight.Util
         void Print(string outputBuffer);
         int BytesToRead { get; }
         int ReadByte();
-       // void Print(byte[] outputBuffer);
+        bool DtrEnabled { get; }
+        bool RtsEnabled { get;  }
+        void DisableDtr();
+        void DisableRts();
+        // void Print(byte[] outputBuffer);
     }
 }

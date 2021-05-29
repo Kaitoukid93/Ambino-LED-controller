@@ -76,6 +76,7 @@ namespace adrilight
         byte[] SnapShot { get; set; }
        
         int SelectedAudioDevice { get; set; }
+        int SelectedDisplay { get; set; }
        
 
   

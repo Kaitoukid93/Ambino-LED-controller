@@ -12,6 +12,7 @@ using Device = SharpDX.Direct3D11.Device;
 using MapFlags = SharpDX.Direct3D11.MapFlags;
 using Rectangle = SharpDX.Mathematics.Interop.RawRectangle;
 using adrilight.Util;
+using System.Windows;
 
 namespace adrilight.DesktopDuplication
 {
@@ -52,7 +53,21 @@ namespace adrilight.DesktopDuplication
             }
             catch (SharpDXException ex)
             {
-                throw new DesktopDuplicationException("Could not find the specified output device.", ex);
+                if(ex.ResultCode==SharpDX.DXGI.ResultCode.NotFound)
+                {
+                    MessageBox.Show("Display not Available at output address" + whichOutputDevice.ToString());
+                    output = adapter.GetOutput(0);
+                }
+                else
+                {
+                    throw new DesktopDuplicationException("Unknown Device Erro", ex);
+                }
+                
+                
+                
+                
+                
+                
             }
             var output1 = output.QueryInterface<Output1>();
             _outputDescription = output.Description;

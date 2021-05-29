@@ -613,6 +613,7 @@ namespace adrilight
         }
         public static int[] EqualizerPick(int mode,int numLED)
         {
+
            
             int[] equalizerPick = new int[numLED];
             if (mode == 0)
