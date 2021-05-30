@@ -33,9 +33,9 @@ namespace adrilight.ViewModel
         public void ReadData()
         {
             Devices = new ObservableCollection<DeviceInfoDTO>();
-            Devices.Add(new DeviceInfoDTO() { DeviceName = "aaa", DeviceId = 1 });
-            Devices.Add(new DeviceInfoDTO() { DeviceName = "bbb", DeviceId = 2 });
-            Devices.Add(new DeviceInfoDTO() { DeviceName = "ccc", DeviceId = 3 });
+            Devices.Add(new DeviceInfoDTO() { DeviceName = "Ambino Basic", DeviceId = 1 });
+            Devices.Add(new DeviceInfoDTO() { DeviceName = "Ambino Edge", DeviceId = 2 });
+            Devices.Add(new DeviceInfoDTO() { DeviceName = "Ambino HUBV2", DeviceId = 3 });
             SelectDeviceCommand = new RelayCommand<DeviceInfoDTO>((p) => {
                 return true;
             }, (p) =>

@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using OpenRGB;
 using adrilight.ViewModel;
 using System.Collections.Generic;
+using BO;
 
 namespace adrilight
 {
@@ -22,13 +23,15 @@ namespace adrilight
     {
         private ILogger _log = LogManager.GetCurrentClassLogger();
 
-        public SerialStream(IUserSettings userSettings, ISpotSet spotSet)
+        public SerialStream(SettingInfoDTO setting, ISpotSet spotSet, DeviceInfoDTO device)
         {
-            UserSettings = userSettings ?? throw new ArgumentNullException(nameof(userSettings));
+            deviceInfo = device ?? throw new ArgumentNullException(nameof(device));
             SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
-            
+            settingInfo = setting ?? throw new ArgumentNullException(nameof(setting));
+            deviceInfo.PropertyChanged += PropertyChanged;
+            settingInfo.PropertyChanged += SettingInfo_PropertyChanged;
 
-            UserSettings.PropertyChanged += UserSettings_PropertyChanged;
+           
            // ScanSerialPort();
            RefreshTransferState();
             
@@ -40,7 +43,10 @@ namespace adrilight
             //    UserSettings.ComPort = null;
             //}
         }
+        private void SettingInfo_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
 
+        }
         private bool CheckSerialPort(string serialport)
         {
             Stop();//stop current serial stream first to avoid access denied
@@ -98,12 +104,12 @@ namespace adrilight
 
             
         }
-        private void UserSettings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
-                case nameof(UserSettings.TransferActive):
-                case nameof(UserSettings.ComPort):
+                case nameof(deviceInfo.IsConnected):
+                case nameof(deviceInfo.DevicePort):
 
 
                     RefreshTransferState();
@@ -111,16 +117,16 @@ namespace adrilight
             }
         }
 
-        public bool IsValid() => SerialPort.GetPortNames().Contains(UserSettings.ComPort) || UserSettings.ComPort == "Không có";
+        public bool IsValid() => SerialPort.GetPortNames().Contains(deviceInfo.DevicePort) || deviceInfo.DevicePort == "Không có";
        // public bool IsAcess() => !BlockedComport.Contains(UserSettings.ComPort);
        // public IList<string> BlockedComport = new List<string>();
 
         private void RefreshTransferState()
         {
             
-            if (UserSettings.TransferActive)
+            if (deviceInfo.IsConnected)
             {
-                if (IsValid() && CheckSerialPort(UserSettings.ComPort))
+                if (IsValid() && CheckSerialPort(deviceInfo.DevicePort))
                 {
 
                     //start it
@@ -129,12 +135,12 @@ namespace adrilight
                 }
                 else
                 {
-                    UserSettings.TransferActive = false;
-                    UserSettings.ComPort = null;
+                    deviceInfo.IsConnected = false;
+                    deviceInfo.DevicePort = null;
                 }
             }
            
-            else if (!UserSettings.TransferActive && IsRunning)
+            else if (!deviceInfo.IsConnected && IsRunning)
             {
                 //stop it
                 _log.Debug("stopping the serial stream");
@@ -146,9 +152,11 @@ namespace adrilight
         private readonly byte[] _messagePostamble = { 15, 12, 93 };
         private readonly byte[] _messageZoeamble = { 15, 12, 93 };
         private readonly byte[] _commandmessage = { 15, 12, 93 };
-        
 
 
+        private DeviceInfoDTO deviceInfo { get; }
+        private LightingViewModel SettingsViewModel { get; }
+        private SettingInfoDTO settingInfo { get; }
         private Thread _workerThread;
         private CancellationTokenSource _cancellationTokenSource;
 
@@ -184,7 +192,7 @@ namespace adrilight
 
         public bool IsRunning => _workerThread != null && _workerThread.IsAlive;
 
-        private IUserSettings UserSettings { get; }
+       // private IUserSettings UserSettings { get; }
         private ISpotSet SpotSet { get; }
         
 
@@ -213,8 +221,8 @@ namespace adrilight
                 ///device param///
                 ///numleds/////đây là thiết bị dạng led màn hình có số led chiều dọc và chiều ngang, tổng số led sẽ là (dọc-1)*2+(ngang-1)*2///
                 //////2 byte ngay tiếp sau Preamable là để ghép lại thành 1 số 16bit (vì số led có thể lớn hơn 255 nhiều) vi điều khiển sẽ dựa vào số led này để biết cần đọc bao nhiêu byte nữa///
-                byte lo = (byte)(((UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2) & 0xff);
-                byte hi = (byte)((((UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2) >> 8) & 0xff);
+                byte lo = (byte)(((deviceInfo.SpotsX - 1) * 2 + (deviceInfo.SpotsY - 1) * 2) & 0xff);
+                byte hi = (byte)((((deviceInfo.SpotsX - 1) * 2 + (deviceInfo.SpotsY - 1) * 2) >> 8) & 0xff);
                 outputStream[counter++] = hi;
                 outputStream[counter++] = lo;
 
@@ -267,7 +275,7 @@ namespace adrilight
             ISerialPortWrapper serialPort = null;
          
 
-            if (String.IsNullOrEmpty(UserSettings.ComPort))
+            if (String.IsNullOrEmpty(deviceInfo.DevicePort))
             {
                 _log.Warn("Cannot start the serial sending because the comport is not selected.");
                 return;
@@ -289,12 +297,12 @@ namespace adrilight
                     while (!cancellationToken.IsCancellationRequested)
                     {
                         //open or change the serial port
-                        if (openedComPort != UserSettings.ComPort )
+                        if (openedComPort != deviceInfo.DevicePort )
                         {
                             serialPort?.Close();
-                            serialPort = UserSettings.ComPort != "Không có" ? (ISerialPortWrapper)new WrappedSerialPort(new SerialPort(UserSettings.ComPort, baudRate)) : new FakeSerialPort();
+                            serialPort = deviceInfo.DevicePort != "Không có" ? (ISerialPortWrapper)new WrappedSerialPort(new SerialPort(deviceInfo.DevicePort, baudRate)) : new FakeSerialPort();
                             serialPort.Open();
-                            openedComPort = UserSettings.ComPort;  
+                            openedComPort = deviceInfo.DevicePort;  
 
                         }
                         //send frame data
@@ -307,7 +315,7 @@ namespace adrilight
                             if (LedOutsideCase.DFUVal == 1)
                             {
                                 serialPort?.Close();
-                                serialPort = (ISerialPortWrapper)new WrappedSerialPort(new SerialPort(UserSettings.ComPort, 1200));
+                                serialPort = (ISerialPortWrapper)new WrappedSerialPort(new SerialPort(deviceInfo.DevicePort, 1200));
                                 serialPort.Open();
                                 serialPort.Close();
 
@@ -325,7 +333,7 @@ namespace adrilight
                         if (++frameCounter == 1024 && blackFrameCounter > 1000)
                         {
                             //there is maybe something wrong here because most frames where black. report it once per run only
-                            var settingsJson = JsonConvert.SerializeObject(UserSettings, Formatting.None);
+                            var settingsJson = JsonConvert.SerializeObject(deviceInfo, Formatting.None);
                             _log.Info($"Sent {frameCounter} frames already. {blackFrameCounter} were completely black. Settings= {settingsJson}");
                         }
                         ArrayPool<byte>.Shared.Return(outputBuffer);

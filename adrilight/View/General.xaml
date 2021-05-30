@@ -48,13 +48,13 @@
                     </ComboBox>
                 </Border>
                 <Border Grid.Row="1">
-                    <TextBlock   Style="{StaticResource tbHeading4Style}">Device'sName</TextBlock>
+                    <TextBlock   Style="{StaticResource tbHeading4Style}">Tên thiết bị</TextBlock>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="1">
                     <TextBox Text="{Binding Card.DeviceName}" Width="217" Height="37"></TextBox>
                 </Border>
                 <Border Grid.Row="2">
-                    <TextBlock   Style="{StaticResource tbHeading4Style}">Show on dashboard</TextBlock>
+                    <TextBlock   Style="{StaticResource tbHeading4Style}">Hiển thị ở màn hình chính</TextBlock>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="2">
                     <ToggleButton  Width="48" Height="24" HorizontalAlignment="Right"  VerticalAlignment="Center"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"    IsChecked="{Binding Card.IsShowOnDashboard}" />

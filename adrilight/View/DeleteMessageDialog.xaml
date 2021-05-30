@@ -23,8 +23,8 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Are you sure want to delete this device" Style="{StaticResource tbHeading2Style}" TextAlignment="Center"></TextBlock>
-        <TextBlock  Grid.Row="1"  Text="If you delete a device, all configs and data will be lost" Style="{StaticResource tbHeading3Style}" TextAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="0" Text="Bạn có chắc muốn xóa thiết bị này?" Style="{StaticResource tbHeading2Style}" TextAlignment="Center"></TextBlock>
+        <TextBlock  Grid.Row="1"  Text="Mọi thông tin và cấu hình của thiết bị sẽ mất vĩnh viễn" Style="{StaticResource tbHeading3Style}" TextAlignment="Center"></TextBlock>
         <Border  Grid.Row="2"  HorizontalAlignment="Center"  CornerRadius="5" Background="#d6d5d5" Height="35">
             <TextBlock Text="{Binding Card.DeviceName}"  Style="{StaticResource tbHeading2Style}" Margin="5"></TextBlock>
         </Border>

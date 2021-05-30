@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:adrilight.View"
               xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" Name="allDeviceNew"
-              Width="500" Height="400">
+              Width="520" Height="420">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -43,10 +43,10 @@
         </ResourceDictionary>
 
     </UserControl.Resources>
-    <StackPanel Width="500" Height="400"  Background="Transparent">
-        <StackPanel Width="500" Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBlock Margin="160,0,0,0" FontWeight="SemiBold" FontSize="30" HorizontalAlignment="Center" TextAlignment="Center" Width="162" > Add New</TextBlock>
-            <Button  VerticalAlignment="Center" Margin="120,0,0,0" HorizontalAlignment="Right" Style="{StaticResource btnClose}" Width="26" Height="26" IsCancel="True"   Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+    <StackPanel Width="520" Height="420"  Background="Transparent">
+        <StackPanel Width="520" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
+            <TextBlock Margin="160,0,0,0" FontWeight="SemiBold" FontSize="30" HorizontalAlignment="Center" TextAlignment="Center" Width="192" > Thêm thiết bị</TextBlock>
+            <Button  VerticalAlignment="Center" Margin="140,0,0,0" HorizontalAlignment="Right" Style="{StaticResource btnClose}" Width="20" Height="20" IsCancel="True"   Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
                 <Button.CommandParameter>
                     <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">False</system:Boolean>
                 </Button.CommandParameter>

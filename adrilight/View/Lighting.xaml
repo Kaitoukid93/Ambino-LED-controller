@@ -139,7 +139,7 @@
 
                 </StackPanel>
                 <Border Grid.Row="1">
-                    <TextBlock   Style="{StaticResource tbHeading4Style}">Mode</TextBlock>
+                    <TextBlock   Style="{StaticResource tbHeading4Style}">Chế độ</TextBlock>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="1">
                     <ComboBox Width="217" Height="37" Name="cboMode" IsEditable="False" IsSynchronizedWithCurrentItem="True" Text="{Binding Card.LightingMode}" ItemsSource="{Binding ScreenEffects}" ></ComboBox>
