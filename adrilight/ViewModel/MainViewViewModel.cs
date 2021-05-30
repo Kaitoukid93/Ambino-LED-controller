@@ -27,8 +27,6 @@ namespace adrilight.ViewModel
         public const string faq = "FAQ";
         public const string general = "General";
         public const string lighting = "Lighting";
-        public const string preview = "Preview";
-        public const string advance = "Advance";
         #endregion
         #region property
         private ObservableCollection<VerticalMenuItem> _menuItems;
@@ -248,20 +246,6 @@ namespace adrilight.ViewModel
                     CurrentView = _detailView;
                     IsDashboardType = false;
                     break;
-                case preview:
-                    if (_detailView == null)
-                        _detailView = new DeviceDetailViewModel(CurrentDevice, this,null);
-                    ((DeviceDetailViewModel)_detailView).TabType = DeviceTab.Preview;
-                    CurrentView = _detailView;
-                    IsDashboardType = false;
-                    break;
-                case advance:
-                    if (_detailView == null)
-                        _detailView = new DeviceDetailViewModel(CurrentDevice, this,null);
-                    ((DeviceDetailViewModel)_detailView).TabType = DeviceTab.Advance;
-                    CurrentView = _detailView;
-                    IsDashboardType = false; isPreview = false;
-                    break;
                 default:
                     break;
             }
@@ -312,8 +296,7 @@ namespace adrilight.ViewModel
             MenuItems.Add(new VerticalMenuItem() { Text = faq, Images = string.Format(ImagePathFormat, "new theme/General setup@2x.png"), IsActive = false, Type = MenuButtonType.Dashboard });
             MenuItems.Add(new VerticalMenuItem() { Text = general, Images = string.Format(ImagePathFormat, "new theme/advance@2x.png"), IsActive = true, Type = MenuButtonType.General });
             MenuItems.Add(new VerticalMenuItem() { Text = lighting, Images = string.Format(ImagePathFormat, "new theme/2x/new usb@2x.png"), IsActive = false, Type = MenuButtonType.General });
-            MenuItems.Add(new VerticalMenuItem() { Text =preview, Images = string.Format(ImagePathFormat, "new theme/General setup@2x.png"), IsActive = false, Type = MenuButtonType.General });
-            MenuItems.Add(new VerticalMenuItem() { Text = advance, Images = string.Format(ImagePathFormat, "new theme/General setup@2x.png"), IsActive = false, Type = MenuButtonType.General });
+         
         }
         /// <summary>
         /// set active state

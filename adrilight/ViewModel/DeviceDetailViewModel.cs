@@ -60,8 +60,6 @@ namespace adrilight.ViewModel
         private ViewModelBase _currentView;
         private ViewModelBase _generalView;
         private ViewModelBase _lightingView;
-        private ViewModelBase _advanceView;
-        private ViewModelBase _previewView;
         public ViewModelBase CurrentView {
             get { return _currentView; }
             set
@@ -144,12 +142,6 @@ namespace adrilight.ViewModel
                 case DeviceTab.Lighting:
                     _lightingView = new LightingViewModel(Card, _parentVm, SettingInfo);
                     CurrentView = _lightingView;
-                    break;
-                case DeviceTab.Preview:
-                    _previewView = new PreviewViewModel(Card, _parentVm,null);
-                    CurrentView = _previewView;
-                    break;
-                case DeviceTab.Advance:
                     break;
                 default:
                     break; 

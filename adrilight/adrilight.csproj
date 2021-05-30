@@ -379,7 +379,6 @@
     <Compile Include="Util\Rainbow.cs" />
     <Compile Include="Util\StaticColor.cs" />
     <Compile Include="ViewModel\AddNewDeviceViewModel.cs" />
-    <Compile Include="ViewModel\AdvanceViewModel.cs" />
     <Compile Include="ViewModel\AllDeviceViewModel.cs" />
     <Compile Include="ViewModel\AllNewDeviceViewModel.cs" />
     <Compile Include="ViewModel\AppSettingViewModel.cs" />
@@ -393,7 +392,6 @@
     <Compile Include="ViewModel\GeneralDeviceViewModel.cs" />
     <Compile Include="ViewModel\LightingViewModel.cs" />
     <Compile Include="ViewModel\MainViewViewModel.cs" />
-    <Compile Include="ViewModel\PreviewViewModel.cs" />
     <Compile Include="ViewModel\Product.xaml.cs">
       <DependentUpon>Product.xaml</DependentUpon>
     </Compile>

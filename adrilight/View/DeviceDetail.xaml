@@ -21,12 +21,7 @@
             <DataTemplate DataType="{x:Type vm:LightingViewModel}">
                 <local:Lighting/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:PreviewViewModel}">
-                <local:Preview/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:AdvanceViewModel}">
-                <local:Advance/>
-            </DataTemplate>
+          
         </ResourceDictionary>
 
     </UserControl.Resources>
