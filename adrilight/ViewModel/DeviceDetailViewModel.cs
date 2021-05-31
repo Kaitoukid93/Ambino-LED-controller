@@ -126,6 +126,7 @@ namespace adrilight.ViewModel
                 return true;
             }, (p) =>
             {
+                if (_lightingView != null) ((LightingViewModel)_lightingView).Dispose();
                 (_parentVm as MainViewViewModel).BackToDashboard();
             });
             _isInit = false;

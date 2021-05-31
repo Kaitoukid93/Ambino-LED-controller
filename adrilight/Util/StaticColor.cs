@@ -9,79 +9,59 @@ using System.Threading;
 using Castle.Core.Logging;
 using NLog;
 using adrilight.ViewModel;
+using BO;
 
 namespace adrilight.Util
 {
-    internal class StaticColor : IStaticColor
+    public class StaticColor : IStaticColor, IDisposable
     {
         
         
         private readonly NLog.ILogger _log = LogManager.GetCurrentClassLogger();
 
         private double point = 0;
-        public StaticColor(IUserSettings userSettings, ISpotSet spotSet, SettingsViewModel settingsViewModel, MainViewViewModel mainViewViewModel)
+        public StaticColor(DeviceInfoDTO device, ISpotSet spotSet, LightingViewModel viewViewModel, SettingInfoDTO setting)
         {
-            UserSettings = userSettings ?? throw new ArgumentNullException(nameof(userSettings));
+            deviceInfo = device ?? throw new ArgumentNullException(nameof(device));
             SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
-            SettingsViewModel = settingsViewModel ?? throw new ArgumentNullException(nameof(settingsViewModel));
-            MainViewViewModel = mainViewViewModel ?? throw new ArgumentNullException(nameof(mainViewViewModel));
-            SettingsViewModel.PropertyChanged += PropertyChanged;
-            UserSettings.PropertyChanged += PropertyChanged;
-            //MainViewViewModel.PropertyChanged += MainViewViewModel_PropertyChanged;
+            SettingsViewModel = viewViewModel ?? throw new ArgumentNullException(nameof(viewViewModel));
+            settingInfo = setting ?? throw new ArgumentNullException(nameof(setting));
+            deviceInfo.PropertyChanged += PropertyChanged;
+            settingInfo.PropertyChanged += SettingInfo_PropertyChanged;
             RefreshColorState();
-            _log.Info($"Static Color Created");
+            _log.Info($"RainbowColor Created");
 
         }
+
 
 
         private void PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
-               case nameof(UserSettings.TransferActive):
-               case nameof(UserSettings.StaticColor):
-               case nameof(UserSettings.SelectedEffect):
+               case nameof(settingInfo.TransferActive):
+               case nameof(deviceInfo.StaticColor):
+               case nameof(deviceInfo.LightingMode):
                     RefreshColorState();
                     break;
 
             }
         }
-        //private void MainViewViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        //{
-        //    switch (e.PropertyName)
-        //    {
-        //        case "LightingMode":
 
-        //            //setting here
-        //            UserSettings.Brightness = (byte)MainViewViewModel.CurrentDevice.Brightness;
-        //            UserSettings.StaticColor = MainViewViewModel.SettingInfo.PrimaryColor;
-        //            switch (MainViewViewModel.CurrentDevice.LightingMode)
-        //            {
-        //                case "Sáng theo màn hình":
-        //                    UserSettings.SelectedEffect = 0; break;
-        //                case "Sáng theo dải màu":
-        //                    UserSettings.SelectedEffect = 1; break;
-        //                case "Sáng màu tĩnh":
-        //                    UserSettings.SelectedEffect = 2; break;
-        //                case "Sáng theo nhạc":
-        //                    UserSettings.SelectedEffect = 3; break;
-        //                case "Atmosphere":
-        //                    UserSettings.SelectedEffect = 4; break;
+        private void SettingInfo_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
 
-        //            }
-        //            RefreshColorState();
-        //            break;
-        //    }
-        //}
-        private MainViewViewModel MainViewViewModel { get; }
-        private IUserSettings UserSettings { get; }
-        private SettingsViewModel SettingsViewModel { get; }
+        }
+        private Thread _workerThread;
+        private DeviceInfoDTO deviceInfo { get; }
+        private LightingViewModel SettingsViewModel { get; }
+        private SettingInfoDTO settingInfo { get; }
         public bool IsRunning { get; private set; } = false;
         private CancellationTokenSource _cancellationTokenSource;
         private void RefreshColorState()
         {
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            var shouldBeRunning = UserSettings.TransferActive && UserSettings.SelectedEffect == 2;
+            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.LightingMode == "Sáng màu tĩnh";
             if (isRunning && !shouldBeRunning)
             {
                 //stop it!
@@ -96,12 +76,12 @@ namespace adrilight.Util
                 //start it
                 _log.Debug("starting the StaticColor");
                 _cancellationTokenSource = new CancellationTokenSource();
-                var thread = new Thread(() => Run(_cancellationTokenSource.Token)) {
+                _workerThread = new Thread(() => Run(_cancellationTokenSource.Token)) {
                     IsBackground = true,
                     Priority = ThreadPriority.BelowNormal,
                     Name = "StaticColorCreator"
                 };
-                thread.Start();
+                _workerThread.Start();
             }
         }
 
@@ -127,13 +107,13 @@ namespace adrilight.Util
 
                 while (!token.IsCancellationRequested)
                 {
-                    var numLED = (UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2;
-                    Color currentStaticColor = UserSettings.StaticColor;
+                    var numLED = (deviceInfo.SpotsX - 1) * 2 + (deviceInfo.SpotsY - 1) * 2;
+                    Color currentStaticColor = deviceInfo.StaticColor;
                     var colorOutput = new OpenRGB.NET.Models.Color[numLED];
                     double peekBrightness = 0.0;
 
-                    bool isPreviewRunning = (SettingsViewModel.IsSettingsWindowOpen && UserSettings.SelectedEffect == 2);
-                    bool isBreathing = UserSettings.Breathing;
+                    bool isPreviewRunning = deviceInfo.LightingMode == "Sáng màu tĩnh";
+                    bool isBreathing = deviceInfo.IsBreathing;
                     lock (SpotSet.Lock)
                     {
 
@@ -155,7 +135,7 @@ namespace adrilight.Util
                         }
                         else
                         {
-                            peekBrightness = UserSettings.Brightness / 100.0;
+                            peekBrightness = deviceInfo.Brightness / 100.0;
                         }
 
                                    int counter = 0;
@@ -175,7 +155,7 @@ namespace adrilight.Util
 
                                 SettingsViewModel.PreviewSpots = SpotSet.Spots;
                             }
-                        MainViewViewModel.SpotSet = SpotSet;
+                       
                         Thread.Sleep(5);
                         }
                        
@@ -227,6 +207,29 @@ namespace adrilight.Util
                 IsRunning = false;
             }
 
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Stop();
+            }
+        }
+        public void Stop()
+        {
+            _log.Debug("Stop called.");
+            if (_workerThread == null) return;
+
+            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource = null;
+            _workerThread?.Join();
+            _workerThread = null;
         }
     }
 }

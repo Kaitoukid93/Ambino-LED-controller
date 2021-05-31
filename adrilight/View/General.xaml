@@ -54,10 +54,10 @@
                     <TextBox Text="{Binding Card.DeviceName}" Width="217" Height="37"></TextBox>
                 </Border>
                 <Border Grid.Row="2">
-                    <TextBlock   Style="{StaticResource tbHeading4Style}">Hiển thị ở màn hình chính</TextBlock>
+                    <TextBlock   Style="{StaticResource tbHeading4Style}">Brightness</TextBlock>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="2">
-                    <ToggleButton  Width="48" Height="24" HorizontalAlignment="Right"  VerticalAlignment="Center"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"    IsChecked="{Binding Card.IsShowOnDashboard}" />
+                    <Slider TickFrequency="5"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="100" Value="{Binding Card.Brightness}" />
                 </Border>
 
             </Grid>

@@ -355,14 +355,12 @@
     <Compile Include="Util\Atmosphere.cs" />
     <Compile Include="Util\Brightness.cs" />
     <Compile Include="Util\ColorUtil.cs" />
-    <Compile Include="Util\DeviceAtmosphere.cs" />
-    <Compile Include="Util\DeviceMusic.cs" />
-    <Compile Include="Util\DeviceRainbow.cs" />
-    <Compile Include="Util\DeviceStaticColor.cs" />
     <Compile Include="Util\FakeSerialPort.cs" />
     <Compile Include="Util\FpsLogger.cs" />
+    <Compile Include="Util\Gifxelation.cs" />
     <Compile Include="Util\GradientColor.cs" />
     <Compile Include="Util\IAtmosphere.cs" />
+    <Compile Include="Util\IGifxelation.cs" />
     <Compile Include="Util\ImageProcesser.cs" />
     <Compile Include="Util\IMusic.cs" />
     <Compile Include="Util\IRainbow.cs" />
@@ -562,9 +560,6 @@
     <Compile Include="View\AddNewDevice.xaml.cs">
       <DependentUpon>AddNewDevice.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Advance.xaml.cs">
-      <DependentUpon>Advance.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\AllDeviceView.xaml.cs">
       <DependentUpon>AllDeviceView.xaml</DependentUpon>
     </Compile>
@@ -600,9 +595,6 @@
     </Compile>
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Preview.xaml.cs">
-      <DependentUpon>Preview.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SettingsWindowComponents\LedOutsideCase.xaml.cs">
       <DependentUpon>LedOutsideCase.xaml</DependentUpon>
@@ -662,10 +654,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\Advance.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="View\AllDeviceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -721,10 +709,6 @@
     <Page Include="View\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Preview.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\SettingsWindowComponents\LedOutsideCase.xaml">
       <SubType>Designer</SubType>

@@ -30,11 +30,11 @@
         </Border>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition />
                 <ColumnDefinition Width="43"/>
-                <ColumnDefinition/>
                 <ColumnDefinition Width="43"/>
             </Grid.ColumnDefinitions>
-            <Button Style="{StaticResource btnPrevious}" Width="43" Height="37" IsCancel="True" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+            <Button Style="{StaticResource btnPrevious}" Grid.Column="1" Width="43" Height="37" IsCancel="True" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
                 <Button.CommandParameter>
                     <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">False</system:Boolean>
                 </Button.CommandParameter>

@@ -57,10 +57,35 @@ namespace adrilight.ViewModel
             set
             {
                 if (_settingInfo == value) return;
+                if (_settingInfo != null)
+                    _settingInfo.PropertyChanged -= _settingInfo_PropertyChanged;
                 _settingInfo = value;
+                if(_settingInfo!=null)
+                _settingInfo.PropertyChanged += _settingInfo_PropertyChanged;
                 RaisePropertyChanged();
             }
         }
+
+        private void _settingInfo_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(SettingInfo.AutoStartWithWindows):
+                    if (SettingInfo.AutoStartWithWindows)
+                    {
+                        StartUpManager.AddApplicationToCurrentUserStartup();
+                    }
+                    else
+                    {
+                        StartUpManager.RemoveApplicationFromCurrentUserStartup();
+                    }
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+
         private ViewModelBase _currentView;
         private ViewModelBase _allDeviceView;
         private ViewModelBase _detailView;
@@ -80,78 +105,29 @@ namespace adrilight.ViewModel
             get { return _currentDevice; }
             set
             {
+                if (_currentDevice == value) return;
+                if (_currentDevice != null) _currentDevice.PropertyChanged -= _currentDevice_PropertyChanged;
                 _currentDevice = value;
-                if (_currentDevice != null)
-                {
-                    _currentDevice.PropertyChanged -= _currentDevice_PropertyChanged;
-                }
+                if (_currentDevice != null) _currentDevice.PropertyChanged += _currentDevice_PropertyChanged;
                 RaisePropertyChanged("CurrentDevice");
-                if (_currentDevice != null)
-                {
-                    LightingMode = value.LightingMode;
-                    _currentDevice.PropertyChanged += _currentDevice_PropertyChanged;
-                }
+               
             }
         }
 
         private void _currentDevice_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            //switch (e.PropertyName)
-            //{
-            //    case "LightingMode":
-            //        LightingMode = _currentDevice.LightingMode;
-            //        Settings.Brightness = (byte)CurrentDevice.Brightness;
-            //        switch (LightingMode)
-            //        {
-            //            case "Sáng theo màn hình":
-            //                Settings.SelectedEffect = 0; break;
-            //            case "Sáng theo dải màu":
-            //                Settings.SelectedEffect = 1; break;
-            //            case "Sáng màu tĩnh":
-            //                Settings.SelectedEffect = 2; break;
-            //            case "Sáng theo nhạc":
-            //                Settings.SelectedEffect = 3; break;
-            //            case "Atmosphere":
-            //                Settings.SelectedEffect = 4; break;
-
-            //        }
-            //        break;
-
-            //}
-        }
-        private string _lightingmode;
-        public string LightingMode {
-            get { return _lightingmode; }
-            set
+            if (!IsDashboardType)
             {
-                if (_lightingmode == value) return;
-                _lightingmode = value;
-                RaisePropertyChanged("LightingMode");
+                WriteDeviceInfoJson();
             }
         }
+
         public ICommand SelectMenuItem { get; set; }
         #endregion
-        private  ISpotSet spotSet;
-        public ISpotSet SpotSet {
-            get { return spotSet; }
-            set
-            {
-                //if (spotSet == value) return;
-                spotSet = value;
-                RaisePropertyChanged("SpotSet");
-                //if (isPreview)
-                //{
-                //    var view = CurrentView as DeviceDetailViewModel;
-                //    view.SpotSet = value;
-                //}
-            }
-        }
+        
         private bool isPreview = false;
-        public IUserSettings Settings { get; }
-        public MainViewViewModel(IUserSettings userSettings,ISpotSet spotSet)
+        public MainViewViewModel()
         {
-            this.SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
-            this.Settings = userSettings ?? throw new ArgumentNullException(nameof(userSettings));
         }
         public override  void ReadData()
         {
@@ -182,6 +158,7 @@ namespace adrilight.ViewModel
                 SettingInfo.PushNotificationWhenNewDeviceDisconnected = setting.pushnotificationwhennewdevicedisconnected;
                 SettingInfo.StartMinimum = setting.startminimum;
                 SettingInfo.PrimaryColor=(Color )ColorConverter.ConvertFromString(setting.primarycolor);
+                
             }
             else
             {
@@ -225,21 +202,20 @@ namespace adrilight.ViewModel
                 case appSetting:
                     _appSettingView = new AppSettingViewModel(this, SettingInfo);
                     CurrentView = _appSettingView;
-                    IsDashboardType = true; isPreview = false;
+                    IsDashboardType = true; 
                     break;
                 case faq:
                     _faqSettingView = new FAQViewModel();
                     CurrentView = _faqSettingView;
-                    IsDashboardType = true; isPreview = false;
+                    IsDashboardType = true; 
                     break;
                 case general:
                     _detailView = new DeviceDetailViewModel(CurrentDevice,this,SettingInfo);
                     CurrentView = _detailView;
                     IsDashboardType = false;
-                    isPreview = false;
+                  
                     break;
                 case lighting:
-                    isPreview = true;
                     if (_detailView==null)
                         _detailView = new DeviceDetailViewModel(CurrentDevice,this, SettingInfo);
                     ((DeviceDetailViewModel)_detailView).TabType = DeviceTab.Lighting;
@@ -258,7 +234,6 @@ namespace adrilight.ViewModel
         }
         public void GotoChild(DeviceInfoDTO card)
         {
-            isPreview = false;
             _detailView = new DeviceDetailViewModel(card, this,SettingInfo);
             CurrentView = _detailView;
             IsDashboardType = false;
@@ -268,7 +243,6 @@ namespace adrilight.ViewModel
         public void BackToDashboard()
         {
             _allDeviceView = new AllDeviceViewModel(this);
-            isPreview = false;
             CurrentView = _allDeviceView;
             IsDashboardType = true;
             SetMenuItemActiveStatus(dashboard);
@@ -282,7 +256,6 @@ namespace adrilight.ViewModel
                 IsDashboardType = true;
                 SetMenuItemActiveStatus(dashboard);
             }
-            isPreview = false;
         }
         /// <summary>
         /// Load vertical menu

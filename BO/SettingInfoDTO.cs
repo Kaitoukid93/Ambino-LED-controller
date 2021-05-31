@@ -141,6 +141,17 @@ namespace BO
                 OnPropertyChanged();
             }
         }
+        private bool _transferActive = true;
+        public bool TransferActive
+        {
+            get { return _transferActive; }
+            set
+            {
+                if (_transferActive == value) return;
+                _transferActive = value;
+                OnPropertyChanged();
+            }
+        }
         public SettingInfo GetSettingInfo()
         {
             return new SettingInfo()

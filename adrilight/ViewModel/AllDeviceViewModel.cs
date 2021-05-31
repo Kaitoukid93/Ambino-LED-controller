@@ -11,6 +11,7 @@ using System.Windows.Input;
 using MaterialDesignThemes.Wpf;
 using System.IO;
 using Newtonsoft.Json;
+using System.Windows.Media;
 
 namespace adrilight.ViewModel
 {
@@ -68,10 +69,24 @@ namespace adrilight.ViewModel
                         MusicSource = item.musicsource,
                         RainbowMode = item.rainbowmode,
                         RainbowSpeed = item.rainbowspeed,
-                        Staticcolor = item.staticcolor,
-                        IsShowOnDashboard=item.isshowondashboard
+                        StaticColor =string.IsNullOrEmpty(item.staticcolor)? Color.FromArgb(0, 0, 255, 255) : (Color)System.Windows.Media.ColorConverter.ConvertFromString(item.staticcolor), 
+                        IsShowOnDashboard=item.isshowondashboard,
+                         AtmosphereStart=item.atmospherestart,
+                          AtmosphereStop=item.atmospherestop,
+                           BreathingSpeed=item.breathingspeed,
+                            ColorFrequency=item.colorfrequency,
+                             EffectSpeed=item.effectspeed,
+                              Palette=item.palette,
+                               SpotHeight=item.spotheight,
+                               SpotsX=item.spotx,
+                               SpotsY=item.spoty,
+                                SpotWidth=item.spotwidth,
+                                UseLinearLighting=item.uselinearlighting,
+                                 WhitebalanceBlue=item.whitebalanceblue,
+                                 WhitebalanceRed=item.whitebalancered,
+                                 WhitebalanceGreen=item.whitebalancegreen
                     };
-                    if (item.staticcolor == null) deviceInfo.Staticcolor = "#FF2BFF00";
+
                     deviceInfo.PropertyChanged += DeviceInfo_PropertyChanged;
                     Cards.Add(deviceInfo);
                 }

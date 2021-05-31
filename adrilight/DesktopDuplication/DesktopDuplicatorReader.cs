@@ -13,66 +13,42 @@ using adrilight.ViewModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using adrilight.Resources;
+using BO;
 
 namespace adrilight
 {
-    internal class DesktopDuplicatorReader : IDesktopDuplicatorReader
+    public class DesktopDuplicatorReader : IDesktopDuplicatorReader
     {
         private readonly ILogger _log = LogManager.GetCurrentClassLogger();
 
-        public DesktopDuplicatorReader(IUserSettings userSettings, ISpotSet spotSet, SettingsViewModel settingsViewModel,MainViewViewModel mainViewViewModel, IContext context)
+        public DesktopDuplicatorReader(DeviceInfoDTO device, ISpotSet spotSet, LightingViewModel viewViewModel, SettingInfoDTO setting)
         {
-            UserSettings = userSettings ?? throw new ArgumentNullException(nameof(userSettings));
+            deviceInfo = device ?? throw new ArgumentNullException(nameof(device));
             SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
             SpotSet2 = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
 
-            SettingsViewModel = settingsViewModel ?? throw new ArgumentNullException(nameof(settingsViewModel));
-            MainViewViewModel = mainViewViewModel ?? throw new ArgumentNullException(nameof(mainViewViewModel));
+            SettingsViewModel = viewViewModel ?? throw new ArgumentNullException(nameof(viewViewModel));
+            settingInfo = setting ?? throw new ArgumentNullException(nameof(setting));
+            deviceInfo.PropertyChanged += PropertyChanged;
+            settingInfo.PropertyChanged += SettingInfo_PropertyChanged;
             _retryPolicy = Policy.Handle<Exception>()
                 .WaitAndRetryForever(ProvideDelayDuration);
 
-            UserSettings.PropertyChanged += PropertyChanged;
-            SettingsViewModel.PropertyChanged += PropertyChanged;
-           // MainViewViewModel.PropertyChanged += MainViewViewModel_PropertyChanged;
+          
             RefreshCapturingState();
 
             _log.Info($"DesktopDuplicatorReader created.");
         }
-        //private void MainViewViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        //{
-        //    switch (e.PropertyName)
-        //    {
-        //        case "LightingMode":
-
-        //            //setting here
-        //            UserSettings.Brightness = (byte)MainViewViewModel.CurrentDevice.Brightness;
-        //            switch (MainViewViewModel.CurrentDevice.LightingMode)
-        //            {
-        //                case "Sáng theo màn hình":
-        //                    UserSettings.SelectedEffect = 0; break;
-        //                case "Sáng theo dải màu":
-        //                    UserSettings.SelectedEffect = 1; break;
-        //                case "Sáng màu tĩnh":
-        //                    UserSettings.SelectedEffect = 2; break;
-        //                case "Sáng theo nhạc":
-        //                    UserSettings.SelectedEffect = 3; break;
-        //                case "Atmosphere":
-        //                    UserSettings.SelectedEffect = 4; break;
-
-        //            }
-        //           // RefreshCapturingState();
-        //            break;
-        //    }
-        //}
+       
         private void PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
-                case nameof(UserSettings.SelectedEffect):
-                case nameof(UserSettings.TransferActive):
-                case nameof(UserSettings.IsPreviewEnabled):
-                case nameof(UserSettings.CaptureActive):
-                case nameof(SettingsViewModel.IsSettingsWindowOpen):
+                case nameof(deviceInfo.LightingMode):
+                case nameof(settingInfo.TransferActive):
+              //  case nameof(UserSettings.IsPreviewEnabled):
+                case nameof(deviceInfo.CaptureActive):
+               // case nameof(SettingsViewModel.IsSettingsWindowOpen):
 
 
 
@@ -81,7 +57,14 @@ namespace adrilight
 
             }
         }
+        private void SettingInfo_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
 
+        }
+
+        private DeviceInfoDTO deviceInfo { get; }
+        private LightingViewModel SettingsViewModel { get; }
+        private SettingInfoDTO settingInfo { get; }
         public bool IsRunning { get; private set; } = false;
         private CancellationTokenSource _cancellationTokenSource;
 
@@ -89,7 +72,7 @@ namespace adrilight
         private void RefreshCapturingState()
         {
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            var shouldBeRunning = UserSettings.TransferActive && UserSettings.SelectedEffect == 0;
+            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.LightingMode == "Sáng theo màn hình";
 
 
 
@@ -117,53 +100,12 @@ namespace adrilight
         }
 
 
-        //private void RefreshCapturingStateSecond()
-        //{
-        //    var isRunningSecond = _cancellationTokenSourceSecond != null && IsRunningSecond;
-        //    var shouldBeRunningSecond = UserSettings.TransferActive;
-
-        //    var shouldBeCapturingSecond = UserSettings.CaptureActive || SettingsViewModel.IsSettingsWindowOpen && SettingsViewModel.IsPreviewTabOpenSecond;
-
-        //    if (isRunningSecond && !shouldBeCapturingSecond && shouldBeRunningSecond)
-        //    {
-        //        //stop it!
-        //        _log.Debug("stopping the capturing");
-        //        _cancellationTokenSourceSecond.Cancel();
-        //        _cancellationTokenSourceSecond = null;
-        //    }
-        //    else if (!isRunningSecond && shouldBeCapturingSecond && shouldBeRunningSecond)
-        //    {
-        //        //start it
-        //        _log.Debug("starting the capturing");
-        //        _cancellationTokenSourceSecond = new CancellationTokenSource();
-        //        var thread = new Thread(() => RunSecond(_cancellationTokenSourceSecond.Token)) {
-        //            IsBackground = true,
-        //            Priority = ThreadPriority.BelowNormal,
-        //            Name = "DesktopDuplicatorReader"
-        //        };
-        //        thread.Start();
-        //        if (Screen.AllScreens.Length == 2)
-        //        {
-        //            var thread2 = new Thread(() => Run2Second(_cancellationTokenSourceSecond.Token)) {
-        //                IsBackground = true,
-        //                Priority = ThreadPriority.BelowNormal,
-        //                Name = "DesktopDuplicatorReader2"
-        //            };
-        //            thread2.Start();
-        //        }
+     
 
 
-        //    }
-
-        //}
-
-
-        private IUserSettings UserSettings { get; }
         private ISpotSet SpotSet { get; }
         private ISpotSet SpotSet2 { get; }
         private ISpotSet SpotSet3 { get; }
-        private SettingsViewModel SettingsViewModel { get; }
-        private MainViewViewModel MainViewViewModel { get; }
         private readonly Policy _retryPolicy;
 
         private TimeSpan ProvideDelayDuration(int index)
@@ -215,7 +157,7 @@ namespace adrilight
                     }
                     image = newImage;
 
-                    bool isPreviewRunning = (SettingsViewModel.IsSettingsWindowOpen && UserSettings.SelectedEffect == 0);
+                    bool isPreviewRunning = (deviceInfo.LightingMode == "Sáng theo màn hình");
                     if (isPreviewRunning)
                     {
                         // SettingsViewModel.SetPreviewImage(image); remove this, using grey gradient background for better visual
@@ -226,7 +168,7 @@ namespace adrilight
 
                     lock (SpotSet.Lock)
                     {
-                        var useLinearLighting = UserSettings.UseLinearLighting;
+                        var useLinearLighting = deviceInfo.UseLinearLighting;
 
                         var imageRectangle = new Rectangle(0, 0, image.Width, image.Height);
 
@@ -252,7 +194,7 @@ namespace adrilight
 
                                     ApplyColorCorrections(sumR * countInverse, sumG * countInverse, sumB * countInverse
                                         , out byte finalR, out byte finalG, out byte finalB, useLinearLighting
-                                        , UserSettings.SaturationTreshold, spot.Red, spot.Green, spot.Blue);
+                                        , deviceInfo.SaturationTreshold, spot.Red, spot.Green, spot.Blue);
 
                                     spot.SetColor(finalR, finalG, finalB, isPreviewRunning);
 
@@ -266,14 +208,14 @@ namespace adrilight
 
                             SettingsViewModel.PreviewSpots = SpotSet.Spots;
                         }
-                        MainViewViewModel.SpotSet = SpotSet;
+                        //MainViewViewModel.SpotSet = SpotSet;
                     }
 
 
 
                     image.UnlockBits(bitmapData);
 
-                    int minFrameTimeInMs = 1000 / UserSettings.LimitFps;
+                    int minFrameTimeInMs = 1000 / deviceInfo.LimitFps;
                     var elapsedMs = (int)frameTime.ElapsedMilliseconds;
                     if (elapsedMs < minFrameTimeInMs)
                     {
@@ -347,9 +289,9 @@ namespace adrilight
             //"white" on wall was 66,68,77 without white balance
             //white balance
             //todo: introduce settings for white balance adjustments
-            r *= UserSettings.WhitebalanceRed / 100f;
-            g *= UserSettings.WhitebalanceGreen / 100f;
-            b *= UserSettings.WhitebalanceBlue / 100f;
+            r *= deviceInfo.WhitebalanceRed / 100f;
+            g *= deviceInfo.WhitebalanceGreen / 100f;
+            b *= deviceInfo.WhitebalanceBlue / 100f;
 
             if (!useLinearLighting)
             {
@@ -403,7 +345,8 @@ namespace adrilight
 
                 _desktopDuplicator?.Dispose();
                 _desktopDuplicator = null;
-                throw;
+                // throw;
+                return null;
             }
         }
         private Bitmap GetNextFrame2(Bitmap reusableBitmap2)

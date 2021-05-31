@@ -32,5 +32,20 @@ namespace BO
         public bool isshowondashboard { get; set; }
         public int lednumber { get; set; }
         public int palette { get; set; }
+        public int effectspeed { get; set; }
+        public int breathingspeed { get; set; }
+        public byte whitebalancegreen { get; set; }
+        public byte whitebalancered { get; set; }
+        public byte whitebalanceblue { get; set; }
+        public int colorfrequency { get; set; }
+        public int selectedmusicpalette { get; set; }
+        public bool uselinearlighting { get; set; }
+        public int atmospherestart { get; set; }
+        public int atmospherestop { get; set; }
+        public int spotwidth { get; set; }
+        public int spotheight { get; set; }
+        public int spotx { get; set; }
+        public int spoty { get; set; }
+
     }
 }

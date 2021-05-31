@@ -8,16 +8,16 @@
          d:DataContext="{Binding Source={StaticResource Locator}, Path=MainViewViewModel}"
         DataContext="{Binding Source={StaticResource Locator}, Path=MainViewViewModel}" 
         xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
-        mc:Ignorable="d" AllowsTransparency="True" Background="Transparent"
+        mc:Ignorable="d" Top="20"
         WindowStartupLocation="CenterScreen"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"         
-        FontFamily="{StaticResource MaterialDesignFont}"
-       WindowStyle="None" AllowDrop="True"
-        Title="MainView" Height="866" Width="1050" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+        FontFamily="{StaticResource MaterialDesignFont}" 
+       AllowDrop="True" AllowsTransparency="False" Background="Transparent"
+        Title="MainView" Height="850" Width="1050" MouseLeftButtonDown="Window_MouseLeftButtonDown">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -200,7 +200,7 @@
         </ResourceDictionary>
     </Window.Resources>
  
-        <materialDesign:Card UniformCornerRadius="30" Background="White" Margin="5">
+        <materialDesign:Card  Background="White" >
         <materialDesign:DialogHost Background="Transparent"
 Identifier="mainDialog"  >
             <Grid Background="White"  materialDesign:ShadowAssist.ShadowDepth="Depth5">

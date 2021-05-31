@@ -140,7 +140,8 @@ namespace adrilight
 
             if (!UserSettings.StartMinimized)
             {
-                OpenSettingsWindow();
+                // OpenSettingsWindow();
+                OpenNewUI();
             }
 
 
@@ -183,8 +184,8 @@ namespace adrilight
                 kernel.Bind<IUserSettings>().To<UserSettingsFake>().InSingletonScope();
                 kernel.Bind<IContext>().To<ContextFake>().InSingletonScope();
                 kernel.Bind<ISpotSet>().To<SpotSetFake>().InSingletonScope();
-                kernel.Bind<ISerialStream>().To<SerialStreamFake>().InSingletonScope();
-                kernel.Bind<IDesktopDuplicatorReader>().To<DesktopDuplicatorReaderFake>().InSingletonScope();
+               // kernel.Bind<ISerialStream>().To<SerialStreamFake>().InSingletonScope();
+               // kernel.Bind<IDesktopDuplicatorReader>().To<DesktopDuplicatorReaderFake>().InSingletonScope();
             }
             else
             {
@@ -195,14 +196,14 @@ namespace adrilight
 
                 kernel.Bind<IContext>().To<WpfContext>().InSingletonScope();
                 kernel.Bind<ISpotSet>().To<SpotSet>().InSingletonScope();
-                kernel.Bind<ISerialStream>().To<SerialStream>().InSingletonScope();
-                kernel.Bind<IDesktopDuplicatorReader>().To<DesktopDuplicatorReader>().InSingletonScope();
-                kernel.Bind<IStaticColor>().To<StaticColor>().InSingletonScope();
-                kernel.Bind<IRainbow>().To<Rainbow>().InSingletonScope();
-                kernel.Bind<IMusic>().To<Music>().InSingletonScope();
-                kernel.Bind<IAtmosphere>().To<Atmosphere>().InSingletonScope();
+               // kernel.Bind<ISerialStream>().To<SerialStream>().InSingletonScope();
+               //kernel.Bind<IDesktopDuplicatorReader>().To<DesktopDuplicatorReader>().InSingletonScope();
+                //kernel.Bind<IStaticColor>().To<StaticColor>().InSingletonScope();
+                //kernel.Bind<IRainbow>().To<Rainbow>().InSingletonScope();
+                //kernel.Bind<IMusic>().To<Music>().InSingletonScope();
+                //kernel.Bind<IAtmosphere>().To<Atmosphere>().InSingletonScope();
             }
-            kernel.Bind<SettingsViewModel>().ToSelf().InSingletonScope();
+           // kernel.Bind<SettingsViewModel>().ToSelf().InSingletonScope();
             kernel.Bind<TelemetryClient>().ToConstant(SetupApplicationInsights(kernel.Get<IUserSettings>()));
             kernel.Bind(x => x.FromThisAssembly()
             .SelectAllClasses()
@@ -210,12 +211,12 @@ namespace adrilight
             .BindAllInterfaces());
             kernel.Bind<MainViewViewModel>().ToSelf().InSingletonScope();
             //eagerly create required singletons [could be replaced with actual pipeline]
-            var desktopDuplicationReader = kernel.Get<IDesktopDuplicatorReader>();
-            var serialStream = kernel.Get<ISerialStream>();
-            var staticColor = kernel.Get<IStaticColor>();
-            var rainbow = kernel.Get<IRainbow>();
-            var music = kernel.Get<IMusic>();
-            var atmosphere = kernel.Get<IAtmosphere>();
+            //var desktopDuplicationReader = kernel.Get<IDesktopDuplicatorReader>();
+          //  var serialStream = kernel.Get<ISerialStream>();
+            //var staticColor = kernel.Get<IStaticColor>();
+            //var rainbow = kernel.Get<IRainbow>();
+            //var music = kernel.Get<IMusic>();
+            //var atmosphere = kernel.Get<IAtmosphere>();
             return kernel;
         }
 

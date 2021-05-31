@@ -14,59 +14,39 @@ using adrilight.ViewModel;
 using System.Threading;
 using NLog;
 using System.Threading.Tasks;
+using BO;
 
 namespace adrilight
 {
-    internal class Rainbow : IRainbow
+    public class Rainbow : IRainbow, IDisposable
     {
         // public static Color[] small = new Color[30];
         public static double _huePosIndex = 0;//index for rainbow mode only
         public static double _palettePosIndex = 0;//index for other custom palette
         
         private readonly NLog.ILogger _log = LogManager.GetCurrentClassLogger();
-
-        public Rainbow(IUserSettings userSettings, ISpotSet spotSet, SettingsViewModel settingsViewModel, MainViewViewModel mainViewViewModel)
+        private Thread _workerThread;
+        public Rainbow(DeviceInfoDTO device, ISpotSet spotSet, LightingViewModel viewViewModel, SettingInfoDTO setting)
         {
-            UserSettings = userSettings ?? throw new ArgumentNullException(nameof(userSettings));
+            deviceInfo = device ?? throw new ArgumentNullException(nameof(device));
             SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
-            SettingsViewModel = settingsViewModel ?? throw new ArgumentNullException(nameof(settingsViewModel));
-            MainViewViewModel = mainViewViewModel ?? throw new ArgumentNullException(nameof(mainViewViewModel));
-            UserSettings.PropertyChanged += PropertyChanged;
-            SettingsViewModel.PropertyChanged += PropertyChanged;
-        //    MainViewViewModel.PropertyChanged += MainViewViewModel_PropertyChanged;
+            SettingsViewModel = viewViewModel ?? throw new ArgumentNullException(nameof(viewViewModel));
+            settingInfo = setting ?? throw new ArgumentNullException(nameof(setting));
+            deviceInfo.PropertyChanged += PropertyChanged;
+            settingInfo.PropertyChanged += SettingInfo_PropertyChanged;
             RefreshColorState();
             _log.Info($"RainbowColor Created");
 
         }
 
-        //private void MainViewViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        //{
-        //    switch (e.PropertyName)
-        //    {
-        //        case "LightingMode":
+        private void SettingInfo_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
 
-        //            //setting here
-        //            UserSettings.Brightness = (byte)MainViewViewModel.CurrentDevice.Brightness;
-        //            switch (MainViewViewModel.CurrentDevice.LightingMode)
-        //            {
-        //                case "Sáng theo hiệu ứng":
-        //                    UserSettings.SelectedEffect = 0;break;
-        //                case "Sáng theo màn hình":
-        //                    UserSettings.SelectedEffect = 1; break;
-        //                case "Sáng màu tĩnh":
-        //                    UserSettings.SelectedEffect = 2; break;
-        //                case "Sáng theo nhạc":
-        //                    UserSettings.SelectedEffect = 3; break;
-                        
-        //            }
-        //            RefreshColorState();
-        //            break;
-        //    }
-        //}
+        }
 
-        private IUserSettings UserSettings { get; }
-        private SettingsViewModel SettingsViewModel { get; }
-        private MainViewViewModel MainViewViewModel { get; }
+        private DeviceInfoDTO deviceInfo { get; }
+        private LightingViewModel SettingsViewModel { get; }
+        private SettingInfoDTO settingInfo { get; }
         public bool IsRunning { get; private set; } = false;
         private CancellationTokenSource _cancellationTokenSource;
 
@@ -74,10 +54,9 @@ namespace adrilight
         {
             switch (e.PropertyName)
             {
-                case nameof(UserSettings.TransferActive):
-                case nameof(UserSettings.SelectedEffect):
-                case nameof(UserSettings.Brightness):
-                case nameof(SettingsViewModel.IsSettingsWindowOpen):
+                case nameof(settingInfo.TransferActive):
+                case nameof(deviceInfo.LightingMode):
+                case nameof(deviceInfo.Brightness):
                     RefreshColorState();
                     break;
             }
@@ -86,7 +65,7 @@ namespace adrilight
         {
 
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            var shouldBeRunning = UserSettings.TransferActive && UserSettings.SelectedEffect== 1;
+            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.LightingMode == "Sáng theo dải màu";
             if (isRunning && !shouldBeRunning)
             {
                 //stop it!
@@ -99,18 +78,40 @@ namespace adrilight
                 //start it
                 _log.Debug("starting the Rainbow Color");
                 _cancellationTokenSource = new CancellationTokenSource();
-                var thread = new Thread(() => Run(_cancellationTokenSource.Token)) {
+                _workerThread = new Thread(() => Run(_cancellationTokenSource.Token)) {
                     IsBackground = true,
                     Priority = ThreadPriority.BelowNormal,
                     Name = "RainbowColorCreator"
                 };
-                thread.Start();
+                _workerThread.Start();
             }
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-        
-        
+        private void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Stop();
+            }
+        }
+        public void Stop()
+        {
+            _log.Debug("Stop called.");
+            if (_workerThread == null) return;
+
+            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource = null;
+            _workerThread?.Join();
+            _workerThread = null;
+        }
+
+
         private ISpotSet SpotSet { get; }
         public void Run (CancellationToken token)
 
@@ -126,14 +127,14 @@ namespace adrilight
 
                 while (!token.IsCancellationRequested)
                 {
-                    double brightness = UserSettings.Brightness / 100d;
-                    int paletteSource = UserSettings.SelectedPalette;
-                    var numLED = (UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2;
+                    double brightness = deviceInfo.Brightness / 100d;
+                    int paletteSource = deviceInfo.Palette;
+                    var numLED = (deviceInfo.SpotsX - 1) * 2 + (deviceInfo.SpotsY - 1) * 2;
                     var colorOutput = new OpenRGB.NET.Models.Color[numLED];
 
                 
 
-                    bool isPreviewRunning = (SettingsViewModel.IsSettingsWindowOpen && UserSettings.SelectedEffect==1); 
+                    bool isPreviewRunning = (deviceInfo.LightingMode == "Sáng theo màn hình"); 
                     if (isPreviewRunning)
                     {
                        // SettingsViewModel.SetPreviewImage(backgroundimage);
@@ -198,7 +199,7 @@ namespace adrilight
 
                             SettingsViewModel.PreviewSpots = SpotSet.Spots;
                         }
-                        MainViewViewModel.SpotSet = SpotSet;
+                       
                     }
                     Thread.Sleep(5); //motion speed
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace BO
 {
@@ -207,17 +208,7 @@ namespace BO
                 OnPropertyChanged();
             }
         }
-        private string _staticcolor= "#F0F8FF";//alice blue
-        public string Staticcolor
-        {
-            get { return _staticcolor; }
-            set
-            {
-                if (_staticcolor == value) return;
-                _staticcolor = value;
-                OnPropertyChanged();
-            }
-        }
+        
         private string _fadestart;
         public string FadeStart
         {
@@ -429,7 +420,176 @@ namespace BO
                 OnPropertyChanged();
             }
         }
-
+        private int _selectedAudioDevice = 0;
+        public int SelectedAudioDevice
+        {
+            get { return _selectedAudioDevice; }
+            set
+            {
+                if (_selectedAudioDevice == value) return;
+                _selectedAudioDevice = value;
+                OnPropertyChanged();
+            }
+        }
+        private bool _useLinearLighting = true;
+        private bool _captureActive = true;
+        public bool UseLinearLighting
+        {
+            get { return _useLinearLighting; }
+            set
+            {
+                if (_useLinearLighting == value) return;
+                _useLinearLighting = value;
+                NoUseLinearLighting = !value;
+                OnPropertyChanged();
+            }
+        }
+        public bool CaptureActive
+        {
+            get { return _captureActive; }
+            set
+            {
+                if (_captureActive == value) return;
+                _captureActive = value;
+                OnPropertyChanged();
+            }
+        }
+        public byte SaturationTreshold
+        {
+            get { return _saturationTreshold; }
+            set
+            {
+                if (_saturationTreshold == value) return;
+                _saturationTreshold = value;
+                OnPropertyChanged();
+            }
+        }
+        private int _limitFps = 60;
+        public int LimitFps {
+            get { return _limitFps; }
+            set
+            {
+                if (_limitFps == value) return;
+                _limitFps = value;
+                OnPropertyChanged();
+            }
+        }
+        private byte _whitebalanceRed = 100;
+        private byte _whitebalanceGreen = 100;
+        private byte _whitebalanceBlue = 100;
+        public byte WhitebalanceRed {
+            get { return _whitebalanceRed; }
+            set
+            {
+                if (_whitebalanceRed == value) return;
+                _whitebalanceRed = value;
+                OnPropertyChanged();
+            }
+        }
+        public byte WhitebalanceGreen {
+            get { return _whitebalanceGreen; }
+            set
+            {
+                if (_whitebalanceGreen == value) return;
+                _whitebalanceGreen = value;
+                OnPropertyChanged();
+            }
+        }
+        public byte WhitebalanceBlue {
+            get { return _whitebalanceBlue; }
+            set
+            {
+                if (_whitebalanceBlue == value) return;
+                _whitebalanceBlue = value;
+                OnPropertyChanged();
+            }
+        }
+        private int _effectSpeed = 5;
+        public int EffectSpeed
+        {
+            get { return _effectSpeed; }
+            set
+            {
+                if (_effectSpeed == value) return;
+                _effectSpeed = value;
+                OnPropertyChanged();
+            }
+        }
+        int _breathingSpeed = 5;
+        public int BreathingSpeed {
+            get { return _breathingSpeed; }
+            set
+            {
+                if (_breathingSpeed == value) return;
+                _breathingSpeed = value;
+                OnPropertyChanged();
+            }
+        }
+        private string _gifFilePath = "";
+        public string GifFilePath {
+            get { return _gifFilePath; }
+            set
+            {
+                if (_gifFilePath == value) return;
+                _gifFilePath = value;
+                OnPropertyChanged();
+            }
+        }
+        private bool _GifPlayPause = false;
+        public bool GifPlayPause
+        {
+            get { return _GifPlayPause; }
+            set
+            {
+                if (_GifPlayPause == value) return;
+                _GifPlayPause = value;
+                OnPropertyChanged();
+            }
+        }
+        private int _colorFrequency = 0;
+        public int ColorFrequency {
+            get { return _colorFrequency; }
+            set
+            {
+                if (_colorFrequency == value) return;
+                _colorFrequency = value;
+                OnPropertyChanged();
+            }
+        }
+        private int _selectedMusicPalette = 0;
+        public int SelectedMusicPalette
+        {
+            get { return _selectedMusicPalette; }
+            set
+            {
+                if (_selectedMusicPalette == value) return;
+                _selectedMusicPalette = value;
+                OnPropertyChanged();
+            }
+        }
+        private Color _staticColor = Color.FromArgb(0, 0, 255, 255);
+        public Color StaticColor
+        {
+            get { return _staticColor; }
+            set
+            {
+                if (_staticColor == value) return;
+                _staticColor = value;
+                OnPropertyChanged();
+            }
+        }
+        private bool _nouseLinearLighting = true;
+        public bool NoUseLinearLighting
+        {
+            get { return _nouseLinearLighting; }
+            set
+            {
+                if (_nouseLinearLighting == value) return;
+                _nouseLinearLighting = value;
+               UseLinearLighting = !value;
+                OnPropertyChanged();
+            }
+        }
         public DeviceInfo GetDeviceInfo()
         {
             return new DeviceInfo()
@@ -454,10 +614,24 @@ namespace BO
                                 musicsource=MusicSource,
                                  rainbowmode=RainbowMode,
                                   rainbowspeed=RainbowSpeed,
-                                   staticcolor=Staticcolor,
-                                   isshowondashboard=IsShowOnDashboard,
+                                   staticcolor= string.Format("#{0:X2}{1:X2}{2:X2}{3:X2}", StaticColor.A, StaticColor.R, StaticColor.G, StaticColor.B),
+                                   isshowondashboard =IsShowOnDashboard,
                                    lednumber=LEDNumber,
-                                   palette=Palette
+                                   palette=Palette,
+                                    atmospherestart=AtmosphereStart,
+                                     atmospherestop=AtmosphereStop,
+                                      breathingspeed=BreathingSpeed,
+                                       colorfrequency=ColorFrequency,
+                                        effectspeed=EffectSpeed,
+                                         selectedmusicpalette=SelectedMusicPalette,
+                                          spotheight=SpotHeight,
+                                           spotwidth=SpotWidth,
+                                            spotx=SpotsX,
+                                             spoty=SpotsY,
+                                              uselinearlighting=UseLinearLighting,
+                                               whitebalanceblue=WhitebalanceBlue,
+                                                whitebalancegreen=WhitebalanceGreen,
+                                                 whitebalancered=WhitebalanceRed
             };
         }
     }

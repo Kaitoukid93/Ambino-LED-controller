@@ -14,10 +14,11 @@ using adrilight.ViewModel;
 using System.Threading;
 using NLog;
 using System.Threading.Tasks;
+using BO;
 
 namespace adrilight
 {
-    internal class Atmosphere : IAtmosphere
+    public class Atmosphere : IAtmosphere, IDisposable
     {
         // public static Color[] small = new Color[30];
         public static double _huePosIndex = 0;//index for rainbow mode only
@@ -25,58 +26,39 @@ namespace adrilight
         
         private readonly NLog.ILogger _log = LogManager.GetCurrentClassLogger();
 
-        public Atmosphere(IUserSettings userSettings, ISpotSet spotSet, SettingsViewModel settingsViewModel)//, MainViewViewModel mainViewViewModel)
+        public Atmosphere(DeviceInfoDTO device, ISpotSet spotSet, LightingViewModel viewModel, SettingInfoDTO setting)
         {
-            UserSettings = userSettings ?? throw new ArgumentNullException(nameof(userSettings));
+            deviceInfo = device ?? throw new ArgumentNullException(nameof(device));
             SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
-            SettingsViewModel = settingsViewModel ?? throw new ArgumentNullException(nameof(settingsViewModel));
-           // MainViewViewModel = mainViewViewModel ?? throw new ArgumentNullException(nameof(mainViewViewModel));
-            UserSettings.PropertyChanged += PropertyChanged;
-            SettingsViewModel.PropertyChanged += PropertyChanged;
-            //MainViewViewModel.PropertyChanged += MainViewViewModel_PropertyChanged;
+            ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
+            settingInfo = setting ?? throw new ArgumentNullException(nameof(setting));
+            deviceInfo.PropertyChanged += PropertyChanged;
+            settingInfo.PropertyChanged += SettingInfo_PropertyChanged;
             RefreshColorState();
-            _log.Info($"Atmosphere Color Created");
+            _log.Info($"RainbowColor Created");
 
         }
 
-        private IUserSettings UserSettings { get; }
-        private SettingsViewModel SettingsViewModel { get; }
-        //private MainViewViewModel MainViewViewModel { get; }
+        private void SettingInfo_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+
+        }
+        private Thread _workerThread;
+        private DeviceInfoDTO deviceInfo { get; }
+        private LightingViewModel ViewModel { get; }
+        private SettingInfoDTO settingInfo { get; }
         public bool IsRunning { get; private set; } = false;
         private CancellationTokenSource _cancellationTokenSource;
-        //private void MainViewViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        //{
-        //    switch (e.PropertyName)
-        //    {
-        //        case "LightingMode":
-
-        //            //setting here
-        //            UserSettings.Brightness = (byte)MainViewViewModel.CurrentDevice.Brightness;
-        //            switch (MainViewViewModel.CurrentDevice.LightingMode)
-        //            {
-        //                case "Sáng theo màn hình":
-        //                    UserSettings.SelectedEffect = 0; break;
-        //                case "Sáng theo dải màu":
-        //                    UserSettings.SelectedEffect = 1; break;
-        //                case "Sáng màu tĩnh":
-        //                    UserSettings.SelectedEffect = 2; break;
-        //                case "Sáng theo nhạc":
-        //                    UserSettings.SelectedEffect = 3; break;
-        //                case "Atmosphere":
-        //                    UserSettings.SelectedEffect = 4; break;
-        //            }
-        //            RefreshColorState();
-        //            break;
-        //    }
-        //}
+       
         private void PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
-                case nameof(UserSettings.TransferActive):
-                case nameof(UserSettings.SelectedEffect):
-                case nameof(UserSettings.Brightness):
-                case nameof(SettingsViewModel.IsSettingsWindowOpen):
+                case nameof(settingInfo.TransferActive):
+                case nameof(deviceInfo.LightingMode):
+                case nameof(deviceInfo.Brightness):
+                case nameof(deviceInfo.AtmosphereStart):
+                case nameof(deviceInfo.AtmosphereStop):
                     RefreshColorState();
                     break;
             }
@@ -85,7 +67,7 @@ namespace adrilight
         {
 
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            var shouldBeRunning = UserSettings.TransferActive && UserSettings.SelectedEffect== 4;
+            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.LightingMode == "Atmosphere";
             if (isRunning && !shouldBeRunning)
             {
                 //stop it!
@@ -98,18 +80,40 @@ namespace adrilight
                 //start it
                 _log.Debug("starting the Rainbow Color");
                 _cancellationTokenSource = new CancellationTokenSource();
-                var thread = new Thread(() => Run(_cancellationTokenSource.Token)) {
+                _workerThread = new Thread(() => Run(_cancellationTokenSource.Token)) {
                     IsBackground = true,
                     Priority = ThreadPriority.BelowNormal,
                     Name = "AtmosphereColorCreator"
                 };
-                thread.Start();
+                _workerThread.Start();
             }
         }
 
 
-        
-        
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Stop();
+            }
+        }
+        public void Stop()
+        {
+            _log.Debug("Stop called.");
+            if (_workerThread == null) return;
+
+            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource = null;
+            _workerThread?.Join();
+            _workerThread = null;
+        }
+
         private ISpotSet SpotSet { get; }
         public void Run (CancellationToken token)
 
@@ -125,14 +129,14 @@ namespace adrilight
 
                 while (!token.IsCancellationRequested)
                 {
-                    double brightness = UserSettings.Brightness / 100d;
-                    int paletteSource = UserSettings.SelectedPalette;
-                    var numLED = (UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2;
+                    double brightness = deviceInfo.Brightness / 100d;
+                    int paletteSource = deviceInfo.Palette;
+                    var numLED = (deviceInfo.SpotsX - 1) * 2 + (deviceInfo.SpotsY - 1) * 2;
                     var colorOutput = new OpenRGB.NET.Models.Color[numLED];
 
                 
 
-                    bool isPreviewRunning = (SettingsViewModel.IsSettingsWindowOpen && UserSettings.SelectedEffect==4); 
+                    bool isPreviewRunning = (deviceInfo.LightingMode == "Atmosphere"); 
                     if (isPreviewRunning)
                     {
                        // SettingsViewModel.SetPreviewImage(backgroundimage);
@@ -141,8 +145,8 @@ namespace adrilight
 
                     OpenRGB.NET.Models.Color[] outputColor = new OpenRGB.NET.Models.Color[numLED];
                     int counter = 0;
-                    int hueStart = UserSettings.AtmosphereStart;
-                    int hueStop = UserSettings.AtmosphereStop;
+                    int hueStart = deviceInfo.AtmosphereStart;
+                    int hueStop = deviceInfo.AtmosphereStop;
                     lock (SpotSet.Lock)
                     {
                         
@@ -174,9 +178,9 @@ namespace adrilight
                         if (isPreviewRunning)
                         {
                             //copy all color data to the preview
-                            var needsNewArray = SettingsViewModel.PreviewSpots?.Length != SpotSet.Spots.Length;
+                            var needsNewArray = ViewModel.PreviewSpots?.Length != SpotSet.Spots.Length;
 
-                            SettingsViewModel.PreviewSpots = SpotSet.Spots;
+                            ViewModel.PreviewSpots = SpotSet.Spots;
                         }
                   //  MainViewViewModel.SpotSet = SpotSet;
                     }

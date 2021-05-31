@@ -18,7 +18,7 @@ using BO;
 
 namespace adrilight
 {
-    internal sealed class
+    public class
         SerialStream : IDisposable, ISerialStream
     {
         private ILogger _log = LogManager.GetCurrentClassLogger();
