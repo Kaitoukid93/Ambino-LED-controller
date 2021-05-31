@@ -385,11 +385,23 @@ namespace adrilight
         private void ApplySmoothing(float r, float g, float b, out byte semifinalR, out byte semifinalG, out byte semifinalB,
            byte lastColorR, byte lastColorG, byte lastColorB)
         {
-           ;
+            int smoothingFactor = 3;
+            if(UserSettings.InstantMode)
+            {
+                smoothingFactor = 0;
+            }
+            else if (UserSettings.InstantMode)
+            {
+                smoothingFactor = 3;
+            }
+           else  if (UserSettings.InstantMode)
+            {
+                smoothingFactor = 5;
+            }
 
-            semifinalR = (byte)((r + 3 * lastColorR) / (3 + 1));
-            semifinalG = (byte)((g + 3 * lastColorG) / (3 + 1));
-            semifinalB = (byte)((b + 3 * lastColorB) / (3 + 1));
+            semifinalR = (byte)((r + smoothingFactor * lastColorR) / (smoothingFactor + 1));
+            semifinalG = (byte)((g + smoothingFactor * lastColorG) / (smoothingFactor + 1));
+            semifinalB = (byte)((b + smoothingFactor * lastColorB) / (smoothingFactor + 1));
         }
 
         private readonly byte[] _nonLinearFadingCache = Enumerable.Range(0, 2560)

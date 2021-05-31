@@ -173,6 +173,7 @@ namespace adrilight.ViewModel
                     RaisePropertyChanged(() => UseNonLinearLighting);
                     break;
 
+              
                 case nameof(Settings.SelectedAudioDevice):
                     RaisePropertyChanged(() => AudioDeviceID);
                     break;
@@ -421,9 +422,8 @@ namespace adrilight.ViewModel
             get => !Settings.UseLinearLighting;
             set => Settings.UseLinearLighting = !value;
 
+
         }
-
-
 
 
         private string _gifFilePath="" ;
@@ -514,7 +514,7 @@ namespace adrilight.ViewModel
         public int _audioDeviceID = -1;
         public int AudioDeviceID {
             get {
-                if(Settings.SelectedAudioDevice>AvailableAudioDevice.Count)
+                if(Settings.SelectedAudioDevice>AvailableAudioDevice.Count-1)
                 {
                     System.Windows.MessageBox.Show("Last Selected Audio Device is not Available");
                     return -1;

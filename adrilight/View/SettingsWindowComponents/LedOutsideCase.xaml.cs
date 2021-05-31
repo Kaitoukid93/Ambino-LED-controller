@@ -399,21 +399,10 @@ namespace adrilight.View.SettingsWindowComponents
                 width.IsEnabled = false;
                 height.IsEnabled = false;
                 offset.IsEnabled = false;
-                //widthslide.IsEnabled = false;
-                //heightslide.IsEnabled = false;
-                //offsetslide.IsEnabled = false;
-                ///  if (D3vicE == 0)
-                // {
-                width.Text = "10";
-                height.Text = "6";
-                offset.Text = "9";
-                //  }
-                //  else if (D3vicE == 1)
-                // {
-                //   width.Text = "10";
-                //  height.Text = "6";
-                //  offset.Text = "9";
-
+           
+                width.Text = "11";
+                height.Text = "7";
+                offset.Text = "10";
 
 
 
@@ -421,23 +410,15 @@ namespace adrilight.View.SettingsWindowComponents
             else if (screenbox.SelectedIndex == 1)
             {
 
+
+
                 width.IsEnabled = false;
                 height.IsEnabled = false;
                 offset.IsEnabled = false;
-                //widthslide.IsEnabled = false;
-                //heightslide.IsEnabled = false;
-                //offsetslide.IsEnabled = false;
-                ///  if (D3vicE == 0)
-                // {
-                width.Text = "11";
-                height.Text = "6";
-                offset.Text = "10";
-                //  }
-                //  else if (D3vicE == 1)
-                // {
-                //   width.Text = "10";
-                //  height.Text = "6";
-                //  offset.Text = "9";
+         
+                width.Text = "13";
+                height.Text = "7";
+                offset.Text = "12";
 
 
 
@@ -448,46 +429,46 @@ namespace adrilight.View.SettingsWindowComponents
                 width.IsEnabled = false;
                 height.IsEnabled = false;
                 offset.IsEnabled = false;
-                //widthslide.IsEnabled = false;
-                //heightslide.IsEnabled = false;
-                //offsetslide.IsEnabled = false;
-                width.Text = "14";
-                height.Text = "6";
-                offset.Text = "13";
+           
+                width.Text = "15";
+                height.Text = "7";
+                offset.Text = "14";
             }
             else if (screenbox.SelectedIndex == 3)
             {
+
                 width.IsEnabled = false;
                 height.IsEnabled = false;
                 offset.IsEnabled = false;
-                //widthslide.IsEnabled = false;
-                //heightslide.IsEnabled = false;
-                //offsetslide.IsEnabled = false;
-                width.Text = "14";
-                height.Text = "7";
-                offset.Text = "13";
+             
+                width.Text = "17";
+                height.Text = "9";
+                offset.Text = "16";
+
             }
             else if (screenbox.SelectedIndex == 4)
             {
                 width.IsEnabled = false;
                 height.IsEnabled = false;
                 offset.IsEnabled = false;
-                //widthslide.IsEnabled = false;
-                //heightslide.IsEnabled = false;
-                //offsetslide.IsEnabled = false;
-                width.Text = "15";
+               
+                width.Text = "17";
                 height.Text = "7";
-                offset.Text = "14";
+                offset.Text = "16";
+
             }
             else if (screenbox.SelectedIndex == 5)
             {
                 width.IsEnabled = true;
                 height.IsEnabled = true;
                 offset.IsEnabled = true;
-                //widthslide.IsEnabled = true;
-                //heightslide.IsEnabled = true;
-                //offsetslide.IsEnabled = true;
+             
+                width.Text = "13";
+                height.Text = "7";
+                offset.Text = "12";
+
             }
+
 
         }
 
@@ -495,18 +476,18 @@ namespace adrilight.View.SettingsWindowComponents
 
        
 
-        private void resetButton_Click(object sender, RoutedEventArgs e)
-        {
-            sliBlue.Value = 100;
-            sliGreen.Value = 100;
-            sliRed.Value = 100;
-            //numberScreen.SelectedIndex = 0;
-            sliBlack.Value = 10;
-            txtHeight.Text = "150";
-            txtWidth.Text = "150";
-            txtLeftRight.Text = "0";
-            txtTopBottom.Text = "100";
-        }
+        //private void resetButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    sliBlue.Value = 100;
+        //    sliGreen.Value = 100;
+        //    sliRed.Value = 100;
+        //    //numberScreen.SelectedIndex = 0;
+        //    sliBlack.Value = 10;
+        //    txtHeight.Text = "150";
+        //    txtWidth.Text = "150";
+        //    txtLeftRight.Text = "0";
+        //    txtTopBottom.Text = "100";
+        //}
 
         private static readonly Regex regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
         private static bool IsTextAllowed(string text)

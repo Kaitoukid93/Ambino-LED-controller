@@ -29,6 +29,12 @@ namespace adrilight
         private bool _mirrorY = false;
         private int _offsetLed = 10;
 
+        //ambilight smooth choice///
+
+        private bool _instantMode = false;
+        private bool _normalMode = true;
+        private bool _smoothMode = false;
+
         private int _offsetX = 0;
         private int _offsetY = 0;
         private bool _isPreviewEnabled = false;
@@ -44,7 +50,7 @@ namespace adrilight
         private int _selectedMusicPalette = 0;
 
         private int _spotWidth = 150;
-        private bool _startMinimized = false;
+        private bool _startMinimized = true;
         private bool _transferActive = true;
         private bool _captureActive = true;
 
@@ -209,8 +215,11 @@ namespace adrilight
 
         public byte Brightness { get => _brightness; set { Set(() => Brightness, ref _brightness, value); } }
     
+        //ambilight smooth 
 
-       
+        public bool InstantMode { get => _instantMode; set { Set(() => InstantMode, ref _instantMode, value); } }
+        public bool NormalMode{ get => _normalMode; set { Set(() => NormalMode, ref _normalMode, value); } }
+        public bool SmoothMode { get => _smoothMode; set { Set(() => SmoothMode, ref _smoothMode, value); } }
         public byte SelectedEffect { get => _selectedEffect; set { Set(() => SelectedEffect, ref _selectedEffect, value); } }
         public int SelectedAudioDevice { get => _selectedAudioDevice; set { Set(() => SelectedAudioDevice, ref _selectedAudioDevice, value); } }
         public int SelectedDisplay { get => _selectedDisplay; set { Set(() => SelectedDisplay, ref _selectedDisplay, value); } }

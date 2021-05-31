@@ -90,7 +90,9 @@
 							Margin="0,0,106,10" HorizontalAlignment="Right" Padding="0" Width="85" 
 							VerticalAlignment="Center" FontSize="15" Grid.ColumnSpan="2" FontWeight="Bold" Height="20"><Run Text="Kết nối USB"/></TextBlock>
 
-                        <Button Grid.Column="2" Margin="6,5,11,8" Grid.Row="2" Click="Button_Click_1"/>
+                        <Button materialDesign:ButtonAssist.CornerRadius="10" Padding="0,0,0,0" Grid.Column="2" Margin="17,15,1,-2" Grid.Row="2" Click="Button_Click_1">
+                            <materialDesign:PackIcon Kind="Camera" Foreground="#FFffffff" Height="24" Width="24" />
+                        </Button>
 
                         <ComboBox Grid.Row="1"
 						x:Name="comportbox" Visibility="Visible"
@@ -128,6 +130,8 @@
                                 </TransformGroup>
                             </Image.RenderTransform>
                         </Image>
+                        <TextBlock  HorizontalAlignment="Right" Width="177" Margin="0,22,11,0"
+                            RenderTransformOrigin="0.5,0.5" Height="16" VerticalAlignment="Top" Foreground="#FF6C6C6C" Grid.Row="2" Grid.ColumnSpan="2"><Run Text="Nhấn để lưu ảnh ở SleepMode"/></TextBlock>
 
 
                     </Grid>
@@ -301,22 +305,23 @@
                             SelectedIndex="{Binding Settings.screensizecounter}"
                             materialDesign:HintAssist.Hint="Chọn cỡ màn hình"
                             IsEditable="False"
-                            materialDesign:HintAssist.HintOpacity=".26" Height="27" Margin="0,-26,0,150" 
+                            materialDesign:HintAssist.HintOpacity=".26" Height="27" Margin="0,-26,-28,150" 
                             SelectionChanged="Screenbox_SelectionChanged" RenderTransformOrigin="0.478,0.792" >
-                                <Label Content="19-22 inch"/>
-                                <Label Content="23-27 inch"/>
+
+                                <Label Content="23-24-25 inch"/>
+                                <Label Content="27 inch"/>
                                 <Label Content="29 inch"/>
                                 <Label Content="32 inch"/>
                                 <Label Content="34 inch"/>
                                 <Label Content="Kích thước khác"/>
                             </ComboBox>
                             <TextBox x:Name="width"
-                            MinWidth="10" Margin="69,41,7,86"
+                            MinWidth="10" Margin="101,41,-25,86"
                             DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
                             Text="{Binding Settings.SpotsX, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBox x:Name="height" MinWidth="10"
                             DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
-                            Margin="69,0,6,26"
+                            Margin="101,0,-26,26"
                             VerticalAlignment="Bottom"
                             Text="{Binding Settings.SpotsY, UpdateSourceTrigger=PropertyChanged}" 
                             RenderTransformOrigin="-0.027,1.271" Height="24" />
@@ -356,7 +361,7 @@
                            
                             materialDesign:HintAssist.Hint="Capture Source"
                             IsEditable="False"
-                            materialDesign:HintAssist.HintOpacity=".26" Height="26" Margin="141,1,-100,26" 
+                            materialDesign:HintAssist.HintOpacity=".26" Height="26" Margin="141,1,-72,26" 
                              RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="2" BorderBrush="#89000000" >
 
 
@@ -740,7 +745,7 @@
                             Source="advance@2x.png" Visibility="Hidden"/>
                         <TextBlock
                             Margin="0,23,245,14" HorizontalAlignment="Right" Padding="0" Width="128" 
-                            VerticalAlignment="Center" FontSize="15" FontWeight="Bold"><Run Text="Cài đặt màn hình"/></TextBlock>
+                            VerticalAlignment="Center" FontSize="15" FontWeight="Bold"><Run Text="Cài đặt hiệu ứng"/></TextBlock>
                         <Grid Margin="31,6,111,77" Grid.Row="1" Grid.RowSpan="3" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="4*"/>
@@ -756,7 +761,7 @@
 
                             <TextBlock Foreground="#FF6C6C6C" Margin="2,26,162,8" Grid.Row="2"><Run Text="Tần số"/></TextBlock>
 
-                            <TextBlock Foreground="#FF6C6C6C" Margin="2,32,77,2" Grid.Row="3"><Run Text="Kiểu chạy"/></TextBlock>
+                            <TextBlock Visibility="Collapsed" Foreground="#FF6C6C6C" Margin="2,32,77,2" Grid.Row="3"><Run Text="Kiểu chạy"/></TextBlock>
 
                             <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,15,106,19" Foreground="#FF6C6C6C"
                                 Height="18" Text="Tốc độ hiệu ứng" Grid.Row="1"/>
@@ -771,7 +776,7 @@
                                 RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="2" BorderBrush="#89000000" />
                             <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,8,35,27" Foreground="#FF6C6C6C"
                                 Height="18" Text="Chọn dải màu(palette source)"/>
-                            <ComboBox ItemsSource="{Binding AvailablePalette}"
+                            <ComboBox Visibility="Collapsed" ItemsSource="{Binding AvailablePalette}"
                                 SelectedIndex="{Binding Settings.SelectedPalette}"
                                      
 
@@ -785,7 +790,7 @@
                                      
 
                                 x:Name="PaletteSource_Copy1"
-                                materialDesign:HintAssist.Hint="PaletteSource"
+                                materialDesign:HintAssist.Hint="Frequency"
                                 IsEditable="False"
                                 materialDesign:HintAssist.HintOpacity=".26" Height="26" Margin="202,22,-44,4" 
                                 RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="2" BorderBrush="#89000000" Grid.Row="2" />
@@ -882,7 +887,7 @@
                         </ItemsControl>
                     </Canvas>
                     <Image Visibility="Collapsed" Source="{Binding PreviewImageSource}" Margin="1,0,2,0" Grid.Column="1"/>
-                    <StackPanel Orientation="Horizontal" Margin="0,45,214,254" Grid.ColumnSpan="2">
+                    <StackPanel Orientation="Horizontal" Margin="20,51,194,248" Grid.ColumnSpan="2">
                         <StackPanel.Style>
                             <Style TargetType="StackPanel">
                                 <Setter Property="Visibility" Value="Collapsed" />
@@ -897,52 +902,52 @@
                                 </Style.Triggers>
                             </Style>
                         </StackPanel.Style>
-                        <xctk:ColorPicker x:Name="color0" SelectedColor="{Binding Settings.Color0}" ColorMode="ColorCanvas" ShowDropDownButton="False" Margin="5,5,0,19" Width="27" >
+                        <xctk:ColorPicker BorderThickness="0" x:Name="color0" SelectedColor="{Binding Settings.Color0}" ColorMode="ColorCanvas" ShowDropDownButton="False" Margin="5,5,0,19" Width="27" >
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker x:Name="color1" SelectedColor="{Binding Settings.Color1}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="color1" SelectedColor="{Binding Settings.Color1}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker  x:Name="color2" SelectedColor="{Binding Settings.Color2}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="color2" SelectedColor="{Binding Settings.Color2}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker x:Name="color3" SelectedColor="{Binding Settings.Color3}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="color3" SelectedColor="{Binding Settings.Color3}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker x:Name="color4" SelectedColor="{Binding Settings.Color4}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="color4" SelectedColor="{Binding Settings.Color4}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker x:Name="color5" SelectedColor="{Binding Settings.Color5}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="color5" SelectedColor="{Binding Settings.Color5}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker x:Name="color6" SelectedColor="{Binding Settings.Color6}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="color6" SelectedColor="{Binding Settings.Color6}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker x:Name="color7" SelectedColor="{Binding Settings.Color7}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="color7" SelectedColor="{Binding Settings.Color7}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker x:Name="color8" SelectedColor="{Binding Settings.Color8}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="color8" SelectedColor="{Binding Settings.Color8}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker x:Name="color9" SelectedColor="{Binding Settings.Color9}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="color9" SelectedColor="{Binding Settings.Color9}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker x:Name="color10" SelectedColor="{Binding Settings.Color10}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="color10" SelectedColor="{Binding Settings.Color10}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker x:Name="color11" SelectedColor="{Binding Settings.Color11}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="color11" SelectedColor="{Binding Settings.Color11}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker x:Name="color12" SelectedColor="{Binding Settings.Color12}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="color12" SelectedColor="{Binding Settings.Color12}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker x:Name="color13" SelectedColor="{Binding Settings.Color13}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="color13" SelectedColor="{Binding Settings.Color13}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker x:Name="color14" SelectedColor="{Binding Settings.Color14}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="color14" SelectedColor="{Binding Settings.Color14}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
-                        <xctk:ColorPicker x:Name="color15" SelectedColor="{Binding Settings.Color15}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="color15" SelectedColor="{Binding Settings.Color15}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
 
                         </xctk:ColorPicker>
                     </StackPanel>
@@ -1034,7 +1039,11 @@
                             VerticalAlignment="Bottom" 
                             Text="{Binding Settings.OffsetLed, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Width="30" />
                     <TextBlock Visibility="Collapsed" FontWeight="Medium" Foreground="#FF6C6C6C" Grid.Column="1" Margin="0,111,174,220"><Run Text="Vị trí LED đầu tiên"/></TextBlock>
-                    <Grid Grid.ColumnSpan="2" Margin="440,153,39,26">
+                    <Grid Grid.ColumnSpan="2" Margin="440,153,3,1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="65*"/>
+                            <ColumnDefinition Width="228*"/>
+                        </Grid.ColumnDefinitions>
 
                         <Grid.Style>
                             <Style TargetType="Grid">
@@ -1049,36 +1058,98 @@
                         <TextBox x:Name="txtHeight"
                             DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
                             MinWidth="10"
-                            Margin="166,0,60,97"
+                            Margin="62.5,0,135,122"
                             VerticalAlignment="Bottom" 
-                            Text="{Binding Settings.SpotWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="30"  />
+                            Text="{Binding Settings.SpotWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="30" Grid.Column="1"  />
                         <TextBox x:Name="txtWidth"
                             DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
                             MinWidth="10"
-                            Margin="166,0,60,143"
+                            Margin="61.5,0,136,169"
                             VerticalAlignment="Bottom" 
-                            Text="{Binding Settings.SpotHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="30"  />
+                            Text="{Binding Settings.SpotHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="30" Grid.Column="1"  />
                         <TextBox x:Name="txtLeftRight"
                             DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
                             MinWidth="10"
-                            Margin="64,0,162,46"
+                            Margin="62.5,0,135,77"
                             VerticalAlignment="Bottom" 
-                            Text="{Binding Settings.BorderDistanceX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="30" RenderTransformOrigin="-2.517,2.407" />
+                            Text="{Binding Settings.BorderDistanceX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="30" RenderTransformOrigin="-2.517,2.407" Grid.Column="1" />
                         <TextBox x:Name="txtTopBottom"
                             DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
                             MinWidth="10"
-                            Margin="166,0,60,46"
+                            Margin="62.5,0,135,32"
                             VerticalAlignment="Bottom" 
-                            Text="{Binding Settings.BorderDistanceY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="30" />
-                        <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Margin="2,5,136,147"><Run Text="Chiều dài"/></TextBlock>
-                        <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Margin="1,50,137,102"><Run Text="Chiều rộng"/></TextBlock>
-                        <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Margin="2,101,204,51"><Run Text="Space-X"/></TextBlock>
-                        <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Margin="106,101,99,51"><Run Text="Space-Y"/></TextBlock>
-                        <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
-                            Height="18" VerticalAlignment="Top" Width="36" Grid.Row="0"
-                            Margin="0,148,0,0"
-                            Source="warning@2x.png"/>
-                        <TextBlock  FontWeight="Medium" Foreground="#FFF9BE7B" Margin="42,142,0,0" RenderTransformOrigin="0.612,0.574" FontSize="10"><Run Text="Các tuỳ chỉnh trong mục này có thể ảnh hưởng "/><LineBreak/><Run Text="đến màu sắc hiển thị của đèn LED"/></TextBlock>
+                            Text="{Binding Settings.BorderDistanceY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="30" Grid.Column="1" />
+                        <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Margin="2,5,136,147" Grid.ColumnSpan="2"><Run Text="Chiều dài"/></TextBlock>
+                        <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Margin="1,50,137,125" Grid.ColumnSpan="2"><Run Text="Chiều rộng"/></TextBlock>
+                        <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Margin="2,95,204,82" Grid.ColumnSpan="2"><Run Text="Space-X"/></TextBlock>
+                        <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Margin="3,139,202,38" Grid.ColumnSpan="2"><Run Text="Space-Y"/></TextBlock>
+                        <Slider x:Name="Bluance" ToolTip=" Cân bằng trắng" Margin="146,131,-39,0"
+                            Minimum="70" 
+                            Maximum="100" 
+                   
+                            Value="{Binding Settings.WhitebalanceBlue}" 
+                            RenderTransformOrigin="0.066,0.839" Foreground="#FF7344C3" Height="18" VerticalAlignment="Top" Grid.Column="1" >
+                            <Slider.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform AngleY="-0.299"/>
+                                    <RotateTransform Angle="-89.701"/>
+                                    <TranslateTransform X="56.465" Y="10.392"/>
+                                </TransformGroup>
+                            </Slider.RenderTransform>
+                        </Slider>
+                        <Slider x:Name="Bluance_Copy" ToolTip=" Cân bằng trắng" Margin="132,115,-25,0"
+                            Minimum="70" 
+                            Maximum="100" 
+                   
+                            Value="{Binding Settings.WhitebalanceGreen}" 
+                            RenderTransformOrigin="0.066,0.839" Foreground="#FF7344C3" Height="18" VerticalAlignment="Top" Grid.Column="1" >
+                            <Slider.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform AngleY="-0.299"/>
+                                    <RotateTransform Angle="-89.701"/>
+                                    <TranslateTransform X="40.464" Y="26.391"/>
+                                </TransformGroup>
+                            </Slider.RenderTransform>
+                        </Slider>
+                        <Slider x:Name="Bluance_Copy1" ToolTip=" Cân bằng trắng" Margin="121,97,-14,0"
+                            Minimum="70" 
+                            Maximum="100" 
+                   
+                            Value="{Binding Settings.WhitebalanceRed}" 
+                            RenderTransformOrigin="0.066,0.839" Foreground="#FF7344C3" Height="18" VerticalAlignment="Top" Grid.Column="1" >
+                            <Slider.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform AngleY="-0.299"/>
+                                    <RotateTransform Angle="-89.701"/>
+                                    <TranslateTransform X="22.332" Y="44.259"/>
+                                </TransformGroup>
+                            </Slider.RenderTransform>
+                        </Slider>
+                        <TextBlock  HorizontalAlignment="Right" Width="90" Margin="0,5,4,0"
+                            RenderTransformOrigin="0.5,0.5" Height="18" VerticalAlignment="Top" Foreground="#FF6C6C6C" Grid.Column="1"><Run Text="Cân bằng trắng"/></TextBlock>
+                        <RadioButton 
+                            Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
+                            IsChecked="False"
+                            GroupName="GroupChoiceChipOutline" Margin="133,-40,0,203" Content="Sống động" Grid.Column="1"/>
+                        <RadioButton
+                            Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
+                            IsChecked="{Binding Settings.UseLinearLighting}"
+                            GroupName="GroupChoiceChipOutline" Margin="54,-40,0,203" Content="Dịu nhẹ" Grid.Column="1"/>
+                        <RadioButton 
+                            Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
+                            IsChecked="{Binding Settings.InstantMode}"
+                            GroupName="GroupSmooth" Margin="-2,-88,0,251" Content="Phản hồi nhanh" Grid.ColumnSpan="2"/>
+                        <RadioButton 
+                            Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
+                            IsChecked="{Binding Settings.NormalMode}"
+                            GroupName="GroupSmooth" Margin="55,-88,0,251" Content="Vừa phải" Grid.Column="1"/>
+                        <RadioButton 
+                            Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
+                            IsChecked="{Binding Settings.SmoothMode}"
+                            GroupName="GroupSmooth" Margin="139,-88,0,251" Content="Siêu mượt" Grid.Column="1"/>
                     </Grid>
                     <materialDesign:PopupBox
                         HorizontalAlignment="Right"
@@ -1111,8 +1182,6 @@
 
 
                         <StackPanel Orientation="Horizontal" Margin=" 3,3,3,3" >
-                            <Button Margin="3,3,3,3" x:Name="btnReset" Click="resetButton_Click"
-            Content="Mặc định" />
                             <Button Margin="3,3,3,3" x:Name="bt12"
             Content="Áp dụng" IsEnabled="True" Click="bt12_Click"  />
                             <Button Margin="3,3,3,3" x:Name="bt13" 
@@ -1160,7 +1229,7 @@
 
 
                     </materialDesign:PopupBox>
-                    <Grid Margin="25,60,58,247">
+                    <Grid Margin="22,70,127,253">
                         <Grid.Style>
                             <Style TargetType="Grid">
                                 <Setter Property="Visibility" Value="Collapsed" />
@@ -1171,61 +1240,12 @@
                                 </Style.Triggers>
                             </Style>
                         </Grid.Style>
-                        <Slider x:Name="Bluance" ToolTip=" Cân bằng trắng" Margin="194,24,0,0"
-                            Minimum="70" 
-                            Maximum="100" 
-                   
-                            Value="{Binding Settings.WhitebalanceBlue}" 
-                            RenderTransformOrigin="0.066,0.839" Foreground="#FF7344C3" Height="18" VerticalAlignment="Top" >
-                            <Slider.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform AngleX="-0.299"/>
-                                    <RotateTransform/>
-                                    <TranslateTransform X="-0.131"/>
-                                </TransformGroup>
-                            </Slider.RenderTransform>
-                        </Slider>
-                        <RadioButton 
-                            Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
-                            IsChecked="False"
-                            GroupName="GroupChoiceChipOutline" Margin="76,8,0,2" Content="Sống động"/>
-                        <RadioButton
-                            Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
-                            IsChecked="{Binding Settings.UseLinearLighting}"
-                            GroupName="GroupChoiceChipOutline" Margin="0,8,0,2" Content="Dịu nhẹ"/>
-                        <TextBlock  HorizontalAlignment="Right" Width="90" Margin="0,-42,40,0"
-                            RenderTransformOrigin="0.5,0.5" Height="17" VerticalAlignment="Top" Foreground="#FF6C6C6C"><Run Text="Cân bằng trắng"/></TextBlock>
-                        <Slider x:Name="Bluance_Copy" ToolTip=" Cân bằng trắng" Margin="194,8,0,0"
-                            Minimum="70" 
-                            Maximum="100" 
-                   
-                            Value="{Binding Settings.WhitebalanceGreen}" 
-                            RenderTransformOrigin="0.066,0.839" Foreground="#FF7344C3" Height="18" VerticalAlignment="Top" >
-                            <Slider.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform AngleX="-0.299"/>
-                                    <RotateTransform/>
-                                    <TranslateTransform X="-0.131"/>
-                                </TransformGroup>
-                            </Slider.RenderTransform>
-                        </Slider>
-                        <Slider x:Name="Bluance_Copy1" ToolTip=" Cân bằng trắng" Margin="194,-10,0,0"
-                            Minimum="70" 
-                            Maximum="100" 
-                   
-                            Value="{Binding Settings.WhitebalanceRed}" 
-                            RenderTransformOrigin="0.066,0.839" Foreground="#FF7344C3" Height="18" VerticalAlignment="Top" >
-                            <Slider.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform AngleX="-0.299"/>
-                                    <RotateTransform/>
-                                    <TranslateTransform X="-0.131"/>
-                                </TransformGroup>
-                            </Slider.RenderTransform>
-                        </Slider>
+                        <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
+                            Height="18" VerticalAlignment="Top" Width="36" Grid.Row="0"
+                            Margin="0,6,0,0"
+                            Source="warning@2x.png"/>
+                        <TextBlock  FontWeight="Medium" Foreground="#FFF9BE7B" Margin="42,0,0,0" RenderTransformOrigin="0.612,0.574" FontSize="10"><Run Text="Các tuỳ chỉnh trong mục này có thể ảnh hưởng "/><LineBreak/><Run Text="đến màu sắc hiển thị của đèn LED"/></TextBlock>
+
 
                     </Grid>
 

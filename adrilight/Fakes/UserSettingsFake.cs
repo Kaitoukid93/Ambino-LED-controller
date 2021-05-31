@@ -56,7 +56,9 @@ namespace adrilight.Fakes
         public int EffectSpeed { get; set; } = 5;
         public int ColorFrequency { get; set; } = 0;
         public int SelectedMusicPalette { get; set; } = 0;
-
+        public bool InstantMode { get; set; } = false;
+        public bool NormalMode { get; set; } = true;
+        public bool SmoothMode { get; set; } = false;
         public byte screensizecounter { get; set; } = 2;
 
         public int SelectedDisplay { get; set; } = 0;
