@@ -55,7 +55,7 @@ namespace adrilight
             switch (e.PropertyName)
             {
                 case nameof(settingInfo.TransferActive):
-                case nameof(deviceInfo.LightingMode):
+                case nameof(deviceInfo.SelectedEffect):
                 case nameof(deviceInfo.Brightness):
                 case nameof(deviceInfo.AtmosphereStart):
                 case nameof(deviceInfo.AtmosphereStop):
@@ -67,7 +67,7 @@ namespace adrilight
         {
 
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.LightingMode == "Atmosphere";
+            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.SelectedEffect == 4;
             if (isRunning && !shouldBeRunning)
             {
                 //stop it!
@@ -136,7 +136,7 @@ namespace adrilight
 
                 
 
-                    bool isPreviewRunning = (deviceInfo.LightingMode == "Atmosphere"); 
+                    bool isPreviewRunning = (deviceInfo.SelectedEffect == 4); 
                     if (isPreviewRunning)
                     {
                        // SettingsViewModel.SetPreviewImage(backgroundimage);

@@ -14,7 +14,7 @@ namespace BO
         public int devicesize { get; set; }
         public string deviceport { get; set; }
         public bool isConnected { get; set; }
-        public string lightingmode { get; set; }
+        public byte selectedeffect { get; set; }
         public int brightness { get; set; }
         public int colortemp { get; set; }
         public int capturesource { get; set; }

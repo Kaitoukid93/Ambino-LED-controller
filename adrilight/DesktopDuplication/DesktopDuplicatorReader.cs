@@ -44,7 +44,7 @@ namespace adrilight
         {
             switch (e.PropertyName)
             {
-                case nameof(deviceInfo.LightingMode):
+                case nameof(deviceInfo.SelectedEffect):
                 case nameof(settingInfo.TransferActive):
               //  case nameof(UserSettings.IsPreviewEnabled):
                 case nameof(deviceInfo.CaptureActive):
@@ -72,7 +72,7 @@ namespace adrilight
         private void RefreshCapturingState()
         {
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.LightingMode == "Sáng theo màn hình";
+            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.SelectedEffect == 0;
 
 
 
@@ -157,7 +157,7 @@ namespace adrilight
                     }
                     image = newImage;
 
-                    bool isPreviewRunning = (deviceInfo.LightingMode == "Sáng theo màn hình");
+                    bool isPreviewRunning = (deviceInfo.SelectedEffect == 0);
                     if (isPreviewRunning)
                     {
                         // SettingsViewModel.SetPreviewImage(image); remove this, using grey gradient background for better visual

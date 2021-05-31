@@ -78,7 +78,7 @@ namespace adrilight.Util
             {
                 case nameof(settingInfo.TransferActive):
                 case nameof(deviceInfo.StaticColor):
-                case nameof(deviceInfo.LightingMode):
+                case nameof(deviceInfo.SelectedEffect):
                 case nameof(deviceInfo.GifFilePath):
                     RefreshColorState();
                     break;
@@ -98,7 +98,7 @@ namespace adrilight.Util
         private void RefreshColorState()
         {
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.LightingMode == "Gifxelation";
+            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.SelectedEffect == 5;
             if (isRunning && !shouldBeRunning)
             {
                 //stop it!
@@ -167,7 +167,7 @@ namespace adrilight.Util
                     //var colorOutput = new OpenRGB.NET.Models.Color[numLED];
                     //double peekBrightness = 0.0;
 
-                    bool isPreviewRunning = (deviceInfo.LightingMode == "Gifxelation");
+                    bool isPreviewRunning = (deviceInfo.SelectedEffect ==5);
                     //bool isBreathing = UserSettings.Breathing;
                     lock (SpotSet.Lock)
                     {

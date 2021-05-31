@@ -63,7 +63,7 @@ namespace adrilight.ViewModel
                         GifSource = item.gifsource,
                         IsBreathing = item.isbreathing,
                         IsConnected = item.isConnected,
-                        LightingMode = item.lightingmode,
+                        SelectedEffect = item.selectedeffect,
                         MusicMode = item.musicmode,
                         MusicSens = item.musicsens,
                         MusicSource = item.musicsource,

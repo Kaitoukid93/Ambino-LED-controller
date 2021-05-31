@@ -41,7 +41,7 @@ namespace adrilight.Util
             {
                case nameof(settingInfo.TransferActive):
                case nameof(deviceInfo.StaticColor):
-               case nameof(deviceInfo.LightingMode):
+               case nameof(deviceInfo.SelectedEffect):
                     RefreshColorState();
                     break;
 
@@ -61,7 +61,7 @@ namespace adrilight.Util
         private void RefreshColorState()
         {
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.LightingMode == "Sáng màu tĩnh";
+            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.SelectedEffect == 2;
             if (isRunning && !shouldBeRunning)
             {
                 //stop it!
@@ -112,7 +112,7 @@ namespace adrilight.Util
                     var colorOutput = new OpenRGB.NET.Models.Color[numLED];
                     double peekBrightness = 0.0;
 
-                    bool isPreviewRunning = deviceInfo.LightingMode == "Sáng màu tĩnh";
+                    bool isPreviewRunning = deviceInfo.SelectedEffect == 2;
                     bool isBreathing = deviceInfo.IsBreathing;
                     lock (SpotSet.Lock)
                     {
