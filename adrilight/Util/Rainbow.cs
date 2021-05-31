@@ -55,7 +55,7 @@ namespace adrilight
             switch (e.PropertyName)
             {
                 case nameof(settingInfo.TransferActive):
-                case nameof(deviceInfo.LightingMode):
+                case nameof(deviceInfo.SelectedEffect):
                 case nameof(deviceInfo.Brightness):
                     RefreshColorState();
                     break;
@@ -65,7 +65,7 @@ namespace adrilight
         {
 
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.LightingMode == "Sáng theo dải màu";
+            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.SelectedEffect == 1;
             if (isRunning && !shouldBeRunning)
             {
                 //stop it!

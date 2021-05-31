@@ -235,13 +235,14 @@ namespace adrilight.ViewModel
         public ObservableCollection<string> AvailablePalette { get; private set; }
         public LightingViewModel(DeviceInfoDTO device, ViewModelBase parent, SettingInfoDTO setting)
         {
+            ReadData();
             this.Card = device;
             this.SettingInfo = setting;
             this.SpotSet = new SpotSet(Card);
             PreviewSpots = SpotSet.Spots;
             _parentVm = parent;
-            ReadData();
-            Card = device;
+            //ReadData();
+           // Card = device;
            // Card.LEDNumber = 30;
             Rainbow = new Rainbow(Card, SpotSet, this, SettingInfo);
             StaticColor = new StaticColor(Card, SpotSet, this, SettingInfo);

@@ -75,7 +75,7 @@ namespace adrilight
             switch (e.PropertyName)
             {
                 case nameof(settingInfo.TransferActive):
-                case nameof(deviceInfo.LightingMode):
+                case nameof(deviceInfo.SelectedEffect):
                 case nameof(deviceInfo.Brightness):
                 case nameof(deviceInfo.SelectedAudioDevice):
                 case nameof(deviceInfo.MusicMode):
@@ -93,7 +93,7 @@ namespace adrilight
         {
 
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.LightingMode == "Sáng theo nhạc";
+            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.SelectedEffect == 3;
          
 
             
@@ -142,7 +142,7 @@ namespace adrilight
         private void RefreshAudioDevice()
         {
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.LightingMode == "Sáng theo nhạc";
+            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.SelectedEffect == 3;
             if (isRunning && shouldBeRunning)
             {
 
@@ -226,7 +226,7 @@ namespace adrilight
                     volumeRight =(volumeRight*6+Utils.HighWord32(level)*2)/8;
                     _lastlevel = level;
                     byte musicMode = (byte)deviceInfo.MusicMode;
-                    bool isPreviewRunning = (deviceInfo.LightingMode == "Sáng theo nhạc");
+                    bool isPreviewRunning = (deviceInfo.SelectedEffect == 3);
                     //audio capture section//
 
 

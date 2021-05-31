@@ -76,17 +76,7 @@ namespace BO
                 OnPropertyChanged();
             }
         }
-        private string _lightingmode;
-        public string LightingMode
-        {
-            get { return _lightingmode; }
-            set
-            {
-                if (_lightingmode == value) return;
-                _lightingmode = value;
-                OnPropertyChanged();
-            }
-        }
+        
         private int _brightness=80;
         public int Brightness
         {
@@ -590,6 +580,17 @@ namespace BO
                 OnPropertyChanged();
             }
         }
+        private byte _selectedEffect = 0;
+        public byte SelectedEffect
+        {
+            get { return _selectedEffect; }
+            set
+            {
+                if (_selectedEffect == value) return;
+                _selectedEffect = value;
+                OnPropertyChanged();
+            }
+        }
         public DeviceInfo GetDeviceInfo()
         {
             return new DeviceInfo()
@@ -608,7 +609,7 @@ namespace BO
                             gifsource=GifSource,
                              isbreathing=IsBreathing,
                              isConnected=IsConnected,
-                             lightingmode=LightingMode,
+                             selectedeffect=SelectedEffect,
                               musicmode=MusicMode,
                                musicsens=MusicSens,
                                 musicsource=MusicSource,

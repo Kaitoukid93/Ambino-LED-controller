@@ -133,7 +133,7 @@
                     <TextBlock   Style="{StaticResource tbHeading4Style}">Chế độ</TextBlock>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="0">
-                    <ComboBox Width="217" Height="37" Name="cboMode" IsEditable="False" IsSynchronizedWithCurrentItem="True" Text="{Binding Card.LightingMode}" ItemsSource="{Binding ScreenEffects}" ></ComboBox>
+                    <ComboBox Width="217" Height="37" Name="cboMode" IsEditable="False"  SelectedIndex="{Binding Card.SelectedEffect}" ItemsSource="{Binding ScreenEffects}" ></ComboBox>
                 </Border>
                 <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
                     <!--sang theo man hinh-->
