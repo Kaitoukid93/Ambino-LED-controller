@@ -134,7 +134,7 @@ namespace adrilight
 
                 
 
-                    bool isPreviewRunning = (deviceInfo.LightingMode == "Sáng theo màn hình"); 
+                    bool isPreviewRunning = (deviceInfo.LightingMode == "Sáng theo dải màu"); 
                     if (isPreviewRunning)
                     {
                        // SettingsViewModel.SetPreviewImage(backgroundimage);
