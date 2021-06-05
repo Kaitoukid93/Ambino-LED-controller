@@ -167,8 +167,13 @@ namespace adrilight
             _cancellationTokenSource = new CancellationTokenSource();
             _workerThread = new Thread(DoWork) {
                 Name = "Serial sending",
-                IsBackground = true
+                IsBackground = true,
+                Priority = ThreadPriority.BelowNormal
             };
+           WinApi.TimeBeginPeriod(1);
+
+            // The call has failed
+
             _workerThread.Start(_cancellationTokenSource.Token);
         }
 

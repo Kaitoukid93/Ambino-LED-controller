@@ -46,7 +46,7 @@ namespace adrilight.Fakes
         public string filemau { get; set; } = null;
         public string filemauchip { get; set; } = null;
         public byte WhitebalanceRed { get; set; } = 100;
-        public byte WhitebalanceGreen { get; set; } = 100;
+        public byte WhitebalanceGreen { get; set; } = 10;
         public byte WhitebalanceBlue { get; set; } = 100;
         public int SelectedAudioDevice { get; set; } = 0;
         public byte SelectedPalette { get; set; } = 0;
@@ -60,7 +60,7 @@ namespace adrilight.Fakes
         public bool NormalMode { get; set; } = true;
         public bool SmoothMode { get; set; } = false;
         public byte screensizecounter { get; set; } = 2;
-
+        public int MSens { get; set; } = 0;
         public int SelectedDisplay { get; set; } = 0;
         public byte SelectedEffect { get; set; } = 0;
 
@@ -105,7 +105,26 @@ namespace adrilight.Fakes
         //Color Palette//
         public byte SelectedSize { get; set; } = 1;
 
+        //Music Color Palette//
 
+        public Color MColor0 { get; set; } = AliceBlue;
+        public Color MColor1 { get; set; } = AliceBlue;
+        public Color MColor2 { get; set; } = AliceBlue;
+        public Color MColor3 { get; set; } = AliceBlue;
+        public Color MColor4 { get; set; } = AliceBlue;
+        public Color MColor5 { get; set; } = AliceBlue;
+        public Color MColor6 { get; set; } = AliceBlue;
+        public Color MColor7 { get; set; } = AliceBlue;
+        public Color MColor8 { get; set; } = AliceBlue;
+        public Color MColor9 { get; set; } = AliceBlue;
+        public Color MColor10 { get; set; } = AliceBlue;
+        public Color MColor11 { get; set; } = AliceBlue;
+        public Color MColor12 { get; set; } = AliceBlue;
+        public Color MColor13 { get; set; } = AliceBlue;
+        public Color MColor14 { get; set; } = AliceBlue;
+        public Color MColor15 { get; set; } = AliceBlue;
+
+        //Music Color Palette//
 
 
         public Guid InstallationId { get; set; } = Guid.NewGuid();
@@ -116,7 +135,7 @@ namespace adrilight.Fakes
         
 
 
-        public int LimitFps { get; set; } = 100;
+        public int LimitFps { get; set; } = 60;
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

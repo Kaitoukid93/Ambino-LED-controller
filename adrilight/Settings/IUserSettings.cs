@@ -116,9 +116,25 @@ namespace adrilight
         Color Color13 { get; set; }
         Color Color14 { get; set; }
         Color Color15 { get; set; }
-
+        int MSens { get; set; }
         //Color Palette
-
+        //Music Color Palette
+         Color MColor0 { get; set; }
+         Color MColor1 { get; set; } 
+         Color MColor2 { get; set; } 
+         Color MColor3 { get; set; } 
+         Color MColor4 { get; set; } 
+         Color MColor5 { get; set; } 
+         Color MColor6 { get; set; } 
+         Color MColor7 { get; set; } 
+         Color MColor8 { get; set; } 
+         Color MColor9 { get; set; }
+         Color MColor10 { get; set; }
+         Color MColor11 { get; set; } 
+         Color MColor12 { get; set; }
+         Color MColor13 { get; set; } 
+         Color MColor14 { get; set; } 
+         Color MColor15 { get; set; } 
         int LimitFps { get; set; }
     }
 }

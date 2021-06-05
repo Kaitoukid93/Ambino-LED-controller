@@ -245,11 +245,13 @@ namespace adrilight
                 if(e.Mode==PowerModes.Resume)
                 {
                     SerialStream.Start();
+                    
                     _log.Debug("Restart the serial stream after sleep!");
                 }
                 else if (e.Mode == PowerModes.Suspend)
                 {
                     SerialStream.Stop();
+                    
                     _log.Debug("Stop the serial stream due to sleep condition!");
                 }
 
@@ -350,9 +352,10 @@ namespace adrilight
 
         private IUserSettings UserSettings { get; set; }
         private ISerialStream SerialStream { get; set; }
-      
+       
 
-            private void ApplicationWideException(object sender, Exception ex, string eventSource)
+
+        private void ApplicationWideException(object sender, Exception ex, string eventSource)
         {
             _log.Fatal(ex, $"ApplicationWideException from sender={sender}, adrilight version={VersionNumber}, eventSource={eventSource}");
 

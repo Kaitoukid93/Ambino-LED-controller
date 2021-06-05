@@ -836,6 +836,106 @@ namespace adrilight.View.SettingsWindowComponents
 
         }
 
+        private void Mapply_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog filemau = new OpenFileDialog();
+            filemau.Title = "Chọn file màu";
+            filemau.CheckFileExists = true;
+            filemau.CheckPathExists = true;
+            filemau.DefaultExt = "txt";
+            filemau.Filter = "Text files (*.txt)|*.txt";
+            filemau.FilterIndex = 2;
+
+
+            filemau.ShowDialog();
+
+
+            if (!string.IsNullOrEmpty(filemau.FileName) && File.Exists(filemau.FileName))
+            {
+
+
+                var lines = System.IO.File.ReadAllLines(filemau.FileName);
+
+
+                try
+                {
+
+
+
+                    mcolor0.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[0]);
+                    mcolor1.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[1]);
+                    mcolor2.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[2]);
+                    mcolor3.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[3]);
+                    mcolor4.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[4]);
+                    mcolor5.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[5]);
+                    mcolor6.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[6]);
+                    mcolor7.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[7]);
+                    mcolor8.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[8]);
+                    mcolor9.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[9]);
+                    mcolor10.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[10]);
+                    mcolor11.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[11]);
+                    mcolor12.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[12]);
+                    mcolor13.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[13]);
+                    mcolor14.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[14]);
+                    mcolor15.SelectedColor = (System.Windows.Media.Color)ColorConverter.ConvertFromString(lines[15]);
+
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Corrupted Color File!!!");
+                }
+
+
+
+
+                // filemaubox.Text = filemau.SafeFileName;
+
+            }
+        }
+
+        private void Msave_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog FileMau = new SaveFileDialog();
+            FileMau.CreatePrompt = true;
+            FileMau.OverwritePrompt = true;
+
+            FileMau.Title = "Lưu file màu";
+            FileMau.FileName = "Ambino_Color_Palette";
+            FileMau.CheckFileExists = false;
+            FileMau.CheckPathExists = true;
+            FileMau.DefaultExt = "txt";
+            FileMau.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            FileMau.InitialDirectory =
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            FileMau.RestoreDirectory = true;
+            string[] colorData =
+                {
+                mcolor0.SelectedColorText.ToString(),
+                mcolor1.SelectedColorText.ToString(),
+                mcolor2.SelectedColorText.ToString(),
+                mcolor3.SelectedColorText.ToString(),
+                mcolor4.SelectedColorText.ToString(),
+                mcolor5.SelectedColorText.ToString(),
+                mcolor6.SelectedColorText.ToString(),
+                mcolor7.SelectedColorText.ToString(),
+                mcolor8.SelectedColorText.ToString(),
+                mcolor9.SelectedColorText.ToString(),
+                mcolor10.SelectedColorText.ToString(),
+                mcolor11.SelectedColorText.ToString(),
+                mcolor12.SelectedColorText.ToString(),
+                mcolor13.SelectedColorText.ToString(),
+                mcolor14.SelectedColorText.ToString(),
+                mcolor15.SelectedColorText.ToString(),
+
+            };
+            if (FileMau.ShowDialog() == true)
+            {
+
+                System.IO.File.WriteAllLines(FileMau.FileName, colorData);
+
+            }
+        }
+
 
 
 

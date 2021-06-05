@@ -707,9 +707,10 @@ namespace adrilight.ViewModel
 
         //public int ScreenWidth => (int)System.Windows.SystemParameters.PrimaryScreenWidth;
         //public int ScreenHeight => (int)System.Windows.SystemParameters.PrimaryScreenHeight;
-
-        public int ScreenWidth => PreviewImageSource?.PixelWidth ?? 1000;
-        public int ScreenHeight => PreviewImageSource?.PixelHeight ?? 1000;
+        public int CurrentScreenHeight = (int)System.Windows.SystemParameters.WorkArea.Height/ DesktopDuplicator.ScalingFactor;
+        public int CurrentScreenWidth = (int)System.Windows.SystemParameters.WorkArea.Width/ DesktopDuplicator.ScalingFactor;
+        public int ScreenWidth => PreviewImageSource?.PixelWidth ?? CurrentScreenWidth;
+        public int ScreenHeight => PreviewImageSource?.PixelHeight ?? CurrentScreenHeight;
 
         public int CanvasPadding => 3 / DesktopDuplicator.ScalingFactor;
 

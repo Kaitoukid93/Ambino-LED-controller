@@ -193,7 +193,7 @@ namespace adrilight
 
                 while (!token.IsCancellationRequested)
                 {
-
+                    double senspercent = UserSettings.MSens/100d;
                     //audio capture section//
                     int ret = BassWasapi.BASS_WASAPI_GetData(_fft, (int)BASSData.BASS_DATA_FFT2048);// get channel fft data
                     if (ret < -1) return;
@@ -213,7 +213,10 @@ namespace adrilight
                         y = (int)(Math.Sqrt(peak) * 3 * 250 - 4);
                         if (y > 255) y = 255;
                         if (y < 10) y = 0;
-                        spectrumdata[x] = (byte)((spectrumdata[x] * 6 + y * 2 + 7) / 8); //Smoothing out the value (take 5/8 of old value and 3/8 of new value to make finnal value)
+                        spectrumdata[x] = (byte)((spectrumdata[x] * 6 + y * 2 + 7) / 8);
+                        
+                            spectrumdata[x] = (byte)((byte)(spectrumdata[x]*senspercent)+spectrumdata[x]);
+                                              //Smoothing out the value (take 5/8 of old value and 3/8 of new value to make finnal value)
                         if (spectrumdata[x] > 255)
                             spectrumdata[x] = 255;
                         if (spectrumdata[x] < 15)
@@ -739,22 +742,22 @@ namespace adrilight
         public Color[] custom = new Color[16];
         public void GetCustomColor()
         {
-            custom[0] = UserSettings.Color0;
-            custom[1] = UserSettings.Color1;
-            custom[2] = UserSettings.Color2;
-            custom[3] = UserSettings.Color3;
-            custom[4] = UserSettings.Color4;
-            custom[5] = UserSettings.Color5;
-            custom[6] = UserSettings.Color6;
-            custom[7] = UserSettings.Color7;
-            custom[8] = UserSettings.Color8;
-            custom[9] = UserSettings.Color9;
-            custom[10] = UserSettings.Color10;
-            custom[11] = UserSettings.Color11;
-            custom[12] = UserSettings.Color12;
-            custom[13] = UserSettings.Color13;
-            custom[14] = UserSettings.Color14;
-            custom[15] = UserSettings.Color15;
+            custom[0] = UserSettings.MColor0;
+            custom[1] = UserSettings.MColor1;
+            custom[2] = UserSettings.MColor2;
+            custom[3] = UserSettings.MColor3;
+            custom[4] = UserSettings.MColor4;
+            custom[5] = UserSettings.MColor5;
+            custom[6] = UserSettings.MColor6;
+            custom[7] = UserSettings.MColor7;
+            custom[8] = UserSettings.MColor8;
+            custom[9] = UserSettings.MColor9;
+            custom[10] = UserSettings.MColor10;
+            custom[11] = UserSettings.MColor11;
+            custom[12] = UserSettings.MColor12;
+            custom[13] = UserSettings.MColor13;
+            custom[14] = UserSettings.MColor14;
+            custom[15] = UserSettings.MColor15;
 
 
         }

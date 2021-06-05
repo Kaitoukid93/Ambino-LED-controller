@@ -18,11 +18,11 @@ namespace adrilight
         
         private bool _autostart = true;
         private int _borderDistanceX = 0;
-        private int _borderDistanceY = 100;
+        private int _borderDistanceY = 0;
         private string _comPort = "Không có";
         private string _gifFilePath = "";
 
-
+        private int _mSens = 0;
         private DateTime? _lastUpdateCheck=DateTime.UtcNow;
         private int _ledsPerSpot = 1;
         private bool _mirrorX = true;
@@ -66,7 +66,7 @@ namespace adrilight
 
         private bool _useLinearLighting = true;
         private byte _whitebalanceRed = 100;
-        private byte _whitebalanceGreen = 100;
+        private byte _whitebalanceGreen = 10;
         private byte _whitebalanceBlue = 100;
 
         private int  _selectedAudioDevice = 0;
@@ -102,6 +102,24 @@ namespace adrilight
         private Color _color14 = Color.FromArgb(0, 0, 255, 255);
         private Color _color15 = Color.FromArgb(0, 0, 255, 255);
 
+        
+        private Color _mcolor0 = Color.FromArgb(0, 0, 255, 255);
+        private Color _mcolor1 = Color.FromArgb(0, 0, 255, 255);
+        private Color _mcolor2 = Color.FromArgb(0, 0, 255, 255);
+        private Color _mcolor3 = Color.FromArgb(0, 0, 255, 255);
+        private Color _mcolor4 = Color.FromArgb(0, 0, 255, 255);
+        private Color _mcolor5 = Color.FromArgb(0, 0, 255, 255);
+        private Color _mcolor6 = Color.FromArgb(0, 0, 255, 255);
+        private Color _mcolor7 = Color.FromArgb(0, 0, 255, 255);
+        private Color _mcolor8 = Color.FromArgb(0, 0, 255, 255);
+        private Color _mcolor9 = Color.FromArgb(0, 0, 255, 255);
+        private Color _mcolor10 = Color.FromArgb(0, 0, 255, 255);
+        private Color _mcolor11 = Color.FromArgb(0, 0, 255, 255);
+        private Color _mcolor12 = Color.FromArgb(0, 0, 255, 255);
+        private Color _mcolor13 = Color.FromArgb(0, 0, 255, 255);
+        private Color _mcolor14 = Color.FromArgb(0, 0, 255, 255);
+        private Color _mcolor15 = Color.FromArgb(0, 0, 255, 255);
+
 
 
 
@@ -126,17 +144,16 @@ namespace adrilight
 
 
         
-        private int _limitFps = 100;
+        private int _limitFps = 60;
 
         //support future config file migration
         public int ConfigFileVersion { get; set; } = 1;
 
 
-     
 
 
 
-
+        public int MSens { get => _mSens; set { Set(() => MSens, ref _mSens, value); } }
         public bool Autostart { get => _autostart; set { Set(() => Autostart, ref _autostart, value); } }
         public int BorderDistanceX { get => _borderDistanceX; set { Set(() => BorderDistanceX, ref _borderDistanceX, value); } }
         public int BorderDistanceY { get => _borderDistanceY; set { Set(() => BorderDistanceY, ref _borderDistanceY, value); } }
@@ -246,6 +263,22 @@ namespace adrilight
         public Color Color15 { get => _color15; set { Set(() => Color15, ref _color15, value); } }
 
         //Color Palette
+        public Color MColor0 { get => _mcolor0; set { Set(() => MColor0, ref _mcolor0, value); } }
+        public Color MColor1 { get => _mcolor1; set { Set(() => MColor1, ref _mcolor1, value); } }
+        public Color MColor2 { get => _mcolor2; set { Set(() => MColor2, ref _mcolor2, value); } }
+        public Color MColor3 { get => _mcolor3; set { Set(() => MColor3, ref _mcolor3, value); } }
+        public Color MColor4 { get => _mcolor4; set { Set(() => MColor4, ref _mcolor4, value); } }
+        public Color MColor5 { get => _mcolor5; set { Set(() => MColor5, ref _mcolor5, value); } }
+        public Color MColor6 { get => _mcolor6; set { Set(() => MColor6, ref _mcolor6, value); } }
+        public Color MColor7 { get => _mcolor7; set { Set(() => MColor7, ref _mcolor7, value); } }
+        public Color MColor8 { get => _mcolor8; set { Set(() => MColor8, ref _mcolor8, value); } }
+        public Color MColor9 { get => _mcolor9; set { Set(() => MColor9, ref _mcolor9, value); } }
+        public Color MColor10 { get => _mcolor10; set { Set(() => MColor10, ref _mcolor10, value); } }
+        public Color MColor11 { get => _mcolor11; set { Set(() => MColor11, ref _mcolor11, value); } }
+        public Color MColor12 { get => _mcolor12; set { Set(() => MColor12, ref _mcolor12, value); } }
+        public Color MColor13 { get => _mcolor13; set { Set(() => MColor13, ref _mcolor13, value); } }
+        public Color MColor14 { get => _mcolor14; set { Set(() => MColor14, ref _mcolor14, value); } }
+        public Color MColor15 { get => _mcolor15; set { Set(() => MColor15, ref _mcolor15, value); } }
 
 
         // Add new

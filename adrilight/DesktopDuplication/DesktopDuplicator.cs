@@ -55,8 +55,9 @@ namespace adrilight.DesktopDuplication
             {
                 if(ex.ResultCode==SharpDX.DXGI.ResultCode.NotFound)
                 {
-                    MessageBox.Show("Display not Available at output address" + whichOutputDevice.ToString());
+                    //MessageBox.Show("Display not Available at output address" + whichOutputDevice.ToString());
                     output = adapter.GetOutput(0);
+                    
                 }
                 else
                 {

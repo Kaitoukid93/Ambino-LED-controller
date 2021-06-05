@@ -225,10 +225,10 @@ namespace adrilight
                     image = newImage;
              
                     bool isPreviewRunning = (SettingsViewModel.IsSettingsWindowOpen && UserSettings.SelectedEffect == 0);
-                    if (isPreviewRunning)
-                    {
-                      // SettingsViewModel.SetPreviewImage(image); //remove this, using grey gradient background for better visual
-                    }
+                   // if (isPreviewRunning)
+                   // {
+                       SettingsViewModel.SetPreviewImage(image); //remove this, using grey gradient background for better visual
+                  //  }
                    
 
                   image.LockBits(new Rectangle(0, 0, image.Width, image.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppRgb, bitmapData);
@@ -263,13 +263,14 @@ namespace adrilight
                                     ApplyColorCorrections(sumR * countInverse, sumG * countInverse, sumB * countInverse
                                         , out byte finalR, out byte finalG, out byte finalB, useLinearLighting
                                         , UserSettings.SaturationTreshold, spot.Red, spot.Green, spot.Blue);
-                                    ApplySmoothing(finalR, finalG, finalB
+                                    
+                                    var spotColor = new OpenRGB.NET.Models.Color(finalR, finalG, finalB);
+
+                                    var semifinalSpotColor = Brightness.applyBrightness(spotColor, brightness);
+                                    ApplySmoothing(semifinalSpotColor.R, semifinalSpotColor.G, semifinalSpotColor.B
                                         , out byte RealfinalR, out byte RealfinalG, out byte RealfinalB,
                                      spot.Red, spot.Green, spot.Blue);
-                                    var spotColor = new OpenRGB.NET.Models.Color(RealfinalR, RealfinalG, RealfinalB);
-
-                                    var finalSpotColor = Brightness.applyBrightness(spotColor, brightness);
-                                    spot.SetColor(finalSpotColor.R, finalSpotColor.G, finalSpotColor.B, isPreviewRunning);
+                                    spot.SetColor(RealfinalR, RealfinalG, RealfinalB, isPreviewRunning);
 
                                 });
                         }
@@ -390,11 +391,11 @@ namespace adrilight
             {
                 smoothingFactor = 0;
             }
-            else if (UserSettings.InstantMode)
+            else if (UserSettings.NormalMode)
             {
                 smoothingFactor = 3;
             }
-           else  if (UserSettings.InstantMode)
+           else  if (UserSettings.SmoothMode)
             {
                 smoothingFactor = 5;
             }

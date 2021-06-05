@@ -437,7 +437,7 @@
                             <ComboBox
                                 x:Name="screenbox1"
                                 SelectedIndex="{Binding Settings.SelectedMusicMode}"
-                                materialDesign:HintAssist.Hint="Chọn cỡ màn hình"
+                                
                                 IsEditable="False"
                                 materialDesign:HintAssist.HintOpacity=".26" Height="27" Margin="0,-26,0,150" 
                                 SelectionChanged="Screenbox_SelectionChanged" RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="3" >
@@ -451,10 +451,6 @@
                                 <Label Content="Naughty boy"/>
 
                             </ComboBox>
-                            <TextBox x:Name="width1"
-                                MinWidth="10" Margin="34,41,7,86"
-                                DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
-                                Text="{Binding Settings.SpotsX, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2" Grid.Column="1" />
 
                         </Grid>
 
@@ -495,11 +491,28 @@
                                 Height="18" Text="Chọn Audio Device"/>
                             <ComboBox ItemsSource="{Binding AvailableMusicPalette}"
                                 SelectedIndex="{Binding Settings.SelectedMusicPalette}"                                  
-                                x:Name="screenSelect1_Copy"
+                                x:Name="MPalette"
                                 materialDesign:HintAssist.Hint="Capture Source"
                                 IsEditable="False"
                                 materialDesign:HintAssist.HintOpacity=".26" Height="26" Margin="200,27,-44,-1" 
                                 RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="2" BorderBrush="#89000000" Grid.Row="3" />
+                            <Slider
+                            Grid.Row="2" Margin="202,25,-45,5"
+                            Minimum="0" 
+                            Maximum="15"  ToolTip="Độ sáng của các thiết bị bên trong case"
+                            
+                            x:Name="sens"
+                            Value="{Binding Settings.MSens}" Visibility="Visible"
+                            RenderTransformOrigin="0.066,0.839" Foreground="#FF7344C3" Grid.ColumnSpan="2" >
+                                <Slider.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform AngleX="-0.299"/>
+                                        <RotateTransform/>
+                                        <TranslateTransform X="-0.131"/>
+                                    </TransformGroup>
+                                </Slider.RenderTransform>
+                            </Slider>
 
                         </Grid>
                         <TextBlock x:Name="txtDoChia_Copy2"
@@ -619,19 +632,7 @@
 
 
 
-                        <Grid x:Name="screensetup3"  Margin="231,92,67,49" Grid.Row="1" Grid.RowSpan="3">
-                            <TextBox x:Name="width3"
-                                MinWidth="10" Margin="69,41,7,86"
-                                DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
-                                Text="{Binding Settings.SpotsX, UpdateSourceTrigger=PropertyChanged}" />
-                            <TextBox x:Name="height3" MinWidth="10"
-                                DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
-                                Margin="69,0,6,26"
-                                VerticalAlignment="Bottom"
-                                Text="{Binding Settings.SpotsY, UpdateSourceTrigger=PropertyChanged}" 
-                                RenderTransformOrigin="-0.027,1.271" Height="24" />
-
-                        </Grid>
+                        <Grid x:Name="screensetup3"  Margin="231,92,67,49" Grid.Row="1" Grid.RowSpan="3"/>
 
                         <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
                             Height="40" VerticalAlignment="Top" Width="39" Grid.Row="0"
@@ -654,11 +655,7 @@
 
                             </Grid.RowDefinitions>
 
-                            <TextBlock Foreground="#FF6C6C6C" Margin="2,26,40,8" Grid.Row="2"><Run Text="Tốc độ di chuyển"/></TextBlock>
-
-                            <TextBlock Foreground="#FF6C6C6C" Margin="2,32,77,2" Grid.Row="3"><Run Text="Giới hạn độ sáng"/></TextBlock>
-
-                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,15,76,19" Foreground="#FF6C6C6C"
+                            <TextBlock Visibility="Collapsed" TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,15,76,19" Foreground="#FF6C6C6C"
                                 Height="18" Text="Di chuyển theo thời gian" Grid.Row="1"/>
                             <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,8,76,27" Foreground="#FF6C6C6C"
                                 Height="18" Text="Chọn khoảng màu"/>
@@ -672,17 +669,17 @@
                             Height="32" VerticalAlignment="Top" Width="31"
                             Margin="28,31,0,0"
                             Source="/adrilight;component/View/Images/new theme/lighting setup@2x.png" Grid.Row="3"/>
-                        <ToggleButton
+                        <ToggleButton Visibility="Collapsed"
                             Style="{StaticResource MaterialDesignSwitchToggleButton}"
                             ToolTip="MaterialDesignSwitchToggleButton"
                             IsChecked="{Binding Settings.Breathing}" Margin="347,60,13,9" Grid.Row="1" />
-                        <Slider Margin="249,50,12,107"
+                        <Slider Margin="249,2,12,98"
                             Minimum="0" 
                             Maximum="360"  ToolTip="Độ sáng của các thiết bị bên trong case"
                             
                             x:Name="BrightnessSlider_Copy"
                             Value="{Binding Settings.AtmosphereStart}" Visibility="Visible"
-                            RenderTransformOrigin="0.066,0.839" Width="143" Foreground="#FF7344C3" Grid.RowSpan="2" >
+                            RenderTransformOrigin="0.066,0.839" Width="143" Foreground="#FF7344C3" Grid.Row="1" >
                             <Slider.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform/>
@@ -692,7 +689,7 @@
                                 </TransformGroup>
                             </Slider.RenderTransform>
                         </Slider>
-                        <Slider Margin="249,14,12,86"
+                        <Slider Margin="249,23,12,77"
                             Minimum="0" 
                             Maximum="360"  ToolTip="Độ sáng của các thiết bị bên trong case"
                             
@@ -792,8 +789,8 @@
                                 x:Name="PaletteSource_Copy1"
                                 materialDesign:HintAssist.Hint="Frequency"
                                 IsEditable="False"
-                                materialDesign:HintAssist.HintOpacity=".26" Height="26" Margin="202,22,-44,4" 
-                                RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="2" BorderBrush="#89000000" Grid.Row="2" />
+                                materialDesign:HintAssist.HintOpacity=".26" Height="26" Margin="42,22,-44,4" 
+                                RenderTransformOrigin="0.478,0.792" BorderBrush="#89000000" Grid.Row="2" Grid.Column="1" />
 
                         </Grid>
                         <TextBlock x:Name="txtDoChia_Copy5"
@@ -891,14 +888,14 @@
                         <StackPanel.Style>
                             <Style TargetType="StackPanel">
                                 <Setter Property="Visibility" Value="Collapsed" />
-                                <Setter Property="IsEnabled" Value="False" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=EffectSelection, Path=SelectedItem}"    Value="Sáng theo dải màu">
-                                        <Setter Property="Visibility"  Value="Visible"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding ElementName=PaletteSource, Path=SelectedItem}"    Value="Custom">
-                                        <Setter Property="IsEnabled"  Value="True"/>
-                                    </DataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding SelectedItem, ElementName=EffectSelection}" Value="Sáng theo dải màu" />
+                                            <Condition Binding="{Binding SelectedItem, ElementName=PaletteSource}" Value="Custom" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </MultiDataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </StackPanel.Style>
@@ -952,23 +949,88 @@
                         </xctk:ColorPicker>
                     </StackPanel>
 
-                    <materialDesign:Card Padding="10,10" UniformCornerRadius="4" materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="24,114,60,24" x:Name="Projector">
-                        <Viewbox Grid.Column="0" Margin="7,4,8,-38" Width="322" Height="225" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.ColumnSpan="2">
-                            <Canvas Width="325" Height="186" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" Margin="20,51,194,248" Grid.ColumnSpan="2">
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding SelectedItem, ElementName=EffectSelection}" Value="Sáng theo nhạc" />
+                                            <Condition Binding="{Binding SelectedItem, ElementName=MPalette}" Value="Custom" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+                        <xctk:ColorPicker BorderThickness="0" x:Name="mcolor0" SelectedColor="{Binding Settings.MColor0}" ColorMode="ColorCanvas" ShowDropDownButton="False" Margin="5,5,0,19" Width="27" >
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="mcolor1" SelectedColor="{Binding Settings.MColor1}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="mcolor2" SelectedColor="{Binding Settings.MColor2}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="mcolor3" SelectedColor="{Binding Settings.MColor3}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="mcolor4" SelectedColor="{Binding Settings.MColor4}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="mcolor5" SelectedColor="{Binding Settings.MColor5}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="mcolor6" SelectedColor="{Binding Settings.MColor6}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="mcolor7" SelectedColor="{Binding Settings.MColor7}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="mcolor8" SelectedColor="{Binding Settings.MColor8}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="mcolor9" SelectedColor="{Binding Settings.MColor9}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="mcolor10" SelectedColor="{Binding Settings.MColor10}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="mcolor11" SelectedColor="{Binding Settings.MColor11}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="mcolor12" SelectedColor="{Binding Settings.MColor12}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="mcolor13" SelectedColor="{Binding Settings.MColor13}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="mcolor14" SelectedColor="{Binding Settings.MColor14}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker  BorderThickness="0" x:Name="mcolor15" SelectedColor="{Binding Settings.MColor15}" ShowDropDownButton="False" Margin="5,5,0,19" Width="27">
+
+                        </xctk:ColorPicker>
+                    </StackPanel>
+
+                    <materialDesign:Card Padding="0,0" UniformCornerRadius="15" materialDesign:ShadowAssist.ShadowDepth="Depth0" Margin="19,114,35,1" x:Name="Projector" Background="#FFE8E8E8" >
+                        <Viewbox Grid.Column="0" Margin="0,0,0,0" Width="auto" >
+                            <Canvas Margin="8,8,8,8" Width="{Binding CanvasWidth}" Height="{Binding CanvasHeight}">
                                 <Canvas.Background>
                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="#FF686868"/>
-                                        <GradientStop Color="#FFC2C2C2" Offset="1"/>
+                                        <GradientStop Color="#FFE8E8E8"/>
+                                        <GradientStop Color="#FFE8E8E8" Offset="1"/>
                                     </LinearGradientBrush>
                                 </Canvas.Background>
 
 
 
                                 <ItemsControl ItemsSource="{Binding PreviewSpots}"
-                            Canvas.Left="0" Width="418" Height="239" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                            Canvas.Left="{Binding CanvasPadding}" Canvas.Top="{Binding CanvasPadding}" >
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <Canvas Width="325" Height="186" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                            <Canvas Width="{Binding CanvasWidth}" Height="{Binding CanvasHeight}" />
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemContainerStyle>
@@ -1079,11 +1141,11 @@
                             Margin="62.5,0,135,32"
                             VerticalAlignment="Bottom" 
                             Text="{Binding Settings.BorderDistanceY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="30" Grid.Column="1" />
-                        <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Margin="2,5,136,147" Grid.ColumnSpan="2"><Run Text="Chiều dài"/></TextBlock>
-                        <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Margin="1,50,137,125" Grid.ColumnSpan="2"><Run Text="Chiều rộng"/></TextBlock>
-                        <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Margin="2,95,204,82" Grid.ColumnSpan="2"><Run Text="Space-X"/></TextBlock>
-                        <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Margin="3,139,202,38" Grid.ColumnSpan="2"><Run Text="Space-Y"/></TextBlock>
-                        <Slider x:Name="Bluance" ToolTip=" Cân bằng trắng" Margin="146,131,-39,0"
+                        <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Margin="2,5,226,171" Grid.ColumnSpan="2"><Run Text="Chiều dài"/></TextBlock>
+                        <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Margin="1,50,221,125" Grid.ColumnSpan="2"><Run Text="Chiều rộng"/></TextBlock>
+                        <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Margin="2,95,6,82"><Run Text="Space-X"/></TextBlock>
+                        <TextBlock  FontWeight="Medium" Foreground="#FF6C6C6C" Margin="3,139,11,38"><Run Text="Space-Y"/></TextBlock>
+                        <Slider x:Name="Bluance" ToolTip=" Cân bằng trắng" Margin="147,132,-31,0"
                             Minimum="70" 
                             Maximum="100" 
                    
@@ -1098,7 +1160,7 @@
                                 </TransformGroup>
                             </Slider.RenderTransform>
                         </Slider>
-                        <Slider x:Name="Bluance_Copy" ToolTip=" Cân bằng trắng" Margin="132,115,-25,0"
+                        <Slider x:Name="Bluance_Copy" ToolTip=" Cân bằng trắng" Margin="133,116,-17,0"
                             Minimum="70" 
                             Maximum="100" 
                    
@@ -1113,7 +1175,7 @@
                                 </TransformGroup>
                             </Slider.RenderTransform>
                         </Slider>
-                        <Slider x:Name="Bluance_Copy1" ToolTip=" Cân bằng trắng" Margin="121,97,-14,0"
+                        <Slider x:Name="Bluance_Copy1" ToolTip=" Cân bằng trắng" Margin="122,98,-6,0"
                             Minimum="70" 
                             Maximum="100" 
                    
@@ -1128,7 +1190,8 @@
                                 </TransformGroup>
                             </Slider.RenderTransform>
                         </Slider>
-                        <TextBlock  HorizontalAlignment="Right" Width="90" Margin="0,5,4,0"
+                        <Rectangle Fill="Red" RadiusX="4" RadiusY="4" Margin="137,29,75,150" Grid.Column="1"/>
+                        <TextBlock  HorizontalAlignment="Right" Width="90" Margin="0,2,8,0"
                             RenderTransformOrigin="0.5,0.5" Height="18" VerticalAlignment="Top" Foreground="#FF6C6C6C" Grid.Column="1"><Run Text="Cân bằng trắng"/></TextBlock>
                         <RadioButton 
                             Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
@@ -1150,6 +1213,8 @@
                             Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
                             IsChecked="{Binding Settings.SmoothMode}"
                             GroupName="GroupSmooth" Margin="139,-88,0,251" Content="Siêu mượt" Grid.Column="1"/>
+                        <Rectangle Fill="Green" RadiusX="4" RadiusY="4" Margin="167,29,45,150" Grid.Column="1"/>
+                        <Rectangle Fill="Blue" RadiusX="4" RadiusY="4" Margin="197,29,15,150" Grid.Column="1"/>
                     </Grid>
                     <materialDesign:PopupBox
                         HorizontalAlignment="Right"
@@ -1190,7 +1255,45 @@
 
 
                     </materialDesign:PopupBox>
+                    <materialDesign:PopupBox
+                        HorizontalAlignment="Right"
+        
+        PlacementMode="LeftAndAlignTopEdges"           
+        Padding="2 0 2 0" Margin="0,9,18,306" RenderTransformOrigin="0.5,0.5" Foreground="#FF6C6C6C" Grid.Column="1" >
+                        <materialDesign:PopupBox.Style>
+                            <Style TargetType="materialDesign:PopupBox" BasedOn="{StaticResource MaterialDesignToolForegroundPopupBox}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=EffectSelection, Path=SelectedItem}" Value="Sáng theo nhạc">
+                                        <Setter Property="Visibility"  Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </materialDesign:PopupBox.Style>
+                        <materialDesign:PopupBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="0"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </materialDesign:PopupBox.RenderTransform>
 
+                        <materialDesign:PopupBox.ToggleContent>
+                            <materialDesign:PackIcon Kind="DotsHorizontal" Foreground="#FF6C6C6C" Height="24" Width="24" />
+                        </materialDesign:PopupBox.ToggleContent>
+
+
+
+                        <StackPanel Orientation="Horizontal" Margin=" 3,3,3,3" >
+                            <Button Margin="3,3,3,3" x:Name="Mapply"
+            Content="Áp dụng" IsEnabled="True" Click="Mapply_Click"  />
+                            <Button Margin="3,3,3,3" x:Name="Msave" 
+            Content="Lưu lại" IsEnabled="True" Click="Msave_Click"  />
+                        </StackPanel>
+
+
+                    </materialDesign:PopupBox>
                     <materialDesign:PopupBox
                         HorizontalAlignment="Right"
         
