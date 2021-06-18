@@ -11,7 +11,7 @@ namespace adrilight.Util
 {
     class FakeSerialPort : ISerialPortWrapper
     {
-        private ILogger _log = LogManager.GetCurrentClassLogger();
+        private static ILogger _log = LogManager.GetCurrentClassLogger();
 
         public FakeSerialPort() => _log.Warn("FakeSerialPort created!");
 
@@ -34,7 +34,7 @@ namespace adrilight.Util
             fpsLogger?.Dispose();
         }
 
-        private readonly FpsLogger fpsLogger = new FpsLogger("FakeSerialPort");
+        private static readonly FpsLogger fpsLogger = new FpsLogger("FakeSerialPort");
 
         public void Write(byte[] outputBuffer, int v, int streamLength)
         {

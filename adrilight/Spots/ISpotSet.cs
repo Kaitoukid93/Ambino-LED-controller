@@ -14,5 +14,6 @@ namespace adrilight
         int CountLeds(int spotsX, int spotsY);
         
         void IndicateMissingValues();
+        void Refresh();
     }
 }

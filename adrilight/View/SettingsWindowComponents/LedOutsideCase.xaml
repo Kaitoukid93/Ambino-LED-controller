@@ -305,7 +305,7 @@
                             SelectedIndex="{Binding Settings.screensizecounter}"
                             materialDesign:HintAssist.Hint="Chọn cỡ màn hình"
                             IsEditable="False"
-                            materialDesign:HintAssist.HintOpacity=".26" Height="27" Margin="0,-26,-28,150" 
+                            materialDesign:HintAssist.HintOpacity=".26" Height="27" Margin="0,-25,-28,149" 
                             SelectionChanged="Screenbox_SelectionChanged" RenderTransformOrigin="0.478,0.792" >
 
                                 <Label Content="23-24-25 inch"/>
@@ -316,12 +316,12 @@
                                 <Label Content="Kích thước khác"/>
                             </ComboBox>
                             <TextBox x:Name="width"
-                            MinWidth="10" Margin="101,41,-25,86"
+                            MinWidth="10" Margin="101,33,-25,94"
                             DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
                             Text="{Binding Settings.SpotsX, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBox x:Name="height" MinWidth="10"
                             DataObject.Pasting="TextBoxPasting" PreviewTextInput="NumberValidationTextBox"
-                            Margin="101,0,-26,26"
+                            Margin="101,0,-26,39"
                             VerticalAlignment="Bottom"
                             Text="{Binding Settings.SpotsY, UpdateSourceTrigger=PropertyChanged}" 
                             RenderTransformOrigin="-0.027,1.271" Height="24" />
@@ -337,8 +337,9 @@
                         VerticalAlignment="Center" FontSize="15" FontWeight="Bold"><Run Text="Cài đặt màn hình"/></TextBlock>
                         <Grid Margin="31,6,111,77" Grid.Row="1" Grid.RowSpan="3" >
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="4*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="49*"/>
+                                <ColumnDefinition Width="161*"/>
+                                <ColumnDefinition Width="52*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -348,12 +349,12 @@
 
                             </Grid.RowDefinitions>
 
-                            <TextBlock Foreground="#FF6C6C6C" Margin="2,26,40,8" Grid.Row="2"><Run Text="Số LED mỗi cạnh trên dưới"/></TextBlock>
+                            <TextBlock Foreground="#FF6C6C6C" Margin="2,18,40,16" Grid.Row="2" Grid.ColumnSpan="2"><Run Text="Số LED mỗi cạnh trên dưới"/></TextBlock>
 
-                            <TextBlock Foreground="#FF6C6C6C" Margin="2,32,77,2" Grid.Row="3"><Run Text="Số LED mỗi cạnh bên"/></TextBlock>
+                            <TextBlock Foreground="#FF6C6C6C" Margin="2,19,77,15" Grid.Row="3" Grid.ColumnSpan="2"><Run Text="Số LED mỗi cạnh bên"/></TextBlock>
 
-                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,15,76,19" Foreground="#FF6C6C6C"
-                            Height="18" Text="Kích Thước màn hình" Grid.Row="1"/>
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,16,76,18" Foreground="#FF6C6C6C"
+                            Height="18" Text="Kích Thước màn hình" Grid.Row="1" Grid.ColumnSpan="2"/>
                             <ComboBox
                             ItemsSource="{Binding AvailableDisplays}"
                             SelectedIndex="{Binding Settings.SelectedDisplay}"
@@ -361,20 +362,28 @@
                            
                             materialDesign:HintAssist.Hint="Capture Source"
                             IsEditable="False"
-                            materialDesign:HintAssist.HintOpacity=".26" Height="26" Margin="141,1,-72,26" 
-                             RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="2" BorderBrush="#89000000" >
-
-
-                            </ComboBox>
-                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,8,76,27" Foreground="#FF6C6C6C"
-                            Height="18" Text="Chọn màn hình"/>
+                            materialDesign:HintAssist.HintOpacity=".26" Height="26" Margin="92,11,-72,16" 
+                             RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="2" BorderBrush="#89000000" Grid.Column="1" />
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,18,76,17" Foreground="#FF6C6C6C"
+                            Height="18" Text="Chọn màn hình" Grid.ColumnSpan="2"/>
+                            <TextBlock Visibility="Collapsed" TextWrapping="Wrap" VerticalAlignment="Center" Margin="4,0,75,35" Foreground="#FF6C6C6C"
+                                Height="18" Text="Chọn GPU" Grid.ColumnSpan="2"/>
+                            <ComboBox Visibility="Collapsed"
+                                ItemsSource="{Binding AvailableAdapter}"
+                                SelectedIndex="{Binding Settings.SelectedAdapter}"
+                                x:Name="screenSelect_Copy"
+                           
+                                materialDesign:HintAssist.Hint="Capture Adapter"
+                                IsEditable="False"
+                                materialDesign:HintAssist.HintOpacity=".26" Height="26" Margin="91,-7,-71,34" 
+                                RenderTransformOrigin="0.478,0.792" Grid.ColumnSpan="2" BorderBrush="#89000000" Grid.Column="1" />
 
                         </Grid>
                         <TextBlock x:Name="txtDoChia_Copy1"
                         FontWeight="Medium" HorizontalAlignment="Right"
                         RenderTransformOrigin="0.337,1.821"
                         FontSize="10"
-                        Width="318" Margin="0,33,15,12" Foreground="#FFF9BE7B" Grid.Row="3"><Run Text="Chọn&quot; Kích thước khác &quot; nếu bạn sử dụng DIY kit "/><LineBreak/><Run Text="Số LED mỗi cạnh bên và trên dưới sẽ là số LED "/><LineBreak/><Run Text="thực tế cộng thêm 1"/></TextBlock>
+                        Width="229" Margin="0,33,104,12" Foreground="#FFF9BE7B" Grid.Row="3"><Run Text="Chọn&quot; Kích thước khác &quot; nếu bạn sử dụng DIY kit "/><LineBreak/><Run Text="Số LED mỗi cạnh bên và trên dưới sẽ là số LED "/><LineBreak/><Run Text="thực tế cộng thêm 1"/></TextBlock>
                         <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" 
                         Height="32" VerticalAlignment="Top" Width="31"
                         Margin="28,31,0,0"

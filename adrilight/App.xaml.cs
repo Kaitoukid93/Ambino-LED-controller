@@ -244,6 +244,7 @@ namespace adrilight
                 _log.Debug("Changing Powermode to {0}", e.Mode);
                 if(e.Mode==PowerModes.Resume)
                 {
+                    GC.Collect();
                     SerialStream.Start();
                     
                     _log.Debug("Restart the serial stream after sleep!");

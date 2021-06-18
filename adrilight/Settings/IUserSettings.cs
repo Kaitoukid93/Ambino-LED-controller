@@ -80,9 +80,9 @@ namespace adrilight
        
         int SelectedAudioDevice { get; set; }
         int SelectedDisplay { get; set; }
-       
+        int SelectedAdapter { get; set; }
 
-  
+
 
         byte SelectedSize { get; set; }
 

@@ -56,6 +56,7 @@ namespace adrilight
                     break;
 
                 case nameof(UserSettings.SelectedDisplay):
+                case nameof(UserSettings.SelectedAdapter):
                     RefreshCaptureSource();
                     break;
             }
@@ -227,7 +228,7 @@ namespace adrilight
                     bool isPreviewRunning = (SettingsViewModel.IsSettingsWindowOpen && UserSettings.SelectedEffect == 0);
                    // if (isPreviewRunning)
                    // {
-                       SettingsViewModel.SetPreviewImage(image); //remove this, using grey gradient background for better visual
+                      SettingsViewModel.SetPreviewImage(image); //remove this, using grey gradient background for better visual
                   //  }
                    
 
@@ -305,6 +306,7 @@ namespace adrilight
                 _desktopDuplicator = null;                
                 _log.Debug("Stopped Desktop Duplication Reader.");
                 IsRunning = false;
+                GC.Collect();
             }
         }
         
@@ -424,22 +426,40 @@ namespace adrilight
         private Bitmap GetNextFrame(Bitmap reusableBitmap)
         {
             var selectedDisplay = UserSettings.SelectedDisplay;
+            var selectedAdapter = 0; //UserSettings.SelectedAdapter;
+
             if (_desktopDuplicator == null)
             {
-                _desktopDuplicator = new DesktopDuplicator(0, selectedDisplay);
-            }
-           
                 try
                 {
-                    return _desktopDuplicator.GetLatestFrame(reusableBitmap);
+                    _desktopDuplicator = new DesktopDuplicator(selectedAdapter, selectedDisplay);
                 }
+                catch(Exception ex)
+                {
+                      if (ex.Message == "Unknown, just retry")
+                    {
+                        _log.Error(ex, "could be secure desktop");
+                    }
+                    // _desktopDuplicator.Dispose();
+                    // _desktopDuplicator = null;
+                    GC.Collect();
+                    return null;
+
+                }
+                
+            }
+            
+            try
+                {
+                return _desktopDuplicator.GetLatestFrame(reusableBitmap);
+            }
                 catch (Exception ex)
                 {
                     if (ex.Message != "_outputDuplication is null" && ex.Message != "Access Lost, resolution might be changed" && ex.Message != "Invalid call, might be retrying"&& ex.Message!= "Failed to release frame.")
                     {
                         _log.Error(ex, "GetNextFrame() failed.");
 
-                        throw;
+                       // throw;
                     }
                     else if (ex.Message == "Access Lost, resolution might be changed")
                     {
@@ -454,9 +474,10 @@ namespace adrilight
                     {
                         _log.Error(ex, "Failed to release frame.");
                     }
-
-                    _desktopDuplicator = new DesktopDuplicator(0, 0);
-
+                   
+                   _desktopDuplicator.Dispose();
+                    _desktopDuplicator = null;
+                GC.Collect();
                 return null;
                 }
             }

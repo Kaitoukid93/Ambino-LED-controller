@@ -61,7 +61,7 @@ namespace adrilight.DesktopDuplication
                 }
                 else
                 {
-                    throw new DesktopDuplicationException("Unknown Device Erro", ex);
+                    throw new DesktopDuplicationException("Unknown Device Error", ex);
                 }
                 
                 
@@ -84,10 +84,29 @@ namespace adrilight.DesktopDuplication
                     throw new DesktopDuplicationException(
                         "There is already the maximum number of applications using the Desktop Duplication API running, please close one of the applications and try again.");
                 }
+                else if ( ex.ResultCode.Code == SharpDX.DXGI.ResultCode.AccessDenied.Result.Code)
+                {
+                    //Dispose();
+                    throw new DesktopDuplicationException("Access Denied");
+                }
+                else 
+                {
+                    Dispose();
+                    GC.Collect();
+                    //retry right here??
+                    throw new Exception("Unknown, just retry");
+
+                    
+
+                }
+            
+
             }
+           
+
         }
 
-        private readonly FpsLogger _desktopFrameLogger = new FpsLogger("DesktopDuplication");
+        private static readonly FpsLogger _desktopFrameLogger = new FpsLogger("DesktopDuplication");
 
 
         /// <summary>
@@ -134,7 +153,7 @@ namespace adrilight.DesktopDuplication
             try
             {
                 if (_outputDuplication == null) throw new Exception("_outputDuplication is null");
-                _outputDuplication.AcquireNextFrame(500, out var frameInformation, out desktopResource);
+                _outputDuplication.AcquireNextFrame(1000, out var frameInformation, out desktopResource);
             }
             catch (SharpDXException ex)
             {
@@ -146,6 +165,7 @@ namespace adrilight.DesktopDuplication
                 {
                    // ReleaseFrame();
                     throw new Exception("Access Lost, resolution might be changed");
+                    //do something to restart desktop duplicator here
 
                     
                 }
@@ -261,10 +281,13 @@ namespace adrilight.DesktopDuplication
         public void Dispose()
         {
             IsDisposed = true;
+            _smallerTexture?.Dispose();
+            _smallerTextureView?.Dispose();
             _stagingTexture?.Dispose();
             _outputDuplication?.Dispose();
             _device?.Dispose();
-            _desktopFrameLogger?.Dispose();
+           // _desktopFrameLogger?.Dispose();
+            GC.Collect();
         }
         private void ReleaseFrame()
         {

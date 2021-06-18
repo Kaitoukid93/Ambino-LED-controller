@@ -486,6 +486,26 @@ namespace adrilight.ViewModel
             }
         }
 
+        public IList<String> _AvailableAdapter;
+        public IList<String> AvailableAdapter {
+            get
+            {
+                var listAdapter = new List<String>();
+                ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_VideoController");
+                string graphicsCard = string.Empty;
+                foreach (ManagementObject obj in searcher.Get())
+                {
+                    if (obj["CurrentBitsPerPixel"] != null && obj["CurrentHorizontalResolution"] != null)
+                    {
+                        graphicsCard = obj["Name"].ToString();
+                    }
+                    listAdapter.Add(graphicsCard);
+                }
+                _AvailableAdapter = listAdapter;
+                return _AvailableAdapter;
+            }
+        }
+
 
         public IList<string> _AvailableAudioDevice = new List<string>();
         public IList<String> AvailableAudioDevice {
@@ -601,7 +621,7 @@ namespace adrilight.ViewModel
         {
             Context.Invoke(() =>
             {
-                if (PreviewImageSource == null)
+                if (PreviewImageSource == null||PreviewImageSource.Width!=image.Width||PreviewImageSource.Height!=image.Height)
                 {
                     //first run creates writableimage
                     var imagePtr = image.GetHbitmap();

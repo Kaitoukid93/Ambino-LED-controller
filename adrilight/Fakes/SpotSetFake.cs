@@ -46,5 +46,8 @@ namespace adrilight.Fakes
         public void IndicateMissingValues()
         {
         }
+        public void Refresh()
+        {
+        }
     }
 }

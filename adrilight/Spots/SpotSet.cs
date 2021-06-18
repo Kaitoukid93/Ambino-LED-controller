@@ -1,5 +1,6 @@
 ﻿using adrilight.DesktopDuplication;
 using adrilight.Extensions;
+using Microsoft.Win32;
 using NLog;
 using System;
 using System.Drawing;
@@ -16,7 +17,7 @@ namespace adrilight
         {
             UserSettings = userSettings ?? throw new ArgumentNullException(nameof(userSettings));
 
-
+            SystemEvents.DisplaySettingsChanged += (_, e) => DecideRefresh("ResChange");
             UserSettings.PropertyChanged += (_, e) => DecideRefresh(e.PropertyName);
             Refresh();
    
@@ -38,7 +39,8 @@ namespace adrilight
                 case nameof(UserSettings.SpotHeight):
                 case nameof(UserSettings.SpotsX):
                 case nameof(UserSettings.SpotsY):
-        
+                case "ResChange":
+                case nameof(UserSettings.SelectedDisplay):
                 case nameof(UserSettings.SpotWidth):
                     Refresh();
                     break;
@@ -104,8 +106,9 @@ namespace adrilight
 
             return null;
         }
-        public int ExpectedScreenWidth => Screen.PrimaryScreen.Bounds.Width / DesktopDuplicator.ScalingFactor;
-        public int ExpectedScreenHeight => Screen.PrimaryScreen.Bounds.Height / DesktopDuplicator.ScalingFactor;
+
+        public int ExpectedScreenWidth => UserSettings.SelectedDisplay > (Screen.AllScreens.Length-1)? Screen.AllScreens[0].Bounds.Width / DesktopDuplicator.ScalingFactor: Screen.AllScreens[UserSettings.SelectedDisplay].Bounds.Width/DesktopDuplicator.ScalingFactor;
+        public int ExpectedScreenHeight => UserSettings.SelectedDisplay > (Screen.AllScreens.Length - 1)? Screen.AllScreens[0].Bounds.Height / DesktopDuplicator.ScalingFactor : Screen.AllScreens[UserSettings.SelectedDisplay].Bounds.Height / DesktopDuplicator.ScalingFactor;
 
         readonly Screen screen = GetSecondaryScreen();
         public int ExpectedScreenWidth2 => screen.Bounds.Width / DesktopDuplicator.ScalingFactor;
@@ -116,7 +119,7 @@ namespace adrilight
         private IUserSettings UserSettings { get; }
 
 
-        private void Refresh()
+        public void Refresh()
         {
             lock (Lock)
             {

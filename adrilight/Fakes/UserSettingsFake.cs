@@ -62,6 +62,7 @@ namespace adrilight.Fakes
         public byte screensizecounter { get; set; } = 2;
         public int MSens { get; set; } = 0;
         public int SelectedDisplay { get; set; } = 0;
+        public int SelectedAdapter { get; set; } = 0;
         public byte SelectedEffect { get; set; } = 0;
 
         //gifxelation//
