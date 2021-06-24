@@ -233,7 +233,8 @@ namespace adrilight.ViewModel
 
         }
         public ObservableCollection<string> AvailablePalette { get; private set; }
-        public LightingViewModel(DeviceInfoDTO device, ViewModelBase parent, SettingInfoDTO setting)
+        public LightingViewModel(DeviceInfoDTO device, ViewModelBase parent, SettingInfoDTO setting) // cái này sẽ bỏ, kiểu gì thì kiểu khi chuyển tab cũng
+            //sẽ bị tạo mới
         {
             ReadData();
             this.Card = device;
@@ -244,13 +245,33 @@ namespace adrilight.ViewModel
             //ReadData();
            // Card = device;
            // Card.LEDNumber = 30;
-            Rainbow = new Rainbow(Card, SpotSet, this, SettingInfo);
-            StaticColor = new StaticColor(Card, SpotSet, this, SettingInfo);
-            Atmosphere = new Atmosphere(Card, SpotSet, this, SettingInfo);
-            Music = new Music(Card, SpotSet, this, SettingInfo);
-            Reader = new DesktopDuplicatorReader(Card, SpotSet, this, SettingInfo);
-            Stream = new SerialStream(SettingInfo, SpotSet,  Card);
-            Gif= new Gifxelation(Card, SpotSet, this, SettingInfo);
+           switch (Card.SelectedEffect)
+            {
+                case 0:
+                    if(Reader is null)
+                    Reader = new DesktopDuplicatorReader(Card, SpotSet, this, SettingInfo);  
+
+                    break;
+                case 1:
+                    Rainbow = new Rainbow(Card, SpotSet, this, SettingInfo);
+                    break;
+                case 2:
+                    Music = new Music(Card, SpotSet, this, SettingInfo);
+                    break;
+                case 3:
+                    StaticColor = new StaticColor(Card, SpotSet, this, SettingInfo);
+                    break;
+                case 4:
+                    Atmosphere = new Atmosphere(Card, SpotSet, this, SettingInfo);
+                    break;
+                case 5:
+                    Gif = new Gifxelation(Card, SpotSet, this, SettingInfo);
+                    break;
+
+            }
+            Stream = new SerialStream(SettingInfo, SpotSet, Card);
+
+            
         }
         public IContext Context { get; }
         public IList<String> _AvailableDisplays;

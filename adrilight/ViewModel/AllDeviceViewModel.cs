@@ -43,7 +43,8 @@ namespace adrilight.ViewModel
         public void LoadCard()
         {
             Cards = new ObservableCollection<DeviceInfoDTO>();
-            var devices = LoadIfExists();
+            var settingsmanager = new UserSettingsManager();
+            var devices = settingsmanager.LoadDeviceIfExists();
             if (devices != null)
             {
                 foreach (var item in devices)
@@ -150,15 +151,6 @@ namespace adrilight.ViewModel
             Directory.CreateDirectory(JsonPath);
             File.WriteAllText(JsonFileNameAndPath, json);
         }
-        public List<DeviceInfo> LoadIfExists()
-        {
-            if (!File.Exists(JsonFileNameAndPath)) return null;
-
-            var json = File.ReadAllText(JsonFileNameAndPath);
-
-            var devices = JsonConvert.DeserializeObject<List< DeviceInfo>>(json);
-          
-            return devices;
-        }
+       
     }
 }

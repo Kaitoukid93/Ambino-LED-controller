@@ -12,6 +12,7 @@ using Device = SharpDX.Direct3D11.Device;
 using MapFlags = SharpDX.Direct3D11.MapFlags;
 using Rectangle = SharpDX.Mathematics.Interop.RawRectangle;
 using adrilight.Util;
+using System.Windows;
 
 namespace adrilight.DesktopDuplication
 {
@@ -52,7 +53,22 @@ namespace adrilight.DesktopDuplication
             }
             catch (SharpDXException ex)
             {
-                throw new DesktopDuplicationException("Could not find the specified output device.", ex);
+                if (ex.ResultCode == SharpDX.DXGI.ResultCode.NotFound)
+                {
+                    //MessageBox.Show("Display not Available at output address" + whichOutputDevice.ToString());
+                    output = adapter.GetOutput(0);
+
+                }
+                else
+                {
+                    throw new DesktopDuplicationException("Unknown Device Error", ex);
+                }
+
+
+
+
+
+
             }
             var output1 = output.QueryInterface<Output1>();
             _outputDescription = output.Description;
@@ -68,10 +84,29 @@ namespace adrilight.DesktopDuplication
                     throw new DesktopDuplicationException(
                         "There is already the maximum number of applications using the Desktop Duplication API running, please close one of the applications and try again.");
                 }
+                else if (ex.ResultCode.Code == SharpDX.DXGI.ResultCode.AccessDenied.Result.Code)
+                {
+                    //Dispose();
+                    throw new DesktopDuplicationException("Access Denied");
+                }
+                else
+                {
+                    Dispose();
+                    GC.Collect();
+                    //retry right here??
+                    throw new Exception("Unknown, just retry",ex);
+
+
+
+                }
+
+
             }
+
+
         }
 
-        private readonly FpsLogger _desktopFrameLogger = new FpsLogger("DesktopDuplication");
+        private static readonly FpsLogger _desktopFrameLogger = new FpsLogger("DesktopDuplication");
 
 
         /// <summary>
@@ -118,13 +153,28 @@ namespace adrilight.DesktopDuplication
             try
             {
                 if (_outputDuplication == null) throw new Exception("_outputDuplication is null");
-                _outputDuplication.AcquireNextFrame(500, out var frameInformation, out desktopResource);
+                _outputDuplication.AcquireNextFrame(1000, out var frameInformation, out desktopResource);
             }
             catch (SharpDXException ex)
             {
                 if (ex.ResultCode.Code == SharpDX.DXGI.ResultCode.WaitTimeout.Result.Code)
                 {
                     return false;
+                }
+                if (ex.ResultCode.Code == SharpDX.DXGI.ResultCode.AccessLost.Result.Code)
+                {
+                    // ReleaseFrame();
+                    throw new Exception("Access Lost, resolution might be changed");
+                    //do something to restart desktop duplicator here
+
+
+                }
+                if (ex.ResultCode.Code == SharpDX.DXGI.ResultCode.InvalidCall.Result.Code)
+                {
+                    // ReleaseFrame();
+                    throw new Exception("Invalid call, might be retrying");
+
+
                 }
 
                 throw new DesktopDuplicationException("Failed to acquire next frame.", ex);
@@ -179,18 +229,20 @@ namespace adrilight.DesktopDuplication
             var width = _outputDescription.DesktopBounds.GetWidth() / scalingFactor;
             var height = _outputDescription.DesktopBounds.GetHeight() / scalingFactor;
 
-            if (reusableImage != null && reusableImage.Width == width && reusableImage.Height == height)
-            {
-                image = reusableImage;
-            }
-            else
-            {
-                image = new Bitmap(width, height, PixelFormat.Format32bppRgb);
-            }
+
+            //if (reusableImage != null && reusableImage.Width == width && reusableImage.Height == height)
+            //{
+            //    image = reusableImage;
+            //}
+            //else
+            //{
+            image = new Bitmap(width, height, PixelFormat.Format32bppRgb);
+            //}
 
             var boundsRect = new System.Drawing.Rectangle(0, 0, width, height);
 
             // Copy pixels from screen capture Texture to GDI bitmap
+
             var mapDest = image.LockBits(boundsRect, ImageLockMode.WriteOnly, image.PixelFormat);
             var sourcePtr = mapSource.DataPointer;
             var destPtr = mapDest.Scan0;
@@ -217,6 +269,7 @@ namespace adrilight.DesktopDuplication
             // Release source and dest locks
             image.UnlockBits(mapDest);
             _device.ImmediateContext.UnmapSubresource(_stagingTexture, 0);
+
             return image;
         }
 
@@ -228,10 +281,27 @@ namespace adrilight.DesktopDuplication
         public void Dispose()
         {
             IsDisposed = true;
+            _smallerTexture?.Dispose();
+            _smallerTextureView?.Dispose();
             _stagingTexture?.Dispose();
             _outputDuplication?.Dispose();
             _device?.Dispose();
-            _desktopFrameLogger?.Dispose();
+            // _desktopFrameLogger?.Dispose();
+            GC.Collect();
+        }
+        private void ReleaseFrame()
+        {
+            try
+            {
+                _outputDuplication.ReleaseFrame();
+            }
+            catch (SharpDXException ex)
+            {
+                if (ex.ResultCode.Failure)
+                {
+                    throw new DesktopDuplicationException("Failed to release frame.");
+                }
+            }
         }
     }
 }

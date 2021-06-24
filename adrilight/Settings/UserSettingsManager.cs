@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BO;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,6 +18,7 @@ namespace adrilight
         private string JsonPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "adrilight\\");
 
         private string JsonFileNameAndPath => Path.Combine(JsonPath, "adrilight-settings.json");
+        private string JsonDeviceFileNameAndPath => Path.Combine(JsonPath, "adrilight-deviceInfos.json");
 
         private void Save(IUserSettings settings)
         {
@@ -36,6 +38,17 @@ namespace adrilight
 
             HandleAutostart(settings);
             return settings;
+        }
+
+        public List<DeviceInfo> LoadDeviceIfExists()
+        {
+            if (!File.Exists(JsonDeviceFileNameAndPath)) return null;
+
+            var json = File.ReadAllText(JsonDeviceFileNameAndPath);
+
+            var devices = JsonConvert.DeserializeObject<List<DeviceInfo>>(json);
+
+            return devices;
         }
 
         public IUserSettings MigrateOrDefault()

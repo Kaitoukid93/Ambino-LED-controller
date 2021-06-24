@@ -115,7 +115,7 @@ namespace adrilight
         {
             lock (Lock)
             {
-                Spots = BuildSpots(ExpectedScreenWidth, ExpectedScreenHeight, UserSettings);
+                Spots = BuildSpots(ExpectedScreenWidth, ExpectedScreenHeight, DeviceInfo);
             }
         }
 

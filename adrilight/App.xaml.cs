@@ -34,7 +34,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using Microsoft.Extensions.DependencyInjection;
+using BO;
 namespace adrilight
 {
     /// <summary>
@@ -120,6 +121,7 @@ namespace adrilight
             //_mutex = new System.Threading.Mutex(true, mutexId, out bool createdNew);
             //if (!createdNew) Current.Shutdown();
             //else Exit += CloseMutexHandler;
+          //  IServiceProvider serviceProvider = CreateServiceProvider();
             base.OnStartup(startupEvent);
 
             SetupDebugLogging();
@@ -178,32 +180,56 @@ namespace adrilight
         internal static IKernel SetupDependencyInjection(bool isInDesignMode)
         {
             var kernel = new StandardKernel();
-            if(isInDesignMode)
-            {
-                //setup fakes
-                kernel.Bind<IUserSettings>().To<UserSettingsFake>().InSingletonScope();
-                kernel.Bind<IContext>().To<ContextFake>().InSingletonScope();
-                kernel.Bind<ISpotSet>().To<SpotSetFake>().InSingletonScope();
-               // kernel.Bind<ISerialStream>().To<SerialStreamFake>().InSingletonScope();
-               // kernel.Bind<IDesktopDuplicatorReader>().To<DesktopDuplicatorReaderFake>().InSingletonScope();
-            }
-            else
-            {
+            //if(isInDesignMode)
+            //{
+            //    //setup fakes
+            //    kernel.Bind<IUserSettings>().To<UserSettingsFake>().InSingletonScope();
+            //    kernel.Bind<IContext>().To<ContextFake>().InSingletonScope();
+            //    kernel.Bind<ISpotSet>().To<SpotSetFake>().InSingletonScope();
+            //   // kernel.Bind<ISerialStream>().To<SerialStreamFake>().InSingletonScope();
+            //   // kernel.Bind<IDesktopDuplicatorReader>().To<DesktopDuplicatorReaderFake>().InSingletonScope();
+            //}
+            //else
+            //{
                 //setup real implementations
+                //Load setting từ file Json//
                 var settingsManager = new UserSettingsManager();
                 var settings = settingsManager.LoadIfExists() ?? settingsManager.MigrateOrDefault();
-                kernel.Bind<IUserSettings>().ToConstant(settings);
+                var alldevicesettings = settingsManager.LoadDeviceIfExists();
 
+                //// tách riêng từng setting của từng device///
+                //// hoặc có thể mỗi device có 1 file settin riêng cũng k sao cả ////
+                ///{
+                ///}
+                ///
+                ///bind từng setting vào IUserSettings của device tương ứng
+               foreach (var devicesettings in alldevicesettings)
+            {
+                kernel.Bind<IUserSettings>().ToConstant(devicesettings); // mắc chỗ này, IUserSettings bây giờ phải là DeviceInfoDTO
                 kernel.Bind<IContext>().To<WpfContext>().InSingletonScope();
                 kernel.Bind<ISpotSet>().To<SpotSet>().InSingletonScope();
-               // kernel.Bind<ISerialStream>().To<SerialStream>().InSingletonScope();
-               //kernel.Bind<IDesktopDuplicatorReader>().To<DesktopDuplicatorReader>().InSingletonScope();
-                //kernel.Bind<IStaticColor>().To<StaticColor>().InSingletonScope();
-                //kernel.Bind<IRainbow>().To<Rainbow>().InSingletonScope();
-                //kernel.Bind<IMusic>().To<Music>().InSingletonScope();
-                //kernel.Bind<IAtmosphere>().To<Atmosphere>().InSingletonScope();
+                kernel.Bind<ISerialStream>().To<SerialStream>().InThreadScope();
+                kernel.Bind<IDesktopDuplicatorReader>().To<DesktopDuplicatorReader>().InThreadScope();
+                kernel.Bind<IStaticColor>().To<StaticColor>().InThreadScope();
+                kernel.Bind<IRainbow>().To<Rainbow>().InThreadScope();
+                kernel.Bind<IMusic>().To<Music>().InThreadScope();
+                kernel.Bind<IAtmosphere>().To<Atmosphere>().InThreadScope();
+
+                var desktopDuplicationReader = kernel.Get<IDesktopDuplicatorReader>();
+                var serialStream = kernel.Get<ISerialStream>();
+                var staticColor = kernel.Get<IStaticColor>();
+                var rainbow = kernel.Get<IRainbow>();
+                var music = kernel.Get<IMusic>();
+                var atmosphere = kernel.Get<IAtmosphere>();
+                // tạo instance của từng class cho mỗi device//
+
+
+                //var spotset = kernel.Get<ISpotSet>(); // mỗi device cần có spotset riêng
             }
-           // kernel.Bind<SettingsViewModel>().ToSelf().InSingletonScope();
+
+
+            //}
+            // kernel.Bind<SettingsViewModel>().ToSelf().InSingletonScope();
             kernel.Bind<TelemetryClient>().ToConstant(SetupApplicationInsights(kernel.Get<IUserSettings>()));
             kernel.Bind(x => x.FromThisAssembly()
             .SelectAllClasses()
@@ -211,13 +237,17 @@ namespace adrilight
             .BindAllInterfaces());
             kernel.Bind<MainViewViewModel>().ToSelf().InSingletonScope();
             //eagerly create required singletons [could be replaced with actual pipeline]
-            //var desktopDuplicationReader = kernel.Get<IDesktopDuplicatorReader>();
-          //  var serialStream = kernel.Get<ISerialStream>();
-            //var staticColor = kernel.Get<IStaticColor>();
-            //var rainbow = kernel.Get<IRainbow>();
-            //var music = kernel.Get<IMusic>();
-            //var atmosphere = kernel.Get<IAtmosphere>();
+
+       
+
             return kernel;
+            // lighting viewmodel bây giờ chỉ có nhiệm vụ load data từ spotset và settings tương ứng với card sau đó display, không phải khởi tạo class như trước
+            // sau bước này thì tất cả các service đều được khởi tạo, SerialStream, SpotSet và service tương ứng với SelectedEffect được khởi chạy//
+            // điều này đảm bảo SpotSet có data để lightingviewmodel hiển thị, đồng thời SerialStream cũng lấy data đó gửi ra device
+            // kể từ sau khi app khởi động, mọi event điều chỉnh giá trị ở lightingviewmodel sẽ bắn về class đang chạy (rainbow, Music...) và class
+            // đó sẽ thay đổi ( những cái này trong từng class đã viết rồi), đồng thời settings được lưu
+
+
         }
 
         private void SetupLoggingForProcessWideEvents()
@@ -307,7 +337,18 @@ namespace adrilight
             _mainForm = null;
             _telemetryClient.TrackEvent("SettingsWindow closed");
         }
+        //private IServiceProvider CreateServiceProvider()
+        //{
+        //    IServiceCollection services = new ServiceCollection();
 
+        //    services.AddScoped<Rainbow>();
+        //    services.AddScoped<StaticColor>();
+        //    services.AddScoped<Music>();
+        //    services.AddScoped<Gifxelation>();
+        //    services.AddScoped<DesktopDuplicatorReader>();
+
+        //    return services.BuildServiceProvider();
+        //}
         private void SetupNotifyIcon()
 
         {

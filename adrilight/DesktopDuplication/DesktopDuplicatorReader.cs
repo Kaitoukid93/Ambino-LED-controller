@@ -148,7 +148,7 @@ namespace adrilight
                     var frameTime = Stopwatch.StartNew();
                     var newImage = _retryPolicy.Execute(() => GetNextFrame(image));
                     TraceFrameDetails(newImage);
-
+                    //var brightness = settingInfo. / 100d;
 
                     if (newImage == null)
                     {
@@ -338,63 +338,34 @@ namespace adrilight
             }
             catch (Exception ex)
             {
-                if (ex.Message != "_outputDuplication is null")
+                if (ex.Message != "_outputDuplication is null" && ex.Message != "Access Lost, resolution might be changed" && ex.Message != "Invalid call, might be retrying" && ex.Message != "Failed to release frame.")
                 {
                     _log.Error(ex, "GetNextFrame() failed.");
+
+                    // throw;
+                }
+                else if (ex.Message == "Access Lost, resolution might be changed")
+                {
+                    _log.Error(ex, "Access Lost, retrying");
+
+                }
+                else if (ex.Message == "Invalid call, might be retrying")
+                {
+                    _log.Error(ex, "Invalid Call Lost, retrying");
+                }
+                else if (ex.Message == "Failed to release frame.")
+                {
+                    _log.Error(ex, "Failed to release frame.");
                 }
 
-                _desktopDuplicator?.Dispose();
+                _desktopDuplicator.Dispose();
                 _desktopDuplicator = null;
-                // throw;
+                GC.Collect();
                 return null;
             }
         }
-        private Bitmap GetNextFrame2(Bitmap reusableBitmap2)
-        {
-            if (_desktopDuplicator2 == null)
-            {
-                _desktopDuplicator2 = new DesktopDuplicator(0, 1);
-            }
 
-            try
-            {
-                return _desktopDuplicator2.GetLatestFrame(reusableBitmap2);
-            }
-            catch (Exception ex)
-            {
-                if (ex.Message != "_outputDuplication2 is null")
-                {
-                    _log.Error(ex, "GetNextFrame2() failed.");
-                }
-
-                _desktopDuplicator2?.Dispose();
-                _desktopDuplicator2 = null;
-                throw;
-            }
-        }
-        private Bitmap GetNextFrame3(Bitmap reusableBitmap3)
-        {
-            if (_desktopDuplicator3 == null)
-            {
-                _desktopDuplicator3 = new DesktopDuplicator(0, 2);
-            }
-
-            try
-            {
-                return _desktopDuplicator3.GetLatestFrame(reusableBitmap3);
-            }
-            catch (Exception ex)
-            {
-                if (ex.Message != "_outputDuplication3 is null")
-                {
-                    _log.Error(ex, "GetNextFrame3() failed.");
-                }
-
-                _desktopDuplicator3?.Dispose();
-                _desktopDuplicator3 = null;
-                throw;
-            }
-        }
+       
 
         private unsafe void GetAverageColorOfRectangularRegion(Rectangle spotRectangle, int stepy, int stepx, BitmapData bitmapData, out int sumR, out int sumG,
             out int sumB, out int count)
