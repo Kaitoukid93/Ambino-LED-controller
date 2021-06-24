@@ -13,14 +13,14 @@ using BO;
 
 namespace adrilight.Util
 {
-    public class StaticColor : IStaticColor, IDisposable
+    internal class StaticColor : IStaticColor, IDisposable
     {
         
         
         private readonly NLog.ILogger _log = LogManager.GetCurrentClassLogger();
 
         private double point = 0;
-        public StaticColor(DeviceInfoDTO device, ISpotSet spotSet, LightingViewModel viewViewModel, SettingInfoDTO setting)
+        public StaticColor(IDeviceSettings device, ISpotSet spotSet, LightingViewModel viewViewModel, SettingInfoDTO setting)
         {
             deviceInfo = device ?? throw new ArgumentNullException(nameof(device));
             SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
@@ -53,7 +53,7 @@ namespace adrilight.Util
 
         }
         private Thread _workerThread;
-        private DeviceInfoDTO deviceInfo { get; }
+        private IDeviceSettings deviceInfo { get; }
         private LightingViewModel SettingsViewModel { get; }
         private SettingInfoDTO settingInfo { get; }
         public bool IsRunning { get; private set; } = false;

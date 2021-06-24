@@ -40,13 +40,13 @@ namespace adrilight
             return settings;
         }
 
-        public List<DeviceInfo> LoadDeviceIfExists()
+        public List<DeviceSettings> LoadDeviceIfExists()
         {
             if (!File.Exists(JsonDeviceFileNameAndPath)) return null;
 
             var json = File.ReadAllText(JsonDeviceFileNameAndPath);
 
-            var devices = JsonConvert.DeserializeObject<List<DeviceInfo>>(json);
+            var devices = JsonConvert.DeserializeObject<List<DeviceSettings>>(json);
 
             return devices;
         }

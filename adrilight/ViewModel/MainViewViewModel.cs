@@ -100,8 +100,8 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged("CurrentView");
             }
         }
-        private DeviceInfoDTO _currentDevice;
-        public DeviceInfoDTO CurrentDevice {
+        private IDeviceSettings _currentDevice;
+        public IDeviceSettings CurrentDevice {
             get { return _currentDevice; }
             set
             {
@@ -232,7 +232,7 @@ namespace adrilight.ViewModel
             if (_allDeviceView == null) return;
             ((AllDeviceViewModel)_allDeviceView).WriteJson();
         }
-        public void GotoChild(DeviceInfoDTO card)
+        public void GotoChild(IDeviceSettings card)
         {
             _detailView = new DeviceDetailViewModel(card, this,SettingInfo);
             CurrentView = _detailView;
@@ -247,7 +247,7 @@ namespace adrilight.ViewModel
             IsDashboardType = true;
             SetMenuItemActiveStatus(dashboard);
         }
-        public void BackToDashboardAndDelete(DeviceInfoDTO device)
+        public void BackToDashboardAndDelete(IDeviceSettings device)
         {
             if (_allDeviceView != null)
             {

@@ -12,8 +12,8 @@ namespace adrilight.ViewModel
 {
    public class GeneralDeviceViewModel : ViewModelBase
     {
-        private DeviceInfoDTO _card;
-        public DeviceInfoDTO Card {
+        private IDeviceSettings _card;
+        public IDeviceSettings Card {
             get { return _card; }
             set
             {
@@ -35,7 +35,7 @@ namespace adrilight.ViewModel
             }
         }
         private readonly ViewModelBase _parentVm;
-        public GeneralDeviceViewModel(DeviceInfoDTO device, ViewModelBase parent)
+        public GeneralDeviceViewModel(IDeviceSettings device, ViewModelBase parent)
         {
             _parentVm = parent;
             Card = device;

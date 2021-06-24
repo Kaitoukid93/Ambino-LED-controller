@@ -135,19 +135,20 @@ namespace adrilight
             this.Resources["Locator"] = new ViewModelLocator(kernel);
 
 
-            UserSettings = kernel.Get<IUserSettings>();
+           // DeviceSettings = kernel.Get<IDeviceSettings>();
+           // UserSettings = kernel.Get<IUserSettings>();
             _telemetryClient = kernel.Get<TelemetryClient>();
 
             SetupNotifyIcon();
 
-            if (!UserSettings.StartMinimized)
-            {
+          //  if (!UserSettings.StartMinimized)
+           // {
                 // OpenSettingsWindow();
                 OpenNewUI();
-            }
+          //  }
 
 
-            kernel.Get<AdrilightUpdater>().StartThread();
+           // kernel.Get<AdrilightUpdater>().StartThread();
 
             SetupTrackingForProcessWideEvents(_telemetryClient);
         }
@@ -159,7 +160,7 @@ namespace adrilight
         }
         private TelemetryClient _telemetryClient;
 
-        private static TelemetryClient SetupApplicationInsights(IUserSettings settings)
+        private static TelemetryClient SetupApplicationInsights(IDeviceSettings settings)
         {
             const string ik = "65086b50-8c52-4b13-9b05-92fbe69c7a52";
             TelemetryConfiguration.Active.InstrumentationKey = ik;
@@ -177,8 +178,11 @@ namespace adrilight
             return tc;
         }
 
+       
+
         internal static IKernel SetupDependencyInjection(bool isInDesignMode)
         {
+
             var kernel = new StandardKernel();
             //if(isInDesignMode)
             //{
@@ -197,45 +201,60 @@ namespace adrilight
                 var settings = settingsManager.LoadIfExists() ?? settingsManager.MigrateOrDefault();
                 var alldevicesettings = settingsManager.LoadDeviceIfExists();
 
-                //// tách riêng từng setting của từng device///
-                //// hoặc có thể mỗi device có 1 file settin riêng cũng k sao cả ////
-                ///{
-                ///}
-                ///
-                ///bind từng setting vào IUserSettings của device tương ứng
-               foreach (var devicesettings in alldevicesettings)
+            //// tách riêng từng setting của từng device///
+            //// hoặc có thể mỗi device có 1 file settin riêng cũng k sao cả ////
+            ///{
+            ///}
+            ///
+            ///bind từng setting vào IUserSettings của device tương ứng
+            /// kernel.Bind<IDeviceSettings>().ToConstant(devicesettings).InThreadScope(); // mắc chỗ này, IUserSettings bây giờ phải là DeviceInfoDTO
+            kernel.Bind<IContext>().To<WpfContext>().InThreadScope();
+            kernel.Bind<ISpotSet>().To<SpotSet>().InThreadScope();
+            kernel.Bind<ISerialStream>().To<SerialStream>().InThreadScope();
+            kernel.Bind<IDesktopDuplicatorReader>().To<DesktopDuplicatorReader>().InThreadScope();
+            kernel.Bind<IStaticColor>().To<StaticColor>().InThreadScope();
+            kernel.Bind<IRainbow>().To<Rainbow>().InThreadScope();
+            kernel.Bind<IMusic>().To<Music>().InThreadScope();
+            kernel.Bind<IAtmosphere>().To<Atmosphere>().InThreadScope();
+            foreach (var devicesettings in alldevicesettings)
             {
-                kernel.Bind<IUserSettings>().ToConstant(devicesettings); // mắc chỗ này, IUserSettings bây giờ phải là DeviceInfoDTO
-                kernel.Bind<IContext>().To<WpfContext>().InSingletonScope();
-                kernel.Bind<ISpotSet>().To<SpotSet>().InSingletonScope();
-                kernel.Bind<ISerialStream>().To<SerialStream>().InThreadScope();
-                kernel.Bind<IDesktopDuplicatorReader>().To<DesktopDuplicatorReader>().InThreadScope();
-                kernel.Bind<IStaticColor>().To<StaticColor>().InThreadScope();
-                kernel.Bind<IRainbow>().To<Rainbow>().InThreadScope();
-                kernel.Bind<IMusic>().To<Music>().InThreadScope();
-                kernel.Bind<IAtmosphere>().To<Atmosphere>().InThreadScope();
+
+                kernel.Bind<IDeviceSettings>().ToConstant(devicesettings).InThreadScope(); // mắc chỗ này, IUserSettings bây giờ phải là DeviceInfoDTO
+
+
+
+                // kernel.Bind<TelemetryClient>().ToConstant(SetupApplicationInsights(kernel.Get<IDeviceSettings>()));
+
+
 
                 var desktopDuplicationReader = kernel.Get<IDesktopDuplicatorReader>();
+                var spotset = kernel.Get<ISpotSet>();
                 var serialStream = kernel.Get<ISerialStream>();
-                var staticColor = kernel.Get<IStaticColor>();
-                var rainbow = kernel.Get<IRainbow>();
-                var music = kernel.Get<IMusic>();
-                var atmosphere = kernel.Get<IAtmosphere>();
+                //  var staticColor = kernel.Get<IStaticColor>();
+
+            }
+               
+                //kernel.Bind<MainViewViewModel>().ToSelf().InSingletonScope();
+               // kernel.Bind<LightingViewModel>().ToSelf().InSingletonScope();
+                kernel.Bind(x => x.FromThisAssembly()
+                  .SelectAllClasses()
+                  .InheritedFrom<ISelectableViewPart>()
+                  .BindAllInterfaces());
+                //  var rainbow = kernel.Get<IRainbow>();
+                // var music = kernel.Get<IMusic>();
+                // var atmosphere = kernel.Get<IAtmosphere>();
+
                 // tạo instance của từng class cho mỗi device//
 
 
                 //var spotset = kernel.Get<ISpotSet>(); // mỗi device cần có spotset riêng
-            }
+            
 
 
             //}
             // kernel.Bind<SettingsViewModel>().ToSelf().InSingletonScope();
-            kernel.Bind<TelemetryClient>().ToConstant(SetupApplicationInsights(kernel.Get<IUserSettings>()));
-            kernel.Bind(x => x.FromThisAssembly()
-            .SelectAllClasses()
-            .InheritedFrom<ISelectableViewPart>()
-            .BindAllInterfaces());
-            kernel.Bind<MainViewViewModel>().ToSelf().InSingletonScope();
+            //kernel.Bind<BaseViewModel>().ToSelf().InSingletonScope();
+           
             //eagerly create required singletons [could be replaced with actual pipeline]
 
        
@@ -376,6 +395,7 @@ namespace adrilight
 
 
         private IUserSettings UserSettings { get; set; }
+        private IDeviceSettings DeviceSettings { get; set; }
       
 
             private void ApplicationWideException(object sender, Exception ex, string eventSource)

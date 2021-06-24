@@ -25,7 +25,7 @@ using Un4seen.BassWasapi;
 
 namespace adrilight.ViewModel
 {
-  public  class LightingViewModel : ViewModelBase, IDisposable
+    class LightingViewModel : ViewModelBase
     {
 
         //private string _gifFilePath = "";
@@ -40,8 +40,8 @@ namespace adrilight.ViewModel
 
       
         GifBitmapDecoder decoder;
-        private DeviceInfoDTO _card;
-        public DeviceInfoDTO Card {
+        private IDeviceSettings _card;
+        public IDeviceSettings Card {
             get { return _card; }
             set
             {
@@ -166,15 +166,15 @@ namespace adrilight.ViewModel
             }
         }
         private SerialStream _stream;
-        public SerialStream Stream {
-            get { return _stream; }
-            set
-            {
-                if (_stream == value) return;
-                _stream = value;
-                RaisePropertyChanged();
-            }
-        }
+        //public SerialStream Stream {
+        //    get { return _stream; }
+        //    set
+        //    {
+        //        if (_stream == value) return;
+        //        _stream = value;
+        //        RaisePropertyChanged();
+        //    }
+        //}
         private Gifxelation _gif;
         public Gifxelation Gif {
             get { return _gif; }
@@ -233,8 +233,8 @@ namespace adrilight.ViewModel
 
         }
         public ObservableCollection<string> AvailablePalette { get; private set; }
-        public LightingViewModel(DeviceInfoDTO device, ViewModelBase parent, SettingInfoDTO setting) // cái này sẽ bỏ, kiểu gì thì kiểu khi chuyển tab cũng
-            //sẽ bị tạo mới
+        public LightingViewModel(IDeviceSettings device,ViewModelBase parent, SettingInfoDTO setting) // cái này sẽ bỏ, kiểu gì thì kiểu khi chuyển tab cũng
+                                                                                                      //sẽ bị tạo mới
         {
             ReadData();
             this.Card = device;
@@ -243,35 +243,35 @@ namespace adrilight.ViewModel
             PreviewSpots = SpotSet.Spots;
             _parentVm = parent;
             //ReadData();
-           // Card = device;
-           // Card.LEDNumber = 30;
-           switch (Card.SelectedEffect)
-            {
-                case 0:
-                    if(Reader is null)
-                    Reader = new DesktopDuplicatorReader(Card, SpotSet, this, SettingInfo);  
+            // Card = device;
+            // Card.LEDNumber = 30;
+            //switch (Card.SelectedEffect)
+            //{
+            //    case 0:
+            //        if (Reader is null)
+            //            Reader = new DesktopDuplicatorReader(Card, SpotSet, this, SettingInfo);
 
-                    break;
-                case 1:
-                    Rainbow = new Rainbow(Card, SpotSet, this, SettingInfo);
-                    break;
-                case 2:
-                    Music = new Music(Card, SpotSet, this, SettingInfo);
-                    break;
-                case 3:
-                    StaticColor = new StaticColor(Card, SpotSet, this, SettingInfo);
-                    break;
-                case 4:
-                    Atmosphere = new Atmosphere(Card, SpotSet, this, SettingInfo);
-                    break;
-                case 5:
-                    Gif = new Gifxelation(Card, SpotSet, this, SettingInfo);
-                    break;
+            //        break;
+            //    case 1:
+            //        Rainbow = new Rainbow(Card, SpotSet, this, SettingInfo);
+            //        break;
+            //    case 2:
+            //        Music = new Music(Card, SpotSet, this, SettingInfo);
+            //        break;
+            //    case 3:
+            //        StaticColor = new StaticColor(Card, SpotSet, this, SettingInfo);
+            //        break;
+            //    case 4:
+            //        Atmosphere = new Atmosphere(Card, SpotSet, this, SettingInfo);
+            //        break;
+            //    case 5:
+            //        Gif = new Gifxelation(Card, SpotSet, this, SettingInfo);
+            //        break;
 
-            }
-            Stream = new SerialStream(SettingInfo, SpotSet, Card);
+            //}
+            //Stream = new SerialStream(SettingInfo, SpotSet, Card);
 
-            
+
         }
         public IContext Context { get; }
         public IList<String> _AvailableDisplays;
@@ -457,15 +457,15 @@ namespace adrilight.ViewModel
 
         private void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                Rainbow.Dispose();
-                Atmosphere.Dispose();
-                Music.Dispose();
-                Stream.Dispose();
-                StaticColor.Dispose();
-                Gif.Dispose();
-            }
+            //if (disposing)
+            //{
+            //    Rainbow.Dispose();
+            //    Atmosphere.Dispose();
+            //    Music.Dispose();
+            //    Stream.Dispose();
+            //    StaticColor.Dispose();
+            //    Gif.Dispose();
+            //}
         }
     }
 }

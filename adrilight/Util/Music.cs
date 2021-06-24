@@ -21,7 +21,7 @@ using BO;
 
 namespace adrilight
 {
-    public class Music : IMusic, IDisposable
+    internal class Music : IMusic, IDisposable
     {
         private Thread _workerThread;
         public static double _huePosIndex = 0;//index for rainbow mode only
@@ -39,7 +39,7 @@ namespace adrilight
 
         private readonly NLog.ILogger _log = LogManager.GetCurrentClassLogger();
 
-        public Music(DeviceInfoDTO device, ISpotSet spotSet, LightingViewModel viewViewModel, SettingInfoDTO setting)
+        public Music(IDeviceSettings device, ISpotSet spotSet, LightingViewModel viewViewModel, SettingInfoDTO setting)
         {
             deviceInfo = device ?? throw new ArgumentNullException(nameof(device));
             SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
@@ -63,7 +63,7 @@ namespace adrilight
 
         }
 
-        private DeviceInfoDTO deviceInfo { get; }
+        private IDeviceSettings deviceInfo { get; }
         private LightingViewModel SettingsViewModel { get; }
         private SettingInfoDTO settingInfo { get; }
         public bool IsRunning { get; private set; } = false;
@@ -78,7 +78,7 @@ namespace adrilight
                 case nameof(deviceInfo.SelectedEffect):
                 case nameof(deviceInfo.Brightness):
                 case nameof(deviceInfo.SelectedAudioDevice):
-                case nameof(deviceInfo.MusicMode):
+                case nameof(deviceInfo.SelectedMusicMode):
                 case nameof(deviceInfo.SpotsX):
                 case nameof(deviceInfo.SpotsY):
 
@@ -183,7 +183,7 @@ namespace adrilight
 
             _log.Debug("Started Music Color.");
             double brightness = deviceInfo.Brightness / 100d;
-            int paletteSource = deviceInfo.Palette;
+            int paletteSource = deviceInfo.SelectedMusicPalette;
             var numLED = (deviceInfo.SpotsX - 1) * 2 + (deviceInfo.SpotsY - 1) * 2;
             byte[] spectrumdata = new byte[numLED];
 
@@ -225,7 +225,7 @@ namespace adrilight
                     volumeLeft = (volumeLeft*6+ Utils.LowWord32(level)*2)/8;
                     volumeRight =(volumeRight*6+Utils.HighWord32(level)*2)/8;
                     _lastlevel = level;
-                    byte musicMode = (byte)deviceInfo.MusicMode;
+                    byte musicMode = (byte)deviceInfo.SelectedMusicMode;
                     bool isPreviewRunning = (deviceInfo.SelectedEffect == 3);
                     //audio capture section//
 

@@ -12,8 +12,8 @@ namespace adrilight.ViewModel
 {
   public  class AddNewDeviceViewModel : BaseViewModel
     {
-        private DeviceInfoDTO _device;
-        public DeviceInfoDTO Device {
+        private IDeviceSettings _device;
+        public IDeviceSettings Device {
             get { return _device; }
             set
             {
@@ -40,7 +40,7 @@ namespace adrilight.ViewModel
         /// </summary>
         public override void ReadData()
         {
-            Device = new DeviceInfoDTO();
+            Device = new DeviceSettings();
             _allDeviceView =new AllNewDeviceViewModel(this);
             CurrentView = _allDeviceView;
         }
@@ -49,13 +49,13 @@ namespace adrilight.ViewModel
             _allDeviceView = new AllNewDeviceViewModel(this);
             CurrentView = _allDeviceView;
         }
-        public void GoToChangeNameView(DeviceInfoDTO device)
+        public void GoToChangeNameView(IDeviceSettings device)
         {
             Device = device;
             _changeNameView = new ChangeDeviceNameViewModel(this,Device);
             CurrentView = _changeNameView;
         }
-        public void GoToChangePort(DeviceInfoDTO device)
+        public void GoToChangePort(IDeviceSettings device)
         {
             Device = device;
             _changePortView = new ChangePortViewModel(this,device);

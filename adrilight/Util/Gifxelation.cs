@@ -18,7 +18,7 @@ using BO;
 
 namespace adrilight.Util
 {
-    public class Gifxelation : IGifxelation, IDisposable
+    internal class Gifxelation : IGifxelation, IDisposable
     {
 
 
@@ -26,7 +26,7 @@ namespace adrilight.Util
         private Thread _workerThread;
 
         private static WriteableBitmap MatrixBitmap { get; set; }
-        public Gifxelation(DeviceInfoDTO device, ISpotSet spotSet, LightingViewModel viewModel, SettingInfoDTO setting)
+        public Gifxelation(IDeviceSettings device, ISpotSet spotSet, LightingViewModel viewModel, SettingInfoDTO setting)
         {
             deviceInfo = device ?? throw new ArgumentNullException(nameof(device));
             SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
@@ -90,7 +90,7 @@ namespace adrilight.Util
 
         }
 
-        private DeviceInfoDTO deviceInfo { get; }
+        private IDeviceSettings deviceInfo { get; }
         private LightingViewModel ViewModel { get; }
         private SettingInfoDTO settingInfo { get; }
         public bool IsRunning { get; private set; } = false;

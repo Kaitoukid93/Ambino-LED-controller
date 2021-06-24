@@ -13,8 +13,8 @@ namespace adrilight.ViewModel
     public class DeviceDetailViewModel : ViewModelBase
     {
 
-        private DeviceInfoDTO _card;
-        public DeviceInfoDTO Card {
+        private IDeviceSettings _card;
+        public IDeviceSettings Card {
             get { return _card; }
             set
             {
@@ -92,7 +92,7 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public DeviceDetailViewModel(DeviceInfoDTO device, ViewModelBase parent, SettingInfoDTO setting)
+        public DeviceDetailViewModel(IDeviceSettings device, ViewModelBase parent, SettingInfoDTO setting)
         {
             this.SettingInfo = setting;
             _parentVm = parent;

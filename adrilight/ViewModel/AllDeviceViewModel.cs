@@ -20,8 +20,8 @@ namespace adrilight.ViewModel
         private string JsonPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "adrilight\\");
 
         private string JsonFileNameAndPath => Path.Combine(JsonPath, "adrilight-deviceInfos.json");
-        private ObservableCollection<DeviceInfoDTO> _cards;
-        public ObservableCollection<DeviceInfoDTO> Cards {
+        private ObservableCollection<IDeviceSettings> _cards;
+        public ObservableCollection<IDeviceSettings> Cards {
             get { return _cards; }
             set
             {
@@ -42,50 +42,49 @@ namespace adrilight.ViewModel
         
         public void LoadCard()
         {
-            Cards = new ObservableCollection<DeviceInfoDTO>();
+            Cards = new ObservableCollection<IDeviceSettings>();
             var settingsmanager = new UserSettingsManager();
             var devices = settingsmanager.LoadDeviceIfExists();
             if (devices != null)
             {
                 foreach (var item in devices)
                 {
-                    var deviceInfo = new DeviceInfoDTO() {
-                        Brightness = item.brightness,
-                        CaptureSource = item.capturesource,
-                        ColorTemp = item.colortemp,
-                        DeviceId = item.deviceid,
-                        DeviceName = item.devicename,
-                        DevicePort = item.deviceport,
-                        DeviceSize = item.devicesize,
-                        DeviceType = item.devicetype,
-                        FadeEnd = item.fadeend,
-                        FadeStart = item.fadestart,
-                        GifMode = item.gifmode,
-                        GifSource = item.gifsource,
-                        IsBreathing = item.isbreathing,
-                        IsConnected = item.isConnected,
-                        SelectedEffect = item.selectedeffect,
-                        MusicMode = item.musicmode,
-                        MusicSens = item.musicsens,
-                        MusicSource = item.musicsource,
-                        RainbowMode = item.rainbowmode,
-                        RainbowSpeed = item.rainbowspeed,
-                        StaticColor =string.IsNullOrEmpty(item.staticcolor)? Color.FromArgb(0, 0, 255, 255) : (Color)System.Windows.Media.ColorConverter.ConvertFromString(item.staticcolor), 
-                        IsShowOnDashboard=item.isshowondashboard,
-                         AtmosphereStart=item.atmospherestart,
-                          AtmosphereStop=item.atmospherestop,
-                           BreathingSpeed=item.breathingspeed,
-                            ColorFrequency=item.colorfrequency,
-                             EffectSpeed=item.effectspeed,
-                              Palette=item.palette,
-                               SpotHeight=item.spotheight,
-                               SpotsX=item.spotx,
-                               SpotsY=item.spoty,
-                                SpotWidth=item.spotwidth,
-                                UseLinearLighting=item.uselinearlighting,
-                                 WhitebalanceBlue=item.whitebalanceblue,
-                                 WhitebalanceRed=item.whitebalancered,
-                                 WhitebalanceGreen=item.whitebalancegreen
+                    var deviceInfo = new DeviceSettings() {
+                        Brightness = item.Brightness,
+                        SelectedDisplay = item.SelectedDisplay,
+                        WhitebalanceRed = item.WhitebalanceRed,
+                        DeviceId = item.DeviceID,
+                        DeviceName = item.DeviceName,
+                        DevicePort = item.DevicePort,
+                        DeviceSize = item.DeviceSize,
+                       // DeviceType = item.devicetype,
+                      //  FadeEnd = item.fadeend,
+                      //  FadeStart = item.fadestart,
+                       // GifMode = item.gifmode,
+                       // GifSource = item.gifsource,
+                        IsBreathing = item.IsBreathing,
+                        IsConnected = item.IsConnected,
+                        SelectedEffect = item.SelectedEffect,
+                        SelectedMusicMode = item.SelectedMusicMode,
+                        MSens = item.MSens,
+                        SelectedAudioDevice = item.SelectedAudioDevice,
+                        SelectedPalette = item.SelectedPalette,
+                        EffectSpeed = item.EffectSpeed,
+                        StaticColor = item.StaticColor,
+                         AtmosphereStart=item.AtmosphereStart,
+                          AtmosphereStop=item.AtmosphereStop,
+                           BreathingSpeed=item.BreathingSpeed,
+                            ColorFrequency=item.ColorFrequency,
+                            
+                              SelectedMusicPalette=item.SelectedMusicPalette,
+                               SpotHeight=item.SpotHeight,
+                               SpotsX=item.SpotsX,
+                               SpotsY=item.SpotsY,
+                                SpotWidth=item.SpotWidth,
+                                UseLinearLighting=item.UseLinearLighting,
+                                 WhitebalanceBlue=item.WhitebalanceBlue,
+                                
+                                 WhitebalanceGreen=item.WhitebalanceGreen
                     };
 
                     deviceInfo.PropertyChanged += DeviceInfo_PropertyChanged;
@@ -105,14 +104,14 @@ namespace adrilight.ViewModel
 
         public override void ReadData()
         {
-            SelectCardCommand = new RelayCommand<DeviceInfoDTO>((p) => {
+            SelectCardCommand = new RelayCommand<DeviceSettings>((p) => {
                 return p != null;
             }, (p) =>
               {
                   (_parentVm as MainViewViewModel).GotoChild(p);
               });
             LoadCard();
-            ShowAddNewCommand = new RelayCommand<DeviceInfoDTO>((p) => {
+            ShowAddNewCommand = new RelayCommand<DeviceSettings>((p) => {
                 return true;
             }, (p) =>
             {
@@ -134,7 +133,7 @@ namespace adrilight.ViewModel
                 _isAddnew = false;
             }
         }
-        public void DeleteCard(DeviceInfoDTO deviceInfo)
+        public void DeleteCard(IDeviceSettings deviceInfo)
         {
             Cards.Remove(deviceInfo);
             WriteJson();
@@ -142,10 +141,10 @@ namespace adrilight.ViewModel
       
         public void WriteJson()
         {
-            var devices = new List<DeviceInfo>();
+            var devices = new List<IDeviceSettings>();
             foreach (var item in Cards)
             {
-                devices.Add(item.GetDeviceInfo());
+                devices.Add(item);
             }
             var json = JsonConvert.SerializeObject(devices, Formatting.Indented);
             Directory.CreateDirectory(JsonPath);

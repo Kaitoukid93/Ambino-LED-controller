@@ -366,6 +366,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Settings\DeviceSettings.cs" />
+    <Compile Include="Settings\IDeviceSettings.cs" />
     <Compile Include="Settings\IEffect.cs" />
     <Compile Include="Util\Atmosphere.cs" />
     <Compile Include="Util\Brightness.cs" />
@@ -391,6 +393,7 @@
     <Compile Include="Util\Music.cs" />
     <Compile Include="Util\Rainbow.cs" />
     <Compile Include="Util\StaticColor.cs" />
+    <Compile Include="Util\WinApi.cs" />
     <Compile Include="ViewModel\AddNewDeviceViewModel.cs" />
     <Compile Include="ViewModel\AllDeviceViewModel.cs" />
     <Compile Include="ViewModel\AllNewDeviceViewModel.cs" />
@@ -733,6 +736,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Ninject\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

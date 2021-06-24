@@ -11,8 +11,8 @@ namespace adrilight.ViewModel
 {
  public  class DeleteMessageDialogViewModel: ViewModelBase
     {
-        private DeviceInfoDTO _card;
-        public DeviceInfoDTO Card {
+        private IDeviceSettings _card;
+        public IDeviceSettings Card {
             get { return _card; }
             set
             {
@@ -23,7 +23,7 @@ namespace adrilight.ViewModel
         }
         public ICommand DeleteCommand { get; set; }
         public ViewModelBase _parentVm;
-        public DeleteMessageDialogViewModel(ViewModelBase parent, DeviceInfoDTO device)
+        public DeleteMessageDialogViewModel(ViewModelBase parent, IDeviceSettings device)
         {
             Card = device;
             _parentVm = parent;

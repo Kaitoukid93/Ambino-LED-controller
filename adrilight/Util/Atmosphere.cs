@@ -18,7 +18,7 @@ using BO;
 
 namespace adrilight
 {
-    public class Atmosphere : IAtmosphere, IDisposable
+    internal class Atmosphere : IAtmosphere, IDisposable
     {
         // public static Color[] small = new Color[30];
         public static double _huePosIndex = 0;//index for rainbow mode only
@@ -26,7 +26,7 @@ namespace adrilight
         
         private readonly NLog.ILogger _log = LogManager.GetCurrentClassLogger();
 
-        public Atmosphere(DeviceInfoDTO device, ISpotSet spotSet, LightingViewModel viewModel, SettingInfoDTO setting)
+        public Atmosphere(IDeviceSettings device, ISpotSet spotSet, LightingViewModel viewModel, SettingInfoDTO setting)
         {
             deviceInfo = device ?? throw new ArgumentNullException(nameof(device));
             SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
@@ -44,7 +44,7 @@ namespace adrilight
 
         }
         private Thread _workerThread;
-        private DeviceInfoDTO deviceInfo { get; }
+        private IDeviceSettings deviceInfo { get; }
         private LightingViewModel ViewModel { get; }
         private SettingInfoDTO settingInfo { get; }
         public bool IsRunning { get; private set; } = false;
@@ -130,7 +130,7 @@ namespace adrilight
                 while (!token.IsCancellationRequested)
                 {
                     double brightness = deviceInfo.Brightness / 100d;
-                    int paletteSource = deviceInfo.Palette;
+                    int paletteSource = deviceInfo.SelectedPalette;
                     var numLED = (deviceInfo.SpotsX - 1) * 2 + (deviceInfo.SpotsY - 1) * 2;
                     var colorOutput = new OpenRGB.NET.Models.Color[numLED];
 

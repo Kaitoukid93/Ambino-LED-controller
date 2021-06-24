@@ -11,8 +11,8 @@ namespace adrilight.ViewModel
 {
    public class ChangeDeviceNameViewModel : ViewModelBase
     {
-        private DeviceInfoDTO _device;
-        public DeviceInfoDTO Device {
+        private IDeviceSettings _device;
+        public IDeviceSettings Device {
             get { return _device; }
             set
             {
@@ -24,7 +24,7 @@ namespace adrilight.ViewModel
         public ICommand BackCommand { get; set; }
         public ICommand OkCommand { get; set; }
         public ViewModelBase _parentVm;
-        public ChangeDeviceNameViewModel(ViewModelBase parent, DeviceInfoDTO device)
+        public ChangeDeviceNameViewModel(ViewModelBase parent, IDeviceSettings device)
         {
             Device = device;
             _parentVm = parent;

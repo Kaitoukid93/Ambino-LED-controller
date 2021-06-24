@@ -17,17 +17,17 @@ using BO;
 
 namespace adrilight
 {
-    public class DesktopDuplicatorReader : IDesktopDuplicatorReader
+    internal class DesktopDuplicatorReader : IDesktopDuplicatorReader
     {
         private readonly ILogger _log = LogManager.GetCurrentClassLogger();
 
-        public DesktopDuplicatorReader(DeviceInfoDTO device, ISpotSet spotSet, LightingViewModel viewViewModel, SettingInfoDTO setting)
+        public DesktopDuplicatorReader(IDeviceSettings device, ISpotSet spotSet, SettingInfoDTO setting)
         {
             deviceInfo = device ?? throw new ArgumentNullException(nameof(device));
             SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
             SpotSet2 = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
 
-            SettingsViewModel = viewViewModel ?? throw new ArgumentNullException(nameof(viewViewModel));
+           // SettingsViewModel = viewViewModel ?? throw new ArgumentNullException(nameof(viewViewModel));
             settingInfo = setting ?? throw new ArgumentNullException(nameof(setting));
             deviceInfo.PropertyChanged += PropertyChanged;
             settingInfo.PropertyChanged += SettingInfo_PropertyChanged;
@@ -62,8 +62,8 @@ namespace adrilight
 
         }
 
-        private DeviceInfoDTO deviceInfo { get; }
-        private LightingViewModel SettingsViewModel { get; }
+        private IDeviceSettings deviceInfo { get; }
+        //private LightingViewModel SettingsViewModel { get; }
         private SettingInfoDTO settingInfo { get; }
         public bool IsRunning { get; private set; } = false;
         private CancellationTokenSource _cancellationTokenSource;
@@ -201,13 +201,13 @@ namespace adrilight
                                 });
                         }
 
-                        if (isPreviewRunning)
-                        {
-                            //copy all color data to the preview
-                            var needsNewArray = SettingsViewModel.PreviewSpots?.Length != SpotSet.Spots.Length;
+                        //if (isPreviewRunning)
+                        //{
+                        //    //copy all color data to the preview
+                        //    var needsNewArray = SettingsViewModel.PreviewSpots?.Length != SpotSet.Spots.Length;
 
-                            SettingsViewModel.PreviewSpots = SpotSet.Spots;
-                        }
+                        //    SettingsViewModel.PreviewSpots = SpotSet.Spots;
+                        //}
                         //MainViewViewModel.SpotSet = SpotSet;
                     }
 

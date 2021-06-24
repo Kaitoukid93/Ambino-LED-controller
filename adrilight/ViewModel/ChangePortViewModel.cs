@@ -14,8 +14,8 @@ namespace adrilight.ViewModel
    public class ChangePortViewModel: ViewModelBase
     {
        
-        private DeviceInfoDTO _device;
-        public DeviceInfoDTO Device {
+        private IDeviceSettings _device;
+        public IDeviceSettings Device {
             get { return _device; }
             set
             {
@@ -41,7 +41,7 @@ namespace adrilight.ViewModel
         }
    
 
-    public ChangePortViewModel(ViewModelBase parent, DeviceInfoDTO device)
+    public ChangePortViewModel(ViewModelBase parent, IDeviceSettings device)
         {
             Device = device;
             _parentVm = parent;
