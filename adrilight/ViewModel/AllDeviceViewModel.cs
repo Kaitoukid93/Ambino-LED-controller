@@ -104,14 +104,14 @@ namespace adrilight.ViewModel
 
         public override void ReadData()
         {
-            SelectCardCommand = new RelayCommand<DeviceSettings>((p) => {
+            SelectCardCommand = new RelayCommand<IDeviceSettings>((p) => {
                 return p != null;
             }, (p) =>
               {
                   (_parentVm as MainViewViewModel).GotoChild(p);
               });
             LoadCard();
-            ShowAddNewCommand = new RelayCommand<DeviceSettings>((p) => {
+            ShowAddNewCommand = new RelayCommand<IDeviceSettings>((p) => {
                 return true;
             }, (p) =>
             {

@@ -36,6 +36,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Extensions.DependencyInjection;
 using BO;
+using adrilight.Ninject;
+
 namespace adrilight
 {
     /// <summary>
@@ -183,7 +185,7 @@ namespace adrilight
         internal static IKernel SetupDependencyInjection(bool isInDesignMode)
         {
 
-            var kernel = new StandardKernel();
+            var kernel = new StandardKernel(new DeviceSettingsInjectModule());
             //if(isInDesignMode)
             //{
             //    //setup fakes
@@ -195,9 +197,9 @@ namespace adrilight
             //}
             //else
             //{
-                //setup real implementations
-                //Load setting từ file Json//
-                var settingsManager = new UserSettingsManager();
+            //setup real implementations
+            //Load setting từ file Json//
+            var settingsManager = new UserSettingsManager();
                 var settings = settingsManager.LoadIfExists() ?? settingsManager.MigrateOrDefault();
                 var alldevicesettings = settingsManager.LoadDeviceIfExists();
 
@@ -208,56 +210,69 @@ namespace adrilight
             ///
             ///bind từng setting vào IUserSettings của device tương ứng
             /// kernel.Bind<IDeviceSettings>().ToConstant(devicesettings).InThreadScope(); // mắc chỗ này, IUserSettings bây giờ phải là DeviceInfoDTO
-            kernel.Bind<IContext>().To<WpfContext>().InThreadScope();
-            kernel.Bind<ISpotSet>().To<SpotSet>().InThreadScope();
-            kernel.Bind<ISerialStream>().To<SerialStream>().InThreadScope();
-            kernel.Bind<IDesktopDuplicatorReader>().To<DesktopDuplicatorReader>().InThreadScope();
-            kernel.Bind<IStaticColor>().To<StaticColor>().InThreadScope();
-            kernel.Bind<IRainbow>().To<Rainbow>().InThreadScope();
-            kernel.Bind<IMusic>().To<Music>().InThreadScope();
-            kernel.Bind<IAtmosphere>().To<Atmosphere>().InThreadScope();
-            foreach (var devicesettings in alldevicesettings)
+            //kernel.Bind<IContext>().To<WpfContext>().InThreadScope();
+            //kernel.Bind<ISpotSet>().To<SpotSet>().InThreadScope();
+            //kernel.Bind<ISerialStream>().To<SerialStream>().InThreadScope();
+            //kernel.Bind<IDesktopDuplicatorReader>().To<DesktopDuplicatorReader>().InTransientScope();
+            //kernel.Bind<IStaticColor>().To<StaticColor>().InTransientScope();
+            //kernel.Bind<IRainbow>().To<Rainbow>().InThreadScope();
+            //kernel.Bind<IMusic>().To<Music>().InThreadScope();
+            //kernel.Bind<IAtmosphere>().To<Atmosphere>().InThreadScope();
+            //for (var i=0;i<alldevicesettings.Count;i++)
+            //{
+            //    var devicename = i.ToString();
+            //    kernel.Bind<IDeviceSettings>().ToConstant(alldevicesettings.ElementAt(i)).InThreadScope().Named(devicename);
+            //}
+            kernel.Bind<LightingViewModel>().ToSelf().InSingletonScope();
+            kernel.Bind(x => x.FromThisAssembly()
+              .SelectAllClasses()
+              .InheritedFrom<ISelectableViewPart>()
+              .BindAllInterfaces());
+
+            for (var i=0;i<alldevicesettings.Count;i++)
             {
 
-                kernel.Bind<IDeviceSettings>().ToConstant(devicesettings).InThreadScope(); // mắc chỗ này, IUserSettings bây giờ phải là DeviceInfoDTO
+
+
+                // kernel.Bind<IDeviceSettings>().ToConstant(devicesettings).InThreadScope(); // mắc chỗ này, IUserSettings bây giờ phải là DeviceInfoDTO
 
 
 
-                // kernel.Bind<TelemetryClient>().ToConstant(SetupApplicationInsights(kernel.Get<IDeviceSettings>()));
+               // kernel.Bind<TelemetryClient>().ToConstant(SetupApplicationInsights(kernel.Get<IDeviceSettings>(i.ToString())));
 
+                
+                
+               var desktopDuplicationReader = kernel.Get<IDesktopDuplicatorReader>(i.ToString());
+                // var spotset = kernel.Get<ISpotSet>(i.ToString());
+                var serialStream = kernel.Get<ISerialStream>(i.ToString());
+                var staticColor = kernel.Get<IStaticColor>(i.ToString());
+                 var rainbow = kernel.Get<IRainbow>(i.ToString());
+                var music = kernel.Get<IMusic>(i.ToString());
+                var atmosphere = kernel.Get<IAtmosphere>(i.ToString());
 
-
-                var desktopDuplicationReader = kernel.Get<IDesktopDuplicatorReader>();
-                var spotset = kernel.Get<ISpotSet>();
-                var serialStream = kernel.Get<ISerialStream>();
-                //  var staticColor = kernel.Get<IStaticColor>();
 
             }
-               
-                //kernel.Bind<MainViewViewModel>().ToSelf().InSingletonScope();
-               // kernel.Bind<LightingViewModel>().ToSelf().InSingletonScope();
-                kernel.Bind(x => x.FromThisAssembly()
-                  .SelectAllClasses()
-                  .InheritedFrom<ISelectableViewPart>()
-                  .BindAllInterfaces());
-                //  var rainbow = kernel.Get<IRainbow>();
-                // var music = kernel.Get<IMusic>();
-                // var atmosphere = kernel.Get<IAtmosphere>();
 
-                // tạo instance của từng class cho mỗi device//
+            //kernel.Bind<MainViewViewModel>().ToSelf().InSingletonScope();
+
+            //  var rainbow = kernel.Get<IRainbow>();
+            // var music = kernel.Get<IMusic>();
+            // var atmosphere = kernel.Get<IAtmosphere>();
+
+            // tạo instance của từng class cho mỗi device//
 
 
-                //var spotset = kernel.Get<ISpotSet>(); // mỗi device cần có spotset riêng
-            
+            //var spotset = kernel.Get<ISpotSet>(); // mỗi device cần có spotset riêng
+
 
 
             //}
             // kernel.Bind<SettingsViewModel>().ToSelf().InSingletonScope();
             //kernel.Bind<BaseViewModel>().ToSelf().InSingletonScope();
-           
+
             //eagerly create required singletons [could be replaced with actual pipeline]
 
-       
+
 
             return kernel;
             // lighting viewmodel bây giờ chỉ có nhiệm vụ load data từ spotset và settings tương ứng với card sau đó display, không phải khởi tạo class như trước

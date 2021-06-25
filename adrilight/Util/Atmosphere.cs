@@ -26,11 +26,11 @@ namespace adrilight
         
         private readonly NLog.ILogger _log = LogManager.GetCurrentClassLogger();
 
-        public Atmosphere(IDeviceSettings device, ISpotSet spotSet, LightingViewModel viewModel, SettingInfoDTO setting)
+        public Atmosphere(IDeviceSettings device, ISpotSet spotSet, SettingInfoDTO setting)
         {
             deviceInfo = device ?? throw new ArgumentNullException(nameof(device));
             SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
-            ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
+           // ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
             settingInfo = setting ?? throw new ArgumentNullException(nameof(setting));
             deviceInfo.PropertyChanged += PropertyChanged;
             settingInfo.PropertyChanged += SettingInfo_PropertyChanged;
@@ -45,7 +45,7 @@ namespace adrilight
         }
         private Thread _workerThread;
         private IDeviceSettings deviceInfo { get; }
-        private LightingViewModel ViewModel { get; }
+       // private LightingViewModel ViewModel { get; }
         private SettingInfoDTO settingInfo { get; }
         public bool IsRunning { get; private set; } = false;
         private CancellationTokenSource _cancellationTokenSource;
@@ -54,7 +54,7 @@ namespace adrilight
         {
             switch (e.PropertyName)
             {
-                case nameof(settingInfo.TransferActive):
+                case nameof(deviceInfo.TransferActive):
                 case nameof(deviceInfo.SelectedEffect):
                 case nameof(deviceInfo.Brightness):
                 case nameof(deviceInfo.AtmosphereStart):
@@ -175,13 +175,13 @@ namespace adrilight
                            
 
                         }
-                        if (isPreviewRunning)
-                        {
-                            //copy all color data to the preview
-                            var needsNewArray = ViewModel.PreviewSpots?.Length != SpotSet.Spots.Length;
+                        //if (isPreviewRunning)
+                        //{
+                        //    //copy all color data to the preview
+                        //    var needsNewArray = ViewModel.PreviewSpots?.Length != SpotSet.Spots.Length;
 
-                            ViewModel.PreviewSpots = SpotSet.Spots;
-                        }
+                        //    ViewModel.PreviewSpots = SpotSet.Spots;
+                        //}
                   //  MainViewViewModel.SpotSet = SpotSet;
                     }
                     Thread.Sleep(5); //motion speed

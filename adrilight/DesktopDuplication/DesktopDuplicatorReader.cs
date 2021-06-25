@@ -94,6 +94,7 @@ namespace adrilight
                     Name = "DesktopDuplicatorReader"
                 };
                 thread.Start();
+                _log.Debug("started the capturing at thread "+ thread.ManagedThreadId);
 
             }
 

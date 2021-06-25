@@ -105,6 +105,7 @@ namespace adrilight
             {
                 case nameof(UserSettings.TransferActive):
                 case nameof(UserSettings.DevicePort):
+                case nameof(UserSettings.StaticColor):
 
 
                     RefreshTransferState();
@@ -125,7 +126,7 @@ namespace adrilight
                 {
 
                     //start it
-                    _log.Debug("starting the serial stream");
+                    _log.Debug("starting the serial stream for device Name : " + UserSettings.DeviceName);
                     Start();
                 }
                 else

@@ -12,8 +12,8 @@ namespace adrilight.ViewModel
 {
     class AllNewDeviceViewModel : ViewModelBase
     {
-        private ObservableCollection<DeviceSettings> _devices;
-        public ObservableCollection<DeviceSettings> Devices {
+        private ObservableCollection<IDeviceSettings> _devices;
+        public ObservableCollection<IDeviceSettings> Devices {
             get { return _devices; }
             set
             {
@@ -32,11 +32,11 @@ namespace adrilight.ViewModel
         }
         public void ReadData()
         {
-            Devices = new ObservableCollection<DeviceSettings>();
+            Devices = new ObservableCollection<IDeviceSettings>();
             Devices.Add(new DeviceSettings() { DeviceName = "Ambino Basic", DeviceId = 1 });
             Devices.Add(new DeviceSettings() { DeviceName = "Ambino Edge", DeviceId = 2 });
             Devices.Add(new DeviceSettings() { DeviceName = "Ambino HUBV2", DeviceId = 3 });
-            SelectDeviceCommand = new RelayCommand<DeviceSettings>((p) => {
+            SelectDeviceCommand = new RelayCommand<IDeviceSettings>((p) => {
                 return true;
             }, (p) =>
             {
