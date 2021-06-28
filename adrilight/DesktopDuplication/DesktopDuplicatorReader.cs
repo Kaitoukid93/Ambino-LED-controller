@@ -13,7 +13,7 @@ using adrilight.ViewModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using adrilight.Resources;
-using BO;
+using adrilight.Util;
 
 namespace adrilight
 {
@@ -21,58 +21,72 @@ namespace adrilight
     {
         private readonly ILogger _log = LogManager.GetCurrentClassLogger();
 
-        public DesktopDuplicatorReader(IDeviceSettings device, ISpotSet spotSet, SettingInfoDTO setting)
+        public DesktopDuplicatorReader(IGeneralSettings userSettings, IGeneralSpotSet spotSet)
         {
-            deviceInfo = device ?? throw new ArgumentNullException(nameof(device));
+            UserSettings = userSettings ?? throw new ArgumentNullException(nameof(userSettings));
             SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
-            SpotSet2 = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
+           
 
-           // SettingsViewModel = viewViewModel ?? throw new ArgumentNullException(nameof(viewViewModel));
-            settingInfo = setting ?? throw new ArgumentNullException(nameof(setting));
-            deviceInfo.PropertyChanged += PropertyChanged;
-            settingInfo.PropertyChanged += SettingInfo_PropertyChanged;
+           // SettingsViewModel = settingsViewModel ?? throw new ArgumentNullException(nameof(settingsViewModel));
             _retryPolicy = Policy.Handle<Exception>()
                 .WaitAndRetryForever(ProvideDelayDuration);
 
-          
+            UserSettings.PropertyChanged += PropertyChanged;
+           // SettingsViewModel.PropertyChanged += PropertyChanged;
             RefreshCapturingState();
 
             _log.Info($"DesktopDuplicatorReader created.");
         }
-       
+
         private void PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
-                case nameof(deviceInfo.SelectedEffect):
-                case nameof(settingInfo.TransferActive):
-              //  case nameof(UserSettings.IsPreviewEnabled):
-                case nameof(deviceInfo.CaptureActive):
-               // case nameof(SettingsViewModel.IsSettingsWindowOpen):
-
-
+                
+                case nameof(UserSettings.ShouldbeRunning):
 
                     RefreshCapturingState();
                     break;
 
+                case nameof(UserSettings.SelectedDisplay):
+                case nameof(UserSettings.SelectedAdapter):
+                    RefreshCaptureSource();
+                    break;
             }
         }
-        private void SettingInfo_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
 
-        }
-
-        private IDeviceSettings deviceInfo { get; }
-        //private LightingViewModel SettingsViewModel { get; }
-        private SettingInfoDTO settingInfo { get; }
         public bool IsRunning { get; private set; } = false;
+        public bool NeededRefreshing { get; private set; } = false;
         private CancellationTokenSource _cancellationTokenSource;
 
+        private void RefreshCaptureSource()
+        {
+            var isRunning = _cancellationTokenSource != null && IsRunning;
+            var shouldBeRunning = UserSettings.ShouldbeRunning;
+            //  var shouldBeRefreshing = NeededRefreshing;
+            if (isRunning && shouldBeRunning)
+            {
+                //start it
 
+                IsRunning = false;
+                _cancellationTokenSource.Cancel();
+                _cancellationTokenSource = null;
+                _log.Debug("starting the capturing");
+                _cancellationTokenSource = new CancellationTokenSource();
+                var thread = new Thread(() => Run(_cancellationTokenSource.Token)) {
+                    IsBackground = true,
+                    Priority = ThreadPriority.BelowNormal,
+                    Name = "DesktopDuplicatorReader"
+                };
+                thread.Start();
+
+            }
+        }
         private void RefreshCapturingState()
         {
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.SelectedEffect == 0;
+            var shouldBeRunning = UserSettings.ShouldbeRunning;
+            //  var shouldBeRefreshing = NeededRefreshing;
 
 
 
@@ -82,7 +96,10 @@ namespace adrilight
                 _log.Debug("stopping the capturing");
                 _cancellationTokenSource.Cancel();
                 _cancellationTokenSource = null;
+
             }
+
+
             else if (!isRunning && shouldBeRunning)
             {
                 //start it
@@ -94,19 +111,59 @@ namespace adrilight
                     Name = "DesktopDuplicatorReader"
                 };
                 thread.Start();
-                _log.Debug("started the capturing at thread "+ thread.ManagedThreadId);
+
 
             }
 
         }
 
 
-     
+        //private void RefreshCapturingStateSecond()
+        //{
+        //    var isRunningSecond = _cancellationTokenSourceSecond != null && IsRunningSecond;
+        //    var shouldBeRunningSecond = UserSettings.TransferActive;
+
+        //    var shouldBeCapturingSecond = UserSettings.CaptureActive || SettingsViewModel.IsSettingsWindowOpen && SettingsViewModel.IsPreviewTabOpenSecond;
+
+        //    if (isRunningSecond && !shouldBeCapturingSecond && shouldBeRunningSecond)
+        //    {
+        //        //stop it!
+        //        _log.Debug("stopping the capturing");
+        //        _cancellationTokenSourceSecond.Cancel();
+        //        _cancellationTokenSourceSecond = null;
+        //    }
+        //    else if (!isRunningSecond && shouldBeCapturingSecond && shouldBeRunningSecond)
+        //    {
+        //        //start it
+        //        _log.Debug("starting the capturing");
+        //        _cancellationTokenSourceSecond = new CancellationTokenSource();
+        //        var thread = new Thread(() => RunSecond(_cancellationTokenSourceSecond.Token)) {
+        //            IsBackground = true,
+        //            Priority = ThreadPriority.BelowNormal,
+        //            Name = "DesktopDuplicatorReader"
+        //        };
+        //        thread.Start();
+        //        if (Screen.AllScreens.Length == 2)
+        //        {
+        //            var thread2 = new Thread(() => Run2Second(_cancellationTokenSourceSecond.Token)) {
+        //                IsBackground = true,
+        //                Priority = ThreadPriority.BelowNormal,
+        //                Name = "DesktopDuplicatorReader2"
+        //            };
+        //            thread2.Start();
+        //        }
 
 
-        private ISpotSet SpotSet { get; }
-        private ISpotSet SpotSet2 { get; }
-        private ISpotSet SpotSet3 { get; }
+        //    }
+
+        //}
+
+
+        private IGeneralSettings UserSettings { get; }
+        private IGeneralSpotSet SpotSet { get; }
+       
+      //  private SettingsViewModel SettingsViewModel { get; }
+
         private readonly Policy _retryPolicy;
 
         private TimeSpan ProvideDelayDuration(int index)
@@ -128,7 +185,7 @@ namespace adrilight
 
         private DesktopDuplicator _desktopDuplicator;
         private DesktopDuplicator _desktopDuplicator2;
-        private DesktopDuplicator _desktopDuplicator3;
+
 
 
         public void Run(CancellationToken token)
@@ -136,12 +193,14 @@ namespace adrilight
             if (IsRunning) throw new Exception(nameof(DesktopDuplicatorReader) + " is already running!");
 
             IsRunning = true;
+            NeededRefreshing = false;
             _log.Debug("Started Desktop Duplication Reader.");
             Bitmap image = null;
+            BitmapData bitmapData = new BitmapData();
 
             try
             {
-                BitmapData bitmapData = new BitmapData();
+
 
 
                 while (!token.IsCancellationRequested)
@@ -149,7 +208,7 @@ namespace adrilight
                     var frameTime = Stopwatch.StartNew();
                     var newImage = _retryPolicy.Execute(() => GetNextFrame(image));
                     TraceFrameDetails(newImage);
-                    //var brightness = settingInfo. / 100d;
+                  //  var brightness = UserSettings.Brightness / 100d;
 
                     if (newImage == null)
                     {
@@ -158,18 +217,18 @@ namespace adrilight
                     }
                     image = newImage;
 
-                    bool isPreviewRunning = (deviceInfo.SelectedEffect == 0);
-                    if (isPreviewRunning)
-                    {
-                        // SettingsViewModel.SetPreviewImage(image); remove this, using grey gradient background for better visual
-                    }
+                   // bool isPreviewRunning = (SettingsViewModel.IsSettingsWindowOpen && UserSettings.SelectedEffect == 0);
+                    // if (isPreviewRunning)
+                    // {
+                  //  SettingsViewModel.SetPreviewImage(image); //remove this, using grey gradient background for better visual
+                                                              //  }
 
 
                     image.LockBits(new Rectangle(0, 0, image.Width, image.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppRgb, bitmapData);
 
                     lock (SpotSet.Lock)
                     {
-                        var useLinearLighting = deviceInfo.UseLinearLighting;
+                        var useLinearLighting = UserSettings.UseLinearLighting;
 
                         var imageRectangle = new Rectangle(0, 0, image.Width, image.Height);
 
@@ -177,7 +236,8 @@ namespace adrilight
                         {
                             //the screen was resized or this is some kind of powersaving state
                             SpotSet.IndicateMissingValues();
-                            return;
+
+                            continue;
                         }
                         else
                         {
@@ -192,12 +252,21 @@ namespace adrilight
                                         out int sumR, out int sumG, out int sumB, out int count);
 
                                     var countInverse = 1f / count;
+                                    byte FinalR = (byte)(sumR * countInverse);
+                                    byte FinalG = (byte)(sumG * countInverse);
+                                    byte FinalB = (byte)(sumB * countInverse);
 
-                                    ApplyColorCorrections(sumR * countInverse, sumG * countInverse, sumB * countInverse
-                                        , out byte finalR, out byte finalG, out byte finalB, useLinearLighting
-                                        , deviceInfo.SaturationTreshold, spot.Red, spot.Green, spot.Blue);
+                                    //ApplyColorCorrections(sumR * countInverse, sumG * countInverse, sumB * countInverse
+                                    //    , out byte finalR, out byte finalG, out byte finalB, useLinearLighting
+                                    //    , UserSettings.SaturationTreshold, spot.Red, spot.Green, spot.Blue);
 
-                                    spot.SetColor(finalR, finalG, finalB, isPreviewRunning);
+                                    //var spotColor = new OpenRGB.NET.Models.Color(finalR, finalG, finalB);
+
+                                    //var semifinalSpotColor = Brightness.applyBrightness(spotColor, brightness);
+                                    //ApplySmoothing(semifinalSpotColor.R, semifinalSpotColor.G, semifinalSpotColor.B
+                                    //    , out byte RealfinalR, out byte RealfinalG, out byte RealfinalB,
+                                    // spot.Red, spot.Green, spot.Blue);
+                                    spot.SetColor(FinalR, FinalG, FinalB, true);
 
                                 });
                         }
@@ -209,14 +278,13 @@ namespace adrilight
 
                         //    SettingsViewModel.PreviewSpots = SpotSet.Spots;
                         //}
-                        //MainViewViewModel.SpotSet = SpotSet;
                     }
 
 
 
                     image.UnlockBits(bitmapData);
 
-                    int minFrameTimeInMs = 1000 / deviceInfo.LimitFps;
+                    int minFrameTimeInMs = 1000 / UserSettings.LimitFps;
                     var elapsedMs = (int)frameTime.ElapsedMilliseconds;
                     if (elapsedMs < minFrameTimeInMs)
                     {
@@ -224,6 +292,8 @@ namespace adrilight
                     }
                 }
             }
+
+
             finally
             {
                 image?.Dispose();
@@ -231,6 +301,7 @@ namespace adrilight
                 _desktopDuplicator = null;
                 _log.Debug("Stopped Desktop Duplication Reader.");
                 IsRunning = false;
+                GC.Collect();
             }
         }
 
@@ -272,43 +343,64 @@ namespace adrilight
             }
         }
 
-        private void ApplyColorCorrections(float r, float g, float b, out byte finalR, out byte finalG, out byte finalB, bool useLinearLighting, byte saturationTreshold
-            , byte lastColorR, byte lastColorG, byte lastColorB)
-        {
-            if (lastColorR == 0 && lastColorG == 0 && lastColorB == 0)
-            {
-                //if the color was black the last time, we increase the saturationThreshold to make flickering more unlikely
-                saturationTreshold += 2;
-            }
-            if (r <= saturationTreshold && g <= saturationTreshold && b <= saturationTreshold)
-            {
-                //black
-                finalR = finalG = finalB = 0;
-                return;
-            }
+        //private void ApplyColorCorrections(float r, float g, float b, out byte finalR, out byte finalG, out byte finalB, bool useLinearLighting, byte saturationTreshold
+        //    , byte lastColorR, byte lastColorG, byte lastColorB)
+        //{
+        //    if (lastColorR == 0 && lastColorG == 0 && lastColorB == 0)
+        //    {
+        //        //if the color was black the last time, we increase the saturationThreshold to make flickering more unlikely
+        //        saturationTreshold += 2;
+        //    }
+        //    if (r <= saturationTreshold && g <= saturationTreshold && b <= saturationTreshold)
+        //    {
+        //        //black
+        //        finalR = finalG = finalB = 0;
+        //        return;
+        //    }
 
-            //"white" on wall was 66,68,77 without white balance
-            //white balance
-            //todo: introduce settings for white balance adjustments
-            r *= deviceInfo.WhitebalanceRed / 100f;
-            g *= deviceInfo.WhitebalanceGreen / 100f;
-            b *= deviceInfo.WhitebalanceBlue / 100f;
+        //    //"white" on wall was 66,68,77 without white balance
+        //    //white balance
+        //    //todo: introduce settings for white balance adjustments
+        //    r *= UserSettings.WhitebalanceRed / 100f;
+        //    g *= UserSettings.WhitebalanceGreen / 100f;
+        //    b *= UserSettings.WhitebalanceBlue / 100f;
 
-            if (!useLinearLighting)
-            {
-                //apply non linear LED fading ( http://www.mikrocontroller.net/articles/LED-Fading )
-                finalR = FadeNonLinear(r);
-                finalG = FadeNonLinear(g);
-                finalB = FadeNonLinear(b);
-            }
-            else
-            {
-                //output
-                finalR = (byte)r;
-                finalG = (byte)g;
-                finalB = (byte)b;
-            }
-        }
+        //    if (!useLinearLighting)
+        //    {
+        //        //apply non linear LED fading ( http://www.mikrocontroller.net/articles/LED-Fading )
+        //        finalR = FadeNonLinear(r);
+        //        finalG = FadeNonLinear(g);
+        //        finalB = FadeNonLinear(b);
+        //    }
+        //    else
+        //    {
+        //        //output
+        //        finalR = (byte)r;
+        //        finalG = (byte)g;
+        //        finalB = (byte)b;
+        //    }
+        //}
+        //private void ApplySmoothing(float r, float g, float b, out byte semifinalR, out byte semifinalG, out byte semifinalB,
+        //   byte lastColorR, byte lastColorG, byte lastColorB)
+        //{
+        //    int smoothingFactor = 3;
+        //    if (UserSettings.InstantMode)
+        //    {
+        //        smoothingFactor = 0;
+        //    }
+        //    else if (UserSettings.NormalMode)
+        //    {
+        //        smoothingFactor = 3;
+        //    }
+        //    else if (UserSettings.SmoothMode)
+        //    {
+        //        smoothingFactor = 5;
+        //    }
+
+        //    semifinalR = (byte)((r + smoothingFactor * lastColorR) / (smoothingFactor + 1));
+        //    semifinalG = (byte)((g + smoothingFactor * lastColorG) / (smoothingFactor + 1));
+        //    semifinalB = (byte)((b + smoothingFactor * lastColorB) / (smoothingFactor + 1));
+        //}
 
         private readonly byte[] _nonLinearFadingCache = Enumerable.Range(0, 2560)
             .Select(n => FadeNonLinearUncached(n / 10f))
@@ -328,9 +420,28 @@ namespace adrilight
 
         private Bitmap GetNextFrame(Bitmap reusableBitmap)
         {
+            var selectedDisplay = UserSettings.SelectedDisplay;
+            var selectedAdapter = 0; //UserSettings.SelectedAdapter;
+
             if (_desktopDuplicator == null)
             {
-                _desktopDuplicator = new DesktopDuplicator(0, 0);
+                try
+                {
+                    _desktopDuplicator = new DesktopDuplicator(selectedAdapter, selectedDisplay);
+                }
+                catch (Exception ex)
+                {
+                    if (ex.Message == "Unknown, just retry")
+                    {
+                        _log.Error(ex, "could be secure desktop");
+                    }
+                    // _desktopDuplicator.Dispose();
+                    // _desktopDuplicator = null;
+                    GC.Collect();
+                    return null;
+
+                }
+
             }
 
             try
@@ -366,7 +477,8 @@ namespace adrilight
             }
         }
 
-       
+
+
 
         private unsafe void GetAverageColorOfRectangularRegion(Rectangle spotRectangle, int stepy, int stepx, BitmapData bitmapData, out int sumR, out int sumG,
             out int sumB, out int count)

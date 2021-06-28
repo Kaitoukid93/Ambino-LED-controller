@@ -22,6 +22,8 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged();
             }
         }
+
+
         private ViewModelBase _currentView;
         private ViewModelBase _allDeviceView;
         private ViewModelBase _changePortView;

@@ -367,9 +367,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Settings\GeneralSettings.cs" />
     <Compile Include="Settings\DeviceSettings.cs" />
+    <Compile Include="Settings\IGeneralSettings.cs" />
     <Compile Include="Settings\IDeviceSettings.cs" />
     <Compile Include="Settings\IEffect.cs" />
+    <Compile Include="Spots\DeviceSpot.cs" />
+    <Compile Include="Spots\DeviceSpotSet.cs" />
+    <Compile Include="Spots\IDeviceSpot.cs" />
+    <Compile Include="Spots\IDeviceSpotSet.cs" />
+    <Compile Include="Spots\IGeneralSpotSet.cs" />
+    <Compile Include="Spots\GeneralSpotSet.cs" />
+    <Compile Include="Spots\IGeneralSpot.cs" />
+    <Compile Include="Spots\GeneralSpot.cs" />
+    <Compile Include="Spots\ISpotSetReader.cs" />
+    <Compile Include="Spots\SpotSetReader.cs" />
     <Compile Include="Util\Atmosphere.cs" />
     <Compile Include="Util\Brightness.cs" />
     <Compile Include="Util\ColorUtil.cs" />

@@ -17,6 +17,7 @@ namespace adrilight
         private string _gifFilePath = "";
         private string _deviceName = "Ambino Basic";
         private int _deviceID = 1;
+        private string _deviceType = "Basic";
 
         private int _mSens = 0;
        // private DateTime? _lastUpdateCheck = DateTime.UtcNow;
@@ -158,6 +159,7 @@ namespace adrilight
         public string GifFilePath { get => _gifFilePath; set { Set(() => GifFilePath, ref _gifFilePath, value); } }
         public string DeviceName { get => _deviceName; set { Set(() => DeviceName, ref _deviceName, value); } }
         public int DeviceID { get => _deviceID; set { Set(() => DeviceID, ref _deviceID, value); } }
+        public string DeviceType { get => _deviceType; set { Set(() => DeviceType, ref _deviceType, value); } }
         //public string ComPort4 { get => _comPort4; set { Set(() => ComPort4, ref _comPort4, value); } }
 
 

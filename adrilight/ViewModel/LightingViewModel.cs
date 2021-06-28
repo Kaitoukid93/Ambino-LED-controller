@@ -1,6 +1,7 @@
 ﻿using adrilight.DesktopDuplication;
 using adrilight.Fakes;
 using adrilight.Resources;
+using adrilight.Spots;
 using adrilight.Util;
 using BO;
 using GalaSoft.MvvmLight;
@@ -40,18 +41,9 @@ namespace adrilight.ViewModel
 
       
         GifBitmapDecoder decoder;
-        private IDeviceSettings _card;
-        public IDeviceSettings Card {
-            get { return _card; }
-            set
-            {
-                if (_card == value) return;
-                
-                _card = value;
-                
-                RaisePropertyChanged();
-            }
-        }
+        
+        public IDeviceSettings Settings { get; }
+
         private SettingInfoDTO _settingInfo;
         public SettingInfoDTO SettingInfo {
             get { return _settingInfo; }
@@ -93,8 +85,8 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public ISpot[] _previewSpots;
-        public ISpot[] PreviewSpots {
+        public IGeneralSpot[] _previewSpots;
+        public IGeneralSpot[] PreviewSpots {
             get => _previewSpots;
             set
             {
@@ -104,87 +96,24 @@ namespace adrilight.ViewModel
         }
         private readonly ViewModelBase _parentVm;
 
-        private ISpotSet spotSet;
-        public ISpotSet SpotSet {
-            get { return spotSet; }
-            set
-            {
-                if (spotSet == value) return;
-                spotSet = value;
-                RaisePropertyChanged("SpotSet");
-                PreviewSpots = spotSet.Spots;
-            }
-        }
-        private Rainbow _rainbow;
-        public Rainbow Rainbow {
-            get { return _rainbow; }
-            set
-            {
-                if (_rainbow == value) return;
-                _rainbow = value;
-                RaisePropertyChanged();
-            }
-        }
-        private StaticColor _staticcolor;
-        public StaticColor StaticColor {
-            get { return _staticcolor; }
-            set
-            {
-                if (_staticcolor == value) return;
-                _staticcolor = value;
-                RaisePropertyChanged();
-            }
-        }
-        private Music _music;
-        public Music Music {
-            get { return _music; }
-            set
-            {
-                if (_music == value) return;
-                _music = value;
-                RaisePropertyChanged();
-            }
-        }
-        private Atmosphere _atmosphere;
-        public Atmosphere Atmosphere {
-            get { return _atmosphere; }
-            set
-            {
-                if (_atmosphere == value) return;
-                _atmosphere = value;
-                RaisePropertyChanged();
-            }
-        }
-        private DesktopDuplicatorReader _reader;
-        public DesktopDuplicatorReader Reader {
-            get { return _reader; }
-            set
-            {
-                if (_reader == value) return;
-                _reader = value;
-                RaisePropertyChanged();
-            }
-        }
-        private SerialStream _stream;
-        //public SerialStream Stream {
-        //    get { return _stream; }
+        //private IGeneralSpotSet generalSpotSet;
+        //public IGeneralSpotSet GeneralSpotSet {
+        //    get { return generalSpotSet; }
         //    set
         //    {
-        //        if (_stream == value) return;
-        //        _stream = value;
-        //        RaisePropertyChanged();
+        //        if (generalSpotSet == value) return;
+        //        generalSpotSet = value;
+        //        RaisePropertyChanged("SpotSet");
+        //        PreviewSpots = generalSpotSet.Spots;
         //    }
         //}
-        private Gifxelation _gif;
-        public Gifxelation Gif {
-            get { return _gif; }
-            set
-            {
-                if (_gif == value) return;
-                _gif = value;
-                RaisePropertyChanged();
-            }
-        }
+     
+    
+     
+       
+       
+     
+     
         public IList<string> _AvailableAudioDevice = new List<string>();
         public IList<String> AvailableAudioDevice {
             get
@@ -213,14 +142,14 @@ namespace adrilight.ViewModel
         public int AudioDeviceID {
             get
             {
-                if (Card.SelectedAudioDevice > AvailableAudioDevice.Count)
+                if (Settings.SelectedAudioDevice > AvailableAudioDevice.Count)
                 {
                     System.Windows.MessageBox.Show("Last Selected Audio Device is not Available");
                     return -1;
                 }
                 else
                 {
-                    var currentDevice = AvailableAudioDevice.ElementAt(Card.SelectedAudioDevice);
+                    var currentDevice = AvailableAudioDevice.ElementAt(Settings.SelectedAudioDevice);
 
                     var array = currentDevice.Split(' ');
                     _audioDeviceID = Convert.ToInt32(array[0]);
@@ -233,14 +162,18 @@ namespace adrilight.ViewModel
 
         }
         public ObservableCollection<string> AvailablePalette { get; private set; }
-        public LightingViewModel(IDeviceSettings device,ViewModelBase parent, SettingInfoDTO setting) // cái này sẽ bỏ, kiểu gì thì kiểu khi chuyển tab cũng
+        public LightingViewModel(IDeviceSettings deviceSettings,ViewModelBase parent, SettingInfoDTO setting, IDeviceSpotSet deviceSpotSet, IGeneralSpotSet generalSpotSet) // cái này sẽ bỏ, kiểu gì thì kiểu khi chuyển tab cũng
                                                                                                       //sẽ bị tạo mới
         {
+
+            
             ReadData();
-            this.Card = device;
-            this.SettingInfo = setting;
-            this.SpotSet = new SpotSet(Card);
-            PreviewSpots = SpotSet.Spots;
+          //  Context = context ?? throw new ArgumentNullException(nameof(context));
+            Settings = deviceSettings ?? throw new ArgumentNullException(nameof(deviceSettings));
+            SettingInfo = setting;
+           // this.SpotSet = new SpotSet(Card);
+          
+            //PreviewSpots = generalSpotSet.Spots;
             _parentVm = parent;
             //ReadData();
             // Card = device;
@@ -357,7 +290,7 @@ namespace adrilight.ViewModel
                     ImageProcesser.DisposeStill();
                     if (ImageProcesser.LoadGifFromDisk(gifile.FileName))
                     {
-                        Card.GifFilePath = gifile.FileName;
+                        Settings.GifFilePath = gifile.FileName;
                         //FrameToPreview();
                         // SerialManager.PushFrame();
                         ImageProcesser.ImageLoadState = ImageProcesser.LoadState.Gif;

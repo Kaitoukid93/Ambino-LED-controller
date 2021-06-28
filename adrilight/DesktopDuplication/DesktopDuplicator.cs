@@ -94,7 +94,7 @@ namespace adrilight.DesktopDuplication
                     Dispose();
                     GC.Collect();
                     //retry right here??
-                    throw new Exception("Unknown, just retry",ex);
+                    throw new Exception("Unknown, just retry");
 
 
 

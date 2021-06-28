@@ -10,7 +10,8 @@
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
-        TextOptions.TextRenderingMode="Auto"         
+        TextOptions.TextRenderingMode="Auto"   
+       
         FontFamily="{StaticResource MaterialDesignFont}"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -133,7 +134,7 @@
                     <TextBlock   Style="{StaticResource tbHeading4Style}">Chế độ</TextBlock>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="0">
-                    <ComboBox Width="217" Height="37" Name="cboMode" IsEditable="False"  SelectedIndex="{Binding Card.SelectedEffect}" ItemsSource="{Binding ScreenEffects}" ></ComboBox>
+                    <ComboBox Width="217" Height="37" Name="cboMode" IsEditable="False"  SelectedIndex="{Binding Settings.SelectedEffect}" ItemsSource="{Binding ScreenEffects}" ></ComboBox>
                 </Border>
                 <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
                     <!--sang theo man hinh-->
@@ -163,15 +164,15 @@
                                 <TextBlock   Style="{StaticResource tbHeading4Style}">Source</TextBlock>
                             </Border>
                             <Border Grid.Column="1" Grid.Row="0">
-                                <ComboBox Width="217" Height="37" HorizontalAlignment="Right" SelectedIndex="{Binding Card.CaptureSource}"  ItemsSource="{Binding AvailableDisplays}" IsSynchronizedWithCurrentItem="True" IsEditable="False"></ComboBox>
+                                <ComboBox Width="217" Height="37" HorizontalAlignment="Right" SelectedIndex="{Binding Settings.CaptureSource}"  ItemsSource="{Binding AvailableDisplays}" IsSynchronizedWithCurrentItem="True" IsEditable="False"></ComboBox>
                             </Border>
                             <Border Grid.Row="1">
                                 <TextBlock   Style="{StaticResource tbHeading4Style}">Linear Lighting</TextBlock>
                             </Border>
                             <Border Grid.Column="1" Grid.Row="1">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <RadioButton Content="Dịu nhẹ"  IsChecked="{Binding Card.UseLinearLighting}" GroupName="linear"></RadioButton>
-                                    <RadioButton Content="Sống động" IsChecked="{Binding Card.NoUseLinearLighting}"  GroupName="linear">
+                                    <RadioButton Content="Dịu nhẹ"  IsChecked="{Binding Settings.UseLinearLighting}" GroupName="linear"></RadioButton>
+                                    <RadioButton Content="Sống động" IsChecked="{Binding Settings.NoUseLinearLighting}"  GroupName="linear">
                                         
                                     </RadioButton>
                                 </StackPanel>
@@ -183,19 +184,19 @@
                             <Border Grid.Column="1" Grid.Row="2">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Style="{StaticResource tbHeading4Style}">R</TextBlock>
-                                    <Slider TickFrequency="5" Width="100"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="100" Value="{Binding Card.WhitebalanceRed}" />
+                                    <Slider TickFrequency="5" Width="100"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="100" Value="{Binding Settings.WhitebalanceRed}" />
                                     <TextBlock Style="{StaticResource tbHeading4Style}">G</TextBlock>
-                                    <Slider TickFrequency="5" Width="100"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="100" Value="{Binding Card.WhitebalanceGreen}" />
+                                    <Slider TickFrequency="5" Width="100"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="100" Value="{Binding Settings.WhitebalanceGreen}" />
                                     <TextBlock Style="{StaticResource tbHeading4Style}">B</TextBlock>
-                                    <Slider TickFrequency="5" Width="100"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="100" Value="{Binding Card.WhitebalanceBlue}" />
+                                    <Slider TickFrequency="5" Width="100"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="100" Value="{Binding Settings.WhitebalanceBlue}" />
                               
                                 </StackPanel>
                             </Border>
                             <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="3">
                                 <TextBlock Style="{StaticResource tbHeading4Style}" VerticalAlignment="Center">Spot width</TextBlock>
-                                <TextBox Text="{Binding Card.SpotWidth}" Width="40" VerticalContentAlignment="Center"></TextBox>
+                                <TextBox Text="{Binding Settings.SpotWidth}" Width="40" VerticalContentAlignment="Center"></TextBox>
                                 <TextBlock Style="{StaticResource tbHeading4Style}" VerticalAlignment="Center">Spot height</TextBlock>
-                                <TextBox Text="{Binding Card.SpotHeight}" Width="40" VerticalContentAlignment="Center"></TextBox>
+                                <TextBox Text="{Binding Settings.SpotHeight}" Width="40" VerticalContentAlignment="Center"></TextBox>
                                 <TextBlock Style="{StaticResource tbHeading4Style}" VerticalAlignment="Center">Space X</TextBlock>
                                 <TextBox  Width="40" VerticalContentAlignment="Center"></TextBox>
                                 <TextBlock Style="{StaticResource tbHeading4Style}" VerticalAlignment="Center">Space Y</TextBlock>
@@ -229,19 +230,19 @@
                                 <TextBlock   Style="{StaticResource tbHeading4Style}">Color Pallete</TextBlock>
                             </Border>
                             <Border Grid.Column="1" Grid.Row="0">
-                                <ComboBox Height="37" Width="106" HorizontalAlignment="Right" SelectedIndex="{Binding Card.Palette}" IsEditable="False" ItemsSource="{Binding AvailablePalette}" ></ComboBox>
+                                <ComboBox Height="37" Width="106" HorizontalAlignment="Right" SelectedIndex="{Binding Settings.Palette}" IsEditable="False" ItemsSource="{Binding AvailablePalette}" ></ComboBox>
                             </Border>
                             <Border Grid.Row="1">
                                 <TextBlock   Style="{StaticResource tbHeading4Style}">Effect Speed</TextBlock>
                             </Border>
                             <Border  Grid.Column="1" Grid.Row="1">
-                                <Slider TickFrequency="5" Width="240" HorizontalAlignment="Right"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="50" Value="{Binding Card.EffectSpeed}" />
+                                <Slider TickFrequency="5" Width="240" HorizontalAlignment="Right"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="50" Value="{Binding Settings.EffectSpeed}" />
                             </Border>
                             <Border Grid.Row="2">
                                 <TextBlock   Style="{StaticResource tbHeading4Style}">Color Frequency</TextBlock>
                             </Border>
                             <Border Grid.Column="1" Grid.Row="2">
-                                <ComboBox Width="217" Height="37" HorizontalAlignment="Right" IsEditable="False"  ItemsSource="{Binding AvailableFrequency}" SelectedIndex="{Binding Card.ColorFrequency}" ></ComboBox>
+                                <ComboBox Width="217" Height="37" HorizontalAlignment="Right" IsEditable="False"  ItemsSource="{Binding AvailableFrequency}" SelectedIndex="{Binding Settings.ColorFrequency}" ></ComboBox>
                             </Border>
                         </Grid>
                        
@@ -271,7 +272,7 @@
                                         <Style TargetType="RowDefinition">
                                             <Setter Property="Height" Value="40"></Setter>
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Card.IsBreathing}" Value="False">
+                                                <DataTrigger Binding="{Binding Settings.IsBreathing}" Value="False">
                                                     <Setter Property="Height" Value="0"></Setter>
                                                 </DataTrigger>
                                             </Style.Triggers>
@@ -283,19 +284,19 @@
                                 <TextBlock Style="{StaticResource tbHeading4Style}">Select Color</TextBlock>
                             </Border>
                             <Border Grid.Column="1">
-                                <materialDesign:ColorPicker Color="{Binding Card.StaticColor}"  VerticalAlignment="Center" Height="111" Width="162" HorizontalAlignment="Right"/>
+                                <materialDesign:ColorPicker Color="{Binding Settings.StaticColor}"  VerticalAlignment="Center" Height="111" Width="162" HorizontalAlignment="Right"/>
                             </Border>
                             <Border Grid.Row="1">
                                 <TextBlock   Style="{StaticResource tbHeading4Style}">Breathing</TextBlock>
                             </Border>
                             <Border Grid.Column="1" Grid.Row="1">
-                                <ToggleButton Width="40" HorizontalAlignment="Right" IsChecked="{Binding Card.IsBreathing}"></ToggleButton>
+                                <ToggleButton Width="40" HorizontalAlignment="Right" IsChecked="{Binding Settings.IsBreathing}"></ToggleButton>
                             </Border>
                             <Border Grid.Row="2" >
                                 <TextBlock   Style="{StaticResource tbHeading4Style}">Breathing Speed</TextBlock>
                             </Border>
                             <Border  Grid.Column="1" Grid.Row="2">
-                                <Slider TickFrequency="5" Width="240" Value="{Binding Card.BreathingSpeed}"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="100"  />
+                                <Slider TickFrequency="5" Width="240" Value="{Binding Settings.BreathingSpeed}"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="100"  />
                             </Border>
                         </Grid>
                       
@@ -328,13 +329,13 @@
                                 <TextBlock   Style="{StaticResource tbHeading4Style}">Audio Source</TextBlock>
                             </Border>
                             <Border Grid.Column="1" Grid.Row="0">
-                                <ComboBox Width="217" Height="37" HorizontalAlignment="Right" SelectedIndex="{Binding Card.SelectedAudioDevice}" ItemsSource="{Binding AvailableAudioDevice}"   IsEditable="False"></ComboBox>
+                                <ComboBox Width="217" Height="37" HorizontalAlignment="Right" SelectedIndex="{Binding Settings.SelectedAudioDevice}" ItemsSource="{Binding AvailableAudioDevice}"   IsEditable="False"></ComboBox>
                             </Border>
                             <Border Grid.Row="1">
                                 <TextBlock   Style="{StaticResource tbHeading4Style}">Music mode</TextBlock>
                             </Border>
                             <Border Grid.Column="1" Grid.Row="1">
-                                <ComboBox Width="217" Height="37" IsEditable="False" HorizontalAlignment="Right"  ItemsSource="{Binding AvailableMusicMode}" SelectedIndex="{Binding Card.MusicMode}"></ComboBox>
+                                <ComboBox Width="217" Height="37" IsEditable="False" HorizontalAlignment="Right"  ItemsSource="{Binding AvailableMusicMode}" SelectedIndex="{Binding Settings.MusicMode}"></ComboBox>
                             </Border>
                             <Border Grid.Row="2">
                                 <TextBlock   Style="{StaticResource tbHeading4Style}">Music Palette</TextBlock>
@@ -369,13 +370,13 @@
                                 <TextBlock   Style="{StaticResource tbHeading4Style}">Atmosphere Start</TextBlock>
                             </Border>
                             <Border  Grid.Column="1" >
-                                <Slider TickFrequency="5" Width="240"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="50" Value="{Binding Card.AtmosphereStart}" />
+                                <Slider TickFrequency="5" Width="240"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="50" Value="{Binding Settings.AtmosphereStart}" />
                             </Border>
                             <Border Grid.Row="1">
                                 <TextBlock   Style="{StaticResource tbHeading4Style}">Atmosphere Stop</TextBlock>
                             </Border>
                             <Border  Grid.Column="1" Grid.Row="1">
-                                <Slider TickFrequency="5" Width="240"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="50" Value="{Binding Card.AtmosphereStop}" />
+                                <Slider TickFrequency="5" Width="240"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="50" Value="{Binding Settings.AtmosphereStop}" />
                             </Border>
                         </Grid>
                     </StackPanel>
@@ -402,7 +403,7 @@
                             </Border>
                             <Border  Grid.Column="1">
                                 <StackPanel  HorizontalAlignment="Right">
-                                    <TextBlock Text="{Binding Card.GifFilePath}" Margin="5" Width="250"></TextBlock>
+                                    <TextBlock Text="{Binding Settings.GifFilePath}" Margin="5" Width="250"></TextBlock>
                                     <Button Command="{Binding SelectGif}" Width="150" HorizontalAlignment="Right">Select Gif</Button>
                                 </StackPanel>
                             </Border>

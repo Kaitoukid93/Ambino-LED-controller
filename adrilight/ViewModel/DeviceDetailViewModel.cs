@@ -1,4 +1,5 @@
-﻿using BO;
+﻿using adrilight.Spots;
+using BO;
 using GalaSoft.MvvmLight;
 using MaterialDesignThemes.Wpf;
 using System;
@@ -71,17 +72,9 @@ namespace adrilight.ViewModel
         private bool _isInit = false;
         private bool _isWrite = false;
         private MainViewViewModel _mainView => _parentVm as MainViewViewModel;
-        private ISpotSet spotSet;
-        public ISpotSet SpotSet {
-            get { return spotSet; }
-            set
-            {
-                if (spotSet == value) return;
-                spotSet = value;
-                RaisePropertyChanged("SpotSet");
-                
-            }
-        }
+        private IDeviceSpotSet DeviceSpotSet;
+        private IGeneralSpotSet GeneralSpotSet;
+       
         private SettingInfoDTO _settingInfo;
         public SettingInfoDTO SettingInfo {
             get { return _settingInfo; }
@@ -141,7 +134,7 @@ namespace adrilight.ViewModel
                     CurrentView = _generalView;
                     break;
                 case DeviceTab.Lighting:
-                    _lightingView = new LightingViewModel(Card, _parentVm, SettingInfo);
+                    _lightingView = new LightingViewModel(Card, _parentVm, SettingInfo,DeviceSpotSet,GeneralSpotSet );
                     CurrentView = _lightingView;
                     break;
                 default:

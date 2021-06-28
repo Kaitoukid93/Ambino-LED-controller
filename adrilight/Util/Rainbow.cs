@@ -15,6 +15,7 @@ using System.Threading;
 using NLog;
 using System.Threading.Tasks;
 using BO;
+using adrilight.Spots;
 
 namespace adrilight
 {
@@ -26,13 +27,13 @@ namespace adrilight
         
         private readonly NLog.ILogger _log = LogManager.GetCurrentClassLogger();
         private Thread _workerThread;
-        public Rainbow(IDeviceSettings device, ISpotSet spotSet, SettingInfoDTO setting)
+        public Rainbow(IDeviceSettings deviceSettings, IDeviceSpotSet deviceSpotSet, SettingInfoDTO setting)
         {
-            deviceInfo = device ?? throw new ArgumentNullException(nameof(device));
-            SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
+            DeviceSettings = deviceSettings ?? throw new ArgumentNullException(nameof(deviceSettings));
+            DeviceSpotSet = deviceSpotSet ?? throw new ArgumentNullException(nameof(deviceSpotSet));
           //  SettingsViewModel = viewViewModel ?? throw new ArgumentNullException(nameof(viewViewModel));
             settingInfo = setting ?? throw new ArgumentNullException(nameof(setting));
-            deviceInfo.PropertyChanged += PropertyChanged;
+            DeviceSettings.PropertyChanged += PropertyChanged;
             settingInfo.PropertyChanged += SettingInfo_PropertyChanged;
             RefreshColorState();
             _log.Info($"RainbowColor Created");
@@ -44,7 +45,7 @@ namespace adrilight
 
         }
 
-        private IDeviceSettings deviceInfo { get; }
+        private IDeviceSettings DeviceSettings { get; }
        // private LightingViewModel SettingsViewModel { get; }
         private SettingInfoDTO settingInfo { get; }
         public bool IsRunning { get; private set; } = false;
@@ -54,9 +55,9 @@ namespace adrilight
         {
             switch (e.PropertyName)
             {
-                case nameof(deviceInfo.TransferActive):
-                case nameof(deviceInfo.SelectedEffect):
-                case nameof(deviceInfo.Brightness):
+                case nameof(DeviceSettings.TransferActive):
+                case nameof(DeviceSettings.SelectedEffect):
+                case nameof(DeviceSettings.Brightness):
                     RefreshColorState();
                     break;
             }
@@ -65,7 +66,7 @@ namespace adrilight
         {
 
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.SelectedEffect == 1;
+            var shouldBeRunning = settingInfo.TransferActive && DeviceSettings.SelectedEffect == 1;
             if (isRunning && !shouldBeRunning)
             {
                 //stop it!
@@ -112,7 +113,7 @@ namespace adrilight
         }
 
 
-        private ISpotSet SpotSet { get; }
+        private IDeviceSpotSet DeviceSpotSet { get; }
         public void Run (CancellationToken token)
 
         {
@@ -127,14 +128,14 @@ namespace adrilight
 
                 while (!token.IsCancellationRequested)
                 {
-                    double brightness = deviceInfo.Brightness / 100d;
-                    int paletteSource = deviceInfo.SelectedPalette;
-                    var numLED = (deviceInfo.SpotsX - 1) * 2 + (deviceInfo.SpotsY - 1) * 2;
+                    double brightness = DeviceSettings.Brightness / 100d;
+                    int paletteSource = DeviceSettings.SelectedPalette;
+                    var numLED = (DeviceSettings.SpotsX - 1) * 2 + (DeviceSettings.SpotsY - 1) * 2; // shoud read from spotset
                     var colorOutput = new OpenRGB.NET.Models.Color[numLED];
 
                 
 
-                    bool isPreviewRunning = (deviceInfo.SelectedEffect == 1); 
+                    bool isPreviewRunning = (DeviceSettings.SelectedEffect == 1); 
                     if (isPreviewRunning)
                     {
                        // SettingsViewModel.SetPreviewImage(backgroundimage);
@@ -143,7 +144,7 @@ namespace adrilight
 
                     OpenRGB.NET.Models.Color[] outputColor = new OpenRGB.NET.Models.Color[numLED];
                     int counter = 0;               
-                    lock (SpotSet.Lock)
+                    lock (DeviceSpotSet.Lock)
                     {
                         if (paletteSource == 0)
                         {
@@ -155,7 +156,7 @@ namespace adrilight
 
                             }
                             counter = 0;
-                            foreach(ISpot spot in SpotSet.Spots)
+                            foreach(var spot in DeviceSpotSet.Spots)
                             {
                                 spot.SetColor(outputColor[counter].R, outputColor[counter].G, outputColor[counter].B, true);
                                 counter++;

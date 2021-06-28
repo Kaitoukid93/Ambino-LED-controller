@@ -33,9 +33,9 @@ namespace adrilight.ViewModel
         public void ReadData()
         {
             Devices = new ObservableCollection<IDeviceSettings>();
-            Devices.Add(new DeviceSettings() { DeviceName = "Ambino Basic", DeviceId = 1 });
-            Devices.Add(new DeviceSettings() { DeviceName = "Ambino Edge", DeviceId = 2 });
-            Devices.Add(new DeviceSettings() { DeviceName = "Ambino HUBV2", DeviceId = 3 });
+            Devices.Add(new DeviceSettings() { DeviceName = "Ambino Basic", DeviceType = "Basic" });
+            Devices.Add(new DeviceSettings() { DeviceName = "Ambino Edge", DeviceType = "EDGE" });
+            Devices.Add(new DeviceSettings() { DeviceName = "Ambino HUBV2", DeviceType = "Hub" });
             SelectDeviceCommand = new RelayCommand<IDeviceSettings>((p) => {
                 return true;
             }, (p) =>

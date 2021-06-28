@@ -212,7 +212,7 @@ namespace adrilight.Util
                             //copy all color data to the preview
                             var needsNewArray = ViewModel.PreviewSpots?.Length != SpotSet.Spots.Length;
 
-                            ViewModel.PreviewSpots = SpotSet.Spots;
+                           // ViewModel.PreviewSpots = SpotSet.Spots;
 
                             ViewModel.PreviewGif = SpotSet.Spots2;
                         }

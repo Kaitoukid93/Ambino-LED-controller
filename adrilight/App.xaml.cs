@@ -37,6 +37,7 @@ using System.Windows.Shapes;
 using Microsoft.Extensions.DependencyInjection;
 using BO;
 using adrilight.Ninject;
+using adrilight.Spots;
 
 namespace adrilight
 {
@@ -137,8 +138,9 @@ namespace adrilight
             this.Resources["Locator"] = new ViewModelLocator(kernel);
 
 
-           // DeviceSettings = kernel.Get<IDeviceSettings>();
-           // UserSettings = kernel.Get<IUserSettings>();
+            // DeviceSettings = kernel.Get<IDeviceSettings>();
+            // UserSettings = kernel.Get<IUserSettings>();
+            GeneralSettings = kernel.Get<IGeneralSettings>();
             _telemetryClient = kernel.Get<TelemetryClient>();
 
             SetupNotifyIcon();
@@ -200,7 +202,7 @@ namespace adrilight
             //setup real implementations
             //Load setting từ file Json//
             var settingsManager = new UserSettingsManager();
-                var settings = settingsManager.LoadIfExists() ?? settingsManager.MigrateOrDefault();
+                //var settings = settingsManager.LoadIfExists() ?? settingsManager.MigrateOrDefault();
                 var alldevicesettings = settingsManager.LoadDeviceIfExists();
 
             //// tách riêng từng setting của từng device///
@@ -228,28 +230,33 @@ namespace adrilight
               .SelectAllClasses()
               .InheritedFrom<ISelectableViewPart>()
               .BindAllInterfaces());
-
-            for (var i=0;i<alldevicesettings.Count;i++)
+            var desktopDuplicationReader = kernel.Get<IDesktopDuplicatorReader>();
+            if(alldevicesettings!=null)
             {
+                for (var i = 0; i < alldevicesettings.Count; i++)
+                {
 
 
 
-                // kernel.Bind<IDeviceSettings>().ToConstant(devicesettings).InThreadScope(); // mắc chỗ này, IUserSettings bây giờ phải là DeviceInfoDTO
+                    // kernel.Bind<IDeviceSettings>().ToConstant(devicesettings).InThreadScope(); // mắc chỗ này, IUserSettings bây giờ phải là DeviceInfoDTO
 
 
 
-               // kernel.Bind<TelemetryClient>().ToConstant(SetupApplicationInsights(kernel.Get<IDeviceSettings>(i.ToString())));
+                    // kernel.Bind<TelemetryClient>().ToConstant(SetupApplicationInsights(kernel.Get<IDeviceSettings>(i.ToString())));
 
-                
-                
-               var desktopDuplicationReader = kernel.Get<IDesktopDuplicatorReader>(i.ToString());
-                // var spotset = kernel.Get<ISpotSet>(i.ToString());
-                var serialStream = kernel.Get<ISerialStream>(i.ToString());
-                var staticColor = kernel.Get<IStaticColor>(i.ToString());
-                 var rainbow = kernel.Get<IRainbow>(i.ToString());
-                var music = kernel.Get<IMusic>(i.ToString());
-                var atmosphere = kernel.Get<IAtmosphere>(i.ToString());
 
+
+
+                    // var spotset = kernel.Get<ISpotSet>(i.ToString());
+                    var spotSetReader = kernel.Get<ISpotSetReader>(i.ToString());
+                    var serialStream = kernel.Get<ISerialStream>(i.ToString());
+                    // var staticColor = kernel.Get<IStaticColor>(i.ToString());
+                     var rainbow = kernel.Get<IRainbow>(i.ToString());
+                    // var music = kernel.Get<IMusic>(i.ToString());
+                    //  var atmosphere = kernel.Get<IAtmosphere>(i.ToString());
+
+
+                }
 
             }
 
@@ -410,7 +417,8 @@ namespace adrilight
 
 
         private IUserSettings UserSettings { get; set; }
-        private IDeviceSettings DeviceSettings { get; set; }
+       // private IDeviceSettings DeviceSettings { get; set; }
+        private IGeneralSettings GeneralSettings { get; set; }
       
 
             private void ApplicationWideException(object sender, Exception ex, string eventSource)

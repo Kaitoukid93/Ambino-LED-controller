@@ -1,5 +1,7 @@
 ﻿using adrilight.Resources;
+using adrilight.Spots;
 using adrilight.Util;
+using adrilight.ViewModel;
 using Ninject.Modules;
 using System;
 using System.Collections.Generic;
@@ -14,24 +16,41 @@ namespace adrilight.Ninject
         public override void Load()
         {
             var settingsManager = new UserSettingsManager();
-           // var settings = settingsManager.LoadIfExists() ?? settingsManager.MigrateOrDefault();
+            var generalSettings = settingsManager.LoadIfExists() ?? settingsManager.MigrateOrDefault();
             var alldevicesettings = settingsManager.LoadDeviceIfExists();
-            for (var i = 0; i < alldevicesettings.Count; i++)
+            Bind<IDesktopDuplicatorReader>().To<DesktopDuplicatorReader>().InSingletonScope();
+            Bind<IGeneralSpotSet>().To<GeneralSpotSet>().InSingletonScope();
+            Bind<IGeneralSettings>().ToConstant(generalSettings);
+            if (alldevicesettings!=null)
             {
-               var devicename = i.ToString();
+                if (alldevicesettings.Count > 0)
+                {
+                    for (var i = 0; i < alldevicesettings.Count; i++)
+                    {
+                        var devicename = i.ToString();
 
-                Bind<IDeviceSettings>().ToConstant(alldevicesettings.ElementAt(i)).WhenParentNamed(devicename).InSingletonScope().Named(devicename);
-                Bind<IContext>().To<WpfContext>().InTransientScope().Named(devicename);
-                Bind<ISpotSet>().To<SpotSet>().WhenParentNamed(devicename).InSingletonScope().Named(devicename); ;
-                Bind<ISerialStream>().To<SerialStream>().InSingletonScope().Named(devicename);
-                Bind<IDesktopDuplicatorReader>().To<DesktopDuplicatorReader>().InTransientScope().Named(devicename);
-                Bind<IStaticColor>().To<StaticColor>().InTransientScope().Named(devicename);
-                Bind<IRainbow>().To<Rainbow>().InTransientScope().Named(devicename);
-                Bind<IMusic>().To<Music>().InTransientScope().Named(devicename);
-                Bind<IAtmosphere>().To<Atmosphere>().InTransientScope().Named(devicename);
+                        Bind<IDeviceSettings>().ToConstant(alldevicesettings.ElementAt(i)).WhenParentNamed(devicename).InSingletonScope().Named(devicename);
+                        Bind<IContext>().To<WpfContext>().InTransientScope().Named(devicename);
+                        Bind<IDeviceSpotSet>().To<DeviceSpotSet>().WhenParentNamed(devicename).InSingletonScope().Named(devicename);
+                        Bind<ISpotSetReader>().To<SpotSetReader>().InSingletonScope().Named(devicename);
+                        Bind<ISerialStream>().To<SerialStream>().InSingletonScope().Named(devicename);
+                      //  Bind<LightingViewModel>().ToSelf().InSingletonScope().Named(devicename);
+                        Bind<IStaticColor>().To<StaticColor>().InTransientScope().Named(devicename);
+                        Bind<IRainbow>().To<Rainbow>().InTransientScope().Named(devicename);
+                        Bind<IMusic>().To<Music>().InTransientScope().Named(devicename);
+                        Bind<IAtmosphere>().To<Atmosphere>().InTransientScope().Named(devicename);
 
 
+                    }
+                }
             }
+            else
+            {
+                // require user to add device then restart the app
+            }
+           
+           
+          
         }
     }
 }

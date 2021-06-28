@@ -16,6 +16,7 @@ namespace adrilight
         string DevicePort { get; set; }
         string GifFilePath { get; set; }
         int DeviceID { get; set; }
+        string DeviceType { get; set; }
 
 
         // DateTime? LastUpdateCheck { get; set; }

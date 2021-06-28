@@ -57,7 +57,7 @@ namespace adrilight.ViewModel
                         DeviceName = item.DeviceName,
                         DevicePort = item.DevicePort,
                         DeviceSize = item.DeviceSize,
-                       // DeviceType = item.devicetype,
+                        DeviceType = item.DeviceType,
                       //  FadeEnd = item.fadeend,
                       //  FadeStart = item.fadestart,
                        // GifMode = item.gifmode,

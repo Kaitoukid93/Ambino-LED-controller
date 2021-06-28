@@ -20,24 +20,25 @@ namespace adrilight
         private string JsonFileNameAndPath => Path.Combine(JsonPath, "adrilight-settings.json");
         private string JsonDeviceFileNameAndPath => Path.Combine(JsonPath, "adrilight-deviceInfos.json");
 
-        private void Save(IUserSettings settings)
+        private void SaveSettings(IGeneralSettings generalSettings)
         {
-            var json = JsonConvert.SerializeObject(settings, Formatting.Indented);
+            var json = JsonConvert.SerializeObject(generalSettings, Formatting.Indented);
             Directory.CreateDirectory(JsonPath);
             File.WriteAllText(JsonFileNameAndPath, json);
         }
+        
 
-        public IUserSettings LoadIfExists()
+        public IGeneralSettings LoadIfExists()
         {
             if (!File.Exists(JsonFileNameAndPath)) return null;
 
             var json = File.ReadAllText(JsonFileNameAndPath);
 
-            var settings = JsonConvert.DeserializeObject<UserSettings>(json);
-            settings.PropertyChanged += (_, __) => Save(settings);
+            var generalSettings = JsonConvert.DeserializeObject<GeneralSettings>(json);
+            generalSettings.PropertyChanged += (_, __) => SaveSettings(generalSettings);
 
-            HandleAutostart(settings);
-            return settings;
+           // HandleAutostart(settings);
+            return generalSettings;
         }
 
         public List<DeviceSettings> LoadDeviceIfExists()
@@ -51,13 +52,16 @@ namespace adrilight
             return devices;
         }
 
-        public IUserSettings MigrateOrDefault()
+    
+
+        public IGeneralSettings MigrateOrDefault()
         {
-            var settings = new UserSettings();
-            settings.PropertyChanged += (_, __) => Save(settings);
+           
+            var generalSettings = new GeneralSettings();
+            generalSettings.PropertyChanged += (_, __) => SaveSettings(generalSettings);
 
             var legacyPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "adrilight");
-            if (!Directory.Exists(legacyPath)) return settings;
+            if (!Directory.Exists(legacyPath)) return generalSettings;
 
             var legacyFiles = Directory.GetFiles(legacyPath, "user.config", SearchOption.AllDirectories);
 
@@ -66,35 +70,35 @@ namespace adrilight
                         .OrderByDescending(fi => fi.LastWriteTimeUtc)
                         .FirstOrDefault();
 
-            if(file != null)
-            {
-                var xdoc = XDocument.Load(file.FullName);
+            //if(file != null)
+            //{
+            //    var xdoc = XDocument.Load(file.FullName);
 
-                //migrate old values
-                ReadAndApply(xdoc, settings, "SPOTS_X", s => s.SpotsX);
-                ReadAndApply(xdoc, settings, "SPOTS_Y", s => s.SpotsY);
-                ReadAndApply(xdoc, settings, "SPOT_WIDTH", s => s.SpotWidth);
-                ReadAndApply(xdoc, settings, "SPOT_HEIGHT", s => s.SpotHeight);
-                ReadAndApply(xdoc, settings, "BORDER_DISTANCE_X", s => s.BorderDistanceX);
-                ReadAndApply(xdoc, settings, "BORDER_DISTANCE_Y", s => s.BorderDistanceY);
-                ReadAndApply(xdoc, settings, "USE_LINEAR_LIGHTING", s => s.UseLinearLighting);
-                ReadAndApply(xdoc, settings, "OFFSET_X", s => s.OffsetX);
-                ReadAndApply(xdoc, settings, "OFFSET_Y", s => s.OffsetY);
-                ReadAndApply(xdoc, settings, "LEDS_PER_SPOT", s => s.LedsPerSpot);
-                ReadAndApply(xdoc, settings, "COM_PORT", s => s.ComPort);
-                ReadAndApply(xdoc, settings, "SATURATION_TRESHOLD", s => s.SaturationTreshold);
-                ReadAndApply(xdoc, settings, "MIRROR_X", s => s.MirrorX);
-                ReadAndApply(xdoc, settings, "MIRROR_Y", s => s.MirrorY);
-                ReadAndApply(xdoc, settings, "OFFSET_LED", s => s.OffsetLed);
+            //    //migrate old values
+            //    ReadAndApply(xdoc, settings, "SPOTS_X", s => s.SpotsX);
+            //    ReadAndApply(xdoc, settings, "SPOTS_Y", s => s.SpotsY);
+            //    ReadAndApply(xdoc, settings, "SPOT_WIDTH", s => s.SpotWidth);
+            //    ReadAndApply(xdoc, settings, "SPOT_HEIGHT", s => s.SpotHeight);
+            //    ReadAndApply(xdoc, settings, "BORDER_DISTANCE_X", s => s.BorderDistanceX);
+            //    ReadAndApply(xdoc, settings, "BORDER_DISTANCE_Y", s => s.BorderDistanceY);
+            //    ReadAndApply(xdoc, settings, "USE_LINEAR_LIGHTING", s => s.UseLinearLighting);
+            //    ReadAndApply(xdoc, settings, "OFFSET_X", s => s.OffsetX);
+            //    ReadAndApply(xdoc, settings, "OFFSET_Y", s => s.OffsetY);
+            //    ReadAndApply(xdoc, settings, "LEDS_PER_SPOT", s => s.LedsPerSpot);
+            //    ReadAndApply(xdoc, settings, "COM_PORT", s => s.ComPort);
+            //    ReadAndApply(xdoc, settings, "SATURATION_TRESHOLD", s => s.SaturationTreshold);
+            //    ReadAndApply(xdoc, settings, "MIRROR_X", s => s.MirrorX);
+            //    ReadAndApply(xdoc, settings, "MIRROR_Y", s => s.MirrorY);
+            //    ReadAndApply(xdoc, settings, "OFFSET_LED", s => s.OffsetLed);
 
-                ReadAndApply(xdoc, settings, "AUTOSTART", s => s.Autostart);
+            //    ReadAndApply(xdoc, settings, "AUTOSTART", s => s.Autostart);
       
 
-                //migrate actual autostart registry stuff as well
-                HandleAutostart(settings);
-            }
+            //    //migrate actual autostart registry stuff as well
+            //    HandleAutostart(settings);
+            //}
 
-            return settings;
+            return generalSettings;
         }
 
         private static void HandleAutostart(UserSettings settings)

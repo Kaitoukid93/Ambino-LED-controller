@@ -15,6 +15,7 @@ using OpenRGB;
 using adrilight.ViewModel;
 using System.Collections.Generic;
 using System.Windows;
+using adrilight.Spots;
 
 namespace adrilight
 {
@@ -23,10 +24,10 @@ namespace adrilight
     {
         private ILogger _log = LogManager.GetCurrentClassLogger();
 
-        public SerialStream(IDeviceSettings userSettings, ISpotSet spotSet)
+        public SerialStream(IDeviceSettings userSettings, IDeviceSpotSet spotSet)
         {
             UserSettings = userSettings ?? throw new ArgumentNullException(nameof(userSettings));
-            SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
+            DeviceSpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
 
 
             UserSettings.PropertyChanged += UserSettings_PropertyChanged;
@@ -192,7 +193,7 @@ namespace adrilight
         public bool IsRunning => _workerThread != null && _workerThread.IsAlive;
 
         private IDeviceSettings UserSettings { get; }
-        private ISpotSet SpotSet { get; }
+        private IDeviceSpotSet DeviceSpotSet { get; }
 
 
 
@@ -203,11 +204,11 @@ namespace adrilight
             byte[] outputStream;
 
             int counter = _messagePreamble.Length;
-            lock (SpotSet.Lock)
+            lock (DeviceSpotSet.Lock)
             {
                 const int colorsPerLed = 3;
                 int bufferLength = _messagePreamble.Length + 3
-                    + (SpotSet.Spots.Length * colorsPerLed);
+                    + (DeviceSpotSet.Spots.Length * colorsPerLed);
 
 
                 outputStream = ArrayPool<byte>.Shared.Rent(bufferLength);
@@ -237,7 +238,7 @@ namespace adrilight
                 //}
 
 
-                foreach (Spot spot in SpotSet.Spots)
+                foreach (DeviceSpot spot in DeviceSpotSet.Spots)
                 {
 
                     outputStream[counter++] = spot.Red; // blue
@@ -272,11 +273,11 @@ namespace adrilight
             byte[] outputStream;
 
             int counter = _messagePreamble.Length;
-            lock (SpotSet.Lock)
+            lock (DeviceSpotSet.Lock)
             {
                 const int colorsPerLed = 3;
                 int bufferLength = _messagePreamble.Length + 3
-                    + (SpotSet.Spots.Length * colorsPerLed);
+                    + (DeviceSpotSet.Spots.Length * colorsPerLed);
 
 
                 outputStream = ArrayPool<byte>.Shared.Rent(bufferLength);
@@ -306,7 +307,7 @@ namespace adrilight
                 //}
 
                 int snapshotCounter = 0;
-                foreach (Spot spot in SpotSet.Spots)
+                foreach (DeviceSpot spot in DeviceSpotSet.Spots)
                 {
 
                     outputStream[counter++] = UserSettings.SnapShot[snapshotCounter++]; // blue
