@@ -13,10 +13,11 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Windows.Media;
 using Ninject;
+using adrilight.Ninject;
 
 namespace adrilight.ViewModel
 {
-   public class AllDeviceViewModel : BaseViewModel
+   public class DashboardViewModel : BaseViewModel
     {
         private string JsonPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "adrilight\\");
 
@@ -35,9 +36,7 @@ namespace adrilight.ViewModel
         public ICommand ShowAddNewCommand { get; set; }
         private readonly ViewModelBase _parentVm;
         private bool _isAddnew = false;
-        
-        public IDeviceSettings device { get; set; }
-        public AllDeviceViewModel(List<IDeviceSettings> device)
+        public DashboardViewModel()
         {
            // _parentVm = parent;
             ReadData();
@@ -46,8 +45,6 @@ namespace adrilight.ViewModel
         public void LoadCard()
         {
             Cards = new ObservableCollection<IDeviceSettings>();
-            
-
             var settingsmanager = new UserSettingsManager();
             var devices = settingsmanager.LoadDeviceIfExists();
             if (devices != null)
@@ -109,6 +106,8 @@ namespace adrilight.ViewModel
 
         public override void ReadData()
         {
+           //  var kernel = new StandardKernel(new DeviceSettingsInjectModule());
+           
             SelectCardCommand = new RelayCommand<IDeviceSettings>((p) => {
                 return p != null;
             }, (p) =>

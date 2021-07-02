@@ -162,7 +162,7 @@ namespace adrilight.ViewModel
 
         }
         public ObservableCollection<string> AvailablePalette { get; private set; }
-        public LightingViewModel(IDeviceSettings deviceSettings,ViewModelBase parent, SettingInfoDTO setting, IDeviceSpotSet deviceSpotSet, IGeneralSpotSet generalSpotSet) // cái này sẽ bỏ, kiểu gì thì kiểu khi chuyển tab cũng
+        public LightingViewModel(IDeviceSettings deviceSettings, IDeviceSpotSet deviceSpotSet, IGeneralSpotSet generalSpotSet) // cái này sẽ bỏ, kiểu gì thì kiểu khi chuyển tab cũng
                                                                                                       //sẽ bị tạo mới
         {
 
@@ -170,11 +170,11 @@ namespace adrilight.ViewModel
             ReadData();
           //  Context = context ?? throw new ArgumentNullException(nameof(context));
             Settings = deviceSettings ?? throw new ArgumentNullException(nameof(deviceSettings));
-            SettingInfo = setting;
+          //  SettingInfo = setting;
            // this.SpotSet = new SpotSet(Card);
           
             //PreviewSpots = generalSpotSet.Spots;
-            _parentVm = parent;
+          //  _parentVm = parent;
             //ReadData();
             // Card = device;
             // Card.LEDNumber = 30;

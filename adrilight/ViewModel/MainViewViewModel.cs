@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 using adrilight.View;
+using adrilight.ViewModel.Factories;
 using BO;
 using GalaSoft.MvvmLight;
 using Newtonsoft.Json;
@@ -87,7 +88,7 @@ namespace adrilight.ViewModel
         }
 
         private ViewModelBase _currentView;
-        private ViewModelBase _allDeviceView;
+        
         private ViewModelBase _detailView;
         private ViewModelBase _deviceSettingView;
         private ViewModelBase _appSettingView;
@@ -124,18 +125,21 @@ namespace adrilight.ViewModel
 
         public ICommand SelectMenuItem { get; set; }
         #endregion
-        
+
+        private IViewModelFactory<AllDeviceViewModel> _allDeviceView;
         private bool isPreview = false;
         public MainViewViewModel()
         {
+
+
         }
         public override  void ReadData()
         {
             LoadMenu();
             LoadMenuByType(true);
-            _allDeviceView = new AllDeviceViewModel(this);
+          
             
-            CurrentView = _allDeviceView;
+            CurrentView = _allDeviceView.CreateViewModel();
             SelectMenuItem = new RelayCommand<VerticalMenuItem>((p) => {
                 return true;
             }, (p) =>
@@ -190,8 +194,8 @@ namespace adrilight.ViewModel
             switch (menuItem.Text)
             {
                 case dashboard:
-                    _allDeviceView = new AllDeviceViewModel(this);
-                    CurrentView = _allDeviceView;
+                    
+                    CurrentView = _allDeviceView.CreateViewModel();
                     IsDashboardType = true;
                     break;
                 case deviceSetting:
@@ -242,8 +246,8 @@ namespace adrilight.ViewModel
         }
         public void BackToDashboard()
         {
-            _allDeviceView = new AllDeviceViewModel(this);
-            CurrentView = _allDeviceView;
+           
+            CurrentView = _allDeviceView.CreateViewModel();
             IsDashboardType = true;
             SetMenuItemActiveStatus(dashboard);
         }
@@ -252,7 +256,7 @@ namespace adrilight.ViewModel
             if (_allDeviceView != null)
             {
                 ((AllDeviceViewModel)_allDeviceView).DeleteCard(device);
-                CurrentView = _allDeviceView;
+                CurrentView = _allDeviceView.CreateViewModel();
                 IsDashboardType = true;
                 SetMenuItemActiveStatus(dashboard);
             }

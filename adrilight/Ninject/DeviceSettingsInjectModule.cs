@@ -1,7 +1,9 @@
 ﻿using adrilight.Resources;
+using adrilight.Settings;
 using adrilight.Spots;
 using adrilight.Util;
 using adrilight.ViewModel;
+using adrilight.ViewModel.Factories;
 using Ninject.Modules;
 using System;
 using System.Collections.Generic;
@@ -20,7 +22,8 @@ namespace adrilight.Ninject
             var alldevicesettings = settingsManager.LoadDeviceIfExists();
             Bind<IDesktopDuplicatorReader>().To<DesktopDuplicatorReader>().InSingletonScope();
             Bind<IGeneralSpotSet>().To<GeneralSpotSet>().InSingletonScope();
-            Bind<IGeneralSettings>().ToConstant(generalSettings);
+            Bind<IGeneralSettings>().ToConstant(generalSettings);  
+            Bind<IViewModelFactory<AllDeviceViewModel>>().To<AllDeviceViewModelFactory>().InSingletonScope();
             if (alldevicesettings!=null)
             {
                 if (alldevicesettings.Count > 0)

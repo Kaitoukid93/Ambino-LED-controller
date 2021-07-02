@@ -417,6 +417,10 @@
     <Compile Include="ViewModel\DeleteMessageDialogViewModel.cs" />
     <Compile Include="ViewModel\DeviceDetailViewModel.cs" />
     <Compile Include="ViewModel\DeviceSettingViewModel.cs" />
+    <Compile Include="ViewModel\Factories\AllDeviceViewModelFactory.cs" />
+    <Compile Include="ViewModel\Factories\IViewModelFactory.cs" />
+    <Compile Include="ViewModel\Factories\LightingViewModelFactory.cs" />
+    <Compile Include="ViewModel\Factories\ViewModelAbstractFactory.cs" />
     <Compile Include="ViewModel\FAQViewModel.cs" />
     <Compile Include="ViewModel\GeneralDeviceViewModel.cs" />
     <Compile Include="ViewModel\LightingViewModel.cs" />
