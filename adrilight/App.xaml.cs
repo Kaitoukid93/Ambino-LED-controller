@@ -225,7 +225,7 @@ namespace adrilight
             //    var devicename = i.ToString();
             //    kernel.Bind<IDeviceSettings>().ToConstant(alldevicesettings.ElementAt(i)).InThreadScope().Named(devicename);
             //}
-            kernel.Bind<LightingViewModel>().ToSelf().InSingletonScope();
+           // kernel.Bind<LightingViewModel>().ToSelf().InSingletonScope();
             kernel.Bind(x => x.FromThisAssembly()
               .SelectAllClasses()
               .InheritedFrom<ISelectableViewPart>()

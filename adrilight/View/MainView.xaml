@@ -182,27 +182,54 @@
                 </Setter>
                 
             </Style>
-            <DataTemplate DataType="{x:Type vm:AllDeviceViewModel}">
+            <DataTemplate x:Key="dashboardTemplate">
                 <local:AllDeviceView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:DeviceDetailViewModel}">
-                <local:DeviceDetail/>
+            <DataTemplate x:Key="generalTemplate">
+                <local:General/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:DeviceSettingViewModel}">
+            <DataTemplate x:Key="lightingTemplate">
+                <local:Lighting/>
+            </DataTemplate>
+            <DataTemplate x:Key="deviceSettingTemplate">
                 <local:DeviceSetting/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:AppSettingViewModel}">
+            <DataTemplate x:Key="appSettingTemplate">
                 <local:AppSetting/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:FAQViewModel}">
+            <DataTemplate x:Key="faqTemplate">
                 <local:FAQ/>
             </DataTemplate>
+            <Style x:Key="selectableContentStyle" TargetType="{x:Type ContentControl}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=SelectedVerticalMenuItem.Text}" Value="Dashboard">
+                        <Setter Property="ContentTemplate" Value="{StaticResource dashboardTemplate}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=SelectedVerticalMenuItem.Text}" Value="Device Settings">
+                        <Setter Property="ContentTemplate" Value="{StaticResource deviceSettingTemplate}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=SelectedVerticalMenuItem.Text}" Value="App Settings">
+                        <Setter Property="ContentTemplate" Value="{StaticResource appSettingTemplate}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=SelectedVerticalMenuItem.Text}" Value="FAQ">
+                        <Setter Property="ContentTemplate" Value="{StaticResource faqTemplate}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=SelectedVerticalMenuItem.Text}" Value="General">
+                        <Setter Property="ContentTemplate" Value="{StaticResource generalTemplate}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=SelectedVerticalMenuItem.Text}" Value="Lighting">
+                        <Setter Property="ContentTemplate" Value="{StaticResource lightingTemplate}" />
+                    </DataTrigger>
+                    <!--  your other Status' here -->
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
     </Window.Resources>
  
         <materialDesign:Card  Background="White" >
         <materialDesign:DialogHost Background="Transparent"
 Identifier="mainDialog"  >
+            
             <Grid Background="White"  materialDesign:ShadowAssist.ShadowDepth="Depth5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="70"></RowDefinition>
@@ -233,7 +260,9 @@ Identifier="mainDialog"  >
                             </ItemsControl.ItemsPanel>
                         </ItemsControl>
                     </StackPanel>
-                    <ContentControl Content="{Binding CurrentView}" Grid.Column="1" Margin="20" />
+                    <ContentControl Content="{Binding .,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource selectableContentStyle}" Grid.Column="1" Margin="20" >
+                      
+                    </ContentControl>
                 </Grid>
             </Grid>
 

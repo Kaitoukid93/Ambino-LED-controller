@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace adrilight.ViewModel.Factories
 {
-    class LightingViewModelFactory : IViewModelFactory<LightingViewModel>
+    class LightingViewModelFactory //: IViewModelFactory<BaseVieTwModel>
     {
         private IDeviceSettings Device;
         private IDeviceSpotSet DeviceSpotSet;
@@ -21,9 +21,9 @@ namespace adrilight.ViewModel.Factories
 
         
 
-        public LightingViewModel CreateViewModel()
-        {
-            return new LightingViewModel(Device, DeviceSpotSet, GeneralSpotSet);
-        }
+        //public LightingViewModel CreateViewModel()
+        //{
+        //    return new LightingViewModel(Device, DeviceSpotSet, GeneralSpotSet);
+        //}
     }
 }

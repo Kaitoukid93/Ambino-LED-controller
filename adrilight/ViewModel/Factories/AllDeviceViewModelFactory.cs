@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace adrilight.ViewModel.Factories
 {
-    class AllDeviceViewModelFactory : IViewModelFactory<AllDeviceViewModel>
+   public class AllDeviceViewModelFactory : IViewModelFactory<AllDeviceViewModel>
     {
         private List<IDeviceSettings> AllDevices;
         public AllDeviceViewModelFactory(List<IDeviceSettings> allDevices)

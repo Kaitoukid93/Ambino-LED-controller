@@ -410,20 +410,14 @@
     <Compile Include="ViewModel\AddNewDeviceViewModel.cs" />
     <Compile Include="ViewModel\AllDeviceViewModel.cs" />
     <Compile Include="ViewModel\AllNewDeviceViewModel.cs" />
-    <Compile Include="ViewModel\AppSettingViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\ChangeDeviceNameViewModel.cs" />
     <Compile Include="ViewModel\ChangePortViewModel.cs" />
     <Compile Include="ViewModel\DeleteMessageDialogViewModel.cs" />
-    <Compile Include="ViewModel\DeviceDetailViewModel.cs" />
-    <Compile Include="ViewModel\DeviceSettingViewModel.cs" />
     <Compile Include="ViewModel\Factories\AllDeviceViewModelFactory.cs" />
     <Compile Include="ViewModel\Factories\IViewModelFactory.cs" />
     <Compile Include="ViewModel\Factories\LightingViewModelFactory.cs" />
     <Compile Include="ViewModel\Factories\ViewModelAbstractFactory.cs" />
-    <Compile Include="ViewModel\FAQViewModel.cs" />
-    <Compile Include="ViewModel\GeneralDeviceViewModel.cs" />
-    <Compile Include="ViewModel\LightingViewModel.cs" />
     <Compile Include="ViewModel\MainViewViewModel.cs" />
     <Compile Include="ViewModel\Product.xaml.cs">
       <DependentUpon>Product.xaml</DependentUpon>
@@ -613,9 +607,6 @@
     <Compile Include="View\DeleteMessageDialog.xaml.cs">
       <DependentUpon>DeleteMessageDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\DeviceDetail.xaml.cs">
-      <DependentUpon>DeviceDetail.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\DeviceSetting.xaml.cs">
       <DependentUpon>DeviceSetting.xaml</DependentUpon>
     </Compile>
@@ -714,10 +705,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\DeleteMessageDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\DeviceDetail.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

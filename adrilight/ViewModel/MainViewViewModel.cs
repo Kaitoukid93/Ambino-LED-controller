@@ -2,16 +2,22 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using adrilight.Resources;
 using adrilight.View;
 using adrilight.ViewModel.Factories;
 using BO;
 using GalaSoft.MvvmLight;
+using MaterialDesignThemes.Wpf;
 using Newtonsoft.Json;
+using Un4seen.BassWasapi;
 
 namespace adrilight.ViewModel
 {
@@ -40,7 +46,17 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged();
             }
         }
-        
+        private VerticalMenuItem _selectedVerticalMenuItem ;
+        public VerticalMenuItem SelectedVerticalMenuItem {
+            get { return _selectedVerticalMenuItem; }
+            set
+            {
+                if (_selectedVerticalMenuItem == value) return;
+                _selectedVerticalMenuItem = value;
+                RaisePropertyChanged();
+                
+            }
+        }
         private bool _isDashboardType = true;
         public bool IsDashboardType {
             get { return _isDashboardType; }
@@ -86,7 +102,72 @@ namespace adrilight.ViewModel
             }
             
         }
+        private string _buildVersion = "";
+        public string BuildVersion {
+            get { return _buildVersion; }
+            set
+            {
+                if (_buildVersion == value) return;
+                _buildVersion = value;
+                RaisePropertyChanged();
 
+            }
+        }
+        private DateTime? _lastUpdate;
+        public DateTime? LastUpdate {
+            get { return _lastUpdate; }
+            set
+            {
+                if (_lastUpdate == value) return;
+                _lastUpdate = value;
+                RaisePropertyChanged();
+
+            }
+        }
+        private string _author = "";
+        public string Author {
+            get { return _author; }
+            set
+            {
+                if (_author == value) return;
+                _author = value;
+                RaisePropertyChanged();
+
+            }
+        }
+        private string _git = "";
+        public string Git {
+            get { return _git; }
+            set
+            {
+                if (_git == value) return;
+                _git = value;
+                RaisePropertyChanged();
+
+            }
+        }
+        private string _faq = "";
+        public string FAQ {
+            get { return _faq; }
+            set
+            {
+                if (_faq == value) return;
+                _faq = value;
+                RaisePropertyChanged();
+
+            }
+        }
+        private string _appName = "";
+        public string AppName {
+            get { return _appName; }
+            set
+            {
+                if (_appName == value) return;
+                _appName = value;
+                RaisePropertyChanged();
+
+            }
+        }
         private ViewModelBase _currentView;
         
         private ViewModelBase _detailView;
@@ -124,28 +205,250 @@ namespace adrilight.ViewModel
         }
 
         public ICommand SelectMenuItem { get; set; }
+        public ICommand BackCommand { get; set; }
         #endregion
-
+        private ObservableCollection<IDeviceSettings> _cards;
+        public ObservableCollection<IDeviceSettings> Cards {
+            get { return _cards; }
+            set
+            {
+                if (_cards == value) return;
+                _cards = value;
+                RaisePropertyChanged();
+            }
+        }
+        public ICommand SelectCardCommand { get; set; }
+        public ICommand ShowAddNewCommand { get; set; }
         private IViewModelFactory<AllDeviceViewModel> _allDeviceView;
         private bool isPreview = false;
+        private bool _isAddnew = false;
+        private string JsonDeviceNameAndPath => Path.Combine(JsonPath, "adrilight-deviceInfos.json");
+        public IList<String> _AvailableComPorts;
+        public IList<String> AvailableComPorts {
+            get
+            {
+
+
+                _AvailableComPorts = SerialPort.GetPortNames().Concat(new[] { "Không có" }).ToList();
+                _AvailableComPorts.Remove("COM1");
+
+                return _AvailableComPorts;
+            }
+        }
+        private ObservableCollection<string> _caseEffects;
+        public ObservableCollection<string> CaseEffects {
+            get { return _caseEffects; }
+            set
+            {
+                if (_caseEffects == value) return;
+                _caseEffects = value;
+                RaisePropertyChanged();
+            }
+        }
+        private ObservableCollection<CollectionItem> _collectionItm;
+        public ObservableCollection<CollectionItem> CollectionItems {
+            get { return _collectionItm; }
+            set
+            {
+                if (_collectionItm == value) return;
+                _collectionItm = value;
+                RaisePropertyChanged();
+            }
+        }
+        private ObservableCollection<string> _screenEffects;
+        public ObservableCollection<string> ScreenEffects {
+            get { return _screenEffects; }
+            set
+            {
+                if (_screenEffects == value) return;
+                _screenEffects = value;
+                RaisePropertyChanged();
+            }
+        }
+        public IGeneralSpot[] _previewSpots;
+        public IGeneralSpot[] PreviewSpots {
+            get => _previewSpots;
+            set
+            {
+                _previewSpots = value;
+                RaisePropertyChanged();
+            }
+        }
+        public IList<string> _AvailableAudioDevice = new List<string>();
+        public IList<String> AvailableAudioDevice {
+            get
+            {
+                _AvailableAudioDevice.Clear();
+                int devicecount = BassWasapi.BASS_WASAPI_GetDeviceCount();
+                string[] devicelist = new string[devicecount];
+                for (int i = 0; i < devicecount; i++)
+                {
+
+                    var devices = BassWasapi.BASS_WASAPI_GetDeviceInfo(i);
+
+                    if (devices.IsEnabled && devices.IsLoopback)
+                    {
+                        var device = string.Format("{0} - {1}", i, devices.name);
+
+                        _AvailableAudioDevice.Add(device);
+                    }
+
+                }
+
+                return _AvailableAudioDevice;
+            }
+        }
+        public int _audioDeviceID = -1;
+        public int AudioDeviceID {
+            get
+            {
+                if (CurrentDevice.SelectedAudioDevice > AvailableAudioDevice.Count)
+                {
+                    System.Windows.MessageBox.Show("Last Selected Audio Device is not Available");
+                    return -1;
+                }
+                else
+                {
+                    var currentDevice = AvailableAudioDevice.ElementAt(CurrentDevice.SelectedAudioDevice);
+
+                    var array = currentDevice.Split(' ');
+                    _audioDeviceID = Convert.ToInt32(array[0]);
+                    return _audioDeviceID;
+                }
+
+            }
+
+
+
+        }
+        public ObservableCollection<string> AvailablePalette { get; private set; }
+        public IContext Context { get; }
+        public IList<String> _AvailableDisplays;
+        public IList<String> AvailableDisplays {
+            get
+            {
+                var listDisplay = new List<String>();
+                foreach (var screen in System.Windows.Forms.Screen.AllScreens)
+                {
+
+                    listDisplay.Add(screen.DeviceName);
+                }
+                _AvailableDisplays = listDisplay;
+                return _AvailableDisplays;
+            }
+        }
+        public ISpot[] _previewGif;
+        public ISpot[] PreviewGif {
+            get => _previewGif;
+            set
+            {
+                _previewGif = value;
+                RaisePropertyChanged();
+            }
+        }
+        public ObservableCollection<string> AvailableFrequency { get; private set; }
+        public ObservableCollection<string> AvailableMusicPalette { get; private set; }
+        public ObservableCollection<string> AvailableMusicMode { get; private set; }
+        public ICommand SelectGif { get; set; }
+        public BitmapImage gifimage;
+        public Stream gifStreamSource;
+        private static int _gifFrameIndex = 0;
+        private BitmapSource _contentBitmap;
+        public BitmapSource ContentBitmap {
+            get { return _contentBitmap; }
+            set
+            {
+                if (value != _contentBitmap)
+                {
+                    _contentBitmap = value;
+                    RaisePropertyChanged(() => ContentBitmap);
+
+                }
+            }
+        }
+        GifBitmapDecoder decoder;
         public MainViewViewModel()
         {
 
 
         }
+        public void LoadCard()
+        {
+            Cards = new ObservableCollection<IDeviceSettings>();
+
+
+            var settingsmanager = new UserSettingsManager();
+            var devices = settingsmanager.LoadDeviceIfExists();
+            if (devices != null)
+            {
+                foreach (var item in devices)
+                {
+                    var deviceInfo = new DeviceSettings() {
+                        Brightness = item.Brightness,
+                        SelectedDisplay = item.SelectedDisplay,
+                        WhitebalanceRed = item.WhitebalanceRed,
+                        DeviceId = item.DeviceID,
+                        DeviceName = item.DeviceName,
+                        DevicePort = item.DevicePort,
+                        DeviceSize = item.DeviceSize,
+                        DeviceType = item.DeviceType,
+                        //  FadeEnd = item.fadeend,
+                        //  FadeStart = item.fadestart,
+                        // GifMode = item.gifmode,
+                        // GifSource = item.gifsource,
+                        IsBreathing = item.IsBreathing,
+                        IsConnected = item.IsConnected,
+                        SelectedEffect = item.SelectedEffect,
+                        SelectedMusicMode = item.SelectedMusicMode,
+                        MSens = item.MSens,
+                        SelectedAudioDevice = item.SelectedAudioDevice,
+                        SelectedPalette = item.SelectedPalette,
+                        EffectSpeed = item.EffectSpeed,
+                        StaticColor = item.StaticColor,
+                        AtmosphereStart = item.AtmosphereStart,
+                        AtmosphereStop = item.AtmosphereStop,
+                        BreathingSpeed = item.BreathingSpeed,
+                        ColorFrequency = item.ColorFrequency,
+
+                        SelectedMusicPalette = item.SelectedMusicPalette,
+                        SpotHeight = item.SpotHeight,
+                        SpotsX = item.SpotsX,
+                        SpotsY = item.SpotsY,
+                        SpotWidth = item.SpotWidth,
+                        UseLinearLighting = item.UseLinearLighting,
+                        WhitebalanceBlue = item.WhitebalanceBlue,
+
+                        WhitebalanceGreen = item.WhitebalanceGreen
+                    };
+
+                    deviceInfo.PropertyChanged += DeviceInfo_PropertyChanged;
+                    Cards.Add(deviceInfo);
+                }
+            }
+
+        }
+        private void DeviceInfo_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            //if (_isAddnew) return;
+            //_isAddnew = true;
+            //WriteJson();
+            //_isAddnew = false;
+        }
         public override  void ReadData()
         {
             LoadMenu();
             LoadMenuByType(true);
-          
+            LoadCard();
+            ReadFAQ();
             
-            CurrentView = _allDeviceView.CreateViewModel();
+            //CurrentView = _allDeviceView.CreateViewModel();
             SelectMenuItem = new RelayCommand<VerticalMenuItem>((p) => {
                 return true;
             }, (p) =>
             {
                 ChangeView(p);
             });
+            SelectedVerticalMenuItem = MenuItems.FirstOrDefault();
             SettingInfo = new SettingInfoDTO();
           var setting=  LoadSettingIfExists();
             if (setting != null)
@@ -168,6 +471,198 @@ namespace adrilight.ViewModel
             {
                 SettingInfo.PrimaryColor = Colors.White;
             }
+            SelectCardCommand = new RelayCommand<IDeviceSettings>((p) => {
+                return p != null;
+            }, (p) =>
+            {
+                this.GotoChild(p);
+            });
+            ShowAddNewCommand = new RelayCommand<IDeviceSettings>((p) => {
+                return true;
+            }, (p) =>
+            {
+                ShowAddNewDialog();
+            });
+            BackCommand = new RelayCommand<string>((p) => {
+                return true;
+            }, (p) =>
+            {
+               BackToDashboard();
+            });
+        }
+        public void ReadFAQ()
+        {
+            AppName = $"adrilight {App.VersionNumber}";
+            BuildVersion = "xxxxxxxxxxxxxxxxxxxxxxxxxxx";
+            LastUpdate = new DateTime(2020, 06, 01);
+            Author = "zOe";
+            Git = "xxxxxxx";
+            FAQ = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
+        }
+        public void ReadDataDevice()
+        {
+            SelectGif = new RelayCommand<string>((p) => {
+                return true;
+            }, (p) =>
+            {
+                OpenFileDialog gifile = new OpenFileDialog();
+                gifile.Title = "Chọn file gif";
+                gifile.CheckFileExists = true;
+                gifile.CheckPathExists = true;
+                gifile.DefaultExt = "gif";
+                gifile.Filter = "Image Files(*.gif)| *.gif";
+                gifile.FilterIndex = 2;
+                gifile.ShowDialog();
+
+                if (!string.IsNullOrEmpty(gifile.FileName) && File.Exists(gifile.FileName))
+                {
+                    var image = new BitmapImage();
+                    image.BeginInit();
+                    image.UriSource = new Uri(gifile.FileName);
+                    image.EndInit();
+                    gifimage = image;
+                    var gifilepath = gifile.FileName;
+                    gifStreamSource = new FileStream(gifilepath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                    decoder = new GifBitmapDecoder(gifStreamSource, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+                    // ImageBehavior.SetAnimatedSource(gifxel, image);
+
+
+
+                    // _controller = ImageBehavior.GetAnimationController(gifxel);
+
+                    // _controller.
+                    // image.CopyPixels
+
+                    // GifPlayPause = false;
+                    ImageProcesser.DisposeGif();
+                    ImageProcesser.DisposeStill();
+                    if (ImageProcesser.LoadGifFromDisk(gifile.FileName))
+                    {
+                        CurrentDevice.GifFilePath = gifile.FileName;
+                        //FrameToPreview();
+                        // SerialManager.PushFrame();
+                        ImageProcesser.ImageLoadState = ImageProcesser.LoadState.Gif;
+                        //ResetSliders();
+                    }
+                    else
+                    {
+                        System.Windows.MessageBox.Show("Cannot load image.");
+                    }
+
+                }
+            });
+            AvailablePalette = new ObservableCollection<string>
+       {
+           "Rainbow",
+           "Cloud",
+           "Forest",
+           "Sunset",
+           "Scarlet",
+           "Aurora",
+           "France",
+           "Lemon",
+           "Badtrip",
+           "Police",
+           "Ice and Fire",
+           "Custom"
+
+        };
+            CaseEffects = new ObservableCollection<string>
+      {
+           "Sáng theo hiệu ứng",
+           "Sáng theo màn hình",
+           "Sáng màu tĩnh",
+           "Sáng theo nhạc",
+           "Đồng bộ Mainboard",
+           "Tắt",
+           "Gifxelation",
+           "Pixelation",
+           "Ambilation"
+
+
+        };
+            ScreenEffects = new ObservableCollection<string>
+      {
+            "Sáng theo màn hình",
+           "Sáng theo dải màu",
+           "Sáng màu tĩnh",
+           "Sáng theo nhạc",
+           "Atmosphere",
+            "Gifxelation"
+        };
+            AvailableMusicPalette = new ObservableCollection<string>
+{
+           "Rainbow",
+           "Cafe",
+           "Jazz",
+           "Party",
+           "Custom"
+
+
+        };
+            AvailableFrequency = new ObservableCollection<string>
+{
+           "1",
+           "2",
+           "3",
+           "4"
+
+
+        };
+            AvailableMusicMode = new ObservableCollection<string>
+{
+          "Equalizer",
+           "VU metter",
+           "End to End",
+           "Push Pull",
+          "Symetric VU",
+          "Floating VU",
+          "Center VU",
+          "Naughty boy"
+
+        };
+          
+
+        }
+        public async void ShowAddNewDialog()
+        {
+            var vm = new ViewModel.AddNewDeviceViewModel();
+            var view = new View.AddNewDevice();
+            view.DataContext = vm;
+            bool addResult = (bool)(await DialogHost.Show(view, "mainDialog"));
+            if (addResult)
+            {
+                try
+                {
+                    vm.Device.PropertyChanged += DeviceInfo_PropertyChanged;
+                    _isAddnew = true;
+                      Cards.Add(vm.Device);
+                    WriteJson();
+                    _isAddnew = false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+               
+            }
+        }
+        public void DeleteCard(IDeviceSettings deviceInfo)
+        {
+            Cards.Remove(deviceInfo);
+            WriteJson();
+        }
+
+        public void WriteJson()
+        {
+            var devices = new List<IDeviceSettings>();
+            foreach (var item in Cards)
+            {
+                devices.Add(item);
+            }
+            var json = JsonConvert.SerializeObject(devices, Formatting.Indented);
+            Directory.CreateDirectory(JsonPath);
+            File.WriteAllText(JsonDeviceNameAndPath, json);
         }
         public void WriteSettingJson()
         {
@@ -191,43 +686,48 @@ namespace adrilight.ViewModel
         /// <param name="menuItem"></param>
         public void ChangeView(VerticalMenuItem menuItem)
         {
-            switch (menuItem.Text)
+            SelectedVerticalMenuItem = menuItem;
+            //switch (menuItem.Text)
+            //{
+            //    case dashboard:
+
+            //        CurrentView = _allDeviceView.CreateViewModel();
+            //        IsDashboardType = true;
+            //        break;
+            //    case deviceSetting:
+            //        _deviceSettingView = new DeviceSettingViewModel(this,SettingInfo);
+            //        CurrentView = _deviceSettingView;
+            //        IsDashboardType = true;
+            //        break;
+            //    case appSetting:
+            //        _appSettingView = new AppSettingViewModel(this, SettingInfo);
+            //        CurrentView = _appSettingView;
+            //        IsDashboardType = true; 
+            //        break;
+            //    case faq:
+            //        _faqSettingView = new FAQViewModel();
+            //        CurrentView = _faqSettingView;
+            //        IsDashboardType = true; 
+            //        break;
+            //    case general:
+            //        _detailView = new DeviceDetailViewModel(CurrentDevice,this,SettingInfo);
+            //        CurrentView = _detailView;
+            //        IsDashboardType = false;
+
+            //        break;
+            //    case lighting:
+            //        if (_detailView==null)
+            //            _detailView = new DeviceDetailViewModel(CurrentDevice,this, SettingInfo);
+            //        ((DeviceDetailViewModel)_detailView).TabType = DeviceTab.Lighting;
+            //        CurrentView = _detailView;
+            //        IsDashboardType = false;
+            //        break;
+            //    default:
+            //        break;
+            //}
+            if (menuItem.Text == lighting)
             {
-                case dashboard:
-                    
-                    CurrentView = _allDeviceView.CreateViewModel();
-                    IsDashboardType = true;
-                    break;
-                case deviceSetting:
-                    _deviceSettingView = new DeviceSettingViewModel(this,SettingInfo);
-                    CurrentView = _deviceSettingView;
-                    IsDashboardType = true;
-                    break;
-                case appSetting:
-                    _appSettingView = new AppSettingViewModel(this, SettingInfo);
-                    CurrentView = _appSettingView;
-                    IsDashboardType = true; 
-                    break;
-                case faq:
-                    _faqSettingView = new FAQViewModel();
-                    CurrentView = _faqSettingView;
-                    IsDashboardType = true; 
-                    break;
-                case general:
-                    _detailView = new DeviceDetailViewModel(CurrentDevice,this,SettingInfo);
-                    CurrentView = _detailView;
-                    IsDashboardType = false;
-                  
-                    break;
-                case lighting:
-                    if (_detailView==null)
-                        _detailView = new DeviceDetailViewModel(CurrentDevice,this, SettingInfo);
-                    ((DeviceDetailViewModel)_detailView).TabType = DeviceTab.Lighting;
-                    CurrentView = _detailView;
-                    IsDashboardType = false;
-                    break;
-                default:
-                    break;
+                ReadDataDevice();
             }
             SetMenuItemActiveStatus(menuItem.Text);
         }
@@ -238,28 +738,28 @@ namespace adrilight.ViewModel
         }
         public void GotoChild(IDeviceSettings card)
         {
-            _detailView = new DeviceDetailViewModel(card, this,SettingInfo);
-            CurrentView = _detailView;
+            //  _detailView = new DeviceDetailViewModel(card, this,SettingInfo);
+            //CurrentView = _detailView;
+            SelectedVerticalMenuItem = MenuItems.FirstOrDefault(t => t.Text == general);
             IsDashboardType = false;
             CurrentDevice = card;
             SetMenuItemActiveStatus(general);
         }
         public void BackToDashboard()
         {
-           
-            CurrentView = _allDeviceView.CreateViewModel();
+
+            //CurrentView = _allDeviceView.CreateViewModel();
             IsDashboardType = true;
+            SelectedVerticalMenuItem = MenuItems.FirstOrDefault();
             SetMenuItemActiveStatus(dashboard);
         }
         public void BackToDashboardAndDelete(IDeviceSettings device)
         {
-            if (_allDeviceView != null)
-            {
-                ((AllDeviceViewModel)_allDeviceView).DeleteCard(device);
-                CurrentView = _allDeviceView.CreateViewModel();
-                IsDashboardType = true;
-                SetMenuItemActiveStatus(dashboard);
-            }
+            Cards.Remove(device);
+            //CurrentView = _allDeviceView.CreateViewModel();
+            IsDashboardType = true;
+            SelectedVerticalMenuItem = MenuItems.FirstOrDefault();
+            SetMenuItemActiveStatus(dashboard);
         }
         /// <summary>
         /// Load vertical menu

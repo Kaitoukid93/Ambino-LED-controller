@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace adrilight.ViewModel.Factories
 {
-    class ViewModelAbstractFactory : IAllDeviceViewModelFactory
-    {
-        public IViewModelFactory<AllDeviceViewModel> _alldevice;
+    //class ViewModelAbstractFactory : AllDeviceViewModelFactory
+    //{
+    //    //public IViewModelFactory<AllDeviceViewModel> _alldevice;
 
-        public ViewModelAbstractFactory(IViewModelFactory<AllDeviceViewModel> alldevice)
-        {
-            _alldevice = alldevice;
-        }
-        public ViewModelBase create ()
-        {
-            return _alldevice.CreateViewModel();
-        }
-    }
+    //    //public ViewModelAbstractFactory(IViewModelFactory<AllDeviceViewModel> alldevice)
+    //    //{
+    //    //    _alldevice = alldevice;
+    //    //}
+    //    //public ViewModelBase create ()
+    //    //{
+    //    //    return _alldevice.CreateViewModel();
+    //    //}
+    //}
 }
