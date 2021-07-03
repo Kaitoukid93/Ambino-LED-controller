@@ -38,6 +38,7 @@ using Microsoft.Extensions.DependencyInjection;
 using BO;
 using adrilight.Ninject;
 using adrilight.Spots;
+using adrilight.Settings;
 
 namespace adrilight
 {
@@ -135,6 +136,8 @@ namespace adrilight
             _log.Debug($"adrilight {VersionNumber}: Main() started.");
             kernel = SetupDependencyInjection(false);
 
+            
+
             this.Resources["Locator"] = new ViewModelLocator(kernel);
 
 
@@ -145,14 +148,16 @@ namespace adrilight
 
             SetupNotifyIcon();
 
-          //  if (!UserSettings.StartMinimized)
-           // {
-                // OpenSettingsWindow();
-                OpenNewUI();
-          //  }
+            //  if (!UserSettings.StartMinimized)
+            // {
+            // OpenSettingsWindow();
+            // OpenNewUI();
+            //  }
+            
+            Current.MainWindow = kernel.Get<MainView>();
+            Current.MainWindow.Show();
 
-
-           // kernel.Get<AdrilightUpdater>().StartThread();
+            // kernel.Get<AdrilightUpdater>().StartThread();
 
             SetupTrackingForProcessWideEvents(_telemetryClient);
         }
@@ -231,6 +236,7 @@ namespace adrilight
               .InheritedFrom<ISelectableViewPart>()
               .BindAllInterfaces());
             var desktopDuplicationReader = kernel.Get<IDesktopDuplicatorReader>();
+            kernel.Bind<MainViewModel>().ToSelf();
             if(alldevicesettings!=null)
             {
                 for (var i = 0; i < alldevicesettings.Count; i++)
@@ -248,10 +254,10 @@ namespace adrilight
 
 
                     // var spotset = kernel.Get<ISpotSet>(i.ToString());
-                    var spotSetReader = kernel.Get<ISpotSetReader>(i.ToString());
-                    var serialStream = kernel.Get<ISerialStream>(i.ToString());
+                   // var spotSetReader = kernel.Get<ISpotSetReader>(i.ToString());
+                   // var serialStream = kernel.Get<ISerialStream>(i.ToString());
                     // var staticColor = kernel.Get<IStaticColor>(i.ToString());
-                     var rainbow = kernel.Get<IRainbow>(i.ToString());
+                    // var rainbow = kernel.Get<IRainbow>(i.ToString());
                     // var music = kernel.Get<IMusic>(i.ToString());
                     //  var atmosphere = kernel.Get<IAtmosphere>(i.ToString());
 
@@ -260,6 +266,7 @@ namespace adrilight
 
             }
 
+           
             //kernel.Bind<MainViewViewModel>().ToSelf().InSingletonScope();
 
             //  var rainbow = kernel.Get<IRainbow>();

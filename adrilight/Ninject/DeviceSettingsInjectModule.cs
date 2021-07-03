@@ -32,7 +32,7 @@ namespace adrilight.Ninject
                     {
                         var devicename = i.ToString();
 
-                        Bind<IDeviceSettings>().ToConstant(alldevicesettings.ElementAt(i)).WhenParentNamed(devicename).InSingletonScope().Named(devicename);
+                        Bind<IDeviceSettings>().ToConstant(alldevicesettings.ElementAt(i)).InSingletonScope();
                         Bind<IContext>().To<WpfContext>().InTransientScope().Named(devicename);
                         Bind<IDeviceSpotSet>().To<DeviceSpotSet>().WhenParentNamed(devicename).InSingletonScope().Named(devicename);
                         Bind<ISpotSetReader>().To<SpotSetReader>().InSingletonScope().Named(devicename);

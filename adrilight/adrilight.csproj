@@ -367,8 +367,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Settings\AllDeviceSettings.cs" />
     <Compile Include="Settings\GeneralSettings.cs" />
     <Compile Include="Settings\DeviceSettings.cs" />
+    <Compile Include="Settings\IAllDeviceSettings.cs" />
     <Compile Include="Settings\IGeneralSettings.cs" />
     <Compile Include="Settings\IDeviceSettings.cs" />
     <Compile Include="Settings\IEffect.cs" />

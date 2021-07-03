@@ -17,6 +17,7 @@ using BO;
 using GalaSoft.MvvmLight;
 using MaterialDesignThemes.Wpf;
 using Newtonsoft.Json;
+using Ninject;
 using Un4seen.BassWasapi;
 
 namespace adrilight.ViewModel
@@ -217,6 +218,9 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged();
             }
         }
+       // [Inject, Named("0")]
+       // public IDeviceSettings Card1 { get; set; }
+
         public ICommand SelectCardCommand { get; set; }
         public ICommand ShowAddNewCommand { get; set; }
         private IViewModelFactory<AllDeviceViewModel> _allDeviceView;
@@ -367,64 +371,72 @@ namespace adrilight.ViewModel
             }
         }
         GifBitmapDecoder decoder;
-        public MainViewViewModel()
+        ObservableCollection<IDeviceSettings> Cardss { get; set; }
+        public MainViewViewModel(IDeviceSettings[] cards)
         {
+            Cards = new ObservableCollection<IDeviceSettings>();
+            foreach(IDeviceSettings card in cards)
+            {
+                Cards.Add(card);
+            }
+            
 
 
         }
         public void LoadCard()
         {
-            Cards = new ObservableCollection<IDeviceSettings>();
+            //Cards = new ObservableCollection<IDeviceSettings>();
+           // Cards.Add(Card1);
 
 
-            var settingsmanager = new UserSettingsManager();
-            var devices = settingsmanager.LoadDeviceIfExists();
-            if (devices != null)
-            {
-                foreach (var item in devices)
-                {
-                    var deviceInfo = new DeviceSettings() {
-                        Brightness = item.Brightness,
-                        SelectedDisplay = item.SelectedDisplay,
-                        WhitebalanceRed = item.WhitebalanceRed,
-                        DeviceId = item.DeviceID,
-                        DeviceName = item.DeviceName,
-                        DevicePort = item.DevicePort,
-                        DeviceSize = item.DeviceSize,
-                        DeviceType = item.DeviceType,
-                        //  FadeEnd = item.fadeend,
-                        //  FadeStart = item.fadestart,
-                        // GifMode = item.gifmode,
-                        // GifSource = item.gifsource,
-                        IsBreathing = item.IsBreathing,
-                        IsConnected = item.IsConnected,
-                        SelectedEffect = item.SelectedEffect,
-                        SelectedMusicMode = item.SelectedMusicMode,
-                        MSens = item.MSens,
-                        SelectedAudioDevice = item.SelectedAudioDevice,
-                        SelectedPalette = item.SelectedPalette,
-                        EffectSpeed = item.EffectSpeed,
-                        StaticColor = item.StaticColor,
-                        AtmosphereStart = item.AtmosphereStart,
-                        AtmosphereStop = item.AtmosphereStop,
-                        BreathingSpeed = item.BreathingSpeed,
-                        ColorFrequency = item.ColorFrequency,
+            //var settingsmanager = new UserSettingsManager();
+            //var devices = settingsmanager.LoadDeviceIfExists();
+            //if (devices != null)
+            //{
+            //    foreach (var item in devices)
+            //    {
+            //        var deviceInfo = new DeviceSettings() {
+            //            Brightness = item.Brightness,
+            //            SelectedDisplay = item.SelectedDisplay,
+            //            WhitebalanceRed = item.WhitebalanceRed,
+            //            DeviceId = item.DeviceID,
+            //            DeviceName = item.DeviceName,
+            //            DevicePort = item.DevicePort,
+            //            DeviceSize = item.DeviceSize,
+            //            DeviceType = item.DeviceType,
+            //            //  FadeEnd = item.fadeend,
+            //            //  FadeStart = item.fadestart,
+            //            // GifMode = item.gifmode,
+            //            // GifSource = item.gifsource,
+            //            IsBreathing = item.IsBreathing,
+            //            IsConnected = item.IsConnected,
+            //            SelectedEffect = item.SelectedEffect,
+            //            SelectedMusicMode = item.SelectedMusicMode,
+            //            MSens = item.MSens,
+            //            SelectedAudioDevice = item.SelectedAudioDevice,
+            //            SelectedPalette = item.SelectedPalette,
+            //            EffectSpeed = item.EffectSpeed,
+            //            StaticColor = item.StaticColor,
+            //            AtmosphereStart = item.AtmosphereStart,
+            //            AtmosphereStop = item.AtmosphereStop,
+            //            BreathingSpeed = item.BreathingSpeed,
+            //            ColorFrequency = item.ColorFrequency,
 
-                        SelectedMusicPalette = item.SelectedMusicPalette,
-                        SpotHeight = item.SpotHeight,
-                        SpotsX = item.SpotsX,
-                        SpotsY = item.SpotsY,
-                        SpotWidth = item.SpotWidth,
-                        UseLinearLighting = item.UseLinearLighting,
-                        WhitebalanceBlue = item.WhitebalanceBlue,
+            //            SelectedMusicPalette = item.SelectedMusicPalette,
+            //            SpotHeight = item.SpotHeight,
+            //            SpotsX = item.SpotsX,
+            //            SpotsY = item.SpotsY,
+            //            SpotWidth = item.SpotWidth,
+            //            UseLinearLighting = item.UseLinearLighting,
+            //            WhitebalanceBlue = item.WhitebalanceBlue,
 
-                        WhitebalanceGreen = item.WhitebalanceGreen
-                    };
+            //            WhitebalanceGreen = item.WhitebalanceGreen
+            //        };
 
-                    deviceInfo.PropertyChanged += DeviceInfo_PropertyChanged;
-                    Cards.Add(deviceInfo);
-                }
-            }
+            //        deviceInfo.PropertyChanged += DeviceInfo_PropertyChanged;
+            //        Cards.Add(deviceInfo);
+            //    }
+            //}
 
         }
         private void DeviceInfo_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -438,7 +450,7 @@ namespace adrilight.ViewModel
         {
             LoadMenu();
             LoadMenuByType(true);
-            LoadCard();
+            
             ReadFAQ();
             
             //CurrentView = _allDeviceView.CreateViewModel();
