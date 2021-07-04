@@ -100,13 +100,13 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel  Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Column="0" >
-            <Button Style="{StaticResource btnCharacter}" Width="67" Height="67" Content="{Binding  Card.StartCharacter}" Margin="10,0,10,0" Tag="{Binding Card.IsConnected}"></Button>
+            <Button Style="{StaticResource btnCharacter}" Width="67" Height="67" Content="{Binding  CurrentDevice.StartCharacter}" Margin="10,0,10,0" Tag="{Binding CurrentDevice.IsConnected}"></Button>
             <StackPanel Width="513">
-                <TextBlock Style="{StaticResource tbHeadingStyle}"  Text="{Binding Card.DeviceName}"></TextBlock>
+                <TextBlock Style="{StaticResource tbHeadingStyle}"  Text="{Binding CurrentDevice.DeviceName}"></TextBlock>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding Card.DeviceType}" ></TextBlock>
+                    <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding CurrentDevice.DeviceType}" ></TextBlock>
                     <TextBlock Style="{StaticResource tbHeading3Style}">-</TextBlock>
-                    <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding Card.DevicePort}" ></TextBlock>
+                    <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding CurrentDevice.DevicePort}" ></TextBlock>
                 </StackPanel>
             </StackPanel>
             <Button  Style="{StaticResource btnCloseStyle}" HorizontalAlignment="Right"   Width="37" Height="37" Command="{Binding DeleteCommand }" Margin="10,16.5"/>

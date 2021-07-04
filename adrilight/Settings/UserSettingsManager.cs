@@ -59,7 +59,6 @@ namespace adrilight
            
             var generalSettings = new GeneralSettings();
             generalSettings.PropertyChanged += (_, __) => SaveSettings(generalSettings);
-
             var legacyPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "adrilight");
             if (!Directory.Exists(legacyPath)) return generalSettings;
 

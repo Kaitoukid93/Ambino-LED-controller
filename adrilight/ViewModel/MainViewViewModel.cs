@@ -371,7 +371,7 @@ namespace adrilight.ViewModel
             }
         }
         GifBitmapDecoder decoder;
-        ObservableCollection<IDeviceSettings> Cardss { get; set; }
+       
         public MainViewViewModel(IDeviceSettings[] cards)
         {
             Cards = new ObservableCollection<IDeviceSettings>();

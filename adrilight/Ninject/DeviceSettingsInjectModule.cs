@@ -28,20 +28,20 @@ namespace adrilight.Ninject
             {
                 if (alldevicesettings.Count > 0)
                 {
-                    for (var i = 0; i < alldevicesettings.Count; i++)
+                    foreach (var devicesetting in alldevicesettings)
                     {
-                        var devicename = i.ToString();
+                        var devicename = devicesetting.DeviceName;
 
-                        Bind<IDeviceSettings>().ToConstant(alldevicesettings.ElementAt(i)).InSingletonScope();
-                        Bind<IContext>().To<WpfContext>().InTransientScope().Named(devicename);
-                        Bind<IDeviceSpotSet>().To<DeviceSpotSet>().WhenParentNamed(devicename).InSingletonScope().Named(devicename);
-                        Bind<ISpotSetReader>().To<SpotSetReader>().InSingletonScope().Named(devicename);
-                        Bind<ISerialStream>().To<SerialStream>().InSingletonScope().Named(devicename);
-                      //  Bind<LightingViewModel>().ToSelf().InSingletonScope().Named(devicename);
-                        Bind<IStaticColor>().To<StaticColor>().InTransientScope().Named(devicename);
-                        Bind<IRainbow>().To<Rainbow>().InTransientScope().Named(devicename);
-                        Bind<IMusic>().To<Music>().InTransientScope().Named(devicename);
-                        Bind<IAtmosphere>().To<Atmosphere>().InTransientScope().Named(devicename);
+                        Bind<IDeviceSettings>().ToConstant(devicesetting).Named(devicename);
+                      //  Bind<IContext>().To<WpfContext>().InTransientScope().Named(devicename);
+                      //  Bind<IDeviceSpotSet>().To<DeviceSpotSet>().InSingletonScope().Named(devicename);
+                      //  Bind<ISpotSetReader>().To<SpotSetReader>().InSingletonScope().Named(devicename);
+                      //  Bind<ISerialStream>().To<SerialStream>().InSingletonScope().Named(devicename);
+                      ////  Bind<LightingViewModel>().ToSelf().InSingletonScope().Named(devicename);
+                      //  Bind<IStaticColor>().To<StaticColor>().InTransientScope().Named(devicename);
+                      //  Bind<IRainbow>().To<Rainbow>().InTransientScope().Named(devicename);
+                      //  Bind<IMusic>().To<Music>().InTransientScope().Named(devicename);
+                      //  Bind<IAtmosphere>().To<Atmosphere>().InTransientScope().Named(devicename);
 
 
                     }

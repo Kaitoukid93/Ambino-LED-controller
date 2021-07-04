@@ -35,13 +35,13 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel  Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Column="0" >
-            <Button Style="{StaticResource btnCharacter}" Width="67" Height="67" Content="{Binding  Card.StartCharacter}" Margin="10,0,10,0" Tag="{Binding Card.IsConnected}"></Button>
+            <Button Style="{StaticResource btnCharacter}" Width="67" Height="67" Content="{Binding  CurrentDevice.StartCharacter}" Margin="10,0,10,0" Tag="{Binding CurrentDevice.IsConnected}"></Button>
             <StackPanel Width="513">
-                <TextBlock Style="{StaticResource tbHeadingStyle}"  Text="{Binding Card.DeviceName}"></TextBlock>
+                <TextBlock Style="{StaticResource tbHeadingStyle}"  Text="{Binding CurrentDevice.DeviceName}"></TextBlock>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding Card.DeviceType}" ></TextBlock>
+                    <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding CurrentDevice.DeviceType}" ></TextBlock>
                     <TextBlock Style="{StaticResource tbHeading3Style}">-</TextBlock>
-                    <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding Card.DevicePort}" ></TextBlock>
+                    <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding CurrentDevice.DevicePort}" ></TextBlock>
                 </StackPanel>
             </StackPanel>
             <Button  Style="{StaticResource btnCloseStyle}" HorizontalAlignment="Right"   Width="37" Height="37" Command="{Binding DeleteCommand }" Margin="10,16.5"/>
@@ -65,7 +65,7 @@
                         <TextBlock   Style="{StaticResource tbHeading4Style}">COM Port</TextBlock>
                     </Border>
                     <Border Grid.Column="1">
-                        <ComboBox Height="37" ItemsSource="{Binding AvailableComPorts}" Width="217" Text="{Binding Card.DevicePort}" IsSynchronizedWithCurrentItem="True" IsEditable="False">
+                        <ComboBox Height="37" ItemsSource="{Binding AvailableComPorts}" Width="217" Text="{Binding CurrentDevice.DevicePort}" IsSynchronizedWithCurrentItem="True" IsEditable="False">
 
                         </ComboBox>
                     </Border>
@@ -73,13 +73,13 @@
                         <TextBlock   Style="{StaticResource tbHeading4Style}">Tên thiết bị</TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="1">
-                        <TextBox Text="{Binding Card.DeviceName}" Width="217" Height="37"></TextBox>
+                        <TextBox Text="{Binding CurrentDevice.DeviceName}" Width="217" Height="37"></TextBox>
                     </Border>
                     <Border Grid.Row="2">
                         <TextBlock   Style="{StaticResource tbHeading4Style}">Brightness</TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="2">
-                        <Slider TickFrequency="5"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="100" Value="{Binding Card.Brightness}" />
+                        <Slider TickFrequency="5"  VerticalAlignment="Center" Margin="5,0,5,0" Orientation="Horizontal" Minimum="1" Maximum="100" Value="{Binding CurrentDevice.Brightness}" />
                     </Border>
 
                 </Grid>

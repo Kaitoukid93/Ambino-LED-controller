@@ -16,6 +16,7 @@ using NLog;
 using System.Threading.Tasks;
 using BO;
 using adrilight.Spots;
+using Ninject;
 
 namespace adrilight
 {
@@ -31,6 +32,7 @@ namespace adrilight
         {
             DeviceSettings = deviceSettings ?? throw new ArgumentNullException(nameof(deviceSettings));
             DeviceSpotSet = deviceSpotSet ?? throw new ArgumentNullException(nameof(deviceSpotSet));
+            
           //  SettingsViewModel = viewViewModel ?? throw new ArgumentNullException(nameof(viewViewModel));
             settingInfo = setting ?? throw new ArgumentNullException(nameof(setting));
             DeviceSettings.PropertyChanged += PropertyChanged;
@@ -44,13 +46,13 @@ namespace adrilight
         {
 
         }
-
+        
         private IDeviceSettings DeviceSettings { get; }
        // private LightingViewModel SettingsViewModel { get; }
         private SettingInfoDTO settingInfo { get; }
         public bool IsRunning { get; private set; } = false;
         private CancellationTokenSource _cancellationTokenSource;
-
+        
         private void PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
