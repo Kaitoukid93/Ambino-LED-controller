@@ -24,25 +24,20 @@ namespace adrilight
     {
         private ILogger _log = LogManager.GetCurrentClassLogger();
 
-        public SerialStream(IDeviceSettings userSettings, IDeviceSpotSet spotSet)
+        public SerialStream(IDeviceSettings deviceSettings, IDeviceSpotSet deviceSpotSet)
         {
-            UserSettings = userSettings ?? throw new ArgumentNullException(nameof(userSettings));
-            DeviceSpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
-
-
-            UserSettings.PropertyChanged += UserSettings_PropertyChanged;
-            // ScanSerialPort();
+            DeviceSettings = deviceSettings ?? throw new ArgumentNullException(nameof(deviceSettings));
+            DeviceSpotSet = deviceSpotSet ?? throw new ArgumentNullException(nameof(deviceSpotSet));
+            DeviceSettings.PropertyChanged += UserSettings_PropertyChanged;
             RefreshTransferState();
 
             _log.Info($"SerialStream created.");
 
-            //if (!IsValid())
-            //{
-            //    UserSettings.TransferActive = false;
-            //    UserSettings.ComPort = null;
-            //}
+            
         }
-
+        //Dependency Injection//
+        private IDeviceSettings DeviceSettings { get; }
+        private IDeviceSpotSet DeviceSpotSet { get; }
         private bool CheckSerialPort(string serialport)
         {
             Stop();//stop current serial stream first to avoid access denied
@@ -104,40 +99,37 @@ namespace adrilight
         {
             switch (e.PropertyName)
             {
-                case nameof(UserSettings.TransferActive):
-                case nameof(UserSettings.DevicePort):
-                case nameof(UserSettings.StaticColor):
-
-
+                case nameof(DeviceSettings.TransferActive):
+                case nameof(DeviceSettings.DevicePort):
                     RefreshTransferState();
                     break;
             }
         }
 
-        public bool IsValid() => SerialPort.GetPortNames().Contains(UserSettings.DevicePort) || UserSettings.DevicePort == "Không có";
+        public bool IsValid() => SerialPort.GetPortNames().Contains(DeviceSettings.DevicePort) || DeviceSettings.DevicePort == "Không có";
         // public bool IsAcess() => !BlockedComport.Contains(UserSettings.ComPort);
         // public IList<string> BlockedComport = new List<string>();
 
         private void RefreshTransferState()
         {
 
-            if (UserSettings.TransferActive)
+            if (DeviceSettings.TransferActive)
             {
-                if (IsValid() && CheckSerialPort(UserSettings.DevicePort))
+                if (IsValid() && CheckSerialPort(DeviceSettings.DevicePort))
                 {
 
                     //start it
-                    _log.Debug("starting the serial stream for device Name : " + UserSettings.DeviceName);
+                    _log.Debug("starting the serial stream for device Name : " + DeviceSettings.DeviceName);
                     Start();
                 }
                 else
                 {
-                    UserSettings.TransferActive = false;
-                    UserSettings.DevicePort = null;
+                    DeviceSettings.TransferActive = false;
+                    DeviceSettings.DevicePort = null;
                 }
             }
 
-            else if (!UserSettings.TransferActive && IsRunning)
+            else if (!DeviceSettings.TransferActive && IsRunning)
             {
                 //stop it
                 _log.Debug("stopping the serial stream");
@@ -192,8 +184,7 @@ namespace adrilight
 
         public bool IsRunning => _workerThread != null && _workerThread.IsAlive;
 
-        private IDeviceSettings UserSettings { get; }
-        private IDeviceSpotSet DeviceSpotSet { get; }
+        
 
 
 
@@ -221,8 +212,8 @@ namespace adrilight
                 ///device param///
                 ///numleds/////đây là thiết bị dạng led màn hình có số led chiều dọc và chiều ngang, tổng số led sẽ là (dọc-1)*2+(ngang-1)*2///
                 //////2 byte ngay tiếp sau Preamable là để ghép lại thành 1 số 16bit (vì số led có thể lớn hơn 255 nhiều) vi điều khiển sẽ dựa vào số led này để biết cần đọc bao nhiêu byte nữa///
-                byte lo = (byte)(((UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2) & 0xff);
-                byte hi = (byte)((((UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2) >> 8) & 0xff);
+                byte lo = (byte)(((DeviceSettings.SpotsX - 1) * 2 + (DeviceSettings.SpotsY - 1) * 2) & 0xff);
+                byte hi = (byte)((((DeviceSettings.SpotsX - 1) * 2 + (DeviceSettings.SpotsY - 1) * 2) >> 8) & 0xff);
                 outputStream[counter++] = hi;
                 outputStream[counter++] = lo;
 
@@ -290,8 +281,8 @@ namespace adrilight
                 ///device param///
                 ///numleds/////đây là thiết bị dạng led màn hình có số led chiều dọc và chiều ngang, tổng số led sẽ là (dọc-1)*2+(ngang-1)*2///
                 //////2 byte ngay tiếp sau Preamable là để ghép lại thành 1 số 16bit (vì số led có thể lớn hơn 255 nhiều) vi điều khiển sẽ dựa vào số led này để biết cần đọc bao nhiêu byte nữa///
-                byte lo = (byte)(((UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2) & 0xff);
-                byte hi = (byte)((((UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2) >> 8) & 0xff);
+                byte lo = (byte)(((DeviceSettings.SpotsX - 1) * 2 + (DeviceSettings.SpotsY - 1) * 2) & 0xff);
+                byte hi = (byte)((((DeviceSettings.SpotsX - 1) * 2 + (DeviceSettings.SpotsY - 1) * 2) >> 8) & 0xff);
                 outputStream[counter++] = hi;
                 outputStream[counter++] = lo;
 
@@ -310,16 +301,11 @@ namespace adrilight
                 foreach (DeviceSpot spot in DeviceSpotSet.Spots)
                 {
 
-                    outputStream[counter++] = UserSettings.SnapShot[snapshotCounter++]; // blue
-                    outputStream[counter++] = UserSettings.SnapShot[snapshotCounter++]; // green
-                    outputStream[counter++] = UserSettings.SnapShot[snapshotCounter++]; // red
+                    outputStream[counter++] = DeviceSettings.SnapShot[snapshotCounter++]; // blue
+                    outputStream[counter++] = DeviceSettings.SnapShot[snapshotCounter++]; // green
+                    outputStream[counter++] = DeviceSettings.SnapShot[snapshotCounter++]; // red
 
                     allBlack = allBlack && spot.Red == 0 && spot.Green == 0 && spot.Blue == 0;
-
-
-
-
-
 
 
                 }
@@ -344,7 +330,7 @@ namespace adrilight
             ISerialPortWrapper serialPort = null;
 
 
-            if (String.IsNullOrEmpty(UserSettings.DevicePort))
+            if (String.IsNullOrEmpty(DeviceSettings.DevicePort))
             {
                 _log.Warn("Cannot start the serial sending because the comport is not selected.");
                 return;
@@ -366,14 +352,14 @@ namespace adrilight
                     while (!cancellationToken.IsCancellationRequested)
                     {
                         //open or change the serial port
-                        if (openedComPort != UserSettings.DevicePort)
+                        if (openedComPort != DeviceSettings.DevicePort)
                         {
                             serialPort?.Close();
-                            serialPort = UserSettings.DevicePort != "Không có" ? (ISerialPortWrapper)new WrappedSerialPort(new SerialPort(UserSettings.DevicePort, baudRate)) : new FakeSerialPort();
+                            serialPort = DeviceSettings.DevicePort != "Không có" ? (ISerialPortWrapper)new WrappedSerialPort(new SerialPort(DeviceSettings.DevicePort, baudRate)) : new FakeSerialPort();
                            // serialPort.DisableDtr();
                            // serialPort.DisableRts();
                             serialPort.Open();
-                            openedComPort = UserSettings.DevicePort;
+                            openedComPort = DeviceSettings.DevicePort;
 
                         }
                         //send frame data
@@ -405,7 +391,7 @@ namespace adrilight
                         if (++frameCounter == 1024 && blackFrameCounter > 1000)
                         {
                             //there is maybe something wrong here because most frames where black. report it once per run only
-                            var settingsJson = JsonConvert.SerializeObject(UserSettings, Formatting.None);
+                            var settingsJson = JsonConvert.SerializeObject(DeviceSettings, Formatting.None);
                             _log.Info($"Sent {frameCounter} frames already. {blackFrameCounter} were completely black. Settings= {settingsJson}");
                         }
                         ArrayPool<byte>.Shared.Return(outputBuffer);

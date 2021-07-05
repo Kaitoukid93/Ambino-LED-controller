@@ -29,21 +29,6 @@ namespace adrilight.Util
 
                 }
 
-            //apply current brightness
-           // paletteOutput = Brightness.applyBrightness(paletteOutput, currentBrightness);
-
-            //finally display rectangle to canvans
-           // Rainbow.fillRectFromColor(paletteOutput, playground, numLED);
-
-            //if(isMoving)
-            //{
-            //    hueStart += 0.1;
-            //    if(hueStart==hueStop)
-            //    {
-            //        hue
-            //    }
-            //}
-
         }
 
 

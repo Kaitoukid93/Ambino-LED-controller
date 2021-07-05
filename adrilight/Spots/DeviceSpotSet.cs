@@ -14,9 +14,9 @@ namespace adrilight
     {
         private ILogger _log = LogManager.GetCurrentClassLogger();
 
-        public DeviceSpotSet(IDeviceSettings userSettings, IGeneralSettings generalSettings)
+        public DeviceSpotSet(IDeviceSettings deviceSettings, IGeneralSettings generalSettings)
         {
-            DeviceSettings = userSettings ?? throw new ArgumentNullException(nameof(userSettings));
+            DeviceSettings = deviceSettings ?? throw new ArgumentNullException(nameof(deviceSettings));
             GeneralSettings = generalSettings ?? throw new ArgumentNullException(nameof(generalSettings));
 
             DeviceSettings.PropertyChanged += (_, e) => DecideRefresh(e.PropertyName);

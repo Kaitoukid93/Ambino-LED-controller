@@ -3,7 +3,7 @@ using Color = System.Windows.Media.Color;
 
 namespace adrilight.Spots
 {
-    interface IDeviceSpot
+    public interface IDeviceSpot
     {
         byte Red { get; }
         byte Green { get; }

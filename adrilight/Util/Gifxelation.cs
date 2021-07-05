@@ -14,28 +14,28 @@ using System.Windows.Threading;
 using System.Windows;
 using System.Runtime.InteropServices;
 using System.Drawing;
-using BO;
+using adrilight.Spots;
 
 namespace adrilight.Util
 {
-    internal class Gifxelation : IGifxelation, IDisposable
+    internal class Gifxelation : IGifxelation
     {
 
 
         private readonly NLog.ILogger _log = LogManager.GetCurrentClassLogger();
-        private Thread _workerThread;
+
 
         private static WriteableBitmap MatrixBitmap { get; set; }
-        public Gifxelation(IDeviceSettings device, ISpotSet spotSet, MainViewViewModel viewModel, SettingInfoDTO setting)
+        public Gifxelation(IDeviceSettings deviceSettings, IDeviceSpotSet deviceSpotSet)
         {
-            deviceInfo = device ?? throw new ArgumentNullException(nameof(device));
-            SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
-            ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
-            settingInfo = setting ?? throw new ArgumentNullException(nameof(setting));
-            deviceInfo.PropertyChanged += PropertyChanged;
-            settingInfo.PropertyChanged += SettingInfo_PropertyChanged;
+            DeviceSettings = deviceSettings ?? throw new ArgumentNullException(nameof(deviceSettings));
+            DeviceSpotSet = deviceSpotSet ?? throw new ArgumentNullException(nameof(deviceSpotSet));
+            ///SettingsViewModel = settingsViewModel ?? throw new ArgumentNullException(nameof(settingsViewModel));
+            //Remove SettingsViewmodel from construction because now we pass SpotSet Dirrectly to MainViewViewModel
+            ///SettingsViewModel.PropertyChanged += PropertyChanged;
+            DeviceSettings.PropertyChanged += PropertyChanged;
             MatrixFrame.DimensionsChanged += OnMatrixDimensionsChanged;
-           // MatrixFrame.FrameChanged += OnFrameChanged;
+            // MatrixFrame.FrameChanged += OnFrameChanged;
             MatrixFrame.SetDimensions(MatrixFrame.Width, MatrixFrame.Height);
             //gifxelation load default gif//
 
@@ -43,11 +43,11 @@ namespace adrilight.Util
 
             ImageProcesser.DisposeGif();
             ImageProcesser.DisposeStill();
-            if(!ImageProcesser.LoadGifFromDisk(deviceInfo.GifFilePath))
+            if (!ImageProcesser.LoadGifFromDisk(DeviceSettings.GifFilePath))
             {
                 ImageProcesser.LoadGifFromResource();
             }
-            
+
 
 
 
@@ -62,43 +62,39 @@ namespace adrilight.Util
             //EndY.Value = ImageProcesser.LoadedGifImage.Height;
             //startX.Value = 0;
             //StartY.Value = 0;
-            ImageProcesser.ImageRect = new System.Drawing.Rectangle(Convert.ToInt32(0), Convert.ToInt32(0), Convert.ToInt32(ImageProcesser.LoadedGifImage.Width ), Convert.ToInt32(ImageProcesser.LoadedGifImage.Height));
-           // FrameToPreview();
+            ImageProcesser.ImageRect = new System.Drawing.Rectangle(Convert.ToInt32(0), Convert.ToInt32(0), Convert.ToInt32(ImageProcesser.LoadedGifImage.Width), Convert.ToInt32(ImageProcesser.LoadedGifImage.Height));
+            // FrameToPreview();
             //SerialManager.PushFrame();
             ImageProcesser.ImageLoadState = ImageProcesser.LoadState.Gif;
             RefreshColorState();
             _log.Info($"Static Color Created");
 
         }
+        //Dependency Injection //
+        private IDeviceSettings DeviceSettings { get; }
+        private IDeviceSpotSet DeviceSpotSet { get; }
+        // private SettingsViewModel SettingsViewModel { get; }
+        public bool IsRunning { get; private set; } = false;
+        private CancellationTokenSource _cancellationTokenSource;
 
 
         private void PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
-                case nameof(settingInfo.TransferActive):
-                case nameof(deviceInfo.StaticColor):
-                case nameof(deviceInfo.SelectedEffect):
-                case nameof(deviceInfo.GifFilePath):
+                case nameof(DeviceSettings.TransferActive):
+                case nameof(DeviceSettings.SelectedEffect):
+                case nameof(DeviceSettings.GifFilePath):
                     RefreshColorState();
                     break;
 
             }
         }
-        private void SettingInfo_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-
-        }
-
-        private IDeviceSettings deviceInfo { get; }
-        private MainViewViewModel ViewModel { get; }
-        private SettingInfoDTO settingInfo { get; }
-        public bool IsRunning { get; private set; } = false;
-        private CancellationTokenSource _cancellationTokenSource;
+      
         private void RefreshColorState()
         {
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.SelectedEffect == 5;
+            var shouldBeRunning = DeviceSettings.TransferActive && DeviceSettings.SelectedEffect == 5;
             if (isRunning && !shouldBeRunning)
             {
                 //stop it!
@@ -110,36 +106,36 @@ namespace adrilight.Util
 
             else if (!isRunning && shouldBeRunning)
             {
-                
+
                 //start it
                 _log.Debug("starting the StaticColor");
                 _cancellationTokenSource = new CancellationTokenSource();
-                _workerThread = new Thread(() => Run(_cancellationTokenSource.Token)) {
+                var thread = new Thread(() => Run(_cancellationTokenSource.Token)) {
                     IsBackground = true,
                     Priority = ThreadPriority.BelowNormal,
                     Name = "StaticColorCreator"
                 };
-                _workerThread.Start();
+                thread.Start();
             }
             else if (isRunning && shouldBeRunning)//refresh called
             {
                 ImageProcesser.DisposeWorkingBitmap();
                 ImageProcesser.DisposeGif();
                 //start it
-               IsRunning = false;
+                IsRunning = false;
                 _log.Debug("starting the StaticColor");
                 _cancellationTokenSource = new CancellationTokenSource();
-                _workerThread = new Thread(() => Run(_cancellationTokenSource.Token)) {
+                var thread = new Thread(() => Run(_cancellationTokenSource.Token)) {
                     IsBackground = true,
                     Priority = ThreadPriority.BelowNormal,
                     Name = "StaticColorCreator"
                 };
-                _workerThread.Start();
+                thread.Start();
             }
         }
 
-        private ISpotSet SpotSet { get; }
         
+
 
         public void Run(CancellationToken token)//static color creator
         {
@@ -151,72 +147,53 @@ namespace adrilight.Util
 
 
             MatrixBitmap = new WriteableBitmap(MatrixFrame.Width, MatrixFrame.Height, 96, 96, PixelFormats.Bgr32, null);
-            
+
 
             try
             {
-                // BitmapData bitmapData = new BitmapData();
-                //  BitmapData bitmapData2 = new BitmapData();
-                //  int colorcount = 0;
+              
 
                 int _gifFrameIndex = 0;
                 while (!token.IsCancellationRequested)
                 {
-                    //var numLED = (UserSettings.SpotsX - 1) * 2 + (UserSettings.SpotsY - 1) * 2;
-                    //Color currentStaticColor = UserSettings.StaticColor;
-                    //var colorOutput = new OpenRGB.NET.Models.Color[numLED];
-                    //double peekBrightness = 0.0;
-
-                    bool isPreviewRunning = (deviceInfo.SelectedEffect ==5);
-                    //bool isBreathing = UserSettings.Breathing;
-                    lock (SpotSet.Lock)
+                 
+                    lock (DeviceSpotSet.Lock)
                     {
-                        
-                        
+
+
 
                         if (_gifFrameIndex >= ImageProcesser.LoadedGifFrameCount - 1)
-                                _gifFrameIndex = 0;
-                            else
-                                _gifFrameIndex++;
-                            //Console.WriteLine(_gifFrameIndex);
-                            ImageProcesser.LoadedGifImage.SelectActiveFrame(ImageProcesser.LoadedGifFrameDim, _gifFrameIndex);
-                            ImageProcesser.WorkingBitmap = ImageProcesser.CropBitmap(new Bitmap(ImageProcesser.LoadedGifImage), ImageProcesser.ImageRect);
-                            
-                            MatrixFrame.BitmapToFrame(ImageProcesser.WorkingBitmap, ImageProcesser.InterpMode);
-                        
-                            ImageProcesser.DisposeWorkingBitmap();
+                            _gifFrameIndex = 0;
+                        else
+                            _gifFrameIndex++;
+                        //Console.WriteLine(_gifFrameIndex);
+                        ImageProcesser.LoadedGifImage.SelectActiveFrame(ImageProcesser.LoadedGifFrameDim, _gifFrameIndex);
+                        ImageProcesser.WorkingBitmap = ImageProcesser.CropBitmap(new Bitmap(ImageProcesser.LoadedGifImage), ImageProcesser.ImageRect);
 
-                       
+                        MatrixFrame.BitmapToFrame(ImageProcesser.WorkingBitmap, ImageProcesser.InterpMode);
+
+                        ImageProcesser.DisposeWorkingBitmap();
+
                         int counter = 0;
-                        foreach (ISpot spot in SpotSet.Spots)
+                        foreach (DeviceSpot spot in DeviceSpotSet.Spots)
                         {
-                            //colorOutput[counter] = Brightness.applyBrightness(new OpenRGB.NET.Models.Color(currentStaticColor.R, currentStaticColor.G, currentStaticColor.B), peekBrightness);
+                            
                             spot.SetColor(MatrixFrame.Frame[counter].R, MatrixFrame.Frame[counter].G, MatrixFrame.Frame[counter].B, true);
                             counter++;
-
 
                         }
                         counter = 0;
-                        foreach (ISpot spot in SpotSet.Spots2)
-                        {
-                            //colorOutput[counter] = Brightness.applyBrightness(new OpenRGB.NET.Models.Color(currentStaticColor.R, currentStaticColor.G, currentStaticColor.B), peekBrightness);
-                            spot.SetColor(MatrixFrame.Frame[counter].R, MatrixFrame.Frame[counter].G, MatrixFrame.Frame[counter].B, true);
-                            counter++;
+                        //foreach (IDeviceSpot spot in DeviceSpotSet.Spots)
+                        //{
+                           
+                        //    spot.SetColor(MatrixFrame.Frame[counter].R, MatrixFrame.Frame[counter].G, MatrixFrame.Frame[counter].B, true);
+                        //    counter++;
 
 
-                        }
+                        //}
 
 
-                        if (isPreviewRunning)
-                        {
-                            //copy all color data to the preview
-                            var needsNewArray = ViewModel.PreviewSpots?.Length != SpotSet.Spots.Length;
-
-                           // ViewModel.PreviewSpots = SpotSet.Spots;
-
-                            ViewModel.PreviewGif = SpotSet.Spots2;
-                        }
-                       
+                      
                         Thread.Sleep(33);
                     }
 
@@ -275,7 +252,7 @@ namespace adrilight.Util
         {
             MatrixBitmap = new WriteableBitmap(MatrixFrame.Width, MatrixFrame.Height, 96, 96, PixelFormats.Bgr32, null);
 
-           // MatrixImage.Source = MatrixBitmap;
+            // MatrixImage.Source = MatrixBitmap;
 
 
         }
@@ -293,28 +270,6 @@ namespace adrilight.Util
             MatrixBitmap.AddDirtyRect(new Int32Rect(0, 0, MatrixFrame.Width, MatrixFrame.Height));
             MatrixBitmap.Unlock();
         }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
 
-        private void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                Stop();
-            }
-        }
-        public void Stop()
-        {
-            _log.Debug("Stop called.");
-            if (_workerThread == null) return;
-
-            _cancellationTokenSource?.Cancel();
-            _cancellationTokenSource = null;
-            _workerThread?.Join();
-            _workerThread = null;
-        }
     }
 }

@@ -251,23 +251,24 @@ namespace adrilight
                     // kernel.Bind<TelemetryClient>().ToConstant(SetupApplicationInsights(kernel.Get<IDeviceSettings>(i.ToString())));
 
                     kernel.Bind<IContext>().To<WpfContext>().InSingletonScope().Named(devicesetting.DeviceName);
-                   kernel.Bind<IDeviceSpotSet>().To<DeviceSpotSet>().InSingletonScope().Named(devicesetting.DeviceName).WithConstructorArgument("userSettings",kernel.Get<IDeviceSettings>(devicesetting.DeviceName));
-                   kernel.Bind<ISpotSetReader>().To<SpotSetReader>().InSingletonScope().Named(devicesetting.DeviceName).WithConstructorArgument("userSettings", kernel.Get<IDeviceSettings>(devicesetting.DeviceName)).WithConstructorArgument("deviceSpotSet",kernel.Get<IDeviceSpotSet>(devicesetting.DeviceName));
-                    kernel.Bind<ISerialStream>().To<SerialStream>().InSingletonScope().Named(devicesetting.DeviceName).WithConstructorArgument("userSettings", kernel.Get<IDeviceSettings>(devicesetting.DeviceName)).WithConstructorArgument("spotSet", kernel.Get<IDeviceSpotSet>(devicesetting.DeviceName));
+
+                   kernel.Bind<IDeviceSpotSet>().To<DeviceSpotSet>().InSingletonScope().Named(devicesetting.DeviceName).WithConstructorArgument("deviceSettings",kernel.Get<IDeviceSettings>(devicesetting.DeviceName));
+                   kernel.Bind<ISpotSetReader>().To<SpotSetReader>().InSingletonScope().Named(devicesetting.DeviceName).WithConstructorArgument("deviceSettings", kernel.Get<IDeviceSettings>(devicesetting.DeviceName)).WithConstructorArgument("deviceSpotSet",kernel.Get<IDeviceSpotSet>(devicesetting.DeviceName));
+                    kernel.Bind<ISerialStream>().To<SerialStream>().InSingletonScope().Named(devicesetting.DeviceName).WithConstructorArgument("deviceSettings", kernel.Get<IDeviceSettings>(devicesetting.DeviceName)).WithConstructorArgument("deviceSpotSet", kernel.Get<IDeviceSpotSet>(devicesetting.DeviceName));
                     //  Bind<LightingViewModel>().ToSelf().Named(devicesetting.DeviceName).WithConstructorArgument("userSettings",kernel.Get<IDeviceSettings>(devicesetting.DeviceName));
-                    kernel.Bind<IStaticColor>().To<StaticColor>().InSingletonScope().Named(devicesetting.DeviceName).WithConstructorArgument("userSettings", kernel.Get<IDeviceSettings>(devicesetting.DeviceName)).WithConstructorArgument("deviceSpotSet", kernel.Get<IDeviceSpotSet>(devicesetting.DeviceName));
+                    kernel.Bind<IStaticColor>().To<StaticColor>().InSingletonScope().Named(devicesetting.DeviceName).WithConstructorArgument("deviceSettings", kernel.Get<IDeviceSettings>(devicesetting.DeviceName)).WithConstructorArgument("deviceSpotSet", kernel.Get<IDeviceSpotSet>(devicesetting.DeviceName));
                     kernel.Bind<IRainbow>().To<Rainbow>().InSingletonScope().Named(devicesetting.DeviceName).WithConstructorArgument("deviceSettings", kernel.Get<IDeviceSettings>(devicesetting.DeviceName)).WithConstructorArgument("deviceSpotSet", kernel.Get<IDeviceSpotSet>(devicesetting.DeviceName));
-                    kernel.Bind<IMusic>().To<Music>().InSingletonScope().Named(devicesetting.DeviceName).WithConstructorArgument("userSettings", kernel.Get<IDeviceSettings>(devicesetting.DeviceName)).WithConstructorArgument("deviceSpotSet", kernel.Get<IDeviceSpotSet>(devicesetting.DeviceName));
-                    kernel.Bind<IAtmosphere>().To<Atmosphere>().InSingletonScope().Named(devicesetting.DeviceName).WithConstructorArgument("userSettings", kernel.Get<IDeviceSettings>(devicesetting.DeviceName)).WithConstructorArgument("deviceSpotSet", kernel.Get<IDeviceSpotSet>(devicesetting.DeviceName));
+                    kernel.Bind<IMusic>().To<Music>().InSingletonScope().Named(devicesetting.DeviceName).WithConstructorArgument("deviceSettings", kernel.Get<IDeviceSettings>(devicesetting.DeviceName)).WithConstructorArgument("deviceSpotSet", kernel.Get<IDeviceSpotSet>(devicesetting.DeviceName));
+                    kernel.Bind<IAtmosphere>().To<Atmosphere>().InSingletonScope().Named(devicesetting.DeviceName).WithConstructorArgument("deviceSettings", kernel.Get<IDeviceSettings>(devicesetting.DeviceName)).WithConstructorArgument("deviceSpotSet", kernel.Get<IDeviceSpotSet>(devicesetting.DeviceName));
+                    
 
-
-                    // var spotset = kernel.Get<ISpotSet>(i.ToString());
+                   // var spotset = kernel.Get<ISpotSet>(i.ToString());
                     var spotSetReader = kernel.Get<ISpotSetReader>(devicesetting.DeviceName);
                     var serialStream = kernel.Get<ISerialStream>(devicesetting.DeviceName);
-                    // var staticColor = kernel.Get<IStaticColor>(i.ToString());
-                   var rainbow = kernel.Get<IRainbow>(devicesetting.DeviceName);
-                    // var music = kernel.Get<IMusic>(i.ToString());
-                    //  var atmosphere = kernel.Get<IAtmosphere>(i.ToString());
+                    var staticColor = kernel.Get<IStaticColor>(devicesetting.DeviceName);
+                    var rainbow = kernel.Get<IRainbow>(devicesetting.DeviceName);
+                    var music = kernel.Get<IMusic>(devicesetting.DeviceName);
+                    var atmosphere = kernel.Get<IAtmosphere>(devicesetting.DeviceName);
 
 
                 }

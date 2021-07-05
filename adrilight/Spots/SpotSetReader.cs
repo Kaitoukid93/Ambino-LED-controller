@@ -12,10 +12,10 @@ namespace adrilight.Spots
     class SpotSetReader : ISpotSetReader
     {
         private readonly NLog.ILogger _log = LogManager.GetCurrentClassLogger();
-        public SpotSetReader(IDeviceSettings userSettings, IGeneralSpotSet generalSpotSet, IDeviceSpotSet deviceSpotSet)
+        public SpotSetReader(IDeviceSettings deviceSettings, IGeneralSpotSet generalSpotSet, IDeviceSpotSet deviceSpotSet)
         {
            
-            DeviceSettings = userSettings ?? throw new ArgumentNullException(nameof(userSettings));
+            DeviceSettings = deviceSettings ?? throw new ArgumentNullException(nameof(deviceSettings));
             SpotSet = generalSpotSet ?? throw new ArgumentNullException(nameof(generalSpotSet));
             DeviceSpotSet = deviceSpotSet ?? throw new ArgumentNullException(nameof(deviceSpotSet));
 
@@ -41,6 +41,7 @@ namespace adrilight.Spots
                 case nameof(DeviceSettings.TransferActive):
                 case nameof(DeviceSettings.SelectedDisplay):
                 case nameof(DeviceSettings.SelectedAdapter):
+                case nameof(DeviceSettings.SelectedEffect):
                     RefreshReadingState();
                     break;
 

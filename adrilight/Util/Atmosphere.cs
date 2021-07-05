@@ -14,51 +14,42 @@ using adrilight.ViewModel;
 using System.Threading;
 using NLog;
 using System.Threading.Tasks;
-using BO;
+using adrilight.Spots;
 
 namespace adrilight
 {
-    internal class Atmosphere : IAtmosphere, IDisposable
+    internal class Atmosphere : IAtmosphere
     {
         // public static Color[] small = new Color[30];
         public static double _huePosIndex = 0;//index for rainbow mode only
         public static double _palettePosIndex = 0;//index for other custom palette
-        
+
         private readonly NLog.ILogger _log = LogManager.GetCurrentClassLogger();
 
-        public Atmosphere(IDeviceSettings device, ISpotSet spotSet, SettingInfoDTO setting)
+        public Atmosphere(IDeviceSettings deviceSettings, IDeviceSpotSet deviceSpotSet)
         {
-            deviceInfo = device ?? throw new ArgumentNullException(nameof(device));
-            SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
-           // ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
-            settingInfo = setting ?? throw new ArgumentNullException(nameof(setting));
-            deviceInfo.PropertyChanged += PropertyChanged;
-            settingInfo.PropertyChanged += SettingInfo_PropertyChanged;
+            DeviceSettings = deviceSettings ?? throw new ArgumentNullException(nameof(deviceSettings));
+            DeviceSpotSet = deviceSpotSet ?? throw new ArgumentNullException(nameof(deviceSpotSet));
+            //SettingsViewModel = settingsViewModel ?? throw new ArgumentNullException(nameof(settingsViewModel));
+            //Remove SettingsViewmodel from construction because now we pass SpotSet Dirrectly to MainViewViewModel
+            DeviceSettings.PropertyChanged += PropertyChanged;
             RefreshColorState();
-            _log.Info($"RainbowColor Created");
+            _log.Info($"Atmosphere Color Created");
 
         }
-
-        private void SettingInfo_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-
-        }
-        private Thread _workerThread;
-        private IDeviceSettings deviceInfo { get; }
-       // private LightingViewModel ViewModel { get; }
-        private SettingInfoDTO settingInfo { get; }
+        //Dependency Inject//
+        private IDeviceSettings DeviceSettings { get; }
+        private IDeviceSpotSet DeviceSpotSet { get; }
         public bool IsRunning { get; private set; } = false;
         private CancellationTokenSource _cancellationTokenSource;
-       
+
         private void PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
-                case nameof(deviceInfo.TransferActive):
-                case nameof(deviceInfo.SelectedEffect):
-                case nameof(deviceInfo.Brightness):
-                case nameof(deviceInfo.AtmosphereStart):
-                case nameof(deviceInfo.AtmosphereStop):
+                case nameof(DeviceSettings.TransferActive):
+                case nameof(DeviceSettings.SelectedEffect):
+                case nameof(DeviceSettings.Brightness):
                     RefreshColorState();
                     break;
             }
@@ -67,7 +58,7 @@ namespace adrilight
         {
 
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.SelectedEffect == 4;
+            var shouldBeRunning = DeviceSettings.TransferActive && DeviceSettings.SelectedEffect == 4;
             if (isRunning && !shouldBeRunning)
             {
                 //stop it!
@@ -80,42 +71,20 @@ namespace adrilight
                 //start it
                 _log.Debug("starting the Rainbow Color");
                 _cancellationTokenSource = new CancellationTokenSource();
-                _workerThread = new Thread(() => Run(_cancellationTokenSource.Token)) {
+                var thread = new Thread(() => Run(_cancellationTokenSource.Token)) {
                     IsBackground = true,
                     Priority = ThreadPriority.BelowNormal,
                     Name = "AtmosphereColorCreator"
                 };
-                _workerThread.Start();
+                thread.Start();
             }
         }
 
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
 
-        private void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                Stop();
-            }
-        }
-        public void Stop()
-        {
-            _log.Debug("Stop called.");
-            if (_workerThread == null) return;
 
-            _cancellationTokenSource?.Cancel();
-            _cancellationTokenSource = null;
-            _workerThread?.Join();
-            _workerThread = null;
-        }
-
-        private ISpotSet SpotSet { get; }
-        public void Run (CancellationToken token)
+        
+        public void Run(CancellationToken token)
 
         {
             if (IsRunning) throw new Exception(" Atmosphere Color is already running!");
@@ -129,64 +98,49 @@ namespace adrilight
 
                 while (!token.IsCancellationRequested)
                 {
-                    double brightness = deviceInfo.Brightness / 100d;
-                    int paletteSource = deviceInfo.SelectedPalette;
-                    var numLED = (deviceInfo.SpotsX - 1) * 2 + (deviceInfo.SpotsY - 1) * 2;
+                    double brightness = DeviceSettings.Brightness / 100d;
+                    int paletteSource = DeviceSettings.SelectedPalette;
+                    var numLED = (DeviceSettings.SpotsX - 1) * 2 + (DeviceSettings.SpotsY - 1) * 2;
                     var colorOutput = new OpenRGB.NET.Models.Color[numLED];
-
-                
-
-                    bool isPreviewRunning = (deviceInfo.SelectedEffect == 4); 
-                    if (isPreviewRunning)
-                    {
-                       // SettingsViewModel.SetPreviewImage(backgroundimage);
-                    }
 
 
                     OpenRGB.NET.Models.Color[] outputColor = new OpenRGB.NET.Models.Color[numLED];
                     int counter = 0;
-                    int hueStart = deviceInfo.AtmosphereStart;
-                    int hueStop = deviceInfo.AtmosphereStop;
-                    lock (SpotSet.Lock)
+                    int hueStart = DeviceSettings.AtmosphereStart;
+                    int hueStop = DeviceSettings.AtmosphereStop;
+                    lock (DeviceSpotSet.Lock)
                     {
-                        
-                            
-
-                            var newcolor = GetHueGradient(numLED, hueStart, hueStop, 1.0, 1.0);
-                           
 
 
-                            //now fill new color to palette output to display and send out serial
-                          
 
-                            foreach (var color in newcolor)
-                            {
-                                outputColor[counter++] = Brightness.applyBrightness(color, brightness);
+                        var newcolor = GetHueGradient(numLED, hueStart, hueStop, 1.0, 1.0);
 
-                            }
-                            counter = 0;
-                            foreach(ISpot spot in SpotSet.Spots)
-                            {
-                                spot.SetColor(outputColor[counter].R, outputColor[counter].G, outputColor[counter].B, true);
-                                counter++;
-                              
-                            }
 
-                           
+
+                        //now fill new color to palette output to display and send out serial
+
+
+                        foreach (var color in newcolor)
+                        {
+                            outputColor[counter++] = Brightness.applyBrightness(color, brightness);
 
                         }
-                        //if (isPreviewRunning)
-                        //{
-                        //    //copy all color data to the preview
-                        //    var needsNewArray = ViewModel.PreviewSpots?.Length != SpotSet.Spots.Length;
+                        counter = 0;
+                        foreach (ISpot spot in DeviceSpotSet.Spots)
+                        {
+                            spot.SetColor(outputColor[counter].R, outputColor[counter].G, outputColor[counter].B, true);
+                            counter++;
 
-                        //    ViewModel.PreviewSpots = SpotSet.Spots;
-                        //}
-                  //  MainViewViewModel.SpotSet = SpotSet;
+                        }
+
+
+
                     }
-                    Thread.Sleep(5); //motion speed
+ 
+                }
+                Thread.Sleep(5); //motion speed
 
-                
+
             }
             catch (OperationCanceledException)
             {
@@ -197,7 +151,7 @@ namespace adrilight
             catch (Exception ex)
             {
                 _log.Debug(ex, "Exception catched.");
-              
+
 
 
 
@@ -214,59 +168,20 @@ namespace adrilight
 
 
 
-               
-
-               
 
 
 
-            }
 
 
 
+        }
 
 
 
         public static IEnumerable<OpenRGB.NET.Models.Color> GetHueGradient(int amount, double hueStart = 0, double hueStop = 1.0,
                                                                double saturation = 1.0, double value = 1.0) =>
            Enumerable.Range(0, amount)
-                     .Select(i => OpenRGB.NET.Models.Color.FromHsv(hueStart + ( (hueStart - hueStop) / amount * i), saturation, value));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                     .Select(i => OpenRGB.NET.Models.Color.FromHsv(hueStart + ((hueStart - hueStop) / amount * i), saturation, value));
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

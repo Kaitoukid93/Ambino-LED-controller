@@ -9,59 +9,55 @@ using System.Threading;
 using Castle.Core.Logging;
 using NLog;
 using adrilight.ViewModel;
-using BO;
+using System.Diagnostics;
+using adrilight.Spots;
 
 namespace adrilight.Util
 {
-    internal class StaticColor : IStaticColor, IDisposable
+    internal class StaticColor : IStaticColor
     {
-        
-        
+
+
         private readonly NLog.ILogger _log = LogManager.GetCurrentClassLogger();
 
-        private double point = 0;
-        public StaticColor(IDeviceSettings device, ISpotSet spotSet, SettingInfoDTO setting)
+        private int point = 0;
+        public StaticColor(IDeviceSettings deviceSettings, IDeviceSpotSet deviceSpotSet)
         {
-            deviceInfo = device ?? throw new ArgumentNullException(nameof(device));
-            SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
-          //  SettingsViewModel = viewViewModel ?? throw new ArgumentNullException(nameof(viewViewModel));
-            settingInfo = setting ?? throw new ArgumentNullException(nameof(setting));
-            deviceInfo.PropertyChanged += PropertyChanged;
-            settingInfo.PropertyChanged += SettingInfo_PropertyChanged;
+            DeviceSettings = deviceSettings ?? throw new ArgumentNullException(nameof(deviceSettings));
+            DeviceSpotSet = deviceSpotSet ?? throw new ArgumentNullException(nameof(deviceSpotSet));
+            //SettingsViewModel = settingsViewModel ?? throw new ArgumentNullException(nameof(settingsViewModel));
+            //Remove SettingsViewmodel from construction because now we pass SpotSet Dirrectly to MainViewViewModel
+           DeviceSettings.PropertyChanged += PropertyChanged;
             RefreshColorState();
             _log.Info($"Static Color Created");
 
         }
 
 
-
         private void PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
-               case nameof(deviceInfo.TransferActive):
-               case nameof(deviceInfo.StaticColor):
-               case nameof(deviceInfo.SelectedEffect):
+                case nameof(DeviceSettings.TransferActive):
+                case nameof(DeviceSettings.StaticColor):
+                case nameof(DeviceSettings.SelectedEffect):
                     RefreshColorState();
                     break;
 
             }
         }
 
-        private void SettingInfo_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
+        //DependencyInjection//
+        private IDeviceSettings DeviceSettings { get; }
+        private IDeviceSpotSet DeviceSpotSet { get; }
 
-        }
-        private Thread _workerThread;
-        private IDeviceSettings deviceInfo { get; }
-       // private LightingViewModel SettingsViewModel { get; }
-        private SettingInfoDTO settingInfo { get; }
+
         public bool IsRunning { get; private set; } = false;
         private CancellationTokenSource _cancellationTokenSource;
         private void RefreshColorState()
         {
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            var shouldBeRunning = settingInfo.TransferActive && deviceInfo.SelectedEffect == 2;
+            var shouldBeRunning = DeviceSettings.TransferActive && DeviceSettings.SelectedEffect == 2;
             if (isRunning && !shouldBeRunning)
             {
                 //stop it!
@@ -70,34 +66,33 @@ namespace adrilight.Util
                 _cancellationTokenSource = null;
             }
 
-        
+
             else if (!isRunning && shouldBeRunning)
             {
                 //start it
                 _log.Debug("starting the StaticColor");
                 _cancellationTokenSource = new CancellationTokenSource();
-                _workerThread = new Thread(() => Run(_cancellationTokenSource.Token)) {
+                var thread = new Thread(() => Run(_cancellationTokenSource.Token)) {
                     IsBackground = true,
                     Priority = ThreadPriority.BelowNormal,
                     Name = "StaticColorCreator"
                 };
-                _workerThread.Start();
-                _log.Debug("started the static Color at thread " + _workerThread.ManagedThreadId);
+                thread.Start();
             }
         }
 
-        private ISpotSet SpotSet { get; }
+        
 
         public void Run(CancellationToken token)//static color creator
         {
             if (IsRunning) throw new Exception(" Static Color is already running!");
 
             IsRunning = true;
-           
+
             _log.Debug("Started Static Color.");
-          
+
             Color defaultColor = Color.FromRgb(127, 127, 0);
-           
+
 
             try
             {
@@ -108,76 +103,76 @@ namespace adrilight.Util
 
                 while (!token.IsCancellationRequested)
                 {
-                    var numLED = (deviceInfo.SpotsX - 1) * 2 + (deviceInfo.SpotsY - 1) * 2;
-                    Color currentStaticColor = deviceInfo.StaticColor;
+                    var numLED = (DeviceSettings.SpotsX - 1) * 2 + (DeviceSettings.SpotsY - 1) * 2;
+                    Color currentStaticColor = DeviceSettings.StaticColor;
                     var colorOutput = new OpenRGB.NET.Models.Color[numLED];
                     double peekBrightness = 0.0;
+                    int breathingSpeed = DeviceSettings.BreathingSpeed;
 
-                    bool isPreviewRunning = deviceInfo.SelectedEffect == 2;
-                    bool isBreathing = deviceInfo.IsBreathing;
-                    lock (SpotSet.Lock)
+                   
+                    bool isBreathing = DeviceSettings.IsBreathing;
+                    lock (DeviceSpotSet.Lock)
                     {
-
-                        if(isBreathing)
+                        for (var i = 0; i < colorOutput.Count(); i++)
                         {
-                          if(point<500)
+                            if (isBreathing)
                             {
-                                //peekBrightness = 1.0 - Math.Abs((2.0 * (point / 500)) - 1.0);
-                                peekBrightness = Math.Exp(-(Math.Pow(((point / 500) - 0.5) /0.14, 2.0)) / 2.0);
-                                point++;
+
+                                Color colorPoint = Color.FromRgb(0, 0, 0);
+                                colorPoint = GetColorByOffset(GradientStaticColor(currentStaticColor), point);
+
+                                var newColor = new OpenRGB.NET.Models.Color(colorPoint.R, colorPoint.G, colorPoint.B);
+
+                                colorOutput[i] = newColor;
                             }
-                          else
+
+
+
+
+                            else
                             {
-                                point = 0;
+                                peekBrightness = DeviceSettings.Brightness / 100.0;
+                                colorOutput[i] = Brightness.applyBrightness(new OpenRGB.NET.Models.Color(currentStaticColor.R, currentStaticColor.G, currentStaticColor.B), peekBrightness);
                             }
-                        
-
-                          
-                        }
-                        else
-                        {
-                            peekBrightness = deviceInfo.Brightness / 100.0;
                         }
 
-                                   int counter = 0;
-                        foreach (ISpot spot in SpotSet.Spots)
+                        point += breathingSpeed;
+                        if (point > 5000)
                         {
-                            colorOutput[counter] = Brightness.applyBrightness(new OpenRGB.NET.Models.Color(currentStaticColor.R, currentStaticColor.G, currentStaticColor.B), peekBrightness);
+                            point = 0;
+                        }
+
+                        int counter = 0;
+                        foreach (IDeviceSpot spot in DeviceSpotSet.Spots)
+                        {
+
                             spot.SetColor(colorOutput[counter].R, colorOutput[counter].G, colorOutput[counter].B, true);
                             counter++;
 
 
                         }
 
-                            //if (isPreviewRunning)
-                            //{
-                            //    //copy all color data to the preview
-                            //    var needsNewArray = SettingsViewModel.PreviewSpots?.Length != SpotSet.Spots.Length;
-
-                            //    SettingsViewModel.PreviewSpots = SpotSet.Spots;
-                            //}
-                       
                         Thread.Sleep(5);
-                        }
-                       
-                            
-                            
-
-
-                        
-                   
                     }
-                    //motion speed
+
+
+
+
+
+
 
                 }
-            
-                  
+                //motion speed
+
+            }
 
 
-            
 
 
-          
+
+
+
+
             catch (OperationCanceledException)
             {
                 _log.Debug("OperationCanceledException catched. returning.");
@@ -194,7 +189,7 @@ namespace adrilight.Util
                 //    {
                 //        paletteOutput[i] = defaultColor;
                 //    }
-                
+
 
 
                 //allow the system some time to recover
@@ -202,35 +197,60 @@ namespace adrilight.Util
             }
             finally
             {
-                
+
 
                 _log.Debug("Stopped Static Color Creator.");
                 IsRunning = false;
             }
 
         }
-        public void Dispose()
+
+        public GradientStopCollection GradientStaticColor(Color staticColor)
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            Color startColor = Color.FromRgb(0, 0, 0);
+            OpenRGB.NET.Models.Color staticColorHalf = Brightness.applyBrightness(new OpenRGB.NET.Models.Color(staticColor.R, staticColor.G, staticColor.B), 0.5);
+            Color staticColorMiddle = Color.FromRgb(staticColorHalf.R, staticColorHalf.G, staticColorHalf.B);
+            OpenRGB.NET.Models.Color staticColorQuad = Brightness.applyBrightness(new OpenRGB.NET.Models.Color(staticColor.R, staticColor.G, staticColor.B), 0.25);
+            Color staticColorQuat = Color.FromRgb(staticColorQuad.R, staticColorQuad.G, staticColorQuad.B);
+
+            GradientStopCollection gradientPalette = new GradientStopCollection(2);
+            gradientPalette.Add(new GradientStop(staticColor, 0.000));
+            gradientPalette.Add(new GradientStop(staticColorMiddle, 0.250));
+            gradientPalette.Add(new GradientStop(staticColorQuat, 0.400));
+            gradientPalette.Add(new GradientStop(startColor, 0.500));
+            gradientPalette.Add(new GradientStop(staticColorQuat, 0.600));
+            gradientPalette.Add(new GradientStop(staticColorMiddle, 0.750));
+            gradientPalette.Add(new GradientStop(staticColor, 1.000));
+            //gradientPalette.Add(new GradientStop(startColor, 0.600));
+            //gradientPalette.Add(new GradientStop(staticColorMiddle, 0.800));
+            //gradientPalette.Add(new GradientStop(staticColor, 1.000));
+
+            return gradientPalette;
         }
 
-        private void Dispose(bool disposing)
+        private static Color GetColorByOffset(GradientStopCollection collection, double position)
         {
-            if (disposing)
+            double offset = position / 5000.0;
+            GradientStop[] stops = collection.OrderBy(x => x.Offset).ToArray();
+            if (offset <= 0) return stops[0].Color;
+            if (offset >= 1) return stops[stops.Length - 1].Color;
+            GradientStop left = stops[0], right = null;
+            foreach (GradientStop stop in stops)
             {
-                Stop();
+                if (stop.Offset >= offset)
+                {
+                    right = stop;
+                    break;
+                }
+                left = stop;
             }
-        }
-        public void Stop()
-        {
-            _log.Debug("Stop called.");
-            if (_workerThread == null) return;
+            Debug.Assert(right != null);
+            offset = Math.Round((offset - left.Offset) / (right.Offset - left.Offset), 2);
 
-            _cancellationTokenSource?.Cancel();
-            _cancellationTokenSource = null;
-            _workerThread?.Join();
-            _workerThread = null;
+            byte r = (byte)((right.Color.R - left.Color.R) * offset + left.Color.R);
+            byte g = (byte)((right.Color.G - left.Color.G) * offset + left.Color.G);
+            byte b = (byte)((right.Color.B - left.Color.B) * offset + left.Color.B);
+            return Color.FromRgb(r, g, b);
         }
     }
 }

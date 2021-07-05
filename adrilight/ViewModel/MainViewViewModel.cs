@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using adrilight.Resources;
+using adrilight.Spots;
 using adrilight.View;
 using adrilight.ViewModel.Factories;
 using BO;
@@ -218,8 +219,18 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged();
             }
         }
-       // [Inject, Named("0")]
-       // public IDeviceSettings Card1 { get; set; }
+        private ObservableCollection<IDeviceSpotSet> _spotSets;
+        public ObservableCollection<IDeviceSpotSet> SpotSets {
+            get { return _spotSets; }
+            set
+            {
+                if (_spotSets == value) return;
+                _spotSets = value;
+                RaisePropertyChanged();
+            }
+        }
+        // [Inject, Named("0")]
+        // public IDeviceSettings Card1 { get; set; }
 
         public ICommand SelectCardCommand { get; set; }
         public ICommand ShowAddNewCommand { get; set; }
@@ -269,8 +280,8 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public IGeneralSpot[] _previewSpots;
-        public IGeneralSpot[] PreviewSpots {
+        public IDeviceSpot[] _previewSpots;
+        public IDeviceSpot[] PreviewSpots {
             get => _previewSpots;
             set
             {
@@ -372,12 +383,17 @@ namespace adrilight.ViewModel
         }
         GifBitmapDecoder decoder;
        
-        public MainViewViewModel(IDeviceSettings[] cards)
+        public MainViewViewModel(IDeviceSettings[] cards, IDeviceSpotSet[] deviceSpotSets)
         {
             Cards = new ObservableCollection<IDeviceSettings>();
+            SpotSets = new ObservableCollection<IDeviceSpotSet>();
             foreach(IDeviceSettings card in cards)
             {
                 Cards.Add(card);
+            }
+            foreach(IDeviceSpotSet spotSet in deviceSpotSets)
+            {
+                SpotSets.Add(spotSet);
             }
             
 
@@ -755,6 +771,7 @@ namespace adrilight.ViewModel
             SelectedVerticalMenuItem = MenuItems.FirstOrDefault(t => t.Text == general);
             IsDashboardType = false;
             CurrentDevice = card;
+            PreviewSpots = SpotSets[0].Spots;
             SetMenuItemActiveStatus(general);
         }
         public void BackToDashboard()

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace adrilight.Spots
 {
-    interface IDeviceSpotSet
+    public interface IDeviceSpotSet
     {
         
 
