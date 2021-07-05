@@ -427,6 +427,18 @@
     <Compile Include="ViewModel\Product.xaml.cs">
       <DependentUpon>Product.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CardNewStyle.xaml.cs">
+      <DependentUpon>CardNewStyle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NewAppSettingsView.xaml.cs">
+      <DependentUpon>NewAppSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NewDeviceSettingsView.xaml.cs">
+      <DependentUpon>NewDeviceSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SplitLightView.xaml.cs">
+      <DependentUpon>SplitLightView.xaml</DependentUpon>
+    </Compile>
     <Resource Include="View\Images\icon\close-box.png" />
     <None Include="Resources\degif.gif" />
     <None Include="Resources\gifxelation.gif" />
@@ -697,6 +709,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\CardNewStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ChangeDeviceNameView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -737,11 +753,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\NewAppSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NewDeviceSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SettingsWindowComponents\LedOutsideCase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SplitLightView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
