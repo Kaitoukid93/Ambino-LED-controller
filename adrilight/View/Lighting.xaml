@@ -338,7 +338,8 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                    <ColumnDefinition ></ColumnDefinition>
+                                    <ColumnDefinition Width="491*" ></ColumnDefinition>
+                                    <ColumnDefinition Width="139*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition  MinHeight="40"/>
@@ -350,19 +351,19 @@
                                 <Border Grid.Row="0">
                                     <TextBlock   Style="{StaticResource tbHeading4Style}">Audio Source</TextBlock>
                                 </Border>
-                                <Border Grid.Column="1" Grid.Row="0">
+                                <Border Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2">
                                     <ComboBox Width="217" Height="37" HorizontalAlignment="Right" SelectedIndex="{Binding CurrentDevice.SelectedAudioDevice}" ItemsSource="{Binding AvailableAudioDevice}"   IsEditable="False"></ComboBox>
                                 </Border>
                                 <Border Grid.Row="1">
                                     <TextBlock   Style="{StaticResource tbHeading4Style}">Music mode</TextBlock>
                                 </Border>
-                                <Border Grid.Column="1" Grid.Row="1">
+                                <Border Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
                                     <ComboBox Width="217" Height="37" IsEditable="False" HorizontalAlignment="Right"  ItemsSource="{Binding AvailableMusicMode}" SelectedIndex="{Binding CurrentDevice.SelectedMusicMode}"></ComboBox>
                                 </Border>
                                 <Border Grid.Row="2">
                                     <TextBlock   Style="{StaticResource tbHeading4Style}">Music Palette</TextBlock>
                                 </Border>
-                                <Border Grid.Column="1" Grid.Row="2">
+                                <Border Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2">
                                     <ComboBox Width="217" Height="37" HorizontalAlignment="Right" IsEditable="False" SelectedIndex="{Binding CurrentDevice.SelectedMusicPalette}" ItemsSource="{Binding AvailableMusicPalette}" ></ComboBox>
                                 </Border>
                             </Grid>
@@ -666,5 +667,5 @@
             </Grid>
         </StackPanel>
     </Grid>
-   
+
 </UserControl>

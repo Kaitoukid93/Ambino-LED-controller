@@ -126,7 +126,7 @@ namespace adrilight
 
                         }
                         counter = 0;
-                        foreach (ISpot spot in DeviceSpotSet.Spots)
+                        foreach (IDeviceSpot spot in DeviceSpotSet.Spots)
                         {
                             spot.SetColor(outputColor[counter].R, outputColor[counter].G, outputColor[counter].B, true);
                             counter++;

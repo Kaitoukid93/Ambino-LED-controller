@@ -30,7 +30,7 @@
             </Grid.RowDefinitions>
 
             <TextBlock Margin="10,0,0,0" Grid.Row="0" Grid.Column="0" Text="CÀI ĐẶT THIẾT BỊ" FontSize="17" VerticalAlignment="Center" Foreground="Black"/>
-            <TextBlock Margin="10,39,0,10" Grid.Row="1" Grid.Column="0" Text="GIAO TIẾP" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Margin="10,39,0,10" Grid.Row="1" Grid.Column="0" Text="GIAO TIẾP" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#FF898989"/>
         </Grid>
         <Grid Grid.Row="0" Grid.Column="1">
             <Grid.RowDefinitions>
@@ -47,7 +47,7 @@
         </Grid>
 
         <StackPanel Grid.Row="1" Grid.Column="0">
-            <Grid Height="100" Grid.Row="2" Grid.Column="0">
+            <Grid Height="80" Grid.Row="2" Grid.Column="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="*"/>
@@ -57,8 +57,8 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Tốc Độ Truyền Dữ Liệu" FontSize="17" VerticalAlignment="Center" Foreground="Black"/>
-                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Thay đổi thông số này có thể sẽ làm một số thiết bị cũ dừng hoạt động" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"/>
-                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#FF898989" VerticalAlignment="Bottom">
+                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Thay đổi thông số này có thể sẽ làm một số thiết bị cũ dừng hoạt động" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989"/>
+                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#FFAAAAAA" VerticalAlignment="Bottom" Margin="0,0,0,5">
 
                 </Rectangle>
                 <ComboBox Width="100" Grid.Column="1" Grid.Row="0" Margin="0,0,10,0" HorizontalAlignment="Right">
@@ -66,7 +66,7 @@
                 </ComboBox>
 
             </Grid>
-            <Grid Height="100">
+            <Grid Height="80">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="*"/>
@@ -76,17 +76,17 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Khi Tắt Máy" FontSize="17" VerticalAlignment="Center" Foreground="Black"/>
-                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Chọn chế độ sáng của LED khi tắt máy, chỉ áp dụng với các thiết bị cắm USB ngoài case" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"/>
-                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#FF898989" VerticalAlignment="Bottom"/>
+                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Chọn chế độ sáng của LED khi tắt máy, chỉ áp dụng với các thiết bị cắm USB ngoài case" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989"/>
+                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#FFAAAAAA" VerticalAlignment="Bottom" Margin="0,0,0,5"/>
                 <ComboBox Width="200" Grid.Column="1" Grid.Row="0" Margin="0,0,10,0" HorizontalAlignment="Right">
 
                 </ComboBox>
 
             </Grid>
-            <TextBlock Margin="10,15,0,0" Text="PHẦN MỀM">
+            <TextBlock Margin="10,15,0,0" Text="PHẦN MỀM" Foreground="#FF898989">
 
             </TextBlock>
-            <Grid Height="100">
+            <Grid Height="80">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="*"/>
@@ -96,14 +96,14 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Giới Hạn FPS" FontSize="17" VerticalAlignment="Center" Foreground="Black"/>
-                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Chọn mức FPS phù hợp để  máy tính hoạt động ổn định hơn đối với cấu hình thấp" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"/>
-                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#FF898989" VerticalAlignment="Bottom"/>
+                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Chọn mức FPS phù hợp để  máy tính hoạt động ổn định hơn đối với cấu hình thấp" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989"/>
+                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#FFAAAAAA" VerticalAlignment="Bottom" Margin="0,0,0,5"/>
                 <ComboBox Width="100" Grid.Column="1" Grid.Row="0" Margin="0,0,10,0" HorizontalAlignment="Right">
 
                 </ComboBox>
 
             </Grid>
-            <Grid Height="100">
+            <Grid Height="80">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="*"/>
@@ -113,14 +113,14 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Độ Tương Phản Ambilight" FontSize="17" VerticalAlignment="Center" Foreground="Black"/>
-                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Thuật toán độ tương phản sẽ áp dụng lên tất cả các thiết bị hiện có" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"/>
-                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#FF898989" VerticalAlignment="Bottom"/>
+                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Thuật toán độ tương phản sẽ áp dụng lên tất cả các thiết bị hiện có" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989"/>
+                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#FFAAAAAA" VerticalAlignment="Bottom" Margin="0,0,0,5"/>
                 <ComboBox Width="200" Grid.Column="1" Grid.Row="0" Margin="0,0,10,0" HorizontalAlignment="Right">
 
                 </ComboBox>
 
             </Grid>
-            <Grid Height="100">
+            <Grid Height="80">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -130,8 +130,8 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Saturation Thresold" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
-                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Nếu bạn muốn khi màn hình hiển thị cảnh màu đen mà LED vẫn sáng, giảm hết cỡ giá trị này nhé" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"/>
-                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#FF898989" VerticalAlignment="Bottom"/>
+                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Nếu bạn muốn khi màn hình hiển thị cảnh màu đen mà LED vẫn sáng, giảm hết cỡ giá trị này nhé" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989"/>
+                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#FFAAAAAA" VerticalAlignment="Bottom" Margin="0,0,0,5"/>
                 <Slider Width="200" Margin="0,0,10,0" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                 <Button Width="55" Grid.Column="0"  Style="{StaticResource MaterialDesignFlatButton}" Content="255" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#3F000000" BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 

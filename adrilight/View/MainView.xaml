@@ -186,7 +186,7 @@
                 <local:AllDeviceView/>
             </DataTemplate>
             <DataTemplate x:Key="generalTemplate">
-                <local:General/>
+                <local:SplitLightView/>
             </DataTemplate>
             <DataTemplate x:Key="lightingTemplate">
                 <local:SplitLightView/>
@@ -233,7 +233,7 @@ Identifier="mainDialog"  >
             <Grid Background="White"  materialDesign:ShadowAssist.ShadowDepth="Depth5">
                 
                 
-                <Grid Margin="20,10,20,20" Grid.Row="0">
+                <Grid Margin="20,10,20,20" Grid.Row="0" HorizontalAlignment="Left">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         
@@ -243,7 +243,7 @@ Identifier="mainDialog"  >
                     </Grid.ColumnDefinitions>
                      
                     
-                    <StackPanel Visibility="{Binding IsDashboardType,Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,50,0,0">
+                    <StackPanel Visibility="{Binding IsDashboardType,Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,0,0">
                         
                         <ItemsControl ItemsSource="{Binding MenuItems,UpdateSourceTrigger=PropertyChanged}"
                                                 IsTabStop="False"
@@ -262,9 +262,11 @@ Identifier="mainDialog"  >
                       
                     </StackPanel>
                     
-                    <ContentControl Content="{Binding .,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource selectableContentStyle}" Grid.Column="1" Margin="0" >
-                      
-                    </ContentControl>
+                        <ContentControl Content="{Binding .,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource selectableContentStyle}" Grid.Column="1" Margin="1" >
+
+                        </ContentControl>
+                    
+                  
                 </Grid>
             </Grid>
 

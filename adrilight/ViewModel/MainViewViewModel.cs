@@ -466,7 +466,7 @@ namespace adrilight.ViewModel
         {
             LoadMenu();
             LoadMenuByType(true);
-            
+            ReadDataDevice();
             ReadFAQ();
             
             //CurrentView = _allDeviceView.CreateViewModel();
@@ -753,11 +753,11 @@ namespace adrilight.ViewModel
             //    default:
             //        break;
             //}
-            if (menuItem.Text == lighting)
-            {
-                ReadDataDevice();
-            }
-            SetMenuItemActiveStatus(menuItem.Text);
+            //if (menuItem.Text is lighting or general)
+            //{
+            //    ReadDataDevice();
+            //}
+            //SetMenuItemActiveStatus(menuItem.Text);
         }
          public void WriteDeviceInfoJson()
         {
@@ -772,7 +772,7 @@ namespace adrilight.ViewModel
             IsDashboardType = false;
             CurrentDevice = card;
             PreviewSpots = SpotSets[0].Spots;
-            SetMenuItemActiveStatus(general);
+            SetMenuItemActiveStatus(lighting);
         }
         public void BackToDashboard()
         {
