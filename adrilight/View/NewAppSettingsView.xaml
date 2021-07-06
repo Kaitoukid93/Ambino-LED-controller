@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="adrilight.View.SplitLightView"
+﻿<UserControl x:Class="adrilight.View.NewAppSettingsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
                xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
               TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-              TextElement.FontWeight="Medium"
+              TextElement.FontWeight="Regular"
               TextElement.FontSize="13"
               TextOptions.TextFormattingMode="Ideal" 
               TextOptions.TextRenderingMode="Auto"   
@@ -15,8 +15,8 @@
 
     <Grid Background="White" Margin="10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

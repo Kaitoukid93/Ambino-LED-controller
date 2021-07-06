@@ -189,13 +189,13 @@
                 <local:General/>
             </DataTemplate>
             <DataTemplate x:Key="lightingTemplate">
-                <local:Lighting/>
+                <local:SplitLightView/>
             </DataTemplate>
             <DataTemplate x:Key="deviceSettingTemplate">
-                <local:DeviceSetting/>
+                <local:NewDeviceSettingsView/>
             </DataTemplate>
             <DataTemplate x:Key="appSettingTemplate">
-                <local:AppSetting/>
+                <local:NewAppSettingsView/>
             </DataTemplate>
             <DataTemplate x:Key="faqTemplate">
                 <local:FAQ/>
@@ -215,7 +215,7 @@
                         <Setter Property="ContentTemplate" Value="{StaticResource faqTemplate}" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Path=SelectedVerticalMenuItem.Text}" Value="General">
-                        <Setter Property="ContentTemplate" Value="{StaticResource generalTemplate}" />
+                        <Setter Property="ContentTemplate" Value="{StaticResource lightingTemplate}" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Path=SelectedVerticalMenuItem.Text}" Value="Lighting">
                         <Setter Property="ContentTemplate" Value="{StaticResource lightingTemplate}" />
@@ -231,20 +231,20 @@
 Identifier="mainDialog"  >
             
             <Grid Background="White"  materialDesign:ShadowAssist.ShadowDepth="Depth5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="70"></RowDefinition>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal">
-                    <Image Margin="20,20,0,0" HorizontalAlignment="Left" Source="{StaticResource svgLogo}" Height="52" Width="52"></Image>
-                    <TextBlock Style="{StaticResource tbHeadingStyle}" Margin="10,20,0,0" >Ambino</TextBlock>
-                </StackPanel>
-                <Grid Margin="20,10,20,20" Grid.Row="1">
+                
+                
+                <Grid Margin="20,10,20,20" Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="222"></ColumnDefinition>
-                        <ColumnDefinition ></ColumnDefinition>
+                        <ColumnDefinition Width="auto"/>
+                        
+
+
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Margin="0,50,0,0">
+                     
+                    
+                    <StackPanel Visibility="{Binding IsDashboardType,Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,50,0,0">
+                        
                         <ItemsControl ItemsSource="{Binding MenuItems,UpdateSourceTrigger=PropertyChanged}"
                                                 IsTabStop="False"
                                                 BorderThickness="0">
@@ -259,8 +259,10 @@ Identifier="mainDialog"  >
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                         </ItemsControl>
+                      
                     </StackPanel>
-                    <ContentControl Content="{Binding .,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource selectableContentStyle}" Grid.Column="1" Margin="20" >
+                    
+                    <ContentControl Content="{Binding .,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource selectableContentStyle}" Grid.Column="1" Margin="0" >
                       
                     </ContentControl>
                 </Grid>

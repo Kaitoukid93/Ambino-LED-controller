@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="adrilight.View.SplitLightView"
+﻿<UserControl x:Class="adrilight.View.NewDeviceSettingsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
                xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
               TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-              TextElement.FontWeight="Medium"
+              TextElement.FontWeight="Regular"
               TextElement.FontSize="13"
               TextOptions.TextFormattingMode="Ideal" 
               TextOptions.TextRenderingMode="Auto"   
@@ -15,8 +15,8 @@
 
     <Grid Background="White" Margin="10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -61,7 +61,7 @@
                 <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#FF898989" VerticalAlignment="Bottom">
 
                 </Rectangle>
-                <ComboBox Grid.Column="1" Grid.Row="0" Margin="111,12,10,12">
+                <ComboBox Width="100" Grid.Column="1" Grid.Row="0" Margin="0,0,10,0" HorizontalAlignment="Right">
 
                 </ComboBox>
 
@@ -78,7 +78,7 @@
                 <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Khi Tắt Máy" FontSize="17" VerticalAlignment="Center" Foreground="Black"/>
                 <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Chọn chế độ sáng của LED khi tắt máy, chỉ áp dụng với các thiết bị cắm USB ngoài case" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"/>
                 <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#FF898989" VerticalAlignment="Bottom"/>
-                <ComboBox Grid.Column="1" Grid.Row="0" Margin="111,12,10,12">
+                <ComboBox Width="200" Grid.Column="1" Grid.Row="0" Margin="0,0,10,0" HorizontalAlignment="Right">
 
                 </ComboBox>
 
@@ -98,7 +98,7 @@
                 <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Giới Hạn FPS" FontSize="17" VerticalAlignment="Center" Foreground="Black"/>
                 <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Chọn mức FPS phù hợp để  máy tính hoạt động ổn định hơn đối với cấu hình thấp" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"/>
                 <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#FF898989" VerticalAlignment="Bottom"/>
-                <ComboBox Grid.Column="1" Grid.Row="0" Margin="111,12,10,12">
+                <ComboBox Width="100" Grid.Column="1" Grid.Row="0" Margin="0,0,10,0" HorizontalAlignment="Right">
 
                 </ComboBox>
 
@@ -115,25 +115,25 @@
                 <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Độ Tương Phản Ambilight" FontSize="17" VerticalAlignment="Center" Foreground="Black"/>
                 <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Thuật toán độ tương phản sẽ áp dụng lên tất cả các thiết bị hiện có" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"/>
                 <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#FF898989" VerticalAlignment="Bottom"/>
-                <ComboBox Grid.Column="1" Grid.Row="0" Margin="111,12,10,12">
+                <ComboBox Width="200" Grid.Column="1" Grid.Row="0" Margin="0,0,10,0" HorizontalAlignment="Right">
 
                 </ComboBox>
 
             </Grid>
             <Grid Height="100">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Saturation Thresold" FontSize="17" VerticalAlignment="Center" Foreground="Black"/>
+                <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Saturation Thresold" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
                 <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Nếu bạn muốn khi màn hình hiển thị cảnh màu đen mà LED vẫn sáng, giảm hết cỡ giá trị này nhé" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"/>
                 <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#FF898989" VerticalAlignment="Bottom"/>
-                <Slider Margin="0,0,10,0" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"/>
-                <Button Grid.Column="0"  Style="{StaticResource MaterialDesignFlatButton}" Content="255" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#3F000000" BorderBrush="{x:Null}" Foreground="#FF898989" Margin="325,9,20,9"/>
+                <Slider Width="200" Margin="0,0,10,0" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <Button Width="55" Grid.Column="0"  Style="{StaticResource MaterialDesignFlatButton}" Content="255" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#3F000000" BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
             </Grid>
         </StackPanel>

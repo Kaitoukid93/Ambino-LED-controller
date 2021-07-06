@@ -118,51 +118,12 @@ namespace adrilight
         }
 
 
-        //private void RefreshCapturingStateSecond()
-        //{
-        //    var isRunningSecond = _cancellationTokenSourceSecond != null && IsRunningSecond;
-        //    var shouldBeRunningSecond = UserSettings.TransferActive;
-
-        //    var shouldBeCapturingSecond = UserSettings.CaptureActive || SettingsViewModel.IsSettingsWindowOpen && SettingsViewModel.IsPreviewTabOpenSecond;
-
-        //    if (isRunningSecond && !shouldBeCapturingSecond && shouldBeRunningSecond)
-        //    {
-        //        //stop it!
-        //        _log.Debug("stopping the capturing");
-        //        _cancellationTokenSourceSecond.Cancel();
-        //        _cancellationTokenSourceSecond = null;
-        //    }
-        //    else if (!isRunningSecond && shouldBeCapturingSecond && shouldBeRunningSecond)
-        //    {
-        //        //start it
-        //        _log.Debug("starting the capturing");
-        //        _cancellationTokenSourceSecond = new CancellationTokenSource();
-        //        var thread = new Thread(() => RunSecond(_cancellationTokenSourceSecond.Token)) {
-        //            IsBackground = true,
-        //            Priority = ThreadPriority.BelowNormal,
-        //            Name = "DesktopDuplicatorReader"
-        //        };
-        //        thread.Start();
-        //        if (Screen.AllScreens.Length == 2)
-        //        {
-        //            var thread2 = new Thread(() => Run2Second(_cancellationTokenSourceSecond.Token)) {
-        //                IsBackground = true,
-        //                Priority = ThreadPriority.BelowNormal,
-        //                Name = "DesktopDuplicatorReader2"
-        //            };
-        //            thread2.Start();
-        //        }
-
-
-        //    }
-
-        //}
-
+  
 
         private IGeneralSettings UserSettings { get; }
         private IGeneralSpotSet SpotSet { get; }
        
-      //  private SettingsViewModel SettingsViewModel { get; }
+  
 
         private readonly Policy _retryPolicy;
 
@@ -170,7 +131,7 @@ namespace adrilight
         {
             if (index < 10)
             {
-                //first second
+                
                 return TimeSpan.FromMilliseconds(100);
             }
 
@@ -208,20 +169,13 @@ namespace adrilight
                     var frameTime = Stopwatch.StartNew();
                     var newImage = _retryPolicy.Execute(() => GetNextFrame(image));
                     TraceFrameDetails(newImage);
-                  //  var brightness = UserSettings.Brightness / 100d;
-
+                 
                     if (newImage == null)
                     {
                         //there was a timeout before there was the next frame, simply retry!
                         continue;
                     }
                     image = newImage;
-
-                   // bool isPreviewRunning = (SettingsViewModel.IsSettingsWindowOpen && UserSettings.SelectedEffect == 0);
-                    // if (isPreviewRunning)
-                    // {
-                  //  SettingsViewModel.SetPreviewImage(image); //remove this, using grey gradient background for better visual
-                                                              //  }
 
 
                     image.LockBits(new Rectangle(0, 0, image.Width, image.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppRgb, bitmapData);
@@ -271,13 +225,6 @@ namespace adrilight
                                 });
                         }
 
-                        //if (isPreviewRunning)
-                        //{
-                        //    //copy all color data to the preview
-                        //    var needsNewArray = SettingsViewModel.PreviewSpots?.Length != SpotSet.Spots.Length;
-
-                        //    SettingsViewModel.PreviewSpots = SpotSet.Spots;
-                        //}
                     }
 
 
