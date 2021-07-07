@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:adrilight.View"
              mc:Ignorable="d" 
-               xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
-              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+               xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:viewmodel="clr-namespace:adrilight.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewViewModel}"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
               TextElement.FontWeight="Regular"
               TextElement.FontSize="13"
               TextOptions.TextFormattingMode="Ideal" 
@@ -41,8 +41,9 @@
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="7*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="225*"/>
+                <RowDefinition Height="588*"/>
+                <RowDefinition Height="116*"/>
             </Grid.RowDefinitions>
         </Grid>
 
@@ -58,11 +59,11 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Tự Khởi Động Cùng Windows" FontSize="17" VerticalAlignment="Center" Foreground="Black"/>
                 <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="App sẽ tự khởi động và LED sẽ tự sáng khi bật máy" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989"/>
-                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#FFAAAAAA" Margin="10,0,10,5" VerticalAlignment="Bottom"/>
+                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#26000000" Margin="10,0,10,5" VerticalAlignment="Bottom"/>
                 <ToggleButton Grid.Column="1" Margin="0,0,10,0"
-                     Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                      Style="{StaticResource ToggleButtonSwitch}"
                      ToolTip="MaterialDesignSwitchToggleButton"
-                     IsChecked="True" HorizontalAlignment="Right" />
+                     IsChecked="{Binding GeneralSettings.Autostart}" HorizontalAlignment="Right" />
 
             </Grid>
             <Grid Height="80">
@@ -76,11 +77,11 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Khởi Chạy Ẩn" FontSize="17" VerticalAlignment="Center" Foreground="Black"/>
                 <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="App sẽ tự ẩn ở dưới góc phải màn hình khi khởi chạy" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989"/>
-                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#FFAAAAAA" Margin="10,0,9.6,5" VerticalAlignment="Bottom"/>
+                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#26000000" Margin="10,0,9.6,5" VerticalAlignment="Bottom"/>
                 <ToggleButton Grid.Column="1" Margin="0,0,10,0"
-                     Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                      Style="{StaticResource ToggleButtonSwitch}"
                      ToolTip="MaterialDesignSwitchToggleButton"
-                     IsChecked="True" HorizontalAlignment="Right" />
+                     IsChecked="{Binding GeneralSettings.StartMinimized}" HorizontalAlignment="Right" />
 
             </Grid>
             <TextBlock Margin="10,15,0,15" Text="THÔNG BÁO" FontSize="14" Foreground="#FF898989">
@@ -98,11 +99,11 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Margin="10,10,0,9" Grid.Column="0" Text="Thông Báo Khi Có Thiết Bị Cắm Vào" FontSize="17" VerticalAlignment="Center" Foreground="Black" Grid.ColumnSpan="2"/>
                 <TextBlock Margin="10,0,0,11" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Text="Thiết bị có thể được hỗ trợ bởi Ambino Sẽ được thông báo khi cắm vào" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989"/>
-                <Rectangle Grid.Row="1" Grid.ColumnSpan="3" Height="1" Width="585" Fill="#FFAAAAAA" Margin="10,0,10,5" VerticalAlignment="Bottom"/>
-                <ToggleButton Grid.Column="2" Margin="0,0,10,0"
-                     Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                     ToolTip="MaterialDesignSwitchToggleButton"
-                     IsChecked="True" HorizontalAlignment="Right" />
+                <Rectangle Grid.Row="1" Grid.ColumnSpan="3" Height="1" Width="585" Fill="#26000000" Margin="10,0,10,5" VerticalAlignment="Bottom"/>
+                <ToggleButton IsEnabled="False" Grid.Column="2" Margin="0,0,10,0"
+                      Style="{StaticResource ToggleButtonSwitch}"
+                     
+                     IsChecked="False" HorizontalAlignment="Right" />
 
             </Grid>
             <Grid Height="80">
@@ -116,11 +117,11 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Thông Báo Khi Có Thiết Bị Ngắt Kết Nối" FontSize="17" VerticalAlignment="Center" Foreground="Black"/>
                 <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Thiết bị ngắt kết nối trong khi đang  sử dụng sẽ được thông báo" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989"/>
-                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#FFAAAAAA" Margin="10,0,10,5" VerticalAlignment="Bottom"/>
-                <ToggleButton Grid.Column="1" Margin="0,0,10,0"
-                     Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#26000000" Margin="10,0,10,5" VerticalAlignment="Bottom"/>
+                <ToggleButton IsEnabled="False" Grid.Column="1" Margin="0,0,10,0"
+                      Style="{StaticResource ToggleButtonSwitch}"
                      ToolTip="MaterialDesignSwitchToggleButton"
-                     IsChecked="True" HorizontalAlignment="Right" />
+                     IsChecked="False" HorizontalAlignment="Right" />
 
             </Grid>
         </StackPanel>

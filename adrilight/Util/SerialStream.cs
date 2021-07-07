@@ -24,8 +24,9 @@ namespace adrilight
     {
         private ILogger _log = LogManager.GetCurrentClassLogger();
 
-        public SerialStream(IDeviceSettings deviceSettings, IDeviceSpotSet deviceSpotSet)
+        public SerialStream(IDeviceSettings deviceSettings, IDeviceSpotSet deviceSpotSet, IGeneralSettings generalSettings)
         {
+            GeneralSettings = generalSettings ?? throw new ArgumentException(nameof(generalSettings));
             DeviceSettings = deviceSettings ?? throw new ArgumentNullException(nameof(deviceSettings));
             DeviceSpotSet = deviceSpotSet ?? throw new ArgumentNullException(nameof(deviceSpotSet));
             DeviceSettings.PropertyChanged += UserSettings_PropertyChanged;
@@ -37,6 +38,7 @@ namespace adrilight
         }
         //Dependency Injection//
         private IDeviceSettings DeviceSettings { get; }
+        private IGeneralSettings GeneralSettings { get; }
         private IDeviceSpotSet DeviceSpotSet { get; }
         private bool CheckSerialPort(string serialport)
         {
@@ -298,17 +300,35 @@ namespace adrilight
                 //}
 
                 int snapshotCounter = 0;
-                foreach (DeviceSpot spot in DeviceSpotSet.Spots)
+                if(GeneralSettings.SentryMode==1)
                 {
+                    foreach (DeviceSpot spot in DeviceSpotSet.Spots)
+                    {
 
-                    outputStream[counter++] = DeviceSettings.SnapShot[snapshotCounter++]; // blue
-                    outputStream[counter++] = DeviceSettings.SnapShot[snapshotCounter++]; // green
-                    outputStream[counter++] = DeviceSettings.SnapShot[snapshotCounter++]; // red
+                        outputStream[counter++] = DeviceSettings.SnapShot[snapshotCounter++]; // blue
+                        outputStream[counter++] = DeviceSettings.SnapShot[snapshotCounter++]; // green
+                        outputStream[counter++] = DeviceSettings.SnapShot[snapshotCounter++]; // red
 
-                    allBlack = allBlack && spot.Red == 0 && spot.Green == 0 && spot.Blue == 0;
+                        allBlack = allBlack && spot.Red == 0 && spot.Green == 0 && spot.Blue == 0;
 
 
+                    }
                 }
+                else if(GeneralSettings.SentryMode==0)
+                {
+                    foreach (DeviceSpot spot in DeviceSpotSet.Spots)
+                    {
+
+                        outputStream[counter++] = 0; // blue
+                        outputStream[counter++] = 0; // green
+                        outputStream[counter++] = 0; // red
+
+                        allBlack = allBlack && spot.Red == 0 && spot.Green == 0 && spot.Blue == 0;
+
+
+                    }
+                }
+               
 
                 if (allBlack)
                 {

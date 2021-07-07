@@ -13,7 +13,7 @@ namespace adrilight
        // private bool _autostart = true;
         private int _borderDistanceX = 0;
         private int _borderDistanceY = 0;
-
+        private bool _autostart = true;
 
         private bool _mirrorX = true;
         private bool _mirrorY = false;
@@ -21,7 +21,7 @@ namespace adrilight
         private bool _shouldbeRunning = true;
         //ambilight smooth choice///
 
-
+        private bool _startMinimized = false;
 
         private int _spotHeight = 150;
         private int _spotsX = 11;
@@ -37,10 +37,11 @@ namespace adrilight
         private int _selectedDisplay = 0;
         private int _selectedAdapter = 0;
         private byte _saturationTreshold = 10;
+        private int _sentryMode = 0;
 
         private int _limitFps = 100;
 
-        private bool _useLinearLighting = true;
+        private int _useLinearLighting = 0;
 
 
 
@@ -58,10 +59,11 @@ namespace adrilight
 
 
 
-
-
+        public bool StartMinimized { get => _startMinimized; set { Set(() => StartMinimized, ref _startMinimized, value); } }
+        public bool Autostart { get => _autostart; set { Set(() => Autostart, ref _autostart, value); } }
 
         public int BorderDistanceX { get => _borderDistanceX; set { Set(() => BorderDistanceX, ref _borderDistanceX, value); } }
+        public int SentryMode { get => _sentryMode; set { Set(() => SentryMode, ref _borderDistanceX, value); } }
         public int BorderDistanceY { get => _borderDistanceY; set { Set(() => BorderDistanceY, ref _borderDistanceY, value); } }
 
         public bool ShouldbeRunning { get => _shouldbeRunning; set { Set(() => ShouldbeRunning, ref _shouldbeRunning, value); } }
@@ -70,7 +72,7 @@ namespace adrilight
         public bool MirrorY { get => _mirrorY; set { Set(() => MirrorY, ref _mirrorY, value); } }
         public int OffsetLed { get => _offsetLed; set { Set(() => OffsetLed, ref _offsetLed, value); } }
 
-        public bool UseLinearLighting { get => _useLinearLighting; set { Set(() => UseLinearLighting, ref _useLinearLighting, value); } }
+        public int UseLinearLighting { get => _useLinearLighting; set { Set(() => UseLinearLighting, ref _useLinearLighting, value); } }
 
         public int SpotHeight { get => _spotHeight; set { Set(() => SpotHeight, ref _spotHeight, value); } }
         public int SpotsX { get => _spotsX; set { Set(() => SpotsX, ref _spotsX, value); } }

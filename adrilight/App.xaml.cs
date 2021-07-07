@@ -148,14 +148,14 @@ namespace adrilight
 
             SetupNotifyIcon();
 
-            //  if (!UserSettings.StartMinimized)
-            // {
-            // OpenSettingsWindow();
-            // OpenNewUI();
-            //  }
-            
+           
+
             Current.MainWindow = kernel.Get<MainView>();
-            Current.MainWindow.Show();
+            if (!GeneralSettings.StartMinimized)
+            {
+                Current.MainWindow.Show();
+            }
+           
 
             // kernel.Get<AdrilightUpdater>().StartThread();
 
@@ -315,13 +315,21 @@ namespace adrilight
 
             DispatcherUnhandledException += (sender, args) => ApplicationWideException(sender, args.Exception, "DispatcherUnhandledException");
 
-            Exit += (s, e) => _log.Debug("Application exit!");
+            Exit += (s, e) =>
+            {
+                var SerialStream = kernel.GetAll<ISerialStream>();
+                foreach( var serialStream in SerialStream)
+                {
+                    serialStream.Stop();
+                }
+                _log.Debug("Application exit!");
+            };
 
             SystemEvents.PowerModeChanged += (s, e) => _log.Debug("Changing Powermode to {0}", e.Mode);
         }
 
 
-
+       // private ISerialStream[] SerialStream { get; set; }
 
         private void SetupTrackingForProcessWideEvents(TelemetryClient tc)
         {

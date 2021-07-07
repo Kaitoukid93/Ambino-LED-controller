@@ -13,7 +13,7 @@ namespace adrilight
 
         int BorderDistanceX { get; set; }
         int BorderDistanceY { get; set; }
-
+        bool Autostart { get; set; }
         bool MirrorX { get; set; }
 
         bool MirrorY { get; set; }
@@ -27,14 +27,15 @@ namespace adrilight
         int SpotsX { get; set; }
 
         int SpotsY { get; set; }
+        int SentryMode { get; set; }
 
         int SelectedDisplay { get; set; }
         int SelectedAdapter { get; set; }
         byte SaturationTreshold { get; set; }
         bool ShouldbeRunning { get; set; }
-        bool UseLinearLighting { get; set; }
+        int UseLinearLighting { get; set; }
         int LimitFps { get; set; }
-
+        bool StartMinimized { get; set; }
 
 
     }

@@ -9,9 +9,10 @@ namespace adrilight.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is Color color)
+            if (value is Color)
             {
-                return new SolidColorBrush(color);
+                var color = (Color)value;
+                return new SolidColorBrush(Color.FromArgb(255, color.R,color.G,color.B));
             }
             return Binding.DoNothing;
         }

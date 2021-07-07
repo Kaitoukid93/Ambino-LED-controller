@@ -50,13 +50,13 @@
                         <TextBlock     Style="{StaticResource tbHeading4Style}" HorizontalAlignment="Left"   Text="Tự động thêm thiết bị"  VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1">
-                        <ToggleButton  VerticalAlignment="Center" Background="#7344c3"  Width="48" Height="24"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"   IsChecked="{Binding SettingInfo.AutoAddNewDevice}" />
+                        <ToggleButton  VerticalAlignment="Center"   Width="48" Height="24"   Style="{StaticResource ToggleButtonSwitch}"   IsChecked="{Binding SettingInfo.AutoAddNewDevice}" />
                     </Border>
                     <Border Grid.Row="1">
                         <TextBlock   Style="{StaticResource tbHeading4Style}"   Text="Tự động kết nối với thiết bị"    VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="1">
-                        <ToggleButton    Width="48" Height="24"  VerticalAlignment="Center" Background="#7344c3" Style="{StaticResource MaterialDesignSwitchLightToggleButton}"   IsChecked="{Binding SettingInfo.AutoConnectNewDevice}" />
+                        <ToggleButton    Width="48" Height="24"  VerticalAlignment="Center"   Style="{StaticResource ToggleButtonSwitch}"  IsChecked="{Binding SettingInfo.AutoConnectNewDevice}" />
                     </Border>
                 </Grid>
             </Border>
@@ -85,19 +85,19 @@
                         <TextBlock Text="Hiển thị trạng thái kết nối"   Style="{StaticResource tbHeading4Style}"     VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="1">
-                        <ToggleButton   Width="48" Height="24"  HorizontalAlignment="Right" Background="#7344c3" VerticalAlignment="Center"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"    IsChecked="{Binding SettingInfo.DisplayConnectionStatus}" />
+                        <ToggleButton   Width="48" Height="24"  HorizontalAlignment="Right"  VerticalAlignment="Center"   Style="{StaticResource ToggleButtonSwitch}"   IsChecked="{Binding SettingInfo.DisplayConnectionStatus}" />
                     </Border>
                     <Border Grid.Row="2">
                         <TextBlock Text="Hiển thị chế độ sáng hiện tại"  Style="{StaticResource tbHeading4Style}"    VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="2">
-                        <ToggleButton    Width="48" Height="24"  HorizontalAlignment="Right" Background="#7344c3" VerticalAlignment="Center"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"    IsChecked="{Binding SettingInfo.DisplayLightingStatus}" />
+                        <ToggleButton    Width="48" Height="24"  HorizontalAlignment="Right"  VerticalAlignment="Center"   Style="{StaticResource ToggleButtonSwitch}"    IsChecked="{Binding SettingInfo.DisplayLightingStatus}" />
                     </Border>
                     <Border Grid.Row="3">
                         <TextBlock Text="Xóa tất cả cấu hình khi thiết bị được gỡ"  Style="{StaticResource tbHeading4Style}"   VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Grid.Column="1" Grid.Row="3">
-                        <ToggleButton  Width="48" Height="24"  HorizontalAlignment="Right" Background="#7344c3"  VerticalAlignment="Center"  Style="{StaticResource MaterialDesignSwitchLightToggleButton}"   IsChecked="{Binding SettingInfo.AutoDeleteConfigWhenDisconnected}" />
+                        <ToggleButton   Width="48" Height="24"  HorizontalAlignment="Right"   VerticalAlignment="Center"   Style="{StaticResource ToggleButtonSwitch}"   IsChecked="{Binding SettingInfo.AutoDeleteConfigWhenDisconnected}" />
                     </Border>
                 </Grid>
             </Border>

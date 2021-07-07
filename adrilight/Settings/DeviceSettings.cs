@@ -83,7 +83,7 @@ namespace adrilight
         private string _filemauchip = "Blackout.txt";
 
         private byte _selectedEffect = 0;
-        private Color _color0 = Color.FromArgb(0, 0, 255, 255);
+        private Color _color0 = Color.FromArgb(255, 0, 255, 255);
         private Color _color1 = Color.FromArgb(0, 0, 255, 255);
         private Color _color2 = Color.FromArgb(0, 0, 255, 255);
         private Color _color3 = Color.FromArgb(0, 0, 255, 255);

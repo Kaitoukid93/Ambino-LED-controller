@@ -382,9 +382,12 @@ namespace adrilight.ViewModel
             }
         }
         GifBitmapDecoder decoder;
-       
-        public MainViewViewModel(IDeviceSettings[] cards, IDeviceSpotSet[] deviceSpotSets)
+        public IGeneralSettings GeneralSettings { get; }
+
+        public MainViewViewModel(IDeviceSettings[] cards, IDeviceSpotSet[] deviceSpotSets, IGeneralSettings generalSettings)
         {
+
+            GeneralSettings = generalSettings ?? throw new ArgumentNullException(nameof(generalSettings));
             Cards = new ObservableCollection<IDeviceSettings>();
             SpotSets = new ObservableCollection<IDeviceSpotSet>();
             foreach(IDeviceSettings card in cards)
@@ -649,7 +652,7 @@ namespace adrilight.ViewModel
           "Naughty boy"
 
         };
-          
+
 
         }
         public async void ShowAddNewDialog()

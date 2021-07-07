@@ -210,9 +210,9 @@ namespace adrilight
                                     byte FinalG = (byte)(sumG * countInverse);
                                     byte FinalB = (byte)(sumB * countInverse);
 
-                                    //ApplyColorCorrections(sumR * countInverse, sumG * countInverse, sumB * countInverse
-                                    //    , out byte finalR, out byte finalG, out byte finalB, useLinearLighting
-                                    //    , UserSettings.SaturationTreshold, spot.Red, spot.Green, spot.Blue);
+                                    ApplyColorCorrections(FinalR, FinalG, FinalB
+                                        , out byte finalR, out byte finalG, out byte finalB, useLinearLighting
+                                        , UserSettings.SaturationTreshold, spot.Red, spot.Green, spot.Blue);
 
                                     //var spotColor = new OpenRGB.NET.Models.Color(finalR, finalG, finalB);
 
@@ -220,7 +220,7 @@ namespace adrilight
                                     //ApplySmoothing(semifinalSpotColor.R, semifinalSpotColor.G, semifinalSpotColor.B
                                     //    , out byte RealfinalR, out byte RealfinalG, out byte RealfinalB,
                                     // spot.Red, spot.Green, spot.Blue);
-                                    spot.SetColor(FinalR, FinalG, FinalB, true);
+                                    spot.SetColor(finalR, finalG, finalB, true);
 
                                 });
                         }
@@ -290,43 +290,43 @@ namespace adrilight
             }
         }
 
-        //private void ApplyColorCorrections(float r, float g, float b, out byte finalR, out byte finalG, out byte finalB, bool useLinearLighting, byte saturationTreshold
-        //    , byte lastColorR, byte lastColorG, byte lastColorB)
-        //{
-        //    if (lastColorR == 0 && lastColorG == 0 && lastColorB == 0)
-        //    {
-        //        //if the color was black the last time, we increase the saturationThreshold to make flickering more unlikely
-        //        saturationTreshold += 2;
-        //    }
-        //    if (r <= saturationTreshold && g <= saturationTreshold && b <= saturationTreshold)
-        //    {
-        //        //black
-        //        finalR = finalG = finalB = 0;
-        //        return;
-        //    }
+        private void ApplyColorCorrections(byte r, byte g, byte b, out byte finalR, out byte finalG, out byte finalB, int useLinearLighting, byte saturationTreshold
+            , byte lastColorR, byte lastColorG, byte lastColorB)
+        {
+            if (lastColorR == 0 && lastColorG == 0 && lastColorB == 0)
+            {
+                //if the color was black the last time, we increase the saturationThreshold to make flickering more unlikely
+                saturationTreshold += 2;
+            }
+            if (r <= saturationTreshold && g <= saturationTreshold && b <= saturationTreshold)
+            {
+                //black
+                finalR = finalG = finalB = 0;
+                return;
+            }
 
-        //    //"white" on wall was 66,68,77 without white balance
-        //    //white balance
-        //    //todo: introduce settings for white balance adjustments
-        //    r *= UserSettings.WhitebalanceRed / 100f;
-        //    g *= UserSettings.WhitebalanceGreen / 100f;
-        //    b *= UserSettings.WhitebalanceBlue / 100f;
+            //"white" on wall was 66,68,77 without white balance
+            //white balance
+            //todo: introduce settings for white balance adjustments
+            //r *= UserSettings.WhitebalanceRed / 100f;
+            //g *= UserSettings.WhitebalanceGreen / 100f;
+            //b *= UserSettings.WhitebalanceBlue / 100f;
 
-        //    if (!useLinearLighting)
-        //    {
-        //        //apply non linear LED fading ( http://www.mikrocontroller.net/articles/LED-Fading )
-        //        finalR = FadeNonLinear(r);
-        //        finalG = FadeNonLinear(g);
-        //        finalB = FadeNonLinear(b);
-        //    }
-        //    else
-        //    {
-        //        //output
-        //        finalR = (byte)r;
-        //        finalG = (byte)g;
-        //        finalB = (byte)b;
-        //    }
-        //}
+            if (useLinearLighting==1)
+            {
+                //apply non linear LED fading ( http://www.mikrocontroller.net/articles/LED-Fading )
+                finalR = FadeNonLinear(r);
+                finalG = FadeNonLinear(g);
+                finalB = FadeNonLinear(b);
+            }
+            else
+            {
+                //output
+                finalR = r;
+                finalG = g;
+                finalB = b;
+            }
+        }
         //private void ApplySmoothing(float r, float g, float b, out byte semifinalR, out byte semifinalG, out byte semifinalB,
         //   byte lastColorR, byte lastColorG, byte lastColorB)
         //{

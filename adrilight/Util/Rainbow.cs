@@ -359,7 +359,7 @@ namespace adrilight
             gradientPalette.Add(new GradientStop(ColorCollection[12], 0.793));
             gradientPalette.Add(new GradientStop(ColorCollection[13], 0.859));
             gradientPalette.Add(new GradientStop(ColorCollection[14], 0.925));
-            gradientPalette.Add(new GradientStop(ColorCollection[15], 1));
+            gradientPalette.Add(new GradientStop(ColorCollection[0], 1));
             //gradientPalette.Add(new GradientStop(ColorCollection[0], 1));
             //gradientPalette.Add(new GradientStop(ColorCollection[0], 0.0000));
             //gradientPalette.Add(new GradientStop(ColorCollection[1], 0.0625));
