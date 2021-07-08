@@ -25,10 +25,12 @@ namespace adrilight
 
         private int _spotHeight = 150;
         private int _spotsX = 11;
+        private int _spotsX2 = 11;
 
 
 
         private int _spotsY = 6;
+        private int _spotsY2 = 6;
 
         private int _spotWidth = 150;
 
@@ -78,6 +80,8 @@ namespace adrilight
         public int SpotsX { get => _spotsX; set { Set(() => SpotsX, ref _spotsX, value); } }
 
         public int SpotsY { get => _spotsY; set { Set(() => SpotsY, ref _spotsY, value); } }
+        public int SpotsY2 { get => _spotsY2; set { Set(() => SpotsY2, ref _spotsY2, value); } }
+        public int SpotsX2 { get => _spotsX2; set { Set(() => SpotsX2, ref _spotsX2, value); } }
 
         public int SpotWidth { get => _spotWidth; set { Set(() => SpotWidth, ref _spotWidth, value); } }
 

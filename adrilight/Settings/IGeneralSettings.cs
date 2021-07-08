@@ -25,8 +25,10 @@ namespace adrilight
         int SpotWidth { get; set; }
 
         int SpotsX { get; set; }
+        int SpotsX2 { get; set; }
 
         int SpotsY { get; set; }
+        int SpotsY2 { get; set; }
         int SentryMode { get; set; }
 
         int SelectedDisplay { get; set; }

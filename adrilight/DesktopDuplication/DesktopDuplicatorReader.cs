@@ -167,7 +167,7 @@ namespace adrilight
                 while (!token.IsCancellationRequested)
                 {
                     var frameTime = Stopwatch.StartNew();
-                    var newImage = _retryPolicy.Execute(() => GetNextFrame(image));
+                    var newImage = _retryPolicy.Execute(() => GetNextFrame(image,0));
                     TraceFrameDetails(newImage);
                  
                     if (newImage == null)
@@ -365,9 +365,9 @@ namespace adrilight
             return (byte)(256f * ((float)Math.Pow(factor, color / 256f) - 1f) / (factor - 1));
         }
 
-        private Bitmap GetNextFrame(Bitmap reusableBitmap)
+        private Bitmap GetNextFrame(Bitmap reusableBitmap, int outputAddress)
         {
-            var selectedDisplay = UserSettings.SelectedDisplay;
+            var selectedDisplay = outputAddress;
             var selectedAdapter = 0; //UserSettings.SelectedAdapter;
 
             if (_desktopDuplicator == null)

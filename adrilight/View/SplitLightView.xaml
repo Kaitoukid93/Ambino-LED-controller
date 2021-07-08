@@ -261,7 +261,7 @@
                     <StackPanel  Margin="35,15,0,0" Orientation="Vertical" HorizontalAlignment="Left">
 
                         <TextBlock Margin="10,0,0,0" Padding="0,0,0,10" Text="CÀI ĐẶT NÂNG CAO CHO CHẾ ĐỘ SÁNG THEO DẢI MÀU" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left"/>
-                        <Grid Height="80">
+                        <Grid Height="80" Margin="0,0,10,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"/>
                                 <ColumnDefinition Width="*"/>
@@ -276,7 +276,7 @@
                             <ComboBox x:Name="RainbowPaletteBox" ItemsSource="{Binding AvailablePalette}" SelectedIndex="{Binding CurrentDevice.SelectedPalette}" Style="{StaticResource ComboBoxExtend}" Margin="0,0,10,0" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"/>
 
                         </Grid>
-                        <Grid Height="80">
+                        <Grid Height="80" Margin="0,0,10,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"/>
                                 <ColumnDefinition Width="*"/>
@@ -291,7 +291,7 @@
                             <Slider Width="150" Minimum="0" Maximum="15" Value="{Binding CurrentDevice.EffectSpeed}" Style="{StaticResource SliderBaseStyle}" Margin="0,0,10,0" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                             <Button Grid.Column="0"  Style="{StaticResource MaterialDesignFlatButton}" Content="{Binding CurrentDevice.EffectSpeed}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#26000000" BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,20,0" HorizontalAlignment="Right"/>
                         </Grid>
-                        <Grid Height="80">
+                        <Grid Height="80" Margin="0,0,10,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"/>
                                 <ColumnDefinition Width="*"/>
@@ -320,7 +320,7 @@
                                     </Style.Triggers>
                                 </Style>
                             </StackPanel.Style>
-                            <hc:TransitioningContentControl TransitionMode="Left2RightWithFade">
+                            <hc:TransitioningContentControl TransitionMode="Left2RightWithFade" Margin="0,0,10,0">
                                 <Grid Height="80">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="2*"/>
@@ -390,7 +390,7 @@
             <hc:ScrollViewer Orientation="Vertical" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" IsInertiaEnabled="True"  Margin="1" Height="300" materialDesign:ScrollBarAssist.ButtonsVisibility="Collapsed">
                 <ScrollViewer.Style>
                     <Style TargetType="ScrollViewer">
-                        <Setter Property="Visibility" Value="Visible"></Setter>
+                        <Setter Property="Visibility" Value="Collapsed"></Setter>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding ElementName=EffectBox,Path=SelectedItem}" Value="Sáng theo màn hình">
                                 <Setter Property="Visibility" Value="Visible"/>

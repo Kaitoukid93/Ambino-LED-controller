@@ -176,16 +176,83 @@ namespace adrilight
             }
 
 
+            if (GeneralSettings.OffsetLed != 0) Offset(ref devicespots, GeneralSettings.OffsetLed);
+            if (spotsY > 1 && GeneralSettings.MirrorX) MirrorX(devicespots, spotsX, spotsY);
+            if (spotsX > 1 && GeneralSettings.MirrorY) MirrorY(devicespots, spotsX, spotsY);
 
-        
+            devicespots[0].IsFirst = true;
+
             return devicespots;
         }
 
 
+        private static void Mirror(IDeviceSpot[] spots, int startIndex, int length)
+        {
+            var halfLength = (length / 2);
+            var endIndex = startIndex + length - 1;
+
+            for (var i = 0; i < halfLength; i++)
+            {
+                spots.Swap(startIndex + i, endIndex - i);
+            }
+        }
+
+        private static void MirrorX(IDeviceSpot[] spots, int spotsX, int spotsY)
+        {
+            // copy swap last row to first row inverse
+            for (var i = 0; i < spotsX; i++)
+            {
+                var index1 = i;
+                var index2 = (spots.Length - 1) - (spotsY - 2) - i;
+                spots.Swap(index1, index2);
+            }
+
+            // mirror first column
+            Mirror(spots, spotsX, spotsY - 2);
+
+            // mirror last column
+            if (spotsX > 1)
+                Mirror(spots, 2 * spotsX + spotsY - 2, spotsY - 2);
+        }
+
+        private static void MirrorY(IDeviceSpot[] spots, int spotsX, int spotsY)
+        {
+            // copy swap last row to first row inverse
+            for (var i = 0; i < spotsY - 2; i++)
+            {
+                var index1 = spotsX + i;
+                var index2 = (spots.Length - 1) - i;
+                spots.Swap(index1, index2);
+            }
+
+            // mirror first row
+            Mirror(spots, 0, spotsX);
+
+            // mirror last row
+            if (spotsY > 1)
+                Mirror(spots, spotsX + spotsY - 2, spotsX);
+        }
+
+        private static void Offset(ref IDeviceSpot[] spots, int offset)
+        {
+            IDeviceSpot[] temp = new DeviceSpot[spots.Length];
+            for (var i = 0; i < spots.Length; i++)
+            {
+                temp[(i + temp.Length + offset) % temp.Length] = spots[i];
+            }
+            spots = temp;
+        }
+
+        public void IndicateMissingValues()
+        {
+            foreach (var spot in Spots)
+            {
+                spot.IndicateMissingValue();
+            }
+        }
 
 
 
-        
     }
 
 
