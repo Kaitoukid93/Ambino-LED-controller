@@ -13,6 +13,7 @@ using MapFlags = SharpDX.Direct3D11.MapFlags;
 using Rectangle = SharpDX.Mathematics.Interop.RawRectangle;
 using adrilight.Util;
 using System.Windows;
+using HandyControl.Data;
 
 namespace adrilight.DesktopDuplication
 {
@@ -55,7 +56,8 @@ namespace adrilight.DesktopDuplication
             {
                 if (ex.ResultCode == SharpDX.DXGI.ResultCode.NotFound)
                 {
-                    //MessageBox.Show("Display not Available at output address" + whichOutputDevice.ToString());
+                    
+                   MessageBox.Show(" Không thể capture màn hình " + (whichOutputDevice+1).ToString());
                     output = adapter.GetOutput(0);
 
                 }

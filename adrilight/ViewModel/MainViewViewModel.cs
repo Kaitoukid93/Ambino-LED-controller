@@ -831,6 +831,8 @@ namespace adrilight.ViewModel
             }
             RaisePropertyChanged(nameof(MenuItems));
         }
+
+
         
         
     }

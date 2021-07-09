@@ -28,5 +28,13 @@ namespace adrilight.Fakes
                 }
             });
         }
+        public void Stop()
+        {
+            IsRunning = false;
+        }
+        public void RefreshCapturingState()
+        {
+            IsRunning = true;
+        }
     }
 }

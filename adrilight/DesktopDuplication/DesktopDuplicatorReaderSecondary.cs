@@ -17,18 +17,18 @@ using adrilight.Util;
 
 namespace adrilight
 {
-    internal class DesktopDuplicatorReader : IDesktopDuplicatorReader
+    internal class DesktopDuplicatorReaderSecondary : BaseViewModel, IDesktopDuplicatorReaderSecondary
     {
         private readonly ILogger _log = LogManager.GetCurrentClassLogger();
 
-        public DesktopDuplicatorReader(IGeneralSettings userSettings, IGeneralSpotSet spotSet, int graphicAdapter, int output , MainViewViewModel mainViewViewModel)
+        public DesktopDuplicatorReaderSecondary(IGeneralSettings userSettings, IGeneralSpotSet spotSet, int graphicAdapter, int output)
         {
             UserSettings = userSettings ?? throw new ArgumentNullException(nameof(userSettings));
             SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
             GraphicAdapter = graphicAdapter;
             Output = output;
-            MainViewViewModel = mainViewViewModel ?? throw new ArgumentNullException(nameof(mainViewViewModel));
-            // SettingsViewModel = settingsViewModel ?? throw new ArgumentNullException(nameof(settingsViewModel));
+
+           // SettingsViewModel = settingsViewModel ?? throw new ArgumentNullException(nameof(settingsViewModel));
             _retryPolicy = Policy.Handle<Exception>()
                 .WaitAndRetryForever(ProvideDelayDuration);
 
@@ -36,7 +36,7 @@ namespace adrilight
            // SettingsViewModel.PropertyChanged += PropertyChanged;
             RefreshCapturingState();
 
-            _log.Info($"DesktopDuplicatorReader created.");
+            _log.Info($"DesktopDuplicatorReader created for secondary screen.");
         }
 
         private void PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -44,7 +44,7 @@ namespace adrilight
             switch (e.PropertyName)
             {
                 
-                case nameof(UserSettings.ShouldbeRunning):
+                case nameof(UserSettings.ShouldbeRunningSecondary):
 
                     RefreshCapturingState();
                     break;
@@ -58,17 +58,14 @@ namespace adrilight
 
         public bool IsRunning { get; private set; } = false;
         public bool NeededRefreshing { get; private set; } = false;
-        private MainViewViewModel MainViewViewModel { get; }
         private CancellationTokenSource _cancellationTokenSource;
-
-        private Thread _workerThread;
         public int GraphicAdapter;
         public int Output;
 
-       public void RefreshCaptureSource()
+        private void RefreshCaptureSource()
         {
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            var shouldBeRunning = UserSettings.ShouldbeRunning;
+            var shouldBeRunning = UserSettings.ShouldbeRunningSecondary;
             //  var shouldBeRefreshing = NeededRefreshing;
             if (isRunning && shouldBeRunning)
             {
@@ -79,19 +76,19 @@ namespace adrilight
                 _cancellationTokenSource = null;
                 _log.Debug("starting the capturing");
                 _cancellationTokenSource = new CancellationTokenSource();
-                _workerThread = new Thread(() => Run(_cancellationTokenSource.Token)) {
+                var thread = new Thread(() => Run(_cancellationTokenSource.Token)) {
                     IsBackground = true,
                     Priority = ThreadPriority.BelowNormal,
                     Name = "DesktopDuplicatorReader"
                 };
-                _workerThread.Start();
+                thread.Start();
 
             }
         }
-        public void RefreshCapturingState()
+        private void RefreshCapturingState()
         {
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            var shouldBeRunning = UserSettings.ShouldbeRunning;
+            var shouldBeRunning = UserSettings.ShouldbeRunningSecondary;
             //  var shouldBeRefreshing = NeededRefreshing;
 
 
@@ -111,12 +108,12 @@ namespace adrilight
                 //start it
                 _log.Debug("starting the capturing");
                 _cancellationTokenSource = new CancellationTokenSource();
-                _workerThread = new Thread(() => Run(_cancellationTokenSource.Token)) {
+                var thread = new Thread(() => Run(_cancellationTokenSource.Token)) {
                     IsBackground = true,
                     Priority = ThreadPriority.BelowNormal,
                     Name = "DesktopDuplicatorReader"
                 };
-                _workerThread.Start();
+                thread.Start();
 
 
             }
@@ -126,7 +123,7 @@ namespace adrilight
 
   
 
-        private IGeneralSettings UserSettings { get; }
+        private IGeneralSettings UserSettings { get; set; }
         private IGeneralSpotSet SpotSet { get; }
        
   
@@ -183,11 +180,7 @@ namespace adrilight
                     }
                     image = newImage;
 
-                    //bool isPreviewRunning = SettingsViewModel.IsSettingsWindowOpen && SettingsViewModel.IsPreviewTabOpen;
-                    //if (isPreviewRunning)
-                    //{
-                     //   MainViewViewModel.SetPreviewImage(image);
-                    
+
                     image.LockBits(new Rectangle(0, 0, image.Width, image.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppRgb, bitmapData);
 
                     lock (SpotSet.Lock)
@@ -205,7 +198,7 @@ namespace adrilight
                         }
                         else
                         {
-                            Parallel.ForEach(SpotSet.Spots
+                            Parallel.ForEach(SpotSet.Spots2
                                 , spot =>
                                 {
                                     const int numberOfSteps = 15;
@@ -392,6 +385,9 @@ namespace adrilight
                     {
                         _log.Error(ex, "could be secure desktop");
                     }
+                    UserSettings.ShouldbeRunningSecondary = false;
+                    RaisePropertyChanged(() => UserSettings.ShouldbeRunningSecondary);
+                  
                     // _desktopDuplicator.Dispose();
                     // _desktopDuplicator = null;
                     GC.Collect();
@@ -434,16 +430,7 @@ namespace adrilight
             }
         }
 
-        public void Stop()
-        {
-            _log.Debug("Stop called.");
-            if (_workerThread == null) return;
 
-            _cancellationTokenSource?.Cancel();
-            _cancellationTokenSource = null;
-            _workerThread?.Join();
-            _workerThread = null;
-        }
 
 
         private unsafe void GetAverageColorOfRectangularRegion(Rectangle spotRectangle, int stepy, int stepx, BitmapData bitmapData, out int sumR, out int sumG,

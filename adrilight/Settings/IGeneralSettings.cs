@@ -35,6 +35,7 @@ namespace adrilight
         int SelectedAdapter { get; set; }
         byte SaturationTreshold { get; set; }
         bool ShouldbeRunning { get; set; }
+        bool ShouldbeRunningSecondary { get; set; }
         int UseLinearLighting { get; set; }
         int LimitFps { get; set; }
         bool StartMinimized { get; set; }

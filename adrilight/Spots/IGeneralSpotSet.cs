@@ -8,6 +8,7 @@ namespace adrilight
         int ExpectedScreenHeight { get; }
 
         IGeneralSpot[] Spots { get; set; }
+        IGeneralSpot[] Spots2 { get; set; }
         object Lock { get; }
         int CountLeds(int spotsX, int spotsY);
   

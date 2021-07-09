@@ -19,6 +19,7 @@ namespace adrilight
         private bool _mirrorY = false;
         private int _offsetLed = 10;
         private bool _shouldbeRunning = true;
+        private bool _shouldbeRunningSecondary = false;
         //ambilight smooth choice///
 
         private bool _startMinimized = false;
@@ -69,6 +70,7 @@ namespace adrilight
         public int BorderDistanceY { get => _borderDistanceY; set { Set(() => BorderDistanceY, ref _borderDistanceY, value); } }
 
         public bool ShouldbeRunning { get => _shouldbeRunning; set { Set(() => ShouldbeRunning, ref _shouldbeRunning, value); } }
+        public bool ShouldbeRunningSecondary { get => _shouldbeRunningSecondary; set { Set(() => ShouldbeRunningSecondary, ref _shouldbeRunningSecondary, value); } }
 
         public bool MirrorX { get => _mirrorX; set { Set(() => MirrorX, ref _mirrorX, value); } }
         public bool MirrorY { get => _mirrorY; set { Set(() => MirrorY, ref _mirrorY, value); } }

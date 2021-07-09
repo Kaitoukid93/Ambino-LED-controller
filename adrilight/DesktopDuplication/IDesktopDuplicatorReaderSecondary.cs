@@ -4,12 +4,10 @@ using System.Threading;
 
 namespace adrilight
 {
-    public interface IDesktopDuplicatorReader
+    public interface IDesktopDuplicatorReaderSecondary
     {
         bool IsRunning { get; }
 
         void Run(CancellationToken token);
-        void Stop();
-        void RefreshCapturingState();
     }
 }

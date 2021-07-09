@@ -236,6 +236,7 @@ namespace adrilight
               .InheritedFrom<ISelectableViewPart>()
               .BindAllInterfaces());
             var desktopDuplicationReader = kernel.Get<IDesktopDuplicatorReader>();
+           var desktopDuplicationReaderSecondary = kernel.Get<IDesktopDuplicatorReaderSecondary>();
             
             if(alldevicesettings!=null)
             {
@@ -314,18 +315,63 @@ namespace adrilight
     (sender, args) => ApplicationWideException(sender, args.ExceptionObject as Exception, "CurrentDomain.UnhandledException");
 
             DispatcherUnhandledException += (sender, args) => ApplicationWideException(sender, args.Exception, "DispatcherUnhandledException");
-
+            
+           // var desktopduplicators = kernel.GetAll<IDesktopDuplicatorReader>();
             Exit += (s, e) =>
             {
                 var SerialStream = kernel.GetAll<ISerialStream>();
-                foreach( var serialStream in SerialStream)
+                foreach ( var serialStream in SerialStream)
                 {
                     serialStream.Stop();
                 }
                 _log.Debug("Application exit!");
             };
 
-            SystemEvents.PowerModeChanged += (s, e) => _log.Debug("Changing Powermode to {0}", e.Mode);
+           
+
+            SystemEvents.PowerModeChanged += (s, e) =>
+            {
+                _log.Debug("Changing Powermode to {0}", e.Mode);
+                if (e.Mode == PowerModes.Resume)
+                {
+                    GC.Collect();
+                    var SerialStream = kernel.GetAll<ISerialStream>();
+                    foreach (var serialStream in SerialStream)
+                    {
+                        serialStream.Start();
+                    }
+                    var duplicatorreader = kernel.Get<IDesktopDuplicatorReader>();
+                    duplicatorreader.RefreshCapturingState();
+
+                    _log.Debug("Restart the serial stream after sleep!");
+                }
+                else if (e.Mode == PowerModes.Suspend)
+                {
+                    var SerialStream = kernel.GetAll<ISerialStream>();
+                    foreach (var serialStream in SerialStream)
+                    {
+                        serialStream.Stop();
+                    }
+                    var duplicatorreader = kernel.Get<IDesktopDuplicatorReader>();
+                    duplicatorreader.Stop();
+                    //foreach (var desktopduplicator in desktopduplicators)
+                    //{
+                    //    desktopduplicator.Dispose();
+                    //}
+
+                    _log.Debug("Stop the serial stream due to sleep condition!");
+                }
+
+            };
+            SystemEvents.SessionEnding += (s, e) =>
+            {
+                var SerialStream = kernel.GetAll<ISerialStream>();
+                foreach (var serialStream in SerialStream)
+                {
+                    serialStream.Stop();
+                }
+                _log.Debug("Stop the serial stream due to power down or log off condition!");
+            };
         }
 
 
