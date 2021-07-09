@@ -438,6 +438,9 @@
     <Compile Include="ViewModel\Product.xaml.cs">
       <DependentUpon>Product.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CardHUBStyle.xaml.cs">
+      <DependentUpon>CardHUBStyle.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CardNewStyle.xaml.cs">
       <DependentUpon>CardNewStyle.xaml</DependentUpon>
     </Compile>
@@ -717,6 +720,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AppSetting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\CardHUBStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
