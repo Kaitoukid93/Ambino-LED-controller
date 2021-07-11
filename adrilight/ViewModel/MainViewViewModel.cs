@@ -579,7 +579,7 @@ namespace adrilight.ViewModel
             LoadMenu();
             LoadMenuByType(true);
             ReadDataDevice();
-            ReadFAQ();
+           // ReadFAQ();
             
             //CurrentView = _allDeviceView.CreateViewModel();
             SelectMenuItem = new RelayCommand<VerticalMenuItem>((p) => {
@@ -630,15 +630,15 @@ namespace adrilight.ViewModel
                BackToDashboard();
             });
         }
-        public void ReadFAQ()
-        {
-            AppName = $"adrilight {App.VersionNumber}";
-            BuildVersion = "xxxxxxxxxxxxxxxxxxxxxxxxxxx";
-            LastUpdate = new DateTime(2020, 06, 01);
-            Author = "zOe";
-            Git = "xxxxxxx";
-            FAQ = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
-        }
+        //public void ReadFAQ()
+        //{
+        //    AppName = $"adrilight {App.VersionNumber}";
+        //    BuildVersion = "xxxxxxxxxxxxxxxxxxxxxxxxxxx";
+        //    LastUpdate = new DateTime(2020, 06, 01);
+        //    Author = "zOe";
+        //    Git = "xxxxxxx";
+        //    FAQ = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
+        //}
         public void ReadDataDevice()
         {
             SelectGif = new RelayCommand<string>((p) => {
@@ -875,7 +875,7 @@ namespace adrilight.ViewModel
             //{
             //    ReadDataDevice();
             //}
-            //SetMenuItemActiveStatus(menuItem.Text);
+            SetMenuItemActiveStatus(menuItem.Text);
         }
          public void WriteDeviceInfoJson()
         {
@@ -921,12 +921,12 @@ namespace adrilight.ViewModel
         public void LoadMenu()
         {
             MenuItems = new ObservableCollection<VerticalMenuItem>();
-            MenuItems.Add(new VerticalMenuItem() { Text =dashboard, Images = string.Format(ImagePathFormat, "new theme/advance@2x.png"), IsActive = true, Type = MenuButtonType.Dashboard });
-            MenuItems.Add(new VerticalMenuItem() { Text = deviceSetting, Images = string.Format(ImagePathFormat, "new theme/2x/new usb@2x.png"), IsActive = false, Type = MenuButtonType.Dashboard });
-            MenuItems.Add(new VerticalMenuItem() { Text =appSetting, Images = string.Format(ImagePathFormat, "new theme/General setup@2x.png"), IsActive = false, Type = MenuButtonType.Dashboard });
-            MenuItems.Add(new VerticalMenuItem() { Text = faq, Images = string.Format(ImagePathFormat, "new theme/General setup@2x.png"), IsActive = false, Type = MenuButtonType.Dashboard });
-            MenuItems.Add(new VerticalMenuItem() { Text = general, Images = string.Format(ImagePathFormat, "new theme/advance@2x.png"), IsActive = true, Type = MenuButtonType.General });
-            MenuItems.Add(new VerticalMenuItem() { Text = lighting, Images = string.Format(ImagePathFormat, "new theme/2x/new usb@2x.png"), IsActive = false, Type = MenuButtonType.General });
+            MenuItems.Add(new VerticalMenuItem() { Text =dashboard, IsActive = true, Type = MenuButtonType.Dashboard });
+            MenuItems.Add(new VerticalMenuItem() { Text = deviceSetting,  IsActive = false, Type = MenuButtonType.Dashboard });
+            MenuItems.Add(new VerticalMenuItem() { Text =appSetting, IsActive = false, Type = MenuButtonType.Dashboard });
+           // MenuItems.Add(new VerticalMenuItem() { Text = faq, Images = string.Format(ImagePathFormat, "new theme/General setup@2x.png"), IsActive = false, Type = MenuButtonType.Dashboard });
+            MenuItems.Add(new VerticalMenuItem() { Text = general,  IsActive = true, Type = MenuButtonType.General });
+            MenuItems.Add(new VerticalMenuItem() { Text = lighting,  IsActive = false, Type = MenuButtonType.General });
          
         }
         /// <summary>
