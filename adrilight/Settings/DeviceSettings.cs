@@ -29,9 +29,7 @@ namespace adrilight
 
         //ambilight smooth choice///
 
-        private bool _instantMode = false;
-        private bool _normalMode = true;
-        private bool _smoothMode = false;
+       
 
         private int _offsetX = 0;
         private int _offsetY = 0;
@@ -64,9 +62,7 @@ namespace adrilight
         private int _numLED = 32;
 
         private bool _useLinearLighting = true;
-        private byte _whitebalanceRed = 100;
-        private byte _whitebalanceGreen = 10;
-        private byte _whitebalanceBlue = 100;
+      
 
         private int _selectedAudioDevice = 0;
         private int _selectedDisplay = 0;
@@ -219,9 +215,7 @@ namespace adrilight
 
         //gifxelation//
 
-        public byte WhitebalanceRed { get => _whitebalanceRed; set { Set(() => WhitebalanceRed, ref _whitebalanceRed, value); } }
-        public byte WhitebalanceGreen { get => _whitebalanceGreen; set { Set(() => WhitebalanceGreen, ref _whitebalanceGreen, value); } }
-        public byte WhitebalanceBlue { get => _whitebalanceBlue; set { Set(() => WhitebalanceBlue, ref _whitebalanceBlue, value); } }
+    
 
 
        
@@ -236,9 +230,7 @@ namespace adrilight
 
         //ambilight smooth 
 
-        public bool InstantMode { get => _instantMode; set { Set(() => InstantMode, ref _instantMode, value); } }
-        public bool NormalMode { get => _normalMode; set { Set(() => NormalMode, ref _normalMode, value); } }
-        public bool SmoothMode { get => _smoothMode; set { Set(() => SmoothMode, ref _smoothMode, value); } }
+        
         public byte SelectedEffect { get => _selectedEffect; set { Set(() => SelectedEffect, ref _selectedEffect, value); } }
         public int SelectedAudioDevice { get => _selectedAudioDevice; set { Set(() => SelectedAudioDevice, ref _selectedAudioDevice, value); } }
         public int SelectedDisplay { get => _selectedDisplay; set { Set(() => SelectedDisplay, ref _selectedDisplay, value); } }

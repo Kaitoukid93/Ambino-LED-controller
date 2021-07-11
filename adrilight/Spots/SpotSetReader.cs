@@ -1,4 +1,5 @@
-﻿using Castle.Core.Logging;
+﻿using adrilight.Util;
+using Castle.Core.Logging;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -91,22 +92,29 @@ namespace adrilight.Spots
             if (IsRunning) throw new Exception(nameof(SpotSetReader) + " is already running!" + "for device Named" + DeviceSettings.DeviceName);
 
             IsRunning = true;
+            
         
             _log.Debug("Started SpotSet Reader for device Named " + DeviceSettings.DeviceName);
             try
             {
                 while (!token.IsCancellationRequested)
                 {
+
+                    var brightness = DeviceSettings.Brightness / 100d;
                     lock (DeviceSpotSet.Lock)
                     {
+                       
+      
+
                         if (DeviceSettings.SelectedDisplay == 0)
                         {
                             if(DeviceSpotSet.Spots.Count()>SpotSet.Spots.Count())
                             {
                                 for (var i = 0; i < SpotSet.Spots.Count(); i++)//topology
                                 {
-
-                                    DeviceSpotSet.Spots[i].SetColor(SpotSet.Spots[i].Red, SpotSet.Spots[i].Green, SpotSet.Spots[i].Blue, true); // do a 1-1 cast
+                                    var RawColor = new OpenRGB.NET.Models.Color(SpotSet.Spots[i].Red, SpotSet.Spots[i].Green, SpotSet.Spots[i].Blue);
+                                    var FinalColor = Brightness.applyBrightness(RawColor, brightness);
+                                    DeviceSpotSet.Spots[i].SetColor(FinalColor.R, FinalColor.G, FinalColor.B, true); // do a 1-1 cast
                                                                                                                                                 //in ther future, each position selected will cast different position
                                 }
                             }
@@ -115,8 +123,10 @@ namespace adrilight.Spots
                                 for (var i = 0; i < DeviceSpotSet.Spots.Count(); i++)//topology
                                 {
 
-                                    DeviceSpotSet.Spots[i].SetColor(SpotSet.Spots[i].Red, SpotSet.Spots[i].Green, SpotSet.Spots[i].Blue, true); // do a 1-1 cast
-                                                                                                                                                //in ther future, each position selected will cast different position
+                                    var RawColor = new OpenRGB.NET.Models.Color(SpotSet.Spots[i].Red, SpotSet.Spots[i].Green, SpotSet.Spots[i].Blue);
+                                    var FinalColor = Brightness.applyBrightness(RawColor, brightness);
+                                    DeviceSpotSet.Spots[i].SetColor(FinalColor.R, FinalColor.G, FinalColor.B, true); // do a 1-1 cast // do a 1-1 cast
+                                                                                                                     //in ther future, each position selected will cast different position
                                 }
                             }
                            
@@ -128,8 +138,10 @@ namespace adrilight.Spots
                                 for (var i = 0; i < SpotSet.Spots2.Count(); i++)//topology
                                 {
 
-                                    DeviceSpotSet.Spots[i].SetColor(SpotSet.Spots2[i].Red, SpotSet.Spots2[i].Green, SpotSet.Spots2[i].Blue, true); // do a 1-1 cast
-                                                                                                                                                   //in ther future, each position selected will cast different position
+                                    var RawColor = new OpenRGB.NET.Models.Color(SpotSet.Spots[i].Red, SpotSet.Spots[i].Green, SpotSet.Spots[i].Blue);
+                                    var FinalColor = Brightness.applyBrightness(RawColor, brightness);
+                                    DeviceSpotSet.Spots[i].SetColor(FinalColor.R, FinalColor.G, FinalColor.B, true); // do a 1-1 cast // do a 1-1 cast
+                                                                                                                     //in ther future, each position selected will cast different position
                                 }
                             }
                             else 
@@ -137,12 +149,16 @@ namespace adrilight.Spots
                                 for (var i = 0; i < DeviceSpotSet.Spots.Count(); i++)//topology
                                 {
 
-                                    DeviceSpotSet.Spots[i].SetColor(SpotSet.Spots2[i].Red, SpotSet.Spots2[i].Green, SpotSet.Spots2[i].Blue, true); // do a 1-1 cast
-                                                                                                                                                   //in ther future, each position selected will cast different position
+                                    var RawColor = new OpenRGB.NET.Models.Color(SpotSet.Spots[i].Red, SpotSet.Spots[i].Green, SpotSet.Spots[i].Blue);
+                                    var FinalColor = Brightness.applyBrightness(RawColor, brightness);
+                                    DeviceSpotSet.Spots[i].SetColor(FinalColor.R, FinalColor.G, FinalColor.B, true); // do a 1-1 cast // do a 1-1 cast
+                                                                                                                     //in ther future, each position selected will cast different position
                                 }
                             }
                         }
+
                        
+
                     }
                     Thread.Sleep(8);
                 }
@@ -157,10 +173,24 @@ namespace adrilight.Spots
             }
         }
 
-        // set color for device spotset reading from General spotset
+        //private void ApplySmoothing(byte r, byte g, byte b, out byte semifinalR, out byte semifinalG, out byte semifinalB,
+        //   byte lastColorR, byte lastColorG, byte lastColorB)
+        //{
+        //    int smoothingFactor = DeviceSettings.SmoothFactor;
 
+        //    semifinalR = (byte)((r + smoothingFactor * lastColorR) / (smoothingFactor + 1));
+        //    semifinalG = (byte)((g + smoothingFactor * lastColorG) / (smoothingFactor + 1));
+        //    semifinalB = (byte)((b + smoothingFactor * lastColorB) / (smoothingFactor + 1));
+        //}
 
-
-
+        //private void ApplyWhiteBalance(byte r, byte g, byte b, out byte semifinalR, out byte semifinalG, out byte semifinalB)
+        //{
+        //    r *= (byte)(DeviceSettings.WhitebalanceRed / 100);
+        //    g *= (byte)(DeviceSettings.WhitebalanceGreen / 100f);
+        //    b *= (byte)(DeviceSettings.WhitebalanceBlue / 100f);
+        //    semifinalR = r;
+        //    semifinalG = g;
+        //    semifinalB = b;
+        //}
     }
 }

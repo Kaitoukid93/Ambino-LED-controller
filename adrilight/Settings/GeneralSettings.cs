@@ -21,6 +21,7 @@ namespace adrilight
         private int _offsetLed2 = 10;
         private bool _shouldbeRunning = true;
         private bool _shouldbeRunningSecondary = false;
+        int _smoothFactor = 3;
         //ambilight smooth choice///
         private int _screenSize = 0;
         private int _screenSizeSecondary = 0;
@@ -31,15 +32,19 @@ namespace adrilight
         private int _spotsX = 11;
         private int _spotsX2 = 11;
 
-
+        private byte _whitebalanceRed = 100;
+        private byte _whitebalanceGreen = 10;
+        private byte _whitebalanceBlue = 100;
 
         private int _spotsY = 6;
         private int _spotsY2 = 6;
 
         private int _spotWidth = 150;
 
+        public byte WhitebalanceRed { get => _whitebalanceRed; set { Set(() => WhitebalanceRed, ref _whitebalanceRed, value); } }
+        public byte WhitebalanceGreen { get => _whitebalanceGreen; set { Set(() => WhitebalanceGreen, ref _whitebalanceGreen, value); } }
+        public byte WhitebalanceBlue { get => _whitebalanceBlue; set { Set(() => WhitebalanceBlue, ref _whitebalanceBlue, value); } }
 
-  
         private int _selectedDisplay = 0;
         private int _selectedAdapter = 0;
         private byte _saturationTreshold = 10;
@@ -75,7 +80,7 @@ namespace adrilight
 
         public bool ShouldbeRunning { get => _shouldbeRunning; set { Set(() => ShouldbeRunning, ref _shouldbeRunning, value); } }
         public bool ShouldbeRunningSecondary { get => _shouldbeRunningSecondary; set { Set(() => ShouldbeRunningSecondary, ref _shouldbeRunningSecondary, value); } }
-
+        public int SmoothFactor { get => _smoothFactor; set { Set(() => SmoothFactor, ref _smoothFactor, value); } }
         public bool MirrorX { get => _mirrorX; set { Set(() => MirrorX, ref _mirrorX, value); } }
         public bool MirrorY { get => _mirrorY; set { Set(() => MirrorY, ref _mirrorY, value); } }
         public int OffsetLed { get => _offsetLed; set { Set(() => OffsetLed, ref _offsetLed, value); } }

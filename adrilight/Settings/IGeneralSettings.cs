@@ -32,8 +32,12 @@ namespace adrilight
         int SpotsY2 { get; set; }
         int SentryMode { get; set; }
         int ScreenSize { get; set; }
+        byte WhitebalanceRed { get; set; }
+        byte WhitebalanceGreen { get; set; }
+        byte WhitebalanceBlue { get; set; }
         int ScreenSizeSecondary { get; set; }
-
+        //smooth choice
+        int SmoothFactor { get; set; }
         int SelectedDisplay { get; set; }
         int SelectedAdapter { get; set; }
         byte SaturationTreshold { get; set; }

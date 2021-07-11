@@ -92,7 +92,7 @@
                 </ComboBox>
 
             </Grid>
-            <TextBlock Margin="10,15,0,0" Text="PHẦN MỀM" Foreground="#FF898989">
+            <TextBlock Margin="10,15,0,0" Text="AMBILIGHT" Foreground="#FF898989">
 
             </TextBlock>
             <Grid Height="80">
@@ -123,7 +123,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Độ Tương Phản Ambilight" FontSize="17" VerticalAlignment="Center" Foreground="Black"/>
                 <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Thuật toán độ tương phản sẽ áp dụng lên tất cả các thiết bị hiện có" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989"/>
-                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#FFAAAAAA" VerticalAlignment="Bottom" Margin="0,0,0,5"/>
+                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#26000000" VerticalAlignment="Bottom" Margin="0,0,0,5"/>
                 <ComboBox SelectedIndex="{Binding GeneralSettings.UseLinearLighting}" Style="{StaticResource ComboBoxExtend}" Width="150" Grid.Column="1" Grid.Row="0" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center">
                     <ComboBoxItem>
                         Dịu Nhẹ
