@@ -50,17 +50,12 @@ namespace adrilight
 
         Guid InstallationId { get; set; }
 
-        byte WhitebalanceRed { get; set; }
-        byte WhitebalanceGreen { get; set; }
-        byte WhitebalanceBlue { get; set; }
+       
 
         byte Brightness { get; set; }
         string filemau { get; set; }
         string filemauchip { get; set; }
-        //smooth choice
-        bool InstantMode { get; set; }
-        bool NormalMode { get; set; }
-        bool SmoothMode { get; set; }
+       
 
         int AtmosphereStart { get; set; }
         int AtmosphereStop { get; set; }

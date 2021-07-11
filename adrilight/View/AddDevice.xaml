@@ -13,7 +13,7 @@
               TextElement.FontSize="13"
               TextOptions.TextFormattingMode="Ideal" 
               TextOptions.TextRenderingMode="Auto"   
-              FontFamily="{StaticResource MaterialDesignFont}" d:DesignWidth="500" Height="300">
+              FontFamily="{StaticResource MaterialDesignFont}" d:DesignWidth="500" Height="400">
 
 
     <Grid  Background="White" Margin="32" Name="PanelMain">
@@ -47,10 +47,10 @@
             </Grid.Style>
             <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade" >
                 <hc:ButtonGroup Margin="0,16,0,0" Orientation="Vertical" Style="{StaticResource ButtonGroupSolid}">
-                    <RadioButton IsChecked="{Binding BasicRev1Checked }" Content="Ambino Basic"/>
-                    <RadioButton IsChecked="{Binding BasicRev2Checked}" Content="Ambino Basic rev2"/>
-                    <RadioButton IsChecked="{Binding EDGEChecked}" Content="Ambino EDGE"/>
-                    <RadioButton IsChecked="{Binding HUBV2Checked}" Content="Ambino HUBV2"/>
+                    <RadioButton Height="40" IsChecked="{Binding BasicRev1Checked }" Content="Ambino Basic" FontSize="15"/>
+                    <RadioButton Height="40" IsChecked="{Binding BasicRev2Checked}" Content="Ambino Basic rev2" FontSize="15"/>
+                    <RadioButton Height="40" IsChecked="{Binding EDGEChecked}" Content="Ambino EDGE" FontSize="15"/>
+                    <RadioButton Height="40" IsChecked="{Binding HUBV2Checked}" Content="Ambino HUBV2" FontSize="15"/>
                 </hc:ButtonGroup>
             </hc:TransitioningContentControl>
         </Grid>

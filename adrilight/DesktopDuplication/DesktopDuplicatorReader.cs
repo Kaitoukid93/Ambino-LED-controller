@@ -192,7 +192,7 @@ namespace adrilight
 
                     lock (SpotSet.Lock)
                     {
-                        var useLinearLighting = UserSettings.UseLinearLighting;
+                        var useLinearLighting = UserSettings.UseLinearLighting==1;
 
                         var imageRectangle = new Rectangle(0, 0, image.Width, image.Height);
 
@@ -216,21 +216,18 @@ namespace adrilight
                                         out int sumR, out int sumG, out int sumB, out int count);
 
                                     var countInverse = 1f / count;
-                                    byte FinalR = (byte)(sumR * countInverse);
-                                    byte FinalG = (byte)(sumG * countInverse);
-                                    byte FinalB = (byte)(sumB * countInverse);
 
-                                    ApplyColorCorrections(FinalR, FinalG, FinalB
+                                    ApplyColorCorrections(sumR * countInverse, sumG * countInverse, sumB * countInverse
                                         , out byte finalR, out byte finalG, out byte finalB, useLinearLighting
                                         , UserSettings.SaturationTreshold, spot.Red, spot.Green, spot.Blue);
 
-                                    //var spotColor = new OpenRGB.NET.Models.Color(finalR, finalG, finalB);
+                                    var spotColor = new OpenRGB.NET.Models.Color(finalR, finalG, finalB);
 
-                                    //var semifinalSpotColor = Brightness.applyBrightness(spotColor, brightness);
-                                    //ApplySmoothing(semifinalSpotColor.R, semifinalSpotColor.G, semifinalSpotColor.B
-                                    //    , out byte RealfinalR, out byte RealfinalG, out byte RealfinalB,
-                                    // spot.Red, spot.Green, spot.Blue);
-                                    spot.SetColor(finalR, finalG, finalB, true);
+                                    var semifinalSpotColor = Brightness.applyBrightness(spotColor, 100);
+                                    ApplySmoothing(semifinalSpotColor.R, semifinalSpotColor.G, semifinalSpotColor.B
+                                        , out byte RealfinalR, out byte RealfinalG, out byte RealfinalB,
+                                     spot.Red, spot.Green, spot.Blue);
+                                    spot.SetColor(RealfinalR, RealfinalG, RealfinalB, true);
 
                                 });
                         }
@@ -300,8 +297,8 @@ namespace adrilight
             }
         }
 
-        private void ApplyColorCorrections(byte r, byte g, byte b, out byte finalR, out byte finalG, out byte finalB, int useLinearLighting, byte saturationTreshold
-            , byte lastColorR, byte lastColorG, byte lastColorB)
+        private void ApplyColorCorrections(float r, float g, float b, out byte finalR, out byte finalG, out byte finalB, bool useLinearLighting, byte saturationTreshold
+         , byte lastColorR, byte lastColorG, byte lastColorB)
         {
             if (lastColorR == 0 && lastColorG == 0 && lastColorB == 0)
             {
@@ -318,11 +315,11 @@ namespace adrilight
             //"white" on wall was 66,68,77 without white balance
             //white balance
             //todo: introduce settings for white balance adjustments
-            //r *= UserSettings.WhitebalanceRed / 100f;
-            //g *= UserSettings.WhitebalanceGreen / 100f;
-            //b *= UserSettings.WhitebalanceBlue / 100f;
+            r *= UserSettings.WhitebalanceRed / 100f;
+            g *= UserSettings.WhitebalanceGreen / 100f;
+            b *= UserSettings.WhitebalanceBlue / 100f;
 
-            if (useLinearLighting==1)
+            if (!useLinearLighting)
             {
                 //apply non linear LED fading ( http://www.mikrocontroller.net/articles/LED-Fading )
                 finalR = FadeNonLinear(r);
@@ -332,32 +329,22 @@ namespace adrilight
             else
             {
                 //output
-                finalR = r;
-                finalG = g;
-                finalB = b;
+                finalR = (byte)r;
+                finalG = (byte)g;
+                finalB = (byte)b;
             }
         }
-        //private void ApplySmoothing(float r, float g, float b, out byte semifinalR, out byte semifinalG, out byte semifinalB,
-        //   byte lastColorR, byte lastColorG, byte lastColorB)
-        //{
-        //    int smoothingFactor = 3;
-        //    if (UserSettings.InstantMode)
-        //    {
-        //        smoothingFactor = 0;
-        //    }
-        //    else if (UserSettings.NormalMode)
-        //    {
-        //        smoothingFactor = 3;
-        //    }
-        //    else if (UserSettings.SmoothMode)
-        //    {
-        //        smoothingFactor = 5;
-        //    }
+        private void ApplySmoothing(float r, float g, float b, out byte semifinalR, out byte semifinalG, out byte semifinalB,
+           byte lastColorR, byte lastColorG, byte lastColorB)
+        {
+            int smoothingFactor = UserSettings.SmoothFactor;
+           
 
-        //    semifinalR = (byte)((r + smoothingFactor * lastColorR) / (smoothingFactor + 1));
-        //    semifinalG = (byte)((g + smoothingFactor * lastColorG) / (smoothingFactor + 1));
-        //    semifinalB = (byte)((b + smoothingFactor * lastColorB) / (smoothingFactor + 1));
-        //}
+            semifinalR = (byte)((r + smoothingFactor * lastColorR) / (smoothingFactor + 1));
+            semifinalG = (byte)((g + smoothingFactor * lastColorG) / (smoothingFactor + 1));
+            semifinalB = (byte)((b + smoothingFactor * lastColorB) / (smoothingFactor + 1));
+        }
+
 
         private readonly byte[] _nonLinearFadingCache = Enumerable.Range(0, 2560)
             .Select(n => FadeNonLinearUncached(n / 10f))
