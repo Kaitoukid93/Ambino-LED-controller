@@ -17,6 +17,7 @@ namespace adrilight
         string GifFilePath { get; set; }
         int DeviceID { get; set; }
         string DeviceType { get; set; }
+        int RGBOrder { get; set; }
 
 
         // DateTime? LastUpdateCheck { get; set; }
@@ -34,9 +35,9 @@ namespace adrilight
         byte SaturationTreshold { get; set; }
         int SpotHeight { get; set; }
         int SpotsX { get; set; }
-
+        int NumLED { get; set; }
         int SpotsY { get; set; }
-
+        
         int SpotWidth { get; set; }
         // bool StartMinimized { get; set; }
         bool TransferActive { get; set; }

@@ -24,14 +24,14 @@ namespace adrilight.Ninject
             Bind<IDesktopDuplicatorReaderSecondary>().To<DesktopDuplicatorReaderSecondary>().InSingletonScope().WithConstructorArgument("graphicAdapter", 0).WithConstructorArgument("output", 1); ;
             Bind<IGeneralSpotSet>().To<GeneralSpotSet>().InSingletonScope();
             Bind<IGeneralSettings>().ToConstant(generalSettings);  
-            Bind<IViewModelFactory<AllDeviceViewModel>>().To<AllDeviceViewModelFactory>().InSingletonScope();
+          //  Bind<IViewModelFactory<AllDeviceViewModel>>().To<AllDeviceViewModelFactory>().InSingletonScope();
             if (alldevicesettings!=null)
             {
                 if (alldevicesettings.Count > 0)
                 {
                     foreach (var devicesetting in alldevicesettings)
                     {
-                        var devicename = devicesetting.DeviceName;
+                        var devicename = devicesetting.DeviceID.ToString();
 
                         Bind<IDeviceSettings>().ToConstant(devicesetting).Named(devicename);
                       //  Bind<IContext>().To<WpfContext>().InTransientScope().Named(devicename);

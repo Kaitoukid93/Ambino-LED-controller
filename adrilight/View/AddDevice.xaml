@@ -1,0 +1,199 @@
+﻿<UserControl x:Class="adrilight.View.AddDevice"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:adrilight.View"
+             xmlns:vm="clr-namespace:adrilight.ViewModel"
+              xmlns:hc="https://handyorg.github.io/handycontrol"
+             mc:Ignorable="d" 
+               xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:viewmodel="clr-namespace:adrilight.ViewModel" d:DataContext="{d:DesignInstance Type=vm:AddDeviceViewModel}"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+              TextElement.FontWeight="Regular"
+              TextElement.FontSize="13"
+              TextOptions.TextFormattingMode="Ideal" 
+              TextOptions.TextRenderingMode="Auto"   
+              FontFamily="{StaticResource MaterialDesignFont}" d:DesignWidth="500" Height="300">
+
+
+    <Grid  Background="White" Margin="32" Name="PanelMain">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <hc:StepBar x:Name="stepbar" Grid.ColumnSpan="2" StepIndex="{Binding StepIndex}" Foreground="#FF326CF3">
+            <hc:StepBarItem Content="Loại Thiết Bị" Foreground="#FF898989"/>
+            <hc:StepBarItem Content="Kết Nối USB"  Foreground="#FF898989"/>
+            <hc:StepBarItem Content="Đặt Tên"  Foreground="#FF898989"/>
+
+        </hc:StepBar>
+
+        <Grid Grid.ColumnSpan="2" Grid.Row="1">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="0">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade" >
+                <hc:ButtonGroup Margin="0,16,0,0" Orientation="Vertical" Style="{StaticResource ButtonGroupSolid}">
+                    <RadioButton IsChecked="{Binding BasicRev1Checked }" Content="Ambino Basic"/>
+                    <RadioButton IsChecked="{Binding BasicRev2Checked}" Content="Ambino Basic rev2"/>
+                    <RadioButton IsChecked="{Binding EDGEChecked}" Content="Ambino EDGE"/>
+                    <RadioButton IsChecked="{Binding HUBV2Checked}" Content="Ambino HUBV2"/>
+                </hc:ButtonGroup>
+            </hc:TransitioningContentControl>
+        </Grid>
+
+
+        <Grid Margin="8,16,0,0" Grid.ColumnSpan="2" Grid.Row="1">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="1">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade" >
+
+                <Grid Height="80" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="257*"/>
+                        <ColumnDefinition Width="171*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Margin="10,10,0,10" Grid.Column="0" Text="COM Port" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left" Height="20" Width="73"/>
+                    <TextBlock Margin="10,12,0,12" Grid.Row="1" Grid.Column="0" Text="Đây là địa chỉ cổng USB của thiết bị" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left" Height="16" Width="219"/>
+                    <Rectangle  Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#14000000" VerticalAlignment="Bottom" Margin="14,0,14,5"/>
+                    <ComboBox  Text="{Binding Device.DevicePort}" Style="{StaticResource ComboBoxExtend}" ItemsSource="{Binding AvailableComPorts}" Width="150" Grid.Column="1" Grid.Row="0" Margin="0,5,10,5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30">
+
+                    </ComboBox>
+
+                </Grid>
+            </hc:TransitioningContentControl>
+
+        </Grid>
+
+        <Grid Margin="8,16,0,0" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="2">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade" >
+
+                <Grid Height="80" Grid.Row="2" Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="245*"/>
+                        <ColumnDefinition Width="191*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Margin="10,10,0,10" Grid.Column="0" Text="Đặt Tên Cho Thiết Bị" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left" Height="20" Width="152"/>
+                    <TextBlock Margin="10,12,0,12" Grid.Row="1" Grid.Column="0" Text="Tên hiển thị ở Dashboard" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left" Height="16" Width="219"/>
+                    <Rectangle  Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#14000000" VerticalAlignment="Bottom" Margin="0,0,0,5" Width="400"/>
+                    <TextBox Style="{StaticResource TextBoxExtend}" Text="{Binding Device.DeviceName}"  Width="164" Grid.Column="1" Grid.Row="0" Margin="0,5,10,5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30" Padding="12,6,8,6" HorizontalContentAlignment="Center">
+
+                    </TextBox>
+
+                </Grid>
+            </hc:TransitioningContentControl>
+
+        </Grid>
+        <Grid Grid.Row="2" Margin="0" Grid.ColumnSpan="2" VerticalAlignment="Center">
+
+            <Button Command="{Binding PrevCmd}" CommandParameter="{Binding ElementName=PanelMain}" Width="75" Margin="20,0,20,0" Content="Prev" materialDesign:ButtonAssist.CornerRadius="7"  HorizontalAlignment="Left" Foreground="#FF326CF3" Background="#3F326CF3">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                        <Setter Property="Visibility" Value="Collapsed"></Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="1">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="2">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Width="75" Margin="33,0,0,0" Content="Cancel" materialDesign:ButtonAssist.CornerRadius="7"  HorizontalAlignment="Left" Background="#FFFBC186" Foreground="#FFFD7E35">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                        <Setter Property="Visibility" Value="Collapsed"></Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="0">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.CommandParameter>
+                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">False</system:Boolean>
+                </Button.CommandParameter>
+            </Button>
+            <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Width="75" Margin="0,0,20,0" materialDesign:ButtonAssist.CornerRadius="7" Content="Finish"  HorizontalAlignment="Right" Foreground="#FF326CF3" Background="#3F326CF3">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                        <Setter Property="Visibility" Value="Collapsed"></Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="2">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.CommandParameter>
+                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
+                </Button.CommandParameter>
+            </Button>
+            <Button materialDesign:ButtonAssist.CornerRadius="7" IsEnabled="{Binding IsNextable}" Command="{Binding NextCmd}" CommandParameter="{Binding ElementName=PanelMain}" Width="75" Margin="0,0,20,0" Content="Next"  HorizontalAlignment="Right" Background="#3F000000" Foreground="#FF898989">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                        <Setter Property="Visibility" Value="Collapsed"></Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="1">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="0">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+
+
+
+    </Grid>
+
+
+
+
+
+
+</UserControl>

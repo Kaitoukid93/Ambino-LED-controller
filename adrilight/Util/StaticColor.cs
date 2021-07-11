@@ -20,7 +20,7 @@ namespace adrilight.Util
 
         private readonly NLog.ILogger _log = LogManager.GetCurrentClassLogger();
 
-        private int point = 0;
+        
         public StaticColor(IDeviceSettings deviceSettings, IDeviceSpotSet deviceSpotSet)
         {
             DeviceSettings = deviceSettings ?? throw new ArgumentNullException(nameof(deviceSettings));
@@ -85,6 +85,7 @@ namespace adrilight.Util
 
         public void Run(CancellationToken token)//static color creator
         {
+            int point = 0;
             if (IsRunning) throw new Exception(" Static Color is already running!");
 
             IsRunning = true;

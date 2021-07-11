@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:adrilight.View"
              mc:Ignorable="d" Background="Transparent"
               xmlns:vm="clr-namespace:adrilight.ViewModel"
-              xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
-              Width="560" Height="460">
+              xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" d:DataContext="{d:DesignInstance Type=vm:AddNewDeviceViewModel}"
+             Width="560" Height="460">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

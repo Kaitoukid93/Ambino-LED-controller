@@ -423,20 +423,22 @@
     <Compile Include="Util\Rainbow.cs" />
     <Compile Include="Util\StaticColor.cs" />
     <Compile Include="Util\WinApi.cs" />
+    <Compile Include="ViewModel\AddDeviceViewModel.cs" />
     <Compile Include="ViewModel\AddNewDeviceViewModel.cs" />
-    <Compile Include="ViewModel\AllDeviceViewModel.cs" />
     <Compile Include="ViewModel\AllNewDeviceViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\ChangeDeviceNameViewModel.cs" />
     <Compile Include="ViewModel\ChangePortViewModel.cs" />
     <Compile Include="ViewModel\DeleteMessageDialogViewModel.cs" />
-    <Compile Include="ViewModel\Factories\AllDeviceViewModelFactory.cs" />
     <Compile Include="ViewModel\Factories\IViewModelFactory.cs" />
     <Compile Include="ViewModel\Factories\LightingViewModelFactory.cs" />
     <Compile Include="ViewModel\Factories\ViewModelAbstractFactory.cs" />
     <Compile Include="ViewModel\MainViewViewModel.cs" />
     <Compile Include="ViewModel\Product.xaml.cs">
       <DependentUpon>Product.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddDevice.xaml.cs">
+      <DependentUpon>AddDevice.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\CardHUBStyle.xaml.cs">
       <DependentUpon>CardHUBStyle.xaml</DependentUpon>
@@ -704,6 +706,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="ViewModel\Product.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddDevice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

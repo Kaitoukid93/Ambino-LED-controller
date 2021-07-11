@@ -21,10 +21,7 @@ namespace adrilight
 {
     internal class Rainbow : IRainbow
     {
-        // public static Color[] small = new Color[30];
-        public static double _huePosIndex = 0;//index for rainbow mode only
-        public static double _palettePosIndex = 0;//index for other custom palette
-        public static double _startIndex = 0;
+       
 
         private readonly NLog.ILogger _log = LogManager.GetCurrentClassLogger();
 
@@ -91,11 +88,16 @@ namespace adrilight
         public void Run(CancellationToken token)
 
         {
+             // public static Color[] small = new Color[30];
+         double _huePosIndex = 0;//index for rainbow mode only
+         double _palettePosIndex = 0;//index for other custom palette
+         double _startIndex = 0;
             if (IsRunning) throw new Exception(" Rainbow Color is already running!");
 
             IsRunning = true;
 
             _log.Debug("Started Rainbow Color.");
+
 
             try
             {
@@ -104,10 +106,10 @@ namespace adrilight
                 {
                     double brightness = DeviceSettings.Brightness / 100d;
                     int paletteSource = DeviceSettings.SelectedPalette;
-                    var numLED = (DeviceSettings.SpotsX - 1) * 2 + (DeviceSettings.SpotsY - 1) * 2;
+                    var numLED = DeviceSettings.NumLED;
                     var colorOutput = new OpenRGB.NET.Models.Color[numLED];
                     var effectSpeed = DeviceSettings.EffectSpeed;
-                    var frequency = DeviceSettings.ColorFrequency + 1;
+                    var frequency = DeviceSettings.ColorFrequency;
 
 
 
@@ -359,7 +361,7 @@ namespace adrilight
             gradientPalette.Add(new GradientStop(ColorCollection[12], 0.793));
             gradientPalette.Add(new GradientStop(ColorCollection[13], 0.859));
             gradientPalette.Add(new GradientStop(ColorCollection[14], 0.925));
-            gradientPalette.Add(new GradientStop(ColorCollection[0], 1));
+            gradientPalette.Add(new GradientStop(ColorCollection[15], 1));
             //gradientPalette.Add(new GradientStop(ColorCollection[0], 1));
             //gradientPalette.Add(new GradientStop(ColorCollection[0], 0.0000));
             //gradientPalette.Add(new GradientStop(ColorCollection[1], 0.0625));

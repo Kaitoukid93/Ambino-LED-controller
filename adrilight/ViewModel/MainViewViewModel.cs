@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
@@ -27,7 +28,8 @@ namespace adrilight.ViewModel
     {
         private string JsonPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "adrilight\\");
 
-        private string JsonFileNameAndPath => Path.Combine(JsonPath, "adrilight-settinginfo.json");
+        private string JsonDeviceFileNameAndPath => Path.Combine(JsonPath, "adrilight-deviceInfos.json");
+
         #region constant string
         public const string ImagePathFormat= "pack://application:,,,/adrilight;component/View/Images/{0}";
         public const string dashboard = "Dashboard";
@@ -204,6 +206,7 @@ namespace adrilight.ViewModel
             {
                 WriteDeviceInfoJson();
             }
+            PreviewSpots = SpotSets[CurrentDevice.DeviceID - 1].Spots;
         }
 
         public ICommand SelectMenuItem { get; set; }
@@ -234,7 +237,7 @@ namespace adrilight.ViewModel
 
         public ICommand SelectCardCommand { get; set; }
         public ICommand ShowAddNewCommand { get; set; }
-        private IViewModelFactory<AllDeviceViewModel> _allDeviceView;
+       // private IViewModelFactory<AllDeviceViewModel> _allDeviceView;
         private bool isPreview = false;
         private bool _isAddnew = false;
         private string JsonDeviceNameAndPath => Path.Combine(JsonPath, "adrilight-deviceInfos.json");
@@ -362,6 +365,7 @@ namespace adrilight.ViewModel
             }
         }
         public ObservableCollection<string> AvailableFrequency { get; private set; }
+      
         public ObservableCollection<string> AvailableMusicPalette { get; private set; }
         public ObservableCollection<string> AvailableMusicMode { get; private set; }
         public ICommand SelectGif { get; set; }
@@ -383,25 +387,130 @@ namespace adrilight.ViewModel
         }
         GifBitmapDecoder decoder;
         public IGeneralSettings GeneralSettings { get; }
+        public int AddedDevice { get; }
 
         public MainViewViewModel(IDeviceSettings[] cards, IDeviceSpotSet[] deviceSpotSets, IGeneralSettings generalSettings)
         {
 
             GeneralSettings = generalSettings ?? throw new ArgumentNullException(nameof(generalSettings));
             Cards = new ObservableCollection<IDeviceSettings>();
+            AddedDevice = cards.Length;
             SpotSets = new ObservableCollection<IDeviceSpotSet>();
-            foreach(IDeviceSettings card in cards)
+            foreach (IDeviceSettings card in cards)
             {
                 Cards.Add(card);
             }
-            foreach(IDeviceSpotSet spotSet in deviceSpotSets)
+            foreach (IDeviceSpotSet spotSet in deviceSpotSets)
             {
                 SpotSets.Add(spotSet);
             }
-            
 
 
-        }
+            //binding settings to settings
+            //if(CurrentDevice!=null)
+            //{
+            //    CurrentDevice.PropertyChanged += (s, e) =>
+            //    {
+            //        switch (e.PropertyName)
+            //        {
+            //            case nameof(CurrentDevice.SelectedDisplay):
+            //                RaisePropertyChanged(() => PreviewSpots);
+            //                break;
+            //        };
+            //    };
+            //}
+           
+            GeneralSettings.PropertyChanged += (s, e) =>
+            {
+                switch (e.PropertyName)
+                {
+                    case nameof(GeneralSettings.ScreenSize):
+                        if (GeneralSettings.ScreenSize==0)
+                        {
+                            GeneralSettings.SpotsX = 11;
+                            GeneralSettings.SpotsY = 7;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY);
+                        }
+                        else if (GeneralSettings.ScreenSize == 1)
+                        {
+                            GeneralSettings.SpotsX = 13;
+                            GeneralSettings.SpotsY = 7;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY);
+                        }
+                        else if (GeneralSettings.ScreenSize == 2)
+                        {
+                            GeneralSettings.SpotsX = 14;
+                            GeneralSettings.SpotsY = 7;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY);
+                        }
+                        else if (GeneralSettings.ScreenSize == 3)
+                        {
+                            GeneralSettings.SpotsX = 14;
+                            GeneralSettings.SpotsY = 9;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY);
+                        }
+                        else if (GeneralSettings.ScreenSize == 4)
+                        {
+                            GeneralSettings.SpotsX = 17;
+                            GeneralSettings.SpotsY = 7;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY);
+                        }
+
+                        GeneralSettings.OffsetLed = GeneralSettings.SpotsX - 1;
+                        break;
+                    case nameof(GeneralSettings.ScreenSizeSecondary):
+                        if (GeneralSettings.ScreenSizeSecondary == 0)
+                        {
+                            GeneralSettings.SpotsX2 = 11;
+                            GeneralSettings.SpotsY2 = 7;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX2);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                        }
+                        else if (GeneralSettings.ScreenSizeSecondary == 1)
+                        {
+                            GeneralSettings.SpotsX2 = 13;
+                            GeneralSettings.SpotsY2 = 7;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX2);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                        }
+                        else if (GeneralSettings.ScreenSizeSecondary == 2)
+                        {
+                            GeneralSettings.SpotsX2 = 14;
+                            GeneralSettings.SpotsY2 = 7;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX2);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                        }
+                        else if (GeneralSettings.ScreenSizeSecondary == 3)
+                        {
+                            GeneralSettings.SpotsX2 = 14;
+                            GeneralSettings.SpotsY2 = 9;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX2);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                        }
+                        else if (GeneralSettings.ScreenSizeSecondary == 4)
+                        {
+                            GeneralSettings.SpotsX2 = 17;
+                            GeneralSettings.SpotsY2 = 7;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX2);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                        }
+
+                        GeneralSettings.OffsetLed = GeneralSettings.SpotsX - 1;
+                        break;
+
+
+
+                }
+                
+            };
+            }
+
+
         public void LoadCard()
         {
             //Cards = new ObservableCollection<IDeviceSettings>();
@@ -480,28 +589,28 @@ namespace adrilight.ViewModel
                 ChangeView(p);
             });
             SelectedVerticalMenuItem = MenuItems.FirstOrDefault();
-            SettingInfo = new SettingInfoDTO();
-          var setting=  LoadSettingIfExists();
-            if (setting != null)
-            {
-                SettingInfo.AutoAddNewDevice = setting.autoaddnewdevice;
-                SettingInfo.AutoConnectNewDevice = setting.autoconnectnewdevice;
-                SettingInfo.AutoDeleteConfigWhenDisconnected = setting.autodeleteconfigwhendisconected;
-                SettingInfo.AutoStartWithWindows = setting.autostartwithwindows;
-                SettingInfo.DefaultName = setting.defaultname;
-                SettingInfo.DisplayConnectionStatus = setting.displayconnectionstatus;
-                SettingInfo.DisplayLightingStatus = setting.displaylightingstatus;
-                SettingInfo.IsDarkMode = setting.isdarkmode;
-                SettingInfo.PushNotificationWhenNewDeviceConnected = setting.pushnotificationwhennewdeviceconnected;
-                SettingInfo.PushNotificationWhenNewDeviceDisconnected = setting.pushnotificationwhennewdevicedisconnected;
-                SettingInfo.StartMinimum = setting.startminimum;
-                SettingInfo.PrimaryColor=(Color )ColorConverter.ConvertFromString(setting.primarycolor);
+          //  SettingInfo = new SettingInfoDTO();
+          //var setting=  LoadSettingIfExists();
+          //  if (setting != null)
+          //  {
+          //      SettingInfo.AutoAddNewDevice = setting.autoaddnewdevice;
+          //      SettingInfo.AutoConnectNewDevice = setting.autoconnectnewdevice;
+          //      SettingInfo.AutoDeleteConfigWhenDisconnected = setting.autodeleteconfigwhendisconected;
+          //      SettingInfo.AutoStartWithWindows = setting.autostartwithwindows;
+          //      SettingInfo.DefaultName = setting.defaultname;
+          //      SettingInfo.DisplayConnectionStatus = setting.displayconnectionstatus;
+          //      SettingInfo.DisplayLightingStatus = setting.displaylightingstatus;
+          //      SettingInfo.IsDarkMode = setting.isdarkmode;
+          //      SettingInfo.PushNotificationWhenNewDeviceConnected = setting.pushnotificationwhennewdeviceconnected;
+          //      SettingInfo.PushNotificationWhenNewDeviceDisconnected = setting.pushnotificationwhennewdevicedisconnected;
+          //      SettingInfo.StartMinimum = setting.startminimum;
+          //      SettingInfo.PrimaryColor=(Color )ColorConverter.ConvertFromString(setting.primarycolor);
                 
-            }
-            else
-            {
-                SettingInfo.PrimaryColor = Colors.White;
-            }
+          //  }
+          //  else
+          //  {
+          //      SettingInfo.PrimaryColor = Colors.White;
+          //  }
             SelectCardCommand = new RelayCommand<IDeviceSettings>((p) => {
                 return p != null;
             }, (p) =>
@@ -654,19 +763,22 @@ namespace adrilight.ViewModel
         };
 
 
+
         }
         public async void ShowAddNewDialog()
         {
-            var vm = new ViewModel.AddNewDeviceViewModel();
-            var view = new View.AddNewDevice();
+            var newdevice = new DeviceSettings();
+            var vm = new ViewModel.AddDeviceViewModel(newdevice);
+            var view = new View.AddDevice();
             view.DataContext = vm;
-            bool addResult = (bool)(await DialogHost.Show(view, "mainDialog"));
+            bool addResult = (bool)await DialogHost.Show(view, "mainDialog");
             if (addResult)
             {
                 try
                 {
                     vm.Device.PropertyChanged += DeviceInfo_PropertyChanged;
                     _isAddnew = true;
+                    vm.Device.DeviceID = Cards.Count()+1;
                       Cards.Add(vm.Device);
                     WriteJson();
                     _isAddnew = false;
@@ -675,8 +787,11 @@ namespace adrilight.ViewModel
                 {
                     MessageBox.Show(ex.Message);
                 }
-               
+                Application.Restart();
+                Process.GetCurrentProcess().Kill();
             }
+
+            
         }
         public void DeleteCard(IDeviceSettings deviceInfo)
         {
@@ -695,22 +810,22 @@ namespace adrilight.ViewModel
             Directory.CreateDirectory(JsonPath);
             File.WriteAllText(JsonDeviceNameAndPath, json);
         }
-        public void WriteSettingJson()
-        {
-            var json = JsonConvert.SerializeObject(SettingInfo.GetSettingInfo(), Formatting.Indented);
-            Directory.CreateDirectory(JsonPath);
-            File.WriteAllText(JsonFileNameAndPath, json);
-        }
-        public SettingInfo LoadSettingIfExists()
-        {
-            if (!File.Exists(JsonFileNameAndPath)) return null;
+        //public void WriteSettingJson()
+        //{
+        //    var json = JsonConvert.SerializeObject(SettingInfo.GetSettingInfo(), Formatting.Indented);
+        //    Directory.CreateDirectory(JsonPath);
+        //    File.WriteAllText(JsonDeviceFileNameAndPath, json);
+        //}
+        //public SettingInfo LoadSettingIfExists()
+        //{
+        //    if (!File.Exists(JsonFileNameAndPath)) return null;
 
-            var json = File.ReadAllText(JsonFileNameAndPath);
+        //    var json = File.ReadAllText(JsonFileNameAndPath);
 
-            var setting = JsonConvert.DeserializeObject<SettingInfo>(json);
+        //    var setting = JsonConvert.DeserializeObject<SettingInfo>(json);
 
-            return setting;
-        }
+        //    return setting;
+        //}
         /// <summary>
         /// Change View
         /// </summary>
@@ -764,8 +879,15 @@ namespace adrilight.ViewModel
         }
          public void WriteDeviceInfoJson()
         {
-            if (_allDeviceView == null) return;
-            ((AllDeviceViewModel)_allDeviceView).WriteJson();
+           // if (_allDeviceView == null) return;
+            var devices = new List<IDeviceSettings>();
+            foreach (var item in Cards)
+            {
+                devices.Add(item);
+            }
+            var json = JsonConvert.SerializeObject(devices, Formatting.Indented);
+            Directory.CreateDirectory(JsonPath);
+            File.WriteAllText(JsonDeviceFileNameAndPath, json);
         }
         public void GotoChild(IDeviceSettings card)
         {
@@ -774,7 +896,7 @@ namespace adrilight.ViewModel
             SelectedVerticalMenuItem = MenuItems.FirstOrDefault(t => t.Text == general);
             IsDashboardType = false;
             CurrentDevice = card;
-            PreviewSpots = SpotSets[0].Spots;
+            PreviewSpots = SpotSets[CurrentDevice.DeviceID-1].Spots;
             SetMenuItemActiveStatus(lighting);
         }
         public void BackToDashboard()

@@ -1,6 +1,7 @@
 ﻿using adrilight.DesktopDuplication;
 using adrilight.Extensions;
 using BO;
+using Microsoft.Win32;
 using NLog;
 using System;
 using System.Drawing;
@@ -17,7 +18,7 @@ namespace adrilight
         {
             DeviceInfo = userSettings ?? throw new ArgumentNullException(nameof(userSettings));
 
-
+            SystemEvents.DisplaySettingsChanged += (_, e) => DecideRefresh("ResChange");
             DeviceInfo.PropertyChanged += (_, e) => DecideRefresh(e.PropertyName);
             Refresh();
    
@@ -42,7 +43,7 @@ namespace adrilight
                 case nameof(DeviceInfo.MirrorX):
                 case nameof(DeviceInfo.MirrorY):
                 case nameof(DeviceInfo.OffsetLed):
-
+                case "ResChange":
                 case nameof(DeviceInfo.SpotHeight):
                 case nameof(DeviceInfo.SpotsX):
                 case nameof(DeviceInfo.SpotsY):
@@ -122,9 +123,13 @@ namespace adrilight
             var scalingFactor = DesktopDuplicator.ScalingFactor;
             var borderDistanceX = userSettings.BorderDistanceX / scalingFactor;
             var borderDistanceY = userSettings.BorderDistanceY / scalingFactor;
-            var spotWidth = userSettings.SpotWidth / scalingFactor;
-            var spotHeight = userSettings.SpotHeight / scalingFactor;
-
+            var realSpotWidth = screenWidth / spotsX;
+            var realSpotHeight = screenHeight/ spotsY; // this is really helpful, user is no longer has to input spotwidth and spotheight which can cause weird behavior
+            
+            //var spotWidth = realSpotWidth / scalingFactor;
+            //var spotHeight = realSpotHeight / scalingFactor;
+            var spotWidth = realSpotWidth;
+            var spotHeight = realSpotHeight; 
             var canvasSizeX = screenWidth - 2 * borderDistanceX;
             var canvasSizeY = screenHeight - 2 * borderDistanceY;
 

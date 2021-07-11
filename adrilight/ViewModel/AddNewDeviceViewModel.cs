@@ -24,6 +24,8 @@ namespace adrilight.ViewModel
         }
 
 
+
+
         private ViewModelBase _currentView;
         private ViewModelBase _allDeviceView;
         private ViewModelBase _changePortView;
@@ -37,12 +39,15 @@ namespace adrilight.ViewModel
             }
         }
 
+      
+      
         /// <summary>
         /// ReadData
         /// </summary>
         public override void ReadData()
         {
             Device = new DeviceSettings();
+            
             _allDeviceView =new AllNewDeviceViewModel(this);
             CurrentView = _allDeviceView;
         }

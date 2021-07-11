@@ -19,7 +19,7 @@
             <converters:ColorToBrushConverter x:Key="ColorToBrushConverter" />
             <converters:BrushToHexConverter x:Key="BrushToHexConverter" />
             <BooleanToVisibilityConverter x:Key="boolToVisibilityConvert" />
-         
+
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -95,7 +95,7 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <Button Command="{Binding DeleteCommand}" Width="75" Style="{StaticResource MaterialDesignFlatButton}" Grid.Row="3" Content="Delete" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0" Margin="0,0,18,18" Background="#FFFBC186" BorderBrush="{x:Null}" Foreground="#FFFD7E35" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button Command="{Binding DeleteCommand}" Width="75" Style="{StaticResource MaterialDesignFlatButton}" Grid.Row="2" Content="Delete" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0" Margin="0,0,22,160" Background="#FFFBC186" BorderBrush="{x:Null}" Foreground="#FFFD7E35" HorizontalAlignment="Right" VerticalAlignment="Bottom">
 
 
             </Button>
@@ -110,7 +110,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Margin="10,0,0,0" Grid.Column="0" Text="{Binding ElementName=EffectBox,Path=SelectedItem}" FontSize="17" VerticalAlignment="Center" Foreground="Black" Height="20" HorizontalAlignment="Left"/>
                 <TextBlock Margin="10,0,0,-0.2" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Bảng Preview này hiển thị trạng thái hiện tại của LED" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989" Height="18" HorizontalAlignment="Left"/>
-               
+
 
                 <TextBlock Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" Text="Màn 1" FontSize="17" VerticalAlignment="Center" Foreground="Black" Height="20" HorizontalAlignment="Left"/>
                 <Rectangle Margin="10,0,10,5" Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="400" Fill="#26000000" VerticalAlignment="Bottom">
@@ -118,7 +118,7 @@
                 </Rectangle>
 
 
-                
+
 
             </Grid>
         </Grid>
@@ -136,8 +136,25 @@
                 <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Thứ Tự Màu" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
                 <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Nếu bạn thấy LED bị ngược ở một số màu cố định, thử đổi giá trị này nhé" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left"/>
                 <Rectangle  Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#14000000" VerticalAlignment="Bottom" Width="685.4" Margin="10,0,10,5"/>
-                <ComboBox Style="{StaticResource ComboBoxExtend}" Width="75" Grid.Column="1" Grid.Row="0" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center">
-
+                <ComboBox SelectedIndex="{Binding CurrentDevice.RGBOrder}" Style="{StaticResource ComboBoxExtend}" Width="75" Grid.Column="1" Grid.Row="0" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <ComboBoxItem>
+                        RGB
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        GRB
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        BRG
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        BGR
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        GBR
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        GRB
+                    </ComboBoxItem>
                 </ComboBox>
 
             </Grid>
@@ -252,139 +269,140 @@
                         </Style.Triggers>
                     </Style>
                 </Grid.Style>
-            
-            <hc:ScrollViewer  Height="400" Margin="1,1,1,1" Orientation="Vertical" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" IsInertiaEnabled="True">
-               
-                <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade" Margin="1,0" Width="568">
+
+                <hc:ScrollViewer  Height="400" Margin="1,1,1,1" Orientation="Vertical" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" IsInertiaEnabled="True">
+
+                    <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade" Margin="1,0" Width="568">
 
 
-                    <StackPanel  Margin="35,15,0,0" Orientation="Vertical" HorizontalAlignment="Left">
+                        <StackPanel  Margin="35,15,0,0" Orientation="Vertical" HorizontalAlignment="Left">
 
-                        <TextBlock Margin="10,0,0,0" Padding="0,0,0,10" Text="CÀI ĐẶT NÂNG CAO CHO CHẾ ĐỘ SÁNG THEO DẢI MÀU" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left"/>
-                        <Grid Height="80" Margin="0,0,10,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Chọn Dải Màu" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
-                            <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Chọn dải màu mà bạn yêu thích. Chọn // để tùy chỉnh" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"/>
-                            <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#14000000" VerticalAlignment="Bottom" Margin="10,0"/>
-                            <ComboBox x:Name="RainbowPaletteBox" ItemsSource="{Binding AvailablePalette}" SelectedIndex="{Binding CurrentDevice.SelectedPalette}" Style="{StaticResource ComboBoxExtend}" Margin="0,0,10,0" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"/>
+                            <TextBlock Margin="10,0,0,0" Padding="0,0,0,10" Text="CÀI ĐẶT NÂNG CAO CHO CHẾ ĐỘ SÁNG THEO DẢI MÀU" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left"/>
+                            <Grid Height="80" Margin="0,0,10,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Chọn Dải Màu" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
+                                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Chọn dải màu mà bạn yêu thích. Chọn // để tùy chỉnh" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"/>
+                                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#14000000" VerticalAlignment="Bottom" Margin="10,0"/>
+                                <ComboBox x:Name="RainbowPaletteBox" ItemsSource="{Binding AvailablePalette}" SelectedIndex="{Binding CurrentDevice.SelectedPalette}" Style="{StaticResource ComboBoxExtend}" Margin="0,0,10,0" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"/>
 
-                        </Grid>
-                        <Grid Height="80" Margin="0,0,10,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Tốc Độ Hiệu Ứng" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
-                            <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Sự nhanh hay chậm của hiệu ứng áp dụng lên toàn bộ các dải màu" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"/>
-                            <Rectangle Grid.Row="1" Margin="10,0" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#14000000" VerticalAlignment="Bottom"/>
-                            <Slider Width="150" Minimum="0" Maximum="15" Value="{Binding CurrentDevice.EffectSpeed}" Style="{StaticResource SliderBaseStyle}" Margin="0,0,10,0" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                            <Button Grid.Column="0"  Style="{StaticResource MaterialDesignFlatButton}" Content="{Binding CurrentDevice.EffectSpeed}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#26000000" BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,20,0" HorizontalAlignment="Right"/>
-                        </Grid>
-                        <Grid Height="80" Margin="0,0,10,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Tần Suất Lặp Lại" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
-                            <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Số lần mà bạn muốn dải màu hiển thị trên dây LED trong 1 chu kỳ" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"/>
-                            <hc:NumericUpDown Minimum="1" Maximum="4" Grid.Column="1" Width="70" Value="{Binding CurrentDevice.ColorFrequency}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" HorizontalContentAlignment="Center"/>
+                            </Grid>
+                            <Grid Height="80" Margin="0,0,10,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Tốc Độ Hiệu Ứng" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
+                                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Sự nhanh hay chậm của hiệu ứng áp dụng lên toàn bộ các dải màu" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"/>
+                                <Rectangle Grid.Row="1" Margin="10,0" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#14000000" VerticalAlignment="Bottom"/>
+                                <Slider Width="150" Minimum="0" Maximum="15" Value="{Binding CurrentDevice.EffectSpeed}" Style="{StaticResource SliderBaseStyle}" Margin="0,0,10,0" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                <Button Grid.Column="0"  Style="{StaticResource MaterialDesignFlatButton}" Content="{Binding CurrentDevice.EffectSpeed}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#26000000" BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,20,0" HorizontalAlignment="Right"/>
+                            </Grid>
+                            <Grid Height="80" Margin="0,0,10,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Tần Suất Lặp Lại" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
+                                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Số lần mà bạn muốn dải màu hiển thị trên dây LED trong 1 chu kỳ" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"/>
+                                <hc:NumericUpDown Minimum="1" Maximum="4" Grid.Column="1" Width="70" Value="{Binding CurrentDevice.ColorFrequency}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" HorizontalContentAlignment="Center"/>
 
-                            <Rectangle Margin="10,0,10,5" Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#26000000" VerticalAlignment="Bottom"/>
-                        </Grid>
-
-
-
-                        <StackPanel Orientation="Vertical">
-                            <StackPanel.Style>
-                                <Style TargetType="StackPanel">
-                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding ElementName=RainbowPaletteBox,Path=SelectedItem}" Value="Custom">
-                                            <Setter Property="Visibility" Value="Visible"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </StackPanel.Style>
-                            <hc:TransitioningContentControl TransitionMode="Left2RightWithFade" Margin="0,0,10,0">
-                                <Grid Height="80">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Custom Zone" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
-                                    <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Click vào từng ô màu để chọn màu mà bạn muốn" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"/>
-                                    <Button Grid.Column="1"  Style="{StaticResource MaterialDesignFlatButton}" Content="Import" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#26000000" BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,90,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                                    <Button Grid.Column="1"  Style="{StaticResource MaterialDesignFlatButton}" Content="Save" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#26000000" BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-
-                                </Grid>
-                            </hc:TransitioningContentControl>
-                            <hc:TransitioningContentControl TransitionMode="Left2RightWithFade">
-                                <Grid Height="80">
-                                    <Grid.ColumnDefinitions>
-
-                                        <ColumnDefinition Width="33*"/>
-                                        <ColumnDefinition Width="230*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="10,24">
-                                        <Button x:Name="zone0" Background="{Binding CurrentDevice.Color1,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource MaterialDesignFlatButton}" Content="Save" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="29" Height="29" Click="zone0_Click" />
-                                        <Button x:Name="zone1"  Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color2,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged , Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="29" Height="29" Click="zone1_Click"/>
-                                        <Button x:Name="zone2" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color3,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="29" Height="29" Click="zone2_Click"/>
-                                        <Button x:Name="zone3" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color4,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="29" Height="29" Click="zone3_Click"/>
-                                        <Button x:Name="zone4" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color5,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="29" Height="29" Click="zone4_Click"/>
-                                        <Button x:Name="zone5" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color6,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="29" Height="29" Click="zone5_Click"/>
-                                        <Button x:Name="zone6" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color7,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="29" Height="29" Click="zone6_Click"/>
-                                        <Button x:Name="zone7" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color8,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="29" Height="29" Click="zone7_Click"/>
-                                        <Button x:Name="zone8" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color9,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="29" Height="29" Click="zone8_Click"/>
-                                        <Button x:Name="zone9" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color10,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="29" Height="29" Click="zone9_Click"/>
-                                        <Button x:Name="zone10" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color11,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="29" Height="29" Click="zone10_Click"/>
-                                        <Button x:Name="zone11" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color12,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="29" Height="29" Click="zone11_Click"/>
-                                        <Button x:Name="zone12" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color13,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="29" Height="29" Click="zone12_Click"/>
-                                        <Button x:Name="zone13" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color14,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="29" Height="29" Click="zone13_Click"/>
-                                        <Button x:Name="zone14" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color15,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="29" Height="29" Click="zone14_Click"/>
-                                    </StackPanel>
+                                <Rectangle Margin="10,0,10,5" Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#26000000" VerticalAlignment="Bottom"/>
+                            </Grid>
 
 
-                                </Grid>
-                            </hc:TransitioningContentControl>
 
-                            <hc:TransitioningContentControl TransitionMode="Left2RightWithFade">
-                                <Grid  Height="160">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="2*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <materialDesign:ColorPicker x:Name="CustomZonePicker" Margin="0,0,0,20"/>
-                                    <TextBox Grid.Column="1"  Style="{StaticResource TextBoxExtend}" Text="{Binding Color, ElementName=CustomZonePicker, UpdateSourceTrigger=PropertyChanged}" Margin="8,73,282,57" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Grid>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=RainbowPaletteBox,Path=SelectedItem}" Value="Custom">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <hc:TransitioningContentControl TransitionMode="Left2RightWithFade" Margin="0,0,10,0">
+                                    <Grid Height="80">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Custom Zone" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
+                                        <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Click vào từng ô màu để chọn màu mà bạn muốn" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"/>
+                                        <Button Grid.Column="1"  Style="{StaticResource MaterialDesignFlatButton}" Content="Import" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#26000000" BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,90,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                        <Button Grid.Column="1"  Style="{StaticResource MaterialDesignFlatButton}" Content="Save" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#26000000" BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
-                            </hc:TransitioningContentControl>
+                                    </Grid>
+                                </hc:TransitioningContentControl>
+                                <hc:TransitioningContentControl TransitionMode="Left2RightWithFade">
+                                    <Grid Height="80">
+                                        <Grid.ColumnDefinitions>
+
+                                            <ColumnDefinition Width="33*"/>
+                                            <ColumnDefinition Width="230*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="10,24">
+                                            <Button x:Name="zone0" Background="{Binding CurrentDevice.Color0,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged , Mode=TwoWay}"  Style="{StaticResource MaterialDesignFlatButton}" Content="Save" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="zone0_Click" />
+                                            <Button x:Name="zone1"  Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color1,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged , Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="zone1_Click"/>
+                                            <Button x:Name="zone2" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color2,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="zone2_Click"/>
+                                            <Button x:Name="zone3" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color3,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="zone3_Click"/>
+                                            <Button x:Name="zone4" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color4,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="zone4_Click"/>
+                                            <Button x:Name="zone5" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color5,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="zone5_Click"/>
+                                            <Button x:Name="zone6" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color6,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="zone6_Click"/>
+                                            <Button x:Name="zone7" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color7,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="zone7_Click"/>
+                                            <Button x:Name="zone8" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color8,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="zone8_Click"/>
+                                            <Button x:Name="zone9" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color9,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="zone9_Click"/>
+                                            <Button x:Name="zone10" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color10,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="zone10_Click"/>
+                                            <Button x:Name="zone11" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color11,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="zone11_Click"/>
+                                            <Button x:Name="zone12" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color12,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="zone12_Click"/>
+                                            <Button x:Name="zone13" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color13,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="zone13_Click"/>
+                                            <Button x:Name="zone14" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color14,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="zone14_Click"/>
+                                            <Button x:Name="zone15" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.Color15,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="zone15_Click"/>
+                                        </StackPanel>
+
+
+                                    </Grid>
+                                </hc:TransitioningContentControl>
+
+                                <hc:TransitioningContentControl TransitionMode="Left2RightWithFade">
+                                    <Grid  Height="160">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:ColorPicker x:Name="CustomZonePicker" Margin="0,0,0,20"/>
+                                        <TextBox Grid.Column="1"  Style="{StaticResource TextBoxExtend}" Text="{Binding Color, ElementName=CustomZonePicker, UpdateSourceTrigger=PropertyChanged}" Margin="8,73,282,57" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Grid>
+
+                                </hc:TransitioningContentControl>
+                            </StackPanel>
+
                         </StackPanel>
-
-                    </StackPanel>
-                </hc:TransitioningContentControl>
-            </hc:ScrollViewer>
+                    </hc:TransitioningContentControl>
+                </hc:ScrollViewer>
             </Grid>
             <!-- Rainbow-->
             <Grid>
@@ -398,113 +416,123 @@
                         </Style.Triggers>
                     </Style>
                 </Grid.Style>
-            
-            <hc:ScrollViewer Orientation="Vertical" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" IsInertiaEnabled="True"  Margin="1" Height="400" materialDesign:ScrollBarAssist.ButtonsVisibility="Collapsed">
-                
-                <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade">
+
+                <hc:ScrollViewer Orientation="Vertical" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" IsInertiaEnabled="True"  Margin="1" Height="400" materialDesign:ScrollBarAssist.ButtonsVisibility="Collapsed">
+
+                    <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade">
 
 
-                    <StackPanel x:Name="Ambilight"  Margin="45,15,0,0" Orientation="Vertical">
+                        <StackPanel x:Name="Ambilight"  Margin="45,15,0,0" Orientation="Vertical">
 
-                        <TextBlock Margin="10,0,0,0" Padding="0,0,0,10" Text="CÀI ĐẶT NÂNG CAO CHO CHẾ ĐỘ SÁNG THEO MÀN HÌNH" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left"/>
-
-
-                        <Grid Height="80">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="67*"/>
-                                <ColumnDefinition Width="307*"/>
-                                <ColumnDefinition Width="187*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition Height="40"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Margin="10,0,0,0" Grid.Column="0" Text="Chọn Màn Hình" FontSize="17" VerticalAlignment="Center" Foreground="Black" Grid.ColumnSpan="2" HorizontalAlignment="Left"/>
-                            <TextBlock Margin="10,0,0,0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Text="Mỗi thiết bị USB chỉ sáng theo 1 màn hình" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left"/>
-                            <Rectangle Grid.Row="1" Grid.ColumnSpan="3" Height="1" Fill="#14000000" VerticalAlignment="Bottom" Margin="10,0,0,5"/>
-                            <ComboBox SelectedIndex="{Binding CurrentDevice.SelectedDisplay}" ItemsSource="{Binding AvailableDisplays}" Style="{StaticResource ComboBoxExtend}" Width="150" Margin="0,0,10,0" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-
-                        </Grid>
-                        <Grid Height="80">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Tốc Độ Phản Hồi" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
-                            <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Sự nhanh chậm của LED so với hình ảnh trong màn hình " FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left"/>
-                            <Rectangle Grid.Row="1" Margin="10,0,0,5" Grid.ColumnSpan="2" Height="1" Fill="#14000000" VerticalAlignment="Bottom"/>
-                            <Slider  Style="{StaticResource SliderBaseStyle}" Width="150" Margin="0,0,10,0" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                            <Button Width="59" Grid.Column="0"  Style="{StaticResource MaterialDesignFlatButton}" Content="255" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#26000000" BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,20,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                        </Grid>
-                        <Grid Height="80" Margin="0,0,0.1,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="131*"/>
-                                <ColumnDefinition Width="101*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Margin="10,0,0,0" Grid.Column="0" Text="Cân Bằng Trắng" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left" Height="20" Width="118"/>
-                            <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Tăng hoặc giảm từng kênh màu cho đến khi thấy màu trắng vừa mắt nhất" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left" Height="17" Width="454"/>
-                            <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#14000000" VerticalAlignment="Bottom" Margin="10,0,0,5"/>
-                            <UniformGrid Grid.Column="1" Margin="0,0,10,0" Rows="1" Columns="2" VerticalAlignment="Center" HorizontalAlignment="Right" Height="40" Width="191">
-                                <RadioButton  Margin="10,0,0,0" Style="{StaticResource RadioButtonIcon}" Content="Auto" HorizontalAlignment="Center" Foreground="#FF898989">
-                                    <RadioButton.Background>
-                                        <SolidColorBrush Color="#26000000"/>
-                                    </RadioButton.Background>
-                                </RadioButton>
-                                <RadioButton x:Name="WBCustom" Margin="10,0,0,0" Style="{StaticResource RadioButtonIcon}" Content="Custom" IsChecked="True" Foreground="#FF898989">
-                                    <RadioButton.Background>
-                                        <SolidColorBrush Color="#26000000"/>
-                                    </RadioButton.Background>
-                                </RadioButton>
-
-                            </UniformGrid>
-
-                        </Grid>
-                        <Grid>
-                            <Grid.Style>
-                                <Style TargetType="Grid">
-                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding ElementName=WBCustom, Path=IsChecked }" Value="True" >
-                                            <Setter Property="Visibility" Value="Visible"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Grid.Style>
-                            <hc:TransitioningContentControl TransitionMode="Left2RightWithFade">
+                            <TextBlock Margin="10,0,0,0" Padding="0,0,0,10" Text="CÀI ĐẶT NÂNG CAO CHO CHẾ ĐỘ SÁNG THEO MÀN HÌNH" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left"/>
 
 
-                                <Grid Margin="45,0,0,0" Height="160">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="316*"/>
-                                        <ColumnDefinition Width="175*"/>
+                            <Grid Height="80">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="67*"/>
+                                    <ColumnDefinition Width="307*"/>
+                                    <ColumnDefinition Width="187*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="40"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Margin="10,0,0,0" Grid.Column="0" Text="Chọn Màn Hình" FontSize="17" VerticalAlignment="Center" Foreground="Black" Grid.ColumnSpan="2" HorizontalAlignment="Left"/>
+                                <TextBlock Margin="10,0,0,0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Text="Mỗi thiết bị USB chỉ sáng theo 1 màn hình" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left"/>
+                                <Rectangle Grid.Row="1" Grid.ColumnSpan="3" Height="1" Fill="#14000000" VerticalAlignment="Bottom" Margin="10,0,0,5"/>
+                                <ComboBox SelectedIndex="{Binding CurrentDevice.SelectedDisplay}"  Style="{StaticResource ComboBoxExtend}" Width="150" Margin="0,0,10,0" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                    <ComboBoxItem>
+                                        Màn 1
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        Màn 2
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        Màn 3
+                                    </ComboBoxItem>
+                                </ComboBox>
 
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <Slider  Value="{Binding CurrentDevice.WhitebalanceRed}" Minimum="0" Maximum="100" Style="{StaticResource SliderBaseStyle}" Width="150" Margin="0,0,10,0" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Height="18"/>
-                                    <Button Padding="0" BorderThickness="2" Grid.Column="0"  Style="{StaticResource MaterialDesignFlatButton}" Content="{Binding CurrentDevice.WhitebalanceRed}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#FFFFA4A4" BorderBrush="#B2FF0000" Foreground="#B2FF0000" Margin="0,11,20,11" HorizontalAlignment="Right" Height="Auto" Width="55"/>
-                                    <Slider  Value="{Binding CurrentDevice.WhitebalanceGreen}" Minimum="0" Maximum="100"  Style="{StaticResource SliderBaseStyle}" Width="150" Margin="0,0,10,0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Height="18" HorizontalAlignment="Right"/>
-                                    <Button Padding="0" BorderBrush="#B200CB00" BorderThickness="2" Grid.Row="1" Grid.Column="0"  Style="{StaticResource MaterialDesignFlatButton}" Content="{Binding CurrentDevice.WhitebalanceGreen}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#FFB3FFAB" Foreground="#B200CB00" Margin="0,10,20,11" HorizontalAlignment="Right" VerticalAlignment="Center" Width="55"/>
+                            </Grid>
+                            <Grid Height="80">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Tốc Độ Phản Hồi" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
+                                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Sự nhanh chậm của LED so với hình ảnh trong màn hình " FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left"/>
+                                <Rectangle Grid.Row="1" Margin="10,0,0,5" Grid.ColumnSpan="2" Height="1" Fill="#14000000" VerticalAlignment="Bottom"/>
+                                <Slider  Style="{StaticResource SliderBaseStyle}" Width="150" Margin="0,0,10,0" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                <Button Width="59" Grid.Column="0"  Style="{StaticResource MaterialDesignFlatButton}" Content="255" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#26000000" BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,20,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            </Grid>
+                            <Grid Height="80" Margin="0,0,0.1,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="131*"/>
+                                    <ColumnDefinition Width="101*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Margin="10,0,0,0" Grid.Column="0" Text="Cân Bằng Trắng" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left" Height="20" Width="118"/>
+                                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Tăng hoặc giảm từng kênh màu cho đến khi thấy màu trắng vừa mắt nhất" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left" Height="17" Width="454"/>
+                                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#14000000" VerticalAlignment="Bottom" Margin="10,0,0,5"/>
+                                <UniformGrid Grid.Column="1" Margin="0,0,10,0" Rows="1" Columns="2" VerticalAlignment="Center" HorizontalAlignment="Right" Height="40" Width="191">
+                                    <RadioButton  Margin="10,0,0,0" Style="{StaticResource RadioButtonIcon}" Content="Auto" HorizontalAlignment="Center" Foreground="#FF898989">
+                                        <RadioButton.Background>
+                                            <SolidColorBrush Color="#26000000"/>
+                                        </RadioButton.Background>
+                                    </RadioButton>
+                                    <RadioButton x:Name="WBCustom" Margin="10,0,0,0" Style="{StaticResource RadioButtonIcon}" Content="Custom" IsChecked="True" Foreground="#FF898989">
+                                        <RadioButton.Background>
+                                            <SolidColorBrush Color="#26000000"/>
+                                        </RadioButton.Background>
+                                    </RadioButton>
 
-                                    <Slider  Value="{Binding CurrentDevice.WhitebalanceBlue}" Minimum="0" Maximum="100"  Style="{StaticResource SliderBaseStyle}" Width="150" Margin="0,0,10,0" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Height="18" HorizontalAlignment="Right"/>
-                                    <Button BorderThickness="2" Padding="0" Grid.Row="2" Grid.Column="0"  Style="{StaticResource MaterialDesignFlatButton}" Content="{Binding CurrentDevice.WhitebalanceBlue}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#FF76B8FB" BorderBrush="#FF1776FF" Foreground="#FF1776FF" Margin="0,11,20,10" HorizontalAlignment="Right" Height="Auto" Width="55"/>
-                                </Grid>
-                            </hc:TransitioningContentControl>
-                        </Grid>
-                    </StackPanel>
-                </hc:TransitioningContentControl>
-            </hc:ScrollViewer>
+                                </UniformGrid>
+
+                            </Grid>
+                            <Grid>
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=WBCustom, Path=IsChecked }" Value="True" >
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+                                <hc:TransitioningContentControl TransitionMode="Left2RightWithFade">
+
+
+                                    <Grid Margin="45,0,0,0" Height="160">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="316*"/>
+                                            <ColumnDefinition Width="175*"/>
+
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Slider  Value="{Binding CurrentDevice.WhitebalanceRed}" Minimum="0" Maximum="100" Style="{StaticResource SliderBaseStyle}" Width="150" Margin="0,0,10,0" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Height="18"/>
+                                        <Button Padding="0" BorderThickness="2" Grid.Column="0"  Style="{StaticResource MaterialDesignFlatButton}" Content="{Binding CurrentDevice.WhitebalanceRed}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#FFFFA4A4" BorderBrush="#B2FF0000" Foreground="#B2FF0000" Margin="0,11,20,11" HorizontalAlignment="Right" Height="Auto" Width="55"/>
+                                        <Slider  Value="{Binding CurrentDevice.WhitebalanceGreen}" Minimum="0" Maximum="100"  Style="{StaticResource SliderBaseStyle}" Width="150" Margin="0,0,10,0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Height="18" HorizontalAlignment="Right"/>
+                                        <Button Padding="0" BorderBrush="#B200CB00" BorderThickness="2" Grid.Row="1" Grid.Column="0"  Style="{StaticResource MaterialDesignFlatButton}" Content="{Binding CurrentDevice.WhitebalanceGreen}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#FFB3FFAB" Foreground="#B200CB00" Margin="0,10,20,11" HorizontalAlignment="Right" VerticalAlignment="Center" Width="55"/>
+
+                                        <Slider  Value="{Binding CurrentDevice.WhitebalanceBlue}" Minimum="0" Maximum="100"  Style="{StaticResource SliderBaseStyle}" Width="150" Margin="0,0,10,0" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Height="18" HorizontalAlignment="Right"/>
+                                        <Button BorderThickness="2" Padding="0" Grid.Row="2" Grid.Column="0"  Style="{StaticResource MaterialDesignFlatButton}" Content="{Binding CurrentDevice.WhitebalanceBlue}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#FF76B8FB" BorderBrush="#FF1776FF" Foreground="#FF1776FF" Margin="0,11,20,10" HorizontalAlignment="Right" Height="Auto" Width="55"/>
+                                    </Grid>
+                                </hc:TransitioningContentControl>
+                            </Grid>
+                        </StackPanel>
+                    </hc:TransitioningContentControl>
+                </hc:ScrollViewer>
             </Grid>
 
             <!-- SpotReader(Screen Capture)-->

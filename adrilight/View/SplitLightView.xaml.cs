@@ -114,5 +114,11 @@ namespace adrilight.View
             var color = Color.FromRgb( CustomZonePicker.Color.R, CustomZonePicker.Color.G, CustomZonePicker.Color.B);
             zone14.Background = new SolidColorBrush(color);
         }
+
+        private void zone15_Click(object sender, RoutedEventArgs e)
+        {
+            var color = Color.FromRgb(CustomZonePicker.Color.R, CustomZonePicker.Color.G, CustomZonePicker.Color.B);
+            zone15.Background = new SolidColorBrush(color);
+        }
     }
 }

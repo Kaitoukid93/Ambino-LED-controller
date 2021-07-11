@@ -42,6 +42,7 @@ namespace adrilight.Spots
                 case nameof(DeviceSettings.SelectedDisplay):
                 case nameof(DeviceSettings.SelectedAdapter):
                 case nameof(DeviceSettings.SelectedEffect):
+                
                     RefreshReadingState();
                     break;
 
@@ -98,11 +99,50 @@ namespace adrilight.Spots
                 {
                     lock (DeviceSpotSet.Lock)
                     {
-                        for (var i = 0; i < DeviceSpotSet.Spots.Count(); i++)//topology
+                        if (DeviceSettings.SelectedDisplay == 0)
                         {
-                            DeviceSpotSet.Spots[i].SetColor(SpotSet.Spots[i].Red, SpotSet.Spots[i].Green, SpotSet.Spots[i].Blue, true); // do a 1-1 cast
-                                                                                                                                        //in ther future, each position selected will cast different position
+                            if(DeviceSpotSet.Spots.Count()>SpotSet.Spots.Count())
+                            {
+                                for (var i = 0; i < SpotSet.Spots.Count(); i++)//topology
+                                {
+
+                                    DeviceSpotSet.Spots[i].SetColor(SpotSet.Spots[i].Red, SpotSet.Spots[i].Green, SpotSet.Spots[i].Blue, true); // do a 1-1 cast
+                                                                                                                                                //in ther future, each position selected will cast different position
+                                }
+                            }
+                            else
+                            {
+                                for (var i = 0; i < DeviceSpotSet.Spots.Count(); i++)//topology
+                                {
+
+                                    DeviceSpotSet.Spots[i].SetColor(SpotSet.Spots[i].Red, SpotSet.Spots[i].Green, SpotSet.Spots[i].Blue, true); // do a 1-1 cast
+                                                                                                                                                //in ther future, each position selected will cast different position
+                                }
+                            }
+                           
                         }
+                        else if (DeviceSettings.SelectedDisplay==1)
+                        {
+                            if (DeviceSpotSet.Spots.Count() > SpotSet.Spots2.Count())
+                            {
+                                for (var i = 0; i < SpotSet.Spots2.Count(); i++)//topology
+                                {
+
+                                    DeviceSpotSet.Spots[i].SetColor(SpotSet.Spots2[i].Red, SpotSet.Spots2[i].Green, SpotSet.Spots2[i].Blue, true); // do a 1-1 cast
+                                                                                                                                                   //in ther future, each position selected will cast different position
+                                }
+                            }
+                            else 
+                            {
+                                for (var i = 0; i < DeviceSpotSet.Spots.Count(); i++)//topology
+                                {
+
+                                    DeviceSpotSet.Spots[i].SetColor(SpotSet.Spots2[i].Red, SpotSet.Spots2[i].Green, SpotSet.Spots2[i].Blue, true); // do a 1-1 cast
+                                                                                                                                                   //in ther future, each position selected will cast different position
+                                }
+                            }
+                        }
+                       
                     }
                     Thread.Sleep(8);
                 }

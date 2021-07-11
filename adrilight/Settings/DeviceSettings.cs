@@ -17,7 +17,8 @@ namespace adrilight
         private string _gifFilePath = "";
         private string _deviceName = "Ambino Basic";
         private int _deviceID = 1;
-        private string _deviceType = "Basic";
+        private string _deviceType = "Generic Device";
+        private int _rGBOrder = 0;
 
         private int _mSens = 0;
        // private DateTime? _lastUpdateCheck = DateTime.UtcNow;
@@ -60,6 +61,7 @@ namespace adrilight
         private bool _isConnected = true;
         private byte _selectedPalette = 0;
         private byte[] _snapShot = new byte[256];
+        private int _numLED = 32;
 
         private bool _useLinearLighting = true;
         private byte _whitebalanceRed = 100;
@@ -161,10 +163,10 @@ namespace adrilight
         public int DeviceID { get => _deviceID; set { Set(() => DeviceID, ref _deviceID, value); } }
         public string DeviceType { get => _deviceType; set { Set(() => DeviceType, ref _deviceType, value); } }
         //public string ComPort4 { get => _comPort4; set { Set(() => ComPort4, ref _comPort4, value); } }
-
+        public int RGBOrder { get => _rGBOrder; set { Set(() => RGBOrder, ref _rGBOrder, value); } }
 
         //public DateTime? LastUpdateCheck { get => _lastUpdateCheck; set { Set(() => LastUpdateCheck, ref _lastUpdateCheck, value); } }
-
+        public int NumLED { get => _numLED; set { Set(() => NumLED, ref _numLED, value); } }
         [Obsolete]
         public int LedsPerSpot { get => _ledsPerSpot; set { Set(() => LedsPerSpot, ref _ledsPerSpot, value); } }
         public bool MirrorX { get => _mirrorX; set { Set(() => MirrorX, ref _mirrorX, value); } }
@@ -287,6 +289,6 @@ namespace adrilight
 
 
         public Guid InstallationId { get; set; } = Guid.NewGuid();
-        public int DeviceId { get; internal set; }
+        
     }
 }

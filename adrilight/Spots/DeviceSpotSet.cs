@@ -20,6 +20,7 @@ namespace adrilight
             GeneralSettings = generalSettings ?? throw new ArgumentNullException(nameof(generalSettings));
 
             DeviceSettings.PropertyChanged += (_, e) => DecideRefresh(e.PropertyName);
+            GeneralSettings.PropertyChanged += (_, e) => DecideRefresh(e.PropertyName);
             Refresh();
 
             _log.Info($"SpotSet created.");
@@ -40,6 +41,10 @@ namespace adrilight
             {
                 case nameof(DeviceSettings.SpotsX):
                 case nameof(DeviceSettings.SpotsY):
+                case nameof(GeneralSettings.ScreenSize):
+                case nameof(DeviceSettings.SelectedDisplay):
+                case nameof(DeviceSettings.SelectedEffect):
+
 
                     Refresh();
                     break;
@@ -94,19 +99,48 @@ namespace adrilight
 
             var spotsX = userSettings.SpotsX;
             var spotsY = userSettings.SpotsY;
-            IDeviceSpot[] devicespots;
-            if (spotsX!= generalSettings.SpotsX || spotsY != generalSettings.SpotsY)// check if user input over kill the parrent's matrix that precreated
+            IDeviceSpot[] devicespots = new DeviceSpot[160]; //maximum number of spot
+            if(DeviceSettings.SelectedEffect==0)
             {
-                spotsX = 10;
-                spotsY = 6; // revert to default value of spotsX and spotsY
-                MessageBox.Show("Can not create a matrix that greater than original matrix, please enter a smaller value!!!");
-                devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
-            }
-            else
+                if (DeviceSettings.SelectedDisplay == 0) // 
+                {
+                    if (spotsX != generalSettings.SpotsX || spotsY != generalSettings.SpotsY)// check if user input over kill the parrent's matrix that precreated
+                    {
+                        spotsX = generalSettings.SpotsX;
+                        spotsY = generalSettings.SpotsY; // revert to default value of spotsX and spotsY
+                        // MessageBox.Show("Can not create a matrix that greater than original matrix, please enter a smaller value!!!");
+                        devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
+                    }
+                    else
 
+                    {
+                        devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
+                    }
+                }
+                else if (DeviceSettings.SelectedDisplay == 1)
+                {
+                    if (spotsX != generalSettings.SpotsX2 || spotsY != generalSettings.SpotsY2)// check if user input over kill the parrent's matrix that precreated
+                    {
+                        spotsX = generalSettings.SpotsX2;
+                        spotsY = generalSettings.SpotsY2; // revert to default value of spotsX and spotsY
+                        // MessageBox.Show("Can not create a matrix that greater than original matrix, please enter a smaller value!!!");
+                        devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
+                    }
+                    else
+
+                    {
+                        devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
+                    }
+                }
+            }
+
+            else
             {
                 devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
+
             }
+          
+          
             //just this is enough????
             // next, everytime a frame update, spotsetreader (which attached to every single device) will set the color of each device spots in devicespotset acording to index
             // SpotSet reader only service gifxelation and screen capture mode

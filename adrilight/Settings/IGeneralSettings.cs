@@ -19,6 +19,7 @@ namespace adrilight
         bool MirrorY { get; set; }
 
         int OffsetLed { get; set; }
+        int OffsetLed2 { get; set; }
 
         int SpotHeight { get; set; }
 
@@ -30,6 +31,8 @@ namespace adrilight
         int SpotsY { get; set; }
         int SpotsY2 { get; set; }
         int SentryMode { get; set; }
+        int ScreenSize { get; set; }
+        int ScreenSizeSecondary { get; set; }
 
         int SelectedDisplay { get; set; }
         int SelectedAdapter { get; set; }

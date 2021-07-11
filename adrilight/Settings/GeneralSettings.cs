@@ -18,9 +18,12 @@ namespace adrilight
         private bool _mirrorX = true;
         private bool _mirrorY = false;
         private int _offsetLed = 10;
+        private int _offsetLed2 = 10;
         private bool _shouldbeRunning = true;
         private bool _shouldbeRunningSecondary = false;
         //ambilight smooth choice///
+        private int _screenSize = 0;
+        private int _screenSizeSecondary = 0;
 
         private bool _startMinimized = false;
 
@@ -59,7 +62,8 @@ namespace adrilight
 
 
 
-
+        public int ScreenSize { get => _screenSize; set { Set(() => ScreenSize, ref _screenSize, value); } }
+        public int ScreenSizeSecondary { get => _screenSizeSecondary; set { Set(() => ScreenSizeSecondary, ref _screenSizeSecondary, value); } }
 
 
         public bool StartMinimized { get => _startMinimized; set { Set(() => StartMinimized, ref _startMinimized, value); } }
@@ -75,6 +79,7 @@ namespace adrilight
         public bool MirrorX { get => _mirrorX; set { Set(() => MirrorX, ref _mirrorX, value); } }
         public bool MirrorY { get => _mirrorY; set { Set(() => MirrorY, ref _mirrorY, value); } }
         public int OffsetLed { get => _offsetLed; set { Set(() => OffsetLed, ref _offsetLed, value); } }
+        public int OffsetLed2 { get => _offsetLed2; set { Set(() => OffsetLed2, ref _offsetLed2, value); } }
 
         public int UseLinearLighting { get => _useLinearLighting; set { Set(() => UseLinearLighting, ref _useLinearLighting, value); } }
 

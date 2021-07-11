@@ -51,7 +51,7 @@ namespace adrilight
             {
                 if (serialport == "Không có")
                 {
-                    System.Windows.MessageBox.Show("Serial Port " + serialport + " is just for testing effects, not the real device, please note");
+                   // System.Windows.MessageBox.Show("Serial Port " + serialport + " is just for testing effects, not the real device, please note");
                     available = true;
                     return available;
 
@@ -233,14 +233,46 @@ namespace adrilight
 
                 foreach (DeviceSpot spot in DeviceSpotSet.Spots)
                 {
+                    var RGBOrder = DeviceSettings.RGBOrder;
+                    switch(RGBOrder)
+                    {
+                        case 0: //RGB
+                            outputStream[counter++] = spot.Red; // blue
+                            outputStream[counter++] = spot.Green; // green
+                            outputStream[counter++] = spot.Blue; // red
+                            break;
+                        case 1: //GRB
+                            outputStream[counter++] = spot.Green; // blue
+                            outputStream[counter++] = spot.Red; // green
+                            outputStream[counter++] = spot.Blue; // red
+                            break;
+                        case 2: //BRG
+                            outputStream[counter++] = spot.Blue; // blue
+                            outputStream[counter++] = spot.Red; // green
+                            outputStream[counter++] = spot.Green; // red
+                            break;
+                        case 3: //BGR
+                            outputStream[counter++] = spot.Blue; // blue
+                            outputStream[counter++] = spot.Green; // green
+                            outputStream[counter++] = spot.Red; // red
+                            break;
+                        case 4://GBR
+                            outputStream[counter++] = spot.Green; // blue
+                            outputStream[counter++] = spot.Blue; // green
+                            outputStream[counter++] = spot.Red; // red
+                            break;
+                        case 5: //GRB
+                            outputStream[counter++] = spot.Green; // blue
+                            outputStream[counter++] = spot.Red; // green
+                            outputStream[counter++] = spot.Blue; // red
+                            break;
 
-                    outputStream[counter++] = spot.Red; // blue
-                    outputStream[counter++] = spot.Green; // green
-                    outputStream[counter++] = spot.Blue; // red
+
+
+                    }
+             
 
                     allBlack = allBlack && spot.Red == 0 && spot.Green == 0 && spot.Blue == 0;
-
-
 
 
 

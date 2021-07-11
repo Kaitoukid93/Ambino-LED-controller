@@ -163,8 +163,8 @@
                 <ToggleButton IsChecked="{Binding GeneralSettings.ShouldbeRunning}" Grid.Column="1" Margin="0,0,10,0"
                      Style="{StaticResource ToggleButtonSwitch}"
                      HorizontalAlignment="Right" />
-                <ComboBox SelectedIndex="{Binding GeneralSettings.UseLinearLighting}" Style="{StaticResource ComboBoxExtend}" Width="150" Grid.Column="1" Grid.Row="0" Margin="0,0,70,0" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <ComboBoxItem Content="24-25inch"/>
+                <ComboBox SelectedIndex="{Binding GeneralSettings.ScreenSize}" Style="{StaticResource ComboBoxExtend}" Width="150" Grid.Column="1" Grid.Row="0" Margin="0,0,70,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <ComboBoxItem Content="24inch"/>
                     <ComboBoxItem Content="27inch"/>
                     <ComboBoxItem Content="29inch"/>
                     <ComboBoxItem Content="32inch"/>
@@ -175,7 +175,7 @@
             <Grid Height="80">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -187,7 +187,7 @@
                      Style="{StaticResource ToggleButtonSwitch}"
                      
                      HorizontalAlignment="Right" />
-                <ComboBox SelectedIndex="{Binding GeneralSettings.UseLinearLighting}" Style="{StaticResource ComboBoxExtend}" Width="150" Grid.Column="1" Grid.Row="0" Margin="0,0,70,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <ComboBox SelectedIndex="{Binding GeneralSettings.ScreenSizeSecondary}" Style="{StaticResource ComboBoxExtend}" Width="150" Grid.Column="1" Grid.Row="0" Margin="0,0,70,0" HorizontalAlignment="Right" VerticalAlignment="Center">
                     <ComboBoxItem Content="24-25inch"/>
                     <ComboBoxItem Content="27inch"/>
                     <ComboBoxItem Content="29inch"/>
