@@ -24,9 +24,7 @@ namespace adrilight
 {
     internal class Music : IMusic
     {
-        public static double _huePosIndex = 0;//index for rainbow mode only
-        public static double _palettePosIndex = 0;//index for other custom palette
-        public static double _startIndex = 0;
+       
 
         public static float[] _fft;
         public static int _lastlevel;
@@ -36,7 +34,7 @@ namespace adrilight
         public static int height = 0;
         public static int heightL = 0;
         public static int heightR = 0;
-        private WASAPIPROC _process;
+        public WASAPIPROC _process;
         public static byte lastvolume = 0;
         public static byte volume = 0;
         public static int lastheight = 0;
@@ -178,6 +176,10 @@ namespace adrilight
         public void Run(CancellationToken token)
 
         {
+
+              double _huePosIndex = 0;//index for rainbow mode only
+       // public static double _palettePosIndex = 0;//index for other custom palette
+            double _startIndex = 0;
             if (IsRunning) throw new Exception(" Music Color is already running!");
 
             IsRunning = true;

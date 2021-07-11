@@ -202,28 +202,30 @@
                         </Style.Triggers>
                     </Style>
                 </Grid.Style>
-                <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade">
+                <hc:ScrollViewer  Height="400" Margin="1,1,1,1" Orientation="Vertical" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" IsInertiaEnabled="True">
+                    <hc:TransitioningContentControl Width="568" TransitionMode="Right2LeftWithFade">
 
 
                     <StackPanel Margin="45,15,0,0" Orientation="Vertical">
 
                         <TextBlock Margin="10,0,0,0" Padding="0,0,0,10" Text="CÀI ĐẶT NÂNG CAO CHO CHẾ ĐỘ SÁNG THEO NHẠC" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"/>
-                        <Grid Height="100">
+                        <Grid Height="80">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="74*"/>
+                                <ColumnDefinition Width="53*"/>
+                                <ColumnDefinition Width="136*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Chọn Nguồn Phát" FontSize="17" VerticalAlignment="Center" Foreground="Black"/>
-                            <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Chọn nguồn phát audio, nguồn phát này có ảnh hưởng đến tất cả các thiết bị LED" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"/>
-                            <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#FF898989" VerticalAlignment="Bottom"/>
-                            <ComboBox Margin="0,0,10,0" Grid.Column="1" Grid.Row="0"/>
+                            <TextBlock Grid.Row="0" Margin="10,0,178,0" Grid.Column="0" Text="Chọn Nguồn Phát" FontSize="17" VerticalAlignment="Center" Foreground="Black" Grid.ColumnSpan="3" Height="20" HorizontalAlignment="Left"/>
+                            <TextBlock Margin="10,0,0,0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Text="Chọn nguồn phát audio, nguồn phát này có ảnh hưởng đến tất cả các thiết bị LED" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" Height="17" HorizontalAlignment="Left"/>
+                            <Rectangle Grid.Row="1" Grid.ColumnSpan="3" Height="1" Fill="#26000000" VerticalAlignment="Bottom" Margin="10,0,10,5"/>
+                            <ComboBox ScrollViewer.HorizontalScrollBarVisibility="Disabled"  ItemsSource="{Binding AvailableAudioDevice}" SelectedIndex="{Binding CurrentDevice.SelectedAudioDevice}" Style="{StaticResource ComboBoxExtend}" Margin="10,0" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" Height="30"/>
 
                         </Grid>
-                        <Grid Height="100">
+                        <Grid Height="80">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"/>
                                 <ColumnDefinition Width="*"/>
@@ -232,13 +234,13 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Chọn Hiệu Ứng" FontSize="17" VerticalAlignment="Center" Foreground="Black"/>
+                            <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Chọn Hiệu Ứng" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
                             <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Các hiệu ứng nháy theo nhạc được cài sẵn" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"/>
-                            <Rectangle Grid.Row="1" Margin="0,0,10,0" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#FF898989" VerticalAlignment="Bottom"/>
-                            <ComboBox Margin="0,12,10,12" Grid.Column="1" Grid.Row="0"/>
+                            <Rectangle Grid.Row="1" Margin="10,0,10,5" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#26000000" VerticalAlignment="Bottom"/>
+                            <ComboBox  SelectedIndex="{Binding CurrentDevice.SelectedMusicMode}" ItemsSource="{Binding AvailableMusicMode}" Style="{StaticResource ComboBoxExtend}" Margin="0,0,10,0" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"/>
 
                         </Grid>
-                        <Grid Height="100">
+                        <Grid Height="80">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"/>
                                 <ColumnDefinition Width="*"/>
@@ -247,15 +249,90 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Chọn Màu Sắc" FontSize="17" VerticalAlignment="Center" Foreground="Black"/>
-                            <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"><Run Text="Màu sắc này tương tự như dải màu ở chế độ "/><LineBreak/><Run/></TextBlock>
-                            <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#FF898989" VerticalAlignment="Bottom"/>
-                            <ComboBox Margin="0,12,10,12" Grid.Column="1" Grid.Row="0"/>
+                            <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Chọn Màu Sắc" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
+                            <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left" Text="Màu sắc này tương tự như dải màu ở chế độ "/>
+                            <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#26000000" VerticalAlignment="Bottom" Margin="10,0,10,5"/>
+                            <ComboBox SelectedIndex="{Binding CurrentDevice.SelectedMusicPalette}" x:Name="MusicPaletteBox" ItemsSource="{Binding AvailableMusicPalette}" Style="{StaticResource ComboBoxExtend}" Margin="0,0,10,0" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"/>
 
                         </Grid>
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=MusicPaletteBox,Path=SelectedItem}" Value="Custom">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <hc:TransitioningContentControl TransitionMode="Left2RightWithFade" Margin="0,0,10,0">
+                                <Grid Height="80">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Custom Zone" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
+                                    <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Click vào từng ô màu để chọn màu mà bạn muốn" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"/>
+                                    <Button Grid.Column="1"  Style="{StaticResource MaterialDesignFlatButton}" Content="Import" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#26000000" BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,90,0" HorizontalAlignment="Right" VerticalAlignment="Center" Click="Button_Click"/>
+                                    <Button Grid.Column="1"  Style="{StaticResource MaterialDesignFlatButton}" Content="Save" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#26000000" BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center" Click="Button_Click_1"/>
+
+                                </Grid>
+                            </hc:TransitioningContentControl>
+                            <hc:TransitioningContentControl TransitionMode="Left2RightWithFade">
+                                <Grid Height="80">
+                                    <Grid.ColumnDefinitions>
+
+                                        <ColumnDefinition Width="33*"/>
+                                        <ColumnDefinition Width="230*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="10,24">
+                                        <Button x:Name="mzone0" Background="{Binding CurrentDevice.MColor0,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged , Mode=TwoWay}"  Style="{StaticResource MaterialDesignFlatButton}" Content="Save" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="mzone0_Click"  />
+                                        <Button x:Name="mzone1"  Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.MColor1,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged , Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="mzone1_Click" />
+                                        <Button x:Name="mzone2" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.MColor2,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="mzone2_Click" />
+                                        <Button x:Name="mzone3" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.MColor3,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="mzone3_Click" />
+                                        <Button x:Name="mzone4" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.MColor4,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="mzone4_Click" />
+                                        <Button x:Name="mzone5" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.MColor5,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="mzone5_Click" />
+                                        <Button x:Name="mzone6" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.MColor6,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="mzone6_Click" />
+                                        <Button x:Name="mzone7" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.MColor7,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="mzone7_Click" />
+                                        <Button x:Name="mzone8" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.MColor8,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="mzone8_Click" />
+                                        <Button x:Name="mzone9" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.MColor9,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="mzone9_Click" />
+                                        <Button x:Name="mzone10" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.MColor10,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="mzone10_Click" />
+                                        <Button x:Name="mzone11" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.MColor11,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="mzone11_Click"/>
+                                        <Button x:Name="mzone12" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.MColor12,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="mzone12_Click" />
+                                        <Button x:Name="mzone13" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.MColor13,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="mzone13_Click" />
+                                        <Button x:Name="mzone14" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.MColor14,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="mzone14_Click"/>
+                                        <Button x:Name="mzone15" Style="{StaticResource MaterialDesignFlatButton}" Background="{Binding CurrentDevice.MColor15,Converter={StaticResource ColorToBrushConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"   BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="26.5" Height="26.5" Click="mzone15_Click" />
+                                    </StackPanel>
+
+
+                                </Grid>
+                            </hc:TransitioningContentControl>
+
+                            <hc:TransitioningContentControl TransitionMode="Left2RightWithFade">
+                                <Grid  Height="160">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:ColorPicker x:Name="mCustomZonePicker" Margin="0,0,0,20"/>
+                                    <TextBox Grid.Column="1"  Style="{StaticResource TextBoxExtend}" Text="{Binding Color, ElementName=CustomZonePicker, UpdateSourceTrigger=PropertyChanged}" Margin="8,73,262,57" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Width="81"/>
+                                </Grid>
+
+                            </hc:TransitioningContentControl>
+                        </StackPanel>
+
 
                     </StackPanel>
                 </hc:TransitioningContentControl>
+                    </hc:ScrollViewer>
             </Grid>
             <!-- Music-->
             <Grid>
@@ -349,8 +426,8 @@
                                         </Grid.RowDefinitions>
                                         <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Custom Zone" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
                                         <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Click vào từng ô màu để chọn màu mà bạn muốn" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989"/>
-                                        <Button Grid.Column="1"  Style="{StaticResource MaterialDesignFlatButton}" Content="Import" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#26000000" BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,90,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                                        <Button Grid.Column="1"  Style="{StaticResource MaterialDesignFlatButton}" Content="Save" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#26000000" BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                        <Button Grid.Column="1"  Style="{StaticResource MaterialDesignFlatButton}" Content="Import" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#26000000" BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,90,0" HorizontalAlignment="Right" VerticalAlignment="Center" Click="Button_Click_2"/>
+                                        <Button Grid.Column="1"  Style="{StaticResource MaterialDesignFlatButton}" Content="Save" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#26000000" BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center" Click="Button_Click_3"/>
 
                                     </Grid>
                                 </hc:TransitioningContentControl>
