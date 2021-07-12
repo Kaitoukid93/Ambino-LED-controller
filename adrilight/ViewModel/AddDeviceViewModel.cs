@@ -31,20 +31,20 @@ namespace adrilight.ViewModel
             set => Set(ref _stepIndex, value);
 #endif
         }
-        //public RelayCommand<Panel> NextCmd => new(Next);
+        public RelayCommand<Panel> NextCmd => new(Next);
 
-        ///// <summary>
-        /////     上一步
-        ///// </summary>
-        //public RelayCommand<Panel> PrevCmd => new(Prev);
+        /// <summary>
+        ///     上一步
+        /// </summary>
+        public RelayCommand<Panel> PrevCmd => new(Prev);
 
-        //private void Next(Panel panel)
-        //{
-        //    foreach (var stepBar in panel.Children.OfType<StepBar>())
-        //    {
-        //        stepBar.Next();
-        //    }
-        //}
+        private void Next(Panel panel)
+        {
+            foreach (var stepBar in panel.Children.OfType<StepBar>())
+            {
+                stepBar.Next();
+            }
+        }
 
         private void Prev(Panel panel)
         {
