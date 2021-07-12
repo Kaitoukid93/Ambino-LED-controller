@@ -457,6 +457,15 @@
     <Compile Include="View\SplitLightView.xaml.cs">
       <DependentUpon>SplitLightView.xaml</DependentUpon>
     </Compile>
+    <Resource Include="View\Images\icon\dashboard.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Images\icon\setting.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Images\icon\usb.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="View\Images\icon\close-box.png" />
     <None Include="Resources\degif.gif" />
     <None Include="Resources\gifxelation.gif" />
