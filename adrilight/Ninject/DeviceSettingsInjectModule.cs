@@ -21,7 +21,8 @@ namespace adrilight.Ninject
             var generalSettings = settingsManager.LoadIfExists() ?? settingsManager.MigrateOrDefault();
             var alldevicesettings = settingsManager.LoadDeviceIfExists();
             Bind<IDesktopDuplicatorReader>().To<DesktopDuplicatorReader>().InSingletonScope().WithConstructorArgument("graphicAdapter",0).WithConstructorArgument("output",0);
-            Bind<IDesktopDuplicatorReaderSecondary>().To<DesktopDuplicatorReaderSecondary>().InSingletonScope().WithConstructorArgument("graphicAdapter", 0).WithConstructorArgument("output", 1); ;
+            Bind<IDesktopDuplicatorReaderSecondary>().To<DesktopDuplicatorReaderSecondary>().InSingletonScope().WithConstructorArgument("graphicAdapter", 0).WithConstructorArgument("output", 1);
+            Bind<IDesktopDuplicatorReaderThird>().To<DesktopDuplicatorReaderThird>().InSingletonScope().WithConstructorArgument("graphicAdapter", 0).WithConstructorArgument("output", 2);
             Bind<IGeneralSpotSet>().To<GeneralSpotSet>().InSingletonScope();
             Bind<IGeneralSettings>().ToConstant(generalSettings);  
           //  Bind<IViewModelFactory<AllDeviceViewModel>>().To<AllDeviceViewModelFactory>().InSingletonScope();

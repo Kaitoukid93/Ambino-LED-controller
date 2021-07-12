@@ -132,6 +132,21 @@ namespace adrilight
                         devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
                     }
                 }
+                else if (DeviceSettings.SelectedDisplay == 2)
+                {
+                    if (spotsX != generalSettings.SpotsX3 || spotsY != generalSettings.SpotsY3)// check if user input over kill the parrent's matrix that precreated
+                    {
+                        spotsX = generalSettings.SpotsX3;
+                        spotsY = generalSettings.SpotsY3; // revert to default value of spotsX and spotsY
+                        // MessageBox.Show("Can not create a matrix that greater than original matrix, please enter a smaller value!!!");
+                        devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
+                    }
+                    else
+
+                    {
+                        devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
+                    }
+                }
             }
 
             else

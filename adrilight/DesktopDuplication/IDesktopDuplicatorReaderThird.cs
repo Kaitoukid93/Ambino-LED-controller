@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace adrilight
 {
-    public interface IDesktopDuplicatorReaderSecondary
+    public interface IDesktopDuplicatorReaderThird
     {
         bool IsRunning { get; }
 

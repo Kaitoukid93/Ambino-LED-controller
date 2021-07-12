@@ -211,6 +211,7 @@ namespace adrilight.ViewModel
 
         public ICommand SelectMenuItem { get; set; }
         public ICommand BackCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
         #endregion
         private ObservableCollection<IDeviceSettings> _cards;
         public ObservableCollection<IDeviceSettings> Cards {
@@ -500,9 +501,47 @@ namespace adrilight.ViewModel
                             RaisePropertyChanged(() => GeneralSettings.SpotsY2);
                         }
 
-                        GeneralSettings.OffsetLed = GeneralSettings.SpotsX - 1;
+                        GeneralSettings.OffsetLed2 = GeneralSettings.SpotsX2 - 1;
                         break;
+                    case nameof(GeneralSettings.ScreenSizeThird):
+                        if (GeneralSettings.ScreenSizeThird == 0)
+                        {
+                            GeneralSettings.SpotsX3 = 11;
+                            GeneralSettings.SpotsY3= 7;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX3);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY3);
+                        }
+                        else if (GeneralSettings.ScreenSizeThird == 1)
+                        {
+                            GeneralSettings.SpotsX3 = 13;
+                            GeneralSettings.SpotsY3 = 7;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX3);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY3);
+                        }
+                        else if (GeneralSettings.ScreenSizeThird == 2)
+                        {
+                            GeneralSettings.SpotsX3 = 14;
+                            GeneralSettings.SpotsY3 = 7;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX3);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY3);
+                        }
+                        else if (GeneralSettings.ScreenSizeThird == 3)
+                        {
+                            GeneralSettings.SpotsX3 = 14;
+                            GeneralSettings.SpotsY3 = 9;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX3);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY3);
+                        }
+                        else if (GeneralSettings.ScreenSizeThird == 4)
+                        {
+                            GeneralSettings.SpotsX3 = 17;
+                            GeneralSettings.SpotsY3 = 7;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX3);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY3);
+                        }
 
+                        GeneralSettings.OffsetLed3= GeneralSettings.SpotsX3 - 1;
+                        break;
 
 
                 }
@@ -579,7 +618,7 @@ namespace adrilight.ViewModel
             LoadMenu();
             LoadMenuByType(true);
             ReadDataDevice();
-            ReadFAQ();
+           // ReadFAQ();
             
             //CurrentView = _allDeviceView.CreateViewModel();
             SelectMenuItem = new RelayCommand<VerticalMenuItem>((p) => {
@@ -589,28 +628,34 @@ namespace adrilight.ViewModel
                 ChangeView(p);
             });
             SelectedVerticalMenuItem = MenuItems.FirstOrDefault();
-          //  SettingInfo = new SettingInfoDTO();
-          //var setting=  LoadSettingIfExists();
-          //  if (setting != null)
-          //  {
-          //      SettingInfo.AutoAddNewDevice = setting.autoaddnewdevice;
-          //      SettingInfo.AutoConnectNewDevice = setting.autoconnectnewdevice;
-          //      SettingInfo.AutoDeleteConfigWhenDisconnected = setting.autodeleteconfigwhendisconected;
-          //      SettingInfo.AutoStartWithWindows = setting.autostartwithwindows;
-          //      SettingInfo.DefaultName = setting.defaultname;
-          //      SettingInfo.DisplayConnectionStatus = setting.displayconnectionstatus;
-          //      SettingInfo.DisplayLightingStatus = setting.displaylightingstatus;
-          //      SettingInfo.IsDarkMode = setting.isdarkmode;
-          //      SettingInfo.PushNotificationWhenNewDeviceConnected = setting.pushnotificationwhennewdeviceconnected;
-          //      SettingInfo.PushNotificationWhenNewDeviceDisconnected = setting.pushnotificationwhennewdevicedisconnected;
-          //      SettingInfo.StartMinimum = setting.startminimum;
-          //      SettingInfo.PrimaryColor=(Color )ColorConverter.ConvertFromString(setting.primarycolor);
-                
-          //  }
-          //  else
-          //  {
-          //      SettingInfo.PrimaryColor = Colors.White;
-          //  }
+            //  SettingInfo = new SettingInfoDTO();
+            //var setting=  LoadSettingIfExists();
+            //  if (setting != null)
+            //  {
+            //      SettingInfo.AutoAddNewDevice = setting.autoaddnewdevice;
+            //      SettingInfo.AutoConnectNewDevice = setting.autoconnectnewdevice;
+            //      SettingInfo.AutoDeleteConfigWhenDisconnected = setting.autodeleteconfigwhendisconected;
+            //      SettingInfo.AutoStartWithWindows = setting.autostartwithwindows;
+            //      SettingInfo.DefaultName = setting.defaultname;
+            //      SettingInfo.DisplayConnectionStatus = setting.displayconnectionstatus;
+            //      SettingInfo.DisplayLightingStatus = setting.displaylightingstatus;
+            //      SettingInfo.IsDarkMode = setting.isdarkmode;
+            //      SettingInfo.PushNotificationWhenNewDeviceConnected = setting.pushnotificationwhennewdeviceconnected;
+            //      SettingInfo.PushNotificationWhenNewDeviceDisconnected = setting.pushnotificationwhennewdevicedisconnected;
+            //      SettingInfo.StartMinimum = setting.startminimum;
+            //      SettingInfo.PrimaryColor=(Color )ColorConverter.ConvertFromString(setting.primarycolor);
+
+            //  }
+            //  else
+            //  {
+            //      SettingInfo.PrimaryColor = Colors.White;
+            //  }
+            DeleteCommand = new RelayCommand<string>((p) => {
+                return true;
+            }, (p) =>
+            {
+                ShowDeleteDialog();
+            });
             SelectCardCommand = new RelayCommand<IDeviceSettings>((p) => {
                 return p != null;
             }, (p) =>
@@ -630,15 +675,15 @@ namespace adrilight.ViewModel
                BackToDashboard();
             });
         }
-        public void ReadFAQ()
-        {
-            AppName = $"adrilight {App.VersionNumber}";
-            BuildVersion = "xxxxxxxxxxxxxxxxxxxxxxxxxxx";
-            LastUpdate = new DateTime(2020, 06, 01);
-            Author = "zOe";
-            Git = "xxxxxxx";
-            FAQ = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
-        }
+        //public void ReadFAQ()
+        //{
+        //    AppName = $"adrilight {App.VersionNumber}";
+        //    BuildVersion = "xxxxxxxxxxxxxxxxxxxxxxxxxxx";
+        //    LastUpdate = new DateTime(2020, 06, 01);
+        //    Author = "zOe";
+        //    Git = "xxxxxxx";
+        //    FAQ = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
+        //}
         public void ReadDataDevice()
         {
             SelectGif = new RelayCommand<string>((p) => {
@@ -727,8 +772,7 @@ namespace adrilight.ViewModel
            "Sáng theo dải màu",
            "Sáng màu tĩnh",
            "Sáng theo nhạc",
-           "Atmosphere",
-            "Gifxelation"
+           "Atmosphere"
         };
             AvailableMusicPalette = new ObservableCollection<string>
 {
@@ -792,6 +836,30 @@ namespace adrilight.ViewModel
             }
 
             
+        }
+
+        public async void ShowDeleteDialog()
+        {
+            var view = new View.DeleteMessageDialog();
+            DeleteMessageDialogViewModel dialogViewModel = new DeleteMessageDialogViewModel(CurrentDevice);
+            view.DataContext = dialogViewModel;
+            bool addResult = (bool)await DialogHost.Show(view, "mainDialog");
+            if (addResult)
+            {
+                DeleteCard(CurrentDevice);
+                int counter = 1;
+                foreach(var card in Cards)
+                {
+                    card.DeviceID = counter;
+                    counter++;
+                    
+                }
+                WriteJson();
+                Application.Restart();
+                Process.GetCurrentProcess().Kill();
+            }
+
+          
         }
         public void DeleteCard(IDeviceSettings deviceInfo)
         {
@@ -876,6 +944,7 @@ namespace adrilight.ViewModel
             //    ReadDataDevice();
             //}
             //SetMenuItemActiveStatus(menuItem.Text);
+            SetMenuItemActiveStatus(menuItem.Text);
         }
          public void WriteDeviceInfoJson()
         {
@@ -921,13 +990,13 @@ namespace adrilight.ViewModel
         public void LoadMenu()
         {
             MenuItems = new ObservableCollection<VerticalMenuItem>();
-            MenuItems.Add(new VerticalMenuItem() { Text =dashboard, Images = string.Format(ImagePathFormat, "new theme/advance@2x.png"), IsActive = true, Type = MenuButtonType.Dashboard });
-            MenuItems.Add(new VerticalMenuItem() { Text = deviceSetting, Images = string.Format(ImagePathFormat, "new theme/2x/new usb@2x.png"), IsActive = false, Type = MenuButtonType.Dashboard });
-            MenuItems.Add(new VerticalMenuItem() { Text =appSetting, Images = string.Format(ImagePathFormat, "new theme/General setup@2x.png"), IsActive = false, Type = MenuButtonType.Dashboard });
-            MenuItems.Add(new VerticalMenuItem() { Text = faq, Images = string.Format(ImagePathFormat, "new theme/General setup@2x.png"), IsActive = false, Type = MenuButtonType.Dashboard });
-            MenuItems.Add(new VerticalMenuItem() { Text = general, Images = string.Format(ImagePathFormat, "new theme/advance@2x.png"), IsActive = true, Type = MenuButtonType.General });
-            MenuItems.Add(new VerticalMenuItem() { Text = lighting, Images = string.Format(ImagePathFormat, "new theme/2x/new usb@2x.png"), IsActive = false, Type = MenuButtonType.General });
-         
+            MenuItems.Add(new VerticalMenuItem() { Text = dashboard, IsActive = true, Type = MenuButtonType.Dashboard });
+            MenuItems.Add(new VerticalMenuItem() { Text = deviceSetting, IsActive = false, Type = MenuButtonType.Dashboard });
+            MenuItems.Add(new VerticalMenuItem() { Text = appSetting, IsActive = false, Type = MenuButtonType.Dashboard });
+           
+            MenuItems.Add(new VerticalMenuItem() { Text = general, IsActive = true, Type = MenuButtonType.General });
+            MenuItems.Add(new VerticalMenuItem() { Text = lighting, IsActive = false, Type = MenuButtonType.General });
+
         }
         /// <summary>
         /// set active state

@@ -23,10 +23,10 @@ namespace adrilight.ViewModel
         }
         public ICommand DeleteCommand { get; set; }
         public ViewModelBase _parentVm;
-        public DeleteMessageDialogViewModel(ViewModelBase parent, IDeviceSettings device)
+        public DeleteMessageDialogViewModel(IDeviceSettings device)
         {
             Card = device;
-            _parentVm = parent;
+            
             DeleteCommand = new RelayCommand<string>((p) => {
                 return true;
             }, (p) =>

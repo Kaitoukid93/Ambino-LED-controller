@@ -17,11 +17,11 @@ using adrilight.Util;
 
 namespace adrilight
 {
-    internal class DesktopDuplicatorReaderSecondary : BaseViewModel, IDesktopDuplicatorReaderSecondary
+    internal class DesktopDuplicatorReaderThird : BaseViewModel, IDesktopDuplicatorReaderThird
     {
         private readonly ILogger _log = LogManager.GetCurrentClassLogger();
 
-        public DesktopDuplicatorReaderSecondary(IGeneralSettings userSettings, IGeneralSpotSet spotSet, int graphicAdapter, int output)
+        public DesktopDuplicatorReaderThird(IGeneralSettings userSettings, IGeneralSpotSet spotSet, int graphicAdapter, int output)
         {
             UserSettings = userSettings ?? throw new ArgumentNullException(nameof(userSettings));
             SpotSet = spotSet ?? throw new ArgumentNullException(nameof(spotSet));
@@ -36,7 +36,7 @@ namespace adrilight
            // SettingsViewModel.PropertyChanged += PropertyChanged;
             RefreshCapturingState();
 
-            _log.Info($"DesktopDuplicatorReader created for secondary screen.");
+            _log.Info($"DesktopDuplicatorReader created for third screen.");
         }
 
         private void PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -44,7 +44,7 @@ namespace adrilight
             switch (e.PropertyName)
             {
                 
-                case nameof(UserSettings.ShouldbeRunningSecondary):
+                case nameof(UserSettings.ShouldbeRunningThird):
 
                     RefreshCapturingState();
                     break;
@@ -65,7 +65,7 @@ namespace adrilight
         private void RefreshCaptureSource()
         {
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            var shouldBeRunning = UserSettings.ShouldbeRunningSecondary;
+            var shouldBeRunning = UserSettings.ShouldbeRunningThird;
             //  var shouldBeRefreshing = NeededRefreshing;
             if (isRunning && shouldBeRunning)
             {
@@ -88,7 +88,7 @@ namespace adrilight
         public void RefreshCapturingState()
         {
             var isRunning = _cancellationTokenSource != null && IsRunning;
-            var shouldBeRunning = UserSettings.ShouldbeRunningSecondary;
+            var shouldBeRunning = UserSettings.ShouldbeRunningThird;
             //  var shouldBeRefreshing = NeededRefreshing;
 
 
@@ -125,8 +125,8 @@ namespace adrilight
 
         private IGeneralSettings UserSettings { get; set; }
         private IGeneralSpotSet SpotSet { get; }
-        private Thread _workerThread;
 
+        private Thread _workerThread;
 
         private readonly Policy _retryPolicy;
 
@@ -198,7 +198,7 @@ namespace adrilight
                         }
                         else
                         {
-                            Parallel.ForEach(SpotSet.Spots2
+                            Parallel.ForEach(SpotSet.Spots3
                                 , spot =>
                                 {
                                     const int numberOfSteps = 15;
@@ -372,8 +372,8 @@ namespace adrilight
                     {
                         _log.Error(ex, "could be secure desktop");
                     }
-                    UserSettings.ShouldbeRunningSecondary = false;
-                    RaisePropertyChanged(() => UserSettings.ShouldbeRunningSecondary);
+                    UserSettings.ShouldbeRunningThird = false;
+                    RaisePropertyChanged(() => UserSettings.ShouldbeRunningThird);
                   
                     // _desktopDuplicator.Dispose();
                     // _desktopDuplicator = null;

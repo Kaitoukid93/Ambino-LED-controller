@@ -14,7 +14,7 @@
               TextOptions.TextRenderingMode="Auto"   
               FontFamily="{StaticResource MaterialDesignFont}" d:DesignWidth="1030" Height="1082">
 
-    <Grid Background="White" Margin="10">
+    <Grid Background="White" Margin="20,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
@@ -123,7 +123,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Độ Tương Phản Ambilight" FontSize="17" VerticalAlignment="Center" Foreground="Black"/>
                 <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Thuật toán độ tương phản sẽ áp dụng lên tất cả các thiết bị hiện có" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989"/>
-                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#26000000" VerticalAlignment="Bottom" Margin="0,0,0,5"/>
+                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#26000000" VerticalAlignment="Bottom" Margin="10,0,10,5"/>
                 <ComboBox SelectedIndex="{Binding GeneralSettings.UseLinearLighting}" Style="{StaticResource ComboBoxExtend}" Width="150" Grid.Column="1" Grid.Row="0" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center">
                     <ComboBoxItem>
                         Dịu Nhẹ
@@ -143,12 +143,13 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Margin="10,10,0,10" Grid.Column="0" Text="Saturation Thresold" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left" Height="20" Width="146"/>
-                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Nếu bạn muốn khi màn hình hiển thị cảnh màu đen mà LED vẫn sáng, giảm hết cỡ giá trị này nhé" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989" Height="17"/>
-                <Slider Minimum="0" Maximum="50" Value="{Binding GeneralSettings.SaturationTreshold}" Style="{StaticResource SliderBaseStyle}" Width="150" Margin="0,11,10,11" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Height="18"/>
+                <TextBlock Grid.Row="0" Margin="10,0,0,0" Grid.Column="0" Text="Saturation Thresold" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left" Height="20"/>
+                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Độ nhạy đối với sự thay đổi màu sắc trên nền đen, càng thấp càng nhạy" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989" Height="17"/>
+                <Slider Minimum="0" Maximum="50" Value="{Binding GeneralSettings.SaturationTreshold}" Style="{StaticResource SliderBaseStyle}" Width="150" Margin="0,0,10,0" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Height="18"/>
                 <Button Grid.Column="1"  Style="{StaticResource MaterialDesignFlatButton}" Content="{Binding GeneralSettings.SaturationTreshold}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#26000000" BorderBrush="{x:Null}" Foreground="#FF898989" Margin="35,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="32"/>
+                    <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#26000000" VerticalAlignment="Bottom" Margin="10,0,10,5"/>
 
-            </Grid>
+                </Grid>
             <Grid Height="80">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -170,8 +171,9 @@
                     <ComboBoxItem Content="32inch"/>
                     <ComboBoxItem Content="34inch"/>
                 </ComboBox>
+                    <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#26000000" VerticalAlignment="Bottom" Margin="10,0,10,5"/>
 
-            </Grid>
+                </Grid>
             <Grid Height="80">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -188,14 +190,15 @@
                      
                      HorizontalAlignment="Right" />
                 <ComboBox SelectedIndex="{Binding GeneralSettings.ScreenSizeSecondary}" Style="{StaticResource ComboBoxExtend}" Width="150" Grid.Column="1" Grid.Row="0" Margin="0,0,70,0" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <ComboBoxItem Content="24-25inch"/>
+                    <ComboBoxItem Content="24inch"/>
                     <ComboBoxItem Content="27inch"/>
                     <ComboBoxItem Content="29inch"/>
                     <ComboBoxItem Content="32inch"/>
                     <ComboBoxItem Content="34inch"/>
                 </ComboBox>
+                    <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#26000000" VerticalAlignment="Bottom" Margin="10,0,10,5"/>
 
-            </Grid>
+                </Grid>
             <Grid Height="80">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -210,9 +213,9 @@
                 <ToggleButton Grid.Column="1" Margin="0,0,10,0"
                      Style="{StaticResource ToggleButtonSwitch}"
                      
-                     IsChecked="true" HorizontalAlignment="Right" />
-                <ComboBox SelectedIndex="{Binding GeneralSettings.UseLinearLighting}" Style="{StaticResource ComboBoxExtend}" Width="150" Grid.Column="1" Grid.Row="0" Margin="0,0,70,0" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <ComboBoxItem Content="24-25inch"/>
+                     IsChecked="{Binding GeneralSettings.ShouldbeRunningThird}" HorizontalAlignment="Right" />
+                    <ComboBox SelectedIndex="{Binding GeneralSettings.ScreenSizeThird}" Style="{StaticResource ComboBoxExtend}" Width="150" Grid.Column="1" Grid.Row="0" Margin="0,0,70,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <ComboBoxItem Content="24inch"/>
                     <ComboBoxItem Content="27inch"/>
                     <ComboBoxItem Content="29inch"/>
                     <ComboBoxItem Content="32inch"/>

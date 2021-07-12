@@ -237,8 +237,9 @@ namespace adrilight
               .BindAllInterfaces());
             var desktopDuplicationReader = kernel.Get<IDesktopDuplicatorReader>();
            var desktopDuplicationReaderSecondary = kernel.Get<IDesktopDuplicatorReaderSecondary>();
-            
-            if(alldevicesettings!=null)
+            var desktopDuplicationReaderThird = kernel.Get<IDesktopDuplicatorReaderThird>();
+
+            if (alldevicesettings!=null)
             {
                 foreach (var devicesetting in alldevicesettings)
                 {
@@ -410,21 +411,21 @@ namespace adrilight
         SettingsWindow _mainForm;
         private IKernel kernel;
         MainView _newUIForm;
-        private void OpenSettingsWindow()
-        {
-            if (_mainForm == null)
-            {
-                _mainForm = new SettingsWindow();  
-                _mainForm.Closed += MainForm_FormClosed;
-                _mainForm.Show();
-                _telemetryClient.TrackEvent("SettingsWindow opened");
-            }
-            else
-            {
-                //bring to front?
-                _mainForm.Focus();
-            }
-        }
+        //private void OpenSettingsWindow()
+        //{
+        //    if (_mainForm == null)
+        //    {
+        //        _mainForm = new SettingsWindow();  
+        //        _mainForm.Closed += MainForm_FormClosed;
+        //        _mainForm.Show();
+        //        _telemetryClient.TrackEvent("SettingsWindow opened");
+        //    }
+        //    else
+        //    {
+        //        //bring to front?
+        //        _mainForm.Focus();
+        //    }
+        //}
         private void OpenNewUI()
         {
             if (_newUIForm == null)
@@ -438,6 +439,7 @@ namespace adrilight
             {
                 //bring to front?
                 _newUIForm.Focus();
+                _newUIForm.Visibility = Visibility.Visible;
             }
         }
         private void MainForm_FormClosed(object sender, EventArgs e)
@@ -467,8 +469,8 @@ namespace adrilight
 
             var icon = new System.Drawing.Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("adrilight.zoe.ico"));
             var contextMenu = new System.Windows.Forms.ContextMenu();
-            contextMenu.MenuItems.Add(new System.Windows.Forms.MenuItem("Giao  diện mới", (s, e) => OpenNewUI()));
-            contextMenu.MenuItems.Add(new System.Windows.Forms.MenuItem("Cài đặt...", (s, e) => OpenSettingsWindow()));
+            contextMenu.MenuItems.Add(new System.Windows.Forms.MenuItem("Dashboard", (s, e) => OpenNewUI()));
+          //  contextMenu.MenuItems.Add(new System.Windows.Forms.MenuItem("Cài đặt...", (s, e) => OpenSettingsWindow()));
             contextMenu.MenuItems.Add(new System.Windows.Forms.MenuItem("Thoát", (s, e) => Shutdown(0)));
 
             var notifyIcon = new System.Windows.Forms.NotifyIcon()
@@ -478,8 +480,9 @@ namespace adrilight
                 Visible = true,
                 ContextMenu = contextMenu
             };
-            notifyIcon.DoubleClick += (s, e) => { OpenSettingsWindow(); };
-            
+            //  notifyIcon.DoubleClick += (s, e) => { OpenSettingsWindow(); };
+            notifyIcon.DoubleClick += (s, e) => { OpenNewUI(); };
+
             Exit += (s, e) => notifyIcon.Dispose();
         }
         

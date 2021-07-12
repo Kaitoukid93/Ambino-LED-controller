@@ -12,8 +12,9 @@ using Device = SharpDX.Direct3D11.Device;
 using MapFlags = SharpDX.Direct3D11.MapFlags;
 using Rectangle = SharpDX.Mathematics.Interop.RawRectangle;
 using adrilight.Util;
-using System.Windows;
+
 using HandyControl.Data;
+using HandyControl.Controls;
 
 namespace adrilight.DesktopDuplication
 {

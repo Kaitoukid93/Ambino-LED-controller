@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:adrilight.View"
              mc:Ignorable="d" 
                xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
-             Width="518" Height="274">
+             Width="500" Height="274">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,14 +19,19 @@
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" MinHeight="30"/>
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Bạn có chắc muốn xóa thiết bị này?" Style="{StaticResource tbHeading2Style}" TextAlignment="Center"></TextBlock>
-        <TextBlock  Grid.Row="1"  Text="Mọi thông tin và cấu hình của thiết bị sẽ mất vĩnh viễn" Style="{StaticResource tbHeading3Style}" TextAlignment="Center"></TextBlock>
-        <Border  Grid.Row="2"  HorizontalAlignment="Center"  CornerRadius="5" Background="#d6d5d5" Height="35">
-            <TextBlock Text="{Binding Card.DeviceName}"  Style="{StaticResource tbHeading2Style}" Margin="5"></TextBlock>
+        <Border CornerRadius="5" Grid.Row="1" Width="25" Height="25" Background="#3FFD7E35" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="55,0,20,0" >
+            <materialDesign:PackIcon Kind="DeleteAlertOutline" Foreground="#FFFD7E35" VerticalAlignment="Center" HorizontalAlignment="Center" />
+        </Border>
+        
+        <TextBlock Grid.Row="0" Text="Bạn có chắc muốn xóa thiết bị này?" Style="{StaticResource tbHeading2Style}" TextAlignment="Center" Height="27"></TextBlock>
+        <TextBlock  Grid.Row="1"  Text="Mọi thông tin và cấu hình của thiết bị sẽ mất vĩnh viễn" TextAlignment="Center" Foreground="#FF898989" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="25,0,0,0"/>
+        <Border  Grid.Row="2"  HorizontalAlignment="Center"  CornerRadius="9" Background="#33000000" Margin="0" VerticalAlignment="Center">
+            <TextBlock Text="{Binding Card.DeviceName}"  Style="{StaticResource tbHeading2Style}" Margin="7" Foreground="#FF898989"></TextBlock>
+
         </Border>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
@@ -34,14 +39,14 @@
                 <ColumnDefinition Width="43"/>
                 <ColumnDefinition Width="43"/>
             </Grid.ColumnDefinitions>
-            <Button Style="{StaticResource btnPrevious}" Grid.Column="1" Width="43" Height="37" IsCancel="True" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+            <Button materialDesign:ButtonAssist.CornerRadius="7" Style="{StaticResource MaterialDesignFlatButton}" Content="Cancel" Width="75" Height="32" IsCancel="True" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" HorizontalAlignment="Left" Margin="0" Foreground="#FF898989" Background="#33000000" VerticalAlignment="Center">
                 <Button.CommandParameter>
                     <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">False</system:Boolean>
                 </Button.CommandParameter>
             </Button>
-            <Button Style="{StaticResource btnDownYellow}" Grid.Column="2" Width="43" Height="37" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" IsDefault="True">
+            <Button Style="{StaticResource MaterialDesignFlatButton}" materialDesign:ButtonAssist.CornerRadius="7" Grid.Column="1" Width="75" Height="32" Content="Delete" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" IsDefault="True" Foreground="#FFFD7E35" Background="#3FFD7E35" Grid.ColumnSpan="2" Margin="0" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <Button.CommandParameter>
-                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
+                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
                 </Button.CommandParameter>
             </Button>
         </Grid>

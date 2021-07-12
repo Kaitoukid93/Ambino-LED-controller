@@ -192,7 +192,7 @@ namespace adrilight
 
                     lock (SpotSet.Lock)
                     {
-                        var useLinearLighting = UserSettings.UseLinearLighting==1;
+                        var useLinearLighting = UserSettings.UseLinearLighting==0;
 
                         var imageRectangle = new Rectangle(0, 0, image.Width, image.Height);
 

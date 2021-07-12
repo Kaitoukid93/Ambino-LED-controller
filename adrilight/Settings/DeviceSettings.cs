@@ -52,7 +52,7 @@ namespace adrilight
 
         //static color/
         private bool _isBreathing = false;
-        private Color _staticColor = Color.FromArgb(0, 0, 255, 255);
+        private Color _staticColor = (Color)ColorConverter.ConvertFromString("#FF326CF3");
         int _breathingSpeed = 5;
         //static color//
 

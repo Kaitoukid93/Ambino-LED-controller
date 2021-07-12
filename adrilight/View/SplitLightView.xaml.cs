@@ -411,5 +411,20 @@ namespace adrilight.View
             }
 
         }
+
+        private void neutral_Checked(object sender, RoutedEventArgs e)
+        { 
+          
+        }
+
+        private void WBWarm_Checked(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void WBCold_Checked(object sender, RoutedEventArgs e)
+        {
+           
+        }
     }
 }

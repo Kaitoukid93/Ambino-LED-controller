@@ -78,12 +78,10 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Margin="10,10,0,10" Grid.Column="0" Text="COM Port" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left" Height="20" Width="73"/>
-                    <TextBlock Margin="10,12,0,12" Grid.Row="1" Grid.Column="0" Text="Đây là địa chỉ cổng USB của thiết bị" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left" Height="16" Width="219"/>
+                    <TextBlock Grid.Row="0" Margin="0" Grid.Column="0" Text="COM Port" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left" Height="20" Width="73"/>
+                    <TextBlock Margin="0" Grid.Row="1" Grid.Column="0" Text="Đây là địa chỉ cổng USB của thiết bị" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left" Height="16" Width="219"/>
                     <Rectangle  Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#14000000" VerticalAlignment="Bottom" Margin="14,0,14,5"/>
-                    <ComboBox  Text="{Binding Device.DevicePort}" Style="{StaticResource ComboBoxExtend}" ItemsSource="{Binding AvailableComPorts}" Width="150" Grid.Column="1" Grid.Row="0" Margin="0,5,10,5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30">
-
-                    </ComboBox>
+                    <ComboBox  Text="{Binding Device.DevicePort}" Style="{StaticResource ComboBoxExtend}" ItemsSource="{Binding AvailableComPorts}" Grid.Column="1" Grid.Row="0" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150"/>
 
                 </Grid>
             </hc:TransitioningContentControl>
@@ -103,7 +101,7 @@
             </Grid.Style>
             <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade" >
 
-                <Grid Height="80" Grid.Row="2" Grid.Column="0">
+                <Grid Grid.Row="2" Grid.Column="0" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="245*"/>
                         <ColumnDefinition Width="191*"/>
@@ -112,12 +110,10 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Margin="10,10,0,10" Grid.Column="0" Text="Đặt Tên Cho Thiết Bị" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left" Height="20" Width="152"/>
-                    <TextBlock Margin="10,12,0,12" Grid.Row="1" Grid.Column="0" Text="Tên hiển thị ở Dashboard" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left" Height="16" Width="219"/>
-                    <Rectangle  Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#14000000" VerticalAlignment="Bottom" Margin="0,0,0,5" Width="400"/>
-                    <TextBox Style="{StaticResource TextBoxExtend}" Text="{Binding Device.DeviceName}"  Width="164" Grid.Column="1" Grid.Row="0" Margin="0,5,10,5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30" Padding="12,6,8,6" HorizontalContentAlignment="Center">
-
-                    </TextBox>
+                    <TextBlock Grid.Row="0" Margin="0" Grid.Column="0" Text="Đặt Tên" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
+                    <TextBlock Margin="0" Grid.Row="1" Grid.Column="0" Text="Tên hiển thị ở Dashboard" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left" Height="16"/>
+                    <Rectangle  Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#14000000" VerticalAlignment="Bottom" Margin="14,0,14,5" Width="400"/>
+                    <TextBox Style="{StaticResource TextBoxExtend}" Text="{Binding Device.DeviceName}" Grid.Column="1" Grid.Row="0" Margin="0" VerticalAlignment="Center" Padding="12,6,8,6" HorizontalContentAlignment="Center"/>
 
                 </Grid>
             </hc:TransitioningContentControl>
@@ -170,7 +166,7 @@
                     <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
                 </Button.CommandParameter>
             </Button>
-            <Button materialDesign:ButtonAssist.CornerRadius="7" IsEnabled="{Binding IsNextable}" Command="{Binding NextCmd}" CommandParameter="{Binding ElementName=PanelMain}" Width="75" Margin="0,0,20,0" Content="Next"  HorizontalAlignment="Right" Background="#3F000000" Foreground="#FF898989">
+            <Button materialDesign:ButtonAssist.CornerRadius="7" IsEnabled="{Binding IsNextable}" Command="{Binding NextCmd}" CommandParameter="{Binding ElementName=PanelMain}" Width="75" Margin="0,0,20,0" Content="Next"  HorizontalAlignment="Right" Background="#33000000" Foreground="#FF898989">
                 <Button.Style>
                     <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
                         <Setter Property="Visibility" Value="Collapsed"></Setter>

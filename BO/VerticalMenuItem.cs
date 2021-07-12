@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace BO
 {
-  public  class VerticalMenuItem: NotifyObject
+    public class VerticalMenuItem : NotifyObject
     {
         private bool _isActice = false;
         public bool IsActive
@@ -33,17 +33,17 @@ namespace BO
                 OnPropertyChanged();
             }
         }
-        private string _images;
-        public string Images
-        {
-            get { return _images; }
-            set
-            {
-                if (_images == value) return;
-                _images = value;
-                OnPropertyChanged();
-            }
-        }
+        //private string _images;
+        //public string Images
+        //{
+        //    get { return _images; }
+        //    set
+        //    {
+        //        if (_images == value) return;
+        //        _images = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
         private bool _isVisible = true;
         public bool IsVisible
         {
@@ -66,7 +66,7 @@ namespace BO
                 OnPropertyChanged();
             }
         }
-        
+
     }
     public enum MenuButtonType : byte
     {

@@ -20,6 +20,7 @@ namespace adrilight
 
         int OffsetLed { get; set; }
         int OffsetLed2 { get; set; }
+        int OffsetLed3 { get; set; }
 
         int SpotHeight { get; set; }
 
@@ -27,15 +28,18 @@ namespace adrilight
 
         int SpotsX { get; set; }
         int SpotsX2 { get; set; }
+        int SpotsX3 { get; set; }
 
         int SpotsY { get; set; }
         int SpotsY2 { get; set; }
+        int SpotsY3 { get; set; }
         int SentryMode { get; set; }
         int ScreenSize { get; set; }
         byte WhitebalanceRed { get; set; }
         byte WhitebalanceGreen { get; set; }
         byte WhitebalanceBlue { get; set; }
         int ScreenSizeSecondary { get; set; }
+        int ScreenSizeThird { get; set; }
         //smooth choice
         int SmoothFactor { get; set; }
         int SelectedDisplay { get; set; }
@@ -43,6 +47,7 @@ namespace adrilight
         byte SaturationTreshold { get; set; }
         bool ShouldbeRunning { get; set; }
         bool ShouldbeRunningSecondary { get; set; }
+        bool ShouldbeRunningThird { get; set; }
         int UseLinearLighting { get; set; }
         int LimitFps { get; set; }
         bool StartMinimized { get; set; }

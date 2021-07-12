@@ -9,6 +9,7 @@ namespace adrilight
 
         IGeneralSpot[] Spots { get; set; }
         IGeneralSpot[] Spots2 { get; set; }
+        IGeneralSpot[] Spots3 { get; set; }
         object Lock { get; }
         int CountLeds(int spotsX, int spotsY);
   

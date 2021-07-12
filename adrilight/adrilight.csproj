@@ -114,7 +114,7 @@
     <Optimize>true</Optimize>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
     <nullable>enable</nullable>
     <ErrorReport>none</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
@@ -363,7 +363,9 @@
     <Compile Include="Converter\ItemToStringConverter.cs" />
     <Compile Include="DesktopDuplication\DesktopDuplicationException.cs" />
     <Compile Include="DesktopDuplication\DesktopDuplicator.cs" />
+    <Compile Include="DesktopDuplication\DesktopDuplicatorReaderThird.cs" />
     <Compile Include="DesktopDuplication\DesktopDuplicatorReaderSecondary.cs" />
+    <Compile Include="DesktopDuplication\IDesktopDuplicatorReaderThird.cs" />
     <Compile Include="DesktopDuplication\IDesktopDuplicatorReaderSecondary.cs" />
     <Compile Include="DesktopDuplication\MovedRegion.cs" />
     <Compile Include="DesktopDuplication\DesktopDuplicatorReader.cs" />

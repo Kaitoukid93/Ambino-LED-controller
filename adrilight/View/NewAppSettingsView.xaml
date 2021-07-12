@@ -13,7 +13,7 @@
               TextOptions.TextRenderingMode="Auto"   
               FontFamily="{StaticResource MaterialDesignFont}" d:DesignWidth="1030" Height="1082">
 
-    <Grid Background="White" Margin="10">
+    <Grid Background="White" Margin="20,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>

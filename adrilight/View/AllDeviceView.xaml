@@ -4,7 +4,10 @@
               xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:hc="https://handyorg.github.io/handycontrol"
              xmlns:local="clr-namespace:adrilight.View"
+             
+             xmlns:converters="clr-namespace:adrilight.Converter"
              mc:Ignorable="d" 
               xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:viewmodel="clr-namespace:adrilight.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewViewModel}"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -14,82 +17,155 @@
         TextOptions.TextRenderingMode="Auto"         
              Name="alldevice"
         FontFamily="{StaticResource MaterialDesignFont}"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="800" d:DesignWidth="800">
     <UserControl.Resources>
         <ResourceDictionary>
+            <converters:ColorToBrushConverter x:Key="ColorToBrushConverter" />
+            <converters:BrushToHexConverter x:Key="BrushToHexConverter" />
+            <BooleanToVisibilityConverter x:Key="boolToVisibilityConvert" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary
                     Source="ControlStyle.xaml">
+                    
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="cardShadow" TargetType="materialDesign:Card" BasedOn="{StaticResource {x:Type materialDesign:Card}}">
-                <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth0"></Setter>
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth5"></Setter>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
+
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Grid.Column="1" Margin="20" >
+    <Grid Grid.Column="1" Margin="20,10,0,0" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition Width="40"></ColumnDefinition>
+            <ColumnDefinition Width="105"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="7*"/>
+           
         </Grid.RowDefinitions>
-        <StackPanel>
-            <TextBlock Text="Tất cả các thiết bị" Style="{StaticResource tbHeadingStyle}"></TextBlock>
-            <TextBlock Text="Bảng này chứa tất cả các thiết bị hiện có hoặc đã được thêm trước đó" Style="{StaticResource tbHeading3Style}" Foreground="#666A83"></TextBlock>
-        </StackPanel>
-            <Border Grid.Column="1">
-            <Button  VerticalAlignment="Top" BorderThickness="0" Padding="0" Width="30" Height="30" Background="Transparent" Foreground="White"    Command="{Binding ShowAddNewCommand}">
-                <Image Source="{StaticResource SvgPlusBox}"></Image>
-                </Button>
-            </Border>
-        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-            <ItemsControl Name="itm" ItemsSource="{Binding Cards,UpdateSourceTrigger=PropertyChanged}"
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Margin="10,0,0,0" Grid.Row="0" Grid.Column="0" Text="DASHBOARD"  FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="1" Grid.Column="0" Text="Tất cả các thiết bị đã từng được thêm sẽ xuất hiện ở đây. Click vào từng thẻ để điều chỉnh" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="#FF898989"/>
+        </Grid>
+        <Border Grid.Row="0" Grid.Column="1" VerticalAlignment="Top">
+            <Button Foreground="#FF326CF3" Background="#3F326CF3" Content="Thêm mới" Style="{StaticResource MaterialDesignFlatButton}" Width="75" Height="32" VerticalAlignment="Center" BorderThickness="0" Padding="0"   materialDesign:ButtonAssist.CornerRadius="7" Command="{Binding ShowAddNewCommand}" HorizontalAlignment="Center"/>
+
+
+        </Border>
+        <Grid x:Name="parrentGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+
+
+           
+
+
+
+                <ItemsControl Margin="0,15,0,15" Name="itm" ItemsSource="{Binding Cards,UpdateSourceTrigger=PropertyChanged}"
                                                 IsTabStop="False"
                                                 BorderThickness="0" Tag="{Binding}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-
-                        <materialDesign:Card Width="230"  Style="{StaticResource cardShadow}" Height="245" Margin="28" UniformCornerRadius="20" Background="#f6f6f6">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="MouseDown">
-                                    <i:InvokeCommandAction Command="{Binding Path=DataContext.SelectCardCommand, ElementName=itm}" CommandParameter="{Binding}"/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                                <StackPanel  Margin="10">
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Style="{StaticResource btnCharacter}" Width="67" Height="67" Content="{Binding StartCharacter}" ></Button>
-                                    <CheckBox  VerticalAlignment="Top" Style="{StaticResource chkPowerStyle}" IsChecked="{Binding IsConnected}" Margin="110,0,0,0" HorizontalAlignment="Right"></CheckBox>
-                                </StackPanel>
-
-                                <TextBlock Style="{StaticResource tbHeading2Style}" Margin="0,50,0,0" Text="{Binding DeviceName}"></TextBlock>
-                                <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding DeviceType}"></TextBlock>
-                                <TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding DevicePort}" ></TextBlock>
-                                <!--<TextBlock Style="{StaticResource tbHeading3Style}" Text="{Binding Description}"  ></TextBlock>-->
-                                <TextBlock Style="{StaticResource tbHeading3Style}"  Text="{Binding Brightness,StringFormat=Độ sáng {0}%}"></TextBlock>
-                                <materialDesign:Card Width="19" Margin="170,0,0,0" Height="19" UniformCornerRadius="10" Background="#7344c3"></materialDesign:Card>
-                            </StackPanel>
-                            
-                            </materialDesign:Card>
-                        
-                    
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
+   
+   
                 <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.Template>
+                        <ControlTemplate TargetType="{x:Type ItemsControl}">
+                            <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="False">
+                            <hc:ScrollViewer>
+                                    <ItemsPresenter />
+                                </hc:ScrollViewer>
+                            </Border>
+                        </ControlTemplate>
+                    </ItemsControl.Template>
+
+
+                    <ItemsControl.ItemTemplate>
+                                     
+                        <DataTemplate>
+
+                            <Grid Margin="20" Width="230" Height="245">
+
+
+
+                                <Border Margin="-6"   CornerRadius="30">
+                                    <Border.Style>
+                                        <Style TargetType="Border"  >
+                                            <Setter Property="BorderBrush" Value="#FF898989"></Setter>
+                                            <Setter Property="BorderThickness" Value="2"></Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="BorderBrush" Value="#7F326CF3"></Setter>
+                                                    <Setter Property="BorderThickness" Value="6"></Setter>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <Grid>
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseDown">
+                                                <i:InvokeCommandAction Command="{Binding Path=DataContext.SelectCardCommand, ElementName=itm}" CommandParameter="{Binding}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="58*"/>
+                                            <ColumnDefinition Width="22*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="22*"/>
+                                            <RowDefinition Height="64*"/>
+
+                                        </Grid.RowDefinitions>
+                                        <ToggleButton IsChecked="{Binding TransferActive}" Grid.Column="1" BorderBrush="#FF326CF3" BorderThickness="1"
+                                     Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
+                                     ToolTip="Bật/Tắt"
+                                      Width="32" Height="32" Foreground="#FF326CF3" Background="#3F326CF3">
+                                            <materialDesign:PackIcon
+                                      Kind="Power"
+                                      Height="26"
+                                      Width="26" />
+                                        </ToggleButton>
+                                        <Rectangle Margin="0,0,20,20" Grid.Column="1" Grid.Row="1" Fill="{Binding StaticColor,Converter={StaticResource ColorToBrushConverter}}" Width="19" Height="19" RadiusX="10" RadiusY="10" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+                                      
+                                        <Grid Grid.Row="1" Grid.Column="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="13*"/>
+                                                <RowDefinition Height="51*"/>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel  Margin="20,0,0,0" Grid.Row="1" Grid.ColumnSpan="1">
+                                                <TextBlock Padding="0,5,0,5" Text="{Binding DeviceName}" FontSize="20" FontWeight="DemiBold"/>
+                                                <TextBlock Padding="3" Text="{Binding DeviceType}" FontSize="14"/>
+                                                <TextBlock Padding="3" Text="{Binding DevicePort}"/>
+                                                <TextBlock Padding="3" Text="{Binding DeviceID, StringFormat=Device ID : {0}}"/>
+                                                <TextBlock Padding="3" Text="{Binding Brightness,StringFormat=Độ sáng : {0}%}"/>
+                                            </StackPanel>
+
+
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        
+
+                    </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <!--<ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>-->
+                </ItemsControl>
+                
+     
         </Grid>
 
     </Grid>
-   
+
 </UserControl>
