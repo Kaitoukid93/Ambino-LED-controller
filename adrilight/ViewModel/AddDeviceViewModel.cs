@@ -31,12 +31,12 @@ namespace adrilight.ViewModel
             set => Set(ref _stepIndex, value);
 #endif
         }
-        public RelayCommand<Panel> NextCmd => new(Next);
+        public RelayCommand<Panel> NextCmd => new RelayCommand<Panel>(Next);
 
         /// <summary>
         ///     上一步
         /// </summary>
-        public RelayCommand<Panel> PrevCmd => new(Prev);
+        public RelayCommand<Panel> PrevCmd => new RelayCommand<Panel>(Prev);
 
         private void Next(Panel panel)
         {

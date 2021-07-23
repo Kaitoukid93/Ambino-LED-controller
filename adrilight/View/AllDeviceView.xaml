@@ -26,13 +26,16 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary
                     Source="ControlStyle.xaml">
-                    
+
                 </ResourceDictionary>
+
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>
+
     </UserControl.Resources>
     <Grid Grid.Column="1" Margin="20,10,0,0" >
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition Width="105"></ColumnDefinition>
@@ -40,7 +43,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="7*"/>
-           
+
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
@@ -59,111 +62,126 @@
         <Grid x:Name="parrentGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
 
 
-           
 
 
 
-                <ItemsControl Margin="0,15,0,15" Name="itm" ItemsSource="{Binding Cards,UpdateSourceTrigger=PropertyChanged}"
+
+            <ListView  Margin="0,15,0,15" Name="itm" ItemsSource="{Binding Cards,UpdateSourceTrigger=PropertyChanged}"
                                                 IsTabStop="False"
                                                 BorderThickness="0" Tag="{Binding}">
-   
-   
-                <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
 
-                    <ItemsControl.Template>
-                        <ControlTemplate TargetType="{x:Type ItemsControl}">
-                            <Border BorderBrush="{TemplateBinding BorderBrush}"
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
+                <ListView.Template>
+                    <ControlTemplate TargetType="{x:Type ItemsControl}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="False">
                             <hc:ScrollViewer>
-                                    <ItemsPresenter />
-                                </hc:ScrollViewer>
-                            </Border>
-                        </ControlTemplate>
-                    </ItemsControl.Template>
+                                <ItemsPresenter />
+                            </hc:ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </ListView.Template>
 
 
-                    <ItemsControl.ItemTemplate>
-                                     
-                        <DataTemplate>
+                <ListView.ItemTemplate>
 
-                            <Grid Margin="20" Width="230" Height="245">
+                    <DataTemplate>
+
+                        <Grid Margin="20" Width="230" Height="245">
 
 
 
-                                <Border Margin="-6"   CornerRadius="30">
-                                    <Border.Style>
-                                        <Style TargetType="Border"  >
-                                            <Setter Property="BorderBrush" Value="#FF898989"></Setter>
-                                            <Setter Property="BorderThickness" Value="2"></Setter>
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="BorderBrush" Value="#7F326CF3"></Setter>
-                                                    <Setter Property="BorderThickness" Value="6"></Setter>
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Border.Style>
-                                    <Grid>
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseDown">
-                                                <i:InvokeCommandAction Command="{Binding Path=DataContext.SelectCardCommand, ElementName=itm}" CommandParameter="{Binding}"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="58*"/>
-                                            <ColumnDefinition Width="22*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="22*"/>
-                                            <RowDefinition Height="64*"/>
-
-                                        </Grid.RowDefinitions>
-                                        <ToggleButton IsChecked="{Binding TransferActive}" Grid.Column="1" BorderBrush="#FF326CF3" BorderThickness="1"
+                            <Border Margin="-6"   CornerRadius="30">
+                                <Border.Style>
+                                    <Style TargetType="Border"  >
+                                        <Setter Property="BorderBrush" Value="#FF898989"></Setter>
+                                        <Setter Property="BorderThickness" Value="2"></Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="BorderBrush" Value="#7F326CF3"></Setter>
+                                                <Setter Property="BorderThickness" Value="6"></Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <Grid>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseDown">
+                                            <i:InvokeCommandAction Command="{Binding Path=DataContext.SelectCardCommand, ElementName=itm}" CommandParameter="{Binding}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="58*"/>
+                                        <ColumnDefinition Width="22*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="22*"/>
+                                        <RowDefinition Height="64*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <ToggleButton IsChecked="{Binding TransferActive}" Grid.Column="1" BorderBrush="#FF326CF3" BorderThickness="1"
                                      Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
                                      ToolTip="Bật/Tắt"
                                       Width="32" Height="32" Foreground="#FF326CF3" Background="#3F326CF3">
-                                            <materialDesign:PackIcon
+                                        <materialDesign:PackIcon
                                       Kind="Power"
                                       Height="26"
                                       Width="26" />
-                                        </ToggleButton>
-                                        <Rectangle Margin="0,0,20,20" Grid.Column="1" Grid.Row="1" Fill="{Binding StaticColor,Converter={StaticResource ColorToBrushConverter}}" Width="19" Height="19" RadiusX="10" RadiusY="10" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
-                                      
-                                        <Grid Grid.Row="1" Grid.Column="0">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="13*"/>
-                                                <RowDefinition Height="51*"/>
-                                            </Grid.RowDefinitions>
-                                            <StackPanel  Margin="20,0,0,0" Grid.Row="1" Grid.ColumnSpan="1">
-                                                <TextBlock Padding="0,5,0,5" Text="{Binding DeviceName}" FontSize="20" FontWeight="DemiBold"/>
-                                                <TextBlock Padding="3" Text="{Binding DeviceType}" FontSize="14"/>
-                                                <TextBlock Padding="3" Text="{Binding DevicePort}"/>
-                                                <TextBlock Padding="3" Text="{Binding DeviceID, StringFormat=Device ID : {0}}"/>
-                                                <TextBlock Padding="3" Text="{Binding Brightness,StringFormat=Độ sáng : {0}%}"/>
-                                            </StackPanel>
+                                    </ToggleButton>
+                                    <Rectangle Margin="0,0,20,20" Grid.Column="1" Grid.Row="1" Fill="{Binding StaticColor,Converter={StaticResource ColorToBrushConverter}}" Width="19" Height="19" RadiusX="10" RadiusY="10" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+
+                                    <Grid Grid.Row="1" Grid.Column="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="13*"/>
+                                            <RowDefinition Height="51*"/>
+                                        </Grid.RowDefinitions>
+                                        <StackPanel  Margin="20,0,0,0" Grid.Row="1" Grid.ColumnSpan="1">
+                                            <TextBlock Padding="0,5,0,5" Text="{Binding DeviceName}" FontSize="20" FontWeight="DemiBold"/>
+                                            <TextBlock Padding="3" Text="{Binding DeviceType}" FontSize="14"/>
+                                            <TextBlock Padding="3" Text="{Binding DevicePort}"/>
+                                            <TextBlock Padding="3" Text="{Binding DeviceID, StringFormat=Device ID : {0}}"/>
+                                            <TextBlock Padding="3" Text="{Binding Brightness,StringFormat=Độ sáng : {0}%}"/>
+                                        </StackPanel>
 
 
-                                        </Grid>
                                     </Grid>
-                                </Border>
-                            </Grid>
-                        
+                                    <ListBox Grid.Row="2" Visibility="{Binding IsHub,Converter={StaticResource boolToVisibilityConvert}}">
+                                        <ListBox.Resources>
+                                            <CollectionViewSource x:Key="allDevice" Source="{Binding ChildCard}" />
+                                        </ListBox.Resources>
+                                        <ListBox.ItemsSource>
+                                            <CompositeCollection>
+                                                <CollectionContainer Collection="{Binding Source={StaticResource allDevice}}" />
+
+                                                <ListBoxItem Foreground="Red" Width="30" Height="30">
+                                                    <materialDesign:PackIcon Kind="AddBox"></materialDesign:PackIcon></ListBoxItem>
+                                            </CompositeCollection>
+                                        </ListBox.ItemsSource>
+
+                                        <!-- Here you can customize everything you want -->
+                                    </ListBox>
+                                </Grid>
+                            </Border>
+                        </Grid>
+
 
                     </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    <!--<ItemsControl.ItemsPanel>
+                </ListView.ItemTemplate>
+                <!--<ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>-->
-                </ItemsControl>
-                
-     
+            </ListView>
+
+
         </Grid>
 
     </Grid>

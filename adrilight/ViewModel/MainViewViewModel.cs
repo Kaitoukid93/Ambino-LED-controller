@@ -223,6 +223,7 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged();
             }
         }
+        
         private ObservableCollection<IDeviceSpotSet> _spotSets;
         public ObservableCollection<IDeviceSpotSet> SpotSets {
             get { return _spotSets; }
