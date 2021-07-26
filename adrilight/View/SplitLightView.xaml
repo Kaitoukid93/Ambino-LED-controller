@@ -13,7 +13,7 @@
               TextElement.FontSize="13"
               TextOptions.TextFormattingMode="Ideal" 
               TextOptions.TextRenderingMode="Auto"   
-              FontFamily="{StaticResource MaterialDesignFont}" Height="1072" Width="1162">
+              FontFamily="{StaticResource MaterialDesignFont}" Height="1072" Width="1000">
     <UserControl.Resources>
         <ResourceDictionary>
             <converters:ColorToBrushConverter x:Key="ColorToBrushConverter" />
@@ -25,8 +25,8 @@
 
     <Grid Background="White" Margin="10,0,0,0" HorizontalAlignment="Left">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="auto" MinWidth="418"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -39,15 +39,25 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Margin="10,0,0,0" Grid.Row="0" Grid.Column="0" Text="{Binding CurrentDevice.DeviceName}"  FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
+
             <TextBlock Margin="10,0,0,10" Grid.Row="1" Grid.Column="0" Text="LIGHTING" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FF898989"/>
+            <Button  Style="{StaticResource MaterialDesignFlatButton}" Content="{Binding CurrentDevice.DeviceName}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0" Margin="10,0,0,0"  BorderBrush="{x:Null}"  HorizontalAlignment="Left" Height="32" VerticalAlignment="Center">
+                <Button.Background>
+                    <SolidColorBrush Color="{Binding CurrentDevice.StaticColor}" Opacity="0.25" />
+
+                </Button.Background>
+                <Button.Foreground>
+                    <SolidColorBrush Color="{Binding CurrentDevice.StaticColor}" Opacity="1" />
+
+                </Button.Foreground>
+            </Button>
         </Grid>
-        <Grid Margin="10,0,10,0"  Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
+        <Grid Margin="10,0,10,0"  Grid.Row="0" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button Command="{Binding BackCommand}" Style="{StaticResource MaterialDesignFlatButton}" Content="Back" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0" Margin="0,0,75,0" Background="#33000000" BorderBrush="{x:Null}" Foreground="#FF898989" HorizontalAlignment="Right" Width="75" Height="32">
+            <Button Command="{Binding BackCommand}" Style="{StaticResource MaterialDesignFlatButton}" Content="Back" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0" Margin="0,0,20,0" Background="#33000000" BorderBrush="{x:Null}" Foreground="#FF898989" HorizontalAlignment="Right" Width="75" Height="32">
 
 
             </Button>
@@ -57,14 +67,15 @@
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="233*"/>
-                <RowDefinition Height="387*"/>
-                <RowDefinition Height="89*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
             <!--Preview zone-->
             <ItemsControl Grid.Row="1" ItemsSource="{Binding PreviewSpots}"
-                            Width="418" Height="239" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                            Width="418" Height="239" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20" >
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Canvas Width="325" Height="186" VerticalAlignment="Center" HorizontalAlignment="Center" />
@@ -87,41 +98,59 @@
                                     </RadialGradientBrush>
                                 </Rectangle.Fill>
                             </Rectangle>
-                            <Rectangle Visibility="{Binding IsFirst, Converter={StaticResource BooleanToVisibilityConverter}}" RadiusX="4" RadiusY="4" Fill="#FF673AB7"
+                            <!--<Rectangle Visibility="{Binding IsFirst, Converter={StaticResource BooleanToVisibilityConverter}}" RadiusX="4" RadiusY="4" Fill="#FF673AB7"
                                                Width="5" 
-                                               Height="5" />
+                                               Height="5" />-->
 
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <Button Command="{Binding DeleteCommand}" Width="75" Style="{StaticResource MaterialDesignFlatButton}" Grid.Row="2" Content="Delete" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0" Margin="0,0,85,300" Background="#3FFD7E35" BorderBrush="{x:Null}" Foreground="#FFFD7E35" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button Command="{Binding DeleteCommand}" Width="75" Style="{StaticResource MaterialDesignFlatButton}" Grid.Row="3" Content="Delete" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0" Margin="0,0,20,0" Background="#3FFD7E35" BorderBrush="{x:Null}" Foreground="#FFFD7E35" HorizontalAlignment="Right" VerticalAlignment="Center">
 
 
             </Button>
             <Grid Margin="10,0,10,0" Height="80" Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="205*"/>
-                    <ColumnDefinition Width="199*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Margin="10,0,0,0" Grid.Column="0" Text="{Binding ElementName=EffectBox,Path=SelectedItem}" FontSize="17" VerticalAlignment="Center" Foreground="Black" Height="20" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Row="0" Margin="10,10,103,10" Grid.Column="0" Text="{Binding ElementName=EffectBox,Path=SelectedItem}" FontSize="17" VerticalAlignment="Center" Foreground="Black" Height="20"/>
                 <TextBlock Margin="10,0,0,-0.2" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Bảng Preview này hiển thị trạng thái hiện tại của LED" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989" Height="18" HorizontalAlignment="Left"/>
 
 
                 <TextBlock Visibility="{Binding ElementName=Ambilight,Path=Visibility}" Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" Text="{Binding ElementName=selecteddisplay,Path=Text}" FontSize="17" VerticalAlignment="Center" Foreground="Black" Height="20" HorizontalAlignment="Left"/>
 
-                <Rectangle Margin="10,0,10,5" Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="400" Fill="#26000000" VerticalAlignment="Bottom">
-
-                </Rectangle>
+                <Rectangle Margin="10,0,10,5" Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#26000000" VerticalAlignment="Bottom"/>
 
 
 
 
             </Grid>
+            <StackPanel Grid.Row="2"/>
+            <Button Foreground="#FF326CF3" Background="#3F326CF3" Padding="7" Command="{Binding SnapshotCommand}" Style="{StaticResource MaterialDesignFlatButton}" Grid.Row="3"  materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0" Margin="0,-0.4,116,0"  BorderBrush="{x:Null}"  HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="1" Text="Snapshot" Margin="5,0,0,0">
+                   
+                    
+                    </TextBlock>
+                    <materialDesign:PackIcon  Grid.Column="0"
+                         Kind="Camera"
+    Height="20"
+    Width="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Grid>
+                
+                
+            </Button>
+
         </Grid>
 
         <StackPanel Grid.Row="1" Grid.Column="0">
@@ -170,7 +199,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Margin="10,10,0,9" Grid.Column="0" Text="Độ Sáng" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left" Grid.ColumnSpan="2"/>
-                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Độ sáng của toàn bộ dây LED, áp dụng cho tất cả các chế độ" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left"/>
+                <TextBlock Margin="10,12,0,12" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Text="Độ sáng của toàn bộ dây LED, áp dụng cho tất cả các chế độ" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left" Width="378"/>
                 <Rectangle Grid.Row="1" Grid.ColumnSpan="3" Height="1" Fill="#14000000" VerticalAlignment="Bottom" Margin="10,0,10,5"/>
                 <Slider Minimum="0" Maximum="100" Style="{StaticResource SliderBaseStyle}" Value="{Binding CurrentDevice.Brightness}" Width="150" Margin="0,0,10,0" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                 <Button Grid.Column="1"  Style="{StaticResource MaterialDesignFlatButton}" Content="{Binding CurrentDevice.Brightness}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#26000000" BorderBrush="{x:Null}" Foreground="#FF898989" Margin="0,4,20,4" HorizontalAlignment="Right" VerticalAlignment="Center"/>
@@ -189,7 +218,9 @@
                 <TextBlock Grid.Row="0" Margin="10,0,0,-0.2" Grid.Column="0" Text="Chế Độ" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
                 <TextBlock Margin="10,0,0,0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Chọn chế độ sáng chủ đạo cho thiết bị" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left"/>
                 <Rectangle Grid.Row="1" Grid.ColumnSpan="3" Height="1" Fill="#19000000" VerticalAlignment="Bottom" Margin="10,0,10,5"/>
-                <ComboBox Style="{StaticResource ComboBoxExtend}" SelectedIndex="{Binding CurrentDevice.SelectedEffect}" ItemsSource="{Binding ScreenEffects}" x:Name="EffectBox" Grid.Column="2" Grid.Row="0" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                <ComboBox Style="{StaticResource ComboBoxExtend}" SelectedIndex="{Binding CurrentDevice.SelectedEffect}" x:Name="EffectBox" ItemsSource="{Binding ScreenEffects}" Grid.Column="2" Grid.Row="0" Margin="0,0,10,0" VerticalAlignment="Center">
+
+                </ComboBox>
 
             </Grid>
             <Grid>
@@ -741,7 +772,7 @@
                             <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Chọn Màu" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
                             <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Màu bắt đầu và kết thúc của khoảng màu Atmosphere" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989"/>
                             <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#14000000" VerticalAlignment="Bottom" Margin="0,0,0,5"/>
-                            <hc:RangeSlider  Grid.ColumnSpan="2" Grid.Column="0" Width="300" IsSnapToTickEnabled="True" Maximum="360" ValueStart="{Binding CurrentDevice.AtmosphereStart}" ValueEnd="{Binding CurrentDevice.AtmosphereStop}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <hc:RangeSlider Minimum="0" Grid.ColumnSpan="2" Grid.Column="0" Width="300" IsSnapToTickEnabled="True" Maximum="360" ValueStart="{Binding CurrentDevice.AtmosphereStart}" ValueEnd="{Binding CurrentDevice.AtmosphereStop}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
 
                         </Grid>
                         <Grid Height="80">

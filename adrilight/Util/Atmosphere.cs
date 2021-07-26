@@ -100,20 +100,21 @@ namespace adrilight
                 {
                     double brightness = DeviceSettings.Brightness / 100d;
                     int paletteSource = DeviceSettings.SelectedPalette;
-                    var numLED = (DeviceSettings.SpotsX - 1) * 2 + (DeviceSettings.SpotsY - 1) * 2;
-                    var colorOutput = new OpenRGB.NET.Models.Color[numLED];
+                    var numLED = DeviceSettings.NumLED;
+                 //   var colorOutput = new OpenRGB.NET.Models.Color[numLED];
 
 
                     OpenRGB.NET.Models.Color[] outputColor = new OpenRGB.NET.Models.Color[numLED];
                     int counter = 0;
-                    int hueStart = DeviceSettings.AtmosphereStart;
-                    int hueStop = DeviceSettings.AtmosphereStop;
+                    double hueStart = DeviceSettings.AtmosphereStart;
+                    double hueStop = DeviceSettings.AtmosphereStop;
+                    var newcolor = GetHueGradient(numLED, hueStart, hueStop, 1.0, 1.0);
                     lock (DeviceSpotSet.Lock)
                     {
 
 
 
-                        var newcolor = GetHueGradient(numLED, hueStart, hueStop, 1.0, 1.0);
+                        
 
 
 
@@ -136,9 +137,9 @@ namespace adrilight
 
 
                     }
- 
+                    Thread.Sleep(500); //motion speed
                 }
-                Thread.Sleep(5); //motion speed
+               
 
 
             }
@@ -178,10 +179,10 @@ namespace adrilight
 
 
 
-        public static IEnumerable<OpenRGB.NET.Models.Color> GetHueGradient(int amount, double hueStart = 0, double hueStop = 1.0,
+        public static IEnumerable<OpenRGB.NET.Models.Color> GetHueGradient(int amount, double hueStart = 0, double hueStop = 360.0,
                                                                double saturation = 1.0, double value = 1.0) =>
            Enumerable.Range(0, amount)
-                     .Select(i => OpenRGB.NET.Models.Color.FromHsv(hueStart + ((hueStart - hueStop) / amount * i), saturation, value));
+                     .Select(i => OpenRGB.NET.Models.Color.FromHsv(hueStart + ((hueStop-hueStart) / amount * i), saturation, value));
 
     }
 }

@@ -28,7 +28,8 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <hc:StepBar x:Name="stepbar" Grid.ColumnSpan="2" StepIndex="{Binding StepIndex}" Foreground="#FF326CF3">
-            <hc:StepBarItem Content="Loại Thiết Bị" Foreground="#FF898989"/>
+            <hc:StepBarItem Content="Chọn Thiết Bị" Foreground="#FF898989"/>
+            <hc:StepBarItem Content="Thông số" Foreground="#FF898989"/>
             <hc:StepBarItem Content="Kết Nối USB"  Foreground="#FF898989"/>
             <hc:StepBarItem Content="Đặt Tên"  Foreground="#FF898989"/>
 
@@ -47,21 +48,78 @@
             </Grid.Style>
             <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade" >
                 <hc:ButtonGroup Margin="0,16,0,0" Orientation="Vertical" Style="{StaticResource ButtonGroupSolid}">
-                    <RadioButton Height="40" IsChecked="{Binding BasicRev1Checked }" Content="Ambino Basic" FontSize="15"/>
-                    <RadioButton Height="40" IsChecked="{Binding BasicRev2Checked}" Content="Ambino Basic rev2" FontSize="15"/>
-                    <RadioButton Height="40" IsChecked="{Binding EDGEChecked}" Content="Ambino EDGE" FontSize="15"/>
-                    <RadioButton Height="40" IsChecked="{Binding HUBV2Checked}" Content="Ambino HUBV2" FontSize="15"/>
+                    <RadioButton x:Name="basicrev1"  Height="40" IsChecked="{Binding BasicRev1Checked }" Content="Ambino Basic" FontSize="15"/>
+                    <RadioButton x:Name="basicrev2"  Height="40" IsChecked="{Binding BasicRev2Checked}" Content="Ambino Basic rev2" FontSize="15"/>
+                    <RadioButton x:Name="EDGE" Height="40" IsChecked="{Binding EDGEChecked}" Content="Ambino EDGE" FontSize="15"/>
+                    <RadioButton IsEnabled="False" x:Name="HUB"  Height="40" IsChecked="{Binding HUBV2Checked}" Content="Ambino HUBV2" FontSize="15"/>
                 </hc:ButtonGroup>
             </hc:TransitioningContentControl>
         </Grid>
 
+        <Grid Grid.ColumnSpan="2" Grid.Row="1">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="1"/>
+                                <Condition Binding="{Binding ElementName=basicrev1, Path=IsChecked}" Value="true"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </MultiDataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="1"/>
+                                <Condition Binding="{Binding ElementName=basicrev2, Path=IsChecked}" Value="true"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade" >
+                <hc:ButtonGroup Margin="0,16,0,0" Orientation="Vertical" Style="{StaticResource ButtonGroupSolid}">
+                    <RadioButton Height="30" IsChecked="{Binding Checked24inch }" Content="23-24-25inch" FontSize="15"/>
+                    <RadioButton Height="30" IsChecked="{Binding Checked27inch}" Content="27inch" FontSize="15"/>
+                    <RadioButton Height="30" IsChecked="{Binding Checked29inch}" Content="29inch" FontSize="15"/>
+                    <RadioButton Height="30" IsChecked="{Binding Checked32inch}" Content="32inch" FontSize="15"/>
+                    <RadioButton Height="30" IsChecked="{Binding Checked34inch}" Content="34inch" FontSize="15"/>
+                </hc:ButtonGroup>
+            </hc:TransitioningContentControl>
+        </Grid>
+        <Grid Grid.ColumnSpan="2" Grid.Row="1">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="1"/>
+                                <Condition Binding="{Binding ElementName=EDGE, Path=IsChecked}" Value="true"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </MultiDataTrigger>
+
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade" >
+                <hc:ButtonGroup Margin="0,16,0,0" Orientation="Vertical" Style="{StaticResource ButtonGroupSolid}">
+                    <RadioButton Height="30" IsChecked="{Binding Checked1m2 }" Content="1.2 mét" FontSize="15"/>
+                    <RadioButton Height="30" IsChecked="{Binding Checked2m}" Content="2 mét" FontSize="15"/>
+
+                </hc:ButtonGroup>
+            </hc:TransitioningContentControl>
+        </Grid>
 
         <Grid Margin="8,16,0,0" Grid.ColumnSpan="2" Grid.Row="1">
             <Grid.Style>
                 <Style TargetType="Grid">
                     <Setter Property="Visibility" Value="Collapsed"></Setter>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="1">
+                        <DataTrigger Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="2">
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>
                     </Style.Triggers>
@@ -81,7 +139,7 @@
                     <TextBlock Grid.Row="0" Margin="0" Grid.Column="0" Text="COM Port" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left" Height="20" Width="73"/>
                     <TextBlock Margin="0" Grid.Row="1" Grid.Column="0" Text="Đây là địa chỉ cổng USB của thiết bị" FontSize="14" VerticalAlignment="Center" Foreground="#FF898989" HorizontalAlignment="Left" Height="16" Width="219"/>
                     <Rectangle  Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#14000000" VerticalAlignment="Bottom" Margin="14,0,14,5"/>
-                    <ComboBox  Text="{Binding Device.DevicePort}" Style="{StaticResource ComboBoxExtend}" ItemsSource="{Binding AvailableComPorts}" Grid.Column="1" Grid.Row="0" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150"/>
+                    <ComboBox x:Name="ComportBox"  Text="{Binding Device.DevicePort}" Style="{StaticResource ComboBoxExtend}" ItemsSource="{Binding AvailableComPorts}" Grid.Column="1" Grid.Row="0" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" SelectionChanged="ComboBox_SelectionChanged"/>
 
                 </Grid>
             </hc:TransitioningContentControl>
@@ -93,7 +151,7 @@
                 <Style TargetType="Grid">
                     <Setter Property="Visibility" Value="Collapsed"></Setter>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="2">
+                        <DataTrigger Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="3">
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>
                     </Style.Triggers>
@@ -132,11 +190,14 @@
                             <DataTrigger Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="2">
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="3">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Width="75" Margin="33,0,0,0" Content="Cancel" materialDesign:ButtonAssist.CornerRadius="7"  HorizontalAlignment="Left" Background="#FFFBC186" Foreground="#FFFD7E35">
+            <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Width="75" Margin="33,0,0,0" Content="Cancel" materialDesign:ButtonAssist.CornerRadius="7"  HorizontalAlignment="Left" Background="#3FFD7E35" Foreground="#FFFD7E35">
                 <Button.Style>
                     <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
                         <Setter Property="Visibility" Value="Collapsed"></Setter>
@@ -156,7 +217,7 @@
                     <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
                         <Setter Property="Visibility" Value="Collapsed"></Setter>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="2">
+                            <DataTrigger Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="3">
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -175,6 +236,9 @@
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="0">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="2">
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
                         </Style.Triggers>

@@ -212,6 +212,7 @@ namespace adrilight.ViewModel
         public ICommand SelectMenuItem { get; set; }
         public ICommand BackCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
+        public ICommand SnapshotCommand { get; set; }
         #endregion
         private ObservableCollection<IDeviceSettings> _cards;
         public ObservableCollection<IDeviceSettings> Cards {
@@ -420,8 +421,13 @@ namespace adrilight.ViewModel
             //        };
             //    };
             //}
-           
-            GeneralSettings.PropertyChanged += (s, e) =>
+
+
+         
+
+
+
+                    GeneralSettings.PropertyChanged += (s, e) =>
             {
                 switch (e.PropertyName)
                 {
@@ -456,7 +462,7 @@ namespace adrilight.ViewModel
                         }
                         else if (GeneralSettings.ScreenSize == 4)
                         {
-                            GeneralSettings.SpotsX = 17;
+                            GeneralSettings.SpotsX = 16;
                             GeneralSettings.SpotsY = 7;
                             RaisePropertyChanged(() => GeneralSettings.SpotsX);
                             RaisePropertyChanged(() => GeneralSettings.SpotsY);
@@ -495,7 +501,7 @@ namespace adrilight.ViewModel
                         }
                         else if (GeneralSettings.ScreenSizeSecondary == 4)
                         {
-                            GeneralSettings.SpotsX2 = 17;
+                            GeneralSettings.SpotsX2 = 16;
                             GeneralSettings.SpotsY2 = 7;
                             RaisePropertyChanged(() => GeneralSettings.SpotsX2);
                             RaisePropertyChanged(() => GeneralSettings.SpotsY2);
@@ -534,7 +540,7 @@ namespace adrilight.ViewModel
                         }
                         else if (GeneralSettings.ScreenSizeThird == 4)
                         {
-                            GeneralSettings.SpotsX3 = 17;
+                            GeneralSettings.SpotsX3 = 16;
                             GeneralSettings.SpotsY3 = 7;
                             RaisePropertyChanged(() => GeneralSettings.SpotsX3);
                             RaisePropertyChanged(() => GeneralSettings.SpotsY3);
@@ -656,6 +662,14 @@ namespace adrilight.ViewModel
             {
                 ShowDeleteDialog();
             });
+
+            SnapshotCommand = new RelayCommand<string>((p) => {
+                return true;
+            }, (p) =>
+            {
+                
+                SnapShot();
+            });
             SelectCardCommand = new RelayCommand<IDeviceSettings>((p) => {
                 return p != null;
             }, (p) =>
@@ -674,6 +688,22 @@ namespace adrilight.ViewModel
             {
                BackToDashboard();
             });
+        }
+
+        public void SnapShot()
+        {
+            int counter = 0;
+            byte[] snapshot = new byte[256];
+            foreach (IDeviceSpot spot in PreviewSpots)
+            {
+
+                snapshot[counter++] = spot.Red;
+                snapshot[counter++] = spot.Green;
+                snapshot[counter++] = spot.Blue;
+                // counter++;
+            }
+            CurrentDevice.SnapShot = snapshot;
+            RaisePropertyChanged(() => CurrentDevice.SnapShot);
         }
         //public void ReadFAQ()
         //{
@@ -861,6 +891,8 @@ namespace adrilight.ViewModel
 
           
         }
+
+
         public void DeleteCard(IDeviceSettings deviceInfo)
         {
             Cards.Remove(deviceInfo);

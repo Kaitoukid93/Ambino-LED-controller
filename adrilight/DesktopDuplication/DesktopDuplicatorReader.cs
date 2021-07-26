@@ -230,6 +230,32 @@ namespace adrilight
                                     spot.SetColor(RealfinalR, RealfinalG, RealfinalB, true);
 
                                 });
+
+                            Parallel.ForEach(SpotSet.SpotsDesk
+                             , spot =>
+                             {
+                                 const int numberOfSteps = 15;
+                                 int stepx = Math.Max(1, spot.Rectangle.Width / numberOfSteps);
+                                 int stepy = Math.Max(1, spot.Rectangle.Height / numberOfSteps);
+
+                                 GetAverageColorOfRectangularRegion(spot.Rectangle, stepy, stepx, bitmapData,
+                                     out int sumR, out int sumG, out int sumB, out int count);
+
+                                 var countInverse = 1f / count;
+
+                                 ApplyColorCorrections(sumR * countInverse, sumG * countInverse, sumB * countInverse
+                                     , out byte finalR, out byte finalG, out byte finalB, useLinearLighting
+                                     , UserSettings.SaturationTreshold, spot.Red, spot.Green, spot.Blue);
+
+                                 var spotColor = new OpenRGB.NET.Models.Color(finalR, finalG, finalB);
+
+                                 var semifinalSpotColor = Brightness.applyBrightness(spotColor, 100);
+                                 ApplySmoothing(semifinalSpotColor.R, semifinalSpotColor.G, semifinalSpotColor.B
+                                     , out byte RealfinalR, out byte RealfinalG, out byte RealfinalB,
+                                  spot.Red, spot.Green, spot.Blue);
+                                 spot.SetColor(RealfinalR, RealfinalG, RealfinalB, true);
+
+                             });
                         }
 
                     }

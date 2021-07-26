@@ -25,7 +25,7 @@ namespace adrilight
         private int _ledsPerSpot = 1;
         private bool _mirrorX = true;
         private bool _mirrorY = false;
-        private int _offsetLed = 10;
+        private int _offsetLed = 0;
 
         //ambilight smooth choice///
 

@@ -26,6 +26,7 @@ namespace adrilight
         int _smoothFactor = 3;
         //ambilight smooth choice///
         private int _screenSize = 0;
+        private int _deskSize = 0;
         private int _screenSizeSecondary = 0;
         private int _screenSizeThird = 0;
 
@@ -72,7 +73,7 @@ namespace adrilight
 
 
 
-
+        public int DeskSize { get => _deskSize; set { Set(() => DeskSize, ref _deskSize, value); } }
         public int ScreenSize { get => _screenSize; set { Set(() => ScreenSize, ref _screenSize, value); } }
         public int ScreenSizeSecondary { get => _screenSizeSecondary; set { Set(() => ScreenSizeSecondary, ref _screenSizeSecondary, value); } }
         public int ScreenSizeThird { get => _screenSizeThird; set { Set(() => ScreenSizeThird, ref _screenSizeThird, value); } }

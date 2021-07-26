@@ -223,7 +223,25 @@
                 </ComboBox>
 
             </Grid>
-        </StackPanel>
+                <Grid Height="80">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Margin="10,10,0,10" Grid.Column="0" Text="Cạnh bàn" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left" Height="20" Width="146"/>
+                    <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Chọn cỡ bàn" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989" Height="17"/>
+                    <ComboBox SelectedIndex="{Binding GeneralSettings.DeskSize}" Style="{StaticResource ComboBoxExtend}" Width="150" Grid.Column="1" Grid.Row="0" Margin="0,0,70,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <ComboBoxItem Content="1m2"/>
+                        <ComboBoxItem Content="2m"/>
+                    </ComboBox>
+                    <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#26000000" VerticalAlignment="Bottom" Margin="10,0,10,5"/>
+
+                </Grid>
+            </StackPanel>
         </hc:ScrollViewer>
 
     </Grid>

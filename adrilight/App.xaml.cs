@@ -39,6 +39,7 @@ using BO;
 using adrilight.Ninject;
 using adrilight.Spots;
 using adrilight.Settings;
+using System.Diagnostics;
 
 namespace adrilight
 {
@@ -121,11 +122,13 @@ namespace adrilight
 
         protected override void OnStartup(StartupEventArgs startupEvent)
         {
+            if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length > 1)
+                return;
             //string mutexId = ((System.Runtime.InteropServices.GuidAttribute)System.Reflection.Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(System.Runtime.InteropServices.GuidAttribute), false).GetValue(0)).Value.ToString();
             //_mutex = new System.Threading.Mutex(true, mutexId, out bool createdNew);
             //if (!createdNew) Current.Shutdown();
             //else Exit += CloseMutexHandler;
-          //  IServiceProvider serviceProvider = CreateServiceProvider();
+            //  IServiceProvider serviceProvider = CreateServiceProvider();
             base.OnStartup(startupEvent);
 
             SetupDebugLogging();
@@ -342,7 +345,11 @@ namespace adrilight
                         serialStream.Start();
                     }
                     var duplicatorreader = kernel.Get<IDesktopDuplicatorReader>();
-                    duplicatorreader.RefreshCapturingState();
+                    var duplicatorreader2 = kernel.Get<IDesktopDuplicatorReaderSecondary>();
+                    var duplicatorreader3 = kernel.Get<IDesktopDuplicatorReaderThird>();
+                   // duplicatorreader.RefreshCapturingState();
+                   // duplicatorreader2.RefreshCapturingState();
+                  //  duplicatorreader3.RefreshCapturingState();
 
                     _log.Debug("Restart the serial stream after sleep!");
                 }
@@ -354,7 +361,11 @@ namespace adrilight
                         serialStream.Stop();
                     }
                     var duplicatorreader = kernel.Get<IDesktopDuplicatorReader>();
+                    var duplicatorreader2 = kernel.Get<IDesktopDuplicatorReaderSecondary>();
+                    var duplicatorreader3 = kernel.Get<IDesktopDuplicatorReaderThird>();
                     duplicatorreader.Stop();
+                    duplicatorreader2.Stop();
+                    duplicatorreader3.Stop();
                     //foreach (var desktopduplicator in desktopduplicators)
                     //{
                     //    desktopduplicator.Dispose();
@@ -428,19 +439,21 @@ namespace adrilight
         //}
         private void OpenNewUI()
         {
-            if (_newUIForm == null)
-            {
-                _newUIForm = new MainView();
-               // _newUIForm.Closed += MainForm_FormClosed;
-                _newUIForm.Show();
-               // _telemetryClient.TrackEvent("SettingsWindow opened");
-            }
-            else
-            {
-                //bring to front?
-                _newUIForm.Focus();
-                _newUIForm.Visibility = Visibility.Visible;
-            }
+            //if (_newUIForm == null)
+            //{
+            //    _newUIForm = new MainView();
+            //   // _newUIForm.Closed += MainForm_FormClosed;
+            //    _newUIForm.Show();
+            //   // _telemetryClient.TrackEvent("SettingsWindow opened");
+            //}
+            //else
+            //{
+            //    //bring to front?
+            //    _newUIForm.Focus();
+            //    _newUIForm.Visibility = Visibility.Visible;
+            Current.MainWindow.WindowState = WindowState.Normal;
+            Current.MainWindow.Show();
+            //}
         }
         private void MainForm_FormClosed(object sender, EventArgs e)
         {
@@ -482,6 +495,7 @@ namespace adrilight
             };
             //  notifyIcon.DoubleClick += (s, e) => { OpenSettingsWindow(); };
             notifyIcon.DoubleClick += (s, e) => { OpenNewUI(); };
+            notifyIcon.BalloonTipText = "Ứng dụng đã ẩn, double click để hiển thị cửa sổ";
 
             Exit += (s, e) => notifyIcon.Dispose();
         }

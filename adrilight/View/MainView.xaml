@@ -18,7 +18,7 @@
         TextOptions.TextRenderingMode="Auto"         
         FontFamily="{StaticResource MaterialDesignFont}" 
        AllowDrop="True" AllowsTransparency="False" Background="Transparent"
-        Title="MainView" Height="850" Width="1000"  MinHeight="850"  MinWidth="1000" MouseLeftButtonDown="Window_MouseLeftButtonDown" Closing="Window_Closing">
+        Title="MainView" Height="850" Width="1050"  MinHeight="850"  MinWidth="1050" MouseLeftButtonDown="Window_MouseLeftButtonDown" Closing="Window_Closing">
 
     <Window.Resources>
         <ResourceDictionary>

@@ -409,6 +409,11 @@ namespace adrilight
                 {
                     _log.Error(ex, "Failed to release frame.");
                 }
+                else
+                {
+                    throw new DesktopDuplicationException("Unknown Device Error", ex);
+                }
+                
 
                 _desktopDuplicator.Dispose();
                 _desktopDuplicator = null;

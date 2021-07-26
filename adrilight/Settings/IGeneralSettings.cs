@@ -35,6 +35,7 @@ namespace adrilight
         int SpotsY3 { get; set; }
         int SentryMode { get; set; }
         int ScreenSize { get; set; }
+        int DeskSize { get; set; }
         byte WhitebalanceRed { get; set; }
         byte WhitebalanceGreen { get; set; }
         byte WhitebalanceBlue { get; set; }

@@ -57,11 +57,8 @@ namespace adrilight.ViewModel
         public IList<String> AvailableComPorts {
             get
             {
-
-
-                _AvailableComPorts = SerialPort.GetPortNames().Concat(new[] { "Không có" }).ToList();
+                _AvailableComPorts = SerialPort.GetPortNames().Concat(new[] { "Không có" }).ToList();    
                 _AvailableComPorts.Remove("COM1");
-
                 return _AvailableComPorts;
             }
         }
@@ -168,6 +165,158 @@ namespace adrilight.ViewModel
                 
             }
         }
+
+
+
+        private bool _checked24inch;
+        public bool Checked24inch{
+
+            get { return _checked24inch; }
+            set
+            {
+                _checked24inch = value;
+                if (value)
+                {
+                    Device.SpotsX = 11;
+                    Device.SpotsY = 7;
+                    Device.NumLED = 32;
+                    IsNextable = true;
+                    RaisePropertyChanged(() => Device.SpotsX);
+                    RaisePropertyChanged(() => Device.SpotsY);
+                    RaisePropertyChanged(() => Device.NumLED);
+                    RaisePropertyChanged(() => IsNextable);
+                }
+
+            }
+        }
+        private bool _checked27inch;
+        public bool Checked27inch {
+
+            get { return _checked27inch; }
+            set
+            {
+                _checked27inch = value;
+                if (value)
+                {
+                    Device.SpotsX = 13;
+                    Device.SpotsY = 7;
+                    Device.NumLED = 36;
+                    IsNextable = true;
+                    RaisePropertyChanged(() => Device.SpotsX);
+                    RaisePropertyChanged(() => Device.SpotsY);
+                    RaisePropertyChanged(() => Device.NumLED);
+                    RaisePropertyChanged(() => IsNextable);
+                }
+
+            }
+        }
+        private bool _checked29inch;
+        public bool Checked29inch {
+
+            get { return _checked29inch; }
+            set
+            {
+                _checked29inch = value;
+                if (value)
+                {
+                    Device.SpotsX = 14;
+                    Device.SpotsY = 7;
+                    Device.NumLED = 38;
+                    IsNextable = true;
+                    RaisePropertyChanged(() => Device.SpotsX);
+                    RaisePropertyChanged(() => Device.SpotsY);
+                    RaisePropertyChanged(() => Device.NumLED);
+                    RaisePropertyChanged(() => IsNextable);
+                }
+
+            }
+        }
+        private bool _checked32inch;
+        public bool Checked32inch {
+
+            get { return _checked32inch; }
+            set
+            {
+                _checked32inch = value;
+                if (value)
+                {
+                    Device.SpotsX = 14;
+                    Device.SpotsY = 9;
+                    Device.NumLED = 42;
+                    IsNextable = true;
+                    RaisePropertyChanged(() => Device.SpotsX);
+                    RaisePropertyChanged(() => Device.SpotsY);
+                    RaisePropertyChanged(() => Device.NumLED);
+                    RaisePropertyChanged(() => IsNextable);
+                }
+
+            }
+        }
+        private bool _checked34inch;
+        public bool Checked34inch {
+
+            get { return _checked34inch; }
+            set
+            {
+                _checked34inch = value;
+                if (value)
+                {
+                    Device.SpotsX = 16;
+                    Device.SpotsY = 7;
+                    Device.NumLED = 42;
+                    IsNextable = true;
+                    RaisePropertyChanged(() => Device.SpotsX);
+                    RaisePropertyChanged(() => Device.SpotsY);
+                    RaisePropertyChanged(() => Device.NumLED);
+                    RaisePropertyChanged(() => IsNextable);
+                }
+
+            }
+        }
+        private bool _checked1m2;
+        public bool Checked1m2 {
+
+            get { return _checked1m2; }
+            set
+            {
+                _checked1m2 = value;
+                if (value)
+                {
+                    Device.SpotsX = 48;
+                    Device.SpotsY = 1;
+                    Device.NumLED = 48;
+                    IsNextable = true;
+                    RaisePropertyChanged(() => Device.SpotsX);
+                    RaisePropertyChanged(() => Device.SpotsY);
+                    RaisePropertyChanged(() => Device.NumLED);
+                    RaisePropertyChanged(() => IsNextable);
+                }
+
+            }
+        }
+
+        private bool _checked2m;
+        public bool Checked2m {
+
+            get { return _checked2m; }
+            set
+            {
+                _checked2m = value;
+                if (value)
+                {
+                    Device.SpotsX = 80;
+                    Device.SpotsY = 1;
+                    Device.NumLED = 80;
+                    IsNextable = true;
+                    RaisePropertyChanged(() => Device.SpotsX);
+                    RaisePropertyChanged(() => Device.NumLED);
+                    RaisePropertyChanged(() => Device.SpotsY);
+                    RaisePropertyChanged(() => IsNextable);
+                }
+
+            }
+        }
+
         public ObservableCollection<string> AvailableDevice { get; private set; }
 
         /// <summary>

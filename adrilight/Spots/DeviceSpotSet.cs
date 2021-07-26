@@ -44,6 +44,8 @@ namespace adrilight
                 case nameof(GeneralSettings.ScreenSize):
                 case nameof(DeviceSettings.SelectedDisplay):
                 case nameof(DeviceSettings.SelectedEffect):
+                case nameof(GeneralSettings.ScreenSizeSecondary):
+                case nameof(GeneralSettings.ScreenSizeThird):
 
 
                     Refresh();
@@ -99,9 +101,14 @@ namespace adrilight
 
             var spotsX = userSettings.SpotsX;
             var spotsY = userSettings.SpotsY;
+            var offset = 10;
             IDeviceSpot[] devicespots = new DeviceSpot[160]; //maximum number of spot
             if(DeviceSettings.SelectedEffect==0)
             {
+                if(DeviceSettings.DeviceType=="ABRev1" || DeviceSettings.DeviceType=="ABRev2")
+                {
+
+                  
                 if (DeviceSettings.SelectedDisplay == 0) // 
                 {
                     if (spotsX != generalSettings.SpotsX || spotsY != generalSettings.SpotsY)// check if user input over kill the parrent's matrix that precreated
@@ -147,6 +154,11 @@ namespace adrilight
                         devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
                     }
                 }
+                }
+                else if(DeviceSettings.DeviceType=="ABEDGE")
+                {
+                    devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
+                }
             }
 
             else
@@ -154,19 +166,30 @@ namespace adrilight
                 devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
 
             }
-          
-          
+
+
             //just this is enough????
             // next, everytime a frame update, spotsetreader (which attached to every single device) will set the color of each device spots in devicespotset acording to index
             // SpotSet reader only service gifxelation and screen capture mode
             // the treeview is Desktopduplicator(x)-> desktopduplicatorReader(x)-> SpotSetReader(device)->Viewmodel(device)->SerialStream(device)
             var screenWidth = 240;
             var screenHeight = 135;
+            if (userSettings.DeviceSize==0|| userSettings.DeviceSize == 1|| userSettings.DeviceSize == 3)
+            {
+                 screenWidth = 240;
+                 screenHeight = 135;
+            }
+            else
+            {
+                screenWidth = 320;
+                screenHeight = 135;
+            }
+            
             var scalingFactor = DesktopDuplicator.ScalingFactor;
             var borderDistanceX = userSettings.BorderDistanceX / scalingFactor;
             var borderDistanceY = userSettings.BorderDistanceY / scalingFactor;
-            var spotWidth = userSettings.SpotWidth / scalingFactor;
-            var spotHeight = userSettings.SpotHeight / scalingFactor;
+            var spotWidth = screenWidth / userSettings.SpotsX;
+            var spotHeight = spotWidth;
 
             var canvasSizeX = screenWidth - 2 * borderDistanceX;
             var canvasSizeY = screenHeight - 2 * borderDistanceY;
@@ -223,9 +246,24 @@ namespace adrilight
                     }
                 }
             }
+            if (DeviceSettings.SelectedEffect==0)
+            {
 
 
-            if (GeneralSettings.OffsetLed != 0) Offset(ref devicespots, GeneralSettings.OffsetLed);
+                if (DeviceSettings.SelectedDisplay == 0)
+                {
+                    if (GeneralSettings.OffsetLed != 0) Offset(ref devicespots, GeneralSettings.OffsetLed);
+                }
+                else if (DeviceSettings.SelectedDisplay == 1)
+                {
+                    if (GeneralSettings.OffsetLed2 != 0) Offset(ref devicespots, GeneralSettings.OffsetLed2);
+                }
+                else if (DeviceSettings.SelectedDisplay == 2)
+                {
+                    if (GeneralSettings.OffsetLed3 != 0) Offset(ref devicespots, GeneralSettings.OffsetLed3);
+                }
+            }
+                
             if (spotsY > 1 && GeneralSettings.MirrorX) MirrorX(devicespots, spotsX, spotsY);
             if (spotsX > 1 && GeneralSettings.MirrorY) MirrorY(devicespots, spotsX, spotsY);
 

@@ -47,6 +47,13 @@ namespace adrilight
                 case nameof(DeviceInfo.SpotHeight):
                 case nameof(DeviceInfo.SpotsX):
                 case nameof(DeviceInfo.SpotsY):
+                case nameof(DeviceInfo.SpotsX2):
+                case nameof(DeviceInfo.SpotsY2):
+                case nameof(DeviceInfo.SpotsX3):
+                case nameof(DeviceInfo.SpotsY3):
+                case nameof(DeviceInfo.OffsetLed2):
+                case nameof(DeviceInfo.OffsetLed3):
+
 
                 case nameof(DeviceInfo.SpotWidth):
                     Refresh();
@@ -58,6 +65,7 @@ namespace adrilight
         public IGeneralSpot[] Spots { get; set; }
         public IGeneralSpot[] Spots2 { get; set; }
         public IGeneralSpot[] Spots3 { get; set; }
+        public IGeneralSpot[] SpotsDesk { get; set; }
 
 
         public object Lock { get; } = new object();
@@ -86,8 +94,8 @@ namespace adrilight
         public int ExpectedScreenHeight => Screen.PrimaryScreen.Bounds.Height / DesktopDuplicator.ScalingFactor;
         public int ExpectedScreenWidth2 => Screen.AllScreens.Length>1? Screen.AllScreens[1].Bounds.Width / DesktopDuplicator.ScalingFactor : Screen.PrimaryScreen.Bounds.Width / DesktopDuplicator.ScalingFactor;
         public int ExpectedScreenHeight2 => Screen.AllScreens.Length > 1 ? Screen.AllScreens[1].Bounds.Height / DesktopDuplicator.ScalingFactor : Screen.PrimaryScreen.Bounds.Height / DesktopDuplicator.ScalingFactor;
-        public int ExpectedScreenWidth3 => Screen.AllScreens.Length > 3 ? Screen.AllScreens[3].Bounds.Width / DesktopDuplicator.ScalingFactor : Screen.PrimaryScreen.Bounds.Width / DesktopDuplicator.ScalingFactor;
-        public int ExpectedScreenHeight3 => Screen.AllScreens.Length > 3 ? Screen.AllScreens[3].Bounds.Height / DesktopDuplicator.ScalingFactor : Screen.PrimaryScreen.Bounds.Height / DesktopDuplicator.ScalingFactor;
+        public int ExpectedScreenWidth3 => Screen.AllScreens.Length > 3 ? Screen.AllScreens[2].Bounds.Width / DesktopDuplicator.ScalingFactor : Screen.PrimaryScreen.Bounds.Width / DesktopDuplicator.ScalingFactor;
+        public int ExpectedScreenHeight3 => Screen.AllScreens.Length > 3 ? Screen.AllScreens[2].Bounds.Height / DesktopDuplicator.ScalingFactor : Screen.PrimaryScreen.Bounds.Height / DesktopDuplicator.ScalingFactor;
 
 
         private IGeneralSettings DeviceInfo { get; }
@@ -98,6 +106,7 @@ namespace adrilight
                 Spots = BuildSpots(ExpectedScreenWidth, ExpectedScreenHeight, DeviceInfo);
                 Spots2 = BuildSpots2(ExpectedScreenWidth2, ExpectedScreenHeight2, DeviceInfo);
                 Spots3 = BuildSpots3(ExpectedScreenWidth3, ExpectedScreenHeight3, DeviceInfo);
+                SpotsDesk = BuildSpotsDesk(ExpectedScreenWidth, ExpectedScreenHeight, DeviceInfo);
             }
         }
 
@@ -201,6 +210,115 @@ namespace adrilight
             return spots;
         }
 
+
+        internal IGeneralSpot[] BuildSpotsDesk(int screenWidth, int screenHeight, IGeneralSettings userSettings)
+        {
+            var spotsX=80;
+            var spotsY=1;
+            if(userSettings.DeskSize==0)//1m2
+            {
+                spotsX = 48;
+                spotsY = 1;
+            }
+            else if (userSettings.DeskSize==1) //2m
+            {
+                spotsX = 80;
+                spotsY = 1;
+            }
+            IGeneralSpot[] spots;
+            if (spotsX > 0 && spotsY > 0)
+            {
+                spots = new GeneralSpot[CountLeds(spotsX, spotsY)];
+            }
+            else
+            {
+                spotsX = 11;
+                spotsY = 6;
+                spots = new GeneralSpot[CountLeds(spotsX, spotsY)];
+            }
+
+
+
+
+            var scalingFactor = DesktopDuplicator.ScalingFactor;
+          
+            var realSpotWidth = screenWidth / spotsX;
+            var realSpotHeight = spotsX; // this is really helpful, user is no longer has to input spotwidth and spotheight which can cause weird behavior
+            var borderDistanceX = userSettings.BorderDistanceX / scalingFactor;
+            var borderDistanceY = 0 / scalingFactor;
+            //var spotWidth = realSpotWidth / scalingFactor;
+            //var spotHeight = realSpotHeight / scalingFactor;
+            var spotWidth = realSpotWidth;
+            var spotHeight = realSpotHeight;
+            var canvasSizeX = screenWidth - 2 * borderDistanceX;
+            var canvasSizeY = screenHeight - 2 * borderDistanceY;
+
+
+            var xResolution = spotsX > 1 ? (canvasSizeX - spotWidth) / (spotsX - 1) : 0;
+            var xRemainingOffset = spotsX > 1 ? ((canvasSizeX - spotWidth) % (spotsX - 1)) / 2 : 0;
+            var yResolution = spotsY > 1 ? (canvasSizeY - spotHeight) / (spotsY - 1) : 0;
+            var yRemainingOffset = spotsY > 1 ? ((canvasSizeY - spotHeight) % (spotsY - 1)) / 2 : 0;
+
+            var counter = 0;
+            var relationIndex = spotsX - spotsY + 1;
+
+            for (var j = 0; j < spotsY; j++)
+            {
+                for (var i = 0; i < spotsX; i++)
+                {
+                    var isFirstColumn = i == 0;
+                    var isLastColumn = i == spotsX - 1;
+                    var isFirstRow = j == 0;
+                    var isLastRow = j == spotsY - 1;
+
+                    if (isFirstColumn || isLastColumn || isFirstRow || isLastRow) // needing only outer spots
+                    {
+                        var x = (xRemainingOffset + borderDistanceX / scalingFactor + i * xResolution)
+                                .Clamp(0, screenWidth);
+
+                        var y = screenHeight - borderDistanceY - spotHeight;
+
+                        var index = counter++; // in first row index is always counter
+
+                        if (spotsX > 1 && spotsY > 1)
+                        {
+                            if (!isFirstRow && !isLastRow)
+                            {
+                                if (isFirstColumn)
+                                {
+                                    index += relationIndex + ((spotsY - 1 - j) * 3);
+                                }
+                                else if (isLastColumn)
+                                {
+                                    index -= j;
+                                }
+                            }
+
+                            if (!isFirstRow && isLastRow)
+                            {
+                                index += relationIndex - i * 2;
+                            }
+                        }
+
+                        spots[index] = new GeneralSpot(x, y, spotWidth, spotHeight, i, j);
+                    }
+                }
+            }
+
+
+
+            //TODO totally broken :(
+
+            if (userSettings.OffsetLed != 0) Offset(ref spots, userSettings.OffsetLed);
+            if (spotsY > 1 && userSettings.MirrorX) MirrorX(spots, spotsX, spotsY);
+            if (spotsX > 1 && userSettings.MirrorY) MirrorY(spots, spotsX, spotsY);
+
+            spots[0].IsFirst = true;
+            return spots;
+        }
+
+
+
         internal IGeneralSpot[] BuildSpots2(int screenWidth, int screenHeight, IGeneralSettings userSettings)
         {
             var spotsX = userSettings.SpotsX2;
@@ -286,7 +404,7 @@ namespace adrilight
 
             //TODO totally broken :(
 
-            if (userSettings.OffsetLed != 0) Offset(ref spots, userSettings.OffsetLed2);
+            if (userSettings.OffsetLed2 != 0) Offset(ref spots, userSettings.OffsetLed2);
             if (spotsY > 1 && userSettings.MirrorX) MirrorX(spots, spotsX, spotsY);
             if (spotsX > 1 && userSettings.MirrorY) MirrorY(spots, spotsX, spotsY);
 
@@ -379,7 +497,7 @@ namespace adrilight
 
             //TODO totally broken :(
 
-            if (userSettings.OffsetLed != 0) Offset(ref spots, userSettings.OffsetLed3);
+            if (userSettings.OffsetLed3 != 0) Offset(ref spots, userSettings.OffsetLed3);
             if (spotsY > 1 && userSettings.MirrorX) MirrorX(spots, spotsX, spotsY);
             if (spotsX > 1 && userSettings.MirrorY) MirrorY(spots, spotsX, spotsY);
 
