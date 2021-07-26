@@ -66,14 +66,15 @@
 
 
 
-            <ListView  Margin="0,15,0,15" Name="itm" ItemsSource="{Binding Cards,UpdateSourceTrigger=PropertyChanged}"
+            <ListView    Margin="0,15,0,15" Name="itm" ItemsSource="{Binding Cards,UpdateSourceTrigger=PropertyChanged}"
                                                 IsTabStop="False"
-                                                BorderThickness="0" Tag="{Binding}">
+                         
+                                                BorderThickness="0" Tag="{Binding}" Background="White">
 
 
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel/>
+                        <WrapPanel Width="900"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
 
@@ -81,6 +82,7 @@
                     <ControlTemplate TargetType="{x:Type ItemsControl}">
                         <Border BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
+                            
                             Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="False">
                             <hc:ScrollViewer>
                                 <ItemsPresenter />
@@ -103,12 +105,12 @@
                                     <Style TargetType="Border"  >
                                         <Setter Property="BorderBrush" Value="#FF898989"></Setter>
                                         <Setter Property="BorderThickness" Value="2"></Setter>
-                                        <Style.Triggers>
+                                        <!--<Style.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
                                                 <Setter Property="BorderBrush" Value="#7F326CF3"></Setter>
                                                 <Setter Property="BorderThickness" Value="6"></Setter>
                                             </Trigger>
-                                        </Style.Triggers>
+                                        </Style.Triggers>-->
                                     </Style>
                                 </Border.Style>
                                 <Grid>

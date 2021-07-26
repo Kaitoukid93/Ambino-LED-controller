@@ -83,7 +83,7 @@ namespace adrilight
         public bool Autostart { get => _autostart; set { Set(() => Autostart, ref _autostart, value); } }
 
         public int BorderDistanceX { get => _borderDistanceX; set { Set(() => BorderDistanceX, ref _borderDistanceX, value); } }
-        public int SentryMode { get => _sentryMode; set { Set(() => SentryMode, ref _borderDistanceX, value); } }
+        public int SentryMode { get => _sentryMode; set { Set(() => SentryMode, ref _sentryMode, value); } }
         public int BorderDistanceY { get => _borderDistanceY; set { Set(() => BorderDistanceY, ref _borderDistanceY, value); } }
         public bool ShouldbeRunningThird { get => _shouldbeRunningThird; set { Set(() => ShouldbeRunningThird, ref _shouldbeRunningThird, value); } }
         public bool ShouldbeRunning { get => _shouldbeRunning; set { Set(() => ShouldbeRunning, ref _shouldbeRunning, value); } }

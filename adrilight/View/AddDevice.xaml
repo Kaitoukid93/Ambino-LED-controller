@@ -48,8 +48,12 @@
             </Grid.Style>
             <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade" >
                 <hc:ButtonGroup Margin="0,16,0,0" Orientation="Vertical" Style="{StaticResource ButtonGroupSolid}">
-                    <RadioButton x:Name="basicrev1"  Height="40" IsChecked="{Binding BasicRev1Checked }" Content="Ambino Basic" FontSize="15"/>
-                    <RadioButton x:Name="basicrev2"  Height="40" IsChecked="{Binding BasicRev2Checked}" Content="Ambino Basic rev2" FontSize="15"/>
+                    <RadioButton x:Name="basicrev1" Content="Ambino Basic" ToolTip="Phiên bản có Thanh LED đen mờ" Height="40" IsChecked="{Binding BasicRev1Checked }"  FontSize="15"/>
+
+                    <RadioButton x:Name="basicrev2" Content="Ambino Basic [Rev 2]" ToolTip="Phiên bản có Thanh LED đen bóng"  Height="40" IsChecked="{Binding BasicRev2Checked}"  FontSize="15"/>
+
+
+
                     <RadioButton x:Name="EDGE" Height="40" IsChecked="{Binding EDGEChecked}" Content="Ambino EDGE" FontSize="15"/>
                     <RadioButton IsEnabled="False" x:Name="HUB"  Height="40" IsChecked="{Binding HUBV2Checked}" Content="Ambino HUBV2" FontSize="15"/>
                 </hc:ButtonGroup>
@@ -227,7 +231,7 @@
                     <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
                 </Button.CommandParameter>
             </Button>
-            <Button materialDesign:ButtonAssist.CornerRadius="7" IsEnabled="{Binding IsNextable}" Command="{Binding NextCmd}" CommandParameter="{Binding ElementName=PanelMain}" Width="75" Margin="0,0,20,0" Content="Next"  HorizontalAlignment="Right" Background="#33000000" Foreground="#FF898989">
+            <Button materialDesign:ButtonAssist.CornerRadius="7" IsEnabled="{Binding IsNextable}" Command="{Binding NextCmd}" CommandParameter="{Binding ElementName=PanelMain}" Width="75" Margin="0,0,20,0" Content="Next"  HorizontalAlignment="Right" Background="#3F326CF3" Foreground="#FF326CF3">
                 <Button.Style>
                     <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
                         <Setter Property="Visibility" Value="Collapsed"></Setter>

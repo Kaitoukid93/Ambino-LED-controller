@@ -132,7 +132,7 @@
 
             </Grid>
             <StackPanel Grid.Row="2"/>
-            <Button Foreground="#FF326CF3" Background="#3F326CF3" Padding="7" Command="{Binding SnapshotCommand}" Style="{StaticResource MaterialDesignFlatButton}" Grid.Row="3"  materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0" Margin="0,-0.4,116,0"  BorderBrush="{x:Null}"  HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Button Foreground="#FF326CF3" Background="#3F326CF3" Padding="7" Command="{Binding SnapshotCommand}" Style="{StaticResource MaterialDesignFlatButton}" Grid.Row="3"  materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0" Margin="0,-0.4,116,0"  BorderBrush="{x:Null}"  HorizontalAlignment="Right" VerticalAlignment="Center" Click="Button_Click_4">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>

@@ -70,7 +70,7 @@ namespace adrilight
 
                     // BlockedComport.Add(serialport);
                     _log.Debug("Serial Port " + serialport + " access denied, added to Blacklist");
-                    HandyControl.Controls.MessageBox.Show("Serial Port " + serialport + " is in use or unavailable, Please chose another COM Port");
+                    HandyControl.Controls.MessageBox.Show("Serial Port " + serialport + " is in use or unavailable, Please chose another COM Port", "Serial Port", MessageBoxButton.OK, MessageBoxImage.Error);
                     available = false;
 
                     //_log.Debug(ex, "Exception catched.");
@@ -471,8 +471,14 @@ namespace adrilight
 
                     _log.Debug(ex, "Exception catched.");
                     //to be safe, we reset the serial port
-                    HandyControl.Controls.MessageBox.Show("USB của " + DeviceSettings.DeviceName + " Đã ngắt kết nối!!!. Cần phải restart App sau khi kết nối lại");
+                   var result= HandyControl.Controls.MessageBox.Show("USB của " + DeviceSettings.DeviceName + " Đã ngắt kết nối!!!. Kiểm tra lại kết nối sau đó nhấn [Confirm]", "Mất kết nối", MessageBoxButton.OKCancel,MessageBoxImage.Warning);
 
+                    if(result== MessageBoxResult.OK)//restart app
+                    {
+                        System.Windows.Forms.Application.Restart();
+                        Process.GetCurrentProcess().Kill();
+                    }
+                    
 
                     if (serialPort != null && serialPort.IsOpen)
                     {

@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using HandyControl.Data;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -425,6 +426,13 @@ namespace adrilight.View
         private void WBCold_Checked(object sender, RoutedEventArgs e)
         {
            
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+
+            HandyControl.Controls.MessageBox.Show("SnapShot đã được lưu! Để sử dụng, hãy kích hoạt Sentry Mode trong cài đặt thiết bị", "SnapShot", MessageBoxButton.OK, MessageBoxImage.Information);
+          
         }
     }
 }
