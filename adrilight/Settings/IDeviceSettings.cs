@@ -19,7 +19,7 @@ namespace adrilight
         string DeviceType { get; set; }
         int RGBOrder { get; set; }
 
-
+        int ParentDeviceId { get; set; }
         // DateTime? LastUpdateCheck { get; set; }
         [Obsolete]
         int LedsPerSpot { get; set; }

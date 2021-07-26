@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -274,13 +275,23 @@ namespace adrilight
         public Color MColor13 { get => _mcolor13; set { Set(() => MColor13, ref _mcolor13, value); } }
         public Color MColor14 { get => _mcolor14; set { Set(() => MColor14, ref _mcolor14, value); } }
         public Color MColor15 { get => _mcolor15; set { Set(() => MColor15, ref _mcolor15, value); } }
-
-
+        private int _parentDeviceId = -1;
+        public int ParentDeviceId { get => _parentDeviceId; set { Set(() => _parentDeviceId, ref _parentDeviceId, value); } }
         // Add new
 
 
 
         public Guid InstallationId { get; set; } = Guid.NewGuid();
-        
+        private ObservableCollection<IDeviceSettings> _childCard;
+        public ObservableCollection<IDeviceSettings> ChildCard {
+            get { return _childCard; }
+            set
+            {
+                if (_childCard == value) return;
+                _childCard = value;
+                RaisePropertyChanged();
+            }
+        }
+        public bool IsHub => DeviceType == "ABHV2";
     }
 }
