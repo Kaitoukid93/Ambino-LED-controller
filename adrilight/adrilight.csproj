@@ -411,6 +411,7 @@
     <Compile Include="Util\IGifxelation.cs" />
     <Compile Include="Util\ImageProcesser.cs" />
     <Compile Include="Util\IMusic.cs" />
+    <Compile Include="Util\IOpenRGBClientDevice.cs" />
     <Compile Include="Util\IRainbow.cs" />
     <Compile Include="Util\ISerialPortWrapper.cs" />
     <Compile Include="Util\ISerialStream.cs" />
@@ -422,6 +423,7 @@
     <Compile Include="Util\IStaticColor.cs" />
     <Compile Include="Util\MatrixFrame.cs" />
     <Compile Include="Util\Music.cs" />
+    <Compile Include="Util\OpenRGBClientDevice.cs" />
     <Compile Include="Util\Rainbow.cs" />
     <Compile Include="Util\StaticColor.cs" />
     <Compile Include="Util\WinApi.cs" />

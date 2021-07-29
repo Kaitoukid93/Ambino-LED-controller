@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using adrilight.Resources;
 using adrilight.Spots;
+using adrilight.Util;
 using adrilight.View;
 using adrilight.ViewModel.Factories;
 using BO;
@@ -390,15 +391,17 @@ namespace adrilight.ViewModel
         }
         GifBitmapDecoder decoder;
         public IGeneralSettings GeneralSettings { get; }
+        public IOpenRGBClientDevice OpenRGBClientDevice { get; set; }
         public int AddedDevice { get; }
 
-        public MainViewViewModel(IDeviceSettings[] cards, IDeviceSpotSet[] deviceSpotSets, IGeneralSettings generalSettings)
+        public MainViewViewModel(IDeviceSettings[] cards, IDeviceSpotSet[] deviceSpotSets, IGeneralSettings generalSettings, IOpenRGBClientDevice openRGBDevices)
         {
 
             GeneralSettings = generalSettings ?? throw new ArgumentNullException(nameof(generalSettings));
             Cards = new ObservableCollection<IDeviceSettings>();
             AddedDevice = cards.Length;
             SpotSets = new ObservableCollection<IDeviceSpotSet>();
+            OpenRGBClientDevice= openRGBDevices ?? throw new ArgumentNullException(nameof(openRGBDevices));
             foreach (IDeviceSettings card in cards)
             {
                 Cards.Add(card);
@@ -408,7 +411,7 @@ namespace adrilight.ViewModel
                 SpotSets.Add(spotSet);
             }
 
-
+            WriteJson();
             //binding settings to settings
             //if(CurrentDevice!=null)
             //{
@@ -424,11 +427,11 @@ namespace adrilight.ViewModel
             //}
 
 
-         
 
 
 
-                    GeneralSettings.PropertyChanged += (s, e) =>
+
+            GeneralSettings.PropertyChanged += (s, e) =>
             {
                 switch (e.PropertyName)
                 {
@@ -853,7 +856,7 @@ namespace adrilight.ViewModel
                 {
                     vm.Device.PropertyChanged += DeviceInfo_PropertyChanged;
                     _isAddnew = true;
-                    vm.Device.DeviceID = Cards.Count()+1;
+                    vm.Device.DeviceID = Cards.Count()+OpenRGBClientDevice.DeviceList.Length+1;
                       Cards.Add(vm.Device);
                     WriteJson();
                     _isAddnew = false;
@@ -906,6 +909,21 @@ namespace adrilight.ViewModel
             foreach (var item in Cards)
             {
                 devices.Add(item);
+            }
+            foreach(var device in OpenRGBClientDevice.DeviceList)//convert openRGB device to ambino Device
+            {
+                foreach(var item in Cards)
+                {
+                    if (item.DeviceSerial == device.Serial)// already added
+                        devices.Remove(item);
+                }
+               IDeviceSettings newDevice = new DeviceSettings();
+                newDevice.DeviceName = device.Name.ToString();
+                newDevice.DeviceType = device.Type.ToString();
+                newDevice.DevicePort = device.Location.ToString();
+                newDevice.DeviceID = 151293;
+                newDevice.DeviceSerial = device.Serial;
+                devices.Add(newDevice);
             }
             var json = JsonConvert.SerializeObject(devices, Formatting.Indented);
             Directory.CreateDirectory(JsonPath);

@@ -159,6 +159,10 @@ namespace adrilight
                 {
                     devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
                 }
+                else 
+                {
+                    devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
+                }
             }
 
             else
