@@ -21,6 +21,7 @@ using GalaSoft.MvvmLight;
 using MaterialDesignThemes.Wpf;
 using Newtonsoft.Json;
 using Ninject;
+using OpenRGB.NET.Models;
 using Un4seen.BassWasapi;
 
 namespace adrilight.ViewModel
@@ -906,25 +907,42 @@ namespace adrilight.ViewModel
         public void WriteJson()
         {
             var devices = new List<IDeviceSettings>();
-            foreach (var item in Cards)
+            var openRGBdevices = new List<Device>();
+            foreach (var device in OpenRGBClientDevice.DeviceList)//add openrgb device to list
+            {
+                openRGBdevices.Add(device);
+            }
+
+                foreach (var item in Cards)
             {
                 devices.Add(item);
             }
-            foreach(var device in OpenRGBClientDevice.DeviceList)//convert openRGB device to ambino Device
+            foreach (var device in OpenRGBClientDevice.DeviceList)// check if device already exist
             {
-                foreach(var item in Cards)
+                foreach (var item in Cards)
                 {
-                    if (item.DeviceSerial == device.Serial)// already added
-                        devices.Remove(item);
+                    if (device.Serial == item.DeviceSerial)
+                        openRGBdevices.Remove(device);
                 }
-               IDeviceSettings newDevice = new DeviceSettings();
-                newDevice.DeviceName = device.Name.ToString();
-                newDevice.DeviceType = device.Type.ToString();
-                newDevice.DevicePort = device.Location.ToString();
-                newDevice.DeviceID = 151293;
-                newDevice.DeviceSerial = device.Serial;
-                devices.Add(newDevice);
             }
+                foreach (var device in openRGBdevices)//convert openRGB device to ambino Device
+            {
+             
+                            IDeviceSettings newDevice = new DeviceSettings();
+                            newDevice.DeviceName = device.Name.ToString();
+                            newDevice.DeviceType = device.Type.ToString();
+                            newDevice.DevicePort = device.Location.ToString();
+                            newDevice.DeviceID = 151293;
+                            newDevice.DeviceSerial = device.Serial;
+                            devices.Add(newDevice);
+                        }
+                    
+                  
+                 
+                    // if devices disconnected,change connect status
+                
+             
+            
             var json = JsonConvert.SerializeObject(devices, Formatting.Indented);
             Directory.CreateDirectory(JsonPath);
             File.WriteAllText(JsonDeviceNameAndPath, json);
@@ -1016,7 +1034,16 @@ namespace adrilight.ViewModel
             SelectedVerticalMenuItem = MenuItems.FirstOrDefault(t => t.Text == general);
             IsDashboardType = false;
             CurrentDevice = card;
-            PreviewSpots = SpotSets[CurrentDevice.DeviceID-1].Spots;
+            if(CurrentDevice.DeviceID==151293)
+            {
+
+            }
+                else
+                    {
+                        PreviewSpots = SpotSets[CurrentDevice.DeviceID - 1].Spots;
+
+                    }
+            
             SetMenuItemActiveStatus(lighting);
         }
         public void BackToDashboard()

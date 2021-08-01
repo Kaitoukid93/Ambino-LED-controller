@@ -58,8 +58,7 @@ namespace adrilight
      
 
         public object Lock { get; } = new object();
-        public object Lock2 { get; } = new object();
-        public object Lock3 { get; } = new object();
+   
 
         /// <summary>
         /// returns the number of leds
