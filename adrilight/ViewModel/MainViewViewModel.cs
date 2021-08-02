@@ -242,7 +242,8 @@ namespace adrilight.ViewModel
 
         public ICommand SelectCardCommand { get; set; }
         public ICommand ShowAddNewCommand { get; set; }
-       // private IViewModelFactory<AllDeviceViewModel> _allDeviceView;
+        public ICommand RefreshDeviceCommand { get; set; }
+        // private IViewModelFactory<AllDeviceViewModel> _allDeviceView;
         private bool isPreview = false;
         private bool _isAddnew = false;
         private string JsonDeviceNameAndPath => Path.Combine(JsonPath, "adrilight-deviceInfos.json");
@@ -393,9 +394,10 @@ namespace adrilight.ViewModel
         GifBitmapDecoder decoder;
         public IGeneralSettings GeneralSettings { get; }
         public IOpenRGBClientDevice OpenRGBClientDevice { get; set; }
+        public ISerialDeviceDetection SerialDeviceDetection { get; set; }
         public int AddedDevice { get; }
 
-        public MainViewViewModel(IDeviceSettings[] cards, IDeviceSpotSet[] deviceSpotSets, IGeneralSettings generalSettings, IOpenRGBClientDevice openRGBDevices)
+        public MainViewViewModel(IDeviceSettings[] cards, IDeviceSpotSet[] deviceSpotSets, IGeneralSettings generalSettings, IOpenRGBClientDevice openRGBDevices, ISerialDeviceDetection serialDeviceDetection)
         {
 
             GeneralSettings = generalSettings ?? throw new ArgumentNullException(nameof(generalSettings));
@@ -403,6 +405,7 @@ namespace adrilight.ViewModel
             AddedDevice = cards.Length;
             SpotSets = new ObservableCollection<IDeviceSpotSet>();
             OpenRGBClientDevice= openRGBDevices ?? throw new ArgumentNullException(nameof(openRGBDevices));
+            SerialDeviceDetection = serialDeviceDetection ?? throw new ArgumentNullException(nameof(serialDeviceDetection));
             foreach (IDeviceSettings card in cards)
             {
                 Cards.Add(card);
@@ -675,6 +678,14 @@ namespace adrilight.ViewModel
                 
                 SnapShot();
             });
+
+            RefreshDeviceCommand = new RelayCommand<string>((p) => {
+                return true;
+            }, (p) =>
+            {
+
+                RefreshDevice();
+            });
             SelectCardCommand = new RelayCommand<IDeviceSettings>((p) => {
                 return p != null;
             }, (p) =>
@@ -709,6 +720,10 @@ namespace adrilight.ViewModel
             }
             CurrentDevice.SnapShot = snapshot;
             RaisePropertyChanged(() => CurrentDevice.SnapShot);
+        }
+        public void RefreshDevice()
+        {
+            SerialDeviceDetection.RefreshDevice();
         }
         //public void ReadFAQ()
         //{
@@ -855,12 +870,90 @@ namespace adrilight.ViewModel
             {
                 try
                 {
-                    vm.Device.PropertyChanged += DeviceInfo_PropertyChanged;
-                    _isAddnew = true;
-                    vm.Device.DeviceID = Cards.Count()+OpenRGBClientDevice.DeviceList.Length+1;
-                      Cards.Add(vm.Device);
-                    WriteJson();
-                    _isAddnew = false;
+                    if(vm.Device.DeviceType!= "ABHV2")
+                    {
+                        vm.Device.PropertyChanged += DeviceInfo_PropertyChanged;
+                        _isAddnew = true;
+                        vm.Device.DeviceID = Cards.Count() + 1;
+
+                        Cards.Add(vm.Device);
+                        WriteJson();
+                        _isAddnew = false;
+                    }
+                    else
+                    {
+                        if(vm.ARGB1Selected) // ARGB1 output port is in the list
+                        {
+                            var argb1 = new DeviceSettings();
+                            argb1.DeviceType = "Strip";                           //add to device settings
+                            argb1.DeviceID = Cards.Count() + 1;
+                            argb1.SpotsX = 16;
+                            argb1.SpotsY = 1;
+                            argb1.NumLED = 16;
+                            argb1.DeviceName = "ARGB1(HUBV2)";
+                            Cards.Add(argb1);
+                        }
+                         if (vm.ARGB2Selected)
+                        {
+                            var argb2 = new DeviceSettings();
+                            argb2.DeviceType = "Strip";                           //add to device settings
+                            argb2.DeviceID = Cards.Count() + 1;
+                            argb2.SpotsX = 160;
+                            argb2.SpotsY = 1;
+                            argb2.NumLED = 160;
+                            argb2.DeviceName = "ARGB2(HUBV2)";
+                            Cards.Add(argb2);
+                        }
+                         if (vm.PCI1Selected)
+                        {
+                            var PCI = new DeviceSettings();
+                            PCI.DeviceType = "Strip";                           //add to device settings
+                            PCI.DeviceID = Cards.Count() + 1;
+                            PCI.SpotsX = 80;
+                            PCI.SpotsY = 1;
+                            PCI.NumLED = 80;
+                            PCI.DeviceName = "PCI1(HUBV2)";
+                            Cards.Add(PCI);
+                        }
+                         if (vm.PCI2Selected)
+                        {
+                            var PCI = new DeviceSettings();
+                            PCI.DeviceType = "Strip";                           //add to device settings
+                            PCI.DeviceID = Cards.Count() + 1;
+                            PCI.SpotsX = 80;
+                            PCI.SpotsY = 1;
+                            PCI.NumLED = 80;
+                            PCI.DeviceName = "PCI2(HUBV2)";
+                            Cards.Add(PCI);
+                        }
+                         if (vm.PCI3Selected)
+                        {
+                            var PCI = new DeviceSettings();
+                            PCI.DeviceType = "Strip";                           //add to device settings
+                            PCI.DeviceID = Cards.Count() + 1;
+                            PCI.SpotsX = 80;
+                            PCI.SpotsY = 1;
+                            PCI.NumLED = 80;
+                            PCI.DeviceName = "PCI3(HUBV2)";
+                            Cards.Add(PCI);
+                        }
+                        if (vm.PCI4Selected)
+                        {
+                            var PCI = new DeviceSettings();
+                            PCI.DeviceType = "Strip";                           //add to device settings
+                            PCI.DeviceID = Cards.Count() + 1;
+                            PCI.SpotsX = 80;
+                            PCI.SpotsY = 1;
+                            PCI.NumLED = 80;
+                            PCI.DeviceName = "PCI4(HUBV2)";
+                            Cards.Add(PCI);
+                        }
+
+
+                        WriteJson();
+                       // _isAddnew = false;
+                    }
+                   
                 }
                 catch (Exception ex)
                 {
@@ -1040,7 +1133,11 @@ namespace adrilight.ViewModel
             }
                 else
                     {
-                        PreviewSpots = SpotSets[CurrentDevice.DeviceID - 1].Spots;
+                foreach(var spotset in SpotSets)
+                        if(spotset.ID== CurrentDevice.DeviceID)
+                    {
+                        _previewSpots = spotset.Spots;
+                    }
 
                     }
             

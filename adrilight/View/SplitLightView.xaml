@@ -57,7 +57,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button Command="{Binding BackCommand}" Style="{StaticResource MaterialDesignFlatButton}" Content="Back" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0" Margin="0,0,20,0" Background="#33000000" BorderBrush="{x:Null}" Foreground="#FF898989" HorizontalAlignment="Right" Width="75" Height="32">
+            <Button Command="{Binding BackCommand}" Style="{StaticResource MaterialDesignFlatButton}" Content="Back" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0" Margin="0,0,20,0" Background="#28000000" BorderBrush="{x:Null}" Foreground="#FF898989" HorizontalAlignment="Right" Width="75" Height="32">
 
 
             </Button>

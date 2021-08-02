@@ -55,7 +55,7 @@
 
 
                     <RadioButton x:Name="EDGE" Height="40" IsChecked="{Binding EDGEChecked}" Content="Ambino EDGE" FontSize="15"/>
-                    <RadioButton IsEnabled="False" x:Name="HUB"  Height="40" IsChecked="{Binding HUBV2Checked}" Content="Ambino HUBV2" FontSize="15"/>
+                    <RadioButton IsEnabled="True" x:Name="HUB"  Height="40" IsChecked="{Binding HUBV2Checked}" Content="Ambino HUBV2" FontSize="15"/>
                 </hc:ButtonGroup>
             </hc:TransitioningContentControl>
         </Grid>
@@ -117,7 +117,45 @@
                 </hc:ButtonGroup>
             </hc:TransitioningContentControl>
         </Grid>
+        <Grid Grid.ColumnSpan="2" Grid.Row="1">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=stepbar,Path=StepIndex}" Value="1"/>
+                                <Condition Binding="{Binding ElementName=HUB, Path=IsChecked}" Value="true"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </MultiDataTrigger>
 
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade" >
+                <hc:CheckComboBox ShowClearButton="True" MaxWidth="380"  ShowSelectAllButton="True" VerticalAlignment="Center">
+                    <hc:CheckComboBoxItem x:Name="ARGB1" IsSelected="{Binding ARGB1Selected}" >
+                        ARGB1
+                    </hc:CheckComboBoxItem>
+                    <hc:CheckComboBoxItem x:Name="ARGB2" IsSelected="{Binding ARGB2Selected}">
+                        ARGB2
+                    </hc:CheckComboBoxItem>
+                    <hc:CheckComboBoxItem x:Name="PCI1" IsSelected="{Binding PCI1Selected}">
+                        PCI1
+                    </hc:CheckComboBoxItem>
+                    <hc:CheckComboBoxItem x:Name="PCI2" IsSelected="{Binding PCI2Selected}">
+                        PCI2
+                    </hc:CheckComboBoxItem>
+                    <hc:CheckComboBoxItem x:Name="PCI3" IsSelected="{Binding PCI3Selected}">
+                        PCI3
+                    </hc:CheckComboBoxItem>
+                    <hc:CheckComboBoxItem x:Name="PCI4" IsSelected="{Binding PCI4Selected}">
+                        PCI4
+                    </hc:CheckComboBoxItem>
+                </hc:CheckComboBox>
+            </hc:TransitioningContentControl>
+        </Grid>
         <Grid Margin="8,16,0,0" Grid.ColumnSpan="2" Grid.Row="1">
             <Grid.Style>
                 <Style TargetType="Grid">

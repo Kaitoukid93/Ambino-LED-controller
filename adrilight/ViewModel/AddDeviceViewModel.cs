@@ -165,7 +165,72 @@ namespace adrilight.ViewModel
                 
             }
         }
+        private bool _aRGB1Selected;
+        public bool ARGB1Selected {
 
+            get { return _aRGB1Selected; }
+            set
+            {
+                _aRGB1Selected = value;
+             
+
+            }
+        }
+        private bool _aRGB2Selected;
+        public bool ARGB2Selected {
+
+            get { return _aRGB2Selected; }
+            set
+            {
+                _aRGB2Selected = value;
+
+
+            }
+        }
+        private bool _pCI1Selected;
+        public bool PCI1Selected {
+
+            get { return _pCI1Selected; }
+            set
+            {
+                _pCI1Selected = value;
+
+
+            }
+        }
+        private bool _pCI2Selected;
+        public bool PCI2Selected {
+
+            get { return _pCI2Selected; }
+            set
+            {
+                _pCI2Selected = value;
+
+
+            }
+        }
+        private bool _pCI3Selected;
+        public bool PCI3Selected {
+
+            get { return _pCI3Selected; }
+            set
+            {
+                _pCI3Selected = value;
+
+
+            }
+        }
+        private bool _pCI4Selected;
+        public bool PCI4Selected {
+
+            get { return _pCI4Selected; }
+            set
+            {
+                _pCI4Selected = value;
+
+
+            }
+        }
 
 
         private bool _checked24inch;

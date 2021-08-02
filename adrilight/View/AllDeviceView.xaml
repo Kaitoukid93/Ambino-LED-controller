@@ -25,10 +25,10 @@
             <BooleanToVisibilityConverter x:Key="boolToVisibilityConvert" />
             <SolidColorBrush x:Key="Item.MouseOver.Background" Color="Gold"/>
             <SolidColorBrush x:Key="Item.MouseOver.Border" Color="#a826A0Da"/>
-            <SolidColorBrush x:Key="Item.SelectedInactive.Background" Color="#3DDADADA"/>
+            <SolidColorBrush x:Key="Item.SelectedInactive.Background" Color="#21326CF3"/>
             <SolidColorBrush x:Key="Item.SelectedInactive.Border" Color="#FFDADADA"/>
-            <SolidColorBrush x:Key="Item.SelectedActive.Background" Color="#3D26A0DA"/>
-            <SolidColorBrush x:Key="Item.SelectedActive.Border" Color="#FF26A0DA"/>
+            <SolidColorBrush x:Key="Item.SelectedActive.Background" Color="#3F326CF3"/>
+            <SolidColorBrush x:Key="Item.SelectedActive.Border" Color="#FF326CF3"/>
 
             <Style x:Key="ListViewContainerStyle" TargetType="{x:Type ListViewItem}">
                 <Setter Property="SnapsToDevicePixels" Value="True"/>
@@ -39,10 +39,12 @@
                 <Setter Property="BorderBrush" Value="Transparent"/>
                 <Setter Property="BorderThickness" Value="1"/>
                 <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                <Setter Property="Width" Value="auto"/>
+                <Setter Property="Height" Value="auto"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ListViewItem}">
-                            <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="20" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                            <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" Margin="5" CornerRadius="40" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
                                 <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                             </Border>
                             <ControlTemplate.Triggers>
@@ -51,8 +53,10 @@
                                         <Condition Property="IsMouseOver" Value="True"/>
                                     </MultiTrigger.Conditions>
                                     <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Background}"/>
-                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Border}"/>
+                                    <Setter Property="BorderThickness" TargetName="Bd" Value="1"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Background}"/>
                                 </MultiTrigger>
+
                                 <MultiTrigger>
                                     <MultiTrigger.Conditions>
                                         <Condition Property="Selector.IsSelectionActive" Value="False"/>
@@ -67,6 +71,7 @@
                                         <Condition Property="IsSelected" Value="True"/>
                                     </MultiTrigger.Conditions>
                                     <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Background}"/>
+                                    <Setter Property="BorderThickness" TargetName="Bd" Value="1"/>
                                     <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Border}"/>
                                 </MultiTrigger>
                                 <Trigger Property="IsEnabled" Value="False">
@@ -89,10 +94,10 @@
 
     </UserControl.Resources>
     <Grid Grid.Column="1" Margin="20,10,0,0" >
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition Width="105"></ColumnDefinition>
+            <ColumnDefinition Width="191"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -108,11 +113,14 @@
             <TextBlock Margin="10,0,0,0" Grid.Row="0" Grid.Column="0" Text="DASHBOARD"  FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left"/>
             <TextBlock Margin="10,0,0,0" Grid.Row="1" Grid.Column="0" Text="Tất cả các thiết bị đã từng được thêm sẽ xuất hiện ở đây. Click vào từng thẻ để điều chỉnh" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="#FF898989"/>
         </Grid>
-        <Border Grid.Row="0" Grid.Column="1" VerticalAlignment="Top">
-            <Button Foreground="#FF326CF3" Background="#3F326CF3" Content="Thêm mới" Style="{StaticResource MaterialDesignFlatButton}" Width="75" Height="32" VerticalAlignment="Center" BorderThickness="0" Padding="0"   materialDesign:ButtonAssist.CornerRadius="7" Command="{Binding ShowAddNewCommand}" HorizontalAlignment="Center"/>
+        <Border Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" Height="32" HorizontalAlignment="Right" Width="95">
+            <Button Foreground="#FF326CF3" Background="#3F326CF3" Content="Thêm mới" Style="{StaticResource MaterialDesignFlatButton}" Width="75" Height="32" VerticalAlignment="Center" BorderThickness="0" Padding="0"   materialDesign:ButtonAssist.CornerRadius="7" Command="{Binding ShowAddNewCommand}" HorizontalAlignment="Right" Margin="0,0,20,0"/>
 
 
         </Border>
+        <Button Foreground="#FF326CF3" Background="#3F326CF3" Content="Refresh" Style="{StaticResource MaterialDesignFlatButton}" Width="66" Height="32" VerticalAlignment="Top" BorderThickness="0" Padding="0"   materialDesign:ButtonAssist.CornerRadius="7" Command="{Binding RefreshDeviceCommand}" HorizontalAlignment="Right" Margin="0,0,120,0" Grid.Column="1" Click="Button_Click"/>
+
+
         <Grid x:Name="parrentGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
 
 
@@ -217,7 +225,8 @@
                                                 <CollectionContainer Collection="{Binding Source={StaticResource allDevice}}" />
 
                                                 <ListBoxItem Foreground="Red" Width="30" Height="30">
-                                                    <materialDesign:PackIcon Kind="AddBox"></materialDesign:PackIcon></ListBoxItem>
+                                                    <materialDesign:PackIcon Kind="AddBox"></materialDesign:PackIcon>
+                                                </ListBoxItem>
                                             </CompositeCollection>
                                         </ListBox.ItemsSource>
 

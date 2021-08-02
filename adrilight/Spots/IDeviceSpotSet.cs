@@ -14,7 +14,8 @@ namespace adrilight.Spots
         object Lock { get; }
        
         int CountLeds(int spotsX, int spotsY);
-
+        int ID { get; set; }
+        int ParrentLocation { get; set; }
         
     }
 }

@@ -55,10 +55,10 @@ namespace adrilight
 
 
         public IDeviceSpot[] Spots { get; set; }
-     
+
 
         public object Lock { get; } = new object();
-   
+
 
         /// <summary>
         /// returns the number of leds
@@ -72,9 +72,30 @@ namespace adrilight
             }
 
             //normal case
-            return 2 * spotsX + 2 * spotsY-4 ;
+            return 2 * spotsX + 2 * spotsY - 4;
             //return spotsX * spotsY;
         }
+        private int _iD;
+
+        public int ID {
+            get { return DeviceSettings.DeviceID; }
+            set
+            {
+                _iD = value;
+            }
+        }
+
+        private int _parrentLocation;
+
+        public int ParrentLocation 
+            { 
+            get { return DeviceSettings.ParrentLocation; }
+            set
+            {
+            _parrentLocation= value;
+        }
+        }
+
 
 
         private IDeviceSettings DeviceSettings { get; }
@@ -155,6 +176,10 @@ namespace adrilight
                 }
                 }
                 else if(DeviceSettings.DeviceType=="ABEDGE")
+                {
+                    devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
+                }
+                else if(DeviceSettings.DeviceType=="Strip")
                 {
                     devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
                 }

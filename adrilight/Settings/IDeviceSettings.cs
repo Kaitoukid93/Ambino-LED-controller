@@ -16,6 +16,7 @@ namespace adrilight
         string DevicePort { get; set; }
         string GifFilePath { get; set; }
         int DeviceID { get; set; }
+        int ParrentLocation { get; set; }
         string DeviceSerial { get; set; }
         string DeviceType { get; set; }
         int RGBOrder { get; set; }

@@ -399,7 +399,9 @@
     <Compile Include="Spots\IGeneralSpot.cs" />
     <Compile Include="Spots\GeneralSpot.cs" />
     <Compile Include="Spots\ISpotSetReader.cs" />
+    <Compile Include="Spots\ISpotSetWrapper.cs" />
     <Compile Include="Spots\SpotSetReader.cs" />
+    <Compile Include="Spots\SpotSetWrapper.cs" />
     <Compile Include="Util\Atmosphere.cs" />
     <Compile Include="Util\Brightness.cs" />
     <Compile Include="Util\ColorUtil.cs" />
@@ -413,6 +415,7 @@
     <Compile Include="Util\IMusic.cs" />
     <Compile Include="Util\IOpenRGBClientDevice.cs" />
     <Compile Include="Util\IRainbow.cs" />
+    <Compile Include="Util\ISerialDeviceDetection.cs" />
     <Compile Include="Util\ISerialPortWrapper.cs" />
     <Compile Include="Util\ISerialStream.cs" />
     <Compile Include="Spots\ISpot.cs" />
@@ -425,6 +428,8 @@
     <Compile Include="Util\Music.cs" />
     <Compile Include="Util\OpenRGBClientDevice.cs" />
     <Compile Include="Util\Rainbow.cs" />
+    <Compile Include="Util\SerialDeviceDetection.cs" />
+    <Compile Include="Util\SerialStreamHUB.cs" />
     <Compile Include="Util\StaticColor.cs" />
     <Compile Include="Util\WinApi.cs" />
     <Compile Include="ViewModel\AddDeviceViewModel.cs" />
