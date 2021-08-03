@@ -7,6 +7,7 @@ using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -23,6 +24,7 @@ using Newtonsoft.Json;
 using Ninject;
 using OpenRGB.NET.Models;
 using Un4seen.BassWasapi;
+using Application = System.Windows.Forms.Application;
 
 namespace adrilight.ViewModel
 {
@@ -208,7 +210,19 @@ namespace adrilight.ViewModel
             {
                 WriteDeviceInfoJson();
             }
-            PreviewSpots = SpotSets[CurrentDevice.DeviceID - 1].Spots;
+            if (CurrentDevice.DeviceID == 151293)
+            {
+
+            }
+            else
+            {
+                foreach (var spotset in SpotSets)
+                    if (spotset.ID == CurrentDevice.DeviceID)
+                    {
+                        PreviewSpots = spotset.Spots;
+                    }
+
+            }
         }
 
         public ICommand SelectMenuItem { get; set; }
@@ -723,7 +737,125 @@ namespace adrilight.ViewModel
         }
         public void RefreshDevice()
         {
-            SerialDeviceDetection.RefreshDevice();
+          var detectedDevices=  SerialDeviceDetection.RefreshDevice();
+            var newdevices = new List<string>();
+            var openRGBdevices = new List<Device>();
+            var oldDeviceNum = Cards.Count;
+            if(OpenRGBClientDevice.DeviceList!=null)
+            {
+                foreach (var device in OpenRGBClientDevice.DeviceList)//add openrgb device to list
+                {
+                    openRGBdevices.Add(device);
+                }
+
+                foreach (var device in OpenRGBClientDevice.DeviceList)// check if device already exist
+                {
+                    foreach (var item in Cards)
+                    {
+                        if (device.Serial == item.DeviceSerial)
+                            openRGBdevices.Remove(device);
+                    }
+                }
+            }
+           
+            if(openRGBdevices.Count>0)
+            {
+                var result = HandyControl.Controls.MessageBox.Show("Phát hiện " +openRGBdevices.Count + " Thiết bị OpenRGB" + " Nhấn [Confirm] để add vào Dashboard", "OpenRGB Device", MessageBoxButton.OK, MessageBoxImage.Information);
+                if (result == MessageBoxResult.OK)//restart app
+                {
+                    foreach (var device in openRGBdevices)//convert openRGB device to ambino Device
+                    {
+
+                        IDeviceSettings newDevice = new DeviceSettings();
+                        newDevice.DeviceName = device.Name.ToString();
+                        newDevice.DeviceType = device.Type.ToString();
+                        newDevice.DevicePort = device.Location.ToString();
+                        newDevice.DeviceID = 151293;
+                        newDevice.DeviceSerial = device.Serial;
+                        Cards.Add(newDevice);
+                    }
+                }
+            }
+           
+            foreach (var device in detectedDevices)
+            {
+                newdevices.Add(device);
+            }
+            
+            if (detectedDevices.Count>0)
+            {
+                foreach (var device in detectedDevices)
+                {
+                    foreach (var existedDevice in Cards)
+                    {
+                        if (existedDevice.DevicePort == device)
+                            newdevices.Remove(device);
+                    }
+
+                }
+
+                if (newdevices.Count == 1)
+                {
+                    var result = HandyControl.Controls.MessageBox.Show("Phát hiện Ambino Basic Rev 2 đã kết nối ở " + newdevices[0] + " Nhấn [Confirm] để add vào Dashboard", "Ambino Device", MessageBoxButton.OK, MessageBoxImage.Information);
+                    if (result == MessageBoxResult.OK)//restart app
+                    {
+                        foreach (var device in newdevices)
+                        {
+                            IDeviceSettings newDevice = new DeviceSettings();
+                            newDevice.DeviceName = "Auto Detected Device";
+                            newDevice.DeviceType = "ABRev2";
+                            newDevice.DevicePort = device;
+                            newDevice.DeviceID = Cards.Count + 1;
+                            newDevice.DeviceSerial = "151293";
+                            Cards.Add(newDevice);
+                          
+
+                        }
+
+                    }
+                }
+                else if (newdevices.Count > 1)
+                {
+                    string delimiter = ",";
+                    var alldevices = string.Join(delimiter, newdevices);
+                    var result = HandyControl.Controls.MessageBox.Show("Phát hiện Ambino Basic Rev 2 đã kết nối ở " + alldevices + " Nhấn [Confirm] để add vào Dashboard", "Ambino Device", MessageBoxButton.OK, MessageBoxImage.Information);
+                    if (result == MessageBoxResult.OK)//restart app
+                    {
+                        foreach (var device in newdevices)
+                        {
+                            IDeviceSettings newDevice = new DeviceSettings();
+                            newDevice.DeviceName = "Auto Detected Device";
+                            newDevice.DeviceType = "ABRev2";
+                            newDevice.DevicePort = device;
+                            newDevice.DeviceID = Cards.Count + 1;
+                            newDevice.DeviceSerial = "151293";
+                            Cards.Add(newDevice);
+                          
+
+                        }
+
+                    }
+                }
+
+                else if (newdevices.Count == 0)//no device detected in the list
+                {
+
+                    HandyControl.Controls.MessageBox.Show("Không tìm thấy thiết bị mới nào của Ambino, kiểm tra lại kết nối hoặc thêm thiết bị theo cách thủ công", "Ambino Device", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    // return null;
+                }
+
+
+          
+
+               
+            }
+            if (oldDeviceNum != Cards.Count) //there are changes in device list, we simply restart the application to add process
+            {
+                WriteJson();
+                Application.Restart();
+                Process.GetCurrentProcess().Kill();
+            }
+
         }
         //public void ReadFAQ()
         //{
@@ -882,7 +1014,15 @@ namespace adrilight.ViewModel
                     }
                     else
                     {
-                        if(vm.ARGB1Selected) // ARGB1 output port is in the list
+
+                        vm.Device.PropertyChanged += DeviceInfo_PropertyChanged;
+                        _isAddnew = true;
+                        vm.Device.DeviceID = Cards.Count() + 1;
+
+                        Cards.Add(vm.Device);
+                       // WriteJson();
+                        _isAddnew = false;
+                        if (vm.ARGB1Selected) // ARGB1 output port is in the list
                         {
                             var argb1 = new DeviceSettings();
                             argb1.DeviceType = "Strip";                           //add to device settings
@@ -891,6 +1031,7 @@ namespace adrilight.ViewModel
                             argb1.SpotsY = 1;
                             argb1.NumLED = 16;
                             argb1.DeviceName = "ARGB1(HUBV2)";
+                            argb1.ParrentLocation = vm.Device.DeviceID;
                             Cards.Add(argb1);
                         }
                          if (vm.ARGB2Selected)
@@ -902,6 +1043,7 @@ namespace adrilight.ViewModel
                             argb2.SpotsY = 1;
                             argb2.NumLED = 160;
                             argb2.DeviceName = "ARGB2(HUBV2)";
+                            argb2.ParrentLocation = vm.Device.DeviceID;
                             Cards.Add(argb2);
                         }
                          if (vm.PCI1Selected)
@@ -909,10 +1051,11 @@ namespace adrilight.ViewModel
                             var PCI = new DeviceSettings();
                             PCI.DeviceType = "Strip";                           //add to device settings
                             PCI.DeviceID = Cards.Count() + 1;
-                            PCI.SpotsX = 80;
+                            PCI.SpotsX = 50;
                             PCI.SpotsY = 1;
-                            PCI.NumLED = 80;
+                            PCI.NumLED = 50;
                             PCI.DeviceName = "PCI1(HUBV2)";
+                            PCI.ParrentLocation = vm.Device.DeviceID;
                             Cards.Add(PCI);
                         }
                          if (vm.PCI2Selected)
@@ -920,10 +1063,11 @@ namespace adrilight.ViewModel
                             var PCI = new DeviceSettings();
                             PCI.DeviceType = "Strip";                           //add to device settings
                             PCI.DeviceID = Cards.Count() + 1;
-                            PCI.SpotsX = 80;
+                            PCI.SpotsX = 50;
                             PCI.SpotsY = 1;
-                            PCI.NumLED = 80;
+                            PCI.NumLED = 50;
                             PCI.DeviceName = "PCI2(HUBV2)";
+                            PCI.ParrentLocation = vm.Device.DeviceID;
                             Cards.Add(PCI);
                         }
                          if (vm.PCI3Selected)
@@ -931,10 +1075,11 @@ namespace adrilight.ViewModel
                             var PCI = new DeviceSettings();
                             PCI.DeviceType = "Strip";                           //add to device settings
                             PCI.DeviceID = Cards.Count() + 1;
-                            PCI.SpotsX = 80;
+                            PCI.SpotsX = 50;
                             PCI.SpotsY = 1;
-                            PCI.NumLED = 80;
+                            PCI.NumLED = 50;
                             PCI.DeviceName = "PCI3(HUBV2)";
+                            PCI.ParrentLocation = vm.Device.DeviceID;
                             Cards.Add(PCI);
                         }
                         if (vm.PCI4Selected)
@@ -942,10 +1087,11 @@ namespace adrilight.ViewModel
                             var PCI = new DeviceSettings();
                             PCI.DeviceType = "Strip";                           //add to device settings
                             PCI.DeviceID = Cards.Count() + 1;
-                            PCI.SpotsX = 80;
+                            PCI.SpotsX = 50;
                             PCI.SpotsY = 1;
-                            PCI.NumLED = 80;
+                            PCI.NumLED = 50;
                             PCI.DeviceName = "PCI4(HUBV2)";
+                            PCI.ParrentLocation = vm.Device.DeviceID;
                             Cards.Add(PCI);
                         }
 
@@ -957,7 +1103,7 @@ namespace adrilight.ViewModel
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    HandyControl.Controls.MessageBox.Show(ex.Message);
                 }
                 Application.Restart();
                 Process.GetCurrentProcess().Kill();
@@ -1000,35 +1146,13 @@ namespace adrilight.ViewModel
         public void WriteJson()
         {
             var devices = new List<IDeviceSettings>();
-            var openRGBdevices = new List<Device>();
-            foreach (var device in OpenRGBClientDevice.DeviceList)//add openrgb device to list
-            {
-                openRGBdevices.Add(device);
-            }
+          
 
                 foreach (var item in Cards)
             {
                 devices.Add(item);
             }
-            foreach (var device in OpenRGBClientDevice.DeviceList)// check if device already exist
-            {
-                foreach (var item in Cards)
-                {
-                    if (device.Serial == item.DeviceSerial)
-                        openRGBdevices.Remove(device);
-                }
-            }
-                foreach (var device in openRGBdevices)//convert openRGB device to ambino Device
-            {
-             
-                            IDeviceSettings newDevice = new DeviceSettings();
-                            newDevice.DeviceName = device.Name.ToString();
-                            newDevice.DeviceType = device.Type.ToString();
-                            newDevice.DevicePort = device.Location.ToString();
-                            newDevice.DeviceID = 151293;
-                            newDevice.DeviceSerial = device.Serial;
-                            devices.Add(newDevice);
-                        }
+            
                     
                   
                  
@@ -1136,7 +1260,7 @@ namespace adrilight.ViewModel
                 foreach(var spotset in SpotSets)
                         if(spotset.ID== CurrentDevice.DeviceID)
                     {
-                        _previewSpots = spotset.Spots;
+                        PreviewSpots = spotset.Spots;
                     }
 
                     }

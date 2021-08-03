@@ -187,7 +187,7 @@ namespace adrilight
             _log.Debug("Started Music Color.");
             // double brightness = UserSettings.Brightness / 100d;
 
-            var numLED = (DeviceSettings.SpotsX - 1) * 2 + (DeviceSettings.SpotsY - 1) * 2;
+            var numLED = DeviceSettings.NumLED;
             byte[] spectrumdata = new byte[numLED];
 
             try

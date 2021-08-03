@@ -8,6 +8,6 @@ namespace adrilight.Util
 {
     public interface ISerialDeviceDetection
     {
-        void RefreshDevice();
+      List<String>  RefreshDevice();
     }
 }

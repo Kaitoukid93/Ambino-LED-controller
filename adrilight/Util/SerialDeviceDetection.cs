@@ -19,7 +19,7 @@ namespace adrilight.Util
         }
 
 
-        public void RefreshDevice()
+        public List<string> RefreshDevice()
         {
             List<string> names = ComPortNames("1209", "c550");
             List<string> devices = new List<string>();
@@ -37,26 +37,15 @@ namespace adrilight.Util
                         
                     
                 }
-                 if(counter==1)
-                {
-                    HandyControl.Controls.MessageBox.Show("Phát hiện Ambino Basic Rev 2 đã kết nối ở " + devices[0], "Ambino Device", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-               else if (counter > 1)
-                {
-                    string delimiter = ",";
-                    var alldevices = string.Join(delimiter, devices);
-                    HandyControl.Controls.MessageBox.Show("Phát hiện Ambino Basic Rev 2 đã kết nối ở " + alldevices, "Ambino Device", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-
-               else  if (counter==0)//no device detected in the list
-                {
-
-                        HandyControl.Controls.MessageBox.Show("Không tìm thấy thiết bị nào của Ambino, kiểm tra lại kết nối hoặc thêm thiết bị theo cách thủ công", "Ambino Device", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
+               
                 
             }
             else
+            {
                 Console.WriteLine("Không tìm thấy thiết bị nào của Ambino, hãy thêm thiết bị theo cách thủ công");
+               // return null;
+            }
+            return devices;
         }
 
 

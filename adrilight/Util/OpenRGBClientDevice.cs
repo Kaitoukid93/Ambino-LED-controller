@@ -28,7 +28,10 @@ namespace adrilight.Util
 
         private void RefreshOpenRGBDeviceState()
         {
+            try
+            {
 
+            
             using var client = new OpenRGBClient(name: "My OpenRGB Client", autoconnect: true, timeout: 1000);
 
             var deviceCount = client.GetControllerCount();
@@ -47,7 +50,11 @@ namespace adrilight.Util
             {
                 _log.Info($"Device found : " + device.Name.ToString());
             }
-
+            }
+            catch(TimeoutException)
+            {
+                HandyControl.Controls.MessageBox.Show("OpenRGB server Không khả dụng, hãy start server trong app OpenRGB (SDK Server)");
+            }
         }
 
         private Device[] _deviceList;
