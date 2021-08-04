@@ -161,7 +161,7 @@
 
                     <DataTemplate>
 
-                        <Grid x:Name="dev" Visibility="{Binding IsVissible, Converter={StaticResource boolToVisibilityConvert}}" Margin="20" Width="230" Height="245">
+                        <Grid x:Name="dev"  Margin="20" Width="230" Height="245">
 
 
 

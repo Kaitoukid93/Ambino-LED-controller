@@ -257,6 +257,7 @@ namespace adrilight.ViewModel
         public ICommand SelectCardCommand { get; set; }
         public ICommand ShowAddNewCommand { get; set; }
         public ICommand RefreshDeviceCommand { get; set; }
+        public ICommand DFUCommand { get; set; }
         // private IViewModelFactory<AllDeviceViewModel> _allDeviceView;
         private bool isPreview = false;
         private bool _isAddnew = false;
@@ -445,14 +446,16 @@ namespace adrilight.ViewModel
         }
         GifBitmapDecoder decoder;
         public IGeneralSettings GeneralSettings { get; }
+        public ISerialStream[] SerialStreams { get; }
         public IOpenRGBClientDevice OpenRGBClientDevice { get; set; }
         public ISerialDeviceDetection SerialDeviceDetection { get; set; }
         public int AddedDevice { get; }
 
-        public MainViewViewModel(IDeviceSettings[] cards, IDeviceSpotSet[] deviceSpotSets, IGeneralSettings generalSettings, IOpenRGBClientDevice openRGBDevices, ISerialDeviceDetection serialDeviceDetection)
+        public MainViewViewModel(IDeviceSettings[] cards, IDeviceSpotSet[] deviceSpotSets, IGeneralSettings generalSettings, IOpenRGBClientDevice openRGBDevices, ISerialDeviceDetection serialDeviceDetection, ISerialStream[] serialStreams)
         {
 
             GeneralSettings = generalSettings ?? throw new ArgumentNullException(nameof(generalSettings));
+            SerialStreams = serialStreams ?? throw new ArgumentNullException(nameof(serialStreams));
             Cards = new ObservableCollection<IDeviceSettings>();
             AddedDevice = cards.Length;
             SpotSets = new ObservableCollection<IDeviceSpotSet>();
@@ -466,6 +469,8 @@ namespace adrilight.ViewModel
             {
                 SpotSets.Add(spotSet);
             }
+
+
 
             WriteJson();
             //binding settings to settings
@@ -731,6 +736,8 @@ namespace adrilight.ViewModel
                 SnapShot();
             });
 
+          
+
             RefreshDeviceCommand = new RelayCommand<string>((p) => {
                 return true;
             }, (p) =>
@@ -772,6 +779,28 @@ namespace adrilight.ViewModel
             }
             CurrentDevice.SnapShot = snapshot;
             RaisePropertyChanged(() => CurrentDevice.SnapShot);
+        }
+        public void DFU()
+        {
+            foreach(var serialStream in SerialStreams)
+            {
+                if (serialStream.ID == CurrentDevice.DeviceID)
+                    serialStream.DFU();
+            }
+            
+        }
+        private int _dFUProgress;
+        public int DFUProgress {
+            get { return _dFUProgress; }
+            set
+            {
+                _dFUProgress = value;
+                if (value == 75)
+                {
+                    DFU();
+                }
+            }
+
         }
         public void RefreshDevice()
         {
@@ -895,6 +924,7 @@ namespace adrilight.ViewModel
             }
 
         }
+
         //public void ReadFAQ()
         //{
         //    AppName = $"adrilight {App.VersionNumber}";
@@ -1029,6 +1059,10 @@ namespace adrilight.ViewModel
 
 
         }
+
+
+
+
         public async void ShowAddNewDialog()
         {
             var newdevice = new DeviceSettings();

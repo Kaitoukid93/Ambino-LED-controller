@@ -25,6 +25,7 @@ namespace adrilight.Fakes
         {
 
         }
+        public int ID { get;  set; }
 
     }
 }

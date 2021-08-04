@@ -1,4 +1,5 @@
-﻿using HandyControl.Data;
+﻿using adrilight.ViewModel;
+using HandyControl.Data;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace adrilight.View
 {
@@ -25,9 +27,17 @@ namespace adrilight.View
     {
         public SplitLightView()
         {
-            InitializeComponent();
-        }
 
+           
+            InitializeComponent();
+          //  DataContext = MainView;
+
+            _timer = new DispatcherTimer {
+                Interval = TimeSpan.FromMilliseconds(10)
+            };
+            _timer.Tick += Timer_Tick;
+        }
+      
         private void zone0_Click(object sender, RoutedEventArgs e)
         {
             var color = Color.FromRgb( CustomZonePicker.Color.R, CustomZonePicker.Color.G, CustomZonePicker.Color.B);
@@ -433,6 +443,102 @@ namespace adrilight.View
 
             HandyControl.Controls.MessageBox.Show("SnapShot đã được lưu! Để sử dụng, hãy kích hoạt Sentry Mode trong cài đặt thiết bị", "SnapShot", MessageBoxButton.OK, MessageBoxImage.Information);
           
+        }
+       
+      
+
+        
+        private readonly DispatcherTimer _timer;
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            if(DFU.IsChecked==true)
+            {
+                if (DFU.Progress < 100)
+                    DFU.Progress++;
+
+                 if (DFU.Progress is >= 50 and < 75)
+                {
+                    DFUText.Text = "oops!";
+                }
+                if (DFU.Progress is >= 75 and < 95)
+                {
+                    DFUText.Text = "Entering DFU...";
+                    
+                    DFUIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.ProgressDownload;
+                    //run DFU serial
+                    // MainViewViewmodel.DFU();
+                }
+               if (DFU.Progress is >= 95 and < 100)
+                {
+                    DFUText.Text = "Done!";
+                    DFU.Background = new SolidColorBrush(Color.FromArgb(64, 50, 108, 243));
+                    DFU.Foreground = new SolidColorBrush(Color.FromArgb(255, 50, 108, 243));
+
+                }
+                if (DFU.Progress == 100)
+                {
+                    //close comport
+
+
+                    DFU.Progress = 0;
+                    _timer.Stop();
+                    DFU.IsChecked = false;
+                    DFUText.Text = "";
+                    DFUIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.ProgressDownload;
+                    DFU.Background = new SolidColorBrush(Color.FromArgb(64, 50, 108, 243));
+                    DFU.Foreground = new SolidColorBrush(Color.FromArgb(255, 50, 108, 243));
+                    // IsUploading = false;
+                }
+            }
+           
+        }
+
+        private void ProgressButton_Click(object sender, RoutedEventArgs e)
+        {
+           
+        }
+
+        private void DFU_Checked(object sender, RoutedEventArgs e)
+        {
+           
+                
+        }
+
+        private void DFU_Click(object sender, RoutedEventArgs e)
+        {
+            if (!_timer.IsEnabled)
+            {
+                if (DFU.IsChecked == true)
+                {
+                    var result = HandyControl.Controls.MessageBox.Show("Bạn có chắc chắn muốn vào chế độ DFU? Chế độ DFU dùng để nạp Firmware cho thiết bị chỉ khi thiết bị gặp lỗi", "Device Firmware Upgrade", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+
+                    if (result == MessageBoxResult.OK)//restart app
+                    {
+                        _timer.Start();
+                        DFUText.Text = "Cancel";
+                        DFUIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Cancel;
+                        DFU.Background = new SolidColorBrush(Color.FromArgb(64, 253, 0, 20));
+                        DFU.Foreground = new SolidColorBrush(Color.FromArgb(255, 253, 0, 20));
+                    }
+                    else
+                    {
+                        DFU.IsChecked = false;
+                    }    
+                  
+                }
+                    
+            }
+
+            else
+            {
+                _timer.Stop();
+                DFUText.Text = "";
+                DFUIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.ProgressDownload;
+                DFU.Background = new SolidColorBrush(Color.FromArgb(64, 50, 108, 243));
+                DFU.Foreground = new SolidColorBrush(Color.FromArgb(255, 50, 108, 243));
+                DFU.Progress = 0;
+            }
         }
     }
 }

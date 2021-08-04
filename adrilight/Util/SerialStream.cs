@@ -37,9 +37,9 @@ namespace adrilight
             
         }
         //Dependency Injection//
-        private IDeviceSettings DeviceSettings { get; }
-        private IGeneralSettings GeneralSettings { get; }
-        private IDeviceSpotSet DeviceSpotSet { get; }
+        private IDeviceSettings DeviceSettings { get; set; }
+        private IGeneralSettings GeneralSettings { get; set; }
+        private IDeviceSpotSet DeviceSpotSet { get; set; }
         private bool CheckSerialPort(string serialport)
         {
             Stop();//stop current serial stream first to avoid access denied
@@ -152,7 +152,14 @@ namespace adrilight
 
         private int frameCounter;
         private int blackFrameCounter;
-
+        private int _iD;
+        public int ID {
+            get { return DeviceSettings.DeviceID; }
+            set
+            {
+                _iD = value;
+            }
+        }
 
 
         public void Start()
@@ -191,9 +198,16 @@ namespace adrilight
         {
             //Open device at 1200 baudrate
            
+                
+                Stop();
+            if(DeviceSettings.DevicePort!=null)
+            {
                 var serialPort = (ISerialPortWrapper)new WrappedSerialPort(new SerialPort(DeviceSettings.DevicePort, 1200));
                 serialPort.Open();
                 serialPort.Close();
+                
+            }
+               
 
             
 

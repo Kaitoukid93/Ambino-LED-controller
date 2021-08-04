@@ -46,8 +46,8 @@ namespace adrilight
 
         }
         //Dependency Injection//
-        private IDeviceSettings DeviceSettings { get; }
-        private IGeneralSettings GeneralSettings { get; }
+        private IDeviceSettings DeviceSettings { get; set; }
+        private IGeneralSettings GeneralSettings { get; set; }
         //  private IDeviceSpotSet[] ChildSpotSets { get; }
 
         private ObservableCollection<IDeviceSpotSet> _childSpotSets;
@@ -173,7 +173,14 @@ namespace adrilight
         private int frameCounter;
         private int blackFrameCounter;
 
-
+        private int _iD;
+        public int ID {
+            get { return DeviceSettings.DeviceID; }
+            set
+            {
+                _iD = value;
+            }
+        }
 
         public void Start()
         {
@@ -212,11 +219,22 @@ namespace adrilight
 
         public void DFU()
         {
+            int DFUStreamLength = _messagePreamble.Length + 3;
+            var DFUStream = ArrayPool<byte>.Shared.Rent(DFUStreamLength);
+            Buffer.BlockCopy(_messagePreamble, 0, DFUStream, 0 , _messagePreamble.Length);
+            int counter = _messagePreamble.Length;
+            DFUStream[counter++] = 1; //dummy value
+            DFUStream[counter++] = 1; //dummy value
+            DFUStream[counter++] = 2; //DFU mode value
             //get DFU stream
 
             //Open Serial port
-
-            //Send DFU stream
+            Stop();
+            var serialPort = (ISerialPortWrapper)new WrappedSerialPort(new SerialPort(DeviceSettings.DevicePort, 2000000));
+            serialPort.Open();
+            serialPort.Write(DFUStream, 0, DFUStreamLength);//Send DFU stream
+            Thread.Sleep(1000);
+            serialPort.Close();
 
             //Close Serial port in under 5 sec (5sec is HUBv2 restart signal delay)
         }

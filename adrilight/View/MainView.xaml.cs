@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using adrilight.ViewModel;
 namespace adrilight.View
 {
@@ -23,10 +24,12 @@ namespace adrilight.View
         public MainView()
         {
             InitializeComponent();
-           // ViewModel = new MainViewViewModel();
-           // this.DataContext = ViewModel;
+            // ViewModel = new MainViewViewModel();
+            // this.DataContext = ViewModel;
+           
         }
 
+        
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {           
             this.DragMove();
@@ -37,5 +40,8 @@ namespace adrilight.View
             e.Cancel = true;
             this.Visibility = Visibility.Hidden;
         }
+
+
+       
     }
 }
