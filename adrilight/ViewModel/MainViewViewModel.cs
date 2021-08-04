@@ -312,6 +312,44 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged();
             }
         }
+
+        public int _deviceType;
+        public int DeviceType {
+            get { if (CurrentDevice.DeviceType == "Strip")
+                    return 0;
+                else if (CurrentDevice.DeviceType == "Square")
+                    return 1;
+                else
+                    return 0;
+            }
+            set
+            {
+                _deviceType= value;
+                switch(value)
+                {
+                    case 0://strip type
+                        CurrentDevice.DeviceType = "Strip";
+                        CurrentDevice.SpotsX = CurrentDevice.NumLED;
+                        CurrentDevice.SpotsY = 1;
+                        RaisePropertyChanged(() => CurrentDevice.SpotsX);
+                        RaisePropertyChanged(() => CurrentDevice.SpotsY);
+                        RaisePropertyChanged(() => CurrentDevice.DeviceType);
+                        break;
+                    case 1://square type
+                        CurrentDevice.DeviceType = "Square";
+                        CurrentDevice.SpotsX = CurrentDevice.NumLED / 4 + 1;
+                        CurrentDevice.SpotsY = (CurrentDevice.NumLED - (CurrentDevice.NumLED/4)*2) / 2 +1;
+                        RaisePropertyChanged(() => CurrentDevice.SpotsX);
+                        RaisePropertyChanged(() => CurrentDevice.SpotsY);
+                        RaisePropertyChanged(() => CurrentDevice.DeviceType);
+                        break;
+                    case 2://matrix type
+                        CurrentDevice.DeviceType = "Matrix";
+                        break;
+                }
+                
+            }
+        }
         public IList<string> _AvailableAudioDevice = new List<string>();
         public IList<String> AvailableAudioDevice {
             get
@@ -1018,7 +1056,7 @@ namespace adrilight.ViewModel
                         vm.Device.PropertyChanged += DeviceInfo_PropertyChanged;
                         _isAddnew = true;
                         vm.Device.DeviceID = Cards.Count() + 1;
-
+                        vm.Device.IsVissible = false;
                         Cards.Add(vm.Device);
                        // WriteJson();
                         _isAddnew = false;
@@ -1032,6 +1070,7 @@ namespace adrilight.ViewModel
                             argb1.NumLED = 16;
                             argb1.DeviceName = "ARGB1(HUBV2)";
                             argb1.ParrentLocation = vm.Device.DeviceID;
+                            argb1.OutputLocation = 0;
                             Cards.Add(argb1);
                         }
                          if (vm.ARGB2Selected)
@@ -1044,6 +1083,7 @@ namespace adrilight.ViewModel
                             argb2.NumLED = 160;
                             argb2.DeviceName = "ARGB2(HUBV2)";
                             argb2.ParrentLocation = vm.Device.DeviceID;
+                            argb2.OutputLocation = 1;
                             Cards.Add(argb2);
                         }
                          if (vm.PCI1Selected)
@@ -1056,6 +1096,7 @@ namespace adrilight.ViewModel
                             PCI.NumLED = 50;
                             PCI.DeviceName = "PCI1(HUBV2)";
                             PCI.ParrentLocation = vm.Device.DeviceID;
+                            PCI.OutputLocation = 2;
                             Cards.Add(PCI);
                         }
                          if (vm.PCI2Selected)
@@ -1068,6 +1109,7 @@ namespace adrilight.ViewModel
                             PCI.NumLED = 50;
                             PCI.DeviceName = "PCI2(HUBV2)";
                             PCI.ParrentLocation = vm.Device.DeviceID;
+                            PCI.OutputLocation = 3;
                             Cards.Add(PCI);
                         }
                          if (vm.PCI3Selected)
@@ -1080,6 +1122,7 @@ namespace adrilight.ViewModel
                             PCI.NumLED = 50;
                             PCI.DeviceName = "PCI3(HUBV2)";
                             PCI.ParrentLocation = vm.Device.DeviceID;
+                            PCI.OutputLocation = 4;
                             Cards.Add(PCI);
                         }
                         if (vm.PCI4Selected)
@@ -1092,6 +1135,7 @@ namespace adrilight.ViewModel
                             PCI.NumLED = 50;
                             PCI.DeviceName = "PCI4(HUBV2)";
                             PCI.ParrentLocation = vm.Device.DeviceID;
+                            PCI.OutputLocation = 5;
                             Cards.Add(PCI);
                         }
 

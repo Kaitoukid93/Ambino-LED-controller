@@ -186,7 +186,18 @@ namespace adrilight
 
         public bool IsRunning => _workerThread != null && _workerThread.IsAlive;
 
-        
+        public void DFU()
+
+        {
+            //Open device at 1200 baudrate
+           
+                var serialPort = (ISerialPortWrapper)new WrappedSerialPort(new SerialPort(DeviceSettings.DevicePort, 1200));
+                serialPort.Open();
+                serialPort.Close();
+
+            
+
+        }
 
 
 

@@ -20,7 +20,8 @@ namespace adrilight
         string DeviceSerial { get; set; }
         string DeviceType { get; set; }
         int RGBOrder { get; set; }
-
+        bool IsVissible { get; set; }
+        int OutputLocation { get; set; }
         int ParentDeviceId { get; set; }
         // DateTime? LastUpdateCheck { get; set; }
         [Obsolete]

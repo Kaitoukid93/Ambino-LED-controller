@@ -95,6 +95,15 @@ namespace adrilight
             _parrentLocation= value;
         }
         }
+        private int _outputLocation;
+        public int OutputLocation {
+            get { return DeviceSettings.OutputLocation; }
+            set
+            {
+                _outputLocation = value;
+            }
+        }
+
 
 
 
@@ -182,6 +191,54 @@ namespace adrilight
                 else if(DeviceSettings.DeviceType=="Strip")
                 {
                     devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
+                }
+                else if (DeviceSettings.DeviceType == "Square")
+                {
+                    if (DeviceSettings.SelectedDisplay == 0) // 
+                    {
+                        if (spotsX != generalSettings.SpotsX || spotsY != generalSettings.SpotsY)// check if user input over kill the parrent's matrix that precreated
+                        {
+                            spotsX = generalSettings.SpotsX;
+                            spotsY = generalSettings.SpotsY; // revert to default value of spotsX and spotsY
+                                                             // MessageBox.Show("Can not create a matrix that greater than original matrix, please enter a smaller value!!!");
+                            devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
+                        }
+                        else
+
+                        {
+                            devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
+                        }
+                    }
+                    else if (DeviceSettings.SelectedDisplay == 1)
+                    {
+                        if (spotsX != generalSettings.SpotsX2 || spotsY != generalSettings.SpotsY2)// check if user input over kill the parrent's matrix that precreated
+                        {
+                            spotsX = generalSettings.SpotsX2;
+                            spotsY = generalSettings.SpotsY2; // revert to default value of spotsX and spotsY
+                                                              // MessageBox.Show("Can not create a matrix that greater than original matrix, please enter a smaller value!!!");
+                            devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
+                        }
+                        else
+
+                        {
+                            devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
+                        }
+                    }
+                    else if (DeviceSettings.SelectedDisplay == 2)
+                    {
+                        if (spotsX != generalSettings.SpotsX3 || spotsY != generalSettings.SpotsY3)// check if user input over kill the parrent's matrix that precreated
+                        {
+                            spotsX = generalSettings.SpotsX3;
+                            spotsY = generalSettings.SpotsY3; // revert to default value of spotsX and spotsY
+                                                              // MessageBox.Show("Can not create a matrix that greater than original matrix, please enter a smaller value!!!");
+                            devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
+                        }
+                        else
+
+                        {
+                            devicespots = new DeviceSpot[CountLeds(spotsX, spotsY)];
+                        }
+                    }
                 }
                 else 
                 {

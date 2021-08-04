@@ -29,13 +29,13 @@ namespace adrilight
         {
             GeneralSettings = generalSettings ?? throw new ArgumentException(nameof(generalSettings));
             DeviceSettings = deviceSettings ?? throw new ArgumentNullException(nameof(deviceSettings));
-          // ChildSpotSets = deviceSpotSets ?? throw new ArgumentNullException(nameof(deviceSpotSets));
+            // ChildSpotSets = deviceSpotSets ?? throw new ArgumentNullException(nameof(deviceSpotSets));
             ChildSpotSets = new ObservableCollection<IDeviceSpotSet>();
             DeviceSettings.PropertyChanged += UserSettings_PropertyChanged;
             foreach (IDeviceSpotSet spotSet in deviceSpotSets)
             {
-                if(spotSet.ParrentLocation==DeviceSettings.DeviceID)// child element actually inside the HUB element so HUB ID is Parrent location of child device
-               ChildSpotSets.Add(spotSet);
+                if (spotSet.ParrentLocation == DeviceSettings.DeviceID)// child element actually inside the HUB element so HUB ID is Parrent location of child device
+                    ChildSpotSets.Add(spotSet);
             }
             //SpotSets = new ObservableCollection<IDeviceSpotSet>();
             RefreshTransferState();
@@ -48,7 +48,7 @@ namespace adrilight
         //Dependency Injection//
         private IDeviceSettings DeviceSettings { get; }
         private IGeneralSettings GeneralSettings { get; }
-      //  private IDeviceSpotSet[] ChildSpotSets { get; }
+        //  private IDeviceSpotSet[] ChildSpotSets { get; }
 
         private ObservableCollection<IDeviceSpotSet> _childSpotSets;
         public ObservableCollection<IDeviceSpotSet> ChildSpotSets {
@@ -57,7 +57,7 @@ namespace adrilight
             {
                 if (_childSpotSets == value) return;
                 _childSpotSets = value;
-               // RaisePropertyChanged();
+                // RaisePropertyChanged();
             }
         }
         private bool CheckSerialPort(string serialport)
@@ -210,18 +210,29 @@ namespace adrilight
 
 
 
+        public void DFU()
+        {
+            //get DFU stream
+
+            //Open Serial port
+
+            //Send DFU stream
+
+            //Close Serial port in under 5 sec (5sec is HUBv2 restart signal delay)
+        }
 
 
         private (byte[] Buffer, int OutputLength) GetOutputStream()
         {
             int totalBufferLength = 0;
-            int currentBufferLength = 0;
-            foreach (var childSpotSet in ChildSpotSets) //caculate data buffer length
-            {
-                int bufferLength = childSpotSet.Spots.Length * 3;
-                         
-                totalBufferLength += bufferLength;
-            }
+           // int currentBufferLength = 0;
+            //foreach (var childSpotSet in ChildSpotSets) //caculate data buffer length
+            //{
+            //    int bufferLength = childSpotSet.Spots.Length * 3;
+
+            //    totalBufferLength += bufferLength;
+            //}
+            totalBufferLength = (50 * 4) * 3 + 16 * 3 + 160 * 3;
             totalBufferLength += 3; //3 bytes extra
             totalBufferLength += 3; //3 bytes for preamble 
             
@@ -237,7 +248,7 @@ namespace adrilight
             totalOutputStream[4] = lo;
             totalOutputStream[5] = 0;
             totalBufferOffset = 6;
-            currentBufferLength = 6;
+            
 
             foreach ( var childSpotSet in ChildSpotSets )
             {
@@ -327,10 +338,48 @@ namespace adrilight
                     {
                         blackFrameCounter++;
                     }
-                    currentBufferLength += bufferLength;
-                   
+                    //currentBufferLength += bufferLength+totalBufferOffset;
+                    switch(childSpotSet.OutputLocation)
+                    {
+                        case 0:    
                     Buffer.BlockCopy(outputStream, 0, totalOutputStream, totalBufferOffset, bufferLength);
-                    totalBufferOffset = currentBufferLength;
+                           // totalBufferOffset = currentBufferLength;
+
+                            break;
+                        case 1:
+                            totalBufferOffset = 54;
+                            Buffer.BlockCopy(outputStream, 0, totalOutputStream, totalBufferOffset, bufferLength);
+                            //totalBufferOffset = currentBufferLength;
+
+                            break;
+                        case 2:
+                            totalBufferOffset = 534;
+                            Buffer.BlockCopy(outputStream, 0, totalOutputStream, totalBufferOffset, bufferLength);
+                           // totalBufferOffset = currentBufferLength;
+
+                            break;
+                        case 3:
+                            totalBufferOffset =684;
+                            Buffer.BlockCopy(outputStream, 0, totalOutputStream, totalBufferOffset, bufferLength);
+                            //totalBufferOffset = currentBufferLength;
+
+                            break;
+                        case 4:
+                            totalBufferOffset = 834 ;
+                            Buffer.BlockCopy(outputStream, 0, totalOutputStream, totalBufferOffset, bufferLength);
+                           // totalBufferOffset = currentBufferLength;
+
+                            break;
+                        case 5:
+                            totalBufferOffset = 984 ;
+                            Buffer.BlockCopy(outputStream, 0, totalOutputStream, totalBufferOffset, bufferLength);
+                           // totalBufferOffset = currentBufferLength;
+
+                            break;
+                    }
+                      
+                        
+                   
 
 
                 }

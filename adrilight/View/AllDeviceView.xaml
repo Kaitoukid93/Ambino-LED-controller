@@ -31,6 +31,7 @@
             <SolidColorBrush x:Key="Item.SelectedActive.Border" Color="#FF326CF3"/>
 
             <Style x:Key="ListViewContainerStyle" TargetType="{x:Type ListViewItem}">
+             
                 <Setter Property="SnapsToDevicePixels" Value="True"/>
                 <Setter Property="Padding" Value="4,1"/>
                 <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
@@ -41,6 +42,8 @@
                 <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
                 <Setter Property="Width" Value="auto"/>
                 <Setter Property="Height" Value="auto"/>
+              
+
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ListViewItem}">
@@ -158,7 +161,7 @@
 
                     <DataTemplate>
 
-                        <Grid Margin="20" Width="230" Height="245">
+                        <Grid x:Name="dev" Visibility="{Binding IsVissible, Converter={StaticResource boolToVisibilityConvert}}" Margin="20" Width="230" Height="245">
 
 
 
@@ -207,7 +210,15 @@
                                             <RowDefinition Height="51*"/>
                                         </Grid.RowDefinitions>
                                         <StackPanel  Margin="20,0,0,0" Grid.Row="1" Grid.ColumnSpan="1">
-                                            <TextBlock Padding="0,5,0,5" Text="{Binding DeviceName}" FontSize="20" FontWeight="DemiBold"/>
+                                            <hc:RunningBlock BorderThickness="0" Padding="0"  Duration="0:0:9" Height="32" HorizontalAlignment="Left" AutoRun="True"  Width="150" Runaway="False" VerticalAlignment="Stretch" >
+                                                <hc:RunningBlock.Content>
+                                                    <TextBlock  Text="{Binding DeviceName}" FlowDirection="RightToLeft" FontSize="20" FontWeight="DemiBold"/>
+                                                </hc:RunningBlock.Content>
+                                                <hc:RunningBlock.Background>
+                                                    <SolidColorBrush Color="White" Opacity="0.25" />
+                                                </hc:RunningBlock.Background>
+                                              
+                                            </hc:RunningBlock>
                                             <TextBlock Padding="3" Text="{Binding DeviceType}" FontSize="14"/>
                                             <TextBlock Padding="3" Text="{Binding DevicePort}"/>
                                             <TextBlock Padding="3" Text="{Binding DeviceID, StringFormat=Device ID : {0}}"/>

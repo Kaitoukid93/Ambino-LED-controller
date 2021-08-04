@@ -139,17 +139,22 @@
                         <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="1" Text="Snapshot" Margin="5,0,0,0">
-                   
-                    
+
+
                     </TextBlock>
                     <materialDesign:PackIcon  Grid.Column="0"
                          Kind="Camera"
     Height="20"
     Width="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </Grid>
-                
-                
+
+
             </Button>
+            <ComboBox SelectedIndex="{Binding DeviceType}" Style="{StaticResource ComboBoxExtend}" Width="114" Grid.Row="3" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <ComboBoxItem Content="Strip"/>
+                <ComboBoxItem Content="Square"/>
+                <ComboBoxItem Content="Matrix"/>
+            </ComboBox>
 
         </Grid>
 

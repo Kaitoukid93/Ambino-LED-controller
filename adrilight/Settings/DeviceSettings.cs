@@ -22,7 +22,7 @@ namespace adrilight
         private string _deviceSerial = "151293";
         private string _deviceType = "Generic Device";
         private int _rGBOrder = 0;
-        
+        private int _outputLocation = 151293;
 
         private int _mSens = 0;
        // private DateTime? _lastUpdateCheck = DateTime.UtcNow;
@@ -53,6 +53,7 @@ namespace adrilight
        // private bool _startMinimized = true;
         private bool _transferActive = true;
         private bool _captureActive = true;
+        private bool _isVissible = true;
 
         //static color/
         private bool _isBreathing = false;
@@ -151,7 +152,7 @@ namespace adrilight
 
 
 
-
+        public int OutputLocation { get => _outputLocation; set { Set(() => OutputLocation, ref _outputLocation, value); } }
 
         public int MSens { get => _mSens; set { Set(() => MSens, ref _mSens, value); } }
        // public bool Autostart { get => _autostart; set { Set(() => Autostart, ref _autostart, value); } }
@@ -192,6 +193,7 @@ namespace adrilight
         public int SpotWidth { get => _spotWidth; set { Set(() => SpotWidth, ref _spotWidth, value); } }
        // public bool StartMinimized { get => _startMinimized; set { Set(() => StartMinimized, ref _startMinimized, value); } }
         public bool TransferActive { get => _transferActive; set { Set(() => TransferActive, ref _transferActive, value); } }
+        public bool IsVissible { get => _isVissible; set { Set(() => IsVissible, ref _isVissible, value); } }
 
         public bool CaptureActive { get => _captureActive; set { Set(() => CaptureActive, ref _captureActive, value); } }
         public bool IsConnected { get => _isConnected; set { Set(() => IsConnected, ref _isConnected, value); } }

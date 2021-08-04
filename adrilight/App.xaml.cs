@@ -275,7 +275,7 @@ namespace adrilight
                         {
                             kernel.Bind<IDeviceSpotSet>().To<DeviceSpotSet>().InSingletonScope().Named(DeviceName).WithConstructorArgument("deviceSettings", kernel.Get<IDeviceSettings>(DeviceName));
                             kernel.Bind<ISpotSetReader>().To<SpotSetReader>().InSingletonScope().Named(DeviceName).WithConstructorArgument("deviceSettings", kernel.Get<IDeviceSettings>(DeviceName)).WithConstructorArgument("deviceSpotSet", kernel.Get<IDeviceSpotSet>(DeviceName));
-                            if(devicesetting.ParrentLocation==151293)
+                            if(devicesetting.ParrentLocation==151293) // only attach serial stream to device with their own serial support
                             {
                                 kernel.Bind<ISerialStream>().To<SerialStream>().InSingletonScope().Named(DeviceName).WithConstructorArgument("deviceSettings", kernel.Get<IDeviceSettings>(DeviceName)).WithConstructorArgument("deviceSpotSet", kernel.Get<IDeviceSpotSet>(DeviceName));
                                 var serialStream = kernel.Get<ISerialStream>(DeviceName);

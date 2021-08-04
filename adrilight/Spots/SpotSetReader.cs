@@ -45,6 +45,7 @@ namespace adrilight.Spots
                 case nameof(DeviceSettings.SelectedDisplay):
                 case nameof(DeviceSettings.SelectedAdapter):
                 case nameof(DeviceSettings.SelectedEffect):
+                case nameof(DeviceSettings.DeviceType):
                 
                     RefreshReadingState();
                     break;
@@ -152,6 +153,56 @@ namespace adrilight.Spots
                                     {
 
                                         var RawColor = new OpenRGB.NET.Models.Color(SpotSet.SpotsDesk[i].Red, SpotSet.SpotsDesk[i].Green, SpotSet.SpotsDesk[i].Blue);
+                                        var FinalColor = Brightness.applyBrightness(RawColor, brightness);
+                                        DeviceSpotSet.Spots[i].SetColor(FinalColor.R, FinalColor.G, FinalColor.B, true); // do a 1-1 cast // do a 1-1 cast
+                                                                                                                         //in ther future, each position selected will cast different position
+                                    }
+                                }
+
+                            }
+                            else if (DeviceSettings.DeviceType == "Strip")
+                            {
+                                if (DeviceSpotSet.Spots.Count() > SpotSet.SpotsDesk.Count())
+                                {
+                                    for (var i = 0; i < SpotSet.SpotsDesk.Count(); i++)//topology
+                                    {
+                                        var RawColor = new OpenRGB.NET.Models.Color(SpotSet.SpotsDesk[i].Red, SpotSet.SpotsDesk[i].Green, SpotSet.SpotsDesk[i].Blue);
+                                        var FinalColor = Brightness.applyBrightness(RawColor, brightness);
+                                        DeviceSpotSet.Spots[i].SetColor(FinalColor.R, FinalColor.G, FinalColor.B, true); // do a 1-1 cast
+                                                                                                                         //in ther future, each position selected will cast different position
+                                    }
+                                }
+                                else
+                                {
+                                    for (var i = 0; i < DeviceSpotSet.Spots.Count(); i++)//topology
+                                    {
+
+                                        var RawColor = new OpenRGB.NET.Models.Color(SpotSet.SpotsDesk[i].Red, SpotSet.SpotsDesk[i].Green, SpotSet.SpotsDesk[i].Blue);
+                                        var FinalColor = Brightness.applyBrightness(RawColor, brightness);
+                                        DeviceSpotSet.Spots[i].SetColor(FinalColor.R, FinalColor.G, FinalColor.B, true); // do a 1-1 cast // do a 1-1 cast
+                                                                                                                         //in ther future, each position selected will cast different position
+                                    }
+                                }
+
+                            }
+                            else if (DeviceSettings.DeviceType == "Square")
+                            {
+                                if (DeviceSpotSet.Spots.Count() > SpotSet.Spots.Count())
+                                {
+                                    for (var i = 0; i < SpotSet.Spots.Count(); i++)//topology
+                                    {
+                                        var RawColor = new OpenRGB.NET.Models.Color(SpotSet.Spots[i].Red, SpotSet.Spots[i].Green, SpotSet.Spots[i].Blue);
+                                        var FinalColor = Brightness.applyBrightness(RawColor, brightness);
+                                        DeviceSpotSet.Spots[i].SetColor(FinalColor.R, FinalColor.G, FinalColor.B, true); // do a 1-1 cast
+                                                                                                                         //in ther future, each position selected will cast different position
+                                    }
+                                }
+                                else
+                                {
+                                    for (var i = 0; i < DeviceSpotSet.Spots.Count(); i++)//topology
+                                    {
+
+                                        var RawColor = new OpenRGB.NET.Models.Color(SpotSet.Spots[i].Red, SpotSet.Spots[i].Green, SpotSet.Spots[i].Blue);
                                         var FinalColor = Brightness.applyBrightness(RawColor, brightness);
                                         DeviceSpotSet.Spots[i].SetColor(FinalColor.R, FinalColor.G, FinalColor.B, true); // do a 1-1 cast // do a 1-1 cast
                                                                                                                          //in ther future, each position selected will cast different position
