@@ -50,6 +50,8 @@ namespace adrilight
                 case nameof(DeviceSettings.TransferActive):
                 case nameof(DeviceSettings.SelectedEffect):
                 case nameof(DeviceSettings.Brightness):
+                case nameof(DeviceSettings.SpotsX):
+                case nameof(DeviceSettings.SpotsY):
                     RefreshColorState();
                     break;
             }
@@ -100,8 +102,8 @@ namespace adrilight
                 {
                     double brightness = DeviceSettings.Brightness / 100d;
                     int paletteSource = DeviceSettings.SelectedPalette;
-                    var numLED = DeviceSettings.NumLED;
-                 //   var colorOutput = new OpenRGB.NET.Models.Color[numLED];
+                    var numLED = DeviceSpotSet.CountLeds(DeviceSettings.SpotsX, DeviceSettings.SpotsY);
+                    //   var colorOutput = new OpenRGB.NET.Models.Color[numLED];
 
 
                     OpenRGB.NET.Models.Color[] outputColor = new OpenRGB.NET.Models.Color[numLED];

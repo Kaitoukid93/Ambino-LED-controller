@@ -41,36 +41,48 @@
 
 
             <TextBlock Margin="10,0,0,10" Grid.Row="1" Grid.Column="0" Text="LIGHTING" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FF898989"/>
-            <Grid>
+            <Grid Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
 
                 </Grid.ColumnDefinitions>
+
+               
+
+                    <TextBox MaxLength="25" Style="{StaticResource TextBoxExtend}" Grid.Column="0" BorderThickness="0" Text="{Binding CurrentDevice.DeviceName}" hc:BorderElement.CornerRadius="7"  Margin="10,0,0,0"  BorderBrush="{x:Null}" VerticalAlignment="Center" FontWeight="SemiBold" Padding="12,5" VerticalContentAlignment="Center">
+                    <TextBox.Background>
+                        <SolidColorBrush Color="{Binding CurrentDevice.StaticColor}" Opacity="0.25" />
+
+                    </TextBox.Background>
+                    <TextBox.Foreground>
+                        <SolidColorBrush Color="{Binding CurrentDevice.StaticColor}" Opacity="1" />
+
+                    </TextBox.Foreground>
+                </TextBox>
                 
-            
-            <Button Grid.Column="0" Style="{StaticResource MaterialDesignFlatButton}" Content="{Binding CurrentDevice.DeviceName}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0" Margin="10,0,0,0"  BorderBrush="{x:Null}"  HorizontalAlignment="Left" Height="32" VerticalAlignment="Center">
-                <Button.Background>
-                    <SolidColorBrush Color="{Binding CurrentDevice.StaticColor}" Opacity="0.25" />
+                <hc:ProgressButton Visibility="{Binding DFUVisibility}" ToolTip="DFU" Progress="{Binding DFUProgress,Mode=OneWayToSource}" hc:BorderElement.CornerRadius="7" Grid.Column="1" BorderThickness="0" x:Name="DFU"   Width="Auto" Margin="5" Checked="DFU_Checked" Click="DFU_Click" Height="32" HorizontalAlignment="Left" Background="#3F326CF3" Foreground="#FF326CF3">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:PackIcon x:Name="DFUIcon" Kind="ProgressDownload" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Width="20" Height="20"/>
+                        <TextBlock x:Name="DFUText"  Grid.Column="1" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0">
 
-                </Button.Background>
-                <Button.Foreground>
-                    <SolidColorBrush Color="{Binding CurrentDevice.StaticColor}" Opacity="1" />
+                        </TextBlock>
+                    </Grid>
+                </hc:ProgressButton>
 
-                </Button.Foreground>
-            </Button>
-            <hc:ProgressButton Progress="{Binding DFUProgress,Mode=OneWayToSource}" hc:BorderElement.CornerRadius="7" Grid.Column="1" BorderThickness="0" x:Name="DFU"   Width="Auto" Margin="5" Checked="DFU_Checked" Click="DFU_Click" Height="32" HorizontalAlignment="Left" Background="#3F326CF3" Foreground="#FF326CF3">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="3*"/>
-                    </Grid.ColumnDefinitions>
-                    <materialDesign:PackIcon x:Name="DFUIcon" Kind="ProgressDownload" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Width="20" Height="20"/>
-                    <TextBlock x:Name="DFUText"  Grid.Column="1" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0">
-                        
-                    </TextBlock>
-                </Grid>
-            </hc:ProgressButton>
+                <hc:ButtonGroup Visibility="{Binding VisibleTabControl}"  Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0">
+                    <RadioButton Visibility="{Binding ARGB1Visibility}"  Content="ARGB1" IsChecked="{Binding ARGB1Checked}"/>
+                    <RadioButton Visibility="{Binding ARGB2Visibility}" Content="ARGB2" IsChecked="{Binding ARGB2Checked}"/>
+                    <RadioButton Visibility="{Binding PCI1}" Content="PCI1" IsChecked="{Binding PCI1Checked}"/>
+                    <RadioButton Visibility="{Binding PCI2}" Content="PCI2" IsChecked="{Binding PCI2Checked}"/>
+                    <RadioButton Visibility="{Binding PCI3}"  Content="PCI3" IsChecked="{Binding PCI3Checked}"/>
+                    <RadioButton Visibility="{Binding PCI4}"  Content="PCI4" IsChecked="{Binding PCI4Checked}"/>
+                </hc:ButtonGroup>
             </Grid>
         </Grid>
         <Grid Margin="10,0,10,0"  Grid.Row="0" Grid.Column="1">
@@ -131,6 +143,8 @@
 
 
             </Button>
+            <hc:NumericUpDown Visibility="{Binding SpotSetEnable}" ToolTip="Số LED Chiều Ngang" Minimum="1" Maximum="160" Width="70" Value="{Binding CurrentDevice.SpotsX}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" HorizontalContentAlignment="Center" Grid.Row="3"/>
+
             <Grid Margin="10,0,10,0" Height="80" Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -171,11 +185,23 @@
 
 
             </Button>
-            <ComboBox SelectedIndex="{Binding DeviceType}" Style="{StaticResource ComboBoxExtend}" Width="114" Grid.Row="3" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <hc:NumericUpDown Visibility="{Binding SpotSetEnable}" ToolTip="Số LED Chiều Dọc" Minimum="1" Maximum="90" Width="70" Value="{Binding CurrentDevice.SpotsY}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="110,0,0,0" HorizontalContentAlignment="Center" Grid.Row="3"/>
+
+            <!--<ComboBox  SelectedIndex="{Binding DeviceType}" Width="114" Grid.Row="3" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <ComboBoxItem Content="Strip"/>
                 <ComboBoxItem Content="Square"/>
                 <ComboBoxItem Content="Matrix"/>
-            </ComboBox>
+                <ComboBox.Style>
+                    <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBoxExtend}">
+                        <Setter Property="Visibility" Value="Collapsed"></Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{dev}" Value="Sáng theo nhạc">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ComboBox.Style>
+            </ComboBox>-->
 
         </Grid>
 

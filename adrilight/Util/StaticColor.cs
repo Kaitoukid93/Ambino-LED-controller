@@ -41,6 +41,9 @@ namespace adrilight.Util
                 case nameof(DeviceSettings.TransferActive):
                 case nameof(DeviceSettings.StaticColor):
                 case nameof(DeviceSettings.SelectedEffect):
+                case nameof(DeviceSettings.SpotsX):
+                case nameof(DeviceSettings.SpotsY):
+
                     RefreshColorState();
                     break;
 
@@ -104,7 +107,7 @@ namespace adrilight.Util
 
                 while (!token.IsCancellationRequested)
                 {
-                    var numLED = (DeviceSettings.SpotsX - 1) * 2 + (DeviceSettings.SpotsY - 1) * 2;
+                    var numLED = DeviceSpotSet.CountLeds(DeviceSettings.SpotsX, DeviceSettings.SpotsY);
                     Color currentStaticColor = DeviceSettings.StaticColor;
                     var colorOutput = new OpenRGB.NET.Models.Color[numLED];
                     double peekBrightness = 0.0;

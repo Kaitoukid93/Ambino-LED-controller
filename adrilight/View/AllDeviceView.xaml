@@ -42,7 +42,7 @@
                 <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
                 <Setter Property="Width" Value="auto"/>
                 <Setter Property="Height" Value="auto"/>
-              
+                
 
                 <Setter Property="Template">
                     <Setter.Value>
@@ -117,11 +117,11 @@
             <TextBlock Margin="10,0,0,0" Grid.Row="1" Grid.Column="0" Text="Tất cả các thiết bị đã từng được thêm sẽ xuất hiện ở đây. Click vào từng thẻ để điều chỉnh" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="#FF898989"/>
         </Grid>
         <Border Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" Height="32" HorizontalAlignment="Right" Width="95">
-            <Button Foreground="#FF326CF3" Background="#3F326CF3" Content="Thêm mới" Style="{StaticResource MaterialDesignFlatButton}" Width="75" Height="32" VerticalAlignment="Center" BorderThickness="0" Padding="0"   materialDesign:ButtonAssist.CornerRadius="7" Command="{Binding ShowAddNewCommand}" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+            <Button ToolTip="Thêm thiết bị theo cách thủ công" Foreground="#FF326CF3" Background="#3F326CF3" Content="Thêm mới" Style="{StaticResource MaterialDesignFlatButton}" Width="75" Height="32" VerticalAlignment="Center" BorderThickness="0" Padding="0"   materialDesign:ButtonAssist.CornerRadius="7" Command="{Binding ShowAddNewCommand}" HorizontalAlignment="Right" Margin="0,0,20,0"/>
 
 
         </Border>
-        <Button Foreground="#FF326CF3" Background="#3F326CF3" Content="Refresh" Style="{StaticResource MaterialDesignFlatButton}" Width="66" Height="32" VerticalAlignment="Top" BorderThickness="0" Padding="0"   materialDesign:ButtonAssist.CornerRadius="7" Command="{Binding RefreshDeviceCommand}" HorizontalAlignment="Right" Margin="0,0,120,0" Grid.Column="1" Click="Button_Click"/>
+        <Button ToolTip="Dò tìm thiết bị" Foreground="#FF326CF3" Background="#3F326CF3" Content="Refresh" Style="{StaticResource MaterialDesignFlatButton}" Width="66" Height="32" VerticalAlignment="Top" BorderThickness="0" Padding="0"   materialDesign:ButtonAssist.CornerRadius="7" Command="{Binding RefreshDeviceCommand}" HorizontalAlignment="Right" Margin="0,0,120,0" Grid.Column="1" Click="Button_Click"/>
 
 
         <Grid x:Name="parrentGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
@@ -131,7 +131,7 @@
 
 
 
-            <ListView    Margin="0,15,0,15" Name="itm" ItemsSource="{Binding Cards,UpdateSourceTrigger=PropertyChanged}"
+            <ListView    Margin="0,15,0,15" Name="itm" ItemsSource="{Binding DisplayCards,UpdateSourceTrigger=PropertyChanged}"
                                                 IsTabStop="False"
                          ItemContainerStyle="{StaticResource ListViewContainerStyle}"
                                                 BorderThickness="0" Tag="{Binding}" Background="White">
@@ -160,9 +160,9 @@
                 <ListView.ItemTemplate>
 
                     <DataTemplate>
-
-                        <Grid x:Name="dev"  Margin="20" Width="230" Height="245">
-
+                  
+                        <Grid x:Name="dev" Visibility="{Binding IsVissible,Converter={StaticResource boolToVisibilityConvert}}"  Margin="20" Width="230" Height="245">
+                         
 
 
                             <Border Margin="-6"   CornerRadius="30">
@@ -227,7 +227,7 @@
 
 
                                     </Grid>
-                                    <ListBox Grid.Row="2" Visibility="{Binding IsHub,Converter={StaticResource boolToVisibilityConvert}}">
+                                    <!--<ListBox Grid.Row="2" Visibility="{Binding IsHUB,Converter={StaticResource boolToVisibilityConvert}}">
                                         <ListBox.Resources>
                                             <CollectionViewSource x:Key="allDevice" Source="{Binding ChildCard}" />
                                         </ListBox.Resources>
@@ -241,8 +241,8 @@
                                             </CompositeCollection>
                                         </ListBox.ItemsSource>
 
-                                        <!-- Here you can customize everything you want -->
-                                    </ListBox>
+                                         Here you can customize everything you want 
+                                    </ListBox>-->
                                 </Grid>
                             </Border>
                         </Grid>

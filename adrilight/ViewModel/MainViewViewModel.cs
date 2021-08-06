@@ -28,14 +28,14 @@ using Application = System.Windows.Forms.Application;
 
 namespace adrilight.ViewModel
 {
-  public  class MainViewViewModel: BaseViewModel
+    public class MainViewViewModel : BaseViewModel
     {
         private string JsonPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "adrilight\\");
 
         private string JsonDeviceFileNameAndPath => Path.Combine(JsonPath, "adrilight-deviceInfos.json");
 
         #region constant string
-        public const string ImagePathFormat= "pack://application:,,,/adrilight;component/View/Images/{0}";
+        public const string ImagePathFormat = "pack://application:,,,/adrilight;component/View/Images/{0}";
         public const string dashboard = "Dashboard";
         public const string deviceSetting = "Device Settings";
         public const string appSetting = "App Settings";
@@ -54,7 +54,7 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged();
             }
         }
-        private VerticalMenuItem _selectedVerticalMenuItem ;
+        private VerticalMenuItem _selectedVerticalMenuItem;
         public VerticalMenuItem SelectedVerticalMenuItem {
             get { return _selectedVerticalMenuItem; }
             set
@@ -62,7 +62,7 @@ namespace adrilight.ViewModel
                 if (_selectedVerticalMenuItem == value) return;
                 _selectedVerticalMenuItem = value;
                 RaisePropertyChanged();
-                
+
             }
         }
         private bool _isDashboardType = true;
@@ -76,7 +76,7 @@ namespace adrilight.ViewModel
                 LoadMenuByType(value);
             }
         }
-        private SettingInfoDTO _settingInfo ;
+        private SettingInfoDTO _settingInfo;
         public SettingInfoDTO SettingInfo {
             get { return _settingInfo; }
             set
@@ -85,8 +85,8 @@ namespace adrilight.ViewModel
                 if (_settingInfo != null)
                     _settingInfo.PropertyChanged -= _settingInfo_PropertyChanged;
                 _settingInfo = value;
-                if(_settingInfo!=null)
-                _settingInfo.PropertyChanged += _settingInfo_PropertyChanged;
+                if (_settingInfo != null)
+                    _settingInfo.PropertyChanged += _settingInfo_PropertyChanged;
                 RaisePropertyChanged();
             }
         }
@@ -108,7 +108,7 @@ namespace adrilight.ViewModel
                 default:
                     break;
             }
-            
+
         }
         private string _buildVersion = "";
         public string BuildVersion {
@@ -176,8 +176,45 @@ namespace adrilight.ViewModel
 
             }
         }
+        private Visibility _visibleTabControl;
+        public Visibility VisibleTabControl {
+            get
+            {
+                if (CurrentDevice.IsHUB || CurrentDevice.ParrentLocation != 151293)
+                {
+                    return Visibility.Visible;
+                }
+                else return Visibility.Collapsed;
+
+
+            }
+            set
+            {
+                _visibleTabControl = value;
+
+            }
+        }
+
+        private Visibility _dFUVisibility;
+        public Visibility DFUVisibility {
+            get
+            {
+                if (CurrentDevice.ParrentLocation != 151293)
+                {
+                    return Visibility.Collapsed;
+                }
+                else return Visibility.Visible;
+
+
+            }
+            set
+            {
+                _dFUVisibility = value;
+
+            }
+        }
         private ViewModelBase _currentView;
-        
+
         private ViewModelBase _detailView;
         private ViewModelBase _deviceSettingView;
         private ViewModelBase _appSettingView;
@@ -200,7 +237,7 @@ namespace adrilight.ViewModel
                 _currentDevice = value;
                 if (_currentDevice != null) _currentDevice.PropertyChanged += _currentDevice_PropertyChanged;
                 RaisePropertyChanged("CurrentDevice");
-               
+
             }
         }
 
@@ -240,7 +277,17 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged();
             }
         }
-        
+        private ObservableCollection<IDeviceSettings> _displayCards;
+        public ObservableCollection<IDeviceSettings> DisplayCards {
+            get { return _displayCards; }
+            set
+            {
+                if (_displayCards == value) return;
+                _displayCards = value;
+                RaisePropertyChanged();
+            }
+        }
+
         private ObservableCollection<IDeviceSpotSet> _spotSets;
         public ObservableCollection<IDeviceSpotSet> SpotSets {
             get { return _spotSets; }
@@ -314,6 +361,17 @@ namespace adrilight.ViewModel
             }
         }
 
+
+        private int _parrentLocation;
+        public int ParrentLocation {
+            get => _parrentLocation;
+            set
+            {
+                _parrentLocation = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public int _deviceType;
         public int DeviceType {
             get { if (CurrentDevice.DeviceType == "Strip")
@@ -325,8 +383,8 @@ namespace adrilight.ViewModel
             }
             set
             {
-                _deviceType= value;
-                switch(value)
+                _deviceType = value;
+                switch (value)
                 {
                     case 0://strip type
                         CurrentDevice.DeviceType = "Strip";
@@ -339,7 +397,7 @@ namespace adrilight.ViewModel
                     case 1://square type
                         CurrentDevice.DeviceType = "Square";
                         CurrentDevice.SpotsX = CurrentDevice.NumLED / 4 + 1;
-                        CurrentDevice.SpotsY = (CurrentDevice.NumLED - (CurrentDevice.NumLED/4)*2) / 2 +1;
+                        CurrentDevice.SpotsY = (CurrentDevice.NumLED - (CurrentDevice.NumLED / 4) * 2) / 2 + 1;
                         RaisePropertyChanged(() => CurrentDevice.SpotsX);
                         RaisePropertyChanged(() => CurrentDevice.SpotsY);
                         RaisePropertyChanged(() => CurrentDevice.DeviceType);
@@ -348,7 +406,7 @@ namespace adrilight.ViewModel
                         CurrentDevice.DeviceType = "Matrix";
                         break;
                 }
-                
+
             }
         }
         public IList<string> _AvailableAudioDevice = new List<string>();
@@ -424,7 +482,7 @@ namespace adrilight.ViewModel
             }
         }
         public ObservableCollection<string> AvailableFrequency { get; private set; }
-      
+
         public ObservableCollection<string> AvailableMusicPalette { get; private set; }
         public ObservableCollection<string> AvailableMusicMode { get; private set; }
         public ICommand SelectGif { get; set; }
@@ -457,13 +515,16 @@ namespace adrilight.ViewModel
             GeneralSettings = generalSettings ?? throw new ArgumentNullException(nameof(generalSettings));
             SerialStreams = serialStreams ?? throw new ArgumentNullException(nameof(serialStreams));
             Cards = new ObservableCollection<IDeviceSettings>();
+            DisplayCards = new ObservableCollection<IDeviceSettings>();
             AddedDevice = cards.Length;
             SpotSets = new ObservableCollection<IDeviceSpotSet>();
-            OpenRGBClientDevice= openRGBDevices ?? throw new ArgumentNullException(nameof(openRGBDevices));
+            OpenRGBClientDevice = openRGBDevices ?? throw new ArgumentNullException(nameof(openRGBDevices));
             SerialDeviceDetection = serialDeviceDetection ?? throw new ArgumentNullException(nameof(serialDeviceDetection));
             foreach (IDeviceSettings card in cards)
             {
                 Cards.Add(card);
+                if (card.IsVissible)
+                    DisplayCards.Add(card);
             }
             foreach (IDeviceSpotSet spotSet in deviceSpotSets)
             {
@@ -497,7 +558,7 @@ namespace adrilight.ViewModel
                 switch (e.PropertyName)
                 {
                     case nameof(GeneralSettings.ScreenSize):
-                        if (GeneralSettings.ScreenSize==0)
+                        if (GeneralSettings.ScreenSize == 0)
                         {
                             GeneralSettings.SpotsX = 11;
                             GeneralSettings.SpotsY = 7;
@@ -578,7 +639,7 @@ namespace adrilight.ViewModel
                         if (GeneralSettings.ScreenSizeThird == 0)
                         {
                             GeneralSettings.SpotsX3 = 11;
-                            GeneralSettings.SpotsY3= 7;
+                            GeneralSettings.SpotsY3 = 7;
                             RaisePropertyChanged(() => GeneralSettings.SpotsX3);
                             RaisePropertyChanged(() => GeneralSettings.SpotsY3);
                         }
@@ -611,20 +672,20 @@ namespace adrilight.ViewModel
                             RaisePropertyChanged(() => GeneralSettings.SpotsY3);
                         }
 
-                        GeneralSettings.OffsetLed3= GeneralSettings.SpotsX3 - 1;
+                        GeneralSettings.OffsetLed3 = GeneralSettings.SpotsX3 - 1;
                         break;
 
 
                 }
-                
+
             };
-            }
+        }
 
 
         public void LoadCard()
         {
             //Cards = new ObservableCollection<IDeviceSettings>();
-           // Cards.Add(Card1);
+            // Cards.Add(Card1);
 
 
             //var settingsmanager = new UserSettingsManager();
@@ -684,13 +745,13 @@ namespace adrilight.ViewModel
             //WriteJson();
             //_isAddnew = false;
         }
-        public override  void ReadData()
+        public override void ReadData()
         {
             LoadMenu();
             LoadMenuByType(true);
             ReadDataDevice();
-           // ReadFAQ();
-            
+            // ReadFAQ();
+
             //CurrentView = _allDeviceView.CreateViewModel();
             SelectMenuItem = new RelayCommand<VerticalMenuItem>((p) => {
                 return true;
@@ -732,11 +793,11 @@ namespace adrilight.ViewModel
                 return true;
             }, (p) =>
             {
-                
+
                 SnapShot();
             });
 
-          
+
 
             RefreshDeviceCommand = new RelayCommand<string>((p) => {
                 return true;
@@ -751,6 +812,8 @@ namespace adrilight.ViewModel
             {
                 this.GotoChild(p);
             });
+
+
             ShowAddNewCommand = new RelayCommand<IDeviceSettings>((p) => {
                 return true;
             }, (p) =>
@@ -761,7 +824,7 @@ namespace adrilight.ViewModel
                 return true;
             }, (p) =>
             {
-               BackToDashboard();
+                BackToDashboard();
             });
         }
 
@@ -782,12 +845,12 @@ namespace adrilight.ViewModel
         }
         public void DFU()
         {
-            foreach(var serialStream in SerialStreams)
+            foreach (var serialStream in SerialStreams)
             {
                 if (serialStream.ID == CurrentDevice.DeviceID)
                     serialStream.DFU();
             }
-            
+
         }
         private int _dFUProgress;
         public int DFUProgress {
@@ -804,11 +867,11 @@ namespace adrilight.ViewModel
         }
         public void RefreshDevice()
         {
-          var detectedDevices=  SerialDeviceDetection.RefreshDevice();
+            var detectedDevices = SerialDeviceDetection.RefreshDevice();
             var newdevices = new List<string>();
             var openRGBdevices = new List<Device>();
             var oldDeviceNum = Cards.Count;
-            if(OpenRGBClientDevice.DeviceList!=null)
+            if (OpenRGBClientDevice.DeviceList != null)
             {
                 foreach (var device in OpenRGBClientDevice.DeviceList)//add openrgb device to list
                 {
@@ -824,10 +887,10 @@ namespace adrilight.ViewModel
                     }
                 }
             }
-           
-            if(openRGBdevices.Count>0)
+
+            if (openRGBdevices.Count > 0)
             {
-                var result = HandyControl.Controls.MessageBox.Show("Phát hiện " +openRGBdevices.Count + " Thiết bị OpenRGB" + " Nhấn [Confirm] để add vào Dashboard", "OpenRGB Device", MessageBoxButton.OK, MessageBoxImage.Information);
+                var result = HandyControl.Controls.MessageBox.Show("Phát hiện " + openRGBdevices.Count + " Thiết bị OpenRGB" + " Nhấn [Confirm] để add vào Dashboard", "OpenRGB Device", MessageBoxButton.OK, MessageBoxImage.Information);
                 if (result == MessageBoxResult.OK)//restart app
                 {
                     foreach (var device in openRGBdevices)//convert openRGB device to ambino Device
@@ -843,13 +906,13 @@ namespace adrilight.ViewModel
                     }
                 }
             }
-           
+
             foreach (var device in detectedDevices)
             {
                 newdevices.Add(device);
             }
-            
-            if (detectedDevices.Count>0)
+
+            if (detectedDevices.Count > 0)
             {
                 foreach (var device in detectedDevices)
                 {
@@ -869,13 +932,13 @@ namespace adrilight.ViewModel
                         foreach (var device in newdevices)
                         {
                             IDeviceSettings newDevice = new DeviceSettings();
-                            newDevice.DeviceName = "Auto Detected Device";
+                            newDevice.DeviceName = "Auto Detected Device(Ambino Basic)";
                             newDevice.DeviceType = "ABRev2";
                             newDevice.DevicePort = device;
                             newDevice.DeviceID = Cards.Count + 1;
                             newDevice.DeviceSerial = "151293";
                             Cards.Add(newDevice);
-                          
+
 
                         }
 
@@ -897,7 +960,7 @@ namespace adrilight.ViewModel
                             newDevice.DeviceID = Cards.Count + 1;
                             newDevice.DeviceSerial = "151293";
                             Cards.Add(newDevice);
-                          
+
 
                         }
 
@@ -912,9 +975,9 @@ namespace adrilight.ViewModel
                 }
 
 
-          
 
-               
+
+
             }
             if (oldDeviceNum != Cards.Count) //there are changes in device list, we simply restart the application to add process
             {
@@ -1074,7 +1137,7 @@ namespace adrilight.ViewModel
             {
                 try
                 {
-                    if(vm.Device.DeviceType!= "ABHV2")
+                    if (vm.Device.DeviceType != "ABHV2")
                     {
                         vm.Device.PropertyChanged += DeviceInfo_PropertyChanged;
                         _isAddnew = true;
@@ -1090,9 +1153,9 @@ namespace adrilight.ViewModel
                         vm.Device.PropertyChanged += DeviceInfo_PropertyChanged;
                         _isAddnew = true;
                         vm.Device.DeviceID = Cards.Count() + 1;
-                        vm.Device.IsVissible = false;
+                        vm.Device.IsHUB = true;
                         Cards.Add(vm.Device);
-                       // WriteJson();
+                        // WriteJson();
                         _isAddnew = false;
                         if (vm.ARGB1Selected) // ARGB1 output port is in the list
                         {
@@ -1105,9 +1168,10 @@ namespace adrilight.ViewModel
                             argb1.DeviceName = "ARGB1(HUBV2)";
                             argb1.ParrentLocation = vm.Device.DeviceID;
                             argb1.OutputLocation = 0;
+                            argb1.IsVissible = false;
                             Cards.Add(argb1);
                         }
-                         if (vm.ARGB2Selected)
+                        if (vm.ARGB2Selected)
                         {
                             var argb2 = new DeviceSettings();
                             argb2.DeviceType = "Strip";                           //add to device settings
@@ -1118,12 +1182,13 @@ namespace adrilight.ViewModel
                             argb2.DeviceName = "ARGB2(HUBV2)";
                             argb2.ParrentLocation = vm.Device.DeviceID;
                             argb2.OutputLocation = 1;
+                            argb2.IsVissible = false;
                             Cards.Add(argb2);
                         }
-                         if (vm.PCI1Selected)
+                        if (vm.PCI1Selected)
                         {
                             var PCI = new DeviceSettings();
-                            PCI.DeviceType = "Strip";                           //add to device settings
+                            PCI.DeviceType = "Square";                           //add to device settings
                             PCI.DeviceID = Cards.Count() + 1;
                             PCI.SpotsX = 50;
                             PCI.SpotsY = 1;
@@ -1131,12 +1196,13 @@ namespace adrilight.ViewModel
                             PCI.DeviceName = "PCI1(HUBV2)";
                             PCI.ParrentLocation = vm.Device.DeviceID;
                             PCI.OutputLocation = 2;
+                            PCI.IsVissible = false;
                             Cards.Add(PCI);
                         }
-                         if (vm.PCI2Selected)
+                        if (vm.PCI2Selected)
                         {
                             var PCI = new DeviceSettings();
-                            PCI.DeviceType = "Strip";                           //add to device settings
+                            PCI.DeviceType = "Square";                           //add to device settings
                             PCI.DeviceID = Cards.Count() + 1;
                             PCI.SpotsX = 50;
                             PCI.SpotsY = 1;
@@ -1144,12 +1210,13 @@ namespace adrilight.ViewModel
                             PCI.DeviceName = "PCI2(HUBV2)";
                             PCI.ParrentLocation = vm.Device.DeviceID;
                             PCI.OutputLocation = 3;
+                            PCI.IsVissible = false;
                             Cards.Add(PCI);
                         }
-                         if (vm.PCI3Selected)
+                        if (vm.PCI3Selected)
                         {
                             var PCI = new DeviceSettings();
-                            PCI.DeviceType = "Strip";                           //add to device settings
+                            PCI.DeviceType = "Square";                           //add to device settings
                             PCI.DeviceID = Cards.Count() + 1;
                             PCI.SpotsX = 50;
                             PCI.SpotsY = 1;
@@ -1157,6 +1224,7 @@ namespace adrilight.ViewModel
                             PCI.DeviceName = "PCI3(HUBV2)";
                             PCI.ParrentLocation = vm.Device.DeviceID;
                             PCI.OutputLocation = 4;
+                            PCI.IsVissible = false;
                             Cards.Add(PCI);
                         }
                         if (vm.PCI4Selected)
@@ -1164,20 +1232,21 @@ namespace adrilight.ViewModel
                             var PCI = new DeviceSettings();
                             PCI.DeviceType = "Strip";                           //add to device settings
                             PCI.DeviceID = Cards.Count() + 1;
-                            PCI.SpotsX = 50;
+                            PCI.SpotsX = 22;
                             PCI.SpotsY = 1;
-                            PCI.NumLED = 50;
+                            PCI.NumLED = 22;
                             PCI.DeviceName = "PCI4(HUBV2)";
                             PCI.ParrentLocation = vm.Device.DeviceID;
                             PCI.OutputLocation = 5;
+                            PCI.IsVissible = false;
                             Cards.Add(PCI);
                         }
 
 
                         WriteJson();
-                       // _isAddnew = false;
+                        // _isAddnew = false;
                     }
-                   
+
                 }
                 catch (Exception ex)
                 {
@@ -1187,8 +1256,313 @@ namespace adrilight.ViewModel
                 Process.GetCurrentProcess().Kill();
             }
 
-            
+
         }
+
+        private Visibility _aRGB1Visibility;
+        public Visibility ARGB1Visibility
+        {
+            get
+            {
+                foreach( var device in Cards)
+                {
+                    if(device.ParrentLocation==ParrentLocation)
+                    {
+                        if (device.OutputLocation == 0)
+                            return Visibility.Visible;
+                    }
+                }
+                return Visibility.Collapsed; ;
+            }
+
+            set
+            {
+                _aRGB1Visibility = value;
+            }
+
+        }
+        private Visibility _aRGB2Visibility;
+        public Visibility ARGB2Visibility {
+            get
+            {
+                foreach (var device in Cards)
+                {
+                    if (device.ParrentLocation == ParrentLocation)
+                    {
+                        if (device.OutputLocation == 1)
+                            return Visibility.Visible;
+                    }
+                }
+                return Visibility.Collapsed; ;
+            }
+
+            set
+            {
+                _aRGB2Visibility = value;
+            }
+
+        }
+        private Visibility _pCI1;
+        public Visibility PCI1 {
+            get
+            {
+                foreach (var device in Cards)
+                {
+                    if (device.ParrentLocation == ParrentLocation)
+                    {
+                        if (device.OutputLocation == 2)
+                            return Visibility.Visible;
+                    }
+                }
+                return Visibility.Collapsed; ;
+            }
+
+            set
+            {
+                _pCI1= value;
+            }
+
+        }
+        private Visibility _pCI2;
+        public Visibility PCI2 {
+            get
+            {
+                foreach (var device in Cards)
+                {
+                    if (device.ParrentLocation == ParrentLocation)
+                    {
+                        if (device.OutputLocation == 3)
+                            return Visibility.Visible;
+                    }
+                }
+                return Visibility.Collapsed; ;
+            }
+
+            set
+            {
+                _pCI2 = value;
+            }
+
+        }
+        private Visibility _pCI3;
+        public Visibility PCI3 {
+            get
+            {
+                foreach (var device in Cards)
+                {
+                    if (device.ParrentLocation == ParrentLocation)
+                    {
+                        if (device.OutputLocation == 4)
+                            return Visibility.Visible;
+                    }
+                }
+                return Visibility.Collapsed; ;
+            }
+
+            set
+            {
+                _pCI3 = value;
+            }
+
+        }
+        private Visibility _pCI4;
+        public Visibility PCI4 {
+            get
+            {
+                foreach (var device in Cards)
+                {
+                    if (device.ParrentLocation == ParrentLocation)
+                    {
+                        if (device.OutputLocation == 5)
+                            return Visibility.Visible;
+                    }
+                }
+                return Visibility.Collapsed; ;
+            }
+
+            set
+            {
+                _pCI4 = value;
+            }
+
+        }
+        private Visibility _spotSetEnable;
+        public Visibility SpotSetEnable {
+            get
+            {
+                if (CurrentDevice.DeviceType == "ABRev2")
+                    return Visibility.Visible;
+                else
+                    return Visibility.Collapsed;
+            }
+
+            set
+            {
+                _spotSetEnable = value;
+            }
+
+        }
+
+
+
+        private bool _aRGB1Checked;
+        public bool ARGB1Checked {
+
+            get { return _aRGB1Checked; }
+            set
+            {
+                _aRGB1Checked = value;
+                if (value)
+                {
+                    
+                    foreach (var device in Cards)
+                        if (device.ParrentLocation == ParrentLocation && device.OutputLocation==0)
+                        {
+                            GotoChild(device);
+                            RaisePropertyChanged(() => DFUVisibility);
+                            
+                        }
+                            
+                   
+                    foreach (var spotset in SpotSets)
+                    {
+
+                        if (spotset.ID == CurrentDevice.DeviceID)
+                        {
+                            PreviewSpots = spotset.Spots;
+                        }
+                    }
+            }
+            }
+        }
+    
+        private bool _aRGB2Checked;
+        public bool ARGB2Checked {
+
+            get { return _aRGB2Checked; }
+            set
+            {
+                _aRGB2Checked = value;
+                if (value)
+                {
+                   
+                    foreach (var device in Cards)
+                        if (device.ParrentLocation == ParrentLocation && device.OutputLocation == 1)
+                            GotoChild(device);
+                    RaisePropertyChanged(() => DFUVisibility);
+                    foreach (var spotset in SpotSets)
+                    {
+
+                        if (spotset.ID == CurrentDevice.DeviceID)
+                        {
+                            PreviewSpots = spotset.Spots;
+                        }
+                    }
+                }
+            }
+        }
+        private bool _pCI1Checked;
+        public bool PCI1Checked {
+
+            get { return _pCI1Checked; }
+            set
+            {
+                _pCI1Checked = value;
+                if (value)
+                {
+                    
+                    foreach (var device in Cards)
+                        if (device.ParrentLocation == ParrentLocation && device.OutputLocation == 2)
+                            GotoChild(device);
+                    RaisePropertyChanged(() => DFUVisibility);
+                    foreach (var spotset in SpotSets)
+                    {
+
+                        if (spotset.ID == CurrentDevice.DeviceID)
+                        {
+                            PreviewSpots = spotset.Spots;
+                        }
+                    }
+                }
+            }
+        }
+
+        private bool _pCI2Checked;
+        public bool PCI2Checked {
+
+            get { return _pCI2Checked; }
+            set
+            {
+                _pCI2Checked = value;
+                if (value)
+                {
+                   
+                    foreach (var device in Cards)
+                        if (device.ParrentLocation == ParrentLocation && device.OutputLocation == 3)
+                            GotoChild(device);
+                    RaisePropertyChanged(() => DFUVisibility);
+                    foreach (var spotset in SpotSets)
+                    {
+
+                        if (spotset.ID == CurrentDevice.DeviceID)
+                        {
+                            PreviewSpots = spotset.Spots;
+                        }
+                    }
+                }
+            }
+        }
+        private bool _pCI3Checked;
+        public bool PCI3Checked {
+
+            get { return _pCI3Checked; }
+            set
+            {
+                _pCI3Checked = value;
+                if (value)
+                {
+                    
+                    foreach (var device in Cards)
+                        if (device.ParrentLocation == ParrentLocation && device.OutputLocation == 4)
+                            GotoChild(device);
+                    RaisePropertyChanged(() => DFUVisibility);
+                    foreach (var spotset in SpotSets)
+                    {
+
+                        if (spotset.ID == CurrentDevice.DeviceID)
+                        {
+                            PreviewSpots = spotset.Spots;
+                        }
+                    }
+                }
+            }
+        }
+        private bool _pCI4Checked;
+        public bool PCI4Checked {
+
+            get { return _pCI4Checked; }
+            set
+            {
+                _pCI4Checked = value;
+                if (value)
+                {
+                    
+                    foreach (var device in Cards)
+                        if (device.ParrentLocation == ParrentLocation && device.OutputLocation == 5)
+                            GotoChild(device);
+                    RaisePropertyChanged(() => DFUVisibility);
+                    foreach (var spotset in SpotSets)
+                    {
+
+                        if (spotset.ID == CurrentDevice.DeviceID)
+                        {
+                            PreviewSpots = spotset.Spots;
+                        }
+                    }
+                }
+            }
+        }
+
 
         public async void ShowDeleteDialog()
         {
@@ -1217,6 +1591,19 @@ namespace adrilight.ViewModel
 
         public void DeleteCard(IDeviceSettings deviceInfo)
         {
+            var childcards = new ObservableCollection<IDeviceSettings>();
+            if(deviceInfo.IsHUB)
+            {
+                foreach(var device in Cards)
+                {
+                    if (device.ParrentLocation == deviceInfo.DeviceID)
+                        childcards.Add(device);
+                }
+            }
+            foreach(var device in childcards)
+            {
+                Cards.Remove(device);
+            }
             Cards.Remove(deviceInfo);
             WriteJson();
         }
@@ -1329,6 +1716,10 @@ namespace adrilight.ViewModel
             SelectedVerticalMenuItem = MenuItems.FirstOrDefault(t => t.Text == general);
             IsDashboardType = false;
             CurrentDevice = card;
+            if(CurrentDevice.IsHUB)
+            {
+                ParrentLocation = CurrentDevice.DeviceID;
+            }
             if(CurrentDevice.DeviceID==151293)
             {
 
@@ -1342,6 +1733,8 @@ namespace adrilight.ViewModel
                     }
 
                     }
+
+
             
             SetMenuItemActiveStatus(lighting);
         }

@@ -23,6 +23,8 @@ namespace adrilight
         private string _deviceType = "Generic Device";
         private int _rGBOrder = 0;
         private int _outputLocation = 151293;
+        private bool _isHUB = false;
+
 
         private int _mSens = 0;
        // private DateTime? _lastUpdateCheck = DateTime.UtcNow;
@@ -46,7 +48,7 @@ namespace adrilight
 
         private int _spotsY = 6;
         private int _effectSpeed = 5;
-        private int _colorFrequency = 0;
+        private int _colorFrequency = 1;
         private int _selectedMusicPalette = 0;
 
         private int _spotWidth = 150;
@@ -194,6 +196,7 @@ namespace adrilight
        // public bool StartMinimized { get => _startMinimized; set { Set(() => StartMinimized, ref _startMinimized, value); } }
         public bool TransferActive { get => _transferActive; set { Set(() => TransferActive, ref _transferActive, value); } }
         public bool IsVissible { get => _isVissible; set { Set(() => IsVissible, ref _isVissible, value); } }
+        public bool IsHUB{ get => _isHUB; set { Set(() => IsHUB, ref _isHUB, value); } }
 
         public bool CaptureActive { get => _captureActive; set { Set(() => CaptureActive, ref _captureActive, value); } }
         public bool IsConnected { get => _isConnected; set { Set(() => IsConnected, ref _isConnected, value); } }
@@ -299,6 +302,6 @@ namespace adrilight
                 RaisePropertyChanged();
             }
         }
-        public bool IsHub => DeviceType == "ABHV2";
+       
     }
 }

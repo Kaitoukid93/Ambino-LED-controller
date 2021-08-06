@@ -51,6 +51,9 @@ namespace adrilight
                 case nameof(DeviceSettings.SelectedEffect):
                 case nameof(DeviceSettings.SelectedPalette):
                 case nameof(DeviceSettings.Brightness):
+                case nameof(DeviceSettings.SpotsX):
+                case nameof(DeviceSettings.SpotsY):
+
                     RefreshColorState();
                     break;
             }
@@ -106,7 +109,7 @@ namespace adrilight
                 {
                     double brightness = DeviceSettings.Brightness / 100d;
                     int paletteSource = DeviceSettings.SelectedPalette;
-                    var numLED = DeviceSettings.NumLED;
+                    var numLED = DeviceSpotSet.CountLeds(DeviceSettings.SpotsX, DeviceSettings.SpotsY);
                     var colorOutput = new OpenRGB.NET.Models.Color[numLED];
                     var effectSpeed = DeviceSettings.EffectSpeed;
                     var frequency = DeviceSettings.ColorFrequency;
@@ -150,7 +153,7 @@ namespace adrilight
                             for (int i = 0; i < numLED; i++)
                             {
                                 //double position = i / (double)numLED;
-                                var position = _startIndex + (1000d / (frequency * numLED)) * i;
+                                var position = _startIndex + 1000d / (frequency * numLED) * i;
 
                                 if (position > 1000)
                                     position = position - 1000;
@@ -321,6 +324,7 @@ namespace adrilight
         private static Color GetColorByOffset(GradientStopCollection collection, double position)
         {
             double offset = position / 1000.0;
+            
             GradientStop[] stops = collection.OrderBy(x => x.Offset).ToArray();
             if (offset <= 0) return stops[0].Color;
             if (offset >= 1) return stops[stops.Length - 1].Color;
@@ -362,24 +366,7 @@ namespace adrilight
             gradientPalette.Add(new GradientStop(ColorCollection[13], 0.859));
             gradientPalette.Add(new GradientStop(ColorCollection[14], 0.925));
             gradientPalette.Add(new GradientStop(ColorCollection[15], 1));
-            //gradientPalette.Add(new GradientStop(ColorCollection[0], 1));
-            //gradientPalette.Add(new GradientStop(ColorCollection[0], 0.0000));
-            //gradientPalette.Add(new GradientStop(ColorCollection[1], 0.0625));
-            //gradientPalette.Add(new GradientStop(ColorCollection[2], 0.1250));
-            //gradientPalette.Add(new GradientStop(ColorCollection[3], 0.1875));
-            //gradientPalette.Add(new GradientStop(ColorCollection[4], 0.2500));
-            //gradientPalette.Add(new GradientStop(ColorCollection[5], 0.3125));
-            //gradientPalette.Add(new GradientStop(ColorCollection[6], 0.3750));
-            //gradientPalette.Add(new GradientStop(ColorCollection[7], 0.4375));
-            //gradientPalette.Add(new GradientStop(ColorCollection[8], 0.5000));
-            //gradientPalette.Add(new GradientStop(ColorCollection[9], 0.5625));
-            //gradientPalette.Add(new GradientStop(ColorCollection[10], 0.6250));
-            //gradientPalette.Add(new GradientStop(ColorCollection[11], 0.6875));
-            //gradientPalette.Add(new GradientStop(ColorCollection[12], 0.7500));
-            //gradientPalette.Add(new GradientStop(ColorCollection[13], 0.8125));
-            //gradientPalette.Add(new GradientStop(ColorCollection[14], 0.8750));
-            //gradientPalette.Add(new GradientStop(ColorCollection[15], 0.9375));
-            //gradientPalette.Add(new GradientStop(ColorCollection[0], 1.000));
+          
             return gradientPalette;
         }
 

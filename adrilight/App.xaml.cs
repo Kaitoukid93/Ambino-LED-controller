@@ -271,7 +271,7 @@ namespace adrilight
                     {
                         kernel.Bind<IContext>().To<WpfContext>().InSingletonScope().Named(DeviceName);
                        
-                        if(!devicesetting.IsHub)
+                        if(!devicesetting.IsHUB)
                         {
                             kernel.Bind<IDeviceSpotSet>().To<DeviceSpotSet>().InSingletonScope().Named(DeviceName).WithConstructorArgument("deviceSettings", kernel.Get<IDeviceSettings>(DeviceName));
                             kernel.Bind<ISpotSetReader>().To<SpotSetReader>().InSingletonScope().Named(DeviceName).WithConstructorArgument("deviceSettings", kernel.Get<IDeviceSettings>(DeviceName)).WithConstructorArgument("deviceSpotSet", kernel.Get<IDeviceSpotSet>(DeviceName));
@@ -308,7 +308,7 @@ namespace adrilight
 
                 foreach (var devicesetting in alldevicesettings)
                 {
-                    if (devicesetting.IsHub)//hub object, bind all spotset
+                    if (devicesetting.IsHUB)//hub object, bind all spotset
                     {
                         kernel.Bind<ISerialStream>().To<SerialStreamHUB>().InSingletonScope().Named(devicesetting.DeviceID.ToString()).WithConstructorArgument("deviceSettings", kernel.Get<IDeviceSettings>(devicesetting.DeviceID.ToString()));
                         var serialStream = kernel.Get<ISerialStream>(devicesetting.DeviceID.ToString());
@@ -384,9 +384,9 @@ namespace adrilight
                     var duplicatorreader = kernel.Get<IDesktopDuplicatorReader>();
                     var duplicatorreader2 = kernel.Get<IDesktopDuplicatorReaderSecondary>();
                     var duplicatorreader3 = kernel.Get<IDesktopDuplicatorReaderThird>();
-                   // duplicatorreader.RefreshCapturingState();
-                   // duplicatorreader2.RefreshCapturingState();
-                  //  duplicatorreader3.RefreshCapturingState();
+                    duplicatorreader.RefreshCapturingState();
+                    duplicatorreader2.RefreshCapturingState();
+                    duplicatorreader3.RefreshCapturingState();
 
                     _log.Debug("Restart the serial stream after sleep!");
                 }
