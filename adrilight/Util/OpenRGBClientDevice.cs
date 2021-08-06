@@ -32,7 +32,7 @@ namespace adrilight.Util
             {
 
             
-            using var client = new OpenRGBClient(name: "My OpenRGB Client", autoconnect: true, timeout: 1000);
+             var client = new OpenRGBClient(name: "My OpenRGB Client", autoconnect: true, timeout: 1000);
 
             var deviceCount = client.GetControllerCount();
             var devices = client.GetAllControllerData();

@@ -25,7 +25,7 @@ using Ninject;
 using OpenRGB.NET.Models;
 using Un4seen.BassWasapi;
 using Application = System.Windows.Forms.Application;
-
+using adrilight.Extensions;
 namespace adrilight.ViewModel
 {
   public  class MainViewViewModel: BaseViewModel
@@ -454,119 +454,199 @@ namespace adrilight.ViewModel
                 switch (e.PropertyName)
                 {
                     case nameof(GeneralSettings.ScreenSize):
-                        if (GeneralSettings.ScreenSize==0)
+                        //if (GeneralSettings.ScreenSize==0)
+                        //{
+                        //    GeneralSettings.SpotsX = 11;
+                        //    GeneralSettings.SpotsY = 7;
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX);
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY);
+                        //}
+                        //else if (GeneralSettings.ScreenSize == 1)
+                        //{
+                        //    GeneralSettings.SpotsX = 13;
+                        //    GeneralSettings.SpotsY = 7;
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX);
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY);
+                        //}
+                        //else if (GeneralSettings.ScreenSize == 2)
+                        //{
+                        //    GeneralSettings.SpotsX = 14;
+                        //    GeneralSettings.SpotsY = 7;
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX);
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY);
+                        //}
+                        //else if (GeneralSettings.ScreenSize == 3)
+                        //{
+                        //    GeneralSettings.SpotsX = 14;
+                        //    GeneralSettings.SpotsY = 9;
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX);
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY);
+                        //}
+                        //else if (GeneralSettings.ScreenSize == 4)
+                        //{
+                        //    GeneralSettings.SpotsX = 16;
+                        //    GeneralSettings.SpotsY = 7;
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX);
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY);
+                        //}
+                        switch (GeneralSettings.ScreenSize)
                         {
-                            GeneralSettings.SpotsX = 11;
-                            GeneralSettings.SpotsY = 7;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY);
+                            case 0:
+                                GeneralSettings.SpotsX = 11;
+                                GeneralSettings.SpotsY = 7;
+                                break;
+                            case 1:
+                                GeneralSettings.SpotsX = 13;
+                                GeneralSettings.SpotsY = 7;
+                                break;
+                            case 2:
+                                GeneralSettings.SpotsX = 14;
+                                GeneralSettings.SpotsY = 7;
+                                break;
+                            case 3:
+                                GeneralSettings.SpotsX = 14;
+                                GeneralSettings.SpotsY = 9;
+                                break;
+                            case 4:
+                                GeneralSettings.SpotsX = 16;
+                                GeneralSettings.SpotsY = 7;
+                                break;
                         }
-                        else if (GeneralSettings.ScreenSize == 1)
-                        {
-                            GeneralSettings.SpotsX = 13;
-                            GeneralSettings.SpotsY = 7;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY);
-                        }
-                        else if (GeneralSettings.ScreenSize == 2)
-                        {
-                            GeneralSettings.SpotsX = 14;
-                            GeneralSettings.SpotsY = 7;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY);
-                        }
-                        else if (GeneralSettings.ScreenSize == 3)
-                        {
-                            GeneralSettings.SpotsX = 14;
-                            GeneralSettings.SpotsY = 9;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY);
-                        }
-                        else if (GeneralSettings.ScreenSize == 4)
-                        {
-                            GeneralSettings.SpotsX = 16;
-                            GeneralSettings.SpotsY = 7;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY);
-                        }
-
+                        RaisePropertyChanged(() => GeneralSettings.SpotsX);
+                        RaisePropertyChanged(() => GeneralSettings.SpotsY);
                         GeneralSettings.OffsetLed = GeneralSettings.SpotsX - 1;
                         break;
                     case nameof(GeneralSettings.ScreenSizeSecondary):
-                        if (GeneralSettings.ScreenSizeSecondary == 0)
+                        switch (GeneralSettings.ScreenSizeSecondary)
                         {
-                            GeneralSettings.SpotsX2 = 11;
-                            GeneralSettings.SpotsY2 = 7;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX2);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                            case 0:
+                                GeneralSettings.SpotsX2 = 11;
+                                GeneralSettings.SpotsY2 = 7;
+                                break;
+                            case 1:
+                                GeneralSettings.SpotsX2 = 13;
+                                GeneralSettings.SpotsY2 = 7;
+                                break;
+                            case 2:
+                                GeneralSettings.SpotsX2 = 14;
+                                GeneralSettings.SpotsY2 = 7;
+                                break;
+                            case 3:
+                                GeneralSettings.SpotsX2 = 14;
+                                GeneralSettings.SpotsY2 = 9;
+                                break;
+                            case 4:
+                                GeneralSettings.SpotsX2 = 16;
+                                GeneralSettings.SpotsY2 = 7;
+                                break;
                         }
-                        else if (GeneralSettings.ScreenSizeSecondary == 1)
-                        {
-                            GeneralSettings.SpotsX2 = 13;
-                            GeneralSettings.SpotsY2 = 7;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX2);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY2);
-                        }
-                        else if (GeneralSettings.ScreenSizeSecondary == 2)
-                        {
-                            GeneralSettings.SpotsX2 = 14;
-                            GeneralSettings.SpotsY2 = 7;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX2);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY2);
-                        }
-                        else if (GeneralSettings.ScreenSizeSecondary == 3)
-                        {
-                            GeneralSettings.SpotsX2 = 14;
-                            GeneralSettings.SpotsY2 = 9;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX2);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY2);
-                        }
-                        else if (GeneralSettings.ScreenSizeSecondary == 4)
-                        {
-                            GeneralSettings.SpotsX2 = 16;
-                            GeneralSettings.SpotsY2 = 7;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX2);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY2);
-                        }
+                        RaisePropertyChanged(() => GeneralSettings.SpotsX2);
+                        RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                        //if (GeneralSettings.ScreenSizeSecondary == 0)
+                        //{
+                        //    GeneralSettings.SpotsX2 = 11;
+                        //    GeneralSettings.SpotsY2 = 7;
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX2);
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                        //}
+                        //else if (GeneralSettings.ScreenSizeSecondary == 1)
+                        //{
+                        //    GeneralSettings.SpotsX2 = 13;
+                        //    GeneralSettings.SpotsY2 = 7;
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX2);
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                        //}
+                        //else if (GeneralSettings.ScreenSizeSecondary == 2)
+                        //{
+                        //    GeneralSettings.SpotsX2 = 14;
+                        //    GeneralSettings.SpotsY2 = 7;
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX2);
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                        //}
+                        //else if (GeneralSettings.ScreenSizeSecondary == 3)
+                        //{
+                        //    GeneralSettings.SpotsX2 = 14;
+                        //    GeneralSettings.SpotsY2 = 9;
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX2);
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                        //}
+                        //else if (GeneralSettings.ScreenSizeSecondary == 4)
+                        //{
+                        //    GeneralSettings.SpotsX2 = 16;
+                        //    GeneralSettings.SpotsY2 = 7;
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX2);
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                        //}
 
                         GeneralSettings.OffsetLed2 = GeneralSettings.SpotsX2 - 1;
                         break;
                     case nameof(GeneralSettings.ScreenSizeThird):
-                        if (GeneralSettings.ScreenSizeThird == 0)
+                        switch (GeneralSettings.ScreenSizeThird)
                         {
-                            GeneralSettings.SpotsX3 = 11;
-                            GeneralSettings.SpotsY3= 7;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX3);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY3);
+                            case 0:
+                                GeneralSettings.SpotsX3 = 11;
+                                GeneralSettings.SpotsY3 = 7;
+                              
+                                break;
+                            case 1:
+                                GeneralSettings.SpotsX3 = 13;
+                                GeneralSettings.SpotsY3 = 7;
+                             
+                                break;
+                            case 2:
+                                GeneralSettings.SpotsX3 = 14;
+                                GeneralSettings.SpotsY3 = 7;
+                              
+                                break;
+                            case 3:
+                                GeneralSettings.SpotsX3 = 14;
+                                GeneralSettings.SpotsY3 = 9;
+                               
+                                break;
+                            case 4:
+                                GeneralSettings.SpotsX3 = 16;
+                                GeneralSettings.SpotsY3 = 7;
+                              
+                                break;
+                          
                         }
-                        else if (GeneralSettings.ScreenSizeThird == 1)
-                        {
-                            GeneralSettings.SpotsX3 = 13;
-                            GeneralSettings.SpotsY3 = 7;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX3);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY3);
-                        }
-                        else if (GeneralSettings.ScreenSizeThird == 2)
-                        {
-                            GeneralSettings.SpotsX3 = 14;
-                            GeneralSettings.SpotsY3 = 7;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX3);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY3);
-                        }
-                        else if (GeneralSettings.ScreenSizeThird == 3)
-                        {
-                            GeneralSettings.SpotsX3 = 14;
-                            GeneralSettings.SpotsY3 = 9;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX3);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY3);
-                        }
-                        else if (GeneralSettings.ScreenSizeThird == 4)
-                        {
-                            GeneralSettings.SpotsX3 = 16;
-                            GeneralSettings.SpotsY3 = 7;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX3);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY3);
-                        }
+                        RaisePropertyChanged(() => GeneralSettings.SpotsX3);
+                        RaisePropertyChanged(() => GeneralSettings.SpotsY3);
+                        //if (GeneralSettings.ScreenSizeThird == 0)
+                        //{
+                        //    GeneralSettings.SpotsX3 = 11;
+                        //    GeneralSettings.SpotsY3= 7;
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX3);
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY3);
+                        //}
+                        //else if (GeneralSettings.ScreenSizeThird == 1)
+                        //{
+                        //    GeneralSettings.SpotsX3 = 13;
+                        //    GeneralSettings.SpotsY3 = 7;
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX3);
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY3);
+                        //}
+                        //else if (GeneralSettings.ScreenSizeThird == 2)
+                        //{
+                        //    GeneralSettings.SpotsX3 = 14;
+                        //    GeneralSettings.SpotsY3 = 7;
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX3);
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY3);
+                        //}
+                        //else if (GeneralSettings.ScreenSizeThird == 3)
+                        //{
+                        //    GeneralSettings.SpotsX3 = 14;
+                        //    GeneralSettings.SpotsY3 = 9;
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX3);
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY3);
+                        //}
+                        //else if (GeneralSettings.ScreenSizeThird == 4)
+                        //{
+                        //    GeneralSettings.SpotsX3 = 16;
+                        //    GeneralSettings.SpotsY3 = 7;
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX3);
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY3);
+                        //}
 
                         GeneralSettings.OffsetLed3= GeneralSettings.SpotsX3 - 1;
                         break;
@@ -766,13 +846,14 @@ namespace adrilight.ViewModel
                     foreach (var device in openRGBdevices)//convert openRGB device to ambino Device
                     {
 
-                        IDeviceSettings newDevice = new DeviceSettings();
-                        newDevice.DeviceName = device.Name.ToString();
-                        newDevice.DeviceType = device.Type.ToString();
-                        newDevice.DevicePort = device.Location.ToString();
-                        newDevice.DeviceID = 151293;
-                        newDevice.DeviceSerial = device.Serial;
-                        Cards.Add(newDevice);
+                        //IDeviceSettings newDevice = new DeviceSettings();
+                        //newDevice.DeviceName = device.Name.ToString();
+                        //newDevice.DeviceType = device.Type.ToString();
+                        //newDevice.DevicePort = device.Location.ToString();
+                        //newDevice.DeviceID = 151293;
+                        //newDevice.DeviceSerial = device.Serial;
+                        //Cards.Add(newDevice);
+                        AddDevice(device.Name, device.Type.ToString(), device.Location.ToString(), 151293, device.Serial);
                     }
                 }
             }
@@ -784,16 +865,17 @@ namespace adrilight.ViewModel
             
             if (detectedDevices.Count>0)
             {
-                foreach (var device in detectedDevices)
-                {
-                    foreach (var existedDevice in Cards)
-                    {
-                        if (existedDevice.DevicePort == device)
-                            newdevices.Remove(device);
-                    }
+                //foreach (var device in detectedDevices)
+                //{
+                //    foreach (var existedDevice in Cards)
+                //    {
+                //        if (existedDevice.DevicePort == device)
+                //            newdevices.Remove(device);
+                //    }
 
-                }
-
+                //}
+                var removeDevices = detectedDevices.Where(t => Cards.Any(c => c.DevicePort == t)).ToList();
+                newdevices.RemoveRange(removeDevices);
                 if (newdevices.Count == 1)
                 {
                     var result = HandyControl.Controls.MessageBox.Show("Phát hiện Ambino Basic Rev 2 đã kết nối ở " + newdevices[0] + " Nhấn [Confirm] để add vào Dashboard", "Ambino Device", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -801,15 +883,15 @@ namespace adrilight.ViewModel
                     {
                         foreach (var device in newdevices)
                         {
-                            IDeviceSettings newDevice = new DeviceSettings();
-                            newDevice.DeviceName = "Auto Detected Device";
-                            newDevice.DeviceType = "ABRev2";
-                            newDevice.DevicePort = device;
-                            newDevice.DeviceID = Cards.Count + 1;
-                            newDevice.DeviceSerial = "151293";
-                            Cards.Add(newDevice);
-                          
+                            //IDeviceSettings newDevice = new DeviceSettings();
+                            //newDevice.DeviceName = "Auto Detected Device";
+                            //newDevice.DeviceType = "ABRev2";
+                            //newDevice.DevicePort = device;
+                            //newDevice.DeviceID = Cards.Count + 1;
+                            //newDevice.DeviceSerial = "151293";
+                            //Cards.Add(newDevice);
 
+                            AddDevice("Auto Detected Device", "ABRev2", device, Cards.Count + 1, "151293");
                         }
 
                     }
@@ -823,14 +905,14 @@ namespace adrilight.ViewModel
                     {
                         foreach (var device in newdevices)
                         {
-                            IDeviceSettings newDevice = new DeviceSettings();
-                            newDevice.DeviceName = "Auto Detected Device";
-                            newDevice.DeviceType = "ABRev2";
-                            newDevice.DevicePort = device;
-                            newDevice.DeviceID = Cards.Count + 1;
-                            newDevice.DeviceSerial = "151293";
-                            Cards.Add(newDevice);
-                          
+                            //IDeviceSettings newDevice = new DeviceSettings();
+                            //newDevice.DeviceName = "Auto Detected Device";
+                            //newDevice.DeviceType = "ABRev2";
+                            //newDevice.DevicePort = device;
+                            //newDevice.DeviceID = Cards.Count + 1;
+                            //newDevice.DeviceSerial = "151293";
+                            //Cards.Add(newDevice);
+                            AddDevice("Auto Detected Device", "ABRev2", device, Cards.Count + 1, "151293");
 
                         }
 
@@ -856,6 +938,16 @@ namespace adrilight.ViewModel
                 Process.GetCurrentProcess().Kill();
             }
 
+        }
+        public void AddDevice(string name,string type,string port,int id,string serial)
+        {
+            IDeviceSettings newDevice = new DeviceSettings();
+            newDevice.DeviceName =name;
+            newDevice.DeviceType = type;
+            newDevice.DevicePort =port;
+            newDevice.DeviceID = id;
+            newDevice.DeviceSerial =serial;
+            Cards.Add(newDevice);
         }
         //public void ReadFAQ()
         //{
@@ -1024,75 +1116,81 @@ namespace adrilight.ViewModel
                         _isAddnew = false;
                         if (vm.ARGB1Selected) // ARGB1 output port is in the list
                         {
-                            var argb1 = new DeviceSettings();
-                            argb1.DeviceType = "Strip";                           //add to device settings
-                            argb1.DeviceID = Cards.Count() + 1;
-                            argb1.SpotsX = 16;
-                            argb1.SpotsY = 1;
-                            argb1.NumLED = 16;
-                            argb1.DeviceName = "ARGB1(HUBV2)";
-                            argb1.ParrentLocation = vm.Device.DeviceID;
-                            Cards.Add(argb1);
+                            //var argb1 = new DeviceSettings();
+                            //argb1.DeviceType = "Strip";                           //add to device settings
+                            //argb1.DeviceID = Cards.Count() + 1;
+                            //argb1.SpotsX = 16;
+                            //argb1.SpotsY = 1;
+                            //argb1.NumLED = 16;
+                            //argb1.DeviceName = "ARGB1(HUBV2)";
+                            //argb1.ParrentLocation = vm.Device.DeviceID;
+                            //Cards.Add(argb1);
+                            AddPCI("Strip", "ARGB1(HUBV2)", vm.Device.DeviceID, 16, 1, 16);
                         }
                          if (vm.ARGB2Selected)
                         {
-                            var argb2 = new DeviceSettings();
-                            argb2.DeviceType = "Strip";                           //add to device settings
-                            argb2.DeviceID = Cards.Count() + 1;
-                            argb2.SpotsX = 160;
-                            argb2.SpotsY = 1;
-                            argb2.NumLED = 160;
-                            argb2.DeviceName = "ARGB2(HUBV2)";
-                            argb2.ParrentLocation = vm.Device.DeviceID;
-                            Cards.Add(argb2);
+                            //var argb2 = new DeviceSettings();
+                            //argb2.DeviceType = "Strip";                           //add to device settings
+                            //argb2.DeviceID = Cards.Count() + 1;
+                            //argb2.SpotsX = 160;
+                            //argb2.SpotsY = 1;
+                            //argb2.NumLED = 160;
+                            //argb2.DeviceName = "ARGB2(HUBV2)";
+                            //argb2.ParrentLocation = vm.Device.DeviceID;
+                            //Cards.Add(argb2);
+                            AddPCI("Strip", "ARGB2(HUBV2)", vm.Device.DeviceID,160,1,160);
                         }
                          if (vm.PCI1Selected)
                         {
-                            var PCI = new DeviceSettings();
-                            PCI.DeviceType = "Strip";                           //add to device settings
-                            PCI.DeviceID = Cards.Count() + 1;
-                            PCI.SpotsX = 50;
-                            PCI.SpotsY = 1;
-                            PCI.NumLED = 50;
-                            PCI.DeviceName = "PCI1(HUBV2)";
-                            PCI.ParrentLocation = vm.Device.DeviceID;
-                            Cards.Add(PCI);
+                            //var PCI = new DeviceSettings();
+                            //PCI.DeviceType = "Strip";                           //add to device settings
+                            //PCI.DeviceID = Cards.Count() + 1;
+                            //PCI.SpotsX = 50;
+                            //PCI.SpotsY = 1;
+                            //PCI.NumLED = 50;
+                            //PCI.DeviceName = "PCI1(HUBV2)";
+                            //PCI.ParrentLocation = vm.Device.DeviceID;
+                            //Cards.Add(PCI);
+                            AddPCI("Strip", "PCI1(HUBV2)", vm.Device.DeviceID);
                         }
                          if (vm.PCI2Selected)
                         {
-                            var PCI = new DeviceSettings();
-                            PCI.DeviceType = "Strip";                           //add to device settings
-                            PCI.DeviceID = Cards.Count() + 1;
-                            PCI.SpotsX = 50;
-                            PCI.SpotsY = 1;
-                            PCI.NumLED = 50;
-                            PCI.DeviceName = "PCI2(HUBV2)";
-                            PCI.ParrentLocation = vm.Device.DeviceID;
-                            Cards.Add(PCI);
+                            //var PCI = new DeviceSettings();
+                            //PCI.DeviceType = "Strip";                           //add to device settings
+                            //PCI.DeviceID = Cards.Count() + 1;
+                            //PCI.SpotsX = 50;
+                            //PCI.SpotsY = 1;
+                            //PCI.NumLED = 50;
+                            //PCI.DeviceName = "PCI2(HUBV2)";
+                            //PCI.ParrentLocation = vm.Device.DeviceID;
+                            //Cards.Add(PCI);
+                            AddPCI("Strip", "PCI2(HUBV2)", vm.Device.DeviceID);
                         }
                          if (vm.PCI3Selected)
                         {
-                            var PCI = new DeviceSettings();
-                            PCI.DeviceType = "Strip";                           //add to device settings
-                            PCI.DeviceID = Cards.Count() + 1;
-                            PCI.SpotsX = 50;
-                            PCI.SpotsY = 1;
-                            PCI.NumLED = 50;
-                            PCI.DeviceName = "PCI3(HUBV2)";
-                            PCI.ParrentLocation = vm.Device.DeviceID;
-                            Cards.Add(PCI);
+                            //var PCI = new DeviceSettings();
+                            //PCI.DeviceType = "Strip";                           //add to device settings
+                            //PCI.DeviceID = Cards.Count() + 1;
+                            //PCI.SpotsX = 50;
+                            //PCI.SpotsY = 1;
+                            //PCI.NumLED = 50;
+                            //PCI.DeviceName = "PCI3(HUBV2)";
+                            //PCI.ParrentLocation = vm.Device.DeviceID;
+                            //Cards.Add(PCI);
+                            AddPCI("Strip", "PCI3(HUBV2)", vm.Device.DeviceID);
                         }
                         if (vm.PCI4Selected)
                         {
-                            var PCI = new DeviceSettings();
-                            PCI.DeviceType = "Strip";                           //add to device settings
-                            PCI.DeviceID = Cards.Count() + 1;
-                            PCI.SpotsX = 50;
-                            PCI.SpotsY = 1;
-                            PCI.NumLED = 50;
-                            PCI.DeviceName = "PCI4(HUBV2)";
-                            PCI.ParrentLocation = vm.Device.DeviceID;
-                            Cards.Add(PCI);
+                            //var PCI = new DeviceSettings();
+                            //PCI.DeviceType = "Strip";                           //add to device settings
+                            //PCI.DeviceID = Cards.Count() + 1;
+                            //PCI.SpotsX = 50;
+                            //PCI.SpotsY = 1;
+                            //PCI.NumLED = 50;
+                            //PCI.DeviceName = "PCI4(HUBV2)";
+                            //PCI.ParrentLocation = vm.Device.DeviceID;
+                            //Cards.Add(PCI);
+                            AddPCI("Strip", "PCI4(HUBV2)", vm.Device.DeviceID);
                         }
 
 
@@ -1111,7 +1209,18 @@ namespace adrilight.ViewModel
 
             
         }
-
+        public void AddPCI(string deviceType,string name,int parentId,int spotX=50,int spotY=1,int numLed=50)
+        {
+            var PCI = new DeviceSettings();
+            PCI.DeviceType = deviceType;                           //add to device settings
+            PCI.DeviceID = Cards.Count() + 1;
+            PCI.SpotsX = spotX;
+            PCI.SpotsY = spotY;
+            PCI.NumLED = numLed;
+            PCI.DeviceName = name;
+            PCI.ParrentLocation =parentId;
+            Cards.Add(PCI);
+        }
         public async void ShowDeleteDialog()
         {
             var view = new View.DeleteMessageDialog();
