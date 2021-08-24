@@ -25,7 +25,7 @@ using Ninject;
 using OpenRGB.NET.Models;
 using Un4seen.BassWasapi;
 using Application = System.Windows.Forms.Application;
-
+using adrilight.Extensions;
 namespace adrilight.ViewModel
 {
     public class MainViewViewModel : BaseViewModel
@@ -560,83 +560,97 @@ namespace adrilight.ViewModel
                     case nameof(GeneralSettings.ScreenSize):
                         if (GeneralSettings.ScreenSize == 0)
                         {
-                            GeneralSettings.SpotsX = 11;
-                            GeneralSettings.SpotsY = 7;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY);
+                            case 0:
+                                GeneralSettings.SpotsX = 11;
+                                GeneralSettings.SpotsY = 7;
+                                break;
+                            case 1:
+                                GeneralSettings.SpotsX = 13;
+                                GeneralSettings.SpotsY = 7;
+                                break;
+                            case 2:
+                                GeneralSettings.SpotsX = 14;
+                                GeneralSettings.SpotsY = 7;
+                                break;
+                            case 3:
+                                GeneralSettings.SpotsX = 14;
+                                GeneralSettings.SpotsY = 9;
+                                break;
+                            case 4:
+                                GeneralSettings.SpotsX = 16;
+                                GeneralSettings.SpotsY = 7;
+                                break;
                         }
-                        else if (GeneralSettings.ScreenSize == 1)
-                        {
-                            GeneralSettings.SpotsX = 13;
-                            GeneralSettings.SpotsY = 7;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY);
-                        }
-                        else if (GeneralSettings.ScreenSize == 2)
-                        {
-                            GeneralSettings.SpotsX = 14;
-                            GeneralSettings.SpotsY = 7;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY);
-                        }
-                        else if (GeneralSettings.ScreenSize == 3)
-                        {
-                            GeneralSettings.SpotsX = 14;
-                            GeneralSettings.SpotsY = 9;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY);
-                        }
-                        else if (GeneralSettings.ScreenSize == 4)
-                        {
-                            GeneralSettings.SpotsX = 16;
-                            GeneralSettings.SpotsY = 7;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY);
-                        }
-
+                        RaisePropertyChanged(() => GeneralSettings.SpotsX);
+                        RaisePropertyChanged(() => GeneralSettings.SpotsY);
                         GeneralSettings.OffsetLed = GeneralSettings.SpotsX - 1;
                         break;
                     case nameof(GeneralSettings.ScreenSizeSecondary):
-                        if (GeneralSettings.ScreenSizeSecondary == 0)
+                        switch (GeneralSettings.ScreenSizeSecondary)
                         {
-                            GeneralSettings.SpotsX2 = 11;
-                            GeneralSettings.SpotsY2 = 7;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX2);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                            case 0:
+                                GeneralSettings.SpotsX2 = 11;
+                                GeneralSettings.SpotsY2 = 7;
+                                break;
+                            case 1:
+                                GeneralSettings.SpotsX2 = 13;
+                                GeneralSettings.SpotsY2 = 7;
+                                break;
+                            case 2:
+                                GeneralSettings.SpotsX2 = 14;
+                                GeneralSettings.SpotsY2 = 7;
+                                break;
+                            case 3:
+                                GeneralSettings.SpotsX2 = 14;
+                                GeneralSettings.SpotsY2 = 9;
+                                break;
+                            case 4:
+                                GeneralSettings.SpotsX2 = 16;
+                                GeneralSettings.SpotsY2 = 7;
+                                break;
                         }
-                        else if (GeneralSettings.ScreenSizeSecondary == 1)
-                        {
-                            GeneralSettings.SpotsX2 = 13;
-                            GeneralSettings.SpotsY2 = 7;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX2);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY2);
-                        }
-                        else if (GeneralSettings.ScreenSizeSecondary == 2)
-                        {
-                            GeneralSettings.SpotsX2 = 14;
-                            GeneralSettings.SpotsY2 = 7;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX2);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY2);
-                        }
-                        else if (GeneralSettings.ScreenSizeSecondary == 3)
-                        {
-                            GeneralSettings.SpotsX2 = 14;
-                            GeneralSettings.SpotsY2 = 9;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX2);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY2);
-                        }
-                        else if (GeneralSettings.ScreenSizeSecondary == 4)
-                        {
-                            GeneralSettings.SpotsX2 = 16;
-                            GeneralSettings.SpotsY2 = 7;
-                            RaisePropertyChanged(() => GeneralSettings.SpotsX2);
-                            RaisePropertyChanged(() => GeneralSettings.SpotsY2);
-                        }
+                        RaisePropertyChanged(() => GeneralSettings.SpotsX2);
+                        RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                        //if (GeneralSettings.ScreenSizeSecondary == 0)
+                        //{
+                        //    GeneralSettings.SpotsX2 = 11;
+                        //    GeneralSettings.SpotsY2 = 7;
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX2);
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                        //}
+                        //else if (GeneralSettings.ScreenSizeSecondary == 1)
+                        //{
+                        //    GeneralSettings.SpotsX2 = 13;
+                        //    GeneralSettings.SpotsY2 = 7;
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX2);
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                        //}
+                        //else if (GeneralSettings.ScreenSizeSecondary == 2)
+                        //{
+                        //    GeneralSettings.SpotsX2 = 14;
+                        //    GeneralSettings.SpotsY2 = 7;
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX2);
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                        //}
+                        //else if (GeneralSettings.ScreenSizeSecondary == 3)
+                        //{
+                        //    GeneralSettings.SpotsX2 = 14;
+                        //    GeneralSettings.SpotsY2 = 9;
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX2);
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                        //}
+                        //else if (GeneralSettings.ScreenSizeSecondary == 4)
+                        //{
+                        //    GeneralSettings.SpotsX2 = 16;
+                        //    GeneralSettings.SpotsY2 = 7;
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX2);
+                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                        //}
 
                         GeneralSettings.OffsetLed2 = GeneralSettings.SpotsX2 - 1;
                         break;
                     case nameof(GeneralSettings.ScreenSizeThird):
-                        if (GeneralSettings.ScreenSizeThird == 0)
+                        switch (GeneralSettings.ScreenSizeThird)
                         {
                             GeneralSettings.SpotsX3 = 11;
                             GeneralSettings.SpotsY3 = 7;
@@ -896,13 +910,14 @@ namespace adrilight.ViewModel
                     foreach (var device in openRGBdevices)//convert openRGB device to ambino Device
                     {
 
-                        IDeviceSettings newDevice = new DeviceSettings();
-                        newDevice.DeviceName = device.Name.ToString();
-                        newDevice.DeviceType = device.Type.ToString();
-                        newDevice.DevicePort = device.Location.ToString();
-                        newDevice.DeviceID = 151293;
-                        newDevice.DeviceSerial = device.Serial;
-                        Cards.Add(newDevice);
+                        //IDeviceSettings newDevice = new DeviceSettings();
+                        //newDevice.DeviceName = device.Name.ToString();
+                        //newDevice.DeviceType = device.Type.ToString();
+                        //newDevice.DevicePort = device.Location.ToString();
+                        //newDevice.DeviceID = 151293;
+                        //newDevice.DeviceSerial = device.Serial;
+                        //Cards.Add(newDevice);
+                        AddDevice(device.Name, device.Type.ToString(), device.Location.ToString(), 151293, device.Serial);
                     }
                 }
             }
@@ -914,16 +929,17 @@ namespace adrilight.ViewModel
 
             if (detectedDevices.Count > 0)
             {
-                foreach (var device in detectedDevices)
-                {
-                    foreach (var existedDevice in Cards)
-                    {
-                        if (existedDevice.DevicePort == device)
-                            newdevices.Remove(device);
-                    }
+                //foreach (var device in detectedDevices)
+                //{
+                //    foreach (var existedDevice in Cards)
+                //    {
+                //        if (existedDevice.DevicePort == device)
+                //            newdevices.Remove(device);
+                //    }
 
-                }
-
+                //}
+                var removeDevices = detectedDevices.Where(t => Cards.Any(c => c.DevicePort == t)).ToList();
+                newdevices.RemoveRange(removeDevices);
                 if (newdevices.Count == 1)
                 {
                     var result = HandyControl.Controls.MessageBox.Show("Phát hiện Ambino Basic Rev 2 đã kết nối ở " + newdevices[0] + " Nhấn [Confirm] để add vào Dashboard", "Ambino Device", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -940,6 +956,7 @@ namespace adrilight.ViewModel
                             Cards.Add(newDevice);
 
 
+                            AddDevice("Auto Detected Device", "ABRev2", device, Cards.Count + 1, "151293");
                         }
 
                     }
