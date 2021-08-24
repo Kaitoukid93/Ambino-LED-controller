@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="adrilight.View.ChangePortView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:adrilight.View"
+              xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="420" d:DesignWidth="520"
+             >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary
+                    Source="ControlStyle.xaml">
+                </ResourceDictionary>
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="201*"/>
+            <ColumnDefinition Width="199*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.ColumnSpan="2">
+            <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Text="deviceSelectedType" Style="{StaticResource tbHeadingStyle}"></TextBlock>
+            <TextBlock Margin="15,15,15,15" Style="{StaticResource tbHeading2Style}" TextAlignment="Center" HorizontalAlignment="Center" Text="Chọn cỡ màn hình"></TextBlock>
+            <ComboBox materialDesign:ComboBoxAssist.ClassicMode="True" MinWidth="128" HorizontalAlignment="Center" SelectedIndex="{Binding Device.DeviceSize}" Margin="0,0,0,15">
+                <ComboBoxItem Content="23-24-25inch"/>
+                <ComboBoxItem Content="27inch"/>
+                <ComboBoxItem Content="29inch"/>
+                <ComboBoxItem Content="32inch"/>
+                <ComboBoxItem Content="34inch"/>
+                <ComboBoxItem Content="Kích thước khác"/>
+            </ComboBox>
+            <TextBlock Margin="15,15,15,15" Style="{StaticResource tbHeading2Style}" TextAlignment="Center" Text="Chọn cổng USB"></TextBlock>
+            <Grid Margin="0,0,0,0">
+                <ComboBox MinWidth="128"  Text="{Binding Device.DevicePort}" ItemsSource="{Binding AvailableComPorts}"  HorizontalAlignment="Center" Margin="196,1,196,2" Width="128" RenderTransformOrigin="0.5,0.5"/>
+                <Image Source="{StaticResource svgQuestion}" VerticalAlignment="Center" Margin="338,4,155,4" Height="20" RenderTransformOrigin="0.5,0.5"/>
+
+            </Grid>
+
+
+        </StackPanel>
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="37"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="37"/>
+            </Grid.ColumnDefinitions>
+            <Button Style="{StaticResource btnPrevious}" Width="37" Height="37" Command="{Binding BackCommand}"></Button>
+            <Button Style="{StaticResource btnNext}" Grid.Column="2" Width="37" Height="37" Command="{Binding NextCommand}"></Button>
+        </Grid>
+    </Grid>
+
+</UserControl>

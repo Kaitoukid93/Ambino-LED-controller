@@ -1,0 +1,251 @@
+﻿<UserControl x:Class="adrilight.View.NewDeviceSettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:adrilight.View"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             mc:Ignorable="d" 
+               xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:viewmodel="clr-namespace:adrilight.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewViewModel}"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+              TextElement.FontWeight="Regular"
+              TextElement.FontSize="13"
+              TextOptions.TextFormattingMode="Ideal" 
+              TextOptions.TextRenderingMode="Auto"   
+              FontFamily="{StaticResource MaterialDesignFont}" d:DesignWidth="1030" Height="1082">
+
+    <Grid Background="White" Margin="20,0,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="7*"/>
+
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Margin="10,0,0,0" Grid.Row="0" Grid.Column="0" Text="CÀI ĐẶT THIẾT BỊ" FontSize="17" VerticalAlignment="Center" Foreground="Black"/>
+            <TextBlock Margin="10,39,0,10" Grid.Row="1" Grid.Column="0" Text="GIAO TIẾP" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#FF898989"/>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+        </Grid>
+       
+        <hc:ScrollViewer Padding="5" Grid.Column="0" Grid.Row="1" Height="600" Margin="0,0,0,0" Orientation="Vertical" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" IsInertiaEnabled="True" VerticalAlignment="Top">
+            
+        
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <Grid Height="80" Grid.Row="2" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Tốc Độ Truyền Dữ Liệu" FontSize="17" VerticalAlignment="Center" Foreground="Black"/>
+                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Thay đổi thông số này có thể sẽ làm một số thiết bị cũ dừng hoạt động" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989"/>
+                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#26000000" VerticalAlignment="Bottom" Margin="0,0,0,5">
+
+                </Rectangle>
+                <ComboBox IsEnabled="False" Style="{StaticResource ComboBoxExtend}" Width="100" Grid.Column="1" Grid.Row="0" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+
+                </ComboBox>
+
+            </Grid>
+            <Grid Height="80">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Khi Tắt Máy" FontSize="17" VerticalAlignment="Center" Foreground="Black"/>
+                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Chọn chế độ sáng của LED khi tắt máy, chỉ áp dụng với các thiết bị cắm USB ngoài case" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989"/>
+                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Width="585" Fill="#26000000" VerticalAlignment="Bottom" Margin="0,0,0,5"/>
+                <ComboBox SelectedIndex="{Binding GeneralSettings.SentryMode}" Style="{StaticResource ComboBoxExtend}" Width="150" Grid.Column="1" Grid.Row="0" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <ComboBoxItem>
+                        Tắt LED
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        Sentry Mode
+                    </ComboBoxItem>
+                </ComboBox>
+
+            </Grid>
+            <TextBlock Margin="10,15,0,0" Text="AMBILIGHT" Foreground="#FF898989">
+
+            </TextBlock>
+            <Grid Height="80">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Margin="10,10,0,10" Grid.Column="0" Text="Giới Hạn FPS" FontSize="17" VerticalAlignment="Center" Foreground="Black" Height="20"/>
+                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Chọn mức FPS phù hợp để  máy tính hoạt động ổn định hơn đối với cấu hình thấp" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989" Height="17"/>
+                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#26000000" VerticalAlignment="Bottom" Margin="12,0,12,5"/>
+                <Slider Minimum="30" Maximum="100" Value="{Binding GeneralSettings.LimitFps}"  Style="{StaticResource SliderBaseStyle}" Width="150" Margin="0,11,10,11" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Height="18"/>
+                <Button Grid.Column="1"  Style="{StaticResource MaterialDesignFlatButton}" Content="{Binding GeneralSettings.LimitFps}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#26000000" BorderBrush="{x:Null}" Foreground="#FF898989" Margin="30,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="32"/>
+
+
+            </Grid>
+            <Grid Height="80">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Margin="10, 0, 0, 0" Grid.Column="0" Text="Độ Tương Phản Ambilight" FontSize="17" VerticalAlignment="Center" Foreground="Black"/>
+                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Thuật toán độ tương phản sẽ áp dụng lên tất cả các thiết bị hiện có" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989"/>
+                <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#26000000" VerticalAlignment="Bottom" Margin="10,0,10,5"/>
+                <ComboBox SelectedIndex="{Binding GeneralSettings.UseLinearLighting}" Style="{StaticResource ComboBoxExtend}" Width="150" Grid.Column="1" Grid.Row="0" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <ComboBoxItem>
+                        Dịu Nhẹ
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        Sống Động
+                    </ComboBoxItem>
+                </ComboBox>
+
+            </Grid>
+            <Grid Height="80">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Margin="10,0,0,0" Grid.Column="0" Text="Saturation Thresold" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left" Height="20"/>
+                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Độ nhạy đối với sự thay đổi màu sắc trên nền đen, càng thấp càng nhạy" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989" Height="17"/>
+                <Slider Minimum="0" Maximum="50" Value="{Binding GeneralSettings.SaturationTreshold}" Style="{StaticResource SliderBaseStyle}" Width="150" Margin="0,0,10,0" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Height="18"/>
+                <Button Grid.Column="1"  Style="{StaticResource MaterialDesignFlatButton}" Content="{Binding GeneralSettings.SaturationTreshold}" materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Background="#26000000" BorderBrush="{x:Null}" Foreground="#FF898989" Margin="35,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="32"/>
+                    <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#26000000" VerticalAlignment="Bottom" Margin="10,0,10,5"/>
+
+                </Grid>
+            <Grid Height="80">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Margin="10,10,0,10" Grid.Column="0" Text="Màn hình 1" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left" Height="20" Width="146"/>
+                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Chọn cỡ cho màn hình 1 và cho phép capture" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989" Height="17"/>
+                <ToggleButton IsChecked="{Binding GeneralSettings.ShouldbeRunning}" Grid.Column="1" Margin="0,0,10,0"
+                     Style="{StaticResource ToggleButtonSwitch}"
+                     HorizontalAlignment="Right" />
+                <ComboBox SelectedIndex="{Binding GeneralSettings.ScreenSize}" Style="{StaticResource ComboBoxExtend}" Width="150" Grid.Column="1" Grid.Row="0" Margin="0,0,70,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <ComboBoxItem Content="24inch"/>
+                    <ComboBoxItem Content="27inch"/>
+                    <ComboBoxItem Content="29inch"/>
+                    <ComboBoxItem Content="32inch"/>
+                    <ComboBoxItem Content="34inch"/>
+                </ComboBox>
+                    <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#26000000" VerticalAlignment="Bottom" Margin="10,0,10,5"/>
+
+                </Grid>
+            <Grid Height="80">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Margin="10,10,0,10" Grid.Column="0" Text="Màn hình 2" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left" Height="20" Width="146"/>
+                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Chọn cỡ cho màn hình 2 và cho phép capture" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989" Height="17"/>
+                <ToggleButton IsChecked="{Binding GeneralSettings.ShouldbeRunningSecondary}" Grid.Column="1" Margin="0,0,10,0"
+                     Style="{StaticResource ToggleButtonSwitch}"
+                     
+                     HorizontalAlignment="Right" />
+                <ComboBox SelectedIndex="{Binding GeneralSettings.ScreenSizeSecondary}" Style="{StaticResource ComboBoxExtend}" Width="150" Grid.Column="1" Grid.Row="0" Margin="0,0,70,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <ComboBoxItem Content="24inch"/>
+                    <ComboBoxItem Content="27inch"/>
+                    <ComboBoxItem Content="29inch"/>
+                    <ComboBoxItem Content="32inch"/>
+                    <ComboBoxItem Content="34inch"/>
+                </ComboBox>
+                    <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#26000000" VerticalAlignment="Bottom" Margin="10,0,10,5"/>
+
+                </Grid>
+            <Grid Height="80">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Margin="10,10,0,10" Grid.Column="0" Text="Màn hình 3" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left" Height="20" Width="146"/>
+                <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Chọn cỡ cho màn hình 3 và cho phép capture" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989" Height="17"/>
+                <ToggleButton Grid.Column="1" Margin="0,0,10,0"
+                     Style="{StaticResource ToggleButtonSwitch}"
+                     
+                     IsChecked="{Binding GeneralSettings.ShouldbeRunningThird}" HorizontalAlignment="Right" />
+                    <ComboBox SelectedIndex="{Binding GeneralSettings.ScreenSizeThird}" Style="{StaticResource ComboBoxExtend}" Width="150" Grid.Column="1" Grid.Row="0" Margin="0,0,70,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <ComboBoxItem Content="24inch"/>
+                    <ComboBoxItem Content="27inch"/>
+                    <ComboBoxItem Content="29inch"/>
+                    <ComboBoxItem Content="32inch"/>
+                    <ComboBoxItem Content="34inch"/>
+                </ComboBox>
+
+            </Grid>
+                <Grid Height="80">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Margin="10,10,0,10" Grid.Column="0" Text="Cạnh bàn" FontSize="17" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Left" Height="20" Width="146"/>
+                    <TextBlock Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Chọn cỡ bàn" FontSize="14" VerticalAlignment="Top" Foreground="#FF898989" Height="17"/>
+                    <ComboBox SelectedIndex="{Binding GeneralSettings.DeskSize}" Style="{StaticResource ComboBoxExtend}" Width="150" Grid.Column="1" Grid.Row="0" Margin="0,0,70,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <ComboBoxItem Content="1m2"/>
+                        <ComboBoxItem Content="2m"/>
+                    </ComboBox>
+                    <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Height="1" Fill="#26000000" VerticalAlignment="Bottom" Margin="10,0,10,5"/>
+
+                </Grid>
+            </StackPanel>
+        </hc:ScrollViewer>
+
+    </Grid>
+
+
+
+</UserControl>

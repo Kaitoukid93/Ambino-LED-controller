@@ -1,18 +1,7 @@
 ﻿using adrilight.Resources;
-using Microsoft.ApplicationInsights;
-using Newtonsoft.Json;
 using NLog;
-using Semver;
-using Squirrel;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace adrilight.Util
 {

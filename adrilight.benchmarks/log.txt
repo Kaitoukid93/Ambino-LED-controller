@@ -1,0 +1,227 @@
+2021-08-24 06:08:34.145 +07:00 [INF] Loaded 5 extensions
+2021-08-24 06:08:35.306 +07:00 [INF] MSBuild registered from C:\Program Files\dotnet\sdk\5.0.400\
+2021-08-24 06:08:35.917 +07:00 [INF] Found Visual Studio v16.10.31424.327 [C:\Program Files (x86)\Microsoft Visual Studio\2019\Community]
+2021-08-24 06:08:39.716 +07:00 [INF] Initializing upgrade step Select an entrypoint
+2021-08-24 06:08:39.720 +07:00 [INF] Setting entrypoint to user selected project: D:\ambino led controller\Ambino-LED-controller\adrilight.benchmarks\adrilight.benchmarks.csproj
+2021-08-24 06:08:39.726 +07:00 [INF] Initializing upgrade step Select project to upgrade
+2021-08-24 06:08:39.756 +07:00 [INF] Recommending Windows TFM net5.0-windows because the project either has Windows-specific dependencies or builds to a WinExe
+2021-08-24 06:08:39.812 +07:00 [INF] Recommending TFM net5.0-windows because of dependency on project D:\ambino led controller\Ambino-LED-controller\BO\BO.csproj
+2021-08-24 06:08:39.852 +07:00 [INF] Initializing upgrade step Back up project
+2021-08-24 06:08:52.633 +07:00 [INF] Applying upgrade step Back up project
+2021-08-24 06:08:55.697 +07:00 [INF] Backing up D:\ambino led controller\Ambino-LED-controller\adrilight.benchmarks to D:\ambino led controller\Ambino-LED-controller\adrilight.benchmarks.backup
+2021-08-24 06:08:55.754 +07:00 [WRN] Could not copy file D:\ambino led controller\Ambino-LED-controller\adrilight.benchmarks\log.txt due to 'The process cannot access the file 'D:\ambino led controller\Ambino-LED-controller\adrilight.benchmarks\log.txt' because it is being used by another process.'
+2021-08-24 06:08:55.953 +07:00 [INF] Project backed up to D:\ambino led controller\Ambino-LED-controller\adrilight.benchmarks.backup
+2021-08-24 06:08:55.956 +07:00 [INF] Upgrade step Back up project applied successfully
+2021-08-24 06:09:03.525 +07:00 [INF] Initializing upgrade step Convert project file to SDK style
+2021-08-24 06:09:04.679 +07:00 [INF] Applying upgrade step Convert project file to SDK style
+2021-08-24 06:09:04.682 +07:00 [INF] Converting project file format with try-convert, version 0.9.232202
+2021-08-24 06:09:06.311 +07:00 [INF] [dotnet] This project has an unrecognized custom import which may need reviewed after conversion: MaterialDesignThemes.targets
+2021-08-24 06:09:08.424 +07:00 [INF] [dotnet] Conversion complete!
+2021-08-24 06:09:09.622 +07:00 [INF] Project file converted successfully! The project may require additional changes to build successfully against the new .NET target.
+2021-08-24 06:09:17.347 +07:00 [INF] Upgrade step Convert project file to SDK style applied successfully
+2021-08-24 06:09:19.773 +07:00 [INF] Initializing upgrade step Clean up NuGet package references
+2021-08-24 06:09:23.526 +07:00 [INF] Marking package BenchmarkDotNet.Core for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.533 +07:00 [INF] Marking package BenchmarkDotNet.Toolchains.Roslyn for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.544 +07:00 [INF] Marking package MaterialDesignColors for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.555 +07:00 [INF] Marking package Microsoft.CodeAnalysis.Analyzers for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.560 +07:00 [INF] Marking package Microsoft.CodeAnalysis.Common for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.575 +07:00 [INF] Marking package Microsoft.Xaml.Behaviors.Wpf for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.593 +07:00 [INF] Marking package System.AppContext for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.599 +07:00 [INF] Marking package System.Collections for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.604 +07:00 [INF] Marking package System.Collections.Concurrent for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.609 +07:00 [INF] Marking package System.Collections.Immutable for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.620 +07:00 [INF] Marking package System.Console for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.630 +07:00 [INF] Marking package System.Diagnostics.Debug for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.634 +07:00 [INF] Marking package System.Diagnostics.FileVersionInfo for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.639 +07:00 [INF] Marking package System.Diagnostics.StackTrace for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.645 +07:00 [INF] Marking package System.Diagnostics.Tools for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.652 +07:00 [INF] Marking package System.Dynamic.Runtime for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.656 +07:00 [INF] Marking package System.Globalization for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.661 +07:00 [INF] Marking package System.IO for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.667 +07:00 [INF] Marking package System.IO.Compression for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.673 +07:00 [INF] Marking package System.IO.FileSystem for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.678 +07:00 [INF] Marking package System.IO.FileSystem.Primitives for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.685 +07:00 [INF] Marking package System.Linq for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.690 +07:00 [INF] Marking package System.Linq.Expressions for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.698 +07:00 [INF] Marking package System.Reflection for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.705 +07:00 [INF] Marking package System.Reflection.Metadata for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.716 +07:00 [INF] Marking package System.Resources.ResourceManager for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.721 +07:00 [INF] Marking package System.Runtime for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.725 +07:00 [INF] Marking package System.Runtime.Extensions for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.737 +07:00 [INF] Marking package System.Runtime.InteropServices for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.742 +07:00 [INF] Marking package System.Runtime.Numerics for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.747 +07:00 [INF] Marking package System.Security.Cryptography.Algorithms for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.754 +07:00 [INF] Marking package System.Security.Cryptography.Encoding for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.758 +07:00 [INF] Marking package System.Security.Cryptography.Primitives for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.762 +07:00 [INF] Marking package System.Security.Cryptography.X509Certificates for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.771 +07:00 [INF] Marking package System.Text.Encoding for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.776 +07:00 [INF] Marking package System.Text.Encoding.CodePages for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.782 +07:00 [INF] Marking package System.Text.Encoding.Extensions for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.789 +07:00 [INF] Marking package System.Threading for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.793 +07:00 [INF] Marking package System.Threading.Tasks for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.799 +07:00 [INF] Marking package System.Threading.Tasks.Extensions for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.805 +07:00 [INF] Marking package System.Threading.Tasks.Parallel for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.810 +07:00 [INF] Marking package System.Threading.Thread for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.816 +07:00 [INF] Marking package System.Xml.ReaderWriter for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.822 +07:00 [INF] Marking package System.Xml.XDocument for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.830 +07:00 [INF] Marking package System.Xml.XmlDocument for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.834 +07:00 [INF] Marking package System.Xml.XPath for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.840 +07:00 [INF] Marking package System.Xml.XPath.XDocument for removal because it appears to be a transitive dependency
+2021-08-24 06:09:23.852 +07:00 [INF] Marking package WriteableBitmapEx for removal because it appears to be a transitive dependency
+2021-08-24 06:09:25.038 +07:00 [INF] Reference to .NET Upgrade Assistant analyzer package (Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, version 0.2.241603) needs added
+2021-08-24 06:09:25.050 +07:00 [INF] Packages to be removed: Operation { Item = BenchmarkDotNet.Core, Version=0.10.3, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = BenchmarkDotNet.Toolchains.Roslyn, Version=0.10.3, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = MaterialDesignColors, Version=1.2.6, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = Microsoft.CodeAnalysis.Analyzers, Version=1.1.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = Microsoft.CodeAnalysis.Common, Version=2.0.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = Microsoft.Xaml.Behaviors.Wpf, Version=1.1.31, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.AppContext, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Collections, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Collections.Concurrent, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Collections.Immutable, Version=1.3.1, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Console, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Diagnostics.Debug, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Diagnostics.FileVersionInfo, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Diagnostics.StackTrace, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Diagnostics.Tools, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Dynamic.Runtime, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Globalization, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.IO, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.IO.Compression, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.IO.FileSystem, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.IO.FileSystem.Primitives, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Linq, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Linq.Expressions, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Reflection, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Reflection.Metadata, Version=1.4.2, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Resources.ResourceManager, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Runtime, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Runtime.Extensions, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Runtime.InteropServices, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Runtime.Numerics, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Security.Cryptography.Algorithms, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Security.Cryptography.Encoding, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Security.Cryptography.Primitives, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Security.Cryptography.X509Certificates, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Text.Encoding, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Text.Encoding.CodePages, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Text.Encoding.Extensions, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Threading, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Threading.Tasks, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Threading.Tasks.Extensions, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Threading.Tasks.Parallel, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Threading.Thread, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Xml.ReaderWriter, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Xml.XDocument, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Xml.XmlDocument, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Xml.XPath, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Xml.XPath.XDocument, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = WriteableBitmapEx, Version=1.5.1.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+2021-08-24 06:09:25.054 +07:00 [INF] Packages to be added: Operation { Item = Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.2.241603, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+2021-08-24 06:09:35.943 +07:00 [INF] Applying upgrade step Clean up NuGet package references
+2021-08-24 06:09:35.946 +07:00 [INF] Removing outdated package reference: BenchmarkDotNet.Core, Version=0.10.3
+2021-08-24 06:09:35.948 +07:00 [INF] Removing outdated package reference: BenchmarkDotNet.Toolchains.Roslyn, Version=0.10.3
+2021-08-24 06:09:35.949 +07:00 [INF] Removing outdated package reference: MaterialDesignColors, Version=1.2.6
+2021-08-24 06:09:35.949 +07:00 [INF] Removing outdated package reference: Microsoft.CodeAnalysis.Analyzers, Version=1.1.0
+2021-08-24 06:09:35.950 +07:00 [INF] Removing outdated package reference: Microsoft.CodeAnalysis.Common, Version=2.0.0
+2021-08-24 06:09:35.951 +07:00 [INF] Removing outdated package reference: Microsoft.Xaml.Behaviors.Wpf, Version=1.1.31
+2021-08-24 06:09:35.951 +07:00 [INF] Removing outdated package reference: System.AppContext, Version=4.3.0
+2021-08-24 06:09:35.952 +07:00 [INF] Removing outdated package reference: System.Collections, Version=4.3.0
+2021-08-24 06:09:35.953 +07:00 [INF] Removing outdated package reference: System.Collections.Concurrent, Version=4.3.0
+2021-08-24 06:09:35.954 +07:00 [INF] Removing outdated package reference: System.Collections.Immutable, Version=1.3.1
+2021-08-24 06:09:35.955 +07:00 [INF] Removing outdated package reference: System.Console, Version=4.3.0
+2021-08-24 06:09:35.955 +07:00 [INF] Removing outdated package reference: System.Diagnostics.Debug, Version=4.3.0
+2021-08-24 06:09:35.956 +07:00 [INF] Removing outdated package reference: System.Diagnostics.FileVersionInfo, Version=4.3.0
+2021-08-24 06:09:35.956 +07:00 [INF] Removing outdated package reference: System.Diagnostics.StackTrace, Version=4.3.0
+2021-08-24 06:09:35.957 +07:00 [INF] Removing outdated package reference: System.Diagnostics.Tools, Version=4.3.0
+2021-08-24 06:09:35.957 +07:00 [INF] Removing outdated package reference: System.Dynamic.Runtime, Version=4.3.0
+2021-08-24 06:09:35.958 +07:00 [INF] Removing outdated package reference: System.Globalization, Version=4.3.0
+2021-08-24 06:09:35.958 +07:00 [INF] Removing outdated package reference: System.IO, Version=4.3.0
+2021-08-24 06:09:35.959 +07:00 [INF] Removing outdated package reference: System.IO.Compression, Version=4.3.0
+2021-08-24 06:09:35.960 +07:00 [INF] Removing outdated package reference: System.IO.FileSystem, Version=4.3.0
+2021-08-24 06:09:35.960 +07:00 [INF] Removing outdated package reference: System.IO.FileSystem.Primitives, Version=4.3.0
+2021-08-24 06:09:35.961 +07:00 [INF] Removing outdated package reference: System.Linq, Version=4.3.0
+2021-08-24 06:09:35.961 +07:00 [INF] Removing outdated package reference: System.Linq.Expressions, Version=4.3.0
+2021-08-24 06:09:35.962 +07:00 [INF] Removing outdated package reference: System.Reflection, Version=4.3.0
+2021-08-24 06:09:35.963 +07:00 [INF] Removing outdated package reference: System.Reflection.Metadata, Version=1.4.2
+2021-08-24 06:09:35.964 +07:00 [INF] Removing outdated package reference: System.Resources.ResourceManager, Version=4.3.0
+2021-08-24 06:09:35.965 +07:00 [INF] Removing outdated package reference: System.Runtime, Version=4.3.0
+2021-08-24 06:09:35.965 +07:00 [INF] Removing outdated package reference: System.Runtime.Extensions, Version=4.3.0
+2021-08-24 06:09:35.966 +07:00 [INF] Removing outdated package reference: System.Runtime.InteropServices, Version=4.3.0
+2021-08-24 06:09:35.966 +07:00 [INF] Removing outdated package reference: System.Runtime.Numerics, Version=4.3.0
+2021-08-24 06:09:35.967 +07:00 [INF] Removing outdated package reference: System.Security.Cryptography.Algorithms, Version=4.3.0
+2021-08-24 06:09:35.969 +07:00 [INF] Removing outdated package reference: System.Security.Cryptography.Encoding, Version=4.3.0
+2021-08-24 06:09:35.969 +07:00 [INF] Removing outdated package reference: System.Security.Cryptography.Primitives, Version=4.3.0
+2021-08-24 06:09:35.970 +07:00 [INF] Removing outdated package reference: System.Security.Cryptography.X509Certificates, Version=4.3.0
+2021-08-24 06:09:35.970 +07:00 [INF] Removing outdated package reference: System.Text.Encoding, Version=4.3.0
+2021-08-24 06:09:35.971 +07:00 [INF] Removing outdated package reference: System.Text.Encoding.CodePages, Version=4.3.0
+2021-08-24 06:09:35.974 +07:00 [INF] Removing outdated package reference: System.Text.Encoding.Extensions, Version=4.3.0
+2021-08-24 06:09:35.975 +07:00 [INF] Removing outdated package reference: System.Threading, Version=4.3.0
+2021-08-24 06:09:35.976 +07:00 [INF] Removing outdated package reference: System.Threading.Tasks, Version=4.3.0
+2021-08-24 06:09:35.979 +07:00 [INF] Removing outdated package reference: System.Threading.Tasks.Extensions, Version=4.3.0
+2021-08-24 06:09:35.980 +07:00 [INF] Removing outdated package reference: System.Threading.Tasks.Parallel, Version=4.3.0
+2021-08-24 06:09:35.980 +07:00 [INF] Removing outdated package reference: System.Threading.Thread, Version=4.3.0
+2021-08-24 06:09:35.981 +07:00 [INF] Removing outdated package reference: System.Xml.ReaderWriter, Version=4.3.0
+2021-08-24 06:09:35.982 +07:00 [INF] Removing outdated package reference: System.Xml.XDocument, Version=4.3.0
+2021-08-24 06:09:35.983 +07:00 [INF] Removing outdated package reference: System.Xml.XmlDocument, Version=4.3.0
+2021-08-24 06:09:35.984 +07:00 [INF] Removing outdated package reference: System.Xml.XPath, Version=4.3.0
+2021-08-24 06:09:35.985 +07:00 [INF] Removing outdated package reference: System.Xml.XPath.XDocument, Version=4.3.0
+2021-08-24 06:09:35.986 +07:00 [INF] Removing outdated package reference: WriteableBitmapEx, Version=1.5.1.0
+2021-08-24 06:09:35.988 +07:00 [INF] Adding package reference: Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.2.241603
+2021-08-24 06:09:40.998 +07:00 [INF] Upgrade step Clean up NuGet package references applied successfully
+2021-08-24 06:09:42.906 +07:00 [INF] Initializing upgrade step Update TFM
+2021-08-24 06:09:43.025 +07:00 [INF] Recommending TFM net5.0-windows because of dependency on project D:\ambino led controller\Ambino-LED-controller\adrilight\adrilight.csproj
+2021-08-24 06:09:43.030 +07:00 [INF] TFM needs updated to net5.0-windows
+2021-08-24 06:09:45.401 +07:00 [INF] Applying upgrade step Update TFM
+2021-08-24 06:09:45.414 +07:00 [INF] Recommending TFM net5.0-windows because of dependency on project D:\ambino led controller\Ambino-LED-controller\adrilight\adrilight.csproj
+2021-08-24 06:09:57.756 +07:00 [INF] Updated TFM to net5.0-windows
+2021-08-24 06:09:57.757 +07:00 [INF] Upgrade step Update TFM applied successfully
+2021-08-24 06:10:04.602 +07:00 [INF] Initializing upgrade step Update NuGet Packages
+2021-08-24 06:10:09.072 +07:00 [INF] Marking package BASS.Native for removal because it appears to be a transitive dependency
+2021-08-24 06:10:09.179 +07:00 [INF] Marking package ColorPickerWPF for removal because it appears to be a transitive dependency
+2021-08-24 06:10:09.263 +07:00 [INF] Marking package Microsoft.CSharp for removal because it appears to be a transitive dependency
+2021-08-24 06:10:09.407 +07:00 [INF] Marking package PixiEditor.ColorPicker for removal because it appears to be a transitive dependency
+2021-08-24 06:10:09.435 +07:00 [INF] Marking package System.ComponentModel.Composition for removal because it appears to be a transitive dependency
+2021-08-24 06:10:09.483 +07:00 [INF] Marking package System.Data.DataSetExtensions for removal because it appears to be a transitive dependency
+2021-08-24 06:10:09.507 +07:00 [INF] Marking package System.Management for removal because it appears to be a transitive dependency
+2021-08-24 06:10:09.586 +07:00 [INF] Marking package System.Reflection.Primitives for removal because it appears to be a transitive dependency
+2021-08-24 06:10:09.607 +07:00 [INF] Marking package System.Runtime.Handles for removal because it appears to be a transitive dependency
+2021-08-24 06:10:09.649 +07:00 [INF] Marking package WpfAnimatedGif for removal because it appears to be a transitive dependency
+2021-08-24 06:10:10.495 +07:00 [INF] Marking package NAudio, Version=1.8.5 for removal because it doesn't support the target framework but a newer version (1.10.0) does
+2021-08-24 06:10:10.596 +07:00 [INF] Packages to be removed: Operation { Item = BASS.Native, Version=2.4.13.10, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = ColorPickerWPF, Version=1.0.9, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = Microsoft.CSharp, Version=4.7.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = PixiEditor.ColorPicker, Version=3.1.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.ComponentModel.Composition, Version=5.0.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Data.DataSetExtensions, Version=4.5.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Management, Version=5.0.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Reflection.Primitives, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Runtime.Handles, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = WpfAnimatedGif, Version=2.0.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = NAudio, Version=1.8.5, OperationDetails = OperationDetails { Risk = None, Details = System.Collections.Generic.List`1[System.String] } }
+2021-08-24 06:10:10.597 +07:00 [INF] Packages to be added: Operation { Item = NAudio, Version=1.10.0, OperationDetails = OperationDetails { Risk = Low, Details = System.Collections.Generic.List`1[System.String] } }
+2021-08-24 06:10:13.617 +07:00 [INF] Applying upgrade step Update NuGet Packages
+2021-08-24 06:10:13.618 +07:00 [INF] Removing outdated package reference: BASS.Native, Version=2.4.13.10
+2021-08-24 06:10:13.619 +07:00 [INF] Removing outdated package reference: ColorPickerWPF, Version=1.0.9
+2021-08-24 06:10:13.620 +07:00 [INF] Removing outdated package reference: Microsoft.CSharp, Version=4.7.0
+2021-08-24 06:10:13.620 +07:00 [INF] Removing outdated package reference: NAudio, Version=1.8.5
+2021-08-24 06:10:13.621 +07:00 [INF] Removing outdated package reference: PixiEditor.ColorPicker, Version=3.1.0
+2021-08-24 06:10:13.621 +07:00 [INF] Removing outdated package reference: System.ComponentModel.Composition, Version=5.0.0
+2021-08-24 06:10:13.622 +07:00 [INF] Removing outdated package reference: System.Data.DataSetExtensions, Version=4.5.0
+2021-08-24 06:10:13.622 +07:00 [INF] Removing outdated package reference: System.Management, Version=5.0.0
+2021-08-24 06:10:13.623 +07:00 [INF] Removing outdated package reference: System.Reflection.Primitives, Version=4.3.0
+2021-08-24 06:10:13.624 +07:00 [INF] Removing outdated package reference: System.Runtime.Handles, Version=4.3.0
+2021-08-24 06:10:13.624 +07:00 [INF] Removing outdated package reference: WpfAnimatedGif, Version=2.0.0
+2021-08-24 06:10:13.625 +07:00 [INF] Adding package reference: NAudio, Version=1.10.0
+2021-08-24 06:10:20.962 +07:00 [INF] Marking package NAudio for removal because it appears to be a transitive dependency
+2021-08-24 06:10:21.039 +07:00 [INF] Removing outdated package reference: NAudio, Version=1.10.0
+2021-08-24 06:10:27.429 +07:00 [INF] Upgrade step Update NuGet Packages applied successfully
+2021-08-24 06:10:34.391 +07:00 [INF] Initializing upgrade step Add template files
+2021-08-24 06:10:34.535 +07:00 [INF] 0 expected template items needed
+2021-08-24 06:10:34.536 +07:00 [INF] Initializing upgrade step Upgrade app config files
+2021-08-24 06:10:34.577 +07:00 [INF] Found 0 app settings for upgrade: 
+2021-08-24 06:10:34.581 +07:00 [INF] Found 0 connection strings for upgrade: 
+2021-08-24 06:10:34.668 +07:00 [INF] Initializing upgrade step Update source code
+2021-08-24 06:10:34.674 +07:00 [INF] Running analyzers on adrilight.benchmarks
+2021-08-24 06:10:37.175 +07:00 [INF] Identified 0 diagnostics in project adrilight.benchmarks
+2021-08-24 06:10:37.420 +07:00 [INF] Initializing upgrade step Move to next project

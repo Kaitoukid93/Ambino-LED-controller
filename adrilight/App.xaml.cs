@@ -1,8 +1,6 @@
-﻿using adrilight.Fakes;
-using adrilight.ui;
+﻿using adrilight.ui;
 using adrilight.View;
 using adrilight.ViewModel;
-using GalaSoft.MvvmLight;
 using Microsoft.Win32;
 using Ninject;
 using NLog;
@@ -10,37 +8,21 @@ using NLog.Config;
 using NLog.Targets;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Threading;
 using Ninject.Extensions.Conventions;
 using adrilight.Resources;
 using adrilight.Util;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights;
-using Squirrel;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.Extensions.DependencyInjection;
-using BO;
 using adrilight.Ninject;
 using adrilight.Spots;
-using adrilight.Settings;
 using System.Diagnostics;
-using HandyControl.Tools;
+using System.Windows.Forms;
+using System.Windows.Controls;
 
 namespace adrilight
 {
@@ -116,7 +98,7 @@ namespace adrilight
         }
     }
 
-    public sealed partial class App : Application
+    public sealed partial class App : System.Windows.Application
     {
         private static readonly ILogger _log = LogManager.GetCurrentClassLogger();
         private static System.Threading.Mutex _mutex = null;
@@ -518,17 +500,17 @@ namespace adrilight
         {
 
             var icon = new System.Drawing.Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("adrilight.zoe.ico"));
-            var contextMenu = new System.Windows.Forms.ContextMenu();
-            contextMenu.MenuItems.Add(new System.Windows.Forms.MenuItem("Dashboard", (s, e) => OpenNewUI()));
+            var contextMenu = new System.Windows.Forms.ContextMenuStrip();
+            //contextMenu.Items.Add(new MenuItem("Dashboard", (s, e) => OpenNewUI()));
           //  contextMenu.MenuItems.Add(new System.Windows.Forms.MenuItem("Cài đặt...", (s, e) => OpenSettingsWindow()));
-            contextMenu.MenuItems.Add(new System.Windows.Forms.MenuItem("Thoát", (s, e) => Shutdown(0)));
+            //contextMenu.Items.Add(new MenuItem("Thoát", (s, e) => Shutdown(0)));
 
             var notifyIcon = new System.Windows.Forms.NotifyIcon()
             {
                 Text = $"adrilight {VersionNumber}",
                 Icon = icon,
                 Visible = true,
-                ContextMenu = contextMenu
+                ContextMenuStrip = contextMenu
             };
             //  notifyIcon.DoubleClick += (s, e) => { OpenSettingsWindow(); };
             notifyIcon.DoubleClick += (s, e) => { OpenNewUI(); };
@@ -567,7 +549,7 @@ namespace adrilight
                 ex = ex.InnerException;
             } while (ex != null);
 
-            MessageBox.Show(sb.ToString(), "unhandled exception :-(");
+            HandyControl.Controls.MessageBox.Show(sb.ToString(), "unhandled exception :-(");
             try
             {
                 Shutdown(-1);

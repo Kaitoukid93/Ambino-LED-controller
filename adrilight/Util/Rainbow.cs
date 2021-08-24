@@ -153,7 +153,7 @@ namespace adrilight
                             for (int i = 0; i < numLED; i++)
                             {
                                 //double position = i / (double)numLED;
-                                var position = _startIndex + 1000d / (frequency * numLED) * i;
+                                var position = _startIndex + 1000d / (frequency * 16) * i;
 
                                 if (position > 1000)
                                     position = position - 1000;
@@ -229,7 +229,7 @@ namespace adrilight
 
 
                     }
-                    Thread.Sleep(20); 
+                    Thread.Sleep(10); 
 
                 }
             }

@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="adrilight.View.ChangeDeviceNameView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:adrilight.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="420" d:DesignWidth="520">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary
+                    Source="ControlStyle.xaml">
+                </ResourceDictionary>
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Text="deviceSelectedType" Style="{StaticResource tbHeadingStyle}" Margin="107,0,104,54" Width="309"/>
+            <TextBlock Margin="193,0,190,0"  Style="{StaticResource tbHeading2Style}" TextAlignment="Center" HorizontalAlignment="Center" Text="Đặt tên" Width="137"/>
+            <TextBox Width="217"  Text="{Binding Device.DeviceName}"/>
+
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="37"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="37"/>
+            </Grid.ColumnDefinitions>
+            <Button Style="{StaticResource btnPrevious}" Width="37" Height="37" Command="{Binding BackCommand}"></Button>
+            <Button Style="{StaticResource btnDown}" Grid.Column="2" IsDefault="True" Width="37" Height="37" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                <Button.CommandParameter>
+                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
+                </Button.CommandParameter>
+            </Button>
+        </Grid>
+    </Grid>
+
+</UserControl>
+

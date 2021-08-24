@@ -1,0 +1,54 @@
+2021-08-24 06:05:21.539 +07:00 [INF] Loaded 5 extensions
+2021-08-24 06:05:22.721 +07:00 [INF] MSBuild registered from C:\Program Files\dotnet\sdk\5.0.400\
+2021-08-24 06:05:23.946 +07:00 [INF] Found Visual Studio v16.10.31424.327 [C:\Program Files (x86)\Microsoft Visual Studio\2019\Community]
+2021-08-24 06:05:25.407 +07:00 [INF] Initializing upgrade step Select an entrypoint
+2021-08-24 06:05:25.411 +07:00 [INF] Setting entrypoint to only project in solution: D:\ambino led controller\Ambino-LED-controller\BO\BO.csproj
+2021-08-24 06:05:25.418 +07:00 [INF] Initializing upgrade step Select project to upgrade
+2021-08-24 06:05:25.441 +07:00 [INF] Initializing upgrade step Back up project
+2021-08-24 06:05:30.296 +07:00 [INF] Applying upgrade step Back up project
+2021-08-24 06:05:32.776 +07:00 [INF] Backing up D:\ambino led controller\Ambino-LED-controller\BO to D:\ambino led controller\Ambino-LED-controller\BO.backup
+2021-08-24 06:05:32.809 +07:00 [WRN] Could not copy file D:\ambino led controller\Ambino-LED-controller\BO\log.txt due to 'The process cannot access the file 'D:\ambino led controller\Ambino-LED-controller\BO\log.txt' because it is being used by another process.'
+2021-08-24 06:05:33.882 +07:00 [INF] Project backed up to D:\ambino led controller\Ambino-LED-controller\BO.backup
+2021-08-24 06:05:33.883 +07:00 [INF] Upgrade step Back up project applied successfully
+2021-08-24 06:05:35.360 +07:00 [INF] Initializing upgrade step Convert project file to SDK style
+2021-08-24 06:05:39.021 +07:00 [INF] Applying upgrade step Convert project file to SDK style
+2021-08-24 06:05:39.025 +07:00 [INF] Converting project file format with try-convert, version 0.9.232202
+2021-08-24 06:05:42.153 +07:00 [INF] [dotnet] Conversion complete!
+2021-08-24 06:05:42.860 +07:00 [INF] Project file converted successfully! The project may require additional changes to build successfully against the new .NET target.
+2021-08-24 06:05:47.010 +07:00 [INF] Upgrade step Convert project file to SDK style applied successfully
+2021-08-24 06:06:05.749 +07:00 [INF] Initializing upgrade step Clean up NuGet package references
+2021-08-24 06:06:07.358 +07:00 [INF] Marking package CommonServiceLocator for removal because it appears to be a transitive dependency
+2021-08-24 06:06:07.364 +07:00 [INF] Marking package Microsoft.Xaml.Behaviors.Wpf for removal because it appears to be a transitive dependency
+2021-08-24 06:06:08.560 +07:00 [INF] Reference to .NET Upgrade Assistant analyzer package (Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, version 0.2.241603) needs added
+2021-08-24 06:06:08.569 +07:00 [INF] Packages to be removed: Operation { Item = CommonServiceLocator, Version=2.0.2, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = Microsoft.Xaml.Behaviors.Wpf, Version=1.1.31, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+2021-08-24 06:06:08.570 +07:00 [INF] Packages to be added: Operation { Item = Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.2.241603, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+2021-08-24 06:06:12.965 +07:00 [INF] Applying upgrade step Clean up NuGet package references
+2021-08-24 06:06:12.969 +07:00 [INF] Removing outdated package reference: CommonServiceLocator, Version=2.0.2
+2021-08-24 06:06:12.971 +07:00 [INF] Removing outdated package reference: Microsoft.Xaml.Behaviors.Wpf, Version=1.1.31
+2021-08-24 06:06:12.972 +07:00 [INF] Adding package reference: Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.2.241603
+2021-08-24 06:06:15.012 +07:00 [INF] Upgrade step Clean up NuGet package references applied successfully
+2021-08-24 06:06:20.364 +07:00 [INF] Initializing upgrade step Update TFM
+2021-08-24 06:06:20.382 +07:00 [INF] Recommending Windows TFM net5.0-windows because the project either has Windows-specific dependencies or builds to a WinExe
+2021-08-24 06:06:20.387 +07:00 [INF] TFM needs updated to net5.0-windows
+2021-08-24 06:06:22.751 +07:00 [INF] Applying upgrade step Update TFM
+2021-08-24 06:06:22.755 +07:00 [INF] Recommending Windows TFM net5.0-windows because the project either has Windows-specific dependencies or builds to a WinExe
+2021-08-24 06:06:25.188 +07:00 [INF] Updated TFM to net5.0-windows
+2021-08-24 06:06:25.188 +07:00 [INF] Upgrade step Update TFM applied successfully
+2021-08-24 06:07:03.521 +07:00 [INF] Initializing upgrade step Update NuGet Packages
+2021-08-24 06:07:05.966 +07:00 [WRN] No version of MvvmLightLibs found that supports ["net5.0-windows"]; leaving unchanged
+2021-08-24 06:07:07.237 +07:00 [INF] Adding Microsoft.Windows.Compatibility 5.0.2
+2021-08-24 06:07:07.240 +07:00 [INF] Packages to be added: Operation { Item = Microsoft.Windows.Compatibility, Version=5.0.2, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+2021-08-24 06:07:12.349 +07:00 [INF] Applying upgrade step Update NuGet Packages
+2021-08-24 06:07:12.350 +07:00 [INF] Adding package reference: Microsoft.Windows.Compatibility, Version=5.0.2
+2021-08-24 06:07:17.410 +07:00 [INF] Marking package System.Data.DataSetExtensions for removal because it appears to be a transitive dependency
+2021-08-24 06:07:18.324 +07:00 [WRN] No version of MvvmLightLibs found that supports ["net5.0-windows"]; leaving unchanged
+2021-08-24 06:07:18.335 +07:00 [INF] Removing outdated package reference: System.Data.DataSetExtensions, Version=4.5.0
+2021-08-24 06:07:21.127 +07:00 [WRN] No version of MvvmLightLibs found that supports ["net5.0-windows"]; leaving unchanged
+2021-08-24 06:07:21.133 +07:00 [INF] Upgrade step Update NuGet Packages applied successfully
+2021-08-24 06:07:35.142 +07:00 [INF] Initializing upgrade step Add template files
+2021-08-24 06:07:35.154 +07:00 [INF] 0 expected template items needed
+2021-08-24 06:07:35.161 +07:00 [INF] Initializing upgrade step Update source code
+2021-08-24 06:07:35.169 +07:00 [INF] Running analyzers on BO
+2021-08-24 06:07:36.513 +07:00 [INF] Identified 0 diagnostics in project BO
+2021-08-24 06:07:36.535 +07:00 [INF] Initializing upgrade step Move to next project

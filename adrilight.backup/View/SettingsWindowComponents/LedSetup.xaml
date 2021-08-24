@@ -1,0 +1,226 @@
+﻿<UserControl x:Class="adrilight.View.SettingsWindowComponents.LedSetup"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="White"
+        FontFamily="{StaticResource MaterialDesignFont}"
+             xmlns:local="clr-namespace:adrilight.View.SettingsWindowComponents"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+                DataContext="{Binding Source={StaticResource Locator}, Path=SettingsViewModel}"
+            d:DesignWidth="1273.6" IsManipulationEnabled="True" Height="1002.91">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
+    </UserControl.Resources>
+    <!--<WrapPanel Margin="0 0 8 8">
+        <materialDesign:Card Margin="4 4 4 4" Width="300" Height="363" Background="White" Visibility="{Binding Settings.Advancesettings, Converter={StaticResource booleanToVisibilityConverter}}" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" MinHeight="157" />
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="1" Margin="8 24 8 8" >
+                    <DockPanel/>
+                    <TextBlock FontWeight="Bold"><Run Text="Số LED chiều ngang"/></TextBlock>
+                </StackPanel>
+                <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" Height="134" Margin="45,6,0,0" VerticalAlignment="Top" Width="195" Source="/adrilight;component/View/Images/purple theme/LEDhorizon@2x.png"/>
+                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="8,165,8,9" TextAlignment="Justify" Height="32" Text="Thông số này sẽ được tự động điền khi chọn cỡ màn hình đối với LED do ambino cung cấp" Grid.Row="1"/>
+                <TextBox x:Name="width"
+                                MinWidth="50"
+                                Margin="144,0,106,120"
+                                VerticalAlignment="Bottom" 
+                                Text="{Binding Settings.SpotsX, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" />
+                <Slider x:Name="widthslide" Minimum="1" 
+                                Maximum="{Binding SpotsXMaximum}" 
+                                Style="{StaticResource MaterialDesignDiscreteSlider}" 
+                                Value="{Binding Settings.SpotsX}" Margin="11,39,170,116" Grid.Row="1" />
+                <TextBox x:Name="width2"
+                    MinWidth="50"
+                    Margin="144,0,106,75"
+                    VerticalAlignment="Bottom" 
+                    Text="{Binding Settings.SpotsX2, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" />
+                <Slider x:Name="widthslide2" Minimum="1" 
+                    Maximum="{Binding SpotsXMaximum}" 
+                    Style="{StaticResource MaterialDesignDiscreteSlider}" 
+                    Value="{Binding Settings.SpotsX2}" Margin="11,85,170,70" Grid.Row="1" />
+                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="219,72,13,119" TextAlignment="Justify" Height="15" Text="Màn hình 1" Grid.Row="1"/>
+                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="219,123,13,68" TextAlignment="Justify" Height="15" Text="Màn hình 2" Grid.Row="1"/>
+            </Grid>
+        </materialDesign:Card>
+        <materialDesign:Card Margin="4 4 4 4" Width="300" Height="363" Background="White" Visibility="{Binding Settings.Advancesettings, Converter={StaticResource booleanToVisibilityConverter}}" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" MinHeight="155" />
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="1" Margin="8 24 8 8" >
+                    <TextBlock FontWeight="Bold"><Run Text="Số LED chiều dọc"/></TextBlock>
+                    <DockPanel/>
+                </StackPanel>
+                <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" Height="146" Margin="47,6,0,0" VerticalAlignment="Top" Width="195" Source="/adrilight;component/View/Images/purple theme/LEDvertical@2x.png"/>
+                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="6,165,10,11" TextAlignment="Justify" Height="32" Text="Thông số này sẽ được tự động điền khi chọn cỡ màn hình đối với LED do ambino cung cấp" Grid.Row="1"/>
+                <TextBox x:Name="height"
+                                MinWidth="50"
+                                Margin="149,0,101,122"
+                                VerticalAlignment="Bottom" 
+                                Text="{Binding Settings.SpotsY, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" RenderTransformOrigin="-0.027,1.271" />
+                <Slider x:Name="heightslide" Minimum="1" 
+                                Maximum="{Binding SpotsYMaximum}" 
+                                Style="{StaticResource MaterialDesignDiscreteSlider}" 
+                                Value="{Binding Settings.SpotsY}" Margin="17,39,165,118" Grid.Row="1"/>
+                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="214,76,18,117" TextAlignment="Justify" Height="15" Text="Màn hình 1" Grid.Row="1"/>
+                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="215,123,17,70" TextAlignment="Justify" Height="15" Text="Màn hình 2" Grid.Row="1"/>
+                <TextBox x:Name="height2"
+                    MinWidth="50"
+                    Margin="148,0,102,77"
+                    VerticalAlignment="Bottom" 
+                    Text="{Binding Settings.SpotsY2, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" RenderTransformOrigin="-0.027,1.271" />
+                <Slider x:Name="heightslide2" Minimum="1" 
+                    Maximum="{Binding SpotsYMaximum}" 
+                    Style="{StaticResource MaterialDesignDiscreteSlider}" 
+                    Value="{Binding Settings.SpotsY2}" Margin="16,84,166,73" Grid.Row="1"/>
+            </Grid>
+        </materialDesign:Card>
+        <materialDesign:Card Margin="4 4 4 4" Width="300" Height="363" Background="White" Visibility="{Binding Settings.Advancesettings, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" MinHeight="155" />
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="1" Margin="8 24 8 8">
+                    <DockPanel>
+                        <ToggleButton DockPanel.Dock="Right"
+                        Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" VerticalAlignment="Center" Margin="8 0 0 0"
+                          ToolTip="Mirror X" IsChecked="{Binding Settings.MirrorX}" Background="#FF7E3CBD" />
+                        <TextBlock FontWeight="Bold"><Run Text="Lật trái-phải"/></TextBlock>
+                    </DockPanel>
+                    <DockPanel Margin="0 8 0 0">
+                        <ToggleButton DockPanel.Dock="Right"
+                        Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" VerticalAlignment="Center" Margin="8 0 0 0"
+                          ToolTip="Mirror Y" IsChecked="{Binding Settings.MirrorY}" Background="#FF7E3CBD" />
+                        <TextBlock FontWeight="Bold"><Run Text="Lật trên-dưới"/></TextBlock>
+                    </DockPanel>
+                    <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" TextAlignment="Justify" Margin="0 8 0 0"><Run Text="Các bạn hãy để mặc định 2 giá trị này nếu dán LED từ phải qua trái màn hình (nhìn từ trước). Nếu không, hãy chọn trợ giúp"/></TextBlock>
+                </StackPanel>
+                <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" Height="126" Margin="83,1,0,0" VerticalAlignment="Top" Width="132" Source="/adrilight;component/View/Images/purple theme/flip@2x.png"/>
+            </Grid>
+        </materialDesign:Card>
+        <materialDesign:Card Margin="4 4 4 4" Width="300" Height="363" Background="White" Visibility="{Binding Settings.Advancesettings, Converter={StaticResource booleanToVisibilityConverter}}" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" MinHeight="153" />
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="1" Margin="8 24 8 8" >
+                    <TextBlock FontWeight="Bold"><Run Text="Vị trí LED số 1 (dán từ phải qua trái)"/></TextBlock>
+                    <DockPanel>
+                        <TextBox x:Name="offset" DockPanel.Dock="Right"
+                                MinWidth="50"
+                                Margin="8 0 0 8"
+                                VerticalAlignment="Bottom" 
+                                Text="{Binding Settings.OffsetLed, UpdateSourceTrigger=PropertyChanged}" />
+                        <Slider x:Name="offsetslide" Minimum="0" 
+                                Maximum="{Binding OffsetLedMaximum}" 
+                                Style="{StaticResource MaterialDesignDiscreteSlider}" 
+                                Value="{Binding Settings.OffsetLed}" ValueChanged="Slider_ValueChanged" />
+                    </DockPanel>
+                    <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="0 8 0 0" TextAlignment="Justify" Height="33" Text="Thông số này sẽ được tự động điền khi chọn cỡ màn hình đối với LED do ambino cung cấp"/>
+                </StackPanel>
+                <Image  RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" Height="132" Margin="47,6,0,0" VerticalAlignment="Top" Width="195" Source="/adrilight;component/View/Images/purple theme/LED1@2x.png"/>
+            </Grid>
+        </materialDesign:Card>
+        <materialDesign:Card Margin="4 4 4 4" Width="300" Height="252" Visibility="Hidden">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="1" Margin="8 24 8 8" >
+                    <DockPanel/>
+                </StackPanel>
+                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" TextAlignment="Justify"
+                        Foreground="#FF7E3CBD" Height="82" Margin="8,47,8,4" Grid.Row="1"><Run Text=" Chọn thiết các thiết bị tương ứng với phiên bản, đối với các bản Ambino cũ, các bạn chọn Ambino Black, còn bàn mới là The New Ambino Black"/></TextBlock>
+                <ComboBox 
+                    x:Name="devicebox"
+                 SelectedIndex="{Binding Settings.devicecounter}"
+  materialDesign:HintAssist.Hint="Chọn cỡ màn hình"
+  IsEditable="False"
+  materialDesign:HintAssist.HintOpacity=".26" Height="28" Margin="10,107,10,109" SelectionChanged="Devicebox_SelectionChanged" Grid.RowSpan="2">
+                    <Label Content="The New Ambino Black"/>
+                    <Label Content="Ambino PCI Module"/>
+                    <Label Content="Ambino Candles"/>
+
+                </ComboBox>
+                <TextBlock Margin="140,47,47,42" FontSize="18"><Run Text="Chọn thiết bị"/></TextBlock>
+                <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" Height="100" Margin="-1,7,0,0" VerticalAlignment="Top" Width="102" Source="/adrilight;component/View/Images/purple theme/version@2x.png"/>
+            </Grid>
+        </materialDesign:Card>
+        <materialDesign:Card Margin="4 4 4 4" Width="300" Height="252">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" MinHeight="137" />
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="1" Margin="8 24 8 8" >
+                    <DockPanel/>
+                </StackPanel>
+                <TextBlock TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Justify"
+                    Foreground="#FF7E3CBD" Height="66" Margin="8,40,8,0" Grid.Row="1"><Run Text="Sau khi chọn cỡ màn hình,các bạn sẽ không chọn được số LED chiều ngang, chiều dọc và vị trí LED số 1 tùy ý nữa. Để có thể chỉnh số LED tùy ý, các bạn chọn Kích thước khác!"/></TextBlock>
+                <ComboBox 
+                    x:Name="screenbox"
+                    SelectedIndex="{Binding Settings.screensizecounter}"
+                    materialDesign:HintAssist.Hint="Chọn cỡ màn hình"
+                    IsEditable="False"
+                    materialDesign:HintAssist.HintOpacity=".26" Height="28" Margin="10,107,144,7" SelectionChanged="Screenbox_SelectionChanged">
+                    <Label Content="19-22 inch"/>
+                    <Label Content="23-27 inch"/>
+
+                    <Label Content="29 inch"/>
+                    <Label Content="32 inch"/>
+                    <Label Content="34 inch"/>
+
+                    <Label Content="Kích thước khác"/>
+
+
+                </ComboBox>
+                <TextBlock Margin="103,45,5,75" FontSize="18"><Run Text="Chọn kích cỡ màn hình"/></TextBlock>
+                <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" Height="100" Margin="3,7,0,0" VerticalAlignment="Top" Width="99" Source="/adrilight;component/View/Images/purple theme/size@2x.png"/>
+                <ComboBox 
+                    x:Name="screenbox2"
+                    SelectedIndex="{Binding Settings.screen2sizecounter}"
+                    materialDesign:HintAssist.Hint="Chọn cỡ màn hình"
+                    IsEditable="False"
+                    materialDesign:HintAssist.HintOpacity=".26" Height="28" Margin="10,3,144,79" SelectionChanged="Screenbox2_SelectionChanged" Grid.Row="1">
+                    <Label Content="19-22 inch"/>
+                    <Label Content="23-27 inch"/>
+
+                    <Label Content="29 inch"/>
+                    <Label Content="32 inch"/>
+                    <Label Content="34 inch"/>
+                    <Label Content="Kích thước khác"/>
+
+                </ComboBox>
+                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="208,115,24,11" TextAlignment="Justify" Height="16" Text="Màn hình 1"/>
+                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="208,11,24,85" TextAlignment="Justify" Height="14" Text="Màn hình 2" Grid.Row="1"/>
+            </Grid>
+        </materialDesign:Card>
+    </WrapPanel>-->
+</UserControl>

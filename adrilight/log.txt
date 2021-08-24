@@ -1,0 +1,229 @@
+2021-08-24 05:27:57.850 +07:00 [INF] Loaded 5 extensions
+2021-08-24 05:27:59.913 +07:00 [INF] MSBuild registered from C:\Program Files\dotnet\sdk\5.0.400\
+2021-08-24 05:28:00.788 +07:00 [INF] Found Visual Studio v16.10.31424.327 [C:\Program Files (x86)\Microsoft Visual Studio\2019\Community]
+2021-08-24 05:28:03.889 +07:00 [INF] Initializing upgrade step Select an entrypoint
+2021-08-24 05:28:03.893 +07:00 [INF] Setting entrypoint to user selected project: D:\ambino led controller\Ambino-LED-controller\adrilight\adrilight.csproj
+2021-08-24 05:28:03.906 +07:00 [INF] Initializing upgrade step Select project to upgrade
+2021-08-24 05:28:04.065 +07:00 [INF] Initializing upgrade step Back up project
+2021-08-24 05:28:32.260 +07:00 [INF] Applying upgrade step Back up project
+2021-08-24 05:28:42.996 +07:00 [INF] Backing up D:\ambino led controller\Ambino-LED-controller\adrilight to D:\ambino led controller\Ambino-LED-controller\adrilight.backup
+2021-08-24 05:28:43.115 +07:00 [WRN] Could not copy file D:\ambino led controller\Ambino-LED-controller\adrilight\log.txt due to 'The process cannot access the file 'D:\ambino led controller\Ambino-LED-controller\adrilight\log.txt' because it is being used by another process.'
+2021-08-24 05:29:12.994 +07:00 [INF] Project backed up to D:\ambino led controller\Ambino-LED-controller\adrilight.backup
+2021-08-24 05:29:12.995 +07:00 [INF] Upgrade step Back up project applied successfully
+2021-08-24 05:30:52.136 +07:00 [INF] Initializing upgrade step Convert project file to SDK style
+2021-08-24 05:31:10.313 +07:00 [INF] Applying upgrade step Convert project file to SDK style
+2021-08-24 05:31:10.317 +07:00 [INF] Converting project file format with try-convert, version 0.9.232202
+2021-08-24 05:31:11.062 +07:00 [INF] [dotnet] D:\ambino led controller\Ambino-LED-controller\adrilight\adrilight.csproj contains a reference to System.Web, which is not supported on .NET Core. You may have significant work ahead of you to fully port this project.
+2021-08-24 05:31:11.064 +07:00 [INF] [dotnet] D:\ambino led controller\Ambino-LED-controller\adrilight\adrilight.csproj contains an App.config file. App.config is replaced by appsettings.json in .NET Core. You will need to delete App.config and migrate to appsettings.json if it's applicable to your project.
+2021-08-24 05:31:13.081 +07:00 [INF] [dotnet] This project has an unrecognized custom import which may need reviewed after conversion: squirrel.windows.props
+2021-08-24 05:31:13.082 +07:00 [INF] [dotnet] This project has an unrecognized custom import which may need reviewed after conversion: boost.targets
+2021-08-24 05:31:13.083 +07:00 [INF] [dotnet] This project has an unrecognized custom import which may need reviewed after conversion: boost_regex-vc141.targets
+2021-08-24 05:31:13.084 +07:00 [INF] [dotnet] This project has an unrecognized custom import which may need reviewed after conversion: squirrel.windows.targets
+2021-08-24 05:31:13.084 +07:00 [INF] [dotnet] This project has an unrecognized custom import which may need reviewed after conversion: MaterialDesignThemes.targets
+2021-08-24 05:31:16.382 +07:00 [INF] [dotnet] Conversion complete!
+2021-08-24 05:31:17.730 +07:00 [INF] Project file converted successfully! The project may require additional changes to build successfully against the new .NET target.
+2021-08-24 05:32:09.773 +07:00 [INF] Upgrade step Convert project file to SDK style applied successfully
+2021-08-24 05:36:20.305 +07:00 [INF] Initializing upgrade step Clean up NuGet package references
+2021-08-24 05:36:22.816 +07:00 [INF] Marking package System.Management, Version=4.7.0 for removal because it is referenced elsewhere in the project with a higher version
+2021-08-24 05:36:22.922 +07:00 [INF] Marking package boost for removal because it appears to be a transitive dependency
+2021-08-24 05:36:23.037 +07:00 [INF] Marking package DeltaCompressionDotNet for removal because it appears to be a transitive dependency
+2021-08-24 05:36:23.051 +07:00 [INF] Marking package DotNetZip for removal because it appears to be a transitive dependency
+2021-08-24 05:36:23.202 +07:00 [INF] Marking package MaterialDesignColors for removal because it appears to be a transitive dependency
+2021-08-24 05:36:23.235 +07:00 [INF] Marking package Microsoft.ApplicationInsights for removal because it appears to be a transitive dependency
+2021-08-24 05:36:23.252 +07:00 [INF] Marking package Microsoft.ApplicationInsights.Agent.Intercept for removal because it appears to be a transitive dependency
+2021-08-24 05:36:23.312 +07:00 [INF] Marking package Microsoft.ApplicationInsights.DependencyCollector for removal because it appears to be a transitive dependency
+2021-08-24 05:36:23.344 +07:00 [INF] Marking package Microsoft.ApplicationInsights.PerfCounterCollector for removal because it appears to be a transitive dependency
+2021-08-24 05:36:23.389 +07:00 [INF] Marking package Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel for removal because it appears to be a transitive dependency
+2021-08-24 05:36:23.400 +07:00 [INF] Marking package Microsoft.Bcl.AsyncInterfaces for removal because it appears to be a transitive dependency
+2021-08-24 05:36:23.470 +07:00 [INF] Marking package Microsoft.Extensions.DependencyInjection.Abstractions for removal because it appears to be a transitive dependency
+2021-08-24 05:36:23.502 +07:00 [INF] Marking package Microsoft.Xaml.Behaviors.Wpf for removal because it appears to be a transitive dependency
+2021-08-24 05:36:23.576 +07:00 [INF] Marking package MvvmLightLibs for removal because it appears to be a transitive dependency
+2021-08-24 05:36:23.703 +07:00 [INF] Marking package Ninject.Extensions.Factory for removal because it appears to be a transitive dependency
+2021-08-24 05:36:23.726 +07:00 [INF] Marking package NLog for removal because it appears to be a transitive dependency
+2021-08-24 05:36:23.799 +07:00 [INF] Marking package NLog.Schema for removal because it appears to be a transitive dependency
+2021-08-24 05:36:23.894 +07:00 [INF] Marking package SharpCompress for removal because it appears to be a transitive dependency
+2021-08-24 05:36:23.906 +07:00 [INF] Marking package SharpDX for removal because it appears to be a transitive dependency
+2021-08-24 05:36:23.922 +07:00 [INF] Marking package SharpDX.Desktop for removal because it appears to be a transitive dependency
+2021-08-24 05:36:23.986 +07:00 [INF] Marking package SharpDX.Direct2D1 for removal because it appears to be a transitive dependency
+2021-08-24 05:36:24.005 +07:00 [INF] Marking package SharpDX.Direct3D11 for removal because it appears to be a transitive dependency
+2021-08-24 05:36:24.020 +07:00 [INF] Marking package SharpDX.Direct3D9 for removal because it appears to be a transitive dependency
+2021-08-24 05:36:24.035 +07:00 [INF] Marking package SharpDX.DXGI for removal because it appears to be a transitive dependency
+2021-08-24 05:36:24.074 +07:00 [INF] Marking package SharpDX.Mathematics for removal because it appears to be a transitive dependency
+2021-08-24 05:36:24.176 +07:00 [INF] Marking package System.Diagnostics.DiagnosticSource for removal because it appears to be a transitive dependency
+2021-08-24 05:36:24.199 +07:00 [INF] Marking package System.Drawing.Primitives for removal because it appears to be a transitive dependency
+2021-08-24 05:36:24.231 +07:00 [INF] Marking package System.Runtime.CompilerServices.Unsafe for removal because it appears to be a transitive dependency
+2021-08-24 05:36:24.273 +07:00 [INF] Marking package System.Threading.Tasks.Extensions for removal because it appears to be a transitive dependency
+2021-08-24 05:36:24.297 +07:00 [INF] Marking package WriteableBitmapEx for removal because it appears to be a transitive dependency
+2021-08-24 05:36:24.302 +07:00 [INF] Marking assembly reference System.Configuration for removal based on package mapping configuration System.Configuration
+2021-08-24 05:36:24.305 +07:00 [INF] Adding package System.Configuration.ConfigurationManager based on package mapping configuration System.Configuration
+2021-08-24 05:36:24.305 +07:00 [INF] Marking assembly reference System.ServiceModel for removal based on package mapping configuration System.ServiceModel
+2021-08-24 05:36:24.306 +07:00 [INF] Adding package System.ServiceModel.Primitives based on package mapping configuration System.ServiceModel
+2021-08-24 05:36:24.307 +07:00 [INF] Adding package System.ServiceModel.Http based on package mapping configuration System.ServiceModel
+2021-08-24 05:36:24.308 +07:00 [INF] Adding package System.ServiceModel.Duplex based on package mapping configuration System.ServiceModel
+2021-08-24 05:36:24.309 +07:00 [INF] Adding package System.ServiceModel.NetTcp based on package mapping configuration System.ServiceModel
+2021-08-24 05:36:24.309 +07:00 [INF] Adding package System.ServiceModel.Security based on package mapping configuration System.ServiceModel
+2021-08-24 05:36:24.310 +07:00 [INF] Adding package System.ServiceModel.Federation based on package mapping configuration System.ServiceModel
+2021-08-24 05:36:32.306 +07:00 [INF] Marking package boost_regex-vc141, Version=1.69.0.0 for removal because it doesn't support the target framework but a newer version (1.77.0) does
+2021-08-24 05:36:43.234 +07:00 [WRN] No version of boost_regex-vc141 found that supports ["net472"]; leaving unchanged
+2021-08-24 05:36:44.055 +07:00 [INF] Reference to .NET Upgrade Assistant analyzer package (Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, version 0.2.241603) needs added
+2021-08-24 05:36:44.099 +07:00 [INF] References to be removed: Operation { Item = System.Configuration, OperationDetails = OperationDetails { Risk = Medium, Details = System.Collections.Generic.List`1[System.String] } }
+Operation { Item = System.ServiceModel, OperationDetails = OperationDetails { Risk = Medium, Details = System.Collections.Generic.List`1[System.String] } }
+2021-08-24 05:36:44.101 +07:00 [INF] Packages to be removed: Operation { Item = System.Management, Version=4.7.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = boost, Version=1.69.0.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = DeltaCompressionDotNet, Version=1.1.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = DotNetZip, Version=1.13.7, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = MaterialDesignColors, Version=2.0.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = Microsoft.ApplicationInsights, Version=2.7.0-beta4, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = Microsoft.ApplicationInsights.Agent.Intercept, Version=2.4.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = Microsoft.ApplicationInsights.DependencyCollector, Version=2.7.0-beta4, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = Microsoft.ApplicationInsights.PerfCounterCollector, Version=2.7.0-beta4, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel, Version=2.7.0-beta4, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = Microsoft.Bcl.AsyncInterfaces, Version=5.0.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = Microsoft.Extensions.DependencyInjection.Abstractions, Version=5.0.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = Microsoft.Xaml.Behaviors.Wpf, Version=1.1.31, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = MvvmLightLibs, Version=5.4.1.1, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = Ninject.Extensions.Factory, Version=3.3.2, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = NLog, Version=4.5.7, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = NLog.Schema, Version=4.5.7, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = SharpCompress, Version=0.17.1, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = SharpDX, Version=4.2.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = SharpDX.Desktop, Version=4.2.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = SharpDX.Direct2D1, Version=4.2.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = SharpDX.Direct3D11, Version=4.2.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = SharpDX.Direct3D9, Version=4.2.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = SharpDX.DXGI, Version=4.2.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = SharpDX.Mathematics, Version=4.2.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Diagnostics.DiagnosticSource, Version=4.5.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Drawing.Primitives, Version=4.3.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Runtime.CompilerServices.Unsafe, Version=4.5.3, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Threading.Tasks.Extensions, Version=4.5.4, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = WriteableBitmapEx, Version=1.5.1.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = boost_regex-vc141, Version=1.69.0.0, OperationDetails = OperationDetails { Risk = None, Details = System.Collections.Generic.List`1[System.String] } }
+2021-08-24 05:36:44.103 +07:00 [INF] Packages to be added: Operation { Item = System.Configuration.ConfigurationManager, Version=5.0.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.ServiceModel.Primitives, Version=4.8.1, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.ServiceModel.Http, Version=4.8.1, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.ServiceModel.Duplex, Version=4.8.1, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.ServiceModel.NetTcp, Version=4.8.1, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.ServiceModel.Security, Version=4.8.1, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.ServiceModel.Federation, Version=4.8.1, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = boost_regex-vc141, Version=1.77.0, OperationDetails = OperationDetails { Risk = Low, Details = System.Collections.Generic.List`1[System.String] } }
+Operation { Item = Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.2.241603, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+2021-08-24 05:37:27.746 +07:00 [INF] Applying upgrade step Clean up NuGet package references
+2021-08-24 05:37:27.749 +07:00 [INF] Removing outdated assembly reference: System.Configuration
+2021-08-24 05:37:27.750 +07:00 [INF] Removing outdated assembly reference: System.ServiceModel
+2021-08-24 05:37:27.751 +07:00 [INF] Removing outdated package reference: boost, Version=1.69.0.0
+2021-08-24 05:37:27.752 +07:00 [INF] Removing outdated package reference: boost_regex-vc141, Version=1.69.0.0
+2021-08-24 05:37:27.753 +07:00 [INF] Removing outdated package reference: DeltaCompressionDotNet, Version=1.1.0
+2021-08-24 05:37:27.753 +07:00 [INF] Removing outdated package reference: DotNetZip, Version=1.13.7
+2021-08-24 05:37:27.754 +07:00 [INF] Removing outdated package reference: MaterialDesignColors, Version=2.0.0
+2021-08-24 05:37:27.755 +07:00 [INF] Removing outdated package reference: Microsoft.ApplicationInsights, Version=2.7.0-beta4
+2021-08-24 05:37:27.755 +07:00 [INF] Removing outdated package reference: Microsoft.ApplicationInsights.Agent.Intercept, Version=2.4.0
+2021-08-24 05:37:27.756 +07:00 [INF] Removing outdated package reference: Microsoft.ApplicationInsights.DependencyCollector, Version=2.7.0-beta4
+2021-08-24 05:37:27.757 +07:00 [INF] Removing outdated package reference: Microsoft.ApplicationInsights.PerfCounterCollector, Version=2.7.0-beta4
+2021-08-24 05:37:27.762 +07:00 [INF] Removing outdated package reference: Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel, Version=2.7.0-beta4
+2021-08-24 05:37:27.763 +07:00 [INF] Removing outdated package reference: Microsoft.Bcl.AsyncInterfaces, Version=5.0.0
+2021-08-24 05:37:27.764 +07:00 [INF] Removing outdated package reference: Microsoft.Extensions.DependencyInjection.Abstractions, Version=5.0.0
+2021-08-24 05:37:27.765 +07:00 [INF] Removing outdated package reference: Microsoft.Xaml.Behaviors.Wpf, Version=1.1.31
+2021-08-24 05:37:27.766 +07:00 [INF] Removing outdated package reference: MvvmLightLibs, Version=5.4.1.1
+2021-08-24 05:37:27.767 +07:00 [INF] Removing outdated package reference: Ninject.Extensions.Factory, Version=3.3.2
+2021-08-24 05:37:27.768 +07:00 [INF] Removing outdated package reference: NLog, Version=4.5.7
+2021-08-24 05:37:27.769 +07:00 [INF] Removing outdated package reference: NLog.Schema, Version=4.5.7
+2021-08-24 05:37:27.769 +07:00 [INF] Removing outdated package reference: SharpCompress, Version=0.17.1
+2021-08-24 05:37:27.770 +07:00 [INF] Removing outdated package reference: SharpDX, Version=4.2.0
+2021-08-24 05:37:27.770 +07:00 [INF] Removing outdated package reference: SharpDX.Desktop, Version=4.2.0
+2021-08-24 05:37:27.771 +07:00 [INF] Removing outdated package reference: SharpDX.Direct2D1, Version=4.2.0
+2021-08-24 05:37:27.772 +07:00 [INF] Removing outdated package reference: SharpDX.Direct3D11, Version=4.2.0
+2021-08-24 05:37:27.772 +07:00 [INF] Removing outdated package reference: SharpDX.Direct3D9, Version=4.2.0
+2021-08-24 05:37:27.773 +07:00 [INF] Removing outdated package reference: SharpDX.DXGI, Version=4.2.0
+2021-08-24 05:37:27.773 +07:00 [INF] Removing outdated package reference: SharpDX.Mathematics, Version=4.2.0
+2021-08-24 05:37:27.774 +07:00 [INF] Removing outdated package reference: System.Diagnostics.DiagnosticSource, Version=4.5.0
+2021-08-24 05:37:27.774 +07:00 [INF] Removing outdated package reference: System.Drawing.Primitives, Version=4.3.0
+2021-08-24 05:37:27.775 +07:00 [INF] Removing outdated package reference: System.Management, Version=4.7.0
+2021-08-24 05:37:27.776 +07:00 [INF] Removing outdated package reference: System.Runtime.CompilerServices.Unsafe, Version=4.5.3
+2021-08-24 05:37:27.777 +07:00 [INF] Removing outdated package reference: System.Threading.Tasks.Extensions, Version=4.5.4
+2021-08-24 05:37:27.777 +07:00 [INF] Removing outdated package reference: WriteableBitmapEx, Version=1.5.1.0
+2021-08-24 05:37:27.779 +07:00 [INF] Adding package reference: System.Configuration.ConfigurationManager, Version=5.0.0
+2021-08-24 05:37:27.780 +07:00 [INF] Adding package reference: System.ServiceModel.Primitives, Version=4.8.1
+2021-08-24 05:37:27.781 +07:00 [INF] Adding package reference: System.ServiceModel.Http, Version=4.8.1
+2021-08-24 05:37:27.781 +07:00 [INF] Adding package reference: System.ServiceModel.Duplex, Version=4.8.1
+2021-08-24 05:37:27.782 +07:00 [INF] Adding package reference: System.ServiceModel.NetTcp, Version=4.8.1
+2021-08-24 05:37:27.782 +07:00 [INF] Adding package reference: System.ServiceModel.Security, Version=4.8.1
+2021-08-24 05:37:27.783 +07:00 [INF] Adding package reference: System.ServiceModel.Federation, Version=4.8.1
+2021-08-24 05:37:27.784 +07:00 [INF] Adding package reference: boost_regex-vc141, Version=1.77.0
+2021-08-24 05:37:27.784 +07:00 [INF] Adding package reference: Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.2.241603
+2021-08-24 05:38:09.458 +07:00 [INF] Marking package System.ServiceModel.Primitives for removal because it appears to be a transitive dependency
+2021-08-24 05:38:09.500 +07:00 [INF] Marking package System.ServiceModel.Http for removal because it appears to be a transitive dependency
+2021-08-24 05:38:09.544 +07:00 [INF] Marking package System.ServiceModel.Security for removal because it appears to be a transitive dependency
+2021-08-24 05:38:11.434 +07:00 [WRN] No version of boost_regex-vc141 found that supports ["net472"]; leaving unchanged
+2021-08-24 05:38:11.485 +07:00 [INF] Removing outdated package reference: System.ServiceModel.Primitives, Version=4.8.1
+2021-08-24 05:38:11.486 +07:00 [INF] Removing outdated package reference: System.ServiceModel.Http, Version=4.8.1
+2021-08-24 05:38:11.487 +07:00 [INF] Removing outdated package reference: System.ServiceModel.Security, Version=4.8.1
+2021-08-24 05:38:17.541 +07:00 [WRN] No version of boost_regex-vc141 found that supports ["net472"]; leaving unchanged
+2021-08-24 05:38:17.603 +07:00 [INF] Upgrade step Clean up NuGet package references applied successfully
+2021-08-24 05:41:08.344 +07:00 [INF] Initializing upgrade step Update TFM
+2021-08-24 05:41:08.384 +07:00 [INF] Recommending executable TFM net5.0 because the project builds to a web app
+2021-08-24 05:41:08.387 +07:00 [INF] Recommending Windows TFM net5.0-windows because the project either has Windows-specific dependencies or builds to a WinExe
+2021-08-24 05:41:08.388 +07:00 [INF] TFM needs updated to net5.0-windows
+2021-08-24 05:41:17.941 +07:00 [INF] Applying upgrade step Update TFM
+2021-08-24 05:41:17.960 +07:00 [INF] Recommending executable TFM net5.0 because the project builds to a web app
+2021-08-24 05:41:17.961 +07:00 [INF] Recommending Windows TFM net5.0-windows because the project either has Windows-specific dependencies or builds to a WinExe
+2021-08-24 05:41:50.681 +07:00 [INF] Updated TFM to net5.0-windows
+2021-08-24 05:41:50.682 +07:00 [INF] Upgrade step Update TFM applied successfully
+2021-08-24 05:52:09.848 +07:00 [INF] Initializing upgrade step Update NuGet Packages
+2021-08-24 05:52:13.273 +07:00 [INF] Marking package System.Data.DataSetExtensions for removal because it appears to be a transitive dependency
+2021-08-24 05:52:13.305 +07:00 [INF] Marking package System.Management for removal because it appears to be a transitive dependency
+2021-08-24 05:52:13.382 +07:00 [INF] Marking package System.Configuration.ConfigurationManager for removal because it appears to be a transitive dependency
+2021-08-24 05:52:14.810 +07:00 [INF] Marking assembly reference System.Web for removal based on package mapping configuration ASP.NET
+2021-08-24 05:52:14.814 +07:00 [INF] Adding framework reference Microsoft.AspNetCore.App based on package mapping configuration ASP.NET
+2021-08-24 05:52:14.815 +07:00 [INF] Marking assembly reference System.Web.Extensions for removal based on package mapping configuration ASP.NET
+2021-08-24 05:52:16.188 +07:00 [WRN] No version of boost_regex-vc141 found that supports ["net5.0-windows"]; leaving unchanged
+2021-08-24 05:52:16.996 +07:00 [WRN] No version of BASS.Native found that supports ["net5.0-windows"]; leaving unchanged
+2021-08-24 05:52:17.830 +07:00 [WRN] No version of ColorPickerWPF found that supports ["net5.0-windows"]; leaving unchanged
+2021-08-24 05:52:18.637 +07:00 [INF] Marking package Extended.Wpf.Toolkit, Version=3.4.0 for removal because it doesn't support the target framework but a newer version (3.8.2) does
+2021-08-24 05:52:19.466 +07:00 [WRN] No version of MvvmLight found that supports ["net5.0-windows"]; leaving unchanged
+2021-08-24 05:52:20.273 +07:00 [INF] Marking package NAudio, Version=1.8.5 for removal because it doesn't support the target framework but a newer version (1.10.0) does
+2021-08-24 05:52:21.098 +07:00 [INF] Marking package squirrel.windows, Version=1.9.1 for removal because it doesn't support the target framework but a newer version (2.0.1) does
+2021-08-24 05:52:21.100 +07:00 [WRN] Package squirrel.windows needs to be upgraded across major versions (1.9.1 -> 2.0.1) which may introduce breaking changes
+2021-08-24 05:52:24.571 +07:00 [INF] Marking package Extended.Wpf.Toolkit, Version=3.8.2 for removal because it doesn't support the target framework but a newer version (4.1.0) does
+2021-08-24 05:52:24.574 +07:00 [WRN] Package Extended.Wpf.Toolkit needs to be upgraded across major versions (3.8.2 -> 4.1.0) which may introduce breaking changes
+2021-08-24 05:52:24.576 +07:00 [FTL] Package analysis failed (analyzer Target compatibility reference analyzer: Collection was modified; enumeration operation may not execute.
+2021-08-24 06:00:28.367 +07:00 [INF] Applying upgrade step Update NuGet Packages
+2021-08-24 06:00:28.368 +07:00 [INF] Removing outdated assembly reference: System.Web
+2021-08-24 06:00:28.368 +07:00 [INF] Removing outdated assembly reference: System.Web.Extensions
+2021-08-24 06:00:28.369 +07:00 [INF] Removing outdated package reference: System.Data.DataSetExtensions, Version=4.5.0
+2021-08-24 06:00:28.370 +07:00 [INF] Removing outdated package reference: System.Management, Version=5.0.0
+2021-08-24 06:00:28.370 +07:00 [INF] Removing outdated package reference: System.Configuration.ConfigurationManager, Version=5.0.0
+2021-08-24 06:00:28.371 +07:00 [INF] Removing outdated package reference: Extended.Wpf.Toolkit, Version=3.4.0
+2021-08-24 06:00:28.371 +07:00 [INF] Removing outdated package reference: NAudio, Version=1.8.5
+2021-08-24 06:00:28.372 +07:00 [INF] Removing outdated package reference: squirrel.windows, Version=1.9.1
+2021-08-24 06:00:28.373 +07:00 [INF] Adding package reference: Extended.Wpf.Toolkit, Version=3.8.2
+2021-08-24 06:00:28.373 +07:00 [INF] Adding package reference: NAudio, Version=1.10.0
+2021-08-24 06:00:28.374 +07:00 [INF] Adding package reference: squirrel.windows, Version=2.0.1
+2021-08-24 06:00:28.375 +07:00 [INF] Adding package reference: Extended.Wpf.Toolkit, Version=4.1.0
+2021-08-24 06:00:28.376 +07:00 [INF] Adding framework reference: Microsoft.AspNetCore.App
+2021-08-24 06:00:40.544 +07:00 [INF] Marking package Extended.Wpf.Toolkit, Version=3.8.2 for removal because it is referenced elsewhere in the project with a higher version
+2021-08-24 06:00:42.952 +07:00 [WRN] No version of boost_regex-vc141 found that supports ["net5.0-windows"]; leaving unchanged
+2021-08-24 06:00:43.782 +07:00 [WRN] No version of squirrel.windows found that supports ["net5.0-windows"]; leaving unchanged
+2021-08-24 06:00:46.361 +07:00 [WRN] No version of Extended.Wpf.Toolkit found that supports ["net5.0-windows"]; leaving unchanged
+2021-08-24 06:00:47.167 +07:00 [WRN] No version of BASS.Native found that supports ["net5.0-windows"]; leaving unchanged
+2021-08-24 06:00:48.001 +07:00 [WRN] No version of ColorPickerWPF found that supports ["net5.0-windows"]; leaving unchanged
+2021-08-24 06:00:48.829 +07:00 [WRN] No version of MvvmLight found that supports ["net5.0-windows"]; leaving unchanged
+2021-08-24 06:00:48.946 +07:00 [INF] Removing outdated package reference: Extended.Wpf.Toolkit, Version=3.8.2
+2021-08-24 06:00:56.597 +07:00 [WRN] No version of boost_regex-vc141 found that supports ["net5.0-windows"]; leaving unchanged
+2021-08-24 06:00:57.406 +07:00 [WRN] No version of squirrel.windows found that supports ["net5.0-windows"]; leaving unchanged
+2021-08-24 06:00:58.216 +07:00 [WRN] No version of Extended.Wpf.Toolkit found that supports ["net5.0-windows"]; leaving unchanged
+2021-08-24 06:00:59.103 +07:00 [WRN] No version of BASS.Native found that supports ["net5.0-windows"]; leaving unchanged
+2021-08-24 06:00:59.902 +07:00 [WRN] No version of ColorPickerWPF found that supports ["net5.0-windows"]; leaving unchanged
+2021-08-24 06:01:00.742 +07:00 [WRN] No version of MvvmLight found that supports ["net5.0-windows"]; leaving unchanged
+2021-08-24 06:01:00.896 +07:00 [INF] Upgrade step Update NuGet Packages applied successfully
+2021-08-24 06:01:19.748 +07:00 [INF] Initializing upgrade step Add template files
+2021-08-24 06:01:19.755 +07:00 [INF] 0 expected template items needed
+2021-08-24 06:01:19.756 +07:00 [INF] Initializing upgrade step Upgrade app config files
+2021-08-24 06:01:19.801 +07:00 [INF] Found 0 app settings for upgrade: 
+2021-08-24 06:01:19.805 +07:00 [INF] Found 0 connection strings for upgrade: 
+2021-08-24 06:01:19.809 +07:00 [INF] 0 web page namespace imports need upgraded: 
+2021-08-24 06:01:19.906 +07:00 [INF] Initializing upgrade step Update source code
+2021-08-24 06:01:19.911 +07:00 [INF] Running analyzers on adrilight
+2021-08-24 06:01:26.124 +07:00 [INF] Identified 0 diagnostics in project adrilight
+2021-08-24 06:01:26.385 +07:00 [INF] Initializing upgrade step Move to next project
+2021-08-24 06:01:49.933 +07:00 [INF] Saving upgrade progress file at D:\ambino led controller\Ambino-LED-controller\adrilight\.upgrade-assistant

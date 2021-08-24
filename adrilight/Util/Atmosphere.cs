@@ -139,7 +139,7 @@ namespace adrilight
 
 
                     }
-                    Thread.Sleep(500); //motion speed
+                    Thread.Sleep(10); //motion speed
                 }
                
 

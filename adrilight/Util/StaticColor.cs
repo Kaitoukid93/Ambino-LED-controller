@@ -156,7 +156,7 @@ namespace adrilight.Util
 
                         }
 
-                        Thread.Sleep(5);
+                        Thread.Sleep(10);
                     }
 
 

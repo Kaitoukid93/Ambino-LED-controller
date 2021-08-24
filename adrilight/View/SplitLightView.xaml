@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              xmlns:hc="https://handyorg.github.io/handycontrol"
             xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
-               xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:converters="clr-namespace:adrilight.Converter" xmlns:viewmodel="clr-namespace:adrilight.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewViewModel}"
+               xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:converters="clr-namespace:adrilight.Converter" xmlns:viewmodel="clr-namespace:adrilight.ViewModel" xmlns:lottieSharp="clr-namespace:LottieSharp;assembly=LottieSharp" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewViewModel}"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
               TextElement.FontWeight="Regular"
               TextElement.FontSize="13"
@@ -167,7 +167,7 @@
 
             </Grid>
             <StackPanel Grid.Row="2"/>
-            <Button Foreground="#FF326CF3" Background="#3F326CF3" Padding="7" Command="{Binding SnapshotCommand}" Style="{StaticResource MaterialDesignFlatButton}" Grid.Row="3"  materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0" Margin="0,-0.4,116,0"  BorderBrush="{x:Null}"  HorizontalAlignment="Right" VerticalAlignment="Center" Click="Button_Click_4">
+            <Button Foreground="#FF326CF3" Background="#3F326CF3" Padding="7" Command="{Binding SnapshotCommand}" Style="{StaticResource MaterialDesignFlatButton}" Grid.Row="3"  materialDesign:ButtonAssist.CornerRadius="7" materialDesign:ShadowAssist.ShadowDepth="Depth0" Margin="0,-0.4,116,0"  BorderBrush="{x:Null}"  HorizontalAlignment="Right" VerticalAlignment="Center">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
