@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:adrilight.View"
              mc:Ignorable="d" 
              xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
-              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:i1="http://schemas.microsoft.com/xaml/behaviors"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
@@ -55,11 +55,11 @@
                             <materialDesign:Card.Background>
                                 <SolidColorBrush  Color="{Binding SelectedColor}"/>
                             </materialDesign:Card.Background>
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseDown">
-                                    <i:InvokeCommandAction Command="{Binding Path=DataContext.SelectColorCommand, ElementName=appSetting}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                            <i1:Interaction.Triggers>
+                                <i1:EventTrigger EventName="MouseDown">
+                                    <i1:InvokeCommandAction Command="{Binding Path=DataContext.SelectColorCommand, ElementName=appSetting}"/>
+                                </i1:EventTrigger>
+                            </i1:Interaction.Triggers>
                         </materialDesign:Card>
                         
                     </Border>

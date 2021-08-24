@@ -268,9 +268,14 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BO\BO.csproj" />
+    <ProjectReference Include="C:\Users\vietd\source\repos\ComputeSharp\src\ComputeSharp\ComputeSharp.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="ComputeSharp" Version="2.0.0-alpha.6" />
+    <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
+    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
     <PackageReference Include="System.ServiceModel.Duplex" Version="4.8.1" />
     <PackageReference Include="System.ServiceModel.NetTcp" Version="4.8.1" />
     <PackageReference Include="System.ServiceModel.Federation" Version="4.8.1" />
@@ -309,6 +314,7 @@
     <PackageReference Include="Splat" Version="4.0.0" />
     <PackageReference Include="System.Buffers" Version="4.5.0" />
     <PackageReference Include="System.Reactive" Version="4.1.0-preview.84" />
+    <PackageReference Include="TerraFX.Interop.D3D12MemoryAllocator" Version="2.0.0-beta2" />
     <PackageReference Include="WpfAnimatedGif" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>

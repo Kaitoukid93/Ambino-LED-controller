@@ -5,27 +5,21 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using adrilight.Resources;
 using adrilight.Spots;
 using adrilight.Util;
-using adrilight.View;
-using adrilight.ViewModel.Factories;
-using BO;
-using GalaSoft.MvvmLight;
 using MaterialDesignThemes.Wpf;
 using Newtonsoft.Json;
-using Ninject;
 using OpenRGB.NET.Models;
 using Un4seen.BassWasapi;
+using BO;
 using Application = System.Windows.Forms.Application;
-using adrilight.Extensions;
+using GalaSoft.MvvmLight;
+
 namespace adrilight.ViewModel
 {
     public class MainViewViewModel : BaseViewModel
@@ -374,7 +368,9 @@ namespace adrilight.ViewModel
 
         public int _deviceType;
         public int DeviceType {
-            get { if (CurrentDevice.DeviceType == "Strip")
+            get
+            {
+                if (CurrentDevice.DeviceType == "Strip")
                     return 0;
                 else if (CurrentDevice.DeviceType == "Square")
                     return 1;
@@ -560,97 +556,83 @@ namespace adrilight.ViewModel
                     case nameof(GeneralSettings.ScreenSize):
                         if (GeneralSettings.ScreenSize == 0)
                         {
-                            case 0:
-                                GeneralSettings.SpotsX = 11;
-                                GeneralSettings.SpotsY = 7;
-                                break;
-                            case 1:
-                                GeneralSettings.SpotsX = 13;
-                                GeneralSettings.SpotsY = 7;
-                                break;
-                            case 2:
-                                GeneralSettings.SpotsX = 14;
-                                GeneralSettings.SpotsY = 7;
-                                break;
-                            case 3:
-                                GeneralSettings.SpotsX = 14;
-                                GeneralSettings.SpotsY = 9;
-                                break;
-                            case 4:
-                                GeneralSettings.SpotsX = 16;
-                                GeneralSettings.SpotsY = 7;
-                                break;
+                            GeneralSettings.SpotsX = 11;
+                            GeneralSettings.SpotsY = 7;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY);
                         }
-                        RaisePropertyChanged(() => GeneralSettings.SpotsX);
-                        RaisePropertyChanged(() => GeneralSettings.SpotsY);
+                        else if (GeneralSettings.ScreenSize == 1)
+                        {
+                            GeneralSettings.SpotsX = 13;
+                            GeneralSettings.SpotsY = 7;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY);
+                        }
+                        else if (GeneralSettings.ScreenSize == 2)
+                        {
+                            GeneralSettings.SpotsX = 14;
+                            GeneralSettings.SpotsY = 7;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY);
+                        }
+                        else if (GeneralSettings.ScreenSize == 3)
+                        {
+                            GeneralSettings.SpotsX = 14;
+                            GeneralSettings.SpotsY = 9;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY);
+                        }
+                        else if (GeneralSettings.ScreenSize == 4)
+                        {
+                            GeneralSettings.SpotsX = 16;
+                            GeneralSettings.SpotsY = 7;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY);
+                        }
+
                         GeneralSettings.OffsetLed = GeneralSettings.SpotsX - 1;
                         break;
                     case nameof(GeneralSettings.ScreenSizeSecondary):
-                        switch (GeneralSettings.ScreenSizeSecondary)
+                        if (GeneralSettings.ScreenSizeSecondary == 0)
                         {
-                            case 0:
-                                GeneralSettings.SpotsX2 = 11;
-                                GeneralSettings.SpotsY2 = 7;
-                                break;
-                            case 1:
-                                GeneralSettings.SpotsX2 = 13;
-                                GeneralSettings.SpotsY2 = 7;
-                                break;
-                            case 2:
-                                GeneralSettings.SpotsX2 = 14;
-                                GeneralSettings.SpotsY2 = 7;
-                                break;
-                            case 3:
-                                GeneralSettings.SpotsX2 = 14;
-                                GeneralSettings.SpotsY2 = 9;
-                                break;
-                            case 4:
-                                GeneralSettings.SpotsX2 = 16;
-                                GeneralSettings.SpotsY2 = 7;
-                                break;
+                            GeneralSettings.SpotsX2 = 11;
+                            GeneralSettings.SpotsY2 = 7;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX2);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY2);
                         }
-                        RaisePropertyChanged(() => GeneralSettings.SpotsX2);
-                        RaisePropertyChanged(() => GeneralSettings.SpotsY2);
-                        //if (GeneralSettings.ScreenSizeSecondary == 0)
-                        //{
-                        //    GeneralSettings.SpotsX2 = 11;
-                        //    GeneralSettings.SpotsY2 = 7;
-                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX2);
-                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY2);
-                        //}
-                        //else if (GeneralSettings.ScreenSizeSecondary == 1)
-                        //{
-                        //    GeneralSettings.SpotsX2 = 13;
-                        //    GeneralSettings.SpotsY2 = 7;
-                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX2);
-                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY2);
-                        //}
-                        //else if (GeneralSettings.ScreenSizeSecondary == 2)
-                        //{
-                        //    GeneralSettings.SpotsX2 = 14;
-                        //    GeneralSettings.SpotsY2 = 7;
-                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX2);
-                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY2);
-                        //}
-                        //else if (GeneralSettings.ScreenSizeSecondary == 3)
-                        //{
-                        //    GeneralSettings.SpotsX2 = 14;
-                        //    GeneralSettings.SpotsY2 = 9;
-                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX2);
-                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY2);
-                        //}
-                        //else if (GeneralSettings.ScreenSizeSecondary == 4)
-                        //{
-                        //    GeneralSettings.SpotsX2 = 16;
-                        //    GeneralSettings.SpotsY2 = 7;
-                        //    RaisePropertyChanged(() => GeneralSettings.SpotsX2);
-                        //    RaisePropertyChanged(() => GeneralSettings.SpotsY2);
-                        //}
+                        else if (GeneralSettings.ScreenSizeSecondary == 1)
+                        {
+                            GeneralSettings.SpotsX2 = 13;
+                            GeneralSettings.SpotsY2 = 7;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX2);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                        }
+                        else if (GeneralSettings.ScreenSizeSecondary == 2)
+                        {
+                            GeneralSettings.SpotsX2 = 14;
+                            GeneralSettings.SpotsY2 = 7;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX2);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                        }
+                        else if (GeneralSettings.ScreenSizeSecondary == 3)
+                        {
+                            GeneralSettings.SpotsX2 = 14;
+                            GeneralSettings.SpotsY2 = 9;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX2);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                        }
+                        else if (GeneralSettings.ScreenSizeSecondary == 4)
+                        {
+                            GeneralSettings.SpotsX2 = 16;
+                            GeneralSettings.SpotsY2 = 7;
+                            RaisePropertyChanged(() => GeneralSettings.SpotsX2);
+                            RaisePropertyChanged(() => GeneralSettings.SpotsY2);
+                        }
 
                         GeneralSettings.OffsetLed2 = GeneralSettings.SpotsX2 - 1;
                         break;
                     case nameof(GeneralSettings.ScreenSizeThird):
-                        switch (GeneralSettings.ScreenSizeThird)
+                        if (GeneralSettings.ScreenSizeThird == 0)
                         {
                             GeneralSettings.SpotsX3 = 11;
                             GeneralSettings.SpotsY3 = 7;
@@ -910,14 +892,13 @@ namespace adrilight.ViewModel
                     foreach (var device in openRGBdevices)//convert openRGB device to ambino Device
                     {
 
-                        //IDeviceSettings newDevice = new DeviceSettings();
-                        //newDevice.DeviceName = device.Name.ToString();
-                        //newDevice.DeviceType = device.Type.ToString();
-                        //newDevice.DevicePort = device.Location.ToString();
-                        //newDevice.DeviceID = 151293;
-                        //newDevice.DeviceSerial = device.Serial;
-                        //Cards.Add(newDevice);
-                        AddDevice(device.Name, device.Type.ToString(), device.Location.ToString(), 151293, device.Serial);
+                        IDeviceSettings newDevice = new DeviceSettings();
+                        newDevice.DeviceName = device.Name.ToString();
+                        newDevice.DeviceType = device.Type.ToString();
+                        newDevice.DevicePort = device.Location.ToString();
+                        newDevice.DeviceID = 151293;
+                        newDevice.DeviceSerial = device.Serial;
+                        Cards.Add(newDevice);
                     }
                 }
             }
@@ -929,17 +910,16 @@ namespace adrilight.ViewModel
 
             if (detectedDevices.Count > 0)
             {
-                //foreach (var device in detectedDevices)
-                //{
-                //    foreach (var existedDevice in Cards)
-                //    {
-                //        if (existedDevice.DevicePort == device)
-                //            newdevices.Remove(device);
-                //    }
+                foreach (var device in detectedDevices)
+                {
+                    foreach (var existedDevice in Cards)
+                    {
+                        if (existedDevice.DevicePort == device)
+                            newdevices.Remove(device);
+                    }
 
-                //}
-                var removeDevices = detectedDevices.Where(t => Cards.Any(c => c.DevicePort == t)).ToList();
-                newdevices.RemoveRange(removeDevices);
+                }
+
                 if (newdevices.Count == 1)
                 {
                     var result = HandyControl.Controls.MessageBox.Show("Phát hiện Ambino Basic Rev 2 đã kết nối ở " + newdevices[0] + " Nhấn [Confirm] để add vào Dashboard", "Ambino Device", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -956,7 +936,6 @@ namespace adrilight.ViewModel
                             Cards.Add(newDevice);
 
 
-                            AddDevice("Auto Detected Device", "ABRev2", device, Cards.Count + 1, "151293");
                         }
 
                     }
@@ -1277,13 +1256,12 @@ namespace adrilight.ViewModel
         }
 
         private Visibility _aRGB1Visibility;
-        public Visibility ARGB1Visibility
-        {
+        public Visibility ARGB1Visibility {
             get
             {
-                foreach( var device in Cards)
+                foreach (var device in Cards)
                 {
-                    if(device.ParrentLocation==ParrentLocation)
+                    if (device.ParrentLocation == ParrentLocation)
                     {
                         if (device.OutputLocation == 0)
                             return Visibility.Visible;
@@ -1336,7 +1314,7 @@ namespace adrilight.ViewModel
 
             set
             {
-                _pCI1= value;
+                _pCI1 = value;
             }
 
         }
@@ -1431,16 +1409,16 @@ namespace adrilight.ViewModel
                 _aRGB1Checked = value;
                 if (value)
                 {
-                    
+
                     foreach (var device in Cards)
-                        if (device.ParrentLocation == ParrentLocation && device.OutputLocation==0)
+                        if (device.ParrentLocation == ParrentLocation && device.OutputLocation == 0)
                         {
                             GotoChild(device);
                             RaisePropertyChanged(() => DFUVisibility);
-                            
+
                         }
-                            
-                   
+
+
                     foreach (var spotset in SpotSets)
                     {
 
@@ -1449,10 +1427,10 @@ namespace adrilight.ViewModel
                             PreviewSpots = spotset.Spots;
                         }
                     }
-            }
+                }
             }
         }
-    
+
         private bool _aRGB2Checked;
         public bool ARGB2Checked {
 
@@ -1462,7 +1440,7 @@ namespace adrilight.ViewModel
                 _aRGB2Checked = value;
                 if (value)
                 {
-                   
+
                     foreach (var device in Cards)
                         if (device.ParrentLocation == ParrentLocation && device.OutputLocation == 1)
                             GotoChild(device);
@@ -1487,7 +1465,7 @@ namespace adrilight.ViewModel
                 _pCI1Checked = value;
                 if (value)
                 {
-                    
+
                     foreach (var device in Cards)
                         if (device.ParrentLocation == ParrentLocation && device.OutputLocation == 2)
                             GotoChild(device);
@@ -1513,7 +1491,7 @@ namespace adrilight.ViewModel
                 _pCI2Checked = value;
                 if (value)
                 {
-                   
+
                     foreach (var device in Cards)
                         if (device.ParrentLocation == ParrentLocation && device.OutputLocation == 3)
                             GotoChild(device);
@@ -1538,7 +1516,7 @@ namespace adrilight.ViewModel
                 _pCI3Checked = value;
                 if (value)
                 {
-                    
+
                     foreach (var device in Cards)
                         if (device.ParrentLocation == ParrentLocation && device.OutputLocation == 4)
                             GotoChild(device);
@@ -1563,7 +1541,7 @@ namespace adrilight.ViewModel
                 _pCI4Checked = value;
                 if (value)
                 {
-                    
+
                     foreach (var device in Cards)
                         if (device.ParrentLocation == ParrentLocation && device.OutputLocation == 5)
                             GotoChild(device);
@@ -1591,33 +1569,33 @@ namespace adrilight.ViewModel
             {
                 DeleteCard(CurrentDevice);
                 int counter = 1;
-                foreach(var card in Cards)
+                foreach (var card in Cards)
                 {
                     card.DeviceID = counter;
                     counter++;
-                    
+
                 }
                 WriteJson();
                 Application.Restart();
                 Process.GetCurrentProcess().Kill();
             }
 
-          
+
         }
 
 
         public void DeleteCard(IDeviceSettings deviceInfo)
         {
             var childcards = new ObservableCollection<IDeviceSettings>();
-            if(deviceInfo.IsHUB)
+            if (deviceInfo.IsHUB)
             {
-                foreach(var device in Cards)
+                foreach (var device in Cards)
                 {
                     if (device.ParrentLocation == deviceInfo.DeviceID)
                         childcards.Add(device);
                 }
             }
-            foreach(var device in childcards)
+            foreach (var device in childcards)
             {
                 Cards.Remove(device);
             }
@@ -1628,20 +1606,20 @@ namespace adrilight.ViewModel
         public void WriteJson()
         {
             var devices = new List<IDeviceSettings>();
-          
 
-                foreach (var item in Cards)
+
+            foreach (var item in Cards)
             {
                 devices.Add(item);
             }
-            
-                    
-                  
-                 
-                    // if devices disconnected,change connect status
-                
-             
-            
+
+
+
+
+            // if devices disconnected,change connect status
+
+
+
             var json = JsonConvert.SerializeObject(devices, Formatting.Indented);
             Directory.CreateDirectory(JsonPath);
             File.WriteAllText(JsonDeviceNameAndPath, json);
@@ -1714,9 +1692,9 @@ namespace adrilight.ViewModel
             //SetMenuItemActiveStatus(menuItem.Text);
             SetMenuItemActiveStatus(menuItem.Text);
         }
-         public void WriteDeviceInfoJson()
+        public void WriteDeviceInfoJson()
         {
-           // if (_allDeviceView == null) return;
+            // if (_allDeviceView == null) return;
             var devices = new List<IDeviceSettings>();
             foreach (var item in Cards)
             {
@@ -1733,26 +1711,26 @@ namespace adrilight.ViewModel
             SelectedVerticalMenuItem = MenuItems.FirstOrDefault(t => t.Text == general);
             IsDashboardType = false;
             CurrentDevice = card;
-            if(CurrentDevice.IsHUB)
+            if (CurrentDevice.IsHUB)
             {
                 ParrentLocation = CurrentDevice.DeviceID;
             }
-            if(CurrentDevice.DeviceID==151293)
+            if (CurrentDevice.DeviceID == 151293)
             {
 
             }
-                else
-                    {
-                foreach(var spotset in SpotSets)
-                        if(spotset.ID== CurrentDevice.DeviceID)
+            else
+            {
+                foreach (var spotset in SpotSets)
+                    if (spotset.ID == CurrentDevice.DeviceID)
                     {
                         PreviewSpots = spotset.Spots;
                     }
 
-                    }
+            }
 
 
-            
+
             SetMenuItemActiveStatus(lighting);
         }
         public void BackToDashboard()
@@ -1780,7 +1758,7 @@ namespace adrilight.ViewModel
             MenuItems.Add(new VerticalMenuItem() { Text = dashboard, IsActive = true, Type = MenuButtonType.Dashboard });
             MenuItems.Add(new VerticalMenuItem() { Text = deviceSetting, IsActive = false, Type = MenuButtonType.Dashboard });
             MenuItems.Add(new VerticalMenuItem() { Text = appSetting, IsActive = false, Type = MenuButtonType.Dashboard });
-           
+
             MenuItems.Add(new VerticalMenuItem() { Text = general, IsActive = true, Type = MenuButtonType.General });
             MenuItems.Add(new VerticalMenuItem() { Text = lighting, IsActive = false, Type = MenuButtonType.General });
 
@@ -1805,13 +1783,13 @@ namespace adrilight.ViewModel
             if (MenuItems == null) return;
             foreach (var item in MenuItems)
             {
-                item.IsVisible =item.Type==MenuButtonType.Dashboard? isDashboard:!isDashboard;
+                item.IsVisible = item.Type == MenuButtonType.Dashboard ? isDashboard : !isDashboard;
             }
             RaisePropertyChanged(nameof(MenuItems));
         }
 
 
-        
-        
+
+
     }
 }
