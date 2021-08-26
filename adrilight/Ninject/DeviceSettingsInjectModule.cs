@@ -27,7 +27,9 @@ namespace adrilight.Ninject
             Bind<IGeneralSettings>().ToConstant(generalSettings);
             Bind<IOpenRGBClientDevice>().To<OpenRGBClientDevice>().InSingletonScope();
             Bind<ISerialDeviceDetection>().To<SerialDeviceDetection>().InSingletonScope();
-          //  Bind<IViewModelFactory<AllDeviceViewModel>>().To<AllDeviceViewModelFactory>().InSingletonScope();
+            Bind<IShaderEffect>().To<ShaderEffect>().InSingletonScope();
+            Bind<IContext>().To<WpfContext>().InSingletonScope();
+            //  Bind<IViewModelFactory<AllDeviceViewModel>>().To<AllDeviceViewModelFactory>().InSingletonScope();
             if (alldevicesettings!=null)
             {
                 if (alldevicesettings.Count > 0)

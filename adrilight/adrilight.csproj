@@ -23,11 +23,14 @@
     <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <WarningLevel>3</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
+    <PlatformTarget>x64</PlatformTarget>
+    <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DefineConstants>
@@ -268,10 +271,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BO\BO.csproj" />
-    <ProjectReference Include="C:\Users\vietd\source\repos\ComputeSharp\src\ComputeSharp\ComputeSharp.csproj" />
+
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ComputeSharp" Version="2.0.0-alpha.6" />
+    <PackageReference Include="ComputeSharp" Version="2.0.0-alpha.5" />
     <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
@@ -341,6 +344,7 @@
     <Compile Remove="View\SettingsWindowComponents\SpotSetup.xaml.cs" />
     <Compile Remove="View\SettingsWindowComponents\Whitebalance.xaml.cs" />
     <Compile Remove="View\SettingsWindowComponents\WifiPower.xaml.cs" />
+    <None Remove="View\add device%402x.png" />
     <Page Remove="Controls\DeviceCard.xaml" />
     <Page Remove="View\SettingsWindowComponents\ComPortSetup.xaml" />
     <Page Remove="View\SettingsWindowComponents\GeneralSetup.xaml" />

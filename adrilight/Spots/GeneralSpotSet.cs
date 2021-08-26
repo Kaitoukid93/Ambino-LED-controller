@@ -66,6 +66,7 @@ namespace adrilight
         public IGeneralSpot[] Spots2 { get; set; }
         public IGeneralSpot[] Spots3 { get; set; }
         public IGeneralSpot[] SpotsDesk { get; set; }
+        public IGeneralSpot[] ShaderSpot { get; set; }
 
 
         public object Lock { get; } = new object();
@@ -107,6 +108,7 @@ namespace adrilight
                 Spots2 = BuildSpots2(ExpectedScreenWidth2, ExpectedScreenHeight2, DeviceInfo);
                 Spots3 = BuildSpots3(ExpectedScreenWidth3, ExpectedScreenHeight3, DeviceInfo);
                 SpotsDesk = BuildSpotsDesk(ExpectedScreenWidth, ExpectedScreenHeight, DeviceInfo);
+                ShaderSpot = BuildSpotsShader(DeviceInfo);
             }
         }
 
@@ -208,6 +210,78 @@ namespace adrilight
 
             spots[0].IsFirst = true;
             return spots;
+        }
+
+        internal IGeneralSpot[] BuildSpotsShader(IGeneralSettings userSettings)
+        {
+            var spotsX = userSettings.ShaderX;
+            var spotsY = userSettings.ShaderY;
+            var canvasX = userSettings.ShaderCanvasWidth;
+            var canvasY = userSettings.ShaderCanvasHeight;
+            IGeneralSpot[] spots;
+            //if (spotsX > 0 && spotsY > 0)
+            //{
+            //    spots = new GeneralSpot[CountLeds(spotsX, spotsY)];
+            //}
+            //else
+            //{
+            //    spotsX = 11;
+            //    spotsY = 6;
+            //    spots = new GeneralSpot[CountLeds(spotsX, spotsY)];
+            //}
+
+
+            spots = new GeneralSpot[spotsX * spotsY]; // number of spots in matrix
+
+        
+
+
+            var spotWidth = canvasX/spotsX;
+            var spotHeight = canvasY/spotsY;
+
+
+
+
+            var xResolution = spotWidth;
+            var xRemainingOffset = 0;
+            var yResolution = spotHeight;
+            var yRemainingOffset = 0;
+
+            var counter = 0;
+       
+
+            for (var j = 0; j < spotsY; j++)
+            {
+                for (var i = 0; i < spotsX; i++)
+                {
+                   
+
+                   
+                        var x = (xRemainingOffset  + i * xResolution)
+                                .Clamp(0, canvasX);
+
+                        var y = (yRemainingOffset +  j * yResolution)
+                                .Clamp(0, canvasY);
+
+                        var index = counter++; // in first row index is always counter
+
+                    
+
+                        spots[index] = new GeneralSpot(x, y, spotWidth, spotHeight, i, j);
+                    }
+                }
+            
+
+
+
+           
+         
+            return spots;
+        }
+
+        public void SetColorbyPos(IGeneralSpot[] spotSet,int x, int y, byte r, byte g, byte b)
+        {
+            spotSet[y*25+x].SetColor(r, g, b,true);
         }
 
 

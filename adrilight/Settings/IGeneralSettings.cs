@@ -33,6 +33,10 @@ namespace adrilight
         int SpotsY { get; set; }
         int SpotsY2 { get; set; }
         int SpotsY3 { get; set; }
+        int ShaderX { get; set; }
+        int ShaderCanvasWidth { get; set; }
+        int ShaderCanvasHeight { get; set; }
+        int ShaderY { get; set; }
         int SentryMode { get; set; }
         int ScreenSize { get; set; }
         int DeskSize { get; set; }

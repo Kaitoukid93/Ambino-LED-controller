@@ -227,7 +227,8 @@ namespace adrilight
             var desktopDuplicationReaderThird = kernel.Get<IDesktopDuplicatorReaderThird>();
             var openRGBClient = kernel.Get<IOpenRGBClientDevice>();
             var serialDeviceDetection = kernel.Get<ISerialDeviceDetection>();
-
+            var shaderEffect = kernel.Get<IShaderEffect>();
+            var context = kernel.Get<IContext>();
             if (alldevicesettings!=null)
             {
                 foreach (var devicesetting in alldevicesettings)
@@ -251,7 +252,7 @@ namespace adrilight
                     }
                     else
                     {
-                        kernel.Bind<IContext>().To<WpfContext>().InSingletonScope().Named(DeviceName);
+                        
                        
                         if(!devicesetting.IsHUB)
                         {
@@ -268,8 +269,8 @@ namespace adrilight
                             kernel.Bind<IRainbow>().To<Rainbow>().InSingletonScope().Named(DeviceName).WithConstructorArgument("deviceSettings", kernel.Get<IDeviceSettings>(DeviceName)).WithConstructorArgument("deviceSpotSet", kernel.Get<IDeviceSpotSet>(DeviceName));
                             kernel.Bind<IMusic>().To<Music>().InTransientScope().Named(DeviceName).WithConstructorArgument("deviceSettings", kernel.Get<IDeviceSettings>(DeviceName)).WithConstructorArgument("deviceSpotSet", kernel.Get<IDeviceSpotSet>(DeviceName));
                             kernel.Bind<IAtmosphere>().To<Atmosphere>().InSingletonScope().Named(DeviceName).WithConstructorArgument("deviceSettings", kernel.Get<IDeviceSettings>(DeviceName)).WithConstructorArgument("deviceSpotSet", kernel.Get<IDeviceSpotSet>(DeviceName));
+                           
                             var spotSetReader = kernel.Get<ISpotSetReader>(DeviceName);
-                            
                             var staticColor = kernel.Get<IStaticColor>(DeviceName);
                             var rainbow = kernel.Get<IRainbow>(DeviceName);
                             var music = kernel.Get<IMusic>(DeviceName);

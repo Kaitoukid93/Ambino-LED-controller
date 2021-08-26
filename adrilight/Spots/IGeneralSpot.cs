@@ -15,6 +15,8 @@ namespace adrilight
         bool IsFirst { get; set; }
         int RadiusX { get; }
         int RadiusY { get; }
+        int X { get; }
+        int Y { get; }
        
         
 

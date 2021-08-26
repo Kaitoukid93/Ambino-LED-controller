@@ -18,6 +18,8 @@ namespace adrilight
             Rectangle = new Rectangle(top, left, width, height);
             RadiusX = width / 4;
             RadiusY = height / 4;
+            X = x;
+            Y = y;
         }
 
         public Rectangle Rectangle { get; private set; }
@@ -32,6 +34,8 @@ namespace adrilight
         public Color OnDemandColorTransparent => Color.FromArgb(255, Red, Green, Blue);
         public int RadiusX { get; private set; }
         public int RadiusY { get; private set; }
+        public int X { get; set; }
+        public int Y { get; set; }
 
 
         public byte Red { get; private set; }
@@ -51,6 +55,7 @@ namespace adrilight
                 RaisePropertyChanged(nameof(OnDemandColorTransparent));
             }
         }
+      
 
         public void Dispose()
         {

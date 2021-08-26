@@ -14,7 +14,7 @@ namespace adrilight
         private int _borderDistanceX = 0;
         private int _borderDistanceY = 0;
         private bool _autostart = true;
-
+        
         private bool _mirrorX = true;
         private bool _mirrorY = false;
         private int _offsetLed = 10;
@@ -36,6 +36,10 @@ namespace adrilight
         private int _spotsX = 11;
         private int _spotsX2 = 11;
         private int _spotsX3 = 11;
+        private int _shaderX = 70;
+        private int _shaderY = 70;
+        private int _shaderCanvasWidth = 500;
+        private int _shaderCanvasHeight = 500;
 
         private byte _whitebalanceRed = 100;
         private byte _whitebalanceGreen =95;
@@ -78,7 +82,9 @@ namespace adrilight
         public int ScreenSizeSecondary { get => _screenSizeSecondary; set { Set(() => ScreenSizeSecondary, ref _screenSizeSecondary, value); } }
         public int ScreenSizeThird { get => _screenSizeThird; set { Set(() => ScreenSizeThird, ref _screenSizeThird, value); } }
 
+        public int ShaderCanvasWidth { get => _shaderCanvasWidth; set { Set(() => ShaderCanvasWidth, ref _shaderCanvasWidth, value); } }
 
+        public int ShaderCanvasHeight { get => _shaderCanvasHeight; set { Set(() => ShaderCanvasHeight, ref _shaderCanvasHeight, value); } }
         public bool StartMinimized { get => _startMinimized; set { Set(() => StartMinimized, ref _startMinimized, value); } }
         public bool Autostart { get => _autostart; set { Set(() => Autostart, ref _autostart, value); } }
 
@@ -101,6 +107,8 @@ namespace adrilight
         public int SpotsX { get => _spotsX; set { Set(() => SpotsX, ref _spotsX, value); } }
 
         public int SpotsY { get => _spotsY; set { Set(() => SpotsY, ref _spotsY, value); } }
+        public int ShaderX { get => _shaderX; set { Set(() => ShaderX, ref _shaderX, value); } }
+        public int ShaderY { get => _shaderY; set { Set(() => ShaderY, ref _shaderY, value); } }
         public int SpotsY2 { get => _spotsY2; set { Set(() => SpotsY2, ref _spotsY2, value); } }
         public int SpotsX2 { get => _spotsX2; set { Set(() => SpotsX2, ref _spotsX2, value); } }
         public int SpotsY3 { get => _spotsY3; set { Set(() => SpotsY3, ref _spotsY3, value); } }

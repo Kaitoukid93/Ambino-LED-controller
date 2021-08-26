@@ -19,6 +19,10 @@ using Un4seen.BassWasapi;
 using BO;
 using Application = System.Windows.Forms.Application;
 using GalaSoft.MvvmLight;
+using System.Windows.Threading;
+using System.Runtime.InteropServices;
+using System.ComponentModel;
+using System.Windows.Media;
 
 namespace adrilight.ViewModel
 {
@@ -36,6 +40,7 @@ namespace adrilight.ViewModel
         public const string faq = "FAQ";
         public const string general = "General";
         public const string lighting = "Lighting";
+        public const string canvasLighting = "Canvas Lighting";
         #endregion
         #region property
         private ObservableCollection<VerticalMenuItem> _menuItems;
@@ -354,7 +359,24 @@ namespace adrilight.ViewModel
                 RaisePropertyChanged();
             }
         }
+        public IGeneralSpot[] _shaderSpots;
+        public IGeneralSpot[] ShaderSpots {
+            get => _shaderSpots;
+            set
+            {
+                _shaderSpots = value;
+                RaisePropertyChanged();
+            }
+        }
 
+        public  WriteableBitmap _shaderBitmap;
+        public  WriteableBitmap ShaderBitmap {
+            get => _shaderBitmap;
+            set
+            {
+                Set(ref _shaderBitmap, value);
+            }
+        }
 
         private int _parrentLocation;
         public int ParrentLocation {
@@ -503,9 +525,10 @@ namespace adrilight.ViewModel
         public ISerialStream[] SerialStreams { get; }
         public IOpenRGBClientDevice OpenRGBClientDevice { get; set; }
         public ISerialDeviceDetection SerialDeviceDetection { get; set; }
+        public static IShaderEffect ShaderEffect {get;set;}
         public int AddedDevice { get; }
 
-        public MainViewViewModel(IDeviceSettings[] cards, IDeviceSpotSet[] deviceSpotSets, IGeneralSettings generalSettings, IOpenRGBClientDevice openRGBDevices, ISerialDeviceDetection serialDeviceDetection, ISerialStream[] serialStreams)
+        public MainViewViewModel(IContext context, IDeviceSettings[] cards, IDeviceSpotSet[] deviceSpotSets,IGeneralSpotSet generalSpotSet, IGeneralSettings generalSettings, IOpenRGBClientDevice openRGBDevices, ISerialDeviceDetection serialDeviceDetection, ISerialStream[] serialStreams, IShaderEffect shaderEffect)
         {
 
             GeneralSettings = generalSettings ?? throw new ArgumentNullException(nameof(generalSettings));
@@ -513,9 +536,14 @@ namespace adrilight.ViewModel
             Cards = new ObservableCollection<IDeviceSettings>();
             DisplayCards = new ObservableCollection<IDeviceSettings>();
             AddedDevice = cards.Length;
+            Context=context ?? throw new ArgumentNullException(nameof(context));
             SpotSets = new ObservableCollection<IDeviceSpotSet>();
             OpenRGBClientDevice = openRGBDevices ?? throw new ArgumentNullException(nameof(openRGBDevices));
             SerialDeviceDetection = serialDeviceDetection ?? throw new ArgumentNullException(nameof(serialDeviceDetection));
+            ShaderEffect = shaderEffect ?? throw new ArgumentNullException();
+            ShaderEffect.PropertyChanged+= ShaderImageUpdate;
+            //ShaderSpots = generalSpotSet.ShaderSpot;
+            //ShaderBitmap = shaderEffect.MatrixBitmap;
             foreach (IDeviceSettings card in cards)
             {
                 Cards.Add(card);
@@ -741,6 +769,39 @@ namespace adrilight.ViewModel
             //WriteJson();
             //_isAddnew = false;
         }
+
+        private  void ShaderImageUpdate(object sender, PropertyChangedEventArgs e)
+        {
+
+           
+            Context.Invoke(() =>
+            {
+                var MatrixBitmap = new WriteableBitmap(70, 70, 96, 96, PixelFormats.Bgr32, null);
+                MatrixBitmap.Lock();
+                IntPtr pixelAddress = MatrixBitmap.BackBuffer;
+                var CurrentFrame = ShaderEffect.Frame;
+
+                Marshal.Copy(FrameToInt32(CurrentFrame), 0, pixelAddress, 70 * 70);
+
+                MatrixBitmap.AddDirtyRect(new Int32Rect(0, 0, 70, 70));
+
+                MatrixBitmap.Unlock();
+                ShaderBitmap = MatrixBitmap;
+            });
+            
+        }
+
+        private  Int32[] FrameToInt32(Pixel[] frame)
+        {
+            Int32[] data = new Int32[70 * 70];
+
+            for (int i = 0; i < 70 * 70; i++)
+                data[i] = frame[i].GetBPP24RGB_Int32();
+
+
+            return data;
+        }
+
         public override void ReadData()
         {
             LoadMenu();
@@ -861,6 +922,10 @@ namespace adrilight.ViewModel
             }
 
         }
+
+      
+
+      
         public void RefreshDevice()
         {
             var detectedDevices = SerialDeviceDetection.RefreshDevice();
@@ -1081,7 +1146,8 @@ namespace adrilight.ViewModel
            "Sáng theo dải màu",
            "Sáng màu tĩnh",
            "Sáng theo nhạc",
-           "Atmosphere"
+           "Atmosphere",
+           "Pixelation(Alpha)"
         };
             AvailableMusicPalette = new ObservableCollection<string>
 {
@@ -1758,6 +1824,7 @@ namespace adrilight.ViewModel
             MenuItems.Add(new VerticalMenuItem() { Text = dashboard, IsActive = true, Type = MenuButtonType.Dashboard });
             MenuItems.Add(new VerticalMenuItem() { Text = deviceSetting, IsActive = false, Type = MenuButtonType.Dashboard });
             MenuItems.Add(new VerticalMenuItem() { Text = appSetting, IsActive = false, Type = MenuButtonType.Dashboard });
+            MenuItems.Add(new VerticalMenuItem() { Text = canvasLighting, IsActive = false, Type = MenuButtonType.Dashboard });
 
             MenuItems.Add(new VerticalMenuItem() { Text = general, IsActive = true, Type = MenuButtonType.General });
             MenuItems.Add(new VerticalMenuItem() { Text = lighting, IsActive = false, Type = MenuButtonType.General });
