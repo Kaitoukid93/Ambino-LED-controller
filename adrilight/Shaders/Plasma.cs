@@ -1,6 +1,4 @@
-﻿
-
-using ComputeSharp;
+﻿using ComputeSharp;
 
 namespace adrilight.Shaders
 {
@@ -43,8 +41,8 @@ namespace adrilight.Shaders
             color2 = (Hlsl.Cos(Hlsl.Length(ThreadIds.XY - center) * 0.03f) + 1.0f) / 2.0f;
             color = (color1 + color2) / 2.0f;
             float red = (Hlsl.Cos(Pi * color / 0.5f + t * 3.0f) + 1.0f) / 2.0f;
-            float green = (Hlsl.Cos(Pi * color / 0.5f + t * 3.0f) + 1.0f) / 2.0f;
-            float blue = (Hlsl.Cos(+t * 3.0f) + 1.0f) / 2.0f;
+            float green = (Hlsl.Sin(Pi * color / 0.5f + t * 3.0f) + 1.0f) / 2.0f;
+            float blue = (Hlsl.Sin(t * 3.0f) + 1.0f) / 2.0f;
             return new Float4(red, green, blue, 1.0f);
         }
     }

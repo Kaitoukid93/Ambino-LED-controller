@@ -14,7 +14,7 @@
               FontFamily="{StaticResource MaterialDesignFont}" d:DesignWidth="1030" Height="1082">
 
     <Grid Background="White" Margin="20,0,0,0">
-       
+
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="7*"/>
@@ -36,7 +36,7 @@
             </Grid.RowDefinitions>
         </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="0">
+        <Grid Grid.Row="1">
             <!--<ItemsControl Grid.Row="1" ItemsSource="{Binding ShaderSpots}"
                             Width="418" Height="239" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20" >
                 <ItemsControl.ItemsPanel>
@@ -61,16 +61,18 @@
                                     </RadialGradientBrush>
                                 </Rectangle.Fill>
                             </Rectangle>
-                            --><!--<Rectangle Visibility="{Binding IsFirst, Converter={StaticResource BooleanToVisibilityConverter}}" RadiusX="4" RadiusY="4" Fill="#FF673AB7"
+                            -->
+            <!--<Rectangle Visibility="{Binding IsFirst, Converter={StaticResource BooleanToVisibilityConverter}}" RadiusX="4" RadiusY="4" Fill="#FF673AB7"
                                                Width="5" 
-                                               Height="5" />--><!--
+                                               Height="5" />-->
+            <!--
 
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>-->
 
-            <Image x:Name="MatrixImage" Source="{Binding ShaderBitmap}" RenderOptions.BitmapScalingMode="NearestNeighbor" Cursor="Cross"/>
+            <Image x:Name="MatrixImage" Source="{Binding ShaderBitmap}" RenderOptions.BitmapScalingMode="NearestNeighbor" Cursor="Cross" HorizontalAlignment="Left" VerticalAlignment="Top" Width="700" Height="700" Margin="0,0,0,0"/>
         </Grid>
 
     </Grid>
